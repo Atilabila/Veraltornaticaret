@@ -291,13 +291,13 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                         className="object-cover blur-[20px] opacity-40 scale-110 pointer-events-none"
                                     />
 
-                                    {/* THE ACTUAL PRODUCT IMAGE - CONTAINED */}
+                                    {/* THE ACTUAL PRODUCT IMAGE - FULL COVER */}
                                     <Image
                                         src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
                                         alt={`${product.name} - ${selectedSize.name}`}
                                         fill
                                         priority
-                                        className="object-contain z-10 drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                                        className="object-cover z-10 transition-all duration-700 ease-in-out"
                                     />
 
                                     {/* PREMIUM METAL SHEEN */}

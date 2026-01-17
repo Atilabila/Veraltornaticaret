@@ -76,14 +76,14 @@ export const ProductConfigurator = () => {
                                         fill
                                         className="object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
                                     />
-                                    {/* Main Image */}
+                                    {/* Main Image - Full Cover */}
                                     <Image
                                         src={product.image}
                                         alt={product.name}
                                         fill
                                         priority
                                         sizes="(max-width: 768px) 90vw, 500px"
-                                        className="object-contain z-10"
+                                        className="object-cover z-10 transition-all duration-700 ease-in-out"
                                     />
                                 </motion.div>
                             </AnimatePresence>
