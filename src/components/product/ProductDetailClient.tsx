@@ -31,16 +31,21 @@ const SCENES = [
     }
 ];
 
+const ORIENTATIONS = [
+    { id: 'portrait', name: 'DİKEY', icon: ChevronUp },
+    { id: 'landscape', name: 'YATAY', icon: ChevronRight },
+];
+
 const sizes = [
-    { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "MİNİ PLAKA" },
-    { id: "s", name: "20x30 CM", priceAdd: 0, desc: "KOMPAKT TABAN" },
-    { id: "m", name: "30x45 CM", priceAdd: 200, desc: "STANDART KAYIT" },
-    { id: "l", name: "40x60 CM", priceAdd: 500, desc: "GENİŞ ALAN" },
-    { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKS YÜK" },
+    { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "MİNİ PLAKA", ratio: 0.5 },
+    { id: "m", name: "30x45 CM", priceAdd: 200, desc: "STANDART KAYIT", ratio: 0.67 },
+    { id: "l", name: "45x60 CM", priceAdd: 500, desc: "GENİŞ ALAN", ratio: 0.75 },
+    { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKS YÜK", ratio: 0.67 },
 ];
 
 export default function ProductDetailClient({ product }: { product: Product }) {
     const [selectedSize, setSelectedSize] = useState(sizes[1]);
+    const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
     const [isAdded, setIsAdded] = useState(false);
     const [manualOffset, setManualOffset] = useState({ x: 0, y: 0 });
     const [manualRot, setManualRot] = useState(0);
@@ -171,10 +176,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     const totalPrice = product.price + selectedSize.priceAdd;
 
     const handleAddToCart = () => {
+        const displaySize = orientation === 'landscape'
+            ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM`
+            : selectedSize.name;
+
         addItem({
-            id: product.id + "_" + selectedSize.id,
+            id: product.id + "_" + selectedSize.id + "_" + orientation,
             name: customImage ? "ÖZEL TASARIM METAL POSTER" : product.name,
-            size: selectedSize.name,
+            size: displaySize + ` (${orientation === 'portrait' ? 'DİKEY' : 'YATAY'})`,
             price: totalPrice,
             image: customImage || product.image,
         });
@@ -230,12 +239,19 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                 style={{
                                     top: customRoomImage ? `calc(40% + ${manualOffset.y}%)` : `calc(${activeScene.pos.top}% + ${manualOffset.y}%)`,
                                     left: customRoomImage ? `calc(50% + ${manualOffset.x}%)` : `calc(${activeScene.pos.left}% + ${manualOffset.x}%)`,
-                                    width: `${(customRoomImage ? 25 * scale : activeScene.pos.width) * (
-                                        selectedSize.id === 'xs' ? 0.33 :
-                                            selectedSize.id === 's' ? 0.67 :
-                                                selectedSize.id === 'm' ? 1 :
-                                                    selectedSize.id === 'l' ? 1.33 : 2.0
-                                    )}%`,
+                                    width: orientation === 'portrait'
+                                        ? `${(customRoomImage ? 25 * scale : activeScene.pos.width) * (
+                                            selectedSize.id === 'xs' ? 0.33 :
+                                                selectedSize.id === 's' ? 0.67 :
+                                                    selectedSize.id === 'm' ? 1 :
+                                                        selectedSize.id === 'l' ? 1.33 : 2.0
+                                        )}%`
+                                        : `${(customRoomImage ? 35 * scale : activeScene.pos.width * 1.5) * (
+                                            selectedSize.id === 'xs' ? 0.33 :
+                                                selectedSize.id === 's' ? 0.67 :
+                                                    selectedSize.id === 'm' ? 1 :
+                                                        selectedSize.id === 'l' ? 1.33 : 2.0
+                                        )}%`,
 
                                     transform: customRoomImage
                                         ? `perspective(1000px) rotateX(${rotations.x}deg) rotateY(${rotations.y}deg) rotateZ(${rotations.z}deg)`
@@ -267,10 +283,13 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                     <Image
                                         src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
                                         alt={`${product.name} - ${selectedSize.name}`}
-                                        width={800}
-                                        height={1200}
+                                        width={orientation === 'portrait' ? 800 : 1200}
+                                        height={orientation === 'portrait' ? 1200 : 800}
                                         priority
-                                        className="w-full h-auto object-cover block"
+                                        className={`w-full h-auto object-cover block transition-all duration-500 ${orientation === 'landscape' ? 'aspect-video' : 'aspect-[2/3]'}`}
+                                        style={{
+                                            aspectRatio: orientation === 'portrait' ? `1 / ${1 / selectedSize.ratio}` : `${1 / selectedSize.ratio} / 1`
+                                        }}
                                     />
 
                                     {/* PREMIUM METAL SHEEN */}
@@ -286,7 +305,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                 {/* SIZE INFO LABEL */}
                                 <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <span className="bg-black text-white px-3 py-1 font-mono text-[9px] font-black uppercase tracking-widest border border-white/20">
-                                        ÖLÇEK: {selectedSize.name}
+                                        ÖLÇEK: {orientation === 'landscape'
+                                            ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM`
+                                            : selectedSize.name} ({orientation === 'portrait' ? 'DİKEY' : 'YATAY'})
                                     </span>
                                 </div>
                             </div>
@@ -495,7 +516,11 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                             {key}
                                         </div>
                                         <div className="w-2/3 p-2 font-bold uppercase">
-                                            {value}
+                                            {key === 'dims' ? (
+                                                orientation === 'landscape'
+                                                    ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM (YATAY)`
+                                                    : `${selectedSize.name} (DİKEY)`
+                                            ) : value}
                                         </div>
                                     </div>
                                 ))}
@@ -618,6 +643,24 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                     ÖNERİLEN ÇÖZÜNÜRLÜK: 3000x2000 PX+
                                 </div>
                             </div>
+
+                            {/* ORIENTATION TOGGLE */}
+                            <div className="flex gap-0 border-4 border-black mb-4">
+                                {ORIENTATIONS.map((opt) => (
+                                    <button
+                                        key={opt.id}
+                                        onClick={() => setOrientation(opt.id as 'portrait' | 'landscape')}
+                                        className={`flex-1 py-4 font-mono text-xs font-black flex items-center justify-center gap-3 transition-none ${orientation === opt.id
+                                            ? 'bg-black text-white'
+                                            : 'bg-white text-black hover:bg-[#FFD700]'
+                                            }`}
+                                    >
+                                        <opt.icon className={`w-4 h-4 ${opt.id === 'landscape' ? 'rotate-0' : ''}`} />
+                                        {opt.name}
+                                    </button>
+                                ))}
+                            </div>
+
                             <div className="grid grid-cols-2 gap-0 border-4 border-black">
                                 {sizes.map((size) => (
                                     <button
@@ -629,7 +672,11 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                             }`}
                                     >
                                         <div className="flex justify-between items-center mb-1">
-                                            <span className="font-black font-mono text-sm">{size.name}</span>
+                                            <span className="font-black font-mono text-sm">
+                                                {orientation === 'landscape'
+                                                    ? `${size.name.split('x')[1].split(' ')[0]}x${size.name.split('x')[0]} CM`
+                                                    : size.name}
+                                            </span>
                                             {selectedSize.id === size.id && <Check className="w-4 h-4" />}
                                         </div>
                                         <p className="text-[10px] font-bold opacity-70">{size.desc}</p>

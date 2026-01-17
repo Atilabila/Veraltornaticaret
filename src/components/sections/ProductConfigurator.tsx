@@ -9,15 +9,15 @@ import { PRODUCTS } from "@/lib/products";
 
 const sizes = [
     { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "MİNİ PLAKA" },
-    { id: "s", name: "20x30 CM", priceAdd: 0, desc: "KOMPAKT TABAN" },
     { id: "m", name: "30x45 CM", priceAdd: 200, desc: "STANDART KAYIT" },
-    { id: "l", name: "40x60 CM", priceAdd: 500, desc: "GENİŞ ALAN" },
+    { id: "l", name: "45x60 CM", priceAdd: 500, desc: "GENİŞ ALAN" },
     { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKS YÜK" },
 ];
 
 export const ProductConfigurator = () => {
     const [selectedProductIndex, setSelectedProductIndex] = useState(0);
-    const [selectedSize, setSelectedSize] = useState(sizes[1]);
+    const [selectedSize, setSelectedSize] = useState(sizes[1]); // Default to 30x45
+    const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
     const addItem = useCartStore((state) => state.addItem);
     const [added, setAdded] = useState(false);
 
@@ -26,9 +26,11 @@ export const ProductConfigurator = () => {
 
     const handleAddToCart = () => {
         addItem({
-            id: Math.random().toString(36).substr(2, 9),
+            id: product.id + "_" + selectedSize.id + "_" + orientation,
             name: product.name,
-            size: selectedSize.name,
+            size: (orientation === 'landscape'
+                ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM`
+                : selectedSize.name) + ` (${orientation === 'portrait' ? 'DİKEY' : 'YATAY'})`,
             price: totalPrice,
             image: product.image,
         });
@@ -68,7 +70,7 @@ export const ProductConfigurator = () => {
                                         fill
                                         priority
                                         sizes="(max-width: 768px) 90vw, 500px"
-                                        className="object-cover transition-none"
+                                        className={`object-cover transition-all duration-500 ${orientation === 'landscape' ? 'aspect-video' : 'aspect-[2/3]'}`}
                                     />
                                 </motion.div>
                             </AnimatePresence>
@@ -147,8 +149,23 @@ export const ProductConfigurator = () => {
                                     <div className="w-8 h-8 bg-black text-white flex items-center justify-center">
                                         <Sliders className="w-4 h-4" />
                                     </div>
-                                    BOYUT YAPILANDIRMASI
+                                    BOYUT VE YÖNELİM YAPILANDIRMASI
                                 </label>
+                                {/* ORIENTATION TOGGLE */}
+                                <div className="flex gap-4 mb-6">
+                                    <button
+                                        onClick={() => setOrientation('portrait')}
+                                        className={`flex-1 py-3 font-mono text-xs font-black border-4 border-black transition-none ${orientation === 'portrait' ? 'bg-black text-white' : 'bg-white text-black hover:bg-[#FFD700]'}`}
+                                    >
+                                        DİKEY
+                                    </button>
+                                    <button
+                                        onClick={() => setOrientation('landscape')}
+                                        className={`flex-1 py-3 font-mono text-xs font-black border-4 border-black transition-none ${orientation === 'landscape' ? 'bg-black text-white' : 'bg-white text-black hover:bg-[#FFD700]'}`}
+                                    >
+                                        YATAY
+                                    </button>
+                                </div>
                                 <div className="grid grid-cols-2 gap-0 border-4 border-black bg-black">
                                     {sizes.map((size) => (
                                         <button
@@ -160,7 +177,11 @@ export const ProductConfigurator = () => {
                                                 }`}
                                         >
                                             <div className="flex justify-between items-center mb-1">
-                                                <span className="font-black font-mono text-sm leading-none">{size.name}</span>
+                                                <span className="font-black font-mono text-sm leading-none">
+                                                    {orientation === 'landscape'
+                                                        ? `${size.name.split('x')[1].split(' ')[0]}x${size.name.split('x')[0]} CM`
+                                                        : size.name}
+                                                </span>
                                                 {selectedSize.id === size.id && <Check className="w-5 h-5" />}
                                             </div>
                                             <p className="text-[10px] font-bold opacity-70 mb-2 uppercase">{size.desc}</p>
