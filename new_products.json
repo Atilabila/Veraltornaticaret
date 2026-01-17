@@ -1,0 +1,912 @@
+[
+    {
+        "id": "CARS_01",
+        "name": "ARABALAR PLAKASI #01",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_01.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_02",
+        "name": "ARABALAR PLAKASI #02",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_02.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_03",
+        "name": "ARABALAR PLAKASI #03",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_03.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_04",
+        "name": "ARABALAR PLAKASI #04",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_04.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_05",
+        "name": "ARABALAR PLAKASI #05",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_05.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_06",
+        "name": "ARABALAR PLAKASI #06",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_06.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_07",
+        "name": "ARABALAR PLAKASI #07",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_07.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_08",
+        "name": "ARABALAR PLAKASI #08",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_08.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_09",
+        "name": "ARABALAR PLAKASI #09",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_09.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_10",
+        "name": "ARABALAR PLAKASI #10",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_10.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_11",
+        "name": "ARABALAR PLAKASI #11",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_11.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CARS_12",
+        "name": "ARABALAR PLAKASI #12",
+        "description": "ENDÜSTRİYEL SINIF KLASİK OTOMOBİL SERİSİ.",
+        "price": 350,
+        "image": "/catalog/cars/cars_12.webp",
+        "category": "ARABA_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "ATATURK_01",
+        "name": "ATATÜRK PLAKASI #01",
+        "description": "ENDÜSTRİYEL SINIF ATATÜRK ÖZEL KOLEKSİYONU.",
+        "price": 350,
+        "image": "/catalog/ataturk/ataturk_01.webp",
+        "category": "ATATURK_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "ATATURK_02",
+        "name": "ATATÜRK PLAKASI #02",
+        "description": "ENDÜSTRİYEL SINIF ATATÜRK ÖZEL KOLEKSİYONU.",
+        "price": 350,
+        "image": "/catalog/ataturk/ataturk_02.webp",
+        "category": "ATATURK_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "ATATURK_03",
+        "name": "ATATÜRK PLAKASI #03",
+        "description": "ENDÜSTRİYEL SINIF ATATÜRK ÖZEL KOLEKSİYONU.",
+        "price": 350,
+        "image": "/catalog/ataturk/ataturk_03.webp",
+        "category": "ATATURK_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "ATATURK_04",
+        "name": "ATATÜRK PLAKASI #04",
+        "description": "ENDÜSTRİYEL SINIF ATATÜRK ÖZEL KOLEKSİYONU.",
+        "price": 350,
+        "image": "/catalog/ataturk/ataturk_04.webp",
+        "category": "ATATURK_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "ATATURK_05",
+        "name": "ATATÜRK PLAKASI #05",
+        "description": "ENDÜSTRİYEL SINIF ATATÜRK ÖZEL KOLEKSİYONU.",
+        "price": 350,
+        "image": "/catalog/ataturk/ataturk_05.webp",
+        "category": "ATATURK_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "ATATURK_06",
+        "name": "ATATÜRK PLAKASI #06",
+        "description": "ENDÜSTRİYEL SINIF ATATÜRK ÖZEL KOLEKSİYONU.",
+        "price": 350,
+        "image": "/catalog/ataturk/ataturk_06.webp",
+        "category": "ATATURK_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "ATATURK_07",
+        "name": "ATATÜRK PLAKASI #07",
+        "description": "ENDÜSTRİYEL SINIF ATATÜRK ÖZEL KOLEKSİYONU.",
+        "price": 350,
+        "image": "/catalog/ataturk/ataturk_07.webp",
+        "category": "ATATURK_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_01",
+        "name": "KARAKTERLER PLAKASI #01",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_01.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_02",
+        "name": "KARAKTERLER PLAKASI #02",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_02.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_03",
+        "name": "KARAKTERLER PLAKASI #03",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_03.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_04",
+        "name": "KARAKTERLER PLAKASI #04",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_04.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_05",
+        "name": "KARAKTERLER PLAKASI #05",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_05.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_06",
+        "name": "KARAKTERLER PLAKASI #06",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_06.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_07",
+        "name": "KARAKTERLER PLAKASI #07",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_07.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_08",
+        "name": "KARAKTERLER PLAKASI #08",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_08.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_09",
+        "name": "KARAKTERLER PLAKASI #09",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_09.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_10",
+        "name": "KARAKTERLER PLAKASI #10",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_10.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_11",
+        "name": "KARAKTERLER PLAKASI #11",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_11.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_12",
+        "name": "KARAKTERLER PLAKASI #12",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_12.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_13",
+        "name": "KARAKTERLER PLAKASI #13",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_13.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_14",
+        "name": "KARAKTERLER PLAKASI #14",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_14.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_15",
+        "name": "KARAKTERLER PLAKASI #15",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_15.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_16",
+        "name": "KARAKTERLER PLAKASI #16",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_16.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_17",
+        "name": "KARAKTERLER PLAKASI #17",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_17.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_18",
+        "name": "KARAKTERLER PLAKASI #18",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_18.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_19",
+        "name": "KARAKTERLER PLAKASI #19",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_19.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CHARACTERS_20",
+        "name": "KARAKTERLER PLAKASI #20",
+        "description": "ENDÜSTRİYEL SINIF İKONİK KARAKTER SERİSİ.",
+        "price": 350,
+        "image": "/catalog/characters/characters_20.webp",
+        "category": "CHARACTER_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_01",
+        "name": "MOTOR PLAKASI #01",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_01.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_02",
+        "name": "MOTOR PLAKASI #02",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_02.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_03",
+        "name": "MOTOR PLAKASI #03",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_03.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_04",
+        "name": "MOTOR PLAKASI #04",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_04.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_05",
+        "name": "MOTOR PLAKASI #05",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_05.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_06",
+        "name": "MOTOR PLAKASI #06",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_06.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_07",
+        "name": "MOTOR PLAKASI #07",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_07.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_08",
+        "name": "MOTOR PLAKASI #08",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_08.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_09",
+        "name": "MOTOR PLAKASI #09",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_09.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_10",
+        "name": "MOTOR PLAKASI #10",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_10.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_11",
+        "name": "MOTOR PLAKASI #11",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_11.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_12",
+        "name": "MOTOR PLAKASI #12",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_12.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_13",
+        "name": "MOTOR PLAKASI #13",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_13.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_14",
+        "name": "MOTOR PLAKASI #14",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_14.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_15",
+        "name": "MOTOR PLAKASI #15",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_15.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_16",
+        "name": "MOTOR PLAKASI #16",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_16.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_17",
+        "name": "MOTOR PLAKASI #17",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_17.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_18",
+        "name": "MOTOR PLAKASI #18",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_18.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_19",
+        "name": "MOTOR PLAKASI #19",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_19.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_20",
+        "name": "MOTOR PLAKASI #20",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_20.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_21",
+        "name": "MOTOR PLAKASI #21",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_21.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "MOTORS_22",
+        "name": "MOTOR PLAKASI #22",
+        "description": "ENDÜSTRİYEL SINIF ENDÜSTRİYEL MOTOR VE MOTO SERİSİ.",
+        "price": 350,
+        "image": "/catalog/motors/motors_22.webp",
+        "category": "MOTOR_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CITY_01",
+        "name": "YAPAY PLAKASI #01",
+        "description": "ENDÜSTRİYEL SINIF SİBER ŞEHİR VE GELECEK TEMASI.",
+        "price": 350,
+        "image": "/catalog/city/city_01.webp",
+        "category": "CITY_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CITY_02",
+        "name": "YAPAY PLAKASI #02",
+        "description": "ENDÜSTRİYEL SINIF SİBER ŞEHİR VE GELECEK TEMASI.",
+        "price": 350,
+        "image": "/catalog/city/city_02.webp",
+        "category": "CITY_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CITY_03",
+        "name": "YAPAY PLAKASI #03",
+        "description": "ENDÜSTRİYEL SINIF SİBER ŞEHİR VE GELECEK TEMASI.",
+        "price": 350,
+        "image": "/catalog/city/city_03.webp",
+        "category": "CITY_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    },
+    {
+        "id": "CITY_04",
+        "name": "YAPAY PLAKASI #04",
+        "description": "ENDÜSTRİYEL SINIF SİBER ŞEHİR VE GELECEK TEMASI.",
+        "price": 350,
+        "image": "/catalog/city/city_04.webp",
+        "category": "CITY_PLAKA",
+        "specs": {
+            "material": "ALÜMİNYUM",
+            "thickness": "1.5MM",
+            "process": "UV_STATİK",
+            "print": "ENDÜSTRİYEL_GEN_3"
+        }
+    }
+]
