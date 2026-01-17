@@ -33,10 +33,24 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
             const products = await ProductService.getAllProducts();
             set({ products, loading: false });
         } catch (error) {
-            set({
-                error: error instanceof Error ? error.message : 'Failed to fetch products',
-                loading: false
-            });
+            // Fallback to static products if Supabase is not available
+            console.warn('Supabase not available, using static products');
+            const { PRODUCTS } = await import('@/lib/products');
+            const staticProducts = PRODUCTS.map(p => ({
+                id: p.id,
+                name: p.name,
+                slug: p.slug,
+                description: p.description,
+                price: p.price,
+                image: p.image,
+                category: p.category,
+                is_active: true,
+                stock_quantity: 50,
+                view_count: 0,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+            })) as Product[];
+            set({ products: staticProducts, loading: false, error: null });
         }
     },
 
