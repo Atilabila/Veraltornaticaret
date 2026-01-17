@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
-import { ShoppingCart, Check, Star, Shield, Truck, Box, Settings, ArrowRight, Move, MousePointer2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, RotateCcw, RotateCw, Coffee, Home, Briefcase, Plus, MessageSquare, Phone } from "lucide-react";
+import { ShoppingCart, Check, Star, Shield, Truck, Box, Settings, ArrowRight, Move, MousePointer2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, RotateCcw, RotateCw, Coffee, Home, Briefcase, Plus, MessageSquare, Phone, Gamepad2, Warehouse, Car, Frame, Bed } from "lucide-react";
+import { CartTerminal } from "@/components/checkout/CartTerminal";
 import { Product, PRODUCTS } from "@/lib/products";
 
 const SCENES = [
@@ -13,21 +14,49 @@ const SCENES = [
         name: 'YAŞAM ALANI',
         image: '/mockups/boho.png',
         icon: Home,
-        pos: { top: 32, left: 53.5, width: 8.5, rotY: 0, rotX: 0 } // Re-centered and scaled for 30x45cm standard
+        pos: { top: 35, left: 53.5, width: 12.5, rotY: 0, rotX: 0 }
+    },
+    {
+        id: 'loft',
+        name: 'ENDÜSTRİYEL LOFT',
+        image: '/mockups/loft.png',
+        icon: Warehouse,
+        pos: { top: 35, left: 50, width: 14, rotY: 0, rotX: 0 }
+    },
+    {
+        id: 'garage',
+        name: 'GARAJ / RETRO',
+        image: '/mockups/garage.png',
+        icon: Car,
+        pos: { top: 25, left: 40, width: 12, rotY: 0, rotX: 0 }
+    },
+    {
+        id: 'gallery',
+        name: 'SANAT GALERİSİ',
+        image: '/mockups/gallery.png',
+        icon: Frame,
+        pos: { top: 35, left: 45, width: 20, rotY: 0, rotX: 0 }
+    },
+    {
+        id: 'teen',
+        name: 'GENÇ ODASI',
+        image: '/mockups/teen.png',
+        icon: Bed,
+        pos: { top: 25, left: 63, width: 15, rotY: 0, rotX: 0 }
     },
     {
         id: 'cafe',
         name: 'KAFE / BOHO',
         image: '/mockups/cafe.png',
         icon: Coffee,
-        pos: { top: 22, left: 44, width: 6.5, rotY: 0, rotX: 0 }
+        pos: { top: 28, left: 44, width: 11, rotY: 0, rotX: 0 }
     },
     {
         id: 'office',
         name: 'OFİS / STÜDYO',
         image: '/mockups/office.png',
         icon: Briefcase,
-        pos: { top: 25, left: 49, width: 11, rotY: 0, rotX: 0 }
+        pos: { top: 28, left: 49, width: 16, rotY: 0, rotX: 0 }
     }
 ];
 
@@ -57,6 +86,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     const [customSize, setCustomSize] = useState<{ w: number, h: number } | null>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
+    const [isCartOpen, setIsCartOpen] = useState(false);
     const dragRef = useState<{ startX: number, startY: number, startOffX: number, startOffY: number }>({ startX: 0, startY: 0, startOffX: 0, startOffY: 0 })[0];
 
     const addItem = useCartStore((state) => state.addItem);
@@ -188,20 +218,24 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             image: customImage || product.image,
         });
         setIsAdded(true);
+        setIsCartOpen(true);
         setTimeout(() => setIsAdded(false), 2000);
     };
 
     return (
         <div className="container-brutal" onMouseMove={handleMoveInput} onTouchMove={handleMoveInput} onMouseUp={() => setIsDragging(false)} onTouchEnd={() => setIsDragging(false)}>
+            <CartTerminal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
             {/* BREADCRUMB */}
-            <div className="font-mono text-xs font-bold text-black/50 mb-8 uppercase flex justify-between items-center">
-                <div>
+            <div className="font-mono text-xs md:text-xs font-bold text-black/50 mb-8 uppercase flex flex-col md:flex-row gap-4 md:justify-between md:items-center">
+                <div className="text-[14px] md:text-xs">
                     <Link href="/" className="hover:text-[var(--color-brand-safety-orange)]">ANA ÜS</Link> /
                     <Link href="/urunler" className="hover:text-[var(--color-brand-safety-orange)] mx-2">KOLEKSİYON</Link> /
-                    <span className="text-black">{product.category}</span>
+                    <span className="text-black">
+                        {product.category?.replace("_PLAKA", " KOLEKSİYONU").replace("ATATURK", "ATATÜRK").replace("CHARACTER", "KARAKTER").replace("MOTOR", "MOTORSİKLET").replace("CITY", "ŞEHİR")}
+                    </span>
                 </div>
                 {/* PIXEL HUD */}
-                <div className="bg-black text-[#FFD700] px-4 py-1 text-[10px] font-black border-2 border-dashed border-[#FFD700]/30 rounded-sm">
+                <div className="bg-black text-[#FFD700] px-4 py-1 text-[12px] md:text-[10px] font-black border-2 border-dashed border-[#FFD700]/30 rounded-sm self-start">
                     LOC: X:{manualOffset.x.toFixed(1)}% | Y:{manualOffset.y.toFixed(1)}% | R:{manualRot}°
                 </div>
             </div>
@@ -244,13 +278,13 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                             selectedSize.id === 'xs' ? 0.33 :
                                                 selectedSize.id === 's' ? 0.67 :
                                                     selectedSize.id === 'm' ? 1 :
-                                                        selectedSize.id === 'l' ? 1.33 : 2.0
+                                                        selectedSize.id === 'l' ? 1.5 : 2.0
                                         )}%`
                                         : `${(customRoomImage ? 35 * scale : activeScene.pos.width * 1.5) * (
                                             selectedSize.id === 'xs' ? 0.33 :
                                                 selectedSize.id === 's' ? 0.67 :
                                                     selectedSize.id === 'm' ? 1 :
-                                                        selectedSize.id === 'l' ? 1.33 : 2.0
+                                                        selectedSize.id === 'l' ? 1.5 : 2.0
                                         )}%`,
 
                                     transform: customRoomImage
@@ -434,33 +468,73 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                 <>
                                     {/* SCALE REFERENCE MARKERS */}
                                     <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                        {activeScene.id === 'loft' && (
+                                            <>
+                                                <div className="absolute top-[82%] left-[20%] border-t border-white/50 w-[60%] flex justify-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase mt-1">DERİ KOLTUK (~220 CM)</span>
+                                                </div>
+                                                <div className="absolute top-[30%] left-[10%] border-l border-white/50 h-[40%] flex items-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase ml-2">TAVAN YÜKSEKLİĞİ (~3.2 M)</span>
+                                                </div>
+                                            </>
+                                        )}
+                                        {activeScene.id === 'garage' && (
+                                            <>
+                                                <div className="absolute top-[65%] left-[10%] border-t border-white/50 w-[40%] flex justify-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase mt-1">PROFESYONEL TEZGAH (~150 CM)</span>
+                                                </div>
+                                                <div className="absolute top-[65%] left-[65%] border-t border-white/50 w-[30%] flex justify-center">
+                                                    <span className="bg-black/80 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-cyan-400 font-mono uppercase mt-1">RGB GAMING DESK (~160 CM)</span>
+                                                </div>
+                                            </>
+                                        )}
+                                        {activeScene.id === 'gallery' && (
+                                            <>
+                                                <div className="absolute top-[85%] left-[65%] border-t border-black/50 w-[25%] flex justify-center">
+                                                    <span className="bg-white/80 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-black font-mono uppercase mt-1">GALERİ BANKI (~120 CM)</span>
+                                                </div>
+                                                <div className="absolute top-[10%] left-[5%] border-l border-black/50 h-[80%] flex items-center">
+                                                    <span className="bg-white/80 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-black font-mono uppercase ml-2">SERGİ DUVARI (~4 M)</span>
+                                                </div>
+                                            </>
+                                        )}
+                                        {activeScene.id === 'teen' && (
+                                            <>
+                                                <div className="absolute top-[82%] left-[35%] border-t border-black/50 w-[45%] flex justify-center">
+                                                    <span className="bg-white/80 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-black font-mono uppercase mt-1">YATAK (~90x200 CM)</span>
+                                                </div>
+                                                <div className="absolute top-[40%] left-[18%] border-l border-black/50 h-[40%] flex items-center">
+                                                    <span className="bg-white/80 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-black font-mono uppercase ml-2">KİTAPLIK (~180 CM)</span>
+                                                </div>
+                                            </>
+                                        )}
                                         {activeScene.id === 'boho' && (
                                             <>
-                                                <div className="absolute top-[65%] left-[30%] border-t border-white/50 w-[40%] flex justify-center">
-                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[8px] text-white font-mono uppercase mt-1">SOFA (~200 CM)</span>
+                                                <div className="absolute top-[82%] left-[25%] border-t border-white/50 w-[50%] flex justify-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase mt-1">OTURMA GRUBU (~210 CM)</span>
                                                 </div>
-                                                <div className="absolute top-[75%] left-[10%] border-l border-white/50 h-[15%] flex items-center">
-                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[8px] text-white font-mono uppercase ml-2">SEHPA (~45 CM)</span>
+                                                <div className="absolute top-[88%] left-[10%] border-l border-white/50 h-[10%] flex items-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase ml-2">YÜKSEKLİK (~85 CM)</span>
                                                 </div>
                                             </>
                                         )}
                                         {activeScene.id === 'cafe' && (
                                             <>
-                                                <div className="absolute top-[70%] left-[35%] border-t border-white/50 w-[30%] flex justify-center">
-                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[8px] text-white font-mono uppercase mt-1">ORTA SEHPA (~60 CM)</span>
+                                                <div className="absolute top-[80%] left-[35%] border-t border-white/50 w-[30%] flex justify-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase mt-1">AHŞAP SEHPA (~65 CM)</span>
                                                 </div>
-                                                <div className="absolute top-[50%] left-[75%] border-l border-white/50 h-[30%] flex items-center">
-                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[8px] text-white font-mono uppercase ml-2">BERJER (~85 CM)</span>
+                                                <div className="absolute top-[65%] left-[75%] border-l border-white/50 h-[30%] flex items-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase ml-2">BERJER NY (~90 CM)</span>
                                                 </div>
                                             </>
                                         )}
                                         {activeScene.id === 'office' && (
                                             <>
-                                                <div className="absolute top-[75%] left-[25%] border-t border-white/50 w-[50%] flex justify-center">
-                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[8px] text-white font-mono uppercase mt-1">ÇALIŞMA MASASI (~160 CM)</span>
+                                                <div className="absolute top-[85%] left-[20%] border-t border-white/50 w-[60%] flex justify-center">
+                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-white font-mono uppercase mt-1">ENDÜSTRİYEL MASA (~180 CM)</span>
                                                 </div>
-                                                <div className="absolute top-[60%] left-[45%] border-t border-white/50 w-[10%] flex justify-center">
-                                                    <span className="bg-black/40 backdrop-blur-md px-2 py-1 text-[8px] text-white font-mono uppercase mt-1">MONİTÖR (~60 CM)</span>
+                                                <div className="absolute top-[70%] left-[45%] border-t border-white/50 w-[10%] flex justify-center">
+                                                    <span className="bg-black/80 backdrop-blur-md px-2 py-1 text-[10px] md:text-[8px] text-purple-400 font-mono uppercase mt-1">ULTRA-WIDE (~80 CM)</span>
                                                 </div>
                                             </>
                                         )}
@@ -496,14 +570,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                             )}
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 font-mono text-[10px] font-bold text-center">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 font-mono text-[12px] md:text-[10px] font-bold text-center">
                             <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
                                 <Shield className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
                                 <span className="uppercase tracking-tighter">100 YIL SOLMAMA GARANTİSİ</span>
                             </div>
                             <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
                                 <Truck className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
-                                <span className="uppercase tracking-tighter">HIZLI LOJİSTİK AĞI</span>
+                                <span className="uppercase tracking-tighter">HIZLI LOJİSTİK AĞA</span>
                             </div>
                             <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
                                 <Box className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
@@ -513,22 +587,18 @@ export default function ProductDetailClient({ product }: { product: Product }) {
 
                         {/* ATTACHED SPECS TABLE */}
                         <div className="mt-4 border-4 border-black bg-white overflow-hidden shadow-brutal">
-                            <div className="bg-black text-white px-4 py-2 font-mono text-[10px] font-black tracking-widest uppercase flex justify-between items-center">
+                            <div className="bg-black text-white px-4 py-2 font-mono text-[12px] md:text-[10px] font-black tracking-widest uppercase flex justify-between items-center">
                                 <span>TEKNİK VERİ TABLOSU</span>
                                 <span className="text-[#FFD700]">● DOĞRULANDI</span>
                             </div>
                             <div className="divide-y-2 divide-black/10">
                                 {Object.entries(product.specs).map(([key, value]) => (
-                                    <div key={key} className="flex font-mono text-[11px]">
-                                        <div className="w-1/3 bg-slate-100 p-2 font-black uppercase text-black/50 border-r-2 border-black/10">
+                                    <div key={key} className="flex font-mono text-[14px] md:text-[11px]">
+                                        <div className="w-1/3 bg-slate-100 p-3 md:p-2 font-black uppercase text-black/50 border-r-2 border-black/10">
                                             {key}
                                         </div>
-                                        <div className="w-2/3 p-2 font-bold uppercase">
-                                            {key === 'dims' ? (
-                                                orientation === 'landscape'
-                                                    ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM (YATAY)`
-                                                    : `${selectedSize.name} (DİKEY)`
-                                            ) : value}
+                                        <div className="w-2/3 p-3 md:p-2 font-bold uppercase">
+                                            {value}
                                         </div>
                                     </div>
                                 ))}
@@ -680,14 +750,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                             }`}
                                     >
                                         <div className="flex justify-between items-center mb-1">
-                                            <span className="font-black font-mono text-sm">
+                                            <span className="font-black font-mono text-[16px] md:text-sm">
                                                 {orientation === 'landscape'
                                                     ? `${size.name.split('x')[1].split(' ')[0]}x${size.name.split('x')[0]} CM`
                                                     : size.name}
                                             </span>
                                             {selectedSize.id === size.id && <Check className="w-4 h-4" />}
                                         </div>
-                                        <p className="text-[10px] font-bold opacity-70">{size.desc}</p>
+                                        <p className="text-[12px] md:text-[10px] font-bold opacity-70">{size.desc}</p>
                                         {size.priceAdd !== 0 && (
                                             <p className="text-xs font-black mt-1">
                                                 {size.priceAdd > 0 ? `+₺${size.priceAdd}` : `-₺${Math.abs(size.priceAdd)}`}
@@ -756,10 +826,10 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                         <div className="prose prose-slate font-sans leading-relaxed text-black/80">
                             {product.story ? (
                                 product.story.split('\n\n').map((paragraph, idx) => (
-                                    <p key={idx} className="mb-4 text-justify">{paragraph}</p>
+                                    <p key={idx} className="mb-4 text-justify text-[16px] md:text-base">{paragraph}</p>
                                 ))
                             ) : (
-                                <p>Bu ürün için detaylı hikaye verisi yüklenmektedir.</p>
+                                <p className="text-[16px] md:text-base">Bu ürün için detaylı hikaye verisi yüklenmektedir.</p>
                             )}
                         </div>
                     </div>

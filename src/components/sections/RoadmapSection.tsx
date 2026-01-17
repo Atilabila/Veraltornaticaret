@@ -102,7 +102,7 @@ export const RoadmapSection = () => {
                     </div>
                     <div className="space-y-1">
                         <span className="text-white/40 block text-xs">TAMAMLANMA</span>
-                        <div className="text-2xl font-black">~%15</div>
+                        <div className="text-2xl font-black">~%25</div>
                     </div>
                     <div className="space-y-1 text-right">
                         <span className="text-white/40 block text-xs">SON KAYIT</span>

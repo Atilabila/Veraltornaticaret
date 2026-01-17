@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/useCartStore";
 import Image from "next/image";
 import { Check, Info, ShoppingCart, ChevronLeft, ChevronRight, Settings, Sliders } from "lucide-react";
-import { PRODUCTS } from "@/lib/products";
+import { PRODUCTS, Product } from "@/lib/products";
+import { useProductStore } from "@/store/useProductStore";
+import { useEffect } from "react";
 
 const sizes = [
     { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "MİNİ PLAKA", ratio: 0.5 },
@@ -14,17 +16,30 @@ const sizes = [
     { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKS YÜK", ratio: 0.67 },
 ];
 
+import { CartTerminal } from "@/components/checkout/CartTerminal";
+
 export const ProductConfigurator = () => {
+    const { products, loading, fetchProducts } = useProductStore();
     const [selectedProductIndex, setSelectedProductIndex] = useState(0);
     const [selectedSize, setSelectedSize] = useState(sizes[1]); // Default to 30x45
     const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
+    const [isCartOpen, setIsCartOpen] = useState(false);
     const addItem = useCartStore((state) => state.addItem);
     const [added, setAdded] = useState(false);
 
-    const product = PRODUCTS[selectedProductIndex];
-    const totalPrice = product.price + selectedSize.priceAdd;
+    useEffect(() => {
+        if (products.length === 0) {
+            fetchProducts();
+        }
+    }, [products.length, fetchProducts]);
+
+    // Use products from store, or fallback to static if not loaded yet
+    const displayProducts = products.length > 0 ? products : PRODUCTS;
+    const product = displayProducts[selectedProductIndex] || PRODUCTS[0];
+    const totalPrice = (product?.price || 350) + selectedSize.priceAdd;
 
     const handleAddToCart = () => {
+        if (!product) return;
         addItem({
             id: product.id + "_" + selectedSize.id + "_" + orientation,
             name: product.name,
@@ -35,14 +50,16 @@ export const ProductConfigurator = () => {
             image: product.image,
         });
         setAdded(true);
+        setIsCartOpen(true);
         setTimeout(() => setAdded(false), 2000);
     };
 
-    const nextProduct = () => setSelectedProductIndex((prev) => (prev + 1) % PRODUCTS.length);
-    const prevProduct = () => setSelectedProductIndex((prev) => (prev - 1 + PRODUCTS.length) % PRODUCTS.length);
+    const nextProduct = () => setSelectedProductIndex((prev) => (prev + 1) % displayProducts.length);
+    const prevProduct = () => setSelectedProductIndex((prev) => (prev - 1 + displayProducts.length) % displayProducts.length);
 
     return (
         <section id="configurator" className="py-24 bg-transparent grid-terminal">
+            <CartTerminal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
             <div className="container-brutal">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
@@ -105,7 +122,7 @@ export const ProductConfigurator = () => {
 
                         {/* DATA_STREAM Thumbs */}
                         <div className="mt-12 flex gap-3 overflow-x-auto pb-4 scrollbar-hide border-t-4 border-white/10 pt-8">
-                            {PRODUCTS.map((p, idx) => (
+                            {displayProducts.map((p: Product, idx: number) => (
                                 <button
                                     key={p.id}
                                     onClick={() => setSelectedProductIndex(idx)}

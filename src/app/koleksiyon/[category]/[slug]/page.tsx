@@ -1,34 +1,59 @@
 import { notFound } from "next/navigation";
-import { PRODUCTS } from "@/lib/products";
+import { ProductService } from "@/lib/supabase/products.service";
 import ProductDetailClient from "@/components/product/ProductDetailClient";
-import Script from "next/script";
+import { Product } from "@/lib/products";
 
 // SEO için dinamik Metadata üretimi (Server Side)
 export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }) {
     const { slug } = await params;
-    const product = PRODUCTS.find((p) => p.slug === slug);
+    const dbProduct = await ProductService.getProductBySlug(slug);
 
-    if (!product) return { title: "Ürün Bulunamadı | Veral Industrial" };
+    if (!dbProduct) return { title: "Ürün Bulunamadı | Veral Torna & Teneke" };
 
     return {
-        title: `${product.seo.title} | Veral Industrial`,
-        description: product.seo.description,
-        keywords: product.seo.keywords.join(", "),
+        title: `${dbProduct.seo_title} | Veral Torna & Teneke`,
+        description: dbProduct.seo_description,
+        keywords: dbProduct.seo_keywords?.join(", ") || "",
         openGraph: {
-            title: product.seo.title,
-            description: product.seo.description,
-            images: [product.image],
+            title: dbProduct.seo_title,
+            description: dbProduct.seo_description,
+            images: [dbProduct.image],
         },
     };
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
     const { slug } = await params;
-    const product = PRODUCTS.find((p) => p.slug === slug);
+    const dbProduct = await ProductService.getProductBySlug(slug);
 
-    if (!product) {
+    if (!dbProduct) {
         return notFound();
     }
+
+    // Map DB product to Frontend Product interface
+    const product: Product = {
+        id: dbProduct.id,
+        name: dbProduct.name,
+        slug: dbProduct.slug,
+        price: dbProduct.price,
+        image: dbProduct.image,
+        description: dbProduct.description,
+        story: dbProduct.story,
+        category: dbProduct.category,
+        specs: {
+            material: dbProduct.material,
+            process: dbProduct.process,
+            print: dbProduct.print,
+            thickness: dbProduct.thickness,
+            dims: dbProduct.dims,
+            mounting: dbProduct.mounting,
+        },
+        seo: {
+            title: dbProduct.seo_title,
+            description: dbProduct.seo_description,
+            keywords: dbProduct.seo_keywords || [],
+        }
+    };
 
     // JSON-LD Schema for SEO
     const jsonLd = {
@@ -39,7 +64,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         "description": product.seo.description,
         "brand": {
             "@type": "Brand",
-            "name": "Veral Industrial"
+            "name": "Veral Torna & Teneke"
         },
         "sku": product.id,
         "offers": {

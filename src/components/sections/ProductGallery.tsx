@@ -20,6 +20,7 @@ export const ProductGallery = () => {
     const categories = [
         { id: null, label: "TÜMÜ", color: "var(--color-brand-safety-orange)" },
         { id: "ARABA_PLAKA", label: "ARABALAR", color: "#3B82F6" },
+        { id: "TREND_LAB", label: "TREND LAB", color: "#00FF41" },
         { id: "ATATURK_PLAKA", label: "ATATÜRK", color: "#EF4444" },
         { id: "CHARACTER_PLAKA", label: "KARAKTERLER", color: "#8B5CF6" },
         { id: "MOTOR_PLAKA", label: "MOTORLAR", color: "#F59E0B" },

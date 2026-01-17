@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Maximize2, Terminal, Activity } from "lucide-react";
 
 const showcases = [
@@ -80,13 +81,21 @@ export const GalleryShowcase = () => {
                 </div>
 
                 <div className="mt-16 bg-[#E5E7EB] border-4 border-white p-8 font-mono text-sm font-bold text-black flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="flex items-center gap-4">
-                        <div className="w-4 h-4 bg-[var(--color-brand-safety-orange)] animate-pulse"></div>
+                    <div className="flex items-center gap-4 text-left">
+                        <div className="w-4 h-4 bg-[var(--color-brand-safety-orange)] animate-pulse shrink-0"></div>
                         <p>SİSTEM NOTU: YUKARIDAKİ GÖRSELLER SADECE REFERANS AMAÇLIDIR. GERÇEK ÜRÜN GERÇEK METAL DOKUSUNU YANSITIR.</p>
                     </div>
-                    <button className="btn-mechanical bg-black text-white px-8 py-3 uppercase text-xs">
-                        ÖZEL MOKAP TALEBİ
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                        <Link
+                            href="/urunler"
+                            className="btn-mechanical bg-[var(--color-brand-safety-orange)] text-white px-8 py-3 uppercase text-xs text-center flex items-center justify-center gap-2"
+                        >
+                            KATALOGDAN SEÇ <Terminal className="w-4 h-4" />
+                        </Link>
+                        <button className="btn-mechanical bg-black text-white px-8 py-3 uppercase text-xs">
+                            ÖZEL MOKAP TALEBİ
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

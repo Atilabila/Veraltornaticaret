@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { ProductService } from '@/lib/supabase/products.service';
 import type { Database } from '@/lib/supabase/database.types';
+import { Product } from '@/lib/products';
 
-type Product = Database['public']['Tables']['products']['Row'];
+type DbProduct = Database['public']['Tables']['products']['Row'];
 
 interface ProductStore {
     products: Product[];
@@ -14,13 +15,37 @@ interface ProductStore {
     fetchProductsByCategory: (category: string) => Promise<void>;
 
     // CRUD operations
-    addProduct: (product: Omit<Product, 'id' | 'created_at' | 'updated_at' | 'view_count'>) => Promise<void>;
-    updateProduct: (id: string, updates: Partial<Product>) => Promise<void>;
+    addProduct: (product: any) => Promise<void>;
+    updateProduct: (id: string, updates: any) => Promise<void>;
     deleteProduct: (id: string) => Promise<void>;
 
     // Local state helpers
     getProduct: (id: string) => Product | undefined;
 }
+
+const mapDbToProduct = (dbProduct: DbProduct): Product => ({
+    id: dbProduct.id,
+    name: dbProduct.name,
+    slug: dbProduct.slug,
+    price: dbProduct.price,
+    image: dbProduct.image,
+    description: dbProduct.description,
+    story: dbProduct.story,
+    category: dbProduct.category,
+    specs: {
+        material: dbProduct.material,
+        process: dbProduct.process,
+        print: dbProduct.print,
+        thickness: dbProduct.thickness,
+        dims: dbProduct.dims,
+        mounting: dbProduct.mounting,
+    },
+    seo: {
+        title: dbProduct.seo_title,
+        description: dbProduct.seo_description,
+        keywords: dbProduct.seo_keywords || [],
+    }
+});
 
 export const useProductStore = create<ProductStore>()((set, get) => ({
     products: [],
@@ -30,34 +55,28 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     fetchProducts: async () => {
         set({ loading: true, error: null });
         try {
-            const products = await ProductService.getAllProducts();
+            const dbProducts = await ProductService.getAllProducts();
+            const products = dbProducts.map(mapDbToProduct);
             set({ products, loading: false });
         } catch (error) {
-            // Fallback to static products if Supabase is not available
-            console.warn('Supabase not available, using static products');
-            const { PRODUCTS } = await import('@/lib/products');
-            const staticProducts = PRODUCTS.map(p => ({
-                id: p.id,
-                name: p.name,
-                slug: p.slug,
-                description: p.description,
-                price: p.price,
-                image: p.image,
-                category: p.category,
-                is_active: true,
-                stock_quantity: 50,
-                view_count: 0,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-            })) as Product[];
-            set({ products: staticProducts, loading: false, error: null });
+            console.warn('Supabase fetch failed, using static products as fallback');
+            try {
+                const { PRODUCTS } = await import('@/lib/products');
+                set({ products: PRODUCTS, loading: false, error: null });
+            } catch (fallbackError) {
+                set({
+                    error: error instanceof Error ? error.message : 'Failed to fetch products',
+                    loading: false
+                });
+            }
         }
     },
 
     fetchProductsByCategory: async (category: string) => {
         set({ loading: true, error: null });
         try {
-            const products = await ProductService.getProductsByCategory(category);
+            const dbProducts = await ProductService.getProductsByCategory(category);
+            const products = dbProducts.map(mapDbToProduct);
             set({ products, loading: false });
         } catch (error) {
             set({
@@ -70,19 +89,30 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     addProduct: async (productData) => {
         set({ loading: true, error: null });
         try {
-            // Generate custom ID
-            const newId = `CUSTOM_${Date.now()}`;
-
-            const newProduct = await ProductService.createProduct({
-                ...productData,
-                id: newId,
+            // Map frontend structures back to flattened DB structure if necessary
+            // ProductService.createProduct expects DB Insert type
+            const newDbProduct = await ProductService.createProduct({
+                name: productData.name,
+                slug: productData.slug,
+                description: productData.description,
+                price: productData.price,
+                image: productData.image,
+                category: productData.category,
+                story: productData.story,
+                material: productData.specs?.material || "Aluminum",
+                process: productData.specs?.process || "Direct Print",
+                print: productData.specs?.print || "UV Ink",
+                thickness: productData.specs?.thickness || "1.5mm",
+                dims: productData.specs?.dims || "30x45cm",
+                mounting: productData.specs?.mounting || "Magnetic",
+                seo_title: productData.seo?.title || productData.name,
+                seo_description: productData.seo?.description || productData.description,
+                seo_keywords: productData.seo?.keywords || [],
                 is_active: true,
-                stock_quantity: 50,
-                view_count: 0,
-            });
+            } as any);
 
             set((state) => ({
-                products: [newProduct, ...state.products],
+                products: [mapDbToProduct(newDbProduct), ...state.products],
                 loading: false,
             }));
         } catch (error) {
@@ -97,11 +127,29 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     updateProduct: async (id, updates) => {
         set({ loading: true, error: null });
         try {
-            const updatedProduct = await ProductService.updateProduct(id, updates);
+            // Map frontend structure updates back to flat DB fields if provided
+            const dbUpdates: any = { ...updates };
+            if (updates.specs) {
+                if (updates.specs.material) dbUpdates.material = updates.specs.material;
+                if (updates.specs.process) dbUpdates.process = updates.specs.process;
+                if (updates.specs.print) dbUpdates.print = updates.specs.print;
+                if (updates.specs.thickness) dbUpdates.thickness = updates.specs.thickness;
+                if (updates.specs.dims) dbUpdates.dims = updates.specs.dims;
+                if (updates.specs.mounting) dbUpdates.mounting = updates.specs.mounting;
+                delete dbUpdates.specs;
+            }
+            if (updates.seo) {
+                if (updates.seo.title) dbUpdates.seo_title = updates.seo.title;
+                if (updates.seo.description) dbUpdates.seo_description = updates.seo.description;
+                if (updates.seo.keywords) dbUpdates.seo_keywords = updates.seo.keywords;
+                delete dbUpdates.seo;
+            }
+
+            const updatedDbProduct = await ProductService.updateProduct(id, dbUpdates);
 
             set((state) => ({
                 products: state.products.map((p) =>
-                    p.id === id ? updatedProduct : p
+                    p.id === id ? mapDbToProduct(updatedDbProduct) : p
                 ),
                 loading: false,
             }));

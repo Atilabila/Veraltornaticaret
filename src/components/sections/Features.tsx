@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Shield, Droplets, Sun, Activity } from "lucide-react";
+import Link from "next/link";
 import { useContentStore } from "@/store/useContentStore";
 
 export const Features = () => {
@@ -27,10 +28,31 @@ export const Features = () => {
                 </div>
 
                 {/* MODULE_GRID */}
-                <div className="space-y-16">
+                <div className="space-y-16 mb-24">
                     {content?.featureItems?.map((feature, index) => (
                         <FeatureModule key={index} feature={feature} index={index} />
                     ))}
+                </div>
+
+                {/* BOTTOM_CTA */}
+                <div className="border-8 border-black p-12 bg-black text-white text-center relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 w-full h-2 bg-[var(--color-brand-safety-orange)]" />
+                    <h3 className="text-4xl md:text-6xl font-[Archivo Black] uppercase mb-8">
+                        KALİTEYİ KENDİ GÖZLERİNİZLE GÖRÜN
+                    </h3>
+                    <div className="max-w-3xl mx-auto flex flex-col md:flex-row gap-8 justify-center items-center">
+                        <Link
+                            href="/urunler"
+                            className="w-full md:w-auto px-12 py-6 bg-white text-black font-[Archivo Black] text-2xl uppercase shadow-[8px_8px_0px_0px_var(--color-brand-safety-orange)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-none flex items-center justify-center gap-4"
+                        >
+                            TÜM KATALOĞU İNCELE <Activity className="w-8 h-8" />
+                        </Link>
+                        <div className="font-mono text-sm text-white/50 text-left border-l-2 border-white/20 pl-6">
+                            // SİSTEM NOTU:<br />
+                            TÜM ÜRÜNLER İZMİR MERKEZ ATÖLYEMİZDE<br />
+                            EL İŞÇİLİĞİ İLE KALİBRE EDİLMEKTEDİR.
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

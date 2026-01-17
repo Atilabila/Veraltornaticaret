@@ -112,7 +112,7 @@ export const CheckoutFlow = () => {
                         <div className="flex justify-end pt-8">
                             <button
                                 onClick={handleNext}
-                                disabled={!shippingInfo.name || !shippingInfo.email}
+                                disabled={!shippingInfo.name || !shippingInfo.email || !shippingInfo.address || !shippingInfo.city || !shippingInfo.phone}
                                 className="btn-mechanical bg-[var(--color-brand-safety-orange)] text-white font-[Archivo Black] px-12 py-6 uppercase flex items-center gap-4 disabled:opacity-50 disabled:grayscale"
                             >
                                 KARGO BİLGİLERİNE GEÇ <ArrowRight className="w-6 h-6" />

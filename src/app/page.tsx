@@ -8,7 +8,7 @@ import { ProductConfigurator } from "@/components/sections/ProductConfigurator";
 import { GalleryShowcase } from "@/components/sections/GalleryShowcase";
 import { OtherServices } from "@/components/sections/OtherServices";
 import { RoadmapSection } from "@/components/sections/RoadmapSection";
-import { CheckoutFlow } from "@/components/checkout/CheckoutFlow";
+import { CartTerminal } from "@/components/checkout/CartTerminal";
 import { WhatsAppSidebar } from "@/components/ui/WhatsAppSidebar";
 import { ShoppingCart, Menu, X, Instagram, Phone, Mail, ArrowRight, Settings, Shield, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -200,37 +200,11 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* Checkout Modal */}
-      <AnimatePresence>
-        {isCheckoutOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 no-transition"
-          >
-            <motion.div
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              className="bg-white border-4 border-black w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-brutal"
-            >
-              <div className="sticky top-0 bg-black text-white p-4 flex justify-between items-center z-10">
-                <span className="font-mono font-black tracking-widest uppercase">SEPET TERMİNALİ v1.0</span>
-                <button
-                  onClick={() => setIsCheckoutOpen(false)}
-                  className="hover:bg-[var(--color-brand-safety-orange)] p-1"
-                >
-                  <X className="w-8 h-8" />
-                </button>
-              </div>
-              <div className="p-8">
-                <CheckoutFlow />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Cart Sidebar */}
+      <CartTerminal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+      />
 
       {/* WhatsApp Sidebar */}
       <WhatsAppSidebar />
