@@ -276,30 +276,38 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                 />
                                 <div className="absolute inset-4 bg-black/50 blur-3xl -z-10 translate-x-12 translate-y-6 opacity-60" />
 
-                                {/* THE MAIN PRINTED SURFACE */}
-                                <div className="relative overflow-hidden bg-white shadow-lg"
-                                    style={{ transform: 'translateZ(1px)' }}>
+                                {/* THE MAIN PRINTED SURFACE (METAL PLATE) */}
+                                <div className="relative overflow-hidden bg-zinc-950 shadow-2xl border-[0.5px] border-white/10"
+                                    style={{
+                                        transform: 'translateZ(1px)',
+                                        aspectRatio: orientation === 'portrait' ? `1 / ${1 / selectedSize.ratio}` : `${1 / selectedSize.ratio} / 1`
+                                    }}>
 
+                                    {/* BLURRED BACKGROUND FILL (To prevent cutting and gaps) */}
+                                    <Image
+                                        src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
+                                        alt=""
+                                        fill
+                                        className="object-cover blur-[20px] opacity-40 scale-110 pointer-events-none"
+                                    />
+
+                                    {/* THE ACTUAL PRODUCT IMAGE - CONTAINED */}
                                     <Image
                                         src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
                                         alt={`${product.name} - ${selectedSize.name}`}
-                                        width={orientation === 'portrait' ? 800 : 1200}
-                                        height={orientation === 'portrait' ? 1200 : 800}
+                                        fill
                                         priority
-                                        className={`w-full h-auto object-cover block transition-all duration-500 ${orientation === 'landscape' ? 'aspect-video' : 'aspect-[2/3]'}`}
-                                        style={{
-                                            aspectRatio: orientation === 'portrait' ? `1 / ${1 / selectedSize.ratio}` : `${1 / selectedSize.ratio} / 1`
-                                        }}
+                                        className="object-contain z-10 drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                                     />
 
                                     {/* PREMIUM METAL SHEEN */}
-                                    <div className="absolute inset-0 z-20 bg-gradient-to-tr from-transparent via-white/10 to-transparent mix-blend-screen pointer-events-none opacity-40" />
+                                    <div className="absolute inset-0 z-20 bg-gradient-to-tr from-transparent via-white/10 to-transparent mix-blend-screen pointer-events-none opacity-30" />
 
-                                    {/* MOUNTING DETAILS */}
-                                    <div className="absolute top-2 left-2 w-1 h-1 rounded-full bg-black/30 shadow-inner z-30" />
-                                    <div className="absolute top-2 right-2 w-1 h-1 rounded-full bg-black/30 shadow-inner z-30" />
-                                    <div className="absolute bottom-2 left-2 w-1 h-1 rounded-full bg-black/30 shadow-inner z-30" />
-                                    <div className="absolute bottom-2 right-2 w-1 h-1 rounded-full bg-black/30 shadow-inner z-30" />
+                                    {/* MOUNTING DETAILS (VİDALI GÖRÜNÜM) */}
+                                    <div className="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-black/40 shadow-inner z-30 border border-white/10" />
+                                    <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-black/40 shadow-inner z-30 border border-white/10" />
+                                    <div className="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-black/40 shadow-inner z-30 border border-white/10" />
+                                    <div className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-black/40 shadow-inner z-30 border border-white/10" />
                                 </div>
 
                                 {/* SIZE INFO LABEL */}

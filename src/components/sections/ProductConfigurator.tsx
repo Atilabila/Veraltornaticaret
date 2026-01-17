@@ -8,10 +8,10 @@ import { Check, Info, ShoppingCart, ChevronLeft, ChevronRight, Settings, Sliders
 import { PRODUCTS } from "@/lib/products";
 
 const sizes = [
-    { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "MİNİ PLAKA" },
-    { id: "m", name: "30x45 CM", priceAdd: 200, desc: "STANDART KAYIT" },
-    { id: "l", name: "45x60 CM", priceAdd: 500, desc: "GENİŞ ALAN" },
-    { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKS YÜK" },
+    { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "MİNİ PLAKA", ratio: 0.5 },
+    { id: "m", name: "30x45 CM", priceAdd: 200, desc: "STANDART KAYIT", ratio: 0.67 },
+    { id: "l", name: "45x60 CM", priceAdd: 500, desc: "GENİŞ ALAN", ratio: 0.75 },
+    { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKS YÜK", ratio: 0.67 },
 ];
 
 export const ProductConfigurator = () => {
@@ -55,22 +55,35 @@ export const ProductConfigurator = () => {
                             <Settings className="w-4 h-4 animate-spin" /> CANLI ÖNİZLEME_TERMİNALİ
                         </div>
 
-                        <div className="relative aspect-[4/5] w-full max-w-sm mx-auto border-8 border-white bg-[#111] shadow-[12px_12px_0px_0px_rgba(255,255,255,0.1)]">
+                        <div
+                            className="relative w-full max-w-sm mx-auto border-8 border-white bg-zinc-950 shadow-[12px_12px_0px_0px_rgba(255,255,255,0.1)] overflow-hidden transition-all duration-500"
+                            style={{
+                                aspectRatio: orientation === 'portrait' ? `1 / ${1 / selectedSize.ratio}` : `${1 / selectedSize.ratio} / 1`
+                            }}
+                        >
                             <AnimatePresence mode="wait">
                                 <motion.div
-                                    key={product.id}
+                                    key={`${product.id}-${orientation}`}
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 1.05 }}
                                     className="relative w-full h-full"
                                 >
+                                    {/* Background Blur Fill */}
+                                    <Image
+                                        src={product.image}
+                                        alt=""
+                                        fill
+                                        className="object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
+                                    />
+                                    {/* Main Image */}
                                     <Image
                                         src={product.image}
                                         alt={product.name}
                                         fill
                                         priority
                                         sizes="(max-width: 768px) 90vw, 500px"
-                                        className={`object-cover transition-all duration-500 ${orientation === 'landscape' ? 'aspect-video' : 'aspect-[2/3]'}`}
+                                        className="object-contain z-10"
                                     />
                                 </motion.div>
                             </AnimatePresence>
