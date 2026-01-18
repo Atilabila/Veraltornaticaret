@@ -81,6 +81,8 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     const [activeScene, setActiveScene] = useState(SCENES[0]);
     const [customImage, setCustomImage] = useState<string | null>(null);
     const [customRoomImage, setCustomRoomImage] = useState<string | null>(null);
+    const [imageScale, setImageScale] = useState(1);
+    const [imageFit, setImageFit] = useState<'cover' | 'contain'>('cover');
     const [rotations, setRotations] = useState({ x: 0, y: 0, z: 0 });
     const [scale, setScale] = useState(1);
     const [customSize, setCustomSize] = useState<{ w: number, h: number } | null>(null);
@@ -201,6 +203,8 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         setRotations({ x: 0, y: 0, z: 0 });
         setScale(1);
         setCustomSize(null);
+        setImageScale(1);
+        setImageFit('cover');
     };
 
     const totalPrice = product.price + selectedSize.priceAdd;
@@ -280,11 +284,11 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                                     selectedSize.id === 'm' ? 1 :
                                                         selectedSize.id === 'l' ? 1.5 : 2.0
                                         )}%`
-                                        : `${(customRoomImage ? 35 * scale : activeScene.pos.width * 1.5) * (
-                                            selectedSize.id === 'xs' ? 0.33 :
-                                                selectedSize.id === 's' ? 0.67 :
+                                        : `${(customRoomImage ? 32 * scale : activeScene.pos.width * 1.6) * (
+                                            selectedSize.id === 'xs' ? 0.4 :
+                                                selectedSize.id === 's' ? 0.75 :
                                                     selectedSize.id === 'm' ? 1 :
-                                                        selectedSize.id === 'l' ? 1.5 : 2.0
+                                                        selectedSize.id === 'l' ? 1.5 : 2.2
                                         )}%`,
 
                                     transform: customRoomImage
@@ -322,17 +326,23 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                         src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
                                         alt=""
                                         fill
-                                        className="object-cover blur-[20px] opacity-40 scale-110 pointer-events-none"
+                                        className="object-cover blur-[25px] opacity-40 scale-125 pointer-events-none"
                                     />
 
-                                    {/* THE ACTUAL PRODUCT IMAGE - FULL COVER */}
-                                    <Image
-                                        src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
-                                        alt={`${product.name} - ${selectedSize.name}`}
-                                        fill
-                                        priority
-                                        className="object-cover z-10 transition-all duration-700 ease-in-out"
-                                    />
+                                    {/* THE ACTUAL PRODUCT PRODUCT - DYNAMIC SCALE & FIT */}
+                                    <div className="absolute inset-0 z-10 overflow-hidden">
+                                        <Image
+                                            src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
+                                            alt={`${product.name} - ${selectedSize.name}`}
+                                            fill
+                                            priority
+                                            className="transition-all duration-700 ease-in-out"
+                                            style={{
+                                                objectFit: imageFit,
+                                                transform: `scale(${imageScale})`,
+                                            }}
+                                        />
+                                    </div>
 
                                     {/* PREMIUM METAL SHEEN */}
                                     <div className="absolute inset-0 z-20 bg-gradient-to-tr from-transparent via-white/10 to-transparent mix-blend-screen pointer-events-none opacity-30" />
@@ -390,6 +400,39 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                         GÖRSELİ SİL
                                     </button>
                                 )}
+
+                                {/* IMAGE ADJUSTMENT CONTROLS (NEW) */}
+                                <div className="mt-4 bg-black/60 backdrop-blur-md border border-white/20 p-4 space-y-3 w-64 shadow-brutal">
+                                    <div className="flex justify-between items-center text-white text-[9px] font-mono font-black uppercase border-b border-white/10 pb-1">
+                                        <span>GÖRSEL YERLEŞİMİ</span>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => setImageFit('cover')}
+                                                className={`px-2 py-0.5 border ${imageFit === 'cover' ? 'bg-[#FFD700] text-black border-[#FFD700]' : 'border-white/30 text-white'}`}
+                                            >DOLDUR</button>
+                                            <button
+                                                onClick={() => setImageFit('contain')}
+                                                className={`px-2 py-0.5 border ${imageFit === 'contain' ? 'bg-[#FFD700] text-black border-[#FFD700]' : 'border-white/30 text-white'}`}
+                                            >SIĞDIR</button>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-1">
+                                        <div className="flex justify-between text-white text-[8px] font-mono">
+                                            <span>YAKINLAŞTIRMA</span>
+                                            <span>%{(imageScale * 100).toFixed(0)}</span>
+                                        </div>
+                                        <input
+                                            type="range" min="0.5" max="2.5" step="0.05"
+                                            value={imageScale}
+                                            onChange={(e) => setImageScale(parseFloat(e.target.value))}
+                                            className="w-full accent-[#FFD700] h-1 bg-white/20 rounded-lg appearance-none cursor-pointer"
+                                        />
+                                    </div>
+                                    <div className="text-[7px] text-white/40 font-mono uppercase italic leading-tight">
+                                        * Yatay modda görselin 'yarım' kalmaması için buradan ölçeklendirebilirsin.
+                                    </div>
+                                </div>
                             </div>
 
                             {/* SCENE SELECTOR BAR */}

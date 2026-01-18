@@ -12,65 +12,113 @@ export class ProductService {
      * Get all active products
      */
     static async getAllProducts(): Promise<Product[]> {
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .eq('is_active', true)
-            .order('created_at', { ascending: false });
+        try {
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('is_active', true)
+                .order('created_at', { ascending: false });
 
-        if (error) {
-            console.error('Error fetching products:', error);
-            throw error;
+            if (error) {
+                console.warn('Supabase fetch failed, using fallback products:', error.message);
+                return this.getFallbackProducts();
+            }
+
+            return data || this.getFallbackProducts();
+        } catch (err) {
+            console.warn('Supabase connection error, using fallback products:', err);
+            return this.getFallbackProducts();
         }
+    }
 
-        return data || [];
+    /**
+     * Helper to get fallback products from static PRODUCTS constant
+     */
+    private static getFallbackProducts(): any[] {
+        // Import dynamic to avoid circular dependency if any
+        const { PRODUCTS } = require('@/lib/products');
+        return PRODUCTS.map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+            price: p.price,
+            image: p.image,
+            description: p.description,
+            story: p.story,
+            category: p.category,
+            material: p.specs.material,
+            process: p.specs.process,
+            print: p.specs.print,
+            thickness: p.specs.thickness,
+            dims: p.specs.dims,
+            mounting: p.specs.mounting,
+            seo_title: p.seo.title,
+            seo_description: p.seo.description,
+            seo_keywords: p.seo.keywords,
+            is_active: true,
+            created_at: new Date().toISOString(),
+            view_count: 0
+        }));
     }
 
     /**
      * Get products by category
      */
     static async getProductsByCategory(category: string): Promise<Product[]> {
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .eq('category', category)
-            .eq('is_active', true)
-            .order('created_at', { ascending: false });
+        try {
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('category', category)
+                .eq('is_active', true)
+                .order('created_at', { ascending: false });
 
-        if (error) {
-            console.error('Error fetching products by category:', error);
-            throw error;
+            if (error) {
+                console.error('Error fetching products by category:', error);
+                const fallbacks = this.getFallbackProducts();
+                return fallbacks.filter(p => p.category === category);
+            }
+
+            return data || [];
+        } catch (err) {
+            const fallbacks = this.getFallbackProducts();
+            return fallbacks.filter(p => p.category === category);
         }
-
-        return data || [];
     }
 
     /**
      * Get a single product by slug
      */
     static async getProductBySlug(slug: string): Promise<Product | null> {
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .eq('slug', slug)
-            .eq('is_active', true)
-            .single();
+        try {
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('slug', slug)
+                .eq('is_active', true)
+                .single();
 
-        if (error) {
-            if (error.code === 'PGRST116') {
-                // No rows returned
-                return null;
+            if (error) {
+                if (error.code === 'PGRST116') {
+                    // Try fallback
+                    const fallbacks = this.getFallbackProducts();
+                    return fallbacks.find(p => p.slug === slug) || null;
+                }
+                console.error('Error fetching product by slug:', error);
+                const fallbacks = this.getFallbackProducts();
+                return fallbacks.find(p => p.slug === slug) || null;
             }
-            console.error('Error fetching product by slug:', error);
-            throw error;
-        }
 
-        // Increment view count
-        if (data) {
-            await this.incrementViewCount(slug);
-        }
+            // Increment view count
+            if (data) {
+                await this.incrementViewCount(slug);
+            }
 
-        return data;
+            return data;
+        } catch (err) {
+            const fallbacks = this.getFallbackProducts();
+            return fallbacks.find(p => p.slug === slug) || null;
+        }
     }
 
     /**
