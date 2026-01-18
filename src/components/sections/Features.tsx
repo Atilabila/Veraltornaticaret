@@ -47,7 +47,7 @@ export const Features = () => {
                         >
                             TÜM KATALOĞU İNCELE <Activity className="w-8 h-8" />
                         </Link>
-                        <div className="font-mono text-sm text-white/50 text-left border-l-2 border-white/20 pl-6">
+                        <div className="font-mono text-[12px] md:text-sm text-white/50 text-left border-l-2 border-white/20 pl-6">
                             // SİSTEM NOTU:<br />
                             TÜM ÜRÜNLER İZMİR MERKEZ ATÖLYEMİZDE<br />
                             EL İŞÇİLİĞİ İLE KALİBRE EDİLMEKTEDİR.
@@ -88,7 +88,7 @@ const FeatureModule = ({ feature, index }: { feature: Feature, index: number }) 
                         </div>
                     </div>
 
-                    <div className="mb-4 inline-block bg-[#FFD700] text-black px-3 py-1 font-mono font-black text-base">
+                    <div className="mb-4 inline-block bg-[#FFD700] text-black px-3 py-1 font-mono font-black text-sm md:text-base">
                         TEKNİK ETİKET: {feature.tag}
                     </div>
 

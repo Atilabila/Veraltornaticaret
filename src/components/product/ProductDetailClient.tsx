@@ -230,7 +230,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         <div className="container-brutal" onMouseMove={handleMoveInput} onTouchMove={handleMoveInput} onMouseUp={() => setIsDragging(false)} onTouchEnd={() => setIsDragging(false)}>
             <CartTerminal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
             {/* BREADCRUMB */}
-            <div className="font-mono text-xs md:text-xs font-bold text-black/50 mb-8 uppercase flex flex-col md:flex-row gap-4 md:justify-between md:items-center">
+            <div className="font-mono text-sm md:text-xs font-bold text-black/50 mb-8 uppercase flex flex-col md:flex-row gap-4 md:justify-between md:items-center">
                 <div className="text-[14px] md:text-xs">
                     <Link href="/" className="hover:text-[var(--color-brand-safety-orange)]">ANA ÜS</Link> /
                     <Link href="/urunler" className="hover:text-[var(--color-brand-safety-orange)] mx-2">KOLEKSİYON</Link> /
@@ -239,7 +239,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                     </span>
                 </div>
                 {/* PIXEL HUD */}
-                <div className="bg-black text-[#FFD700] px-4 py-1 text-[12px] md:text-[10px] font-black border-2 border-dashed border-[#FFD700]/30 rounded-sm self-start">
+                <div className="bg-black text-[#FFD700] px-4 py-1 text-[13px] md:text-[10px] font-black border-2 border-dashed border-[#FFD700]/30 rounded-sm self-start">
                     LOC: X:{manualOffset.x.toFixed(1)}% | Y:{manualOffset.y.toFixed(1)}% | R:{manualRot}°
                 </div>
             </div>
@@ -278,11 +278,11 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                     top: customRoomImage ? `calc(40% + ${manualOffset.y}%)` : `calc(${activeScene.pos.top}% + ${manualOffset.y}%)`,
                                     left: customRoomImage ? `calc(50% + ${manualOffset.x}%)` : `calc(${activeScene.pos.left}% + ${manualOffset.x}%)`,
                                     width: orientation === 'portrait'
-                                        ? `${(customRoomImage ? 25 * scale : activeScene.pos.width) * (
-                                            selectedSize.id === 'xs' ? 0.33 :
-                                                selectedSize.id === 's' ? 0.67 :
+                                        ? `${(customRoomImage ? 30 * scale : activeScene.pos.width * 1.4) * (
+                                            selectedSize.id === 'xs' ? 0.45 :
+                                                selectedSize.id === 's' ? 0.75 :
                                                     selectedSize.id === 'm' ? 1 :
-                                                        selectedSize.id === 'l' ? 1.5 : 2.0
+                                                        selectedSize.id === 'l' ? 1.5 : 2.2
                                         )}%`
                                         : `${(customRoomImage ? 32 * scale : activeScene.pos.width * 1.6) * (
                                             selectedSize.id === 'xs' ? 0.4 :
@@ -301,7 +301,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                 {/* INTERACTIVE FLOATING UI */}
                                 {manualOffset.x === 0 && manualOffset.y === 0 && manualRot === 0 && (
                                     <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-50 animate-bounce transition-opacity duration-300 pointer-events-none">
-                                        <div className="bg-white/80 backdrop-blur-md text-black border border-black/10 px-4 py-2 shadow-xl flex items-center gap-3 font-mono text-[10px] font-bold uppercase whitespace-nowrap rounded-full">
+                                        <div className="bg-white/80 backdrop-blur-md text-black border border-black/10 px-4 py-2 shadow-xl flex items-center gap-3 font-mono text-[12px] md:text-[10px] font-bold uppercase whitespace-nowrap rounded-full">
                                             <MousePointer2 className="w-3 h-3 text-[var(--color-brand-safety-orange)]" />
                                             POSTERİ ODANA YERLEŞTİR
                                         </div>
@@ -356,7 +356,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
 
                                 {/* SIZE INFO LABEL */}
                                 <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <span className="bg-black text-white px-3 py-1 font-mono text-[9px] font-black uppercase tracking-widest border border-white/20">
+                                    <span className="bg-black text-white px-3 py-1 font-mono text-[12px] md:text-[9px] font-black uppercase tracking-widest border border-white/20">
                                         ÖLÇEK: {orientation === 'landscape'
                                             ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM`
                                             : selectedSize.name} ({orientation === 'portrait' ? 'DİKEY' : 'YATAY'})
@@ -455,7 +455,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                             {/* ADJUSTMENT CONSOLE (ONLY FOR CUSTOM ROOM) */}
                             {customRoomImage && (
                                 <div className="absolute bottom-4 left-4 right-4 z-50 bg-black/80 backdrop-blur-md p-4 border border-white/20 rounded-xl space-y-3">
-                                    <div className="flex justify-between items-center text-white text-[10px] font-mono font-bold uppercase border-b border-white/10 pb-2 mb-2">
+                                    <div className="flex justify-between items-center text-white text-[12px] md:text-[10px] font-mono font-bold uppercase border-b border-white/10 pb-2 mb-2">
                                         <span>PERSPEKTİF AYARI</span>
                                         <button onClick={resetPos} className="text-[var(--color-brand-safety-orange)] hover:underline">SIFIRLA</button>
                                     </div>
@@ -613,7 +613,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                             )}
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 font-mono text-[12px] md:text-[10px] font-bold text-center">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 font-mono text-sm md:text-[10px] font-bold text-center">
                             <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
                                 <Shield className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
                                 <span className="uppercase tracking-tighter">100 YIL SOLMAMA GARANTİSİ</span>

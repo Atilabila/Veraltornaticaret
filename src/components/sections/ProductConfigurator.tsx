@@ -144,12 +144,12 @@ export const ProductConfigurator = () => {
                     {/* RIGHT_IFACE: CONTROL_PANEL */}
                     <div className="lg:col-span-6 p-8 md:p-16 flex flex-col bg-[#F3F4F6] relative">
                         {/* Top corner tech label */}
-                        <div className="absolute top-0 right-0 bg-black text-[#00FF41] px-4 py-1 text-[10px] font-mono font-black border-b-4 border-l-4 border-black">
+                        <div className="absolute top-0 right-0 bg-black text-[#00FF41] px-4 py-1 text-[12px] md:text-[10px] font-mono font-black border-b-4 border-l-4 border-black">
                             SYS_STAT: OK // v4.5.11
                         </div>
 
                         <div className="mb-12">
-                            <div className="flex items-center gap-3 text-[var(--color-brand-safety-orange)] font-mono font-black text-xs mb-4 tracking-widest uppercase">
+                            <div className="flex items-center gap-3 text-[var(--color-brand-safety-orange)] font-mono font-black text-sm md:text-xs mb-4 tracking-widest uppercase">
                                 <span className="bg-[var(--color-brand-safety-orange)] text-white px-2 py-0.5">{product.category}</span>
                                 <span className="text-black/30">//</span>
                                 <span>BİRİM_VERİ_KAYDI</span>
@@ -163,10 +163,10 @@ export const ProductConfigurator = () => {
 
                             <div className="flex items-end">
                                 <div className="bg-black text-white p-6 shadow-brutal border-l-8 border-[var(--color-brand-safety-orange)]">
-                                    <span className="text-[10px] font-mono block text-white/50 mb-1 uppercase font-black">HESAPLANAN BİRİM MALİYET</span>
+                                    <span className="text-[12px] md:text-[10px] font-mono block text-white/50 mb-1 uppercase font-black">HESAPLANAN BİRİM MALİYET</span>
                                     <span className="text-5xl font-[Archivo Black] leading-none">₺{totalPrice}</span>
                                 </div>
-                                <div className="ml-4 mb-1 font-mono text-[10px] font-bold text-black/40 uppercase">
+                                <div className="ml-4 mb-1 font-mono text-[11px] md:text-[10px] font-bold text-black/40 uppercase">
                                     KDV DAHİL <br /> TERMİNAL FİYATI
                                 </div>
                             </div>
@@ -225,7 +225,7 @@ export const ProductConfigurator = () => {
                                         </button>
                                     ))}
                                 </div>
-                                <div className="mt-4 flex items-center gap-3 p-4 bg-white border-2 border-dashed border-black/20 font-mono text-[10px] font-black uppercase">
+                                <div className="mt-4 flex items-center gap-3 p-4 bg-white border-2 border-dashed border-black/20 font-mono text-[12px] md:text-[10px] font-black uppercase">
                                     <Info className="w-4 h-4 text-[var(--color-brand-safety-orange)]" />
                                     <span>İSTEĞE BAĞLI ÖZEL ÖLÇÜLER İÇİN WHATSAPP TERMİNALİNİ KULLANIN</span>
                                 </div>

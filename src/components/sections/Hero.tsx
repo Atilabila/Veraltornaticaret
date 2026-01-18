@@ -81,8 +81,8 @@ export const Hero = () => {
 
                             <div className="absolute bottom-4 left-4 right-4 bg-white border-2 border-black p-4 font-mono">
                                 <div className="flex justify-between items-center mb-2">
-                                    <span className="text-base font-black text-black/50">BAŞLANGIÇ FİYATI</span>
-                                    <span className="text-lg font-black text-[var(--color-brand-safety-orange)]">● KALİBRE EDİLDİ</span>
+                                    <span className="text-sm md:text-base font-black text-black/50 uppercase">BAŞLANGIÇ FİYATI</span>
+                                    <span className="text-xs md:text-lg font-black text-[var(--color-brand-safety-orange)] uppercase">● KALİBRE EDİLDİ</span>
                                 </div>
                                 <div className="text-4xl font-[Archivo Black]">{content.heroPrice}</div>
                             </div>

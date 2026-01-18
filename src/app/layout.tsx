@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const viewport: Viewport = {
-  width: 1200,
-  initialScale: 0.35,
-  maximumScale: 1,
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
   userScalable: true,
 };
 

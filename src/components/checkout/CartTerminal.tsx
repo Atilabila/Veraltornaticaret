@@ -67,7 +67,7 @@ export const CartTerminal = ({ isOpen, onClose }: CartTerminalProps) => {
                                         </div>
                                         <div className="flex-grow flex flex-col justify-between py-1">
                                             <h4 className="font-[Archivo Black] text-sm uppercase leading-none">{item.name}</h4>
-                                            <p className="font-mono text-[10px] font-black text-black/40 uppercase">{item.size}</p>
+                                            <p className="font-mono text-[11px] md:text-[10px] font-black text-black/40 uppercase">{item.size}</p>
                                             <div className="flex justify-between items-end">
                                                 <span className="font-[Archivo Black] text-lg text-[var(--color-brand-safety-orange)]">₺{item.price}</span>
                                             </div>
@@ -88,10 +88,10 @@ export const CartTerminal = ({ isOpen, onClose }: CartTerminalProps) => {
                             <div className="p-8 border-t-8 border-black bg-white space-y-8">
                                 <div className="flex justify-between items-end">
                                     <div className="flex flex-col">
-                                        <span className="font-mono text-[10px] font-black text-black/40">TOPLAM MALİYET</span>
+                                        <span className="font-mono text-[12px] md:text-[10px] font-black text-black/40">TOPLAM MALİYET</span>
                                         <span className="text-4xl font-[Archivo Black]">₺{total}</span>
                                     </div>
-                                    <div className="text-right font-mono text-[10px] font-bold opacity-40">
+                                    <div className="text-right font-mono text-[12px] md:text-[10px] font-bold opacity-40">
                                         KDV DAHİL <br /> TERMİNAL FİYATI
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@ export const CartTerminal = ({ isOpen, onClose }: CartTerminalProps) => {
                                     SİPARİŞİ TAMAMLA <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-none" />
                                 </Link>
 
-                                <p className="text-[10px] font-mono font-black text-center opacity-30 italic">
+                                <p className="text-[12px] md:text-[10px] font-mono font-black text-center opacity-30 italic">
                                     GÜVENLİ ÖDEME TERMİNALİNE AKTARILACAKSINIZ
                                 </p>
                             </div>

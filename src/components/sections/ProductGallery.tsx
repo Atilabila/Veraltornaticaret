@@ -118,7 +118,7 @@ export const ProductGallery = () => {
                                     </div>
 
                                     {/* Price Tag */}
-                                    <div className="absolute top-4 right-4 bg-[#FFD700] border-2 border-black px-3 py-1 font-mono font-black text-sm">
+                                    <div className="absolute top-4 right-4 bg-[#FFD700] border-2 border-black px-3 py-1 font-mono font-black text-base md:text-sm">
                                         {product.price} TL
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@ export const ProductGallery = () => {
                                     {product.name}
                                 </h3>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-xs font-mono text-black/50">
+                                    <span className="text-[13px] md:text-xs font-mono text-black/50 font-bold uppercase">
                                         {product.category?.replace("_PLAKA", "")}
                                     </span>
                                     <span className="text-lg font-black text-[var(--color-brand-safety-orange)]">
