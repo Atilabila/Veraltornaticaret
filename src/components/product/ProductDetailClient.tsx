@@ -278,17 +278,17 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                     top: customRoomImage ? `calc(40% + ${manualOffset.y}%)` : `calc(${activeScene.pos.top}% + ${manualOffset.y}%)`,
                                     left: customRoomImage ? `calc(50% + ${manualOffset.x}%)` : `calc(${activeScene.pos.left}% + ${manualOffset.x}%)`,
                                     width: orientation === 'portrait'
-                                        ? `${(customRoomImage ? 30 * scale : activeScene.pos.width * 1.4) * (
-                                            selectedSize.id === 'xs' ? 0.45 :
-                                                selectedSize.id === 's' ? 0.75 :
-                                                    selectedSize.id === 'm' ? 1 :
-                                                        selectedSize.id === 'l' ? 1.5 : 2.2
+                                        ? `${(customRoomImage ? 35 * scale : activeScene.pos.width * 1.6) * (
+                                            selectedSize.id === 'xs' ? 0.6 :
+                                                selectedSize.id === 's' ? 0.85 :
+                                                    selectedSize.id === 'm' ? 1.1 :
+                                                        selectedSize.id === 'l' ? 1.6 : 2.4
                                         )}%`
-                                        : `${(customRoomImage ? 32 * scale : activeScene.pos.width * 1.6) * (
-                                            selectedSize.id === 'xs' ? 0.4 :
-                                                selectedSize.id === 's' ? 0.75 :
-                                                    selectedSize.id === 'm' ? 1 :
-                                                        selectedSize.id === 'l' ? 1.5 : 2.2
+                                        : `${(customRoomImage ? 38 * scale : activeScene.pos.width * 1.8) * (
+                                            selectedSize.id === 'xs' ? 0.55 :
+                                                selectedSize.id === 's' ? 0.85 :
+                                                    selectedSize.id === 'm' ? 1.1 :
+                                                        selectedSize.id === 'l' ? 1.6 : 2.4
                                         )}%`,
 
                                     transform: customRoomImage

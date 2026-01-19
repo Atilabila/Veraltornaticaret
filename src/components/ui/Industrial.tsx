@@ -114,10 +114,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ title, oneLiner, href,
         </div>
 
         {image && (
-            <div className="relative w-full aspect-[2/3] bg-white flex items-center justify-center overflow-hidden grayscale group-hover:grayscale-0 transition-all border-b-2 border-near-black">
-                <img src={image} alt={title} className="object-contain w-full h-full p-2" />
-                {/* Status Badge from Screenshot */}
-                <div className="absolute top-2 right-2 bg-signal-yellow text-near-black px-2 py-1 text-[8px] font-black border-2 border-near-black uppercase tracking-tighter">
+            <div className="relative w-full aspect-[2/3] bg-white flex items-center justify-center overflow-hidden border-b-2 border-near-black">
+                <img
+                    src={image}
+                    alt={title}
+                    className="object-contain w-full h-full p-2 transition-all group-hover:scale-105"
+                    style={{ maxHeight: '100%', maxWidth: '100%' }}
+                />
+                {/* Status Badge */}
+                <div className="absolute top-2 right-2 bg-signal-yellow text-near-black px-2 py-1 text-[8px] font-black border-2 border-near-black uppercase tracking-tighter z-10">
                     VERAL ID / REGISTERED
                 </div>
             </div>
