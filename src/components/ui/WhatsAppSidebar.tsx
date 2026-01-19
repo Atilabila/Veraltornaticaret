@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { MessageCircle, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MessageSquare, X } from "lucide-react";
 import { useState } from "react";
 
 export const WhatsAppSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const phoneNumber = "905555555555"; // Telefon numarasını buraya girin
-    const message = "Merhaba! Metal poster ürünleriniz hakkında bilgi almak istiyorum.";
+    const phoneNumber = "905071651315";
+    const message = "Merhaba! Özel imalat ürünleriniz hakkında teklif almak istiyorum.";
 
     const handleWhatsAppClick = () => {
         const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -22,75 +22,72 @@ export const WhatsAppSidebar = () => {
                 animate={{ scale: 1 }}
                 transition={{ delay: 1, type: "spring" }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed right-6 bottom-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-brutal border-4 border-black hover:bg-[#128C7E] transition-colors group"
+                className="fixed right-6 bottom-20 lg:bottom-10 z-50 bg-acid-green text-near-black p-4 border border-near-black shadow-xl hover:bg-near-black hover:text-acid-green transition-all group"
                 aria-label="WhatsApp ile iletişime geç"
+                style={{ borderRadius: '2px' }}
             >
                 {isOpen ? (
-                    <X className="w-8 h-8" />
+                    <X className="w-6 h-6" />
                 ) : (
-                    <MessageCircle className="w-8 h-8 animate-pulse" />
+                    <MessageSquare className="w-6 h-6" />
                 )}
 
-                {/* Notification Badge */}
                 {!isOpen && (
-                    <span className="absolute -top-1 -right-1 bg-[var(--color-brand-safety-orange)] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-black">
+                    <span className="absolute -top-2 -right-2 bg-hazard-orange text-near-black text-[10px] font-bold w-5 h-5 flex items-center justify-center border border-near-black">
                         1
                     </span>
                 )}
             </motion.button>
 
             {/* WhatsApp Sidebar Panel */}
-            {isOpen && (
-                <motion.div
-                    initial={{ x: 400, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: 400, opacity: 0 }}
-                    className="fixed right-6 bottom-24 z-40 w-80 bg-white border-4 border-black shadow-brutal"
-                >
-                    {/* Header */}
-                    <div className="bg-[#25D366] text-white p-4 border-b-4 border-black">
-                        <h3 className="font-mono font-bold text-lg">💬 Canlı Destek</h3>
-                        <p className="text-sm opacity-90">Hemen yanıtlıyoruz!</p>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6 space-y-4">
-                        <div className="bg-[#E5E7EB] border-2 border-black p-4 font-mono text-sm">
-                            <p className="font-bold mb-2">👋 Merhaba!</p>
-                            <p>Metal poster ürünlerimiz hakkında sorularınız mı var?</p>
-                            <p className="mt-2 text-xs text-black/60">Hemen WhatsApp'tan yazın, size yardımcı olalım!</p>
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ x: 400, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: 400, opacity: 0 }}
+                        className="fixed right-6 bottom-36 lg:bottom-28 z-40 w-80 bg-white border border-near-black shadow-2xl"
+                        style={{ borderRadius: '2px' }}
+                    >
+                        {/* Header */}
+                        <div className="bg-near-black text-paper-white p-6 border-b border-steel-gray flex flex-col gap-1">
+                            <h3 className="font-space font-bold text-lg uppercase tracking-tight">ÜRETİM HATTI DESTEK</h3>
+                            <div className="flex items-center gap-2">
+                                <div className="w-1.5 h-1.5 bg-acid-green animate-pulse rounded-full" />
+                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">SİSTEM ÇEVRİMİÇİ</span>
+                            </div>
                         </div>
 
-                        <button
-                            onClick={handleWhatsAppClick}
-                            className="w-full bg-[#25D366] text-white font-mono font-bold py-4 px-6 border-4 border-black shadow-brutal hover:bg-[#128C7E] transition-colors flex items-center justify-center gap-2"
-                        >
-                            <MessageCircle className="w-5 h-5" />
-                            WhatsApp'ta Sohbet Başlat
-                        </button>
+                        {/* Content */}
+                        <div className="p-8 space-y-6">
+                            <div className="bg-[#F9F9F9] border border-fog-gray p-4 font-source-sans text-sm text-steel-gray">
+                                <p className="font-bold text-near-black mb-2 uppercase text-xs">Usta Görüşü Alın</p>
+                                <p>Torna, teneke imalatı veya özel projeleriniz için teknik ekibimizle doğrudan iletişime geçin.</p>
+                            </div>
 
-                        <div className="text-center text-xs font-mono text-black/40">
-                            Genellikle 5 dakika içinde yanıt veriyoruz
+                            <button
+                                onClick={handleWhatsAppClick}
+                                className="w-full bg-acid-green text-near-black font-space font-bold py-4 px-6 border border-near-black hover:bg-near-black hover:text-acid-green transition-all flex items-center justify-center gap-2 uppercase text-sm"
+                            >
+                                <MessageSquare size={18} />
+                                WhatsApp SOHBETİ BAŞLAT
+                            </button>
                         </div>
-                    </div>
 
-                    {/* Quick Info */}
-                    <div className="border-t-4 border-black bg-[#FFF9E6] p-4 space-y-2 text-xs font-mono">
-                        <div className="flex items-center gap-2">
-                            <span className="text-[var(--color-brand-safety-orange)]">●</span>
-                            <span>Ücretsiz Kargo (500 TL üzeri)</span>
+                        {/* Quick Info */}
+                        <div className="border-t border-fog-gray bg-paper-white p-4 grid grid-cols-2 gap-2 text-[9px] font-bold text-steel-gray uppercase tracking-tighter">
+                            <div className="flex items-center gap-2">
+                                <span className="text-hazard-orange">●</span>
+                                <span>HIZLI TEKLİF</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-hazard-orange">●</span>
+                                <span>TEKNİK DESTEK</span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-[var(--color-brand-safety-orange)]">●</span>
-                            <span>Ömür Boyu Garanti</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-[var(--color-brand-safety-orange)]">●</span>
-                            <span>14 Gün İade Garantisi</span>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 };

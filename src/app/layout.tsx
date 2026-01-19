@@ -6,34 +6,30 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
+  themeColor: "#0E0E0E",
 };
 
 export const metadata: Metadata = {
-  title: "Veral Torna & Tene - Yaşam alanınızı metalle taçlandırın. 1.5mm endüstriyel sınıf alüminyum üzerine UV baskı. Su geçirmez, çizilmez, ömür boyu garanti.",
-  keywords: ["veral torna", "metal poster", "alüminyum baskı", "duvar sanatı", "UV baskı", "premium dekorasyon", "metal tablo"],
-  authors: [{ name: "Veral Torna & Teneke" }],
-  metadataBase: new URL("https://metal-poster-pro.vercel.app"),
+  title: "VERAL | İzmir Alsancak Torna & Teneke İmalat - 1980'den Beri",
+  description: "İzmir Alsancak’ta özel imalat torna ve teneke çözümleri. Dosya teli, takvim tenekesi, metal etiket ve promosyon ürünlerinde 3. kuşak usta işçiliği.",
+  keywords: ["İzmir torna atölyesi", "Alsancak metal imalat", "teneke imalatı", "dosya teli", "takvim tenekesi", "metal etiket", "metal poster", "özel üretim torna"],
+  authors: [{ name: "VERAL IND TORNA & TENEKE" }],
+  metadataBase: new URL("https://veralticaret.com"),
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://metal-poster-pro.vercel.app",
-    siteName: "Veral Torna & Teneke",
-    title: "Veral Torna & Teneke | Premium Alüminyum Baskılı Metal Posterler",
-    description: "Yaşam alanınızı metalle taçlandırın. 1.5mm endüstriyel sınıf alüminyum üzerine UV baskı.",
+    url: "https://veralticaret.com",
+    siteName: "VERAL Industrial",
+    title: "VERAL | Endüstriyel Torna & Teneke Deneyimi",
+    description: "İzmir Alsancak'ta 3. kuşak metal üretim tecrübesi.",
     images: [
       {
-        url: "/porsche.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Veral Ticaret - Premium Metal Poster",
+        alt: "VERAL Endüstriyel Üretim",
       },
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Veral Ticaret | Premium Metal Posterler",
-    description: "Yaşam alanınızı metalle taçlandırın.",
-    images: ["/porsche.png"],
   },
   robots: {
     index: true,
@@ -49,11 +45,9 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="antialiased overflow-x-hidden">
+      <body className="antialiased selection:bg-hazard-orange selection:text-near-black">
         {children}
       </body>
     </html>

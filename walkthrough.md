@@ -39,3 +39,4 @@ Mevcut prototipi üretim seviyesinde, yüksek dönüşümlü bir satış makines
 - [ ] **Vercel Entegrasyonu**: Repoyu Vercel'e bağlayın.
 - [ ] **Alan Adı Kurulumu**: Üretim domainini ve SSL sertifikasını yapılandırın.
 - [ ] **Çevre Değişkenleri**: API anahtarlarını ve DB kimlik bilgilerini güvenli bir şekilde saklayın.
+  
