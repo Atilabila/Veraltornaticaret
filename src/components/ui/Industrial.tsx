@@ -101,30 +101,45 @@ interface ProductCardProps {
     href: string;
     tag?: string;
     image?: string;
+    price?: number;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ title, oneLiner, href, tag, image }) => (
-    <Link href={href} className="archive-card group h-full">
-        <div className="flex justify-between items-start mb-4">
-            <SystemLabel text={tag || "MODÜL"} />
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity text-hazard-orange">
-                →
+export const ProductCard: React.FC<ProductCardProps> = ({ title, oneLiner, href, tag, image, price }) => (
+    <Link href={href} className="archive-card group h-full flex flex-col border-4 border-near-black p-0 overflow-hidden shadow-brutal-dark hover:shadow-none transition-all">
+        <div className="p-4 flex justify-between items-start bg-fog-gray/30 border-b-2 border-near-black">
+            <SystemLabel text={tag || "MODÜL"} active />
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity text-hazard-orange font-bold">
+                VIEW →
             </div>
         </div>
 
         {image && (
-            <div className="w-full aspect-square bg-fog-gray mb-6 flex items-center justify-center overflow-hidden grayscale group-hover:grayscale-0 transition-all">
-                <img src={image} alt={title} className="object-cover w-full h-full" />
+            <div className="relative w-full aspect-[2/3] bg-white flex items-center justify-center overflow-hidden grayscale group-hover:grayscale-0 transition-all border-b-2 border-near-black">
+                <img src={image} alt={title} className="object-contain w-full h-full p-2" />
+                {/* Status Badge from Screenshot */}
+                <div className="absolute top-2 right-2 bg-signal-yellow text-near-black px-2 py-1 text-[8px] font-black border-2 border-near-black uppercase tracking-tighter">
+                    VERAL ID / REGISTERED
+                </div>
             </div>
         )}
 
-        <div className="flex flex-col gap-2 mt-auto">
-            <h2 className="text-xl font-bold font-space group-hover:text-hazard-orange transition-colors">
+        <div className="p-6 flex flex-col gap-4 flex-grow bg-white">
+            <h2 className="text-lg font-black font-space leading-tight uppercase group-hover:text-hazard-orange transition-colors line-clamp-2 min-h-[3rem]">
                 {title}
             </h2>
-            <p className="text-sm text-steel-gray">
-                {oneLiner}
-            </p>
+
+            <div className="mt-auto pt-4 border-t-2 border-fog-gray flex justify-between items-end">
+                <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-steel-gray uppercase opacity-50">RECORD ID</span>
+                    <span className="text-[11px] font-mono font-bold">#{title.slice(0, 4).toUpperCase()}</span>
+                </div>
+                {price && (
+                    <div className="flex flex-col items-end">
+                        <span className="text-[10px] font-bold text-steel-gray uppercase opacity-50">UNIT PRICE</span>
+                        <span className="text-xl font-black font-space text-hazard-orange">₺{price}</span>
+                    </div>
+                )}
+            </div>
         </div>
     </Link>
 );

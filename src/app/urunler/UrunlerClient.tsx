@@ -83,6 +83,7 @@ export default function UrunlerClient() {
                             href={`/urunler/${product.slug}`}
                             tag={product.category}
                             image={product.image}
+                            price={product.price}
                         />
                     ))}
                 </div>

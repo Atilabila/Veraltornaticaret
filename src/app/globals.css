@@ -28,6 +28,10 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
+
+  --shadow-brutal: 4px 4px 0px 0px var(--color-near-black);
+  --shadow-brutal-orange: 8px 8px 0px 0px var(--color-hazard-orange);
+  --shadow-brutal-dark: 8px 8px 0px 0px var(--color-near-black);
 }
 
 /* === ARCHIVE RESET & BASE === */

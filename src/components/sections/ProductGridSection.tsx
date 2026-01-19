@@ -24,6 +24,7 @@ export const ProductGridSection = () => {
                             href={`/urunler/${product.slug}`}
                             tag={product.category}
                             image={product.image}
+                            price={product.price}
                         />
                     ))}
                     {/* If there are more items in the user request not in PRODUCTS_DATA yet, we can add placeholders or expand the data */}
