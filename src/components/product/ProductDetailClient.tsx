@@ -82,7 +82,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     const [customImage, setCustomImage] = useState<string | null>(null);
     const [customRoomImage, setCustomRoomImage] = useState<string | null>(null);
     const [imageScale, setImageScale] = useState(1);
-    const [imageFit, setImageFit] = useState<'cover' | 'contain'>('cover');
+    const [imageFit, setImageFit] = useState<'cover' | 'contain'>('contain');
     const [rotations, setRotations] = useState({ x: 0, y: 0, z: 0 });
     const [scale, setScale] = useState(1);
     const [customSize, setCustomSize] = useState<{ w: number, h: number } | null>(null);
@@ -321,18 +321,15 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                         aspectRatio: orientation === 'portrait' ? `1 / ${1 / selectedSize.ratio}` : `${1 / selectedSize.ratio} / 1`
                                     }}>
 
-                                    {/* BLURRED BACKGROUND FILL (To prevent cutting and gaps) */}
-                                    <Image
-                                        src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
-                                        alt=""
-                                        fill
-                                        className="object-cover blur-[25px] opacity-40 scale-125 pointer-events-none"
-                                    />
+                                    {/* CLEAN METALLIC SURFACE AS BACKGROUND */}
+                                    <div className="absolute inset-0 bg-neutral-900 flex items-center justify-center">
+                                        <div className="w-full h-full opacity-20 bg-[radial-gradient(circle_at_center,_var(--color-steel-gray)_0%,_transparent_70%)]" />
+                                    </div>
 
                                     {/* THE ACTUAL PRODUCT PRODUCT - DYNAMIC SCALE & FIT */}
                                     <div className="absolute inset-0 z-10 overflow-hidden">
                                         <Image
-                                            src={customImage || product.images?.[selectedSize.id as keyof typeof product.images] || product.image || "/hero-mockup.png"}
+                                            src={customImage || product.image || "/hero-mockup.png"}
                                             alt={`${product.name} - ${selectedSize.name}`}
                                             fill
                                             priority
@@ -367,14 +364,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                             {/* HUD INTERFACE */}
                             <div className="absolute top-6 left-6 z-40 space-y-2">
                                 <label className="cursor-pointer group block">
-                                    <div className="bg-black text-white px-4 py-3 font-mono text-[10px] font-bold border-2 border-white flex items-center gap-3 shadow-brutal hover:bg-[#00FF41] hover:text-black transition-all">
-                                        <Home className="w-4 h-4" />
+                                    <div className="bg-black text-white px-6 py-4 font-mono text-xs md:text-sm font-black border-2 border-white flex items-center gap-3 shadow-brutal hover:bg-[#00FF41] hover:text-black transition-all uppercase tracking-widest">
+                                        <Home className="w-5 h-5" />
                                         <span>KENDİ ODANIN FOTOSUNU YÜKLE</span>
                                     </div>
                                     <input type="file" className="hidden" accept="image/*" onChange={handleRoomImageUpload} />
                                 </label>
-                                <div className="bg-white/90 backdrop-blur-md border border-black p-2 font-mono text-[8px] font-black uppercase text-black italic">
-                                    ÖNERİLEN ODA FOTOSU: 4000x3000 PX
+                                <div className="bg-white/90 backdrop-blur-md border border-black p-3 font-mono text-[10px] md:text-xs font-black uppercase text-black italic">
+                                    ÖNERİLEN ODA FOTOSU: 4000x3000 PX (YÜKSEK ÇÖZÜNÜRLÜK)
                                 </div>
                                 {customRoomImage && (
                                     <button
@@ -386,9 +383,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                 )}
                                 {/* Original product image upload */}
                                 <label className="cursor-pointer group block">
-                                    <div className="bg-black text-white px-4 py-3 font-mono text-[10px] font-bold border-2 border-white flex items-center gap-3 shadow-brutal hover:bg-[var(--color-brand-safety-orange)] transition-all">
-                                        <Plus className="w-4 h-4" />
-                                        <span>KENDİ GÖRSELİNİ YÜKLE (TASLAK)</span>
+                                    <div className="bg-black text-white px-6 py-4 font-mono text-xs md:text-sm font-black border-2 border-white flex items-center gap-3 shadow-brutal hover:bg-[var(--color-brand-safety-orange)] transition-all uppercase tracking-widest">
+                                        <Plus className="w-5 h-5" />
+                                        <span>KENDİ ŞABLONUNU / GÖRSELİNİ YÜKLE</span>
                                     </div>
                                     <input type="file" className="hidden" accept="image/*" onChange={handleProductImageUpload} />
                                 </label>
@@ -402,35 +399,35 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                 )}
 
                                 {/* IMAGE ADJUSTMENT CONTROLS (NEW) */}
-                                <div className="mt-4 bg-black/60 backdrop-blur-md border border-white/20 p-4 space-y-3 w-64 shadow-brutal">
-                                    <div className="flex justify-between items-center text-white text-[9px] font-mono font-black uppercase border-b border-white/10 pb-1">
-                                        <span>GÖRSEL YERLEŞİMİ</span>
+                                <div className="mt-4 bg-black/80 backdrop-blur-md border-2 border-white p-4 space-y-4 w-72 shadow-brutal-orange">
+                                    <div className="flex justify-between items-center text-white text-[10px] font-mono font-black uppercase border-b border-white/20 pb-2">
+                                        <span className="text-[var(--color-brand-safety-orange)]">GÖRSEL HİZALAMA</span>
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={() => setImageFit('cover')}
-                                                className={`px-2 py-0.5 border ${imageFit === 'cover' ? 'bg-[#FFD700] text-black border-[#FFD700]' : 'border-white/30 text-white'}`}
+                                                className={`px-3 py-1 border-2 text-[10px] font-bold transition-all ${imageFit === 'cover' ? 'bg-white text-black border-white' : 'border-white/30 text-white hover:border-white'}`}
                                             >DOLDUR</button>
                                             <button
                                                 onClick={() => setImageFit('contain')}
-                                                className={`px-2 py-0.5 border ${imageFit === 'contain' ? 'bg-[#FFD700] text-black border-[#FFD700]' : 'border-white/30 text-white'}`}
+                                                className={`px-3 py-1 border-2 text-[10px] font-bold transition-all ${imageFit === 'contain' ? 'bg-white text-black border-white' : 'border-white/30 text-white hover:border-white'}`}
                                             >SIĞDIR</button>
                                         </div>
                                     </div>
 
-                                    <div className="space-y-1">
-                                        <div className="flex justify-between text-white text-[8px] font-mono">
-                                            <span>YAKINLAŞTIRMA</span>
-                                            <span>%{(imageScale * 100).toFixed(0)}</span>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-white text-[10px] font-mono font-bold">
+                                            <span>ZOOM / ÖLÇEK</span>
+                                            <span className="text-[#FFD700]">%{(imageScale * 100).toFixed(0)}</span>
                                         </div>
                                         <input
-                                            type="range" min="0.5" max="2.5" step="0.05"
+                                            type="range" min="0.1" max="3" step="0.01"
                                             value={imageScale}
                                             onChange={(e) => setImageScale(parseFloat(e.target.value))}
-                                            className="w-full accent-[#FFD700] h-1 bg-white/20 rounded-lg appearance-none cursor-pointer"
+                                            className="w-full accent-[var(--color-brand-safety-orange)] h-2 bg-white/20 rounded-lg appearance-none cursor-pointer"
                                         />
                                     </div>
-                                    <div className="text-[7px] text-white/40 font-mono uppercase italic leading-tight">
-                                        * Yatay modda görselin 'yarım' kalmaması için buradan ölçeklendirebilirsin.
+                                    <div className="text-[9px] text-white/60 font-mono uppercase italic leading-tight border-l-2 border-[#FFD700] pl-2">
+                                        * Görselin plakaya tam oturması için yukarıdaki butonları kullanabilir veya manuel zoom yapabilirsin.
                                     </div>
                                 </div>
                             </div>
@@ -441,12 +438,12 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                     <button
                                         key={scene.id}
                                         onClick={() => { setActiveScene(scene); resetPos(); }}
-                                        className={`p-2 border transition-all duration-300 flex items-center gap-2 text-[10px] font-bold uppercase
+                                        className={`px-4 py-3 border-2 transition-all duration-300 flex items-center gap-3 text-[11px] font-black uppercase tracking-tight
                                             ${activeScene.id === scene.id
-                                                ? 'bg-black text-white border-black scale-105 shadow-xl'
-                                                : 'bg-white/60 backdrop-blur-md text-black border-black/10 hover:bg-white hover:scale-105'}`}
+                                                ? 'bg-black text-white border-black scale-105 shadow-brutal-orange'
+                                                : 'bg-white/90 backdrop-blur-md text-black border-black/20 hover:border-black hover:scale-105'}`}
                                     >
-                                        <scene.icon className="w-3 h-3" />
+                                        <scene.icon className="w-4 h-4" />
                                         <span className="hidden md:inline">{scene.name}</span>
                                     </button>
                                 ))}
