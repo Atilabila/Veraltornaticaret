@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { ProcessStep, SystemLabel } from '@/components/ui/Industrial';
@@ -6,43 +6,66 @@ import { ProcessStep, SystemLabel } from '@/components/ui/Industrial';
 export const ProcessSection = () => {
     const steps = [
         {
-            stepNumber: "PROSES/01",
-            title: "İhtiyaç Analizi",
-            desc: "Üretilecek parçanın teknik detaylarını, malzeme tipini ve adetlerini belirliyoruz."
+            stepNumber: "ADIM/01",
+            title: "Urunu Sec",
+            desc: "Koleksiyondan favori tasarimini ve boyutunu belirle."
         },
         {
-            stepNumber: "PROSES/02",
-            title: "Ölçü & Kalıplama",
-            desc: "Hassas ölçümlendirme ve gerekliyse özel kalıp hazırlıklarını tamamlıyoruz."
+            stepNumber: "ADIM/02",
+            title: "Baski Hazirligi",
+            desc: "UV dijital baski icin goruntu ve renk kalibrasyonu yapilir."
         },
         {
-            stepNumber: "PROSES/03",
-            title: "Seri Üretim",
-            desc: "Torna ve teneke hattımızda belirlenen protokoller eşliğinde üretime geçiyoruz."
+            stepNumber: "ADIM/03",
+            title: "Metal Uretim",
+            desc: "1.5mm aluminyum uzerine baski ve koruyucu katman uygulanir."
         },
         {
-            stepNumber: "PROSES/04",
-            title: "Kalite Kontrol",
-            desc: "Her bir parçayı endüstriyel standartlarımıza göre tek tek kontrol ediyoruz."
+            stepNumber: "ADIM/04",
+            title: "Guvenli Paket",
+            desc: "Kose korumali paketleme ile hasara karsi koruma saglanir."
         },
         {
-            stepNumber: "PROSES/05",
-            title: "Teslimat",
-            desc: "Alsancak merkezimizden veya lojistik ağımızla İzmir ve çevresine termininde teslimat."
+            stepNumber: "ADIM/05",
+            title: "Kargo ve Teslim",
+            desc: "Siparis 24-48 saat icinde kargoya verilir, takip linki paylasilir."
         }
     ];
 
     return (
-        <section id="process" className="bg-paper-white border-b border-fog-gray">
-            <div className="max-w-[1240px] mx-auto px-6">
+        <section id="process" className="py-24">
+            <div className="container-brutal">
                 <div className="flex flex-col gap-4 mb-16">
-                    <SystemLabel text="PROSES VE TESLİMAT" active />
-                    <h2 className="text-3xl font-bold font-space uppercase">Üretim Akış Şeması</h2>
+                    <span className="text-[10px] font-black text-[#ff6b00] tracking-[0.3em] uppercase">
+                        SİPARİŞ AKIŞI
+                    </span>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-[#111827] uppercase tracking-tighter leading-none">
+                        Üretim ve <span className="text-gray-400">Teslimat</span>
+                    </h2>
                 </div>
 
-                <div className="flex flex-col md:grid md:grid-cols-5 gap-0">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                     {steps.map((step, idx) => (
-                        <ProcessStep key={idx} {...step} />
+                        <div key={idx} className="card-premium p-8 bg-white relative group">
+                            <div className="flex flex-col gap-6">
+                                <span className="text-[10px] font-black text-[#ff6b00] tracking-[0.3em] uppercase">
+                                    {step.stepNumber}
+                                </span>
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-extrabold text-[#111827] uppercase tracking-tight">
+                                        {step.title}
+                                    </h3>
+                                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
+                                        {step.desc}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Connector for desktop */}
+                            {idx < steps.length - 1 && (
+                                <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-[1px] bg-gray-100 z-10" />
+                            )}
+                        </div>
                     ))}
                 </div>
             </div>

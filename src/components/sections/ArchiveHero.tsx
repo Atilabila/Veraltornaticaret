@@ -1,82 +1,99 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
-import { ArrowRight, Settings } from 'lucide-react';
-import { PrimaryButton, SecondaryButton, SystemLabel } from '@/components/ui/Industrial';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 export const ArchiveHero = () => {
     return (
-        <section className="relative min-h-[90vh] flex items-center pt-24 overflow-hidden border-b border-fog-gray">
-            {/* Background Grid Pattern */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(var(--color-near-black) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <section className="relative pt-32 pb-12 overflow-hidden">
+            <div className="container-brutal relative z-10">
+                <div className="card-premium p-8 md:p-16 bg-white overflow-hidden relative">
+                    <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-gray-50/50 to-transparent pointer-events-none" />
 
-            <div className="max-w-[1240px] mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-                <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="flex flex-col gap-8"
-                >
-                    <div className="flex flex-col gap-4">
-                        <div className="flex items-center gap-3">
-                            <SystemLabel text="KAYIT GİRİŞİ" active />
-                            <SystemLabel text="İZMİR / ALSANCAK" />
-                        </div>
-                        <h1 className="text-near-black">
-                            TORNA & TENEKE İMALATI<br />
-                            <span className="text-hazard-orange">ENDÜSTRİYEL ARŞİV</span>
-                        </h1>
-                        <p className="text-xl text-steel-gray max-w-[600px] font-source-sans">
-                            1980’den beri İzmir Alsancak’ta usta-çırak geleneğini 3. kuşağa taşıyoruz.
-                            Özel imalat metal çözümleri ve seri üretim protokolleri.
-                        </p>
-                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
 
-                    <div className="flex flex-wrap gap-4">
-                        <PrimaryButton label="Teklif İste" iconRight={ArrowRight} size="lg" />
-                        <SecondaryButton label="Ürünleri Gör" href="/urunler" />
-                    </div>
+                        {/* LEFT CONTENT */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            className="lg:col-span-6 flex flex-col gap-8"
+                        >
+                            <div className="flex flex-col gap-4">
+                                <span className="text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">
+                                    METAL POSTER // LIMITED SERIES
+                                </span>
 
-                    <div className="flex items-center gap-8 pt-8 border-t border-fog-gray">
-                        <div className="flex flex-col">
-                            <span className="text-2xl font-bold font-space">40+</span>
-                            <span className="text-xs text-steel-gray uppercase font-ibm-plex">Yıllık Tecrübe</span>
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-2xl font-bold font-space">100k+</span>
-                            <span className="text-xs text-steel-gray uppercase font-ibm-plex">Üretim Kaydı</span>
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-2xl font-bold font-space">LOCAL</span>
-                            <span className="text-xs text-steel-gray uppercase font-ibm-plex">İzmir Menşeli</span>
-                        </div>
-                    </div>
-                </motion.div>
+                                <h1 className="text-4xl md:text-7xl font-extrabold text-[#111827] leading-[1] tracking-tighter uppercase">
+                                    PREMIUM METAL <br />
+                                    <span className="text-gray-900/40">POSTER</span> <br />
+                                    KOLEKSİYONU
+                                </h1>
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="relative aspect-square lg:aspect-auto lg:h-[600px] border border-near-black bg-fog-gray overflow-hidden group"
-                >
-                    <div className="absolute top-4 left-4 z-10">
-                        <SystemLabel text="MODÜL: ATÖLYE_GÖRÜNÜMÜ" />
+                                <p className="text-lg text-gray-400 font-medium leading-relaxed max-w-[550px]">
+                                    1.5mm alüminyum üzerine UV dijital baskı. Canlı renkler, keskin detaylar, duvarın için galeri kalitesi.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 pt-2">
+                                <Link
+                                    href="/urunler"
+                                    className="bg-[#111827] text-white px-10 py-5 rounded-xl font-bold text-sm tracking-widest hover:bg-gray-800 transition-all shadow-xl shadow-black/10"
+                                >
+                                    KOLEKSİYONU İNCELE
+                                </Link>
+                                <Link
+                                    href="#products"
+                                    className="bg-white text-gray-900 border-2 border-gray-100 px-10 py-5 rounded-xl font-bold text-sm tracking-widest hover:border-gray-900 transition-all"
+                                >
+                                    BESTSELLER'I GÖR
+                                </Link>
+                            </div>
+
+                            {/* STATS - Image 1 Style */}
+                            <div className="flex items-center gap-10 pt-10 border-t border-gray-100 mt-4">
+                                {[
+                                    { val: "24-48h", label: "HIZLI KARGO" },
+                                    { val: "1.5mm", label: "ALUMİNYUM" },
+                                    { val: "UV", label: "DIJITAL BASKI" }
+                                ].map((stat, i) => (
+                                    <div key={i} className="flex flex-col gap-1">
+                                        <span className="text-xl font-extrabold text-gray-900">{stat.val}</span>
+                                        <span className="text-[9px] font-black text-gray-300 tracking-widest uppercase">{stat.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* RIGHT VISUAL - PREMIUM MOCKUP */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.3 }}
+                            className="lg:col-span-6 relative"
+                        >
+                            <div className="relative aspect-[3/4] w-full max-w-[500px] mx-auto group">
+                                {/* Decorative Elements */}
+                                <div className="absolute -inset-4 border border-gray-100 rounded-[2rem] pointer-events-none" />
+
+                                {/* Main Framed Image */}
+                                <div className="w-full h-full bg-gray-100 rounded-2xl overflow-hidden shadow-2xl relative">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop"
+                                        alt="Hero Product"
+                                        className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+                                    />
+                                    {/* Label Bubble */}
+                                    <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-lg">
+                                        <span className="text-[10px] font-black text-gray-900 uppercase tracking-widest">DOKUYU HİSSET</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
                     </div>
-                    <img
-                        src="/alsancak-mockup.png"
-                        alt="Veral Atölye"
-                        className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
-                    />
-                    <div className="absolute bottom-4 right-4 z-10 bg-near-black p-4 text-paper-white flex flex-col gap-1 border-t-2 border-hazard-orange">
-                        <span className="font-ibm-plex text-[10px] uppercase opacity-60">Status</span>
-                        <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-acid-green animate-pulse" />
-                            <span className="font-space font-bold text-xs">SİSTEM AKTİF</span>
-                        </div>
-                    </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );

@@ -10,6 +10,7 @@ import {
 import { useProductStore } from "@/store/useProductStore";
 import { useContentStore, SiteContent } from "@/store/useContentStore";
 import { Product } from "@/lib/products";
+import { ImageUploader } from "./ImageUploader";
 
 // Category definitions
 const CATEGORIES = [
@@ -898,8 +899,12 @@ const ProductModal = ({ product, onSave, onClose }: { product: Product | null; o
                             </select>
                         </div>
                         <div className="col-span-2">
-                            <label className="block text-sm font-bold text-slate-400 mb-2">Görsel URL</label>
-                            <input type="text" value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} placeholder="/catalog/custom/image.webp" className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]" required />
+                            <ImageUploader
+                                label="Ürün Görseli"
+                                currentImage={formData.image}
+                                folder="products"
+                                onImageUploaded={(url) => setFormData({ ...formData, image: url })}
+                            />
                         </div>
                     </div>
                     <div className="flex gap-4 pt-4">
@@ -916,13 +921,15 @@ const ProductModal = ({ product, onSave, onClose }: { product: Product | null; o
 const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
     const { content, updateContent } = useContentStore();
 
+    // Dynamically creating field list
     const imageFields = [
-        { key: "heroImage", label: "Ana Sayfa Hero Görseli", current: content.heroImage },
-        { key: "aboutImage", label: "Hakkımızda Sayfası Görseli", current: content.aboutImage },
+        { key: "heroImage", label: "Ana Sayfa Hero Görseli", current: content.heroImage, folder: "hero" },
+        { key: "aboutImage", label: "Hakkımızda Sayfası Görseli", current: content.aboutImage, folder: "about" },
         ...content.featureItems.map((item, index) => ({
             key: `feature_${index}`,
             label: `Özellik ${index + 1} Görseli`,
             current: item.image,
+            folder: "features",
             isFeature: true,
             index
         })),
@@ -930,6 +937,7 @@ const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | 
             key: `service_${index}`,
             label: `Hizmet ${index + 1} Görseli`,
             current: item.image,
+            folder: "services",
             isService: true,
             index
         }))
@@ -947,7 +955,7 @@ const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | 
         } else {
             updateContent({ [key]: value });
         }
-        showNotification("success", "Görsel güncellendi!");
+        showNotification("success", "Görsel başarıyla güncellendi!");
     };
 
     return (
@@ -955,73 +963,28 @@ const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | 
             <header className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-3xl font-bold">Görsel Yönetimi</h1>
-                    <p className="text-slate-500 mt-1">Sitedeki tüm görselleri buradan yönetin</p>
+                    <p className="text-slate-500 mt-1">Sitedeki tüm görselleri buradan yönetin (Supabase Storage)</p>
                 </div>
             </header>
 
             <div className="bg-slate-900/50 rounded-2xl border border-slate-800 p-6">
-                <div className="space-y-6">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                     {imageFields.map((field) => (
-                        <div key={field.key} className="bg-slate-800 rounded-xl p-6">
-                            <div className="grid grid-cols-2 gap-6 items-start">
-                                <div className="space-y-4">
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-400 mb-2">
-                                            {field.label}
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={field.current}
-                                            onChange={(e) => handleImageUpdate(
-                                                field.key,
-                                                e.target.value,
-                                                'isFeature' in field ? field.isFeature : undefined,
-                                                'isService' in field ? field.isService : undefined,
-                                                'index' in field ? field.index : undefined
-                                            )}
-                                            placeholder="/path/to/image.png"
-                                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
-                                        />
-                                    </div>
-                                    <div className="text-xs text-slate-500 space-y-1">
-                                        <p>💡 <strong>Görsel Yükleme İpuçları:</strong></p>
-                                        <p>• Görselleri <code className="bg-slate-900 px-2 py-1 rounded">/public</code> klasörüne koyun</p>
-                                        <p>• Yol örneği: <code className="bg-slate-900 px-2 py-1 rounded">/hero-mockup.png</code></p>
-                                        <p>• Önerilen format: WebP veya PNG</p>
-                                    </div>
-                                </div>
-                                <div className="relative aspect-video bg-slate-900 rounded-lg overflow-hidden border-2 border-slate-700">
-                                    {field.current ? (
-                                        <img
-                                            src={field.current}
-                                            alt={field.label}
-                                            className="w-full h-full object-cover"
-                                            onError={(e) => {
-                                                e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23334155' width='400' height='300'/%3E%3Ctext fill='%23fff' x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-family='monospace'%3EGörsel Yüklenemedi%3C/text%3E%3C/svg%3E";
-                                            }}
-                                        />
-                                    ) : (
-                                        <div className="flex items-center justify-center h-full text-slate-500">
-                                            <ImageIcon className="w-16 h-16" />
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                        <div key={field.key} className="bg-slate-800 rounded-xl p-6 shadow-lg">
+                            <ImageUploader
+                                label={field.label}
+                                currentImage={field.current}
+                                folder={field.folder}
+                                onImageUploaded={(url) => handleImageUpdate(
+                                    field.key,
+                                    url,
+                                    'isFeature' in field ? field.isFeature : undefined,
+                                    'isService' in field ? field.isService : undefined,
+                                    'index' in field ? field.index : undefined
+                                )}
+                            />
                         </div>
                     ))}
-                </div>
-
-                <div className="mt-8 p-6 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-                    <h3 className="text-lg font-bold text-blue-300 mb-2">📁 Görsel Yükleme Rehberi</h3>
-                    <div className="text-sm text-blue-200 space-y-2">
-                        <p><strong>1.</strong> Görselinizi <code className="bg-blue-900/50 px-2 py-1 rounded">/public</code> klasörüne kopyalayın</p>
-                        <p><strong>2.</strong> Yukarıdaki input alanına görselin yolunu yazın (örn: <code className="bg-blue-900/50 px-2 py-1 rounded">/my-image.png</code>)</p>
-                        <p><strong>3.</strong> Önizleme otomatik olarak güncellenecektir</p>
-                        <p className="mt-4 pt-4 border-t border-blue-500/30">
-                            <strong>💡 İpucu:</strong> Görselleri kategorilere ayırmak için alt klasörler kullanabilirsiniz:<br />
-                            <code className="bg-blue-900/50 px-2 py-1 rounded">/images/hero/main.png</code>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>

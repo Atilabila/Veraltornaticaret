@@ -45,9 +45,9 @@ async function migrateProducts() {
                 thickness: product.specs.thickness,
                 dims: product.specs.dims,
                 mounting: product.specs.mounting,
-                seo_title: product.seo.title,
-                seo_description: product.seo.description,
-                seo_keywords: product.seo.keywords,
+                seo_title: product.seo?.title || product.name,
+                seo_description: product.seo?.description || product.description,
+                seo_keywords: product.seo?.keywords || [],
                 is_active: true,
                 stock_quantity: 50, // Default stock
                 view_count: 0,
@@ -67,6 +67,11 @@ async function migrateProducts() {
             }
 
             // Optional: Insert product images if they exist
+            // NOTE: Currently skipping product_images as the source data structure (string[])
+            // doesn't match the database expectation (Record<size, url>).
+            // Main image is already in products table.
+
+            /*
             if (product.images) {
                 const imageEntries = Object.entries(product.images)
                     .filter(([_, url]) => url) // Only non-empty URLs
@@ -88,9 +93,18 @@ async function migrateProducts() {
                     }
                 }
             }
+            */
         } catch (err) {
             errorCount++;
             const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+
+            if (errorMsg.includes('relation "public.products" does not exist')) {
+                console.error(`\n🚨 CRITICAL ERROR: Database tables are missing!`);
+                console.error(`Please run the SQL content from 'SUPABASE_SETUP.sql' in your Supabase Dashboard SQL Editor.`);
+                console.error(`Full File Path: ${process.cwd()}\\SUPABASE_SETUP.sql\n`);
+                process.exit(1); // Stop immediately as no further migrations will succeed
+            }
+
             errors.push({ product: product.name, error: errorMsg });
             console.error(`❌ Exception for ${product.slug}: ${errorMsg}\n`);
         }

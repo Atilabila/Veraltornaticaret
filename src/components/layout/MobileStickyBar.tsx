@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
-import { MessageSquare, Phone, FileText } from 'lucide-react';
+import { MessageSquare, Phone, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 
 export const MobileStickyBar = () => {
@@ -15,9 +15,9 @@ export const MobileStickyBar = () => {
                 <Phone size={20} />
                 <span>Ara</span>
             </Link>
-            <Link href="#contact" className="sticky-action accent">
-                <FileText size={20} />
-                <span>Teklif İste</span>
+            <Link href="/urunler" className="sticky-action accent">
+                <ShoppingBag size={20} />
+                <span>Urunler</span>
             </Link>
         </div>
     );

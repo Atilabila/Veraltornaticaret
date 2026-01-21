@@ -1,42 +1,57 @@
-# Gelecek Geliştirme: MetalPoster Pro Yol Haritası
+# Metal Poster Pro - Teknik Rehber ve İş Akışı (WALKTHROUGH)
 
-Mevcut prototipi üretim seviyesinde, yüksek dönüşümlü bir satış makinesine dönüştürmek için bu adımları izleyin.
+Bu döküman, projenin teknik yapısını ve yeni bir geliştiricinin nasıl ilerlemesi gerektiğini anlatır.
 
-## 🔜 Acil Atılacak Adımlar
+## 🚀 Başlangıç
 
-### 1. Ödeme Entegrasyonu (Iyzico)
-- [ ] **API Kurulumu**: Iyzico Sandbox API anahtarlarını temin edin.
-- [ ] **Uygulama**: `CheckoutFlow.tsx` içindeki sahte ödeme adımını gerçek Iyzico Checkout Form entegrasyonu ile değiştirin.
-- [ ] **Webhooklar**: Ödeme durumu güncellemelerini almak ve sipariş onayını tetiklemek için `/api/webhooks/iyzico` rotasını oluşturun.
+### 1. Ürün Üretimi
+Yeni görseller eklendiğinde veya isimler değiştiğinde şu komutu çalıştırın:
+```bash
+node scripts/generate-products-from-public.js
+```
+Bu script `public/` klasöründeki alt dizinleri tarar ve `src/lib/products.ts` dosyasını otomatik günceller.
 
-### 2. Veri Tabanı ve Kalıcılık
-- [ ] **Veri Tabanı Bağlantısı**: Aşağıdakileri saklamak için bir DB (Supabase veya Prisma ile PostgreSQL) kurun:
-  - Ürün Kataloğu (Fiyatlar, Stok).
-  - Siparişler (Kargo detayları, ödeme durumu).
-  - Müşteri Yorumları.
-- [ ] **Admin API**: Admin panelinin gerçek zamanlı verileri çekebilmesi ve stok güncelleyebilmesi için API rotalarını yazın.
+### 2. Veritabanı Senkronizasyonu
+Yerel veriyi Supabase'e aktarmak için:
+```bash
+# .env.local dosyasında SUPABASE_SERVICE_ROLE_KEY tanımlı olmalıdır
+npm run migrate
+```
 
-### 3. Medya Optimizasyonu
-- [ ] **Statik Varlıklar**: `/public` klasöründeki AI üretimi görselleri, gerçek ürün fotoğraflarıyla değiştirin.
-- [ ] **Dinamik Boyutlandırma**: Mobil 4G hızında <1sn yüklenme süresi için `next/image` özelliklerini (`sizes`, `priority`) optimize edin.
+---
 
-### 4. Admin Paneli Tamamlama
-- [ ] **Ürün Yönetimi**: Fiyat düzenleme ve yeni tasarım yükleme özelliklerini içeren "Ürünler" sekmesini aktif edin.
-- [ ] **Yorum Doğrulama**: Müşteri yorumlarını onaylama veya silme mantığını ekleyin.
+## 🎨 UI/UX ve Tasarım Standartları
 
-## 🚀 Pazarlama ve Dönüşüm Özellikleri
+Yeni yönergelere göre tasarım şu kurallara uymalıdır:
 
-### 5. FOMO ve Sosyal Kanıt
-- [ ] **Dinamik Sayaç**: Gerçek DB verisine dayalı "Son 5 ürün kaldı!" sayacı ekleyin.
-- [ ] **Canlı Satış Bildirimleri**: Sayfanın köşesinde küçük bildirimler: "[Şehir]'den bir kullanıcı Vintage Vespa satın aldı!"
-- [ ] **Müşteri Galerisi**: Onaylı müşteri fotoğraflarını gösteren bir widget ekleyin.
+### Temalandırma
+- **Açık Tema:** Temiz beyaz arka plan ve koyu metinler.
+- **Koyu Tema:** Premium hissi için hafif gölgeli (shadow-brutal) kartlar ve kontrast bordurlar.
 
-### 6. Gelişmiş Etkileşim
-- [ ] **Detaylı Zoom**: Metal dokusunu yakından göstermek için yüksek çözünürlüklü büyüteç özelliği ekleyin.
-- [ ] **Özel Yükleme**: Kullanıcıların kendi fotoğraflarını metal üzerine bastırabileceği bir yükleme alanı ekleyin.
+### Sayfa Düzenleri
+- **Katalog:** Ürün kartları asla birbirinin üzerine binmemeli. `ProductCard` bileşeni içindeki padding değerleri korunmalı.
+- **Detay Sayfası:** Butonlar ve içerik birbirinden ayrı (Flex/Grid) olmalı. `ProductDetailClient` içindeki kontrol grupları (Size, Orientation, Scene) mantıksal bloklara bölünmelidir.
 
-## 🏁 Yayına Alma (Deployment)
-- [ ] **Vercel Entegrasyonu**: Repoyu Vercel'e bağlayın.
-- [ ] **Alan Adı Kurulumu**: Üretim domainini ve SSL sertifikasını yapılandırın.
-- [ ] **Çevre Değişkenleri**: API anahtarlarını ve DB kimlik bilgilerini güvenli bir şekilde saklayın.
-  
+---
+
+## 🛠️ Teknik Mimari
+
+### Bileşen Yapısı
+- **`src/app/urunler/[slug]/page.tsx`**: Dinamik ürün sayfası. Veriyi sunucu tarafında (`Server Component`) çeker ve etkileşim için `ProductDetailClient`'ı çağırır.
+- **`ProductDetailClient`**: Görsel konfigüratörün ve satın alma butonlarının bulunduğu ana etkileşim merkezidir.
+
+### Veri Akışı
+1. **Public/Asset:** Ham görseller.
+2. **Script:** Görsellerden metadata üretimi.
+3. **Lib/Products:** Statik veri kaynağı.
+4. **Supabase:** Dinamik yönetim ve sipariş kaydı.
+
+---
+
+## 🎯 Bir Sonraki Adım İçin İpucu
+`ProductDetailClient.tsx` dosyasını şu şekilde modüllere ayırarak başlayabilirsin:
+- `ProductPreview.tsx` (Mockup alanı)
+- `ProductConfig.tsx` (Boyut, Yön, Sahne seçimi)
+- `ProductInfo.tsx` (Fiyat, Açıklama, Sepet)
+
+Bu sayede kod daha okunabilir olur ve UI çakışmalarını çözmek kolaylaşır.

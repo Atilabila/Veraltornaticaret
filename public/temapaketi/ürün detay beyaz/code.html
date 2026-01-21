@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ürün Detay Sayfası - Minimal Beyaz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#f97316", // Orange color from screenshot
+                        "background-light": "#ffffff",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300">
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="container mx-auto px-4 h-16 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<a class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white" href="#">
+                    METAL<span class="text-primary">POSTER</span>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Ana Sayfa</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Koleksiyon</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Bestseller</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Yorumlar</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Destek</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+<span class="material-icons text-xl">search</span>
+</button>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+<span class="material-icons text-xl">shopping_cart</span>
+</button>
+<button class="bg-primary text-white px-6 py-2 rounded-full font-semibold text-sm hover:opacity-90 transition-opacity">
+                    HEMEN AL
+                </button>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-8">
+<nav class="flex text-sm text-slate-500 dark:text-slate-400 mb-8 items-center gap-2">
+<a class="hover:text-primary" href="#">Koleksiyon</a>
+<span class="material-icons text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">Araba Plaka</a>
+<span class="material-icons text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">ARABA 02</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+<div class="space-y-4">
+<div class="aspect-[4/5] bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden relative group">
+<img alt="Main Product Preview - Metal Poster Araba 02" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-UMVExpDNCplgPHVX00v90gjD7VfOGC--Wl52nTSMMpU-Rbxg1QvwgXqliI7mI7cz2TgYm-Uj50m5Ie2IG7Z3V5JUF7o4cPoaDAjGcHQGgY24I_bLp2oYLsxQDWoaWaI1ZkOX6Eyw4y7RrV5UNyRw9dh_qKZU0Bn_HpGq-UfgScuntFWrGSLi0BfjE0ZZedWzpBnZ_33DJTCnH9T_NvIjKx0ME7IeVCGuqy7-KJuHoKKd2GzedxWCoDtbuTlEKQo3DbH2Pget6NE"/>
+<div class="absolute inset-0 bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-white text-slate-900 p-4 rounded-full shadow-lg">
+<span class="material-icons">zoom_in</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden border-2 border-primary cursor-pointer">
+<img alt="Thumbnail 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRjR9yACmJFnX0FqbdcchDAeXcZ1CHsDf719-GElw1cJVctDkqPCiHZS62feVbNv7lgkaQrD8yTW_fzNMG-9NaWdo-f-X1Ro2GykMMb9JtBMvCpZGj2fRcYx4PmSUvBL391Qdeyavifb8R4HwthhxKCEOWX2nwZa6DwlTKLhfrN3xuZfSxRxYWAZhp0aXhXH8xBdWRzO4I7eiJPqRHlB-GGfHffxWp8phqCCYppfGm__OVzAyOjUmAIb66NMLB4jBhqXkTRil_reg"/>
+</div>
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden hover:opacity-80 transition-opacity cursor-pointer">
+<img alt="Thumbnail 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRg7hhTmgT_dZ4LWLR0i_9rnQc9RLKGCCzhCmegnSsLCOxg8xpNwuY-p0Q-2CZCtGGz3mCwELqeGSNK4HS7AQ6a3FQJPvf3_Q6oxjJbAbmmFPbpq-ed1rFJJe0O2mjqJJ0n-Nta8yLW04PMASNrHY76nUOpeFUx5GvsRltsoLQsGZk_hwit0uQp18EkzjlVkYj-LGkmcrMNBEPZfWnyCh6SKCpzEK96MFqicRlQK5Th2SG9xGJ4sizZcnkMckRTV8SMay9Dkzik-M"/>
+</div>
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden hover:opacity-80 transition-opacity cursor-pointer">
+<img alt="Thumbnail 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByzPI9KhsVEqBFWlIUlUhuP6obY6606MDiR90HFQHNWZBUL_72ue_UIm5PPELUioC3JMrIN9z85OwEPOf_ojvQ-RZb-O1wQGBK0qaxe-93FcRgBoZYF8XBsB0781g4lqWYakk-IYP2A2L5tQ6jMTFiecHHzp8kLDDNUhGdDaWpW4Jfozf-q-iYzm0VzrSSMgk_46bY9uxctCtWWnK4giBoVeDJaCp14D0qmv6BlWCHAnml8W5Jg8hNvVkOKyw_T2nZwkTpSRi0oXU"/>
+</div>
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-200 transition-colors cursor-pointer">
+<span class="material-icons text-slate-400">play_circle</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="mb-2">
+<span class="bg-orange-100 dark:bg-orange-900/30 text-primary text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Araba Plaka Serisi</span>
+</div>
+<h1 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-2">ARABA 02</h1>
+<div class="flex items-center gap-4 mb-6">
+<div class="flex text-primary">
+<span class="material-icons text-sm">star</span>
+<span class="material-icons text-sm">star</span>
+<span class="material-icons text-sm">star</span>
+<span class="material-icons text-sm">star</span>
+<span class="material-icons text-sm">star_half</span>
+</div>
+<span class="text-sm text-slate-500 dark:text-slate-400">(48 Değerlendirme)</span>
+</div>
+<div class="mb-8">
+<p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Premium metal poster. 1.5mm alüminyum plaka üzerine yüksek çözünürlüklü UV dijital baskı. Solmaya dayanıklı, ömür boyu garanti.
+                    </p>
+</div>
+<div class="flex items-baseline gap-2 mb-8">
+<span class="text-4xl font-bold text-slate-900 dark:text-white">₺550</span>
+<span class="text-slate-500 line-through">₺750</span>
+<span class="text-green-500 font-semibold text-sm">%25 İNDİRİM</span>
+</div>
+<div class="space-y-6 mb-8">
+<div>
+<label class="block text-sm font-semibold mb-3 flex items-center gap-2">
+<span class="material-icons text-sm">square_foot</span> Boyut ve Yapılandırma
+                        </label>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<button class="border-2 border-primary bg-orange-50 dark:bg-orange-900/20 px-4 py-3 rounded-xl text-left group transition-all">
+<span class="block text-xs font-bold text-primary mb-1 tracking-tighter uppercase">DİKEY</span>
+<span class="block text-sm font-semibold">18x20 CM</span>
+<span class="block text-xs text-slate-500">+₺100</span>
+</button>
+<button class="border-2 border-slate-200 dark:border-slate-700 hover:border-slate-400 px-4 py-3 rounded-xl text-left transition-all">
+<span class="block text-xs font-bold text-slate-400 mb-1 tracking-tighter uppercase">YATAY</span>
+<span class="block text-sm font-semibold text-slate-700 dark:text-slate-300">45x60 CM</span>
+<span class="block text-xs text-slate-500">+₺500</span>
+</button>
+<button class="border-2 border-slate-200 dark:border-slate-700 hover:border-slate-400 px-4 py-3 rounded-xl text-left transition-all">
+<span class="block text-xs font-bold text-slate-400 mb-1 tracking-tighter uppercase">KARE</span>
+<span class="block text-sm font-semibold text-slate-700 dark:text-slate-300">60x90 CM</span>
+<span class="block text-xs text-slate-500">+₺1000</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 mb-10">
+<button class="flex-1 bg-primary text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3 hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-orange-500/25">
+<span class="material-icons">shopping_bag</span>
+                        SEPETE EKLE
+                    </button>
+<button class="px-6 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-icons text-slate-600 dark:text-slate-400">favorite_border</span>
+</button>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6">
+<h3 class="font-bold mb-4 flex items-center gap-2">
+<span class="material-icons text-primary">info</span> Teknik Özellikler
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm">
+<div class="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+<span class="text-slate-500">Materyal</span>
+<span class="font-medium">Alüminyum</span>
+</div>
+<div class="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+<span class="text-slate-500">Baskı</span>
+<span class="font-medium">UV Dijital Baskı</span>
+</div>
+<div class="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+<span class="text-slate-500">Kalınlık</span>
+<span class="font-medium">1.5mm</span>
+</div>
+<div class="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+<span class="text-slate-500">Montaj</span>
+<span class="font-medium">Magnetik / Askı</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section class="py-12 border-t border-slate-200 dark:border-slate-800">
+<h2 class="text-2xl font-bold mb-10 text-center uppercase tracking-widest">Nasıl Kullanılır?</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="text-center group">
+<div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons text-primary text-3xl">touch_app</span>
+</div>
+<h4 class="font-bold mb-2">Seç ve Bırak</h4>
+<p class="text-sm text-slate-500">Posteri dilediğin alan için seç ve konfigüre et.</p>
+</div>
+<div class="text-center group">
+<div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons text-primary text-3xl">straighten</span>
+</div>
+<h4 class="font-bold mb-2">Boyut Ayarla</h4>
+<p class="text-sm text-slate-500">Mekanına en uygun boyutu kutucuklardan seç.</p>
+</div>
+<div class="text-center group">
+<div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons text-primary text-3xl">home</span>
+</div>
+<h4 class="font-bold mb-2">Ortam Seç</h4>
+<p class="text-sm text-slate-500">Ev, kafe veya ofis ortamına uyumlu tasarımı bul.</p>
+</div>
+<div class="text-center group">
+<div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons text-primary text-3xl">visibility</span>
+</div>
+<h4 class="font-bold mb-2">Görsel Yükle</h4>
+<p class="text-sm text-slate-500">Kendi odanın fotoğrafını yükleyip deneyebilirsin.</p>
+</div>
+</div>
+</section>
+<section class="py-20">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-extrabold uppercase tracking-tight">Benzer Modeller</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Tümünü Gör →</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden group hover:shadow-xl transition-all">
+<div class="aspect-[3/4] overflow-hidden relative">
+<span class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase z-10">Araba Plaka</span>
+<img alt="ARABA 01" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl4mUOF3E2KSQcItN0z3tq7A6CvEAtZkOv0NOHXewFXLNxqUEBSMCUQtAGWEjSxiOXgUUWNJELs5WTZZU3ZlzLJdsCRa6PfDY906u9mjJL9OVSbnsiAHxsZno_-kVmZ23ZiaUdMWovly3BruNqgRIZyJV3lu-_0Ats3M82wze_W1t9eg4Yd1wTcpj1AmjxLw51fH729YUZ0Khw01qFymg8MKXuR5YTDxLUkJnAXhmmDI_nR3CNGGVVVOBeogziuaySUtBKh6x5Vy0"/>
+</div>
+<div class="p-5">
+<h3 class="font-extrabold text-lg mb-1">ARABA 01</h3>
+<p class="text-xs text-slate-500 mb-4 line-clamp-1">Premium metal poster. 1.5mm alüminyum...</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-lg">₺350</span>
+<button class="bg-slate-100 dark:bg-slate-700 p-2 rounded-lg hover:bg-primary hover:text-white transition-colors">
+<span class="material-icons text-sm">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden group hover:shadow-xl transition-all">
+<div class="aspect-[3/4] overflow-hidden relative">
+<span class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase z-10">Araba Plaka</span>
+<img alt="ARABA 03" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbfjt15-pwoMtvJXVrMZ7wC0ub7KFHfBxZzmQrdC4Qfj8etPQo5l7529FxX_1x1DpUhRYy55hSqWOBy-6UFRejikpmdvfhmIa9nYQkBwPE2JQDzagxHOeiRaSzBPfQipRM7rLTTUBJat1xZRbf1B3_vm7rJam8RfmmaooaLdTsAQ5Xir_TRI_vEZkQ6j3DGsXyQI0sU4zeygxXpLpD7Cyt5CrBaGmndOtNhQhLZIw37Kb48Nlapwpsm8CdGjndTumTZJCFNgfnS10"/>
+</div>
+<div class="p-5">
+<h3 class="font-extrabold text-lg mb-1">ARABA 03</h3>
+<p class="text-xs text-slate-500 mb-4 line-clamp-1">Premium metal poster. 1.5mm alüminyum...</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-lg">₺350</span>
+<button class="bg-slate-100 dark:bg-slate-700 p-2 rounded-lg hover:bg-primary hover:text-white transition-colors">
+<span class="material-icons text-sm">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden group hover:shadow-xl transition-all">
+<div class="aspect-[3/4] overflow-hidden relative">
+<span class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase z-10">Araba Plaka</span>
+<img alt="ARABA 04" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Xsj6Cx743iSLLo9fZ-BFty_FV-zkvJs20sR0UTzTVpFrsRQGxNUqz8pDbEUg0CiYXR_qKJ8vKoRpXrmSBVHTbVwEqFTlbaSK9EEXLaknC6s8uVMA4NBrZ47FD__GC3L6EQFnu0lRATU_OULGvOboH3QqJewmuz7Z9F_Vwqu_TXhIc_NuoIiFDB8MhMzs0x0_1tKU5cq2TRWlt_8Ycgeuja7OgV9GF9aokKGwadJiXuDu6k8Uu3I6BAn-4nI9V4dizTc1ZWnG6bo"/>
+</div>
+<div class="p-5">
+<h3 class="font-extrabold text-lg mb-1">ARABA 04</h3>
+<p class="text-xs text-slate-500 mb-4 line-clamp-1">Premium metal poster. 1.5mm alüminyum...</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-lg">₺350</span>
+<button class="bg-slate-100 dark:bg-slate-700 p-2 rounded-lg hover:bg-primary hover:text-white transition-colors">
+<span class="material-icons text-sm">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden group hover:shadow-xl transition-all">
+<div class="aspect-[3/4] overflow-hidden relative">
+<span class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase z-10">Araba Plaka</span>
+<img alt="ARABA 05" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9joslhKUvVFyM4dBc2v70iER_-_K17IjiSWRb6fT-sJ1dIdMoUy1-9j6wydjn3us2AQfuuTYb1wtnmaIULY1D0ZaFdkxXc6WG7bKixui83b7q0_BtCsFAiQwwwxcby_j3WQSafWgGOWwqLGApyT-z-y6xIhaFUnzobeyWembBminrh4wg2tXqxDglPEcv11KJvAMtVQ3ROdEZ9XQaGqfu9Z8t67ApJBAk9xhO0tJDGebmMjuZgeEATUO6hVyClBirf1RidD57ie4"/>
+</div>
+<div class="p-5">
+<h3 class="font-extrabold text-lg mb-1">ARABA 05</h3>
+<p class="text-xs text-slate-500 mb-4 line-clamp-1">Premium metal poster. 1.5mm alüminyum...</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-lg">₺350</span>
+<button class="bg-slate-100 dark:bg-slate-700 p-2 rounded-lg hover:bg-primary hover:text-white transition-colors">
+<span class="material-icons text-sm">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<div>
+<a class="text-xl font-bold tracking-tighter text-slate-900 dark:text-white" href="#">
+                        METAL<span class="text-primary">POSTER</span>
+</a>
+<p class="text-sm text-slate-500 mt-2">Duvarlarınızı hikaye anlatan metal posterlerle canlandırın.</p>
+</div>
+<div class="flex gap-6">
+<a class="p-2 bg-white dark:bg-slate-800 rounded-full hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+</a>
+<a class="p-2 bg-white dark:bg-slate-800 rounded-full hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.85-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 gap-4">
+<p>© 2024 METALPOSTER PREMIUM. Tüm Hakları Saklıdır.</p>
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors" href="#">KVKK</a>
+<a class="hover:text-primary transition-colors" href="#">Teslimat ve İade</a>
+<a class="hover:text-primary transition-colors" href="#">Mesafeli Satış Sözleşmesi</a>
+</div>
+</div>
+</div>
+</footer>
+<button class="fixed bottom-6 right-6 w-12 h-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full shadow-2xl flex items-center justify-center text-slate-600 dark:text-slate-300 hover:scale-110 transition-all z-50" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons dark:hidden">dark_mode</span>
+<span class="material-icons hidden dark:block">light_mode</span>
+</button>
+
+</body></html>

@@ -1,103 +1,94 @@
-"use client";
+﻿"use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Maximize2, Terminal, Activity } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 const showcases = [
     {
         id: "SC_01",
-        title: "YAŞAM ALANI ENTEGRASYONU",
+        title: "YASAM ALANI",
         location: "MODERN KONUT",
         image: "/mockup_living.png",
-        specs: "40x60 CM // FIRÇALANMIŞ ALÜMİNYUM"
+        specs: "40x60 CM // METAL DOKU"
     },
     {
         id: "SC_02",
-        title: "ÇALIŞMA İSTASYONU DİZİNİ",
-        location: "ENDÜSTRİYEL STÜDYO",
+        title: "CALISMA ALANI",
+        location: "STUDYO",
         image: "/mockup_office.png",
-        specs: "20x30 CM // 3x3 MATRİS KURULUMU"
+        specs: "20x30 CM // MINI BOY"
     }
 ];
 
 export const GalleryShowcase = () => {
     return (
-        <section id="showcase" className="py-24 bg-black border-b-8 border-[var(--color-brand-safety-orange)]">
+        <section id="showcase" className="py-24">
             <div className="container-brutal">
-                <div className="flex items-center gap-4 mb-16 border-l-8 border-[var(--color-brand-safety-orange)] pl-8">
-                    <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <Activity className="w-4 h-4 text-[var(--color-brand-safety-orange)]" />
-                            <span className="font-mono text-xs font-black text-[var(--color-brand-safety-orange)] uppercase tracking-widest">GÖRSEL DOĞRULAMA</span>
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-[Archivo Black] text-white uppercase leading-none">
-                            ORTAM <span className="text-[var(--color-brand-safety-orange)]">MOKAPLARI</span>
-                        </h2>
-                    </div>
+                {/* Header - Image 1 Style */}
+                <div className="mb-16">
+                    <span className="text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase mb-4 block">
+                        MEKAN ÖRNEKLERİ
+                    </span>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-[#111827] uppercase leading-none tracking-tighter">
+                        DUVARINDA <span className="text-gray-300">NASIL DURUR?</span>
+                    </h2>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-12">
-                    {showcases.map((sc) => (
-                        <div key={sc.id} className="border-8 border-white bg-black group relative overflow-hidden shadow-[12px_12px_0px_0px_rgba(255,95,31,0.5)]">
-                            <div className="aspect-video relative transition-none">
-                                <Image
-                                    src={sc.image}
-                                    alt={sc.title}
-                                    fill
-                                    className="object-cover"
-                                />
-                                <div className="absolute inset-0 group-hover:bg-transparent transition-none"></div>
+                {/* Grid - Matching Reference Image 1 */}
+                <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+                    {[
+                        {
+                            id: "01",
+                            title: "YAŞAM ALANI",
+                            desc: "MODERN KONUT SERİSİ",
+                            img: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=2574&auto=format&fit=crop"
+                        },
+                        {
+                            id: "02",
+                            title: "ÇALIŞMA ALANI",
+                            desc: "STUDYO & OFİS SERİSİ",
+                            img: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2543&auto=format&fit=crop"
+                        }
+                    ].map((sc) => (
+                        <div key={sc.id} className="group relative overflow-hidden rounded-2xl aspect-[16/10] bg-gray-50 flex items-end">
+                            <img
+                                src={sc.img}
+                                alt={sc.title}
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                            />
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
 
-                                {/* INTERFACE_OVERLAY */}
-                                <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                                    <div className="bg-white text-black font-mono text-[10px] font-black px-2 py-1 flex items-center gap-2">
-                                        <Terminal className="w-3 h-3" /> {sc.id}
-                                    </div>
+                            {/* Content Over Image - Matching Image 1 */}
+                            <div className="relative z-10 p-8 w-full flex justify-between items-end">
+                                <div className="flex flex-col gap-1">
+                                    <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter">
+                                        {sc.title}
+                                    </h3>
+                                    <span className="text-[10px] font-bold text-white/50 tracking-widest uppercase">
+                                        {sc.desc}
+                                    </span>
                                 </div>
-
-                                <div className="absolute bottom-4 right-4 z-10">
-                                    <div className="bg-[var(--color-brand-safety-orange)] text-white p-2 border-2 border-black active:scale-95 transition-none">
-                                        <Maximize2 className="w-6 h-6" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="p-8 border-t-8 border-white bg-white">
-                                <div className="flex justify-between items-start mb-4">
-                                    <div>
-                                        <h3 className="text-2xl font-[Archivo Black] uppercase leading-none mb-2">{sc.title}</h3>
-                                        <p className="font-mono text-xs font-black text-black/50">{sc.location}</p>
-                                    </div>
-                                    <div className="text-right">
-                                        <span className="block font-mono text-[10px] font-black opacity-30 uppercase">KALİBRASYON</span>
-                                        <span className="font-mono text-xs font-black uppercase">{sc.specs}</span>
-                                    </div>
-                                </div>
+                                <Link
+                                    href="/urunler"
+                                    className="text-[10px] font-black text-white hover:text-[#ff6b00] transition-colors flex items-center gap-2 uppercase tracking-widest"
+                                >
+                                    DETAY <ArrowRight className="w-3 h-3" />
+                                </Link>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="mt-16 bg-[#E5E7EB] border-4 border-white p-8 font-mono text-sm font-bold text-black flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="flex items-center gap-4 text-left">
-                        <div className="w-4 h-4 bg-[var(--color-brand-safety-orange)] animate-pulse shrink-0"></div>
-                        <p>SİSTEM NOTU: YUKARIDAKİ GÖRSELLER SADECE REFERANS AMAÇLIDIR. GERÇEK ÜRÜN GERÇEK METAL DOKUSUNU YANSITIR.</p>
-                    </div>
-                    <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                        <Link
-                            href="/urunler"
-                            className="btn-mechanical bg-[var(--color-brand-safety-orange)] text-white px-8 py-3 uppercase text-xs text-center flex items-center justify-center gap-2"
-                        >
-                            KATALOGDAN SEÇ <Terminal className="w-4 h-4" />
-                        </Link>
-                        <button className="btn-mechanical bg-black text-white px-8 py-3 uppercase text-xs">
-                            ÖZEL MOKAP TALEBİ
-                        </button>
-                    </div>
+                <div className="mt-12 text-center">
+                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+                        NOT: GÖRSELLER ÖRNEK AMAÇLIDIR. ÜRÜN GERÇEK METAL DOKUSUNA SAHİPTİR.
+                    </p>
                 </div>
             </div>
         </section>
     );
 };
+
+

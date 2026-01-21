@@ -1,3 +1,17 @@
+# Metal Poster Pro Docs
+
+- `MASTER_PROMPT.md`: Urun vizyonu ve tasarim rehberi.
+- `walkthrough.md`: Yol haritasi ve acil adimlar.
+- `PROJECT_STATUS.md`: Son durum ve degisiklikler.
+- `SUPABASE_SETUP.md`: Supabase kurulum rehberi.
+- `SUPABASE_README.md`: Supabase hizli baslangic.
+- `SUPABASE_INTEGRATION_REPORT.md`: Entegrasyon detaylari.
+- `SUPABASE_INTEGRATION_REPORT_FINAL.md`: Entegrasyon sonucu ve sonraki adimlar.
+- `DEPLOYMENT.md`: Vercel deploy rehberi.
+- `ANTIGRAVITY_CHARTER.md`: Degistirilemez kurallar.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

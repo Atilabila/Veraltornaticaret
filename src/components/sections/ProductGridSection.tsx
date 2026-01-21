@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { ProductCard, SystemLabel } from '@/components/ui/Industrial';
@@ -11,11 +11,14 @@ export const ProductGridSection = () => {
         <section id="products" className="bg-white border-b border-fog-gray">
             <div className="max-w-[1240px] mx-auto px-6">
                 <div className="flex flex-col gap-4 mb-12">
-                    <SystemLabel text="MODÜL: ÜRÜN GRUPLARI" active />
-                    <h2 className="text-3xl font-bold font-space uppercase">Hizmet Alanları ve Üretim Portföyü</h2>
+                    <SystemLabel text="EN COK SATANLAR" active />
+                    <h2 className="text-3xl font-bold font-space uppercase">Metal Poster Koleksiyonu</h2>
+                    <p className="text-steel-gray text-sm max-w-[640px]">
+                        En cok tercih edilen tasarimlar. Duvarini yenilemek icin hizli ve guvenli secim.
+                    </p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {products.map((product) => (
                         <ProductCard
                             key={product.slug}
@@ -27,7 +30,6 @@ export const ProductGridSection = () => {
                             price={product.price}
                         />
                     ))}
-                    {/* If there are more items in the user request not in PRODUCTS_DATA yet, we can add placeholders or expand the data */}
                 </div>
             </div>
         </section>
