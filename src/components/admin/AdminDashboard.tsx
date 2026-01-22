@@ -797,39 +797,39 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                     className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-w-[200px]"
                 >
                     <option value="">Tüm Kategoriler</option>
-                    {CATEGORIES.map(cat => (
-                        <option key={cat.id} value={cat.id}>{cat.label}</option>
+                    {categories.map((cat: Category) => (
+                        <option key={cat.slug} value={cat.slug}>{cat.name}</option>
                     ))}
                 </select>
             </div>
 
             <div className="space-y-6">
-                {CATEGORIES.map(category => {
-                    const categoryProducts = groupedProducts[category.id] || [];
+                {categories.map((category: Category) => {
+                    const categoryProducts = groupedProducts[category.slug] || [];
                     if (categoryProducts.length === 0 && selectedCategory) return null;
 
                     return (
-                        <div key={category.id} className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden">
+                        <div key={category.slug} className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden">
                             <button
-                                onClick={() => toggleCategory(category.id)}
+                                onClick={() => toggleCategory(category.slug)}
                                 className="w-full flex items-center justify-between p-5 hover:bg-slate-800/50 transition-colors"
                             >
                                 <div className="flex items-center gap-4">
                                     <div className="w-4 h-4 rounded" style={{ backgroundColor: category.color }} />
-                                    <h3 className="text-xl font-bold">{category.label}</h3>
+                                    <h3 className="text-xl font-bold">{category.name}</h3>
                                     <span className="text-slate-500 text-sm">({categoryProducts.length} ürün)</span>
                                 </div>
-                                {expandedCategories.includes(category.id) ?
+                                {expandedCategories.includes(category.slug) ?
                                     <ChevronUp className="w-5 h-5 text-slate-400" /> :
                                     <ChevronDown className="w-5 h-5 text-slate-400" />
                                 }
                             </button>
 
                             <AnimatePresence>
-                                {expandedCategories.includes(category.id) && (
+                                {expandedCategories.includes(category.slug) && (
                                     <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
                                         <div className="p-5 pt-0 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                                            {categoryProducts.map(product => (
+                                            {categoryProducts.map((product: Product) => (
                                                 <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-safety-orange)] transition-all">
                                                     <div className="relative aspect-square bg-slate-900">
                                                         <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
