@@ -114,6 +114,7 @@ export const AdminDashboard = () => {
                 {activeTab === "contact" && <ContactTab showNotification={showNotification} />}
                 {activeTab === "images" && <ImagesTab showNotification={showNotification} />}
                 {activeTab === "products" && <ProductsTab showNotification={showNotification} />}
+                {activeTab === "categories" && <CategoriesTab showNotification={showNotification} />}
                 {activeTab === "orders" && <OrdersTab showNotification={showNotification} />}
             </main>
         </div>
@@ -907,9 +908,17 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Produc
                         </div>
                         <div>
                             <label className="block text-sm font-bold text-slate-400 mb-2">Kategori</label>
-                            <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]">
-                                {CATEGORIES.map(cat => <option key={cat.id} value={cat.id}>{cat.label}</option>)}
-                            </select>
+                            <div className="flex gap-2">
+                                <select
+                                    value={formData.category}
+                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                    className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                >
+                                    {useCategoryStore.getState().categories.map(cat => (
+                                        <option key={cat.slug} value={cat.slug}>{cat.name}</option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                         <div className="col-span-2">
                             <ImageUploader
@@ -937,6 +946,120 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Produc
                 </form>
             </motion.div>
         </motion.div>
+    );
+};
+
+// ========== CATEGORIES TAB ==========
+const CategoriesTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
+    const { categories, loading, fetchCategories, addCategory, deleteCategory } = useCategoryStore();
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [newCategory, setNewCategory] = useState({ name: "", color: "#3B82F6" });
+
+    useEffect(() => {
+        fetchCategories();
+    }, [fetchCategories]);
+
+    const handleAdd = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            await addCategory(newCategory);
+            showNotification("success", "Kategori başarıyla eklendi!");
+            setIsAddModalOpen(false);
+            setNewCategory({ name: "", color: "#3B82F6" });
+        } catch (err) {
+            showNotification("error", "Kategori eklenemedi!");
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (confirm("Bu kategoriyi silmek istediğinizden emin misiniz? Altındaki ürünler etkilenmez ancak kategorisiz kalabilirler.")) {
+            try {
+                await deleteCategory(id);
+                showNotification("success", "Kategori silindi.");
+            } catch (err) {
+                showNotification("error", "Silme işlemi başarısız.");
+            }
+        }
+    };
+
+    return (
+        <div className="space-y-8">
+            <header className="flex justify-between items-center">
+                <div>
+                    <h1 className="text-3xl font-bold">Kategori Yönetimi</h1>
+                    <p className="text-slate-500 mt-1">Ürün gruplarını buradan yönetin</p>
+                </div>
+                <button
+                    onClick={() => setIsAddModalOpen(true)}
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                >
+                    <FolderPlus className="w-5 h-5" /> Yeni Kategori Ekle
+                </button>
+            </header>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {categories.map((category) => (
+                    <div key={category.id} className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col gap-4">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="w-6 h-6 rounded-full shadow-lg" style={{ backgroundColor: category.color }} />
+                                <h3 className="text-xl font-bold">{category.name}</h3>
+                            </div>
+                            <button onClick={() => handleDelete(category.id)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg">
+                                <Trash2 className="w-5 h-5" />
+                            </button>
+                        </div>
+                        <div className="text-xs font-mono text-slate-500 bg-black/30 p-2 rounded">
+                            SLUG: {category.slug}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <AnimatePresence>
+                {isAddModalOpen && (
+                    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setIsAddModalOpen(false)}>
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            className="bg-slate-900 rounded-2xl w-full max-w-md p-6"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <h2 className="text-2xl font-bold mb-6">Yeni Kategori</h2>
+                            <form onSubmit={handleAdd} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-400 mb-2">Kategori Adı</label>
+                                    <input
+                                        type="text"
+                                        value={newCategory.name}
+                                        onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
+                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
+                                        placeholder="Örn: Mutfak Gereçleri"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-400 mb-2">Kategori Rengi</label>
+                                    <input
+                                        type="color"
+                                        value={newCategory.color}
+                                        onChange={(e) => setNewCategory({ ...newCategory, color: e.target.value })}
+                                        className="w-full h-12 bg-slate-800 border border-slate-700 rounded-xl px-2 py-1 cursor-pointer"
+                                    />
+                                </div>
+                                <div className="flex gap-4 pt-4">
+                                    <button type="button" onClick={() => setIsAddModalOpen(false)} className="flex-1 py-3 border border-slate-700 rounded-xl font-bold">İptal</button>
+                                    <button type="submit" disabled={loading} className="flex-1 py-3 bg-[var(--color-brand-safety-orange)] rounded-xl font-bold">
+                                        {loading ? "Ekleniyor..." : "Ekle"}
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };
 
