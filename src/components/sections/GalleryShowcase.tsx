@@ -1,94 +1,83 @@
 ﻿"use client";
 
-import Image from "next/image";
+import React from 'react';
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
-
-const showcases = [
-    {
-        id: "SC_01",
-        title: "YASAM ALANI",
-        location: "MODERN KONUT",
-        image: "/mockup_living.png",
-        specs: "40x60 CM // METAL DOKU"
-    },
-    {
-        id: "SC_02",
-        title: "CALISMA ALANI",
-        location: "STUDYO",
-        image: "/mockup_office.png",
-        specs: "20x30 CM // MINI BOY"
-    }
-];
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const GalleryShowcase = () => {
     return (
-        <section id="showcase" className="py-24">
-            <div className="container-brutal">
-                {/* Header - Image 1 Style */}
-                <div className="mb-16">
-                    <span className="text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase mb-4 block">
-                        MEKAN ÖRNEKLERİ
-                    </span>
-                    <h2 className="text-4xl md:text-6xl font-extrabold text-[#111827] uppercase leading-none tracking-tighter">
-                        DUVARINDA <span className="text-gray-300">NASIL DURUR?</span>
+        <section id="showcase" className="py-16 lg:py-24 bg-transparent relative overflow-hidden">
+            {/* Background gradient shows through from body */}
+
+            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] relative z-10">
+                {/* Header Section */}
+                <div className="flex flex-col gap-4 mb-16">
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-[1px] bg-[#D4AF37]" />
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Mekan Entegrasyonu</span>
+                    </div>
+                    <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
+                        Asalet <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Mekanda Başlar</span>
                     </h2>
+                    <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">Metal tablolarımızın farklı ışık ve dekorasyon kombinasyonlarında nasıl göründüğünü keşfedin.</p>
                 </div>
 
-                {/* Grid - Matching Reference Image 1 */}
-                <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+                {/* Grid */}
+                <div className="grid md:grid-cols-2 gap-10">
                     {[
                         {
                             id: "01",
                             title: "YAŞAM ALANI",
-                            desc: "MODERN KONUT SERİSİ",
+                            desc: "MODERN KONUT SERİSİ // NOBLE",
                             img: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=2574&auto=format&fit=crop"
                         },
                         {
                             id: "02",
-                            title: "ÇALIŞMA ALANI",
-                            desc: "STUDYO & OFİS SERİSİ",
+                            title: "OFİS & STÜDYO",
+                            desc: "PROFESYONEL ÇALIŞMA ALANLARI",
                             img: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2543&auto=format&fit=crop"
                         }
-                    ].map((sc) => (
-                        <div key={sc.id} className="group relative overflow-hidden rounded-2xl aspect-[16/10] bg-gray-50 flex items-end">
+                    ].map((sc, idx) => (
+                        <motion.div
+                            key={sc.id}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: idx * 0.2 }}
+                            className="group relative overflow-hidden bg-[#0A0A0A] aspect-[16/10] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)]"
+                        >
                             <img
                                 src={sc.img}
                                 alt={sc.title}
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110 opacity-70 group-hover:opacity-100"
                             />
-                            {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+                            {/* Gold Border Overlay on Hover */}
+                            <div className="absolute inset-0 border border-[#D4AF37]/0 group-hover:border-[#D4AF37]/40 transition-all duration-700 pointer-events-none" />
 
-                            {/* Content Over Image - Matching Image 1 */}
-                            <div className="relative z-10 p-8 w-full flex justify-between items-end">
-                                <div className="flex flex-col gap-1">
-                                    <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter">
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/20 to-transparent opacity-80" />
+
+                            <div className="relative z-10 p-10 h-full flex flex-col justify-end">
+                                <span className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase mb-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
+                                    {sc.desc}
+                                </span>
+                                <div className="flex justify-between items-end">
+                                    <h3 className="text-3xl lg:text-4xl font-black text-white uppercase tracking-tighter">
                                         {sc.title}
                                     </h3>
-                                    <span className="text-[10px] font-bold text-white/50 tracking-widest uppercase">
-                                        {sc.desc}
-                                    </span>
+                                    <Link
+                                        href="/urunler"
+                                        className="w-16 h-16 bg-[#D4AF37] text-black flex items-center justify-center hover:bg-white transition-all duration-500 shadow-2xl"
+                                    >
+                                        <ArrowRight className="w-6 h-6" />
+                                    </Link>
                                 </div>
-                                <Link
-                                    href="/urunler"
-                                    className="text-[10px] font-black text-white hover:text-[#ff6b00] transition-colors flex items-center gap-2 uppercase tracking-widest"
-                                >
-                                    DETAY <ArrowRight className="w-3 h-3" />
-                                </Link>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
-
-                <div className="mt-12 text-center">
-                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">
-                        NOT: GÖRSELLER ÖRNEK AMAÇLIDIR. ÜRÜN GERÇEK METAL DOKUSUNA SAHİPTİR.
-                    </p>
                 </div>
             </div>
         </section>
     );
 };
-
-

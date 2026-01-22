@@ -2,82 +2,84 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { Instagram, Facebook, Twitter, ArrowUpRight } from 'lucide-react';
 
 export const Footer = () => {
     return (
-        <footer className="bg-white pt-24 pb-8 border-t border-gray-100">
-            <div className="container-brutal">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
+        <footer className="bg-[#0A0A0A] pt-40 pb-20 border-t border-[#D4AF37]/20 relative overflow-hidden">
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] pointer-events-none" />
 
-                    {/* LEFT: LOGO & ABOUT - Image 0 Style */}
-                    <div className="lg:col-span-4 flex flex-col gap-6">
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-[#ff6b00] rounded-lg flex items-center justify-center text-white font-black rotate-[-10deg]">
-                                M
+            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 mb-32">
+
+                    {/* LEFT: LOGO & ABOUT */}
+                    <div className="lg:col-span-12 xl:col-span-5 flex flex-col gap-10">
+                        <Link href="/" className="flex items-center gap-4 group">
+                            <div className="w-12 h-12 border border-[#D4AF37] flex items-center justify-center p-3 group-hover:bg-[#D4AF37] transition-all duration-500">
+                                <svg className="w-full h-full text-[#D4AF37] transition-colors group-hover:text-black" fill="currentColor" viewBox="0 0 48 48">
+                                    <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" />
+                                </svg>
                             </div>
-                            <span className="text-xl font-black text-gray-900 tracking-tighter uppercase">
-                                METAL<span className="text-[#ff6b00]">POSTER</span>.CO
-                            </span>
+                            <div className="flex flex-col">
+                                <span className="text-2xl font-black text-white tracking-[0.2em] uppercase">METAL ART</span>
+                                <span className="text-[8px] font-bold text-[#D4AF37] tracking-[0.5em] uppercase">Noble Collection</span>
+                            </div>
                         </Link>
-                        <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-                            Duvarlarınız için en kaliteli metal sanat eserlerini üretiyoruz. Dayanıklı, manyetik askılı ve eşsiz tasarımlar.
+                        <p className="text-[#FDFBF7]/60 text-lg leading-relaxed max-w-sm">
+                            Yaşam alanlarınıza değer katan, el yapımı titizliğinde üretilen premium metal sanat eserleri.
                         </p>
-                        {/* SOCIAL ICONS - Matching Reference */}
-                        <div className="flex gap-3">
-                            {['instagram', 'facebook', 'twitter'].map((social) => (
-                                <div key={social} className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 hover:text-[#ff6b00] cursor-pointer transition-colors border border-gray-50">
-                                    <span className="text-[10px] font-black uppercase">SC</span>
-                                </div>
+                        {/* SOCIAL ICONS */}
+                        <div className="flex gap-6">
+                            {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                                <Link key={i} href="#" className="w-12 h-12 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-500">
+                                    <Icon size={20} />
+                                </Link>
                             ))}
                         </div>
                     </div>
 
-                    {/* MIDDLE: CATEGORIES - Image 0 Style */}
-                    <div className="lg:col-span-2 flex flex-col gap-6">
-                        <h4 className="text-[10px] font-black text-[#ff6b00] tracking-[0.2em] uppercase">KATEGORİLER</h4>
-                        <ul className="flex flex-col gap-4">
-                            {['Popüler Ürünler', 'Motor Sporları', 'Pop Kültür', 'Doğa & Minimalizm'].map((item) => (
-                                <li key={item}><Link href="#" className="text-sm font-bold text-gray-600 hover:text-black transition-colors">{item}</Link></li>
+                    {/* MIDDLE: LINKS */}
+                    <div className="lg:col-span-6 xl:col-span-3">
+                        <h4 className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase mb-10">NAVİGASYON</h4>
+                        <ul className="flex flex-col gap-6">
+                            {['Koleksiyon', 'Neden Biz?', 'Üretim Süreci', 'İletişim'].map((item) => (
+                                <li key={item}>
+                                    <Link href="#" className="text-sm font-bold text-white hover:text-[#D4AF37] transition-all flex items-center gap-2 group">
+                                        {item}
+                                        <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all translate-y-1 group-hover:translate-y-0" />
+                                    </Link>
+                                </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* MIDDLE: SUPPORT - Image 0 Style */}
-                    <div className="lg:col-span-2 flex flex-col gap-6">
-                        <h4 className="text-[10px] font-black text-[#ff6b00] tracking-[0.2em] uppercase">DESTEK</h4>
-                        <ul className="flex flex-col gap-4">
-                            {['Sıkça Sorulan Sorular', 'Kargo Takibi', 'İade Politikası', 'Montaj Kılavuzu'].map((item) => (
-                                <li key={item}><Link href="#" className="text-sm font-bold text-gray-600 hover:text-black transition-colors">{item}</Link></li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* RIGHT: NEWSLETTER - Image 0 Style */}
-                    <div className="lg:col-span-4 flex flex-col gap-6">
-                        <h4 className="text-[10px] font-black text-[#ff6b00] tracking-[0.2em] uppercase">BÜLTEN</h4>
-                        <p className="text-sm text-gray-400 font-medium">Yeni koleksiyonlardan ve özel indirimlerden ilk siz haberdar olun.</p>
-                        <div className="flex gap-2">
+                    {/* RIGHT: NEWSLETTER */}
+                    <div className="lg:col-span-6 xl:col-span-4 flex flex-col gap-10">
+                        <h4 className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase mb-0">BÜLTENE KATIL</h4>
+                        <p className="text-sm text-[#FDFBF7]/50 font-medium">Yeni eserlerimizden ve özel davetlerimizden haberdar olun.</p>
+                        <div className="flex flex-col gap-4">
                             <input
                                 type="text"
-                                placeholder="E-posta"
-                                className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-3 flex-grow text-sm focus:outline-none focus:ring-2 focus:ring-[#ff6b00]/20"
+                                placeholder="E-posta Adresiniz"
+                                className="bg-transparent border-b border-[#D4AF37]/30 py-4 text-white text-lg focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-[#FDFBF7]/20"
                             />
-                            <button className="bg-[#ff6b00] text-white px-6 py-3 rounded-lg font-black text-xs hover:bg-[#e66000] shadow-lg shadow-orange-100">
-                                OK
+                            <button className="h-16 bg-[#D4AF37] text-black font-black text-xs tracking-[0.3em] uppercase hover:bg-white transition-all cursor-pointer">
+                                ABONE OL
                             </button>
                         </div>
                     </div>
 
                 </div>
 
-                {/* BOTTOM BAR - Image 0 Style */}
-                <div className="pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-[10px] font-bold text-gray-300 uppercase">
-                        © 2024 METALPOSTER.CO - TÜM HAKLARI SAKLIDIR.
+                {/* BOTTOM BAR */}
+                <div className="pt-12 border-t border-[#D4AF37]/10 flex flex-col md:flex-row justify-between items-center gap-10">
+                    <p className="text-[9px] font-black text-[#FDFBF7]/20 tracking-[0.2em] uppercase">
+                        © 2024 METAL ART NOBLE COLLECTION - TÜM HAKLARI SAKLIDIR.
                     </p>
-                    <div className="flex gap-6">
-                        {['GİZLİLİK SÖZLEŞMESİ', 'KULLANIM KOŞULLARI', 'KVKK'].map((item) => (
-                            <Link key={item} href="#" className="text-[10px] font-bold text-gray-300 hover:text-gray-900 transition-colors tracking-widest uppercase">
+                    <div className="flex gap-10">
+                        {['GİZLİLİK', 'ŞARTLAR', 'KVKK'].map((item) => (
+                            <Link key={item} href="#" className="text-[9px] font-black text-[#FDFBF7]/20 hover:text-[#D4AF37] transition-colors tracking-[0.4em] uppercase">
                                 {item}
                             </Link>
                         ))}
@@ -87,4 +89,3 @@ export const Footer = () => {
         </footer>
     );
 };
-

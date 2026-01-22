@@ -16,36 +16,54 @@ import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-paper-white selection:bg-hazard-orange selection:text-near-black">
+    <main className="min-h-screen bg-[#FAFBFF] selection:bg-[#D4AF37] selection:text-white">
       {/* GLOBAL_NAV */}
       <Navigation />
 
       {/* CORE_EXPERIENCE */}
-      <ArchiveHero />
+      <section className="bg-transparent relative z-10">
+        <ArchiveHero />
+      </section>
 
       {/* SYSTEM_STATUS_STRIP */}
-      <TrustSection />
+      <section className="relative z-10">
+        <TrustSection />
+      </section>
 
       {/* PRODUCT_GALLERY */}
-      <ProductGallery />
+      <section className="bg-transparent relative z-10">
+        <ProductGallery />
+      </section>
 
       {/* SHOWCASE */}
-      <GalleryShowcase />
+      <section className="bg-transparent relative z-10">
+        <GalleryShowcase />
+      </section>
 
       {/* CONFIGURATOR */}
-      <ProductConfigurator />
+      <section className="bg-transparent relative z-10">
+        <ProductConfigurator />
+      </section>
 
       {/* SOCIAL_PROOF */}
-      <CustomerReviews />
+      <section className="bg-transparent relative z-10">
+        <CustomerReviews />
+      </section>
 
       {/* COMMUNITY */}
-      <InstagramFeed />
+      <section className="bg-transparent relative z-10">
+        <InstagramFeed />
+      </section>
 
       {/* PROCESS_MATRIX */}
-      <ProcessSection />
+      <section className="bg-transparent relative z-10">
+        <ProcessSection />
+      </section>
 
       {/* CONTACT_TERMINAL */}
-      <LocalContactSection />
+      <section className="bg-[#0A0A0A] relative z-10">
+        <LocalContactSection />
+      </section>
 
       {/* GLOBAL_FOOTER */}
       <Footer />

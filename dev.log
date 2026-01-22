@@ -1,4 +1,11 @@
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:5173
+- Network:       http://192.168.1.35:5173
+- Environments: .env.local
 
-> metal-poster-pro@0.1.0 dev
-> next dev --port 5173 *
-
+✓ Starting...
+✓ Ready in 4.2s
+○ Compiling / ...
+✓ Finished writing to filesystem cache in 3.2min
+✓ Finished filesystem cache database compaction in 31.7s
+✓ Finished writing to filesystem cache in 32.4s

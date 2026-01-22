@@ -1,163 +1,223 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { useConfiguratorStore, SCENES } from '@/store/useConfiguratorStore';
-import { MousePointer2, RotateCcw, RotateCw, Plus, ShieldCheck, Truck, RefreshCcw, Maximize2 } from 'lucide-react';
+import { useConfiguratorStore } from '@/store/useConfiguratorStore';
+import { TEMPLATES } from '@/data/templates';
+import { MockupRenderer } from '@/components/mockup/MockupRenderer';
+import { RotateCcw, RotateCw, Plus, Truck, RefreshCcw, Home, Ruler, Check } from 'lucide-react';
 import { Product } from '@/lib/products';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ScenePreview({ product }: { product: Product }) {
     const {
-        activeScene, size, orientation, customImage, customRoomImage,
+        activeTemplateId, size, customImage, customRoomImage,
         manualOffset, manualRot, setManualOffset, setManualRot,
-        setCustomRoomImage, setActiveScene, reset,
+        setCustomRoomImage, setActiveTemplateId, reset, imageScale, imageFit,
+        showCalibrator, setShowCalibrator, calibrations, updateCalibration
     } = useConfiguratorStore();
 
-    const [isDragging, setIsDragging] = useState(false);
     const [activeImageIndex, setActiveImageIndex] = useState(0);
-    const dragRef = useRef({ startX: 0, startY: 0, startOffX: 0, startOffY: 0 });
 
     const productImages = [product.image, ...(product.images || [])];
-
-    const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
-        setIsDragging(true);
-        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-        const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-        dragRef.current = {
-            startX: clientX,
-            startY: clientY,
-            startOffX: manualOffset.x,
-            startOffY: manualOffset.y
-        };
+    const activeTemplate = TEMPLATES.find(t => t.id === activeTemplateId) || TEMPLATES[0];
+    const currentCalib = calibrations[activeTemplateId] || {
+        refA: activeTemplate.refA, refB: activeTemplate.refB, refCm: activeTemplate.sofaCm,
+        refC: activeTemplate.refC, refD: activeTemplate.refD, refHeightCm: activeTemplate.sofaHeightCm
     };
 
-    const handleMoveInput = (e: React.MouseEvent | React.TouchEvent) => {
-        if (!isDragging) return;
-        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-        const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-
-        const deltaX = (clientX - dragRef.current.startX) / 5;
-        const deltaY = (clientY - dragRef.current.startY) / 5;
-
-        setManualOffset({
-            x: dragRef.current.startOffX + deltaX,
-            y: dragRef.current.startOffY + deltaY
-        });
+    const handleDragMove = (delta: { x: number; y: number }) => {
+        setManualOffset(prev => ({
+            x: prev.x + delta.x,
+            y: prev.y + delta.y
+        }));
     };
 
     return (
-        <div
-            className="flex flex-col gap-10 select-none w-full"
-            onMouseMove={handleMoveInput}
-            onTouchMove={handleMoveInput}
-            onMouseUp={() => setIsDragging(false)}
-            onTouchEnd={() => setIsDragging(false)}
-        >
-            {/* VIEWPORT AREA - Clean Showroom Look */}
-            <div className="relative aspect-[4/5] md:aspect-square w-full bg-gray-50 rounded-[3rem] overflow-hidden shadow-2xl shadow-gray-200/50 border border-gray-100 group">
+        <div className="flex flex-col gap-10 select-none w-full">
+            <div className="relative">
+                <MockupRenderer
+                    template={activeTemplate}
+                    sizeCm={{ dimA: size.dimA, dimB: size.dimB }}
+                    posterPreviewSrc={customImage || productImages[activeImageIndex]}
+                    manualOffset={manualOffset}
+                    manualRot={manualRot}
+                    imageScale={imageScale}
+                    imageFit={imageFit}
+                    onDragMove={handleDragMove}
+                />
 
-                {/* BACKGROUND ROOM */}
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={activeScene.id + (customRoomImage ? '_custom' : '')}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0"
-                    >
-                        <Image
-                            src={customRoomImage || activeScene.image}
-                            alt={activeScene.name}
-                            fill
-                            className="object-cover"
-                        />
-                        {/* Overlay to soften the room but keep it premium */}
-                        <div className="absolute inset-0 bg-white/5 backdrop-blur-[0.5px]" />
-                    </motion.div>
-                </AnimatePresence>
+                {/* HUD - Sol üst */}
+                <div className="absolute top-6 left-6 z-40 space-y-2">
+                    <label className="cursor-pointer group block">
+                        <div className="bg-black text-white px-4 py-3 font-mono text-[10px] font-bold border-2 border-white flex items-center gap-3 shadow-lg hover:bg-[#D4AF37] hover:text-black transition-all">
+                            <Home className="w-4 h-4" />
+                            <span>KENDİ ODANIN FOTOSUNU YÜKLE</span>
+                        </div>
+                        <input type="file" className="hidden" accept="image/*" onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                                const url = URL.createObjectURL(file);
+                                setCustomRoomImage(url);
+                            }
+                        }} />
+                    </label>
 
-                {/* THE METAL POSTER */}
-                <div
-                    onMouseDown={handleStart}
-                    onTouchStart={handleStart}
-                    className={`absolute transition-transform duration-150 ease-out z-30 ${isDragging ? 'cursor-grabbing scale-105' : 'cursor-grab hover:scale-[1.02]'}`}
-                    style={{
-                        top: customRoomImage ? `calc(40% + ${manualOffset.y}%)` : `calc(${activeScene.pos.top}% + ${manualOffset.y}%)`,
-                        left: customRoomImage ? `calc(50% + ${manualOffset.x}%)` : `calc(${activeScene.pos.left}% + ${manualOffset.x}%)`,
-                        width: orientation === 'portrait'
-                            ? `${(customRoomImage ? 35 : activeScene.pos.width * 1.6) * (size.id === 'xs' ? 0.6 : size.id === 'm' ? 1.1 : size.id === 'l' ? 1.6 : 2.4)}%`
-                            : `${(customRoomImage ? 38 : activeScene.pos.width * 1.8) * (size.id === 'xs' ? 0.55 : size.id === 'm' ? 1.1 : size.id === 'l' ? 1.6 : 2.4)}%`,
-                        transform: `rotateY(${activeScene.pos.rotY + manualRot}deg) rotateX(${activeScene.pos.rotX}deg)`,
-                        transformStyle: 'preserve-3d',
-                    }}
-                >
-                    {/* ACCURATE DEPTH SHADOW */}
-                    <div className="absolute inset-4 bg-black/30 blur-2xl -z-10 translate-x-6 translate-y-6 opacity-50" />
-
-                    {/* THE POSTER SURFACE */}
-                    <div
-                        className="relative overflow-hidden bg-white shadow-2xl rounded-sm border-[0.5px] border-black/5"
-                        style={{ aspectRatio: orientation === 'portrait' ? `2 / 3` : `3 / 2` }}
-                    >
-                        <Image
-                            src={customImage || productImages[activeImageIndex]}
-                            alt={product.name}
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                        {/* SUBTLE SHEEN */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
+                    <div className="bg-white/90 backdrop-blur-md border border-black p-2 font-mono text-[8px] font-black uppercase text-black italic">
+                        ÖNERİLEN ODA FOTOSU: 4000x3000 PX
                     </div>
 
-                    {/* INTERACTIVE HINT */}
-                    {!isDragging && manualOffset.x === 0 && (
-                        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#111827] text-white px-4 py-2 rounded-full text-[10px] font-black shadow-2xl uppercase tracking-widest whitespace-nowrap flex items-center gap-2">
-                            <MousePointer2 className="w-3 h-3 text-[#ff6b00]" />
-                            TAŞIMAK İÇİN SÜRÜKLE
+                    {customRoomImage && (
+                        <button
+                            onClick={() => setCustomRoomImage(null)}
+                            className="bg-red-600 text-white px-3 py-1 text-[8px] font-black uppercase border border-white/20"
+                        >
+                            VARSAYILAN ODAYA DÖN
+                        </button>
+                    )}
+
+                    <div className="mt-4 space-y-2">
+                        <button
+                            onClick={() => setShowCalibrator(!showCalibrator)}
+                            className={`w-full px-4 py-3 font-mono text-[10px] font-bold border-2 flex items-center gap-3 shadow-lg transition-all ${showCalibrator
+                                    ? 'bg-[#D4AF37] text-black border-black'
+                                    : 'bg-black text-white border-white hover:bg-[#D4AF37] hover:text-black'
+                                }`}
+                        >
+                            <Ruler className="w-4 h-4" />
+                            <span>{showCalibrator ? 'KALİBRASYONU TAMAMLA' : 'ÖLÇEK KALİBRASYONU'}</span>
+                        </button>
+
+                        {showCalibrator && (
+                            <div className="bg-black/90 backdrop-blur-md border-2 border-[#D4AF37] p-5 space-y-4 animate-in fade-in slide-in-from-left-4 w-72 shadow-2xl">
+                                <div>
+                                    <label className="block text-[#D4AF37] text-[10px] font-black font-mono uppercase mb-2">
+                                        [A-B] REFERANS GENİŞLİK (CM)
+                                    </label>
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="number"
+                                            value={currentCalib.refCm}
+                                            onChange={(e) => updateCalibration(activeTemplateId, { refCm: Number(e.target.value) })}
+                                            className="bg-white text-black font-bold font-mono px-3 py-2 w-full outline-none focus:ring-2 focus:ring-[#D4AF37]"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-[#3498db] text-[10px] font-black font-mono uppercase mb-2">
+                                        [C-D] REFERANS YÜKSEKLİK (CM)
+                                    </label>
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="number"
+                                            value={currentCalib.refHeightCm}
+                                            onChange={(e) => updateCalibration(activeTemplateId, { refHeightCm: Number(e.target.value) })}
+                                            className="bg-white text-black font-bold font-mono px-3 py-2 w-full outline-none focus:ring-2 focus:ring-[#3498db]"
+                                        />
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => setShowCalibrator(false)}
+                                    className="w-full bg-[#D4AF37] text-black py-3 font-mono text-xs font-black flex items-center justify-center gap-2 hover:bg-white transition-colors border border-black shadow-lg"
+                                >
+                                    <Check className="w-5 h-5" />
+                                    <span>KALİBRASYONU UYGULA</span>
+                                </button>
+
+                                <p className="text-white/60 text-[8px] font-mono leading-tight bg-white/5 p-2 rounded">
+                                    * A-B (Altın) çizgisi genişliği, C-D (Mavi) çizgisi yüksekliği temsil eder.
+                                </p>
+                            </div>
+                        )}
+                    </div>
+
+                    {!showCalibrator && (
+                        <label className="cursor-pointer group block">
+                            <div className="bg-black text-white px-4 py-3 font-mono text-[10px] font-bold border-2 border-white flex items-center gap-3 shadow-lg hover:bg-[#D4AF37] hover:text-black transition-all">
+                                <Plus className="w-4 h-4" />
+                                <span>KENDİ GÖRSELİNİ YÜKLE</span>
+                            </div>
+                            <input type="file" className="hidden" accept="image/*" onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    const url = URL.createObjectURL(file);
+                                    useConfiguratorStore.getState().setCustomImage(url);
+                                }
+                            }} />
+                        </label>
+                    )}
+
+                    {!showCalibrator && (
+                        <div className="mt-4 bg-black/60 backdrop-blur-md border border-[#D4AF37] p-3 w-64 shadow-2xl">
+                            <div className="flex items-center gap-2 text-[#D4AF37] text-[9px] font-mono font-black uppercase">
+                                <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
+                                <span>SMART-FIT AKTİF</span>
+                            </div>
+                            <p className="text-white/50 text-[8px] font-mono mt-1 leading-tight">
+                                Poster oranı görselinize göre otomatik ayarlandı. Boşluksuz ve tam ölçek.
+                            </p>
                         </div>
                     )}
                 </div>
 
-                {/* SCENE SELECTOR - Floating Pill */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 p-2 bg-white/90 backdrop-blur-xl rounded-[2rem] border border-white/50 shadow-2xl z-40">
-                    {SCENES.map((scene) => (
+                <div className="absolute top-6 right-6 z-40 flex flex-col md:flex-row gap-2">
+                    {TEMPLATES.map((template) => (
                         <button
-                            key={scene.id}
-                            onClick={() => { setActiveScene(scene); reset(); }}
-                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${activeScene.id === scene.id ? 'bg-[#ff6b00] text-white' : 'text-gray-400 hover:text-gray-900'}`}
+                            key={template.id}
+                            onClick={() => { setActiveTemplateId(template.id); reset(); }}
+                            className={`p-2 border transition-all duration-300 flex items-center gap-2 text-[10px] font-bold uppercase
+                                ${activeTemplateId === template.id
+                                    ? 'bg-black text-white border-black scale-105 shadow-xl'
+                                    : 'bg-white/60 backdrop-blur-md text-black border-black/10 hover:bg-white hover:scale-105'}`}
                         >
-                            <scene.icon className="w-5 h-5" />
+                            <template.icon className="w-3 h-3" />
+                            <span className="hidden md:inline">{template.name}</span>
                         </button>
                     ))}
                 </div>
 
-                {/* ROTATION & RESET - Compact Right */}
-                <div className="absolute top-8 right-8 flex flex-col gap-2 z-40">
-                    <button onClick={() => setManualRot(prev => prev - 5)} className="w-10 h-10 bg-white/90 backdrop-blur text-gray-500 rounded-xl border border-white/50 flex items-center justify-center hover:text-[#111827] shadow-lg"><RotateCcw className="w-4 h-4" /></button>
-                    <button onClick={() => setManualRot(prev => prev + 5)} className="w-10 h-10 bg-white/90 backdrop-blur text-gray-500 rounded-xl border border-white/50 flex items-center justify-center hover:text-[#111827] shadow-lg"><RotateCw className="w-4 h-4" /></button>
-                    <button onClick={reset} className="w-10 h-10 bg-[#111827] text-white rounded-xl flex items-center justify-center shadow-lg"><RefreshCcw className="w-4 h-4" /></button>
+                <div className="absolute bottom-6 right-6 z-50 flex gap-3">
+                    <button
+                        onClick={() => setManualRot(prev => prev - 5)}
+                        className="w-10 h-10 bg-white/40 backdrop-blur-xl text-black hover:bg-black hover:text-white flex items-center justify-center border border-white/20 shadow-xl transition-all rounded-full"
+                    >
+                        <RotateCcw className="w-4 h-4" />
+                    </button>
+                    <button
+                        onClick={() => setManualRot(prev => prev + 5)}
+                        className="w-10 h-10 bg-white/40 backdrop-blur-xl text-black hover:bg-black hover:text-white flex items-center justify-center border border-white/20 shadow-xl transition-all rounded-full"
+                    >
+                        <RotateCw className="w-4 h-4" />
+                    </button>
+                    <button
+                        onClick={reset}
+                        className="w-10 h-10 bg-black text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black flex items-center justify-center border border-black shadow-sm transition-colors rounded-full"
+                    >
+                        <RefreshCcw className="w-4 h-4" />
+                    </button>
+                </div>
+
+                <div className="absolute top-4 left-4 bg-[#0A0A0A]/80 text-white px-3 py-1.5 text-xs font-bold tracking-wide z-40">
+                    AKILLI ÖLÇEKLENDİRME AKTİF
                 </div>
             </div>
 
-            {/* THUMBNAIL NAVIGATOR */}
             <div className="flex flex-col gap-6">
                 <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Ürün Detayları</span>
+                    <span className="text-xs font-black text-[#0A0A0A]/40 uppercase tracking-widest">Ürün Görselleri</span>
                 </div>
                 <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                     {productImages.map((img, i) => (
                         <button
                             key={i}
                             onClick={() => setActiveImageIndex(i)}
-                            className={`relative flex-shrink-0 w-24 h-24 rounded-3xl overflow-hidden border-2 transition-all ${activeImageIndex === i ? 'border-[#ff6b00] scale-105 shadow-xl shadow-orange-100' : 'border-gray-100 opacity-60 hover:opacity-100'}`}
+                            className={`relative flex-shrink-0 w-24 h-24 overflow-hidden border transition-all ${activeImageIndex === i ? 'border-[#D4AF37] shadow-xl' : 'border-[#0A0A0A]/10 opacity-60 hover:opacity-100'}`}
                         >
                             <Image src={img} alt="" fill className="object-cover" />
                         </button>
                     ))}
-                    {/* CUSTOM DESIGN ACTION */}
-                    <label className="flex-shrink-0 w-24 h-24 rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-[#ff6b00] hover:bg-orange-50/10 transition-all text-gray-400 hover:text-[#ff6b00]">
+                    <label className="flex-shrink-0 w-24 h-24 border-2 border-dashed border-[#0A0A0A]/20 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 transition-all text-[#0A0A0A]/40 hover:text-[#D4AF37]">
                         <Plus className="w-6 h-6" />
                         <span className="text-[9px] font-black uppercase">Farklı Art</span>
                         <input type="file" className="hidden" accept="image/*" onChange={(e) => {
@@ -171,35 +231,16 @@ export default function ScenePreview({ product }: { product: Product }) {
                 </div>
             </div>
 
-            {/* PHOTO CUSTOMIZATION ACTIONS */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <label className="md:col-span-8 cursor-pointer group">
-                    <div className="h-24 rounded-[2rem] bg-gray-50 border border-gray-100 flex items-center gap-6 px-8 hover:border-[#ff6b00] hover:bg-white hover:shadow-2xl hover:shadow-gray-200 transition-all">
-                        <div className="w-12 h-12 rounded-2xl bg-[#ff6b00]/10 flex items-center justify-center text-[#ff6b00] group-hover:scale-110 transition-transform">
-                            <Maximize2 className="w-6 h-6" />
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-sm font-black text-[#111827] uppercase">Kendi Odanın Fotoğrafını Çek ve Yükle</span>
-                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Posteri Senin Duvarında Görelim</span>
-                        </div>
-                    </div>
-                    <input type="file" className="hidden" accept="image/*" onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                            const url = URL.createObjectURL(file);
-                            useConfiguratorStore.getState().setCustomRoomImage(url);
-                        }
-                    }} />
-                </label>
-
-                <div className="md:col-span-4 h-24 rounded-[2rem] bg-white border border-gray-100 flex items-center gap-6 px-8 shadow-sm">
-                    <div className="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center text-green-500">
-                        <Truck className="w-6 h-6" />
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="text-sm font-black text-[#111827] uppercase tracking-tighter">Express</span>
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Kargo</span>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-[10px] font-bold text-center">
+                <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
+                    <span className="uppercase tracking-tighter">100 YIL SOLMAMA GARANTİSİ</span>
+                </div>
+                <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
+                    <Truck className="w-5 h-5 text-[#D4AF37]" />
+                    <span className="uppercase tracking-tighter">HIZLI LOJİSTİK AĞI</span>
+                </div>
+                <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
+                    <span className="uppercase tracking-tighter">POLİKARBON PAKETLEME</span>
                 </div>
             </div>
         </div>

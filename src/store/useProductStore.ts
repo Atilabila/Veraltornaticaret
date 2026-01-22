@@ -89,25 +89,32 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     addProduct: async (productData) => {
         set({ loading: true, error: null });
         try {
-            // Map frontend structures back to flattened DB structure if necessary
+            // Generate slug if not provided
+            const slug = productData.slug || productData.name
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+
             // ProductService.createProduct expects DB Insert type
             const newDbProduct = await ProductService.createProduct({
                 name: productData.name,
-                slug: productData.slug,
+                slug: slug,
                 description: productData.description,
                 price: productData.price,
                 image: productData.image,
                 category: productData.category,
-                story: productData.story,
-                material: productData.specs?.material || "Aluminum",
-                process: productData.specs?.process || "Direct Print",
-                print: productData.specs?.print || "UV Ink",
+                story: productData.story || `${productData.name} - Metal Poster Koleksiyonu.`,
+                material: productData.specs?.material || "1.5mm Alüminyum",
+                process: productData.specs?.process || "UV Statik Baskı",
+                print: productData.specs?.print || "Endüstriyel Gen-3",
                 thickness: productData.specs?.thickness || "1.5mm",
-                dims: productData.specs?.dims || "30x45cm",
-                mounting: productData.specs?.mounting || "Magnetic",
+                dims: productData.specs?.dims || "Var sayılan",
+                mounting: productData.specs?.mounting || "Mikro Mıknatıs",
                 seo_title: productData.seo?.title || productData.name,
                 seo_description: productData.seo?.description || productData.description,
-                seo_keywords: productData.seo?.keywords || [],
+                seo_keywords: productData.seo?.keywords || [productData.name, "metal poster", "dekorasyon"],
                 is_active: true,
             } as any);
 

@@ -6,84 +6,50 @@ import { motion } from 'framer-motion';
 
 export const TrustSection = () => {
     const safetySignals = [
-        {
-            icon: ShieldCheck,
-            title: "Güvenli Ödeme",
-            subtitle: "3D Secure Altyapısı",
-            color: "bg-blue-50",
-            iconColor: "text-blue-500"
-        },
-        {
-            icon: Clock,
-            title: "Hızlı Kargo",
-            subtitle: "24-48 Saat Teslim",
-            color: "bg-orange-50",
-            iconColor: "text-[#ff6b00]"
-        },
-        {
-            icon: Layers,
-            title: "1.5mm Metal",
-            subtitle: "Dayanıklı Alüminyum",
-            color: "bg-gray-50",
-            iconColor: "text-gray-600"
-        },
-        {
-            icon: RotateCcw,
-            title: "14 Gün İade",
-            subtitle: "Kolay İade Süreci",
-            color: "bg-green-50",
-            iconColor: "text-green-500"
-        },
-        {
-            icon: Truck,
-            title: "Ücretsiz Kargo",
-            subtitle: "500 TL Üzeri Sipariş",
-            color: "bg-purple-50",
-            iconColor: "text-purple-500"
-        }
+        { icon: ShieldCheck, title: "GÜVENLİ ÖDEME", desc: "256-BIT SSL KORUMASI" },
+        { icon: Clock, title: "HIZLI TESLİMAT", desc: "24-48 SAATTE KARGO" },
+        { icon: Layers, title: "METAL KALİTESİ", desc: "1.5MM PREMIUM ÇELİK" },
+        { icon: RotateCcw, title: "KOLAY İADE", desc: "14 GÜN DEĞİŞİM HAKKI" },
+        { icon: Truck, title: "ÜCRETSİZ KARGO", desc: "750 TL ÜZERİ SİPARİŞ" }
     ];
 
     return (
-        <section className="py-20">
-            <div className="container-brutal">
+        <section className="py-16 relative overflow-hidden bg-transparent">
+            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
                 <div className="flex flex-col gap-4 mb-12">
-                    <span className="text-[10px] font-black text-[#ff6b00] tracking-[0.3em] uppercase">
-                        Sizin İçin Buradayız
-                    </span>
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-[#111827] uppercase tracking-tighter">
-                        Alışveriş Güvencesi
+                    <div className="flex items-center gap-4">
+                        <div className="w-10 h-[1px] bg-[#D4AF37]/30" />
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">
+                            GÜVENCE PROTOKOLLERİ
+                        </span>
+                    </div>
+                    <h2 className="text-5xl md:text-7xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-none italic">
+                        Neden <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Biz?</span>
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-0 border border-[#0A0A0A]/5">
                     {safetySignals.map((signal, idx) => (
                         <motion.div
                             key={idx}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-gray-200 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+                            transition={{ delay: idx * 0.1, duration: 0.8 }}
+                            className="group relative p-12 bg-white border-r border-[#0A0A0A]/5 last:border-r-0 hover:bg-[#0A0A0A] transition-all duration-700"
                         >
-                            {/* Animated Background Decor */}
-                            <div className={`absolute -right-4 -top-4 w-24 h-24 rounded-full ${signal.color} opacity-40 group-hover:scale-150 transition-transform duration-700`} />
-
-                            <div className="relative z-10 flex flex-col gap-6">
-                                <div className={`w-14 h-14 rounded-2xl ${signal.color} flex items-center justify-center ${signal.iconColor} group-hover:scale-110 transition-transform`}>
-                                    <signal.icon size={28} />
-                                </div>
-                                <div className="flex flex-col gap-2">
-                                    <span className="font-extrabold text-gray-900 uppercase tracking-tight text-sm">
-                                        {signal.title}
-                                    </span>
-                                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
-                                        {signal.subtitle}
-                                    </span>
-                                </div>
+                            <div className="w-14 h-14 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-white transition-all duration-500 mb-10">
+                                <signal.icon size={28} strokeWidth={1.5} />
                             </div>
 
-                            {/* Hover Border Accent */}
-                            <div className="absolute bottom-0 left-0 w-full h-1 bg-[#ff6b00] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                            <div className="flex flex-col gap-3">
+                                <span className="font-black text-[#0A0A0A] group-hover:text-white uppercase tracking-tighter text-xl leading-none transition-colors">
+                                    {signal.title}
+                                </span>
+                                <span className="text-xs font-black text-[#D4AF37] uppercase tracking-[0.15em] leading-relaxed">
+                                    {signal.desc}
+                                </span>
+                            </div>
                         </motion.div>
                     ))}
                 </div>

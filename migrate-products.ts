@@ -31,7 +31,7 @@ async function migrateProducts() {
         try {
             // Transform product data to match database schema
             const productData = {
-                id: product.id,
+                // id: product.id, // Let Supabase generate UUID
                 name: product.name,
                 slug: product.slug,
                 price: product.price,

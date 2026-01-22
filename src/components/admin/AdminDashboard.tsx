@@ -5,21 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     LayoutDashboard, Package, FileText, Settings, LogOut, Plus,
     Pencil, Trash2, Save, X, Search, ChevronDown, ChevronUp,
-    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity
+    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus
 } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
+import { useCategoryStore } from "@/store/useCategoryStore";
 import { useContentStore, SiteContent } from "@/store/useContentStore";
 import { Product } from "@/lib/products";
 import { ImageUploader } from "./ImageUploader";
-
-// Category definitions
-const CATEGORIES = [
-    { id: "ARABA_PLAKA", label: "Arabalar", color: "#3B82F6" },
-    { id: "ATATURK_PLAKA", label: "Atatürk", color: "#EF4444" },
-    { id: "CHARACTER_PLAKA", label: "Karakterler", color: "#8B5CF6" },
-    { id: "MOTOR_PLAKA", label: "Motorlar", color: "#F59E0B" },
-    { id: "CUSTOM", label: "Özel Ürünler", color: "#10B981" },
-];
+import type { Category } from "@/lib/supabase/categories.service";
 
 export const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState("content");
@@ -92,6 +85,12 @@ export const AdminDashboard = () => {
                         label="Ürünler"
                         active={activeTab === "products"}
                         onClick={() => setActiveTab("products")}
+                    />
+                    <SidebarItem
+                        icon={<Tags className="w-5 h-5" />}
+                        label="Kategoriler"
+                        active={activeTab === "categories"}
+                        onClick={() => setActiveTab("categories")}
                     />
                     <SidebarItem
                         icon={<ShoppingCart className="w-5 h-5" />}
@@ -695,16 +694,25 @@ const ContactTab = ({ showNotification }: { showNotification: (type: "success" |
 // ========== PRODUCTS TAB ==========
 const ProductsTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
     const { products, loading, error, fetchProducts, addProduct, updateProduct, deleteProduct } = useProductStore();
+    const { categories, fetchCategories } = useCategoryStore();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<any | null>(null);
-    const [expandedCategories, setExpandedCategories] = useState<string[]>(CATEGORIES.map(c => c.id));
+    const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
-    // Fetch products on mount
+    // Fetch products and categories on mount
     useEffect(() => {
         fetchProducts();
-    }, [fetchProducts]);
+        fetchCategories();
+    }, [fetchProducts, fetchCategories]);
+
+    // Expand all categories once loaded
+    useEffect(() => {
+        if (categories.length > 0 && expandedCategories.length === 0) {
+            setExpandedCategories(categories.map(c => c.slug));
+        }
+    }, [categories]);
 
     // Show error notification
     useEffect(() => {
@@ -719,14 +727,14 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
         return matchesSearch && matchesCategory;
     });
 
-    const groupedProducts = CATEGORIES.reduce((acc, cat) => {
-        acc[cat.id] = filteredProducts.filter(p => p.category === cat.id);
+    const groupedProducts = categories.reduce((acc: Record<string, any[]>, cat: Category) => {
+        acc[cat.slug] = filteredProducts.filter(p => p.category === cat.slug);
         return acc;
     }, {} as Record<string, any[]>);
 
-    const toggleCategory = (catId: string) => {
+    const toggleCategory = (catSlug: string) => {
         setExpandedCategories(prev =>
-            prev.includes(catId) ? prev.filter(id => id !== catId) : [...prev, catId]
+            prev.includes(catSlug) ? prev.filter(id => id !== catSlug) : [...prev, catSlug]
         );
     };
 
@@ -852,7 +860,12 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
 
             <AnimatePresence>
                 {(isAddModalOpen || editingProduct) && (
-                    <ProductModal product={editingProduct} onSave={handleSaveProduct} onClose={() => { setIsAddModalOpen(false); setEditingProduct(null); }} />
+                    <ProductModal
+                        product={editingProduct}
+                        onSave={handleSaveProduct}
+                        onClose={() => { setIsAddModalOpen(false); setEditingProduct(null); }}
+                        isLoading={loading}
+                    />
                 )}
             </AnimatePresence>
         </div>
@@ -860,7 +873,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
 };
 
 // Product Modal
-const ProductModal = ({ product, onSave, onClose }: { product: Product | null; onSave: (p: any) => void; onClose: () => void }) => {
+const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Product | null; onSave: (p: any) => void; onClose: () => void; isLoading: boolean }) => {
     const [formData, setFormData] = useState({
         id: product?.id || "",
         name: product?.name || "",
@@ -908,8 +921,18 @@ const ProductModal = ({ product, onSave, onClose }: { product: Product | null; o
                         </div>
                     </div>
                     <div className="flex gap-4 pt-4">
-                        <button type="button" onClick={onClose} className="flex-1 py-3 border border-slate-700 rounded-xl font-bold hover:bg-slate-800">İptal</button>
-                        <button type="submit" className="flex-1 py-3 bg-[var(--color-brand-safety-orange)] rounded-xl font-bold hover:bg-[var(--color-brand-safety-orange)]/80 flex items-center justify-center gap-2"><Save className="w-5 h-5" /> Kaydet</button>
+                        <button type="button" onClick={onClose} disabled={isLoading} className="flex-1 py-3 border border-slate-700 rounded-xl font-bold hover:bg-slate-800 disabled:opacity-50">İptal</button>
+                        <button
+                            type="submit"
+                            disabled={isLoading || !formData.image}
+                            className="flex-1 py-3 bg-[var(--color-brand-safety-orange)] rounded-xl font-bold hover:bg-[var(--color-brand-safety-orange)]/80 flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                            {isLoading ? (
+                                <><Activity className="w-5 h-5 animate-spin" /> İŞLENİYOR...</>
+                            ) : (
+                                <><Save className="w-5 h-5" /> Kaydet</>
+                            )}
+                        </button>
                     </div>
                 </form>
             </motion.div>

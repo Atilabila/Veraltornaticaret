@@ -6,36 +6,48 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: "#1A1A1A",
+  themeColor: "#1349ec",
 };
 
 export const metadata: Metadata = {
-  title: "METAL POSTER PRO | Industrial Art & Design",
-  description: "Premium metal posters for the modern industrial aesthetic. 1.5mm aluminum, UV digital print, brutalist design.",
-  keywords: ["metal poster", "industrial decor", "brutalism", "aluminum art", "metal print", "wall art", "cyberpunk decor"],
+  title: "METAL POSTER PRO | Modern Metal Tablo ve Endüstriyel Sanat",
+  description: "Türkiye'nin en kaliteli metal posterleri. 1.5mm çelik, UV baskı ve manyetik montaj. Eviniz için modern endüstriyel dekorasyon çözümleri.",
+  keywords: ["metal poster", "metal tablo", "iç mekan dekorasyon", "modern sanat", "duvar aksesuarları", "anime posterleri", "film tabloları", "ev dekorasyonu"],
   authors: [{ name: "Metal Poster Pro" }],
   metadataBase: new URL("https://metalposterpro.com"),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: "website",
     locale: "tr_TR",
     url: "https://metalposterpro.com",
     siteName: "METAL POSTER PRO",
-    title: "METAL POSTER PRO | Industrial Art & Design",
-    description: "Premium metal posters for the modern industrial aesthetic. 1.5mm aluminum, UV digital print, brutalist design.",
+    title: "METAL POSTER PRO | Sonsuza Kadar Süren Sanat Eserleri",
+    description: "Premium metal posterler ile yaşam alanınızı dönüştürün. Kolay montaj, ömür boyu dayanıklılık.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "METAL POSTER PRO Premium Art",
+        alt: "METAL POSTER PRO Premium Metal Sanat",
       },
     ],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
+
+import { GlobalAtmosphere } from "@/components/layout/GlobalAtmosphere";
 
 export default function RootLayout({
   children,
@@ -47,7 +59,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="antialiased selection:bg-hazard-orange selection:text-near-black">
+      <body className="antialiased selection:bg-primary selection:text-white">
         {children}
       </body>
     </html>

@@ -24,7 +24,7 @@ export class ProductService {
                 return this.getFallbackProducts();
             }
 
-            return data || this.getFallbackProducts();
+            return (data && data.length > 0) ? data : this.getFallbackProducts();
         } catch (err) {
             console.warn('Supabase connection error, using fallback products:', err);
             return this.getFallbackProducts();
@@ -79,7 +79,7 @@ export class ProductService {
                 return fallbacks.filter(p => p.category === category);
             }
 
-            return data || [];
+            return (data && data.length > 0) ? data : this.getFallbackProducts().filter(p => p.category === category);
         } catch (err) {
             const fallbacks = this.getFallbackProducts();
             return fallbacks.filter(p => p.category === category);

@@ -9,6 +9,48 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- =====================================================
+-- CATEGORIES TABLE
+-- =====================================================
+CREATE TABLE IF NOT EXISTS categories (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT NOT NULL,
+    slug TEXT UNIQUE NOT NULL,
+    color TEXT DEFAULT '#3B82F6',
+    description TEXT,
+    image TEXT,
+    display_order INTEGER DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create index for faster queries
+CREATE INDEX idx_categories_slug ON categories(slug);
+CREATE INDEX idx_categories_is_active ON categories(is_active);
+
+-- Enable RLS for categories
+ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
+
+-- Public read access for categories
+CREATE POLICY "Public categories are viewable by everyone"
+    ON categories FOR SELECT
+    USING (is_active = TRUE);
+
+-- Admin full access for categories
+CREATE POLICY "Authenticated users can manage categories"
+    ON categories FOR ALL
+    USING (auth.role() = 'authenticated');
+
+-- Insert default categories
+INSERT INTO categories (name, slug, color, display_order) VALUES
+    ('Arabalar', 'ARABA_PLAKA', '#3B82F6', 1),
+    ('Atatürk', 'ATATURK_PLAKA', '#EF4444', 2),
+    ('Karakterler', 'CHARACTER_PLAKA', '#8B5CF6', 3),
+    ('Motorlar', 'MOTOR_PLAKA', '#F59E0B', 4),
+    ('Özel Ürünler', 'CUSTOM', '#10B981', 5)
+ON CONFLICT (slug) DO NOTHING;
+
+-- =====================================================
 -- PRODUCTS TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS products (
@@ -39,7 +81,7 @@ CREATE TABLE IF NOT EXISTS products (
     updated_at TIMESTAMPTZ DEFAULT NOW(),
     is_active BOOLEAN DEFAULT TRUE,
     stock_quantity INTEGER DEFAULT 0 CHECK (stock_quantity >= 0),
-    view_count INTEGER DEFAULT 0
+    view_count INTEGER DEFAULT 0v
 );
 
 -- Create index for faster queries

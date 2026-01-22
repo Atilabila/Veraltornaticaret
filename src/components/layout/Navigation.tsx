@@ -2,105 +2,128 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search, User, ShoppingCart } from 'lucide-react';
-import { useCartStore } from "@/store/useCartStore";
-
-// Mock implementation of useScroll if it doesn't exist, 
-// though the previous code referred to it.
-const useScroll = (threshold: number) => {
-    const [scrolled, setScrolled] = useState(false);
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > threshold);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [threshold]);
-    return scrolled;
-};
+import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { useCartStore } from '@/store/useCartStore';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Navigation = () => {
-    const isScrolled = useScroll(20);
+    const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const cartItems = useCartStore((state) => state.items);
-    const cartCount = cartItems.length;
+    const cartCount = useCartStore((state) => state.items.length);
+
+    useEffect(() => {
+        const handleScroll = () => setIsScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const navLinks = [
+        { name: 'Anime', href: '#anime' },
+        { name: 'Filmler', href: '#movies' },
+        { name: 'Abstrak', href: '#abstract' },
+        { name: 'Çok Satanlar', href: '#best-sellers' }
+    ];
 
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm' : 'bg-transparent'}`}>
-            <div className="container-brutal">
-                <div className="flex items-center justify-between h-20">
+        <header className={`fixed top-0 z-[100] w-full transition-all duration-700 ${isScrolled
+                ? 'py-4 bg-[#0A0A0A] shadow-[0_10px_40px_rgba(0,0,0,0.3)]'
+                : 'py-6 bg-transparent border-b border-[#D4AF37]/10'
+            }`}>
+            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
+                <div className="flex items-center justify-between">
+                    {/* Brand Logo */}
+                    <div className="flex items-center gap-16">
+                        <Link href="/" className="flex items-center gap-3 group">
+                            <div className="w-10 h-10 border border-[#D4AF37] flex items-center justify-center p-2 group-hover:bg-[#D4AF37] transition-all duration-500">
+                                <svg className={`w-full h-full ${isScrolled || 'text-[#D4AF37]'} transition-colors`} fill="currentColor" viewBox="0 0 48 48">
+                                    <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" />
+                                </svg>
+                            </div>
+                            <div className="flex flex-col">
+                                <h2 className={`text-xl font-black uppercase tracking-[0.2em] ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>Metal Art</h2>
+                                <span className="text-[7px] font-bold text-[#D4AF37] tracking-[0.5em] uppercase -mt-1">Noble Collection</span>
+                            </div>
+                        </Link>
 
-                    {/* LOGO - Image 0 Style */}
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 bg-[#ff6b00] rounded-lg flex items-center justify-center text-white font-black rotate-[-10deg] group-hover:rotate-0 transition-transform">
-                            M
-                        </div>
-                        <span className="text-xl font-black text-gray-900 tracking-tighter uppercase">
-                            METAL<span className="text-[#ff6b00]">POSTER</span>.CO
-                        </span>
-                    </Link>
-
-                    {/* DESKTOP NAV - Image 0 Style */}
-                    <div className="hidden lg:flex items-center gap-8">
-                        {['KOLEKSİYONLAR', 'YENİ GELENLER', 'HAKKIMIZDA', 'SİPARİŞ TAKİBİ'].map((link) => (
-                            <Link
-                                key={link}
-                                href={link === 'KOLEKSİYONLAR' ? '/urunler' : '#'}
-                                className="text-[13px] font-bold text-gray-600 hover:text-[#ff6b00] transition-colors tracking-wide"
-                            >
-                                {link}
-                            </Link>
-                        ))}
+                        {/* Desktop Navigation */}
+                        <nav className="hidden lg:flex items-center gap-10">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className={`text-xs font-black uppercase tracking-[0.2em] transition-all hover:text-[#D4AF37] ${isScrolled ? 'text-white/70' : 'text-[#0A0A0A]/60'}`}
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                        </nav>
                     </div>
 
-                    {/* SEARCH & ACTIONS - Image 0 Style */}
-                    <div className="hidden lg:flex items-center gap-6">
-                        {/* SEARCH BAR */}
-                        <div className="relative group">
-                            <input
-                                type="text"
-                                placeholder="Posterlerde ara..."
-                                className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2 pl-10 text-xs w-64 focus:outline-none focus:ring-2 focus:ring-[#ff6b00]/20 transition-all"
-                            />
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                        </div>
-
-                        {/* USER & CART */}
-                        <div className="flex items-center gap-4 border-l border-gray-100 pl-6">
-                            <button className="text-gray-500 hover:text-[#ff6b00] transition-colors">
-                                <User className="w-5 h-5" />
+                    {/* Utils */}
+                    <div className="flex items-center gap-8">
+                        {/* Control Buttons */}
+                        <div className="flex items-center gap-4">
+                            <button className={`relative group p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                                <Search className="w-5 h-5 group-hover:text-[#D4AF37]" />
                             </button>
-                            <Link href="#" className="relative group">
-                                <ShoppingCart className="w-5 h-5 text-gray-500 group-hover:text-[#ff6b00] transition-colors" />
+                            <button className={`relative group p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                                <ShoppingCart className="w-5 h-5 group-hover:text-[#D4AF37]" />
                                 {cartCount > 0 && (
-                                    <span className="absolute -top-2 -right-2 bg-[#ff6b00] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                                    <span className="absolute top-0 right-0 w-4 h-4 bg-[#D4AF37] text-white text-[9px] font-black flex items-center justify-center rounded-full">
                                         {cartCount}
                                     </span>
                                 )}
-                            </Link>
+                            </button>
+                            <button
+                                className={`lg:hidden p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            >
+                                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                            </button>
                         </div>
-                    </div>
 
-                    {/* MOBILE TOGGLE */}
-                    <button
-                        className="lg:hidden p-2 text-gray-600"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
-                        {isMobileMenuOpen ? <X /> : <Menu />}
-                    </button>
+                        <button className="hidden sm:flex items-center justify-center px-8 h-12 border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500">
+                            Hesabim
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            {/* MOBILE MENU */}
-            {isMobileMenuOpen && (
-                <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 p-6 flex flex-col gap-4 shadow-xl">
-                    <Link href="/urunler" className="text-sm font-bold text-gray-900 border-b border-gray-50 pb-2" onClick={() => setIsMobileMenuOpen(false)}>KOLEKSİYONLAR</Link>
-                    <Link href="#" className="text-sm font-bold text-gray-900 border-b border-gray-50 pb-2" onClick={() => setIsMobileMenuOpen(false)}>YENİ GELENLER</Link>
-                    <Link href="#" className="text-sm font-bold text-gray-900 border-b border-gray-50 pb-2" onClick={() => setIsMobileMenuOpen(false)}>HAKKIMIZDA</Link>
-                    <div className="flex items-center justify-between pt-2">
-                        <User className="w-5 h-5 text-gray-500" />
-                        <ShoppingCart className="w-5 h-5 text-gray-500" />
-                    </div>
-                </div>
-            )}
-        </nav>
+            {/* Mobile Menu */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        className="fixed inset-0 z-[101] bg-[#0A0A0A] flex flex-col p-10 lg:hidden"
+                    >
+                        <div className="flex justify-between items-center mb-16">
+                            <span className="text-xl font-black text-white uppercase tracking-widest">MENU</span>
+                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]">
+                                <X className="w-10 h-10" />
+                            </button>
+                        </div>
+                        <nav className="flex flex-col gap-8">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-3xl font-black text-white hover:text-[#D4AF37] transition-colors uppercase tracking-tight"
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                        </nav>
+                        <div className="mt-auto pt-10 border-t border-[#D4AF37]/20">
+                            <button className="w-full h-16 bg-[#D4AF37] text-white font-black uppercase tracking-widest">
+                                GIRIS YAP
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </header>
     );
 };

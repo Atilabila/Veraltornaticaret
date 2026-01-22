@@ -1,70 +1,64 @@
 ﻿"use client";
 
 import React from 'react';
-import { ProcessStep, SystemLabel } from '@/components/ui/Industrial';
 
 export const ProcessSection = () => {
     const steps = [
         {
-            stepNumber: "ADIM/01",
-            title: "Urunu Sec",
-            desc: "Koleksiyondan favori tasarimini ve boyutunu belirle."
+            stepNumber: "ETAP/01",
+            title: "Sanat Seçimi",
+            desc: "KOLEKSİYONUMUZDAN SİZİ YANSITAN ESERİ KEŞFEDİN."
         },
         {
-            stepNumber: "ADIM/02",
-            title: "Baski Hazirligi",
-            desc: "UV dijital baski icin goruntu ve renk kalibrasyonu yapilir."
+            stepNumber: "ETAP/02",
+            title: "Kalibrasyon",
+            desc: "EN CANLI RENKLER İÇİN 4K UV BASKI ÖN HAZIRLIĞI."
         },
         {
-            stepNumber: "ADIM/03",
-            title: "Metal Uretim",
-            desc: "1.5mm aluminyum uzerine baski ve koruyucu katman uygulanir."
+            stepNumber: "ETAP/03",
+            title: "Metal İşleme",
+            desc: "1.5MM PREMIUM ÇELİK ÜZERİNE HASSAS BASKI SÜRECİ."
         },
         {
-            stepNumber: "ADIM/04",
-            title: "Guvenli Paket",
-            desc: "Kose korumali paketleme ile hasara karsi koruma saglanir."
+            stepNumber: "ETAP/04",
+            title: "Zırhlı Paket",
+            desc: "MANYETİK APARATLAR VE GÜÇLENDİRİLMİŞ KUTULAMA."
         },
         {
-            stepNumber: "ADIM/05",
-            title: "Kargo ve Teslim",
-            desc: "Siparis 24-48 saat icinde kargoya verilir, takip linki paylasilir."
+            stepNumber: "ETAP/05",
+            title: "Hızlı Teslim",
+            desc: "24-48 SAAT İÇERİSİNDE LOJİSTİK MERKEZİNE TESLİM."
         }
     ];
 
     return (
-        <section id="process" className="py-24">
-            <div className="container-brutal">
+        <section id="process" className="py-16 lg:py-24 bg-transparent">
+            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
                 <div className="flex flex-col gap-4 mb-16">
-                    <span className="text-[10px] font-black text-[#ff6b00] tracking-[0.3em] uppercase">
-                        SİPARİŞ AKIŞI
-                    </span>
-                    <h2 className="text-4xl md:text-6xl font-extrabold text-[#111827] uppercase tracking-tighter leading-none">
-                        Üretim ve <span className="text-gray-400">Teslimat</span>
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-[1px] bg-[#D4AF37]" />
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Üretim Manifestosu</span>
+                    </div>
+                    <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
+                        Kusursuz <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Süreç</span>
                     </h2>
+                    <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">Atölyemizden duvarınıza kadar uzanan titiz işçilik hikayesi.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-0 border border-[#0A0A0A]/5">
                     {steps.map((step, idx) => (
-                        <div key={idx} className="card-premium p-8 bg-white relative group">
-                            <div className="flex flex-col gap-6">
-                                <span className="text-[10px] font-black text-[#ff6b00] tracking-[0.3em] uppercase">
-                                    {step.stepNumber}
-                                </span>
-                                <div className="space-y-2">
-                                    <h3 className="text-xl font-extrabold text-[#111827] uppercase tracking-tight">
-                                        {step.title}
-                                    </h3>
-                                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
-                                        {step.desc}
-                                    </p>
-                                </div>
+                        <div key={idx} className="group relative p-12 bg-[#FDFBF7] border-r border-[#0A0A0A]/5 last:border-r-0 hover:bg-[#0A0A0A] transition-all duration-700">
+                            <span className="text-xs font-black text-[#D4AF37] tracking-[0.3em] mb-8 block">
+                                {step.stepNumber}
+                            </span>
+                            <div className="space-y-6">
+                                <h3 className="text-2xl font-black text-[#0A0A0A] group-hover:text-white uppercase tracking-tighter italic leading-none transition-colors">
+                                    {step.title}
+                                </h3>
+                                <p className="text-xs font-black text-[#D4AF37] uppercase tracking-widest leading-relaxed">
+                                    {step.desc}
+                                </p>
                             </div>
-
-                            {/* Connector for desktop */}
-                            {idx < steps.length - 1 && (
-                                <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-[1px] bg-gray-100 z-10" />
-                            )}
                         </div>
                     ))}
                 </div>

@@ -119,12 +119,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ title, oneLiner, href,
         </div>
 
         {image && (
-            <div className="relative w-full aspect-[4/5] overflow-hidden border-2 border-near-black bg-zinc-100 mb-4">
+            <div className="relative w-full aspect-square overflow-hidden border border-[#0A0A0A]/5 bg-[#f8f8f8] mb-4">
                 <Image
                     src={image}
                     alt={title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, 33vw"
                 />
             </div>

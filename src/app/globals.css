@@ -1,62 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Inter:wght@100..900&family=IBM+Plex+Mono:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Playfair Display', serif;
 
-  --color-primary: #111827;
-  --color-brand: #ff6b00;
+  --color-gold-rich: #D4AF37;
+  --color-gold-light: #F9E2AF;
+  --color-gold-dark: #A6891E;
 
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
+  --color-ekru: #FDFBF7;
+  --color-noble-black: #0A0A0A;
+  --color-charcoal: #1A1A1A;
+  --color-primary: #4F46E5;
+
+  --radius-xl: 0rem;
+  --radius-2xl: 0rem;
 }
 
 :root {
-  --background: #F8F9FA;
-  --foreground: #111827;
-  --card-bg: #ffffff;
+  --background: #F8FAFF;
+  --foreground: #0A0A0A;
+  --primary: #4F46E5;
 }
 
+/* PREMIUM AMBIENT BACKGROUND - Pure CSS, No JS */
 body {
   color: var(--foreground);
-  background: var(--background);
   font-family: var(--font-sans);
-  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+
+  /* Base gradient background */
+  background:
+    /* Top left purple blob */
+    radial-gradient(ellipse 80% 80% at -10% -10%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    /* Top right blue blob */
+    radial-gradient(ellipse 70% 70% at 110% 10%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+    /* Bottom left gold blob */
+    radial-gradient(ellipse 60% 60% at -5% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    /* Center white glow */
+    radial-gradient(ellipse 50% 50% at 50% 40%, rgba(255, 255, 255, 0.6) 0%, transparent 60%),
+    /* Bottom right purple */
+    radial-gradient(ellipse 50% 50% at 100% 90%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    /* Base color */
+    #F8FAFF;
+
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-.container-brutal {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
+/* Luxury Card Styles */
+@layer utilities {
+  .card-noble {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-/* Premium Card Styles */
-.card-premium {
-  background: var(--card-bg);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
+  .card-noble:hover {
+    border-color: rgba(212, 175, 55, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
+  }
 
-.card-premium:hover {
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
-  transform: translateY(-2px);
-}
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #F9E2AF 50%, #A6891E 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-.btn-premium {
-  background: #111827;
-  color: white;
-  padding: 0.875rem 2rem;
-  border-radius: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: all 0.2s;
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {

@@ -1,23 +1,25 @@
 ﻿"use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
-import { ProductCard, SystemLabel } from '@/components/ui/Industrial';
+import { ProductCard } from '@/components/ui/Industrial';
 import { SectionHeader } from '@/components/ui/Brutal';
 import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
-import { PRODUCTS_DATA } from '@/lib/products';
-import { Search, Box } from 'lucide-react';
+import { useProductStore } from '@/store/useProductStore';
+import { Search, Box, Loader2 } from 'lucide-react';
 
 export default function UrunlerClient() {
+    const { products, loading, fetchProducts } = useProductStore();
     const [selectedCategory, setSelectedCategory] = useState("ALL");
     const [searchQuery, setSearchQuery] = useState("");
 
-    const products = Object.values(PRODUCTS_DATA);
+    useEffect(() => {
+        fetchProducts();
+    }, [fetchProducts]);
 
     // Get unique categories
-    const uniqueCategories = Array.from(new Set(products.map(p => p.category)));
-    const categories = ["ALL", ...uniqueCategories];
+    const categories = ["ALL", ...Array.from(new Set(products.map(p => p.category)))];
 
     const filteredProducts = products.filter(p => {
         const matchesCategory = selectedCategory === "ALL" || p.category === selectedCategory;
@@ -26,11 +28,20 @@ export default function UrunlerClient() {
         return matchesCategory && matchesSearch;
     });
 
+    if (loading && products.length === 0) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center bg-paper-white">
+                <Loader2 className="w-12 h-12 text-safety-orange animate-spin mb-4" />
+                <p className="font-mono text-sm tracking-widest uppercase text-steel-gray">ARCHIVE SYNCHRONIZING...</p>
+            </div>
+        );
+    }
+
     return (
-        <main className="min-h-screen bg-paper-white relative">
+        <main className="min-h-screen bg-transparent relative">
             <Navigation />
 
-            <div className="pt-32 pb-24 container-brutal">
+            <div className="pt-32 pb-24 container mx-auto px-6 lg:px-12 max-w-[1400px]">
                 <SectionHeader
                     title="ARCHIVE"
                     subtitle={`TOTAL UNITS: ${filteredProducts.length}`}

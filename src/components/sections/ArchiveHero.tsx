@@ -1,98 +1,91 @@
 ﻿"use client";
 
 import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 export const ArchiveHero = () => {
     return (
-        <section className="relative pt-32 pb-12 overflow-hidden">
-            <div className="container-brutal relative z-10">
-                <div className="card-premium p-8 md:p-16 bg-white overflow-hidden relative">
-                    <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-gray-50/50 to-transparent pointer-events-none" />
+        <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-transparent">
+            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-
-                        {/* LEFT CONTENT */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="lg:col-span-6 flex flex-col gap-8"
-                        >
-                            <div className="flex flex-col gap-4">
-                                <span className="text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">
-                                    METAL POSTER // LIMITED SERIES
-                                </span>
-
-                                <h1 className="text-4xl md:text-7xl font-extrabold text-[#111827] leading-[1] tracking-tighter uppercase">
-                                    PREMIUM METAL <br />
-                                    <span className="text-gray-900/40">POSTER</span> <br />
-                                    KOLEKSİYONU
-                                </h1>
-
-                                <p className="text-lg text-gray-400 font-medium leading-relaxed max-w-[550px]">
-                                    1.5mm alüminyum üzerine UV dijital baskı. Canlı renkler, keskin detaylar, duvarın için galeri kalitesi.
-                                </p>
+                    {/* LEFT CONTENT: NOBLE TYPOGRAPHY */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-12 xl:col-span-7 flex flex-col gap-12"
+                    >
+                        <div className="flex flex-col gap-6">
+                            <div className="flex items-center gap-4">
+                                <div className="w-16 h-[1px] bg-[#D4AF37]" />
+                                <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Miras ve Gelecek</span>
                             </div>
 
-                            <div className="flex flex-wrap gap-4 pt-2">
-                                <Link
-                                    href="/urunler"
-                                    className="bg-[#111827] text-white px-10 py-5 rounded-xl font-bold text-sm tracking-widest hover:bg-gray-800 transition-all shadow-xl shadow-black/10"
-                                >
-                                    KOLEKSİYONU İNCELE
-                                </Link>
-                                <Link
-                                    href="#products"
-                                    className="bg-white text-gray-900 border-2 border-gray-100 px-10 py-5 rounded-xl font-bold text-sm tracking-widest hover:border-gray-900 transition-all"
-                                >
-                                    BESTSELLER'I GÖR
-                                </Link>
-                            </div>
+                            <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black text-[#0A0A0A] leading-[0.9] tracking-[-0.04em] uppercase">
+                                Sanatta <br />
+                                <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Asalet</span>
+                            </h1>
 
-                            {/* STATS - Image 1 Style */}
-                            <div className="flex items-center gap-10 pt-10 border-t border-gray-100 mt-4">
-                                {[
-                                    { val: "24-48h", label: "HIZLI KARGO" },
-                                    { val: "1.5mm", label: "ALUMİNYUM" },
-                                    { val: "UV", label: "DIJITAL BASKI" }
-                                ].map((stat, i) => (
-                                    <div key={i} className="flex flex-col gap-1">
-                                        <span className="text-xl font-extrabold text-gray-900">{stat.val}</span>
-                                        <span className="text-[9px] font-black text-gray-300 tracking-widest uppercase">{stat.label}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </motion.div>
+                            <p className="text-xl sm:text-2xl text-[#0A0A0A]/60 font-medium leading-relaxed max-w-xl">
+                                1.5mm yüksek kaliteli çelik üzerine işlenen, ömür boyu garantili metal tablolar. Yaşam alanınıza modern bir müze havası katın.
+                            </p>
+                        </div>
 
-                        {/* RIGHT VISUAL - PREMIUM MOCKUP */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.3 }}
-                            className="lg:col-span-6 relative"
-                        >
-                            <div className="relative aspect-[3/4] w-full max-w-[500px] mx-auto group">
-                                {/* Decorative Elements */}
-                                <div className="absolute -inset-4 border border-gray-100 rounded-[2rem] pointer-events-none" />
+                        <div className="flex flex-col sm:flex-row gap-6 pt-4">
+                            <button className="h-20 px-12 bg-[#0A0A0A] text-white text-[12px] font-black uppercase tracking-[0.4em] hover:bg-[#D4AF37] transition-all duration-700 shadow-2xl relative overflow-hidden group">
+                                <span className="relative z-10">Koleksiyonu Keşfet</span>
+                                <div className="absolute inset-0 bg-[#D4AF37] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+                            </button>
+                            <button className="h-20 px-12 border border-[#0A0A0A]/10 text-[12px] font-black uppercase tracking-[0.4em] text-[#0A0A0A] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-500">
+                                Katalog İndir
+                            </button>
+                        </div>
 
-                                {/* Main Framed Image */}
-                                <div className="w-full h-full bg-gray-100 rounded-2xl overflow-hidden shadow-2xl relative">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop"
-                                        alt="Hero Product"
-                                        className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-                                    />
-                                    {/* Label Bubble */}
-                                    <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-lg">
-                                        <span className="text-[10px] font-black text-gray-900 uppercase tracking-widest">DOKUYU HİSSET</span>
-                                    </div>
+                        <div className="flex items-center gap-12 lg:gap-20 pt-10 border-t border-[#D4AF37]/20">
+                            {[
+                                { val: "24-48s", label: "TESLİMAT" },
+                                { val: "1.5mm", label: "ÇELİK" },
+                                { val: "4K UV", label: "BASKI" }
+                            ].map((stat, i) => (
+                                <div key={i} className="flex flex-col gap-2">
+                                    <span className="text-3xl font-black text-[#0A0A0A] italic">{stat.val}</span>
+                                    <span className="text-xs font-black text-[#D4AF37] tracking-[0.2em] uppercase">{stat.label}</span>
                                 </div>
-                            </div>
-                        </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
 
-                    </div>
+                    {/* RIGHT VISUAL: MUSEUM MOCKUP */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.2, delay: 0.3 }}
+                        className="lg:col-span-12 xl:col-span-5 relative"
+                    >
+                        <div className="relative aspect-[3/4] w-full max-w-[500px] mx-auto group">
+                            {/* Decorative Gold Frame (Outer) */}
+                            <div className="absolute -inset-8 border-[1px] border-[#D4AF37]/20 transition-all duration-1000 group-hover:scale-105" />
+
+                            {/* Main Product Frame */}
+                            <div className="w-full h-full bg-white relative z-10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-[10px] border-white group-hover:shadow-[0_80px_150px_-30px_rgba(212,175,55,0.2)] transition-all duration-1000">
+                                <img
+                                    src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop"
+                                    alt="Lüks Metal Tablo"
+                                    className="w-full h-full object-cover"
+                                />
+                                {/* Gloss effect overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/20 pointer-events-none" />
+                            </div>
+
+                            {/* Technical Markings */}
+                            <div className="absolute top-[-40px] right-0 flex items-center gap-4 opacity-30">
+                                <span className="text-[9px] font-black text-[#0A0A0A] uppercase tracking-[0.5em]">SERIES // NOBLE</span>
+                                <div className="w-12 h-[1px] bg-[#0A0A0A]" />
+                            </div>
+                        </div>
+                    </motion.div>
+
                 </div>
             </div>
         </section>
