@@ -36,18 +36,18 @@ export const Navigation = () => {
                     {/* Brand Logo */}
                     <div className="flex items-center gap-16">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <div className="h-12 w-12 transition-all duration-500 flex-shrink-0">
+                            <div className="h-14 w-14 transition-all duration-500 flex-shrink-0">
                                 <img
-                                    src={(content.headerLogo && content.headerLogo.length > 0) ? content.headerLogo : "/images/veral-logo.png"}
+                                    src={(content.headerLogo && content.headerLogo.length > 0) ? content.headerLogo : "/veral-logo.webp"}
                                     alt={content.siteName || "VERAL"}
-                                    className="h-full w-full object-contain rounded-full"
+                                    className="h-full w-full object-contain"
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <h2 className={`text-xl font-black uppercase tracking-[0.15em] ${isScrolled ? 'text-white' : 'text-white'}`}>
+                                <h2 className="text-xl font-black uppercase tracking-[0.15em] text-[#D4AF37]">
                                     {content.siteName || "VERAL"}
                                 </h2>
-                                <span className="text-[8px] font-bold text-[#D4AF37] tracking-[0.3em] uppercase -mt-0.5">Torna & Teneke Ticaret</span>
+                                <span className="text-[8px] font-bold text-white/80 tracking-[0.3em] uppercase -mt-0.5">Torna & Teneke Ticaret</span>
                             </div>
                         </Link>
 

@@ -14,10 +14,10 @@ export const LocalContactSection = () => {
                         <div className="w-12 h-[1px] bg-[#D4AF37]" />
                         <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">İletişim & Destek</span>
                     </div>
-                    <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
+                    <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
                         Bize <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Ulaşın</span>
                     </h2>
-                    <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">Siparişiniz veya özel taslarımlar için uzman ekibimizle görüşün.</p>
+                    <p className="text-white/50 text-lg font-medium max-w-lg">Siparişiniz veya özel taslarımlar için uzman ekibimizle görüşün.</p>
                 </div>
 
                 <div className="grid lg:grid-cols-12 gap-10">

@@ -20,18 +20,18 @@ export const Footer = () => {
                     {/* LEFT: LOGO & ABOUT */}
                     <div className="lg:col-span-12 xl:col-span-5 flex flex-col gap-10">
                         <Link href="/" className="flex items-center gap-4 group">
-                            <div className="h-14 w-14 transition-all duration-500 flex-shrink-0">
+                            <div className="h-16 w-16 transition-all duration-500 flex-shrink-0">
                                 <img
-                                    src={(content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/images/veral-logo.png"}
+                                    src={(content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/veral-logo.webp"}
                                     alt={content.siteName || "VERAL"}
-                                    className="h-full w-full object-contain rounded-full"
+                                    className="h-full w-full object-contain"
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-2xl font-black text-white tracking-[0.15em] uppercase">
+                                <span className="text-2xl font-black text-[#D4AF37] tracking-[0.15em] uppercase">
                                     {content.siteName || "VERAL"}
                                 </span>
-                                <span className="text-[9px] font-bold text-[#D4AF37] tracking-[0.3em] uppercase">Torna & Teneke Ticaret</span>
+                                <span className="text-[9px] font-bold text-white/80 tracking-[0.3em] uppercase">Torna & Teneke Ticaret</span>
                             </div>
                         </Link>
                         <p className="text-[#FDFBF7]/60 text-lg leading-relaxed max-w-sm">

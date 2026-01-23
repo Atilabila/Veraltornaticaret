@@ -57,7 +57,7 @@ export const ArchiveHero = () => {
                         </div>
 
                         <div className="flex items-center gap-12 lg:gap-20 pt-10 border-t border-[#D4AF37]/20">
-                            {content.heroStats.map((stat, i) => (
+                            {(content.heroStats || []).map((stat, i) => (
                                 <div key={i} className="flex flex-col gap-2">
                                     <span className="text-3xl font-black text-[#0A0A0A] italic">{stat.value}</span>
                                     <span className="text-xs font-black text-[#D4AF37] tracking-[0.2em] uppercase">{stat.label}</span>

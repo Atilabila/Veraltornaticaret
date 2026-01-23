@@ -59,8 +59,21 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="antialiased selection:bg-primary selection:text-white">
-        {children}
+      <body className="antialiased selection:bg-primary selection:text-white relative">
+        {/* Global Background Pattern - Grayscale, 25% opacity */}
+        <div
+          className="fixed inset-0 z-0 pointer-events-none"
+          style={{
+            backgroundImage: 'url(/images/site-pattern.jpg)',
+            backgroundSize: '400px',
+            backgroundRepeat: 'repeat',
+            opacity: 0.15,
+            filter: 'grayscale(100%)',
+          }}
+        />
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );
