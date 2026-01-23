@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { ContentService } from "@/lib/supabase/content.service";
 
 export interface SiteContent {
+    // ... (existing interface lines remain same)
     // ===== BRANDING =====
     headerLogo: string;
     footerLogo: string;
