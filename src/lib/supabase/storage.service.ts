@@ -7,7 +7,7 @@ export const uploadImage = async (file: File, path?: string): Promise<string> =>
     const filePath = path ? `${path}/${fileName}` : fileName;
 
     const { data, error } = await supabase.storage
-        .from('products')
+        .from('ürünler')
         .upload(filePath, file);
 
     if (error) {
@@ -15,7 +15,7 @@ export const uploadImage = async (file: File, path?: string): Promise<string> =>
     }
 
     const { data: { publicUrl } } = supabase.storage
-        .from('products')
+        .from('ürünler')
         .getPublicUrl(filePath);
 
     return publicUrl;

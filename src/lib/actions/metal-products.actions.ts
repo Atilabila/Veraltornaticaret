@@ -372,7 +372,7 @@ export async function uploadProductImage(
         const filePath = `products/${fileName}`
 
         const { error: uploadError } = await supabase.storage
-            .from('product-images')
+            .from('ürünler')
             .upload(filePath, file, {
                 cacheControl: '3600',
                 upsert: true
@@ -381,7 +381,7 @@ export async function uploadProductImage(
         if (uploadError) throw uploadError
 
         const { data: urlData } = supabase.storage
-            .from('product-images')
+            .from('ürünler')
             .getPublicUrl(filePath)
 
         return { data: urlData.publicUrl, error: null, success: true }
