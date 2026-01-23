@@ -167,6 +167,26 @@ export type Database = {
                     created_at?: string
                 }
             }
+            site_content: {
+                Row: {
+                    id: string
+                    key: string
+                    data: Record<string, any>
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    key: string
+                    data: Record<string, any>
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    key?: string
+                    data?: Record<string, any>
+                    updated_at?: string
+                }
+            }
         }
         Views: {
             [_ in never]: never

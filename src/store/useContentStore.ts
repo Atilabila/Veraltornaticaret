@@ -101,6 +101,10 @@ interface ContentStore {
     updateFeatureItem: (index: number, item: SiteContent["featureItems"][0]) => void;
     updateServiceItem: (index: number, item: SiteContent["serviceItems"][0]) => void;
     updateAboutStat: (index: number, stat: { label: string; value: string }) => void;
+
+    // Supabase Sync Methods
+    fetchContent: () => Promise<void>;
+    saveToSupabase: () => Promise<boolean>;
 }
 
 const defaultContent: SiteContent = {
@@ -242,7 +246,7 @@ const defaultContent: SiteContent = {
 
 export const useContentStore = create<ContentStore>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             content: defaultContent,
 
             updateContent: (updates) => {
@@ -299,6 +303,20 @@ export const useContentStore = create<ContentStore>()(
                     newStats[index] = stat;
                     return { content: { ...state.content, aboutStats: newStats } };
                 });
+            },
+
+            fetchContent: async () => {
+                const data = await ContentService.getContent();
+                if (data) {
+                    set((state) => ({
+                        content: { ...state.content, ...data }
+                    }));
+                }
+            },
+
+            saveToSupabase: async () => {
+                const { content } = get();
+                return await ContentService.saveContent(content);
             },
         }),
         {

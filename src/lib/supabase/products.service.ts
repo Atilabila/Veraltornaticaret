@@ -9,7 +9,7 @@ type ProductInsert = Database['public']['Tables']['products']['Insert'];
  */
 export class ProductService {
     /**
-     * Get all active products
+     * Get all active products (for public display)
      */
     static async getAllProducts(): Promise<Product[]> {
         try {
@@ -27,6 +27,28 @@ export class ProductService {
             return (data && data.length > 0) ? data : this.getFallbackProducts();
         } catch (err) {
             console.warn('Supabase connection error, using fallback products:', err);
+            return this.getFallbackProducts();
+        }
+    }
+
+    /**
+     * Get all products including inactive (for admin panel)
+     */
+    static async getAllProductsAdmin(): Promise<Product[]> {
+        try {
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.warn('Supabase fetch failed for admin:', error.message);
+                return this.getFallbackProducts();
+            }
+
+            return data || [];
+        } catch (err) {
+            console.warn('Supabase connection error for admin:', err);
             return this.getFallbackProducts();
         }
     }

@@ -17,6 +17,12 @@ import type { Category } from "@/lib/supabase/categories.service";
 export const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState("content");
     const [notification, setNotification] = useState<{ type: "success" | "error"; message: string } | null>(null);
+    const { fetchContent } = useContentStore();
+
+    // Fetch content from Supabase on mount
+    useEffect(() => {
+        fetchContent();
+    }, [fetchContent]);
 
     const showNotification = (type: "success" | "error", message: string) => {
         setNotification({ type, message });
@@ -139,7 +145,7 @@ export const AdminDashboard = () => {
 
 // ========== HOME CONTENT TAB ==========
 const HomeContentTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
-    const { content, updateContent, updateFeatureItem, updateFaqItem, addFaqItem, removeFaqItem, updateServiceItem } = useContentStore();
+    const { content, updateContent, updateFeatureItem, updateFaqItem, addFaqItem, removeFaqItem, updateServiceItem, saveToSupabase } = useContentStore();
     const [activeSection, setActiveSection] = useState("hero");
 
     const sections = [
@@ -149,6 +155,15 @@ const HomeContentTab = ({ showNotification }: { showNotification: (type: "succes
         { id: "faq", label: "SSS (FAQ)", icon: "❓" },
     ];
 
+    const handleSave = async () => {
+        const success = await saveToSupabase();
+        if (success) {
+            showNotification("success", "Değişiklikler Supabase'e kaydedildi!");
+        } else {
+            showNotification("error", "Kayıt sırasında bir hata oluştu!");
+        }
+    };
+
     return (
         <div>
             <header className="flex justify-between items-center mb-8">
@@ -157,7 +172,7 @@ const HomeContentTab = ({ showNotification }: { showNotification: (type: "succes
                     <p className="text-slate-500 mt-1">Tüm ana sayfa metinlerini ve görsellerini düzenleyin</p>
                 </div>
                 <button
-                    onClick={() => showNotification("success", "Değişiklikler otomatik kaydedildi!")}
+                    onClick={handleSave}
                     className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
                 >
                     <Save className="w-5 h-5" /> Kaydet
@@ -851,7 +866,7 @@ const ContactTab = ({ showNotification }: { showNotification: (type: "success" |
 
 // ========== PRODUCTS TAB ==========
 const ProductsTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
-    const { products, loading, error, fetchProducts, addProduct, updateProduct, deleteProduct } = useProductStore();
+    const { products, loading, error, fetchProductsAdmin, addProduct, updateProduct, deleteProduct } = useProductStore();
     const { categories, fetchCategories } = useCategoryStore();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -861,9 +876,9 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
 
     // Fetch products and categories on mount
     useEffect(() => {
-        fetchProducts();
+        fetchProductsAdmin();
         fetchCategories();
-    }, [fetchProducts, fetchCategories]);
+    }, [fetchProductsAdmin, fetchCategories]);
 
     // Expand all categories once loaded
     useEffect(() => {
@@ -1514,7 +1529,16 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
 
 // ========== METAL SHOWCASE TAB ==========
 const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
-    const { content, updateContent } = useContentStore();
+    const { content, updateContent, saveToSupabase } = useContentStore();
+
+    const handleSave = async () => {
+        const success = await saveToSupabase();
+        if (success) {
+            showNotification("success", "Metal Showcase ayarları Supabase'e kaydedildi!");
+        } else {
+            showNotification("error", "Kayıt sırasında bir hata oluştu!");
+        }
+    };
 
     return (
         <div>
@@ -1524,7 +1548,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                     <p className="text-slate-500 mt-1">/metal-showcase sayfasının içeriklerini düzenleyin</p>
                 </div>
                 <button
-                    onClick={() => showNotification("success", "Metal Showcase ayarları kaydedildi!")}
+                    onClick={handleSave}
                     className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
                 >
                     <Save className="w-5 h-5" /> Kaydet

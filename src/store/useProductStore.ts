@@ -12,6 +12,7 @@ interface ProductStore {
 
     // Fetch operations
     fetchProducts: () => Promise<void>;
+    fetchProductsAdmin: () => Promise<void>;
     fetchProductsByCategory: (category: string) => Promise<void>;
 
     // CRUD operations
@@ -69,6 +70,20 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
                     loading: false
                 });
             }
+        }
+    },
+
+    fetchProductsAdmin: async () => {
+        set({ loading: true, error: null });
+        try {
+            const dbProducts = await ProductService.getAllProductsAdmin();
+            const products = dbProducts.map(mapDbToProduct);
+            set({ products, loading: false });
+        } catch (error) {
+            set({
+                error: error instanceof Error ? error.message : 'Failed to fetch products for admin',
+                loading: false
+            });
         }
     },
 
