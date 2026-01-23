@@ -49,6 +49,8 @@ export const metadata: Metadata = {
 
 import { GlobalAtmosphere } from "@/components/layout/GlobalAtmosphere";
 
+import { ContentProvider } from "@/components/layout/ContentProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -71,9 +73,11 @@ export default function RootLayout({
             filter: 'grayscale(100%)',
           }}
         />
-        <div className="relative z-10">
-          {children}
-        </div>
+        <ContentProvider>
+          <div className="relative z-10">
+            {children}
+          </div>
+        </ContentProvider>
       </body>
     </html>
   );
