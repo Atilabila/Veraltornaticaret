@@ -34,6 +34,19 @@ export const Features = () => {
                     ))}
                 </div>
 
+                {/* EXPLORE_BUTTON (Admin Configurable) */}
+                {content.featuresExploreText && (
+                    <div className="flex justify-center mb-24">
+                        <Link
+                            href={content.featuresExploreUrl || "/ozellikler"}
+                            className="group relative inline-flex items-center gap-6 px-16 py-8 bg-white border-8 border-black font-[Archivo Black] text-3xl uppercase transition-all hover:-translate-x-2 hover:-translate-y-2 hover:shadow-[16px_16px_0px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-none"
+                        >
+                            {content.featuresExploreText}
+                            <Activity className="w-10 h-10 text-[var(--color-brand-safety-orange)] group-hover:rotate-12 transition-transform" />
+                        </Link>
+                    </div>
+                )}
+
                 {/* BOTTOM_CTA */}
                 <div className="border-8 border-black p-12 bg-black text-white text-center relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-full h-2 bg-[var(--color-brand-safety-orange)]" />

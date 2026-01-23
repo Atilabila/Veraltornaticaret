@@ -2,6 +2,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface SiteContent {
+    // ===== BRANDING =====
+    headerLogo: string;
+    footerLogo: string;
+    siteName: string;
+
     // ===== HERO SECTION =====
     heroTitle: string;
     heroSubtitle: string;
@@ -9,11 +14,16 @@ export interface SiteContent {
     heroPrice: string;
     heroImage: string;
     heroButton1Text: string;
+    heroButton1Url: string;
     heroButton2Text: string;
+    heroButton2Url: string;
+    heroStats: { value: string; label: string }[];
 
     // ===== FEATURES SECTION =====
     featuresTitle: string;
     featuresSubtitle: string;
+    featuresExploreText: string;
+    featuresExploreUrl: string;
     featureItems: {
         title: string;
         description: string;
@@ -29,11 +39,14 @@ export interface SiteContent {
     // ===== OTHER SERVICES =====
     servicesTitle: string;
     servicesSubtitle: string;
+    servicesExploreText: string;
+    servicesExploreUrl: string;
     serviceItems: {
         title: string;
         description: string;
         image: string;
         features: string[];
+        exploreUrl: string;
     }[];
 
     // ===== FAQ SECTION =====
@@ -57,14 +70,24 @@ export interface SiteContent {
     aboutContent: string;
     aboutImage: string;
     aboutStats: { label: string; value: string }[];
+    aboutExploreText: string;
+    aboutExploreUrl: string;
 
     // ===== PRODUCTS PAGE (URUNLER) =====
     productsPageTitle: string;
     productsPageSubtitle: string;
+    productsExploreText: string;
+    productsExploreUrl: string;
 
     // ===== BLOG PAGE =====
     blogPageTitle: string;
     blogPageSubtitle: string;
+
+    // ===== METAL SHOWCASE =====
+    metalShowcaseTitle: string;
+    metalShowcaseSubtitle: string;
+    metalShowcaseHeroImage: string;
+    metalShowcaseTrustBadges: { icon: string; text: string }[];
 }
 
 interface ContentStore {
@@ -79,18 +102,32 @@ interface ContentStore {
 }
 
 const defaultContent: SiteContent = {
+    // Branding
+    headerLogo: "/logo.svg",
+    footerLogo: "/logo-white.svg",
+    siteName: "VERAL",
+
     // Hero
-    heroTitle: "DUVARLARINIZ İÇİN YENİ NESİL DEKOR",
-    heroSubtitle: "0.35 MM ENDÜSTRİYEL METAL PLAKALAR. UV DİJİTAL KALİBRASYON. SIFIR YUVARLAK KÖŞE.",
-    heroTagline: "KAĞIT POSTERLERİ UNUTUN. BÜKÜLMEZ, SOLMAZ VE ŞIK METAL TABLOLARLA TANIŞIN",
+    heroTitle: "Sanatta Asalet",
+    heroSubtitle: "1.5mm yüksek kaliteli çelik üzerine işlenen, ömür boyu garantili metal tablolar. Yaşam alanınıza modern bir müze havası katın.",
+    heroTagline: "MİRAS VE GELECEK",
     heroPrice: "199 TL",
-    heroImage: "/hero-mockup.png",
-    heroButton1Text: "KATALOG BAŞLAT",
-    heroButton2Text: "ÖZELLİKLERİ GÖR",
+    heroImage: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
+    heroButton1Text: "Koleksiyonu Keşfet",
+    heroButton1Url: "/urunler",
+    heroButton2Text: "Katalog İndir",
+    heroButton2Url: "/katalog.pdf",
+    heroStats: [
+        { value: "24-48s", label: "TESLİMAT" },
+        { value: "1.5mm", label: "ÇELİK" },
+        { value: "4K UV", label: "BASKI" }
+    ],
 
     // Features
     featuresTitle: "NEDEN METAL?",
     featuresSubtitle: "GELİŞMİŞ DEKOR DONANIMI. KALICILIK İÇİN TASARLANDI.",
+    featuresExploreText: "Tüm Özellikleri Keşfet",
+    featuresExploreUrl: "/ozellikler",
     featureItems: [
         {
             title: "ENDÜSTRİYEL DAYANIKLILIK",
@@ -122,24 +159,29 @@ const defaultContent: SiteContent = {
     // Services
     servicesTitle: "DİĞER OPERASYONLAR",
     servicesSubtitle: "GÖRSEL EKRAN BİRİMLERİNİN ÖTESİNDEKİ GENİŞLETİLMİŞ ÜRETİM KABİLİYETLERİ.",
+    servicesExploreText: "Tüm Hizmetleri Gör",
+    servicesExploreUrl: "/hizmetler",
     serviceItems: [
         {
             title: "DOSYA TELİ İMALATI",
             description: "ENDÜSTRİYEL SINIF DOSYA TELİ ÜRETİMİ. ÖZEL ÖLÇÜLER. YÜKSEK GERİLİM DAYANIKLILIK DERECESİ.",
             image: "/dosya-teli.jpg",
-            features: ["STANDART ÖLÇÜ", "ÖZEL TASARIM", "TOPLU ÜRETİM"]
+            features: ["STANDART ÖLÇÜ", "ÖZEL TASARIM", "TOPLU ÜRETİM"],
+            exploreUrl: "/hizmetler/dosya-teli"
         },
         {
             title: "METAL ETİKET ÇIKTISI",
             description: "HASSAS LAZER VE MEKANİK ETİKETLEME. KOROZYON DİRENÇLİ. AĞIR MAKİNE UYGULAMALARI İÇİN.",
             image: "/metal-etiket.png",
-            features: ["DEĞİŞKEN BOYUT", "LOGO BASKI", "YÜKSEK KALİTE"]
+            features: ["DEĞİŞKEN BOYUT", "LOGO BASKI", "YÜKSEK KALİTE"],
+            exploreUrl: "/hizmetler/metal-etiket"
         },
         {
             title: "DEF SİSTEMLERİ",
             description: "PROFESYONEL METAL ENSTRÜMAN BİLEŞENLERİ. RENK KODLU YÜZEY. AKUSTİK OLARAK KALİBRE EDİLDİ.",
             image: "/tef.png",
-            features: ["KROM KAPLAMA", "ÖZEL DİZİN", "HASSAS AYAR"]
+            features: ["KROM KAPLAMA", "ÖZEL DİZİN", "HASSAS AYAR"],
+            exploreUrl: "/hizmetler/def-sistemleri"
         }
     ],
 
@@ -172,14 +214,28 @@ const defaultContent: SiteContent = {
         { label: "Mutlu Müşteri", value: "1000+" },
         { label: "Ürün Çeşidi", value: "500+" }
     ],
+    aboutExploreText: "Hikayemizi Keşfet",
+    aboutExploreUrl: "/hakkimizda",
 
     // Products Page
     productsPageTitle: "ÜRÜN KATALOĞU",
     productsPageSubtitle: "TÜM METAL POSTER KOLEKSİYONUMUZU KEŞFEDİN",
+    productsExploreText: "Tüm Ürünleri Gör",
+    productsExploreUrl: "/urunler",
 
     // Blog Page
     blogPageTitle: "BLOG & HABERLER",
-    blogPageSubtitle: "EN SON GELİŞMELER VE MAKALELER"
+    blogPageSubtitle: "EN SON GELİŞMELER VE MAKALELER",
+
+    // Metal Showcase
+    metalShowcaseTitle: "Metal Art Atelier",
+    metalShowcaseSubtitle: "Endüstriyel kalite. Sanatsal tasarım. Tel, etiket ve mıknatıs çözümlerinde güvenilir partneriniz.",
+    metalShowcaseHeroImage: "",
+    metalShowcaseTrustBadges: [
+        { icon: "Zap", text: "Hızlı Üretim" },
+        { icon: "Shield", text: "10 Yıl Garanti" },
+        { icon: "Award", text: "Premium Kalite" }
+    ]
 };
 
 export const useContentStore = create<ContentStore>()(

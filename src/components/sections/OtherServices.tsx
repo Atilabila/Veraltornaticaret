@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Wrench, Tag, Music, ArrowUpRight } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
 
@@ -36,8 +37,9 @@ export const OtherServices = () => {
                 {/* PRODUCTION_GRID */}
                 <div className="grid md:grid-cols-3 gap-0 border-8 border-black shadow-brutal">
                     {content.serviceItems.map((service, index) => (
-                        <div
+                        <Link
                             key={index}
+                            href={service.exploreUrl || "#"}
                             className="flex flex-col border-b-8 md:border-b-0 md:border-r-8 last:border-b-0 md:last:border-r-0 border-black bg-white group hover:bg-[#E5E7EB] transition-none"
                         >
                             {/* VISUAL_ARRAY */}
@@ -46,7 +48,7 @@ export const OtherServices = () => {
                                     src={service.image}
                                     alt={service.title}
                                     fill
-                                    className="object-cover transition-none"
+                                    className="object-cover transition-none group-hover:scale-105"
                                     sizes="(max-width: 768px) 100vw, 33vw"
                                 />
                                 <div className="absolute inset-0 grid-terminal opacity-30" />
@@ -77,9 +79,22 @@ export const OtherServices = () => {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
+
+                {/* EXPLORE_BUTTON (Admin Configurable) */}
+                {content.servicesExploreText && (
+                    <div className="flex justify-center mt-16">
+                        <Link
+                            href={content.servicesExploreUrl || "/hizmetler"}
+                            className="group relative inline-flex items-center gap-6 px-16 py-8 bg-black text-white font-[Archivo Black] text-3xl uppercase transition-all hover:-translate-x-2 hover:-translate-y-2 hover:shadow-[16px_16px_0px_0px_var(--color-brand-safety-orange)] active:translate-x-0 active:translate-y-0 active:shadow-none"
+                        >
+                            {content.servicesExploreText}
+                            <ArrowUpRight className="w-10 h-10 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
+                        </Link>
+                    </div>
+                )}
 
                 {/* MOD_CTA */}
                 <div className="mt-16 bg-[#FFD700] border-4 border-black p-8 flex flex-col md:flex-row items-center justify-between shadow-brutal">

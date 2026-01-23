@@ -1,0 +1,320 @@
+// =====================================================
+// PRODUCT SECTION - METAL ART EDITION
+// Full-Screen Display with Ambient Glow
+// =====================================================
+"use client"
+
+import * as React from "react"
+import { motion } from "framer-motion"
+import { ArrowDown, ShoppingBag, Zap } from "lucide-react"
+import { useInView } from "@/hooks/useInView"
+import { FeatureItem } from "./FeatureItem"
+import { MetalImage } from "./MetalImage"
+import { cn, formatPrice } from "@/lib/utils"
+import type { MetalProduct } from "@/lib/supabase/metal-products.types"
+
+interface ProductSectionProps {
+    product: MetalProduct
+    index: number
+    isLast?: boolean
+}
+
+// Determine if background is dark
+const isDarkBackground = (color: string): boolean => {
+    if (color.startsWith("bg-")) {
+        return color.includes("900") || color.includes("800") || color.includes("950") || color.includes("zinc") || color.includes("slate")
+    }
+    if (color.startsWith("#")) {
+        const hex = color.replace("#", "")
+        const r = parseInt(hex.substr(0, 2), 16)
+        const g = parseInt(hex.substr(2, 2), 16)
+        const b = parseInt(hex.substr(4, 2), 16)
+        return (r * 299 + g * 587 + b * 114) / 1000 < 128
+    }
+    return true
+}
+
+// Get ambient glow color
+const getAmbientGlow = (bg: string): string => {
+    if (bg.includes("f0f4f8") || bg.includes("ffffff")) return "rgba(212, 175, 55, 0.4)"
+    if (bg.includes("1a1a2e") || bg.includes("16213e")) return "rgba(59, 130, 246, 0.3)"
+    if (bg.includes("533483")) return "rgba(139, 92, 246, 0.3)"
+    return "rgba(161, 161, 170, 0.2)"
+}
+
+export const ProductSection: React.FC<ProductSectionProps> = ({
+    product,
+    index,
+    isLast = false
+}) => {
+    const { ref, isInView } = useInView({ threshold: 0.15, triggerOnce: true })
+
+    const isDark = isDarkBackground(product.background_color)
+    const sortedFeatures = product.features?.sort((a, b) => a.display_order - b.display_order) || []
+    const ambientGlow = getAmbientGlow(product.background_color)
+
+    // Background style
+    const bgStyle: React.CSSProperties = product.background_color.startsWith("bg-")
+        ? {}
+        : { backgroundColor: product.background_color }
+
+    const bgClass = product.background_color.startsWith("bg-")
+        ? product.background_color
+        : ""
+
+    return (
+        <section
+            ref={ref}
+            className={cn(
+                "min-h-screen w-full relative flex items-center justify-center overflow-hidden",
+                bgClass
+            )}
+            style={bgStyle}
+        >
+            {/* Industrial Grid Pattern */}
+            <div className={cn(
+                "absolute inset-0 bg-grid-metal opacity-30 pointer-events-none"
+            )} />
+
+            {/* Ambient Glow - Behind Product */}
+            <motion.div
+                className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
+                style={{ backgroundColor: ambientGlow }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 1, delay: 0.2 }}
+            />
+
+            {/* Content Container */}
+            <div className="container mx-auto px-6 py-20 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+                    {/* Left: Product Image with Ambient Glow */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -60, scale: 0.9 }}
+                        animate={isInView ? {
+                            opacity: 1,
+                            x: 0,
+                            scale: 1
+                        } : {
+                            opacity: 0,
+                            x: -60,
+                            scale: 0.9
+                        }}
+                        transition={{
+                            duration: 0.8,
+                            ease: [0.22, 1, 0.36, 1]
+                        }}
+                        className="relative order-2 lg:order-1"
+                    >
+                        {/* Product Number - Industrial Badge */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0, rotate: -10 }}
+                            animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0, rotate: -10 }}
+                            transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
+                            className={cn(
+                                "absolute -top-4 -left-4 z-20",
+                                "w-16 h-16 flex items-center justify-center",
+                                // Sharp industrial style
+                                "rounded-sm",
+                                "font-bold text-2xl tracking-tight",
+                                // Metal surface
+                                isDark
+                                    ? "bg-gradient-to-br from-zinc-200 to-zinc-400 text-zinc-900"
+                                    : "bg-gradient-to-br from-zinc-800 to-zinc-900 text-zinc-100",
+                                // Embossed effect
+                                "shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_8px_24px_-4px_rgba(0,0,0,0.4)]"
+                            )}
+                        >
+                            {String(index + 1).padStart(2, "0")}
+                        </motion.div>
+
+                        {/* Image Container - Metal Frame */}
+                        <div className={cn(
+                            "relative aspect-square flex items-center justify-center",
+                            "overflow-hidden",
+                            // Sharp edges
+                            "rounded-sm",
+                            // Metal inset effect
+                            isDark
+                                ? "bg-white/5 border border-white/10"
+                                : "bg-black/5 border border-black/10",
+                            "shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)]"
+                        )}>
+                            {product.image_url ? (
+                                <MetalImage
+                                    src={product.image_url}
+                                    alt={product.name}
+                                    backgroundColor={product.background_color}
+                                    className="w-full h-full p-8"
+                                    showAmbientGlow={false}
+                                />
+                            ) : (
+                                <div className={cn(
+                                    "w-32 h-32 rounded-sm",
+                                    isDark ? "bg-white/10" : "bg-black/10"
+                                )} />
+                            )}
+                        </div>
+
+                        {/* Decorative Corner Rivets */}
+                        {["-top-1 -right-1", "-bottom-1 -right-1", "-bottom-1 -left-1"].map((pos, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ scale: 0 }}
+                                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                                transition={{ delay: 0.5 + i * 0.1 }}
+                                className={cn(
+                                    "absolute w-3 h-3 rounded-full",
+                                    pos,
+                                    "bg-gradient-to-br from-zinc-400 to-zinc-600",
+                                    "shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
+                                )}
+                            />
+                        ))}
+                    </motion.div>
+
+                    {/* Right: Product Info */}
+                    <div className="order-1 lg:order-2 space-y-6">
+                        {/* Category Badge - Industrial Tag */}
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <span className={cn(
+                                "inline-flex items-center gap-2 px-4 py-2",
+                                "text-xs font-bold uppercase tracking-[0.2em]",
+                                // Sharp industrial
+                                "rounded-sm",
+                                isDark
+                                    ? "bg-white/5 text-zinc-400 border border-white/10"
+                                    : "bg-black/5 text-zinc-600 border border-black/10"
+                            )}>
+                                <Zap className="w-3 h-3" />
+                                {product.category?.name || "ÜRÜN"}
+                            </span>
+                        </motion.div>
+
+                        {/* Product Name - Display Font */}
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            transition={{ delay: 0.1, duration: 0.6 }}
+                            className={cn(
+                                "text-4xl md:text-5xl lg:text-6xl font-bold leading-tight",
+                                "font-['Syne',sans-serif] tracking-tight",
+                                isDark ? "text-white" : "text-zinc-900"
+                            )}
+                        >
+                            {product.name}
+                        </motion.h2>
+
+                        {/* Description */}
+                        {product.description && (
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                                transition={{ delay: 0.2, duration: 0.6 }}
+                                className={cn(
+                                    "text-lg leading-relaxed",
+                                    isDark ? "text-zinc-400" : "text-zinc-600"
+                                )}
+                            >
+                                {product.description}
+                            </motion.p>
+                        )}
+
+                        {/* Features - Drop with Impact */}
+                        {sortedFeatures.length > 0 && (
+                            <div className="space-y-3 pt-4">
+                                {sortedFeatures.map((feature, featureIndex) => (
+                                    <FeatureItem
+                                        key={feature.id}
+                                        feature={feature}
+                                        index={featureIndex}
+                                        isInView={isInView}
+                                        variant={isDark ? "light" : "dark"}
+                                    />
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Price & CTA - Metal Buttons */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                            transition={{ delay: 0.5, duration: 0.6 }}
+                            className="flex items-center gap-6 pt-6"
+                        >
+                            {/* Price - Metal Badge */}
+                            <div className={cn(
+                                "px-6 py-3 rounded-sm",
+                                isDark
+                                    ? "bg-white/5 border border-white/10"
+                                    : "bg-black/5 border border-black/10"
+                            )}>
+                                <span className={cn(
+                                    "text-3xl md:text-4xl font-bold tracking-tight",
+                                    isDark ? "text-white" : "text-zinc-900"
+                                )}>
+                                    {formatPrice(product.price)}
+                                </span>
+                            </div>
+
+                            {/* CTA Button - Metallic */}
+                            <button className={cn(
+                                "flex items-center gap-3 px-8 py-4",
+                                "font-bold text-sm uppercase tracking-wider",
+                                "rounded-sm transition-all duration-300",
+                                // Metal gradient
+                                isDark
+                                    ? "bg-gradient-to-r from-zinc-200 to-zinc-300 text-zinc-900 hover:from-zinc-100 hover:to-zinc-200"
+                                    : "bg-gradient-to-r from-zinc-800 to-zinc-900 text-white hover:from-zinc-700 hover:to-zinc-800",
+                                // Industrial shadow
+                                "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]",
+                                "hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.4)]",
+                                "hover:-translate-y-0.5"
+                            )}>
+                                <ShoppingBag className="w-5 h-5" />
+                                Koleksiyona Ekle
+                            </button>
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            {!isLast && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ delay: 1.2, duration: 0.5 }}
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2"
+                >
+                    <motion.div
+                        animate={{ y: [0, 8, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        className={cn(
+                            "p-3 rounded-sm",
+                            isDark ? "bg-white/5 border border-white/10" : "bg-black/5 border border-black/10"
+                        )}
+                    >
+                        <ArrowDown className={cn(
+                            "w-5 h-5",
+                            isDark ? "text-zinc-500" : "text-zinc-600"
+                        )} />
+                    </motion.div>
+                </motion.div>
+            )}
+
+            {/* Bottom Gradient Fade */}
+            <div className={cn(
+                "absolute bottom-0 left-0 right-0 h-32 pointer-events-none",
+                "bg-gradient-to-t from-black/20 to-transparent"
+            )} />
+        </section>
+    )
+}
+
+export default ProductSection

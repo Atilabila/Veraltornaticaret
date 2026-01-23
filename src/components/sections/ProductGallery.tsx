@@ -7,8 +7,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useProductStore } from "@/store/useProductStore";
 import { useCartStore } from "@/store/useCartStore";
+import { useContentStore } from "@/store/useContentStore";
 
 export const ProductGallery = () => {
+    const { content } = useContentStore();
     const { products, loading, fetchProducts } = useProductStore();
     const addItem = useCartStore((state) => state.addItem);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -137,10 +139,12 @@ export const ProductGallery = () => {
                 {/* View All Button */}
                 <div className="text-center mt-32">
                     <Link
-                        href="/urunler"
+                        href={content.productsExploreUrl || "/urunler"}
                         className="inline-flex items-center justify-center gap-8 px-16 h-20 bg-transparent border border-[#0A0A0A] text-[#0A0A0A] font-black tracking-[0.5em] transition-all hover:bg-[#0A0A0A] hover:text-white group relative overflow-hidden"
                     >
-                        <span className="relative z-10 uppercase text-xs">TÜMÜNÜ İNCELE</span>
+                        <span className="relative z-10 uppercase text-xs">
+                            {content.productsExploreText || "TÜMÜNÜ İNCELE"}
+                        </span>
                         <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-2 transition-transform" />
                     </Link>
                 </div>

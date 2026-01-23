@@ -53,7 +53,21 @@ export const AdminDashboard = () => {
                 </div>
 
                 <nav className="flex flex-col gap-2">
-                    <p className="text-xs text-slate-500 uppercase tracking-wider px-4 mb-2">İçerik Yönetimi</p>
+                    <p className="text-xs text-slate-500 uppercase tracking-wider px-4 mb-2">Marka & Görsel</p>
+                    <SidebarItem
+                        icon={<LayoutDashboard className="w-5 h-5" />}
+                        label="Logo & Marka"
+                        active={activeTab === "branding"}
+                        onClick={() => setActiveTab("branding")}
+                    />
+                    <SidebarItem
+                        icon={<Activity className="w-5 h-5" />}
+                        label="Metal Showcase"
+                        active={activeTab === "showcase"}
+                        onClick={() => setActiveTab("showcase")}
+                    />
+
+                    <p className="text-xs text-slate-500 uppercase tracking-wider px-4 mb-2 mt-4">İçerik Yönetimi</p>
                     <SidebarItem
                         icon={<Home className="w-5 h-5" />}
                         label="Ana Sayfa İçerikleri"
@@ -109,6 +123,8 @@ export const AdminDashboard = () => {
 
             {/* Main Content */}
             <main className="flex-1 p-8 overflow-y-auto">
+                {activeTab === "branding" && <BrandingTab showNotification={showNotification} />}
+                {activeTab === "showcase" && <MetalShowcaseTab showNotification={showNotification} />}
                 {activeTab === "content" && <HomeContentTab showNotification={showNotification} />}
                 {activeTab === "pages" && <OtherPagesTab showNotification={showNotification} />}
                 {activeTab === "contact" && <ContactTab showNotification={showNotification} />}
@@ -231,6 +247,17 @@ const HomeContentTab = ({ showNotification }: { showNotification: (type: "succes
                             </div>
 
                             <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">Buton 1 URL</label>
+                                <input
+                                    type="text"
+                                    value={content.heroButton1Url || ""}
+                                    onChange={(e) => updateContent({ heroButton1Url: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="/urunler"
+                                />
+                            </div>
+
+                            <div>
                                 <label className="block text-sm font-bold text-slate-400 mb-2">Buton 2 Metni</label>
                                 <input
                                     type="text"
@@ -238,6 +265,55 @@ const HomeContentTab = ({ showNotification }: { showNotification: (type: "succes
                                     onChange={(e) => updateContent({ heroButton2Text: e.target.value })}
                                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
                                 />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">Buton 2 URL</label>
+                                <input
+                                    type="text"
+                                    value={content.heroButton2Url || ""}
+                                    onChange={(e) => updateContent({ heroButton2Url: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="/katalog.pdf"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Hero Stats */}
+                        <div className="mt-8 pt-6 border-t border-slate-700">
+                            <h4 className="font-bold text-slate-300 mb-4 flex items-center gap-2">
+                                📊 Hero İstatistikleri
+                            </h4>
+                            <div className="grid grid-cols-3 gap-4">
+                                {content.heroStats?.map((stat, index) => (
+                                    <div key={index} className="bg-slate-800 rounded-xl p-4 space-y-3">
+                                        <p className="text-xs font-bold text-[var(--color-brand-safety-orange)]">
+                                            İstatistik #{index + 1}
+                                        </p>
+                                        <input
+                                            type="text"
+                                            value={stat.value}
+                                            onChange={(e) => {
+                                                const newStats = [...content.heroStats];
+                                                newStats[index] = { ...stat, value: e.target.value };
+                                                updateContent({ heroStats: newStats });
+                                            }}
+                                            placeholder="Değer (örn: 24-48s)"
+                                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-lg font-bold focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                        />
+                                        <input
+                                            type="text"
+                                            value={stat.label}
+                                            onChange={(e) => {
+                                                const newStats = [...content.heroStats];
+                                                newStats[index] = { ...stat, label: e.target.value };
+                                                updateContent({ heroStats: newStats });
+                                            }}
+                                            placeholder="Etiket (örn: TESLİMAT)"
+                                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                        />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -267,7 +343,28 @@ const HomeContentTab = ({ showNotification }: { showNotification: (type: "succes
                                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
                                 />
                             </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton Metni</label>
+                                <input
+                                    type="text"
+                                    value={content.featuresExploreText || ""}
+                                    onChange={(e) => updateContent({ featuresExploreText: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="Tüm Özellikleri Keşfet"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton URL</label>
+                                <input
+                                    type="text"
+                                    value={content.featuresExploreUrl || ""}
+                                    onChange={(e) => updateContent({ featuresExploreUrl: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="/ozellikler"
+                                />
+                            </div>
                         </div>
+
 
                         <h4 className="font-bold text-slate-300 mb-4">Özellik Kartları</h4>
                         <div className="space-y-4">
@@ -338,6 +435,26 @@ const HomeContentTab = ({ showNotification }: { showNotification: (type: "succes
                                     value={content.servicesSubtitle}
                                     onChange={(e) => updateContent({ servicesSubtitle: e.target.value })}
                                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton Metni</label>
+                                <input
+                                    type="text"
+                                    value={content.servicesExploreText || ""}
+                                    onChange={(e) => updateContent({ servicesExploreText: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="Tüm Hizmetleri Gör"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton URL</label>
+                                <input
+                                    type="text"
+                                    value={content.servicesExploreUrl || ""}
+                                    onChange={(e) => updateContent({ servicesExploreUrl: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="/hizmetler"
                                 />
                             </div>
                         </div>
@@ -514,6 +631,26 @@ const OtherPagesTab = ({ showNotification }: { showNotification: (type: "success
                                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
                                 />
                             </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton Metni</label>
+                                <input
+                                    type="text"
+                                    value={content.aboutExploreText || ""}
+                                    onChange={(e) => updateContent({ aboutExploreText: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="Hikayemizi Keşfet"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton URL</label>
+                                <input
+                                    type="text"
+                                    value={content.aboutExploreUrl || ""}
+                                    onChange={(e) => updateContent({ aboutExploreUrl: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="/hakkimizda"
+                                />
+                            </div>
                         </div>
 
                         <h4 className="font-bold text-slate-300 mt-6 mb-4">İstatistikler</h4>
@@ -560,6 +697,26 @@ const OtherPagesTab = ({ showNotification }: { showNotification: (type: "success
                                     value={content.productsPageSubtitle}
                                     onChange={(e) => updateContent({ productsPageSubtitle: e.target.value })}
                                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton Metni</label>
+                                <input
+                                    type="text"
+                                    value={content.productsExploreText || ""}
+                                    onChange={(e) => updateContent({ productsExploreText: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="Tüm Ürünleri Gör"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">🔗 Keşfet Buton URL</label>
+                                <input
+                                    type="text"
+                                    value={content.productsExploreUrl || ""}
+                                    onChange={(e) => updateContent({ productsExploreUrl: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    placeholder="/urunler"
                                 />
                             </div>
                         </div>
@@ -1270,3 +1427,196 @@ const SidebarItem = ({ icon, label, active, onClick, className }: { icon: React.
         <span className="text-sm font-medium">{label}</span>
     </button>
 );
+
+// ========== BRANDING TAB ==========
+const BrandingTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
+    const { content, updateContent } = useContentStore();
+
+    return (
+        <div>
+            <header className="flex justify-between items-center mb-8">
+                <div>
+                    <h1 className="text-3xl font-bold">Logo & Marka Yönetimi</h1>
+                    <p className="text-slate-500 mt-1">Site logosu ve marka ayarlarını düzenleyin</p>
+                </div>
+                <button
+                    onClick={() => showNotification("success", "Marka ayarları kaydedildi!")}
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                >
+                    <Save className="w-5 h-5" /> Kaydet
+                </button>
+            </header>
+
+            <div className="bg-slate-900/50 rounded-2xl border border-slate-800 p-6 space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                    <div className="col-span-2">
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Site Adı</label>
+                        <input
+                            type="text"
+                            value={content.siteName || ""}
+                            onChange={(e) => updateContent({ siteName: e.target.value })}
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] text-lg"
+                            placeholder="VERAL"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Header Logo URL</label>
+                        <input
+                            type="text"
+                            value={content.headerLogo || ""}
+                            onChange={(e) => updateContent({ headerLogo: e.target.value })}
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                            placeholder="/logo.svg"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">Navigasyon çubuğunda görünecek logo</p>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Footer Logo URL</label>
+                        <input
+                            type="text"
+                            value={content.footerLogo || ""}
+                            onChange={(e) => updateContent({ footerLogo: e.target.value })}
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                            placeholder="/logo-white.svg"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">Footer'da görünecek logo (genellikle beyaz)</p>
+                    </div>
+                </div>
+
+                {/* Logo Preview */}
+                <div className="mt-8 pt-6 border-t border-slate-700">
+                    <h4 className="font-bold text-slate-300 mb-4 flex items-center gap-2">
+                        👁️ Logo Önizleme
+                    </h4>
+                    <div className="grid grid-cols-2 gap-6">
+                        <div className="bg-white p-6 rounded-xl flex items-center justify-center min-h-[100px]">
+                            {content.headerLogo ? (
+                                <img src={content.headerLogo} alt="Header Logo" className="max-h-16 object-contain" />
+                            ) : (
+                                <span className="text-slate-400 text-sm">Header Logo URL girin</span>
+                            )}
+                        </div>
+                        <div className="bg-slate-950 p-6 rounded-xl flex items-center justify-center min-h-[100px]">
+                            {content.footerLogo ? (
+                                <img src={content.footerLogo} alt="Footer Logo" className="max-h-16 object-contain" />
+                            ) : (
+                                <span className="text-slate-600 text-sm">Footer Logo URL girin</span>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// ========== METAL SHOWCASE TAB ==========
+const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
+    const { content, updateContent } = useContentStore();
+
+    return (
+        <div>
+            <header className="flex justify-between items-center mb-8">
+                <div>
+                    <h1 className="text-3xl font-bold">Metal Showcase Ayarları</h1>
+                    <p className="text-slate-500 mt-1">/metal-showcase sayfasının içeriklerini düzenleyin</p>
+                </div>
+                <button
+                    onClick={() => showNotification("success", "Metal Showcase ayarları kaydedildi!")}
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                >
+                    <Save className="w-5 h-5" /> Kaydet
+                </button>
+            </header>
+
+            <div className="bg-slate-900/50 rounded-2xl border border-slate-800 p-6 space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                    <div className="col-span-2">
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Hero Başlık</label>
+                        <input
+                            type="text"
+                            value={content.metalShowcaseTitle || ""}
+                            onChange={(e) => updateContent({ metalShowcaseTitle: e.target.value })}
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] text-lg"
+                            placeholder="Metal Art Atelier"
+                        />
+                    </div>
+
+                    <div className="col-span-2">
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Hero Alt Başlık</label>
+                        <textarea
+                            value={content.metalShowcaseSubtitle || ""}
+                            onChange={(e) => updateContent({ metalShowcaseSubtitle: e.target.value })}
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[80px]"
+                            placeholder="Endüstriyel kalite. Sanatsal tasarım."
+                        />
+                    </div>
+
+                    <div className="col-span-2">
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Hero Görsel URL (Opsiyonel)</label>
+                        <input
+                            type="text"
+                            value={content.metalShowcaseHeroImage || ""}
+                            onChange={(e) => updateContent({ metalShowcaseHeroImage: e.target.value })}
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                            placeholder="https://..."
+                        />
+                    </div>
+                </div>
+
+                {/* Trust Badges */}
+                <div className="mt-8 pt-6 border-t border-slate-700">
+                    <h4 className="font-bold text-slate-300 mb-4 flex items-center gap-2">
+                        🏆 Güven Rozetleri
+                    </h4>
+                    <div className="grid grid-cols-3 gap-4">
+                        {content.metalShowcaseTrustBadges?.map((badge, index) => (
+                            <div key={index} className="bg-slate-800 rounded-xl p-4 space-y-3">
+                                <p className="text-xs font-bold text-[var(--color-brand-safety-orange)]">
+                                    Rozet #{index + 1}
+                                </p>
+                                <input
+                                    type="text"
+                                    value={badge.icon}
+                                    onChange={(e) => {
+                                        const newBadges = [...content.metalShowcaseTrustBadges];
+                                        newBadges[index] = { ...badge, icon: e.target.value };
+                                        updateContent({ metalShowcaseTrustBadges: newBadges });
+                                    }}
+                                    placeholder="İkon (örn: Zap, Shield)"
+                                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                />
+                                <input
+                                    type="text"
+                                    value={badge.text}
+                                    onChange={(e) => {
+                                        const newBadges = [...content.metalShowcaseTrustBadges];
+                                        newBadges[index] = { ...badge, text: e.target.value };
+                                        updateContent({ metalShowcaseTrustBadges: newBadges });
+                                    }}
+                                    placeholder="Metin (örn: Hızlı Üretim)"
+                                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Preview Link */}
+                <div className="mt-6 pt-6 border-t border-slate-700">
+                    <a
+                        href="/metal-showcase"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                        <Activity className="w-4 h-4" />
+                        Metal Showcase Sayfasını Görüntüle →
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
+};

@@ -2,8 +2,12 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useContentStore } from '@/store/useContentStore';
 
 export const ArchiveHero = () => {
+    const { content } = useContentStore();
+
     return (
         <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-transparent">
             <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
@@ -19,37 +23,43 @@ export const ArchiveHero = () => {
                         <div className="flex flex-col gap-6">
                             <div className="flex items-center gap-4">
                                 <div className="w-16 h-[1px] bg-[#D4AF37]" />
-                                <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Miras ve Gelecek</span>
+                                <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">
+                                    {content.heroTagline}
+                                </span>
                             </div>
 
                             <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black text-[#0A0A0A] leading-[0.9] tracking-[-0.04em] uppercase">
-                                Sanatta <br />
-                                <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Asalet</span>
+                                {content.heroTitle.split(' ')[0]} <br />
+                                <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">
+                                    {content.heroTitle.split(' ').slice(1).join(' ') || 'Asalet'}
+                                </span>
                             </h1>
 
                             <p className="text-xl sm:text-2xl text-[#0A0A0A]/60 font-medium leading-relaxed max-w-xl">
-                                1.5mm yüksek kaliteli çelik üzerine işlenen, ömür boyu garantili metal tablolar. Yaşam alanınıza modern bir müze havası katın.
+                                {content.heroSubtitle}
                             </p>
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                            <button className="h-20 px-12 bg-[#0A0A0A] text-white text-[12px] font-black uppercase tracking-[0.4em] hover:bg-[#D4AF37] transition-all duration-700 shadow-2xl relative overflow-hidden group">
-                                <span className="relative z-10">Koleksiyonu Keşfet</span>
+                            <Link
+                                href={content.heroButton1Url || "/urunler"}
+                                className="h-20 px-12 bg-[#0A0A0A] text-white text-[12px] font-black uppercase tracking-[0.4em] hover:bg-[#D4AF37] transition-all duration-700 shadow-2xl relative overflow-hidden group flex items-center justify-center"
+                            >
+                                <span className="relative z-10">{content.heroButton1Text}</span>
                                 <div className="absolute inset-0 bg-[#D4AF37] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
-                            </button>
-                            <button className="h-20 px-12 border border-[#0A0A0A]/10 text-[12px] font-black uppercase tracking-[0.4em] text-[#0A0A0A] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-500">
-                                Katalog İndir
-                            </button>
+                            </Link>
+                            <Link
+                                href={content.heroButton2Url || "/urunler"}
+                                className="h-20 px-12 border border-[#0A0A0A]/10 text-[12px] font-black uppercase tracking-[0.4em] text-[#0A0A0A] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-500 flex items-center justify-center"
+                            >
+                                {content.heroButton2Text}
+                            </Link>
                         </div>
 
                         <div className="flex items-center gap-12 lg:gap-20 pt-10 border-t border-[#D4AF37]/20">
-                            {[
-                                { val: "24-48s", label: "TESLİMAT" },
-                                { val: "1.5mm", label: "ÇELİK" },
-                                { val: "4K UV", label: "BASKI" }
-                            ].map((stat, i) => (
+                            {content.heroStats.map((stat, i) => (
                                 <div key={i} className="flex flex-col gap-2">
-                                    <span className="text-3xl font-black text-[#0A0A0A] italic">{stat.val}</span>
+                                    <span className="text-3xl font-black text-[#0A0A0A] italic">{stat.value}</span>
                                     <span className="text-xs font-black text-[#D4AF37] tracking-[0.2em] uppercase">{stat.label}</span>
                                 </div>
                             ))}
@@ -70,7 +80,7 @@ export const ArchiveHero = () => {
                             {/* Main Product Frame */}
                             <div className="w-full h-full bg-white relative z-10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-[10px] border-white group-hover:shadow-[0_80px_150px_-30px_rgba(212,175,55,0.2)] transition-all duration-1000">
                                 <img
-                                    src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop"
+                                    src={content.heroImage}
                                     alt="Lüks Metal Tablo"
                                     className="w-full h-full object-cover"
                                 />

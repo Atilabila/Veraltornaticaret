@@ -1,0 +1,400 @@
+/* =====================================================
+   METAL ART ATELIER - DESIGN SYSTEM
+   Premium Industrial Aesthetic
+   ===================================================== */
+
+/* Typography: Space Grotesk - Architectural & Industrial */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap');
+
+@import "tailwindcss";
+
+/* =====================================================
+   THEME TOKENS
+   ===================================================== */
+@theme {
+    /* Typography */
+    --font-sans: 'Space Grotesk', system-ui, sans-serif;
+    --font-display: 'Syne', sans-serif;
+
+    /* Core Palette - Dark Industrial */
+    --color-metal-950: #0a0a0b;
+    --color-metal-900: #121214;
+    --color-metal-800: #1a1a1e;
+    --color-metal-700: #27272c;
+    --color-metal-600: #3f3f46;
+    --color-metal-500: #52525b;
+    --color-metal-400: #71717a;
+    --color-metal-300: #a1a1aa;
+    --color-metal-200: #d4d4d8;
+    --color-metal-100: #f4f4f5;
+
+    /* Metallic Accents */
+    --color-steel: #b8c4ce;
+    --color-silver: #c0c0c0;
+    --color-platinum: #e5e4e2;
+    --color-copper: #b87333;
+    --color-bronze: #cd7f32;
+    --color-gold: #d4af37;
+
+    /* Functional Colors */
+    --color-accent: #c0c0c0;
+    --color-accent-warm: #d4af37;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+
+    /* Sharp Edges - Industrial */
+    --radius-none: 0;
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 6px;
+}
+
+/* =====================================================
+   ROOT VARIABLES
+   ===================================================== */
+:root {
+    /* Dark Mode Default */
+    --background: #0a0a0b;
+    --foreground: #f4f4f5;
+    --muted: #27272c;
+    --muted-foreground: #71717a;
+    --border: #27272c;
+    --accent: #c0c0c0;
+
+    /* Metallic Shimmer Gradient */
+    --gradient-metal: linear-gradient(135deg, #1a1a1e 0%, #27272c 50%, #1a1a1e 100%);
+    --gradient-steel: linear-gradient(135deg, #71717a 0%, #d4d4d8 50%, #71717a 100%);
+    --gradient-gold: linear-gradient(135deg, #a6891e 0%, #d4af37 50%, #a6891e 100%);
+}
+
+/* =====================================================
+   BASE STYLES
+   ===================================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+    background: var(--color-gold);
+    color: var(--color-metal-950);
+}
+
+/* =====================================================
+   UTILITY CLASSES - METAL ART THEME
+   ===================================================== */
+@layer utilities {
+
+    /* ===== METALLIC SURFACES ===== */
+    .surface-metal {
+        background: var(--color-metal-900);
+        border: 1px solid var(--color-metal-700);
+    }
+
+    .surface-metal-raised {
+        background: var(--color-metal-800);
+        border: 1px solid var(--color-metal-700);
+        box-shadow:
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.03),
+            0 4px 24px -8px rgba(0, 0, 0, 0.5);
+    }
+
+    .surface-metal-inset {
+        background: var(--color-metal-950);
+        border: 1px solid var(--color-metal-800);
+        box-shadow:
+            inset 0 2px 4px 0 rgba(0, 0, 0, 0.3),
+            inset 0 -1px 0 0 rgba(255, 255, 255, 0.02);
+    }
+
+    /* ===== EMBOSSED METAL EFFECT ===== */
+    .metal-embossed {
+        background: linear-gradient(145deg,
+                var(--color-metal-800) 0%,
+                var(--color-metal-900) 100%);
+        box-shadow:
+            inset 1px 1px 1px rgba(255, 255, 255, 0.05),
+            inset -1px -1px 1px rgba(0, 0, 0, 0.2),
+            0 8px 32px -8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ===== GLASS (FROSTED METAL) ===== */
+    .glass-metal {
+        background: rgba(26, 26, 30, 0.8);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .glass-nav {
+        background: rgba(10, 10, 11, 0.9);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ===== METALLIC SHIMMER ===== */
+    .shimmer-steel {
+        background: linear-gradient(110deg,
+                var(--color-metal-400) 0%,
+                var(--color-platinum) 20%,
+                var(--color-metal-400) 40%,
+                var(--color-metal-400) 100%);
+        background-size: 200% 100%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .shimmer-gold {
+        background: linear-gradient(110deg,
+                var(--color-bronze) 0%,
+                var(--color-gold) 20%,
+                var(--color-bronze) 40%,
+                var(--color-bronze) 100%);
+        background-size: 200% 100%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-position: 200% center;
+        }
+
+        100% {
+            background-position: -200% center;
+        }
+    }
+
+    /* ===== LASER CUT BORDERS ===== */
+    .border-laser {
+        border: 1px solid transparent;
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        background-image:
+            linear-gradient(var(--color-metal-900), var(--color-metal-900)),
+            linear-gradient(135deg, var(--color-metal-600) 0%, var(--color-metal-800) 50%, var(--color-metal-600) 100%);
+    }
+
+    /* ===== AMBIENT GLOW ===== */
+    .glow-gold {
+        box-shadow: 0 0 60px -20px var(--color-gold);
+    }
+
+    .glow-steel {
+        box-shadow: 0 0 60px -20px var(--color-steel);
+    }
+
+    .glow-copper {
+        box-shadow: 0 0 60px -20px var(--color-copper);
+    }
+
+    /* ===== TEXT GRADIENTS ===== */
+    .text-gradient-steel {
+        background: var(--gradient-steel);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-gold {
+        background: var(--gradient-gold);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== IMPACT SHAKE (Metal Drop) ===== */
+    .impact-shake {
+        animation: impact 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+
+    @keyframes impact {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0);
+        }
+
+        20% {
+            transform: translateY(2px) rotate(-0.5deg);
+        }
+
+        40% {
+            transform: translateY(-1px) rotate(0.5deg);
+        }
+
+        60% {
+            transform: translateY(1px) rotate(-0.3deg);
+        }
+
+        80% {
+            transform: translateY(-0.5px) rotate(0.2deg);
+        }
+    }
+
+    /* ===== BRUSH METAL TEXTURE ===== */
+    .texture-brushed {
+        background-image:
+            repeating-linear-gradient(90deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.01) 2px,
+                rgba(255, 255, 255, 0.01) 4px);
+    }
+
+    /* ===== INDUSTRIAL GRID ===== */
+    .bg-grid-metal {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    /* ===== SHADOW UTILITIES ===== */
+    .shadow-metal-sm {
+        box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.4);
+    }
+
+    .shadow-metal {
+        box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.5);
+    }
+
+    .shadow-metal-lg {
+        box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.6);
+    }
+
+    .shadow-inset-metal {
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .shadow-inset-highlight {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* =====================================================
+   COMPONENT CLASSES
+   ===================================================== */
+
+/* Buttons - Sharp Industrial */
+.btn-metal {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    background: var(--color-metal-800);
+    color: var(--color-metal-100);
+    border: 1px solid var(--color-metal-600);
+    transition: all 0.2s;
+}
+
+.btn-metal:hover {
+    background: var(--color-metal-700);
+    border-color: var(--color-metal-500);
+}
+
+.btn-metal-primary {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    background: linear-gradient(to right, var(--color-metal-300), var(--color-metal-400));
+    color: var(--color-metal-950);
+    transition: all 0.2s;
+}
+
+.btn-metal-primary:hover {
+    background: linear-gradient(to right, var(--color-metal-200), var(--color-metal-300));
+}
+
+.btn-metal-gold {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    background: var(--gradient-gold);
+    color: var(--color-metal-950);
+    transition: all 0.2s;
+}
+
+.btn-metal-gold:hover {
+    filter: brightness(1.1);
+}
+
+/* Input - Inset Metal */
+.input-metal {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--color-metal-950);
+    color: var(--color-metal-100);
+    border: 1px solid var(--color-metal-700);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s;
+}
+
+.input-metal::placeholder {
+    color: var(--color-metal-500);
+}
+
+.input-metal:focus {
+    outline: none;
+    border-color: var(--color-metal-500);
+}
+
+/* Card - Embossed Metal */
+.card-metal {
+    background: var(--color-metal-900);
+    border: 1px solid var(--color-metal-700);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.4);
+}
+
+/* =====================================================
+   SCROLLBAR STYLING
+   ===================================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-metal-950);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-metal-700);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-metal-600);
+}
+
+/* =====================================================
+   NO SCROLLBAR
+   ===================================================== */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
