@@ -20,26 +20,18 @@ export const Footer = () => {
                     {/* LEFT: LOGO & ABOUT */}
                     <div className="lg:col-span-12 xl:col-span-5 flex flex-col gap-10">
                         <Link href="/" className="flex items-center gap-4 group">
-                            {content.footerLogo ? (
-                                <div className="h-12 transition-all duration-500">
-                                    <img
-                                        src={content.footerLogo}
-                                        alt={content.siteName}
-                                        className="h-full w-auto object-contain"
-                                    />
-                                </div>
-                            ) : (
-                                <div className="w-12 h-12 border border-[#D4AF37] flex items-center justify-center p-3 group-hover:bg-[#D4AF37] transition-all duration-500">
-                                    <svg className="w-full h-full text-[#D4AF37] transition-colors group-hover:text-black" fill="currentColor" viewBox="0 0 48 48">
-                                        <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" />
-                                    </svg>
-                                </div>
-                            )}
+                            <div className="h-14 w-14 transition-all duration-500 flex-shrink-0">
+                                <img
+                                    src={content.footerLogo || "/images/veral-logo.png"}
+                                    alt={content.siteName || "VERAL"}
+                                    className="h-full w-full object-contain rounded-full"
+                                />
+                            </div>
                             <div className="flex flex-col">
-                                <span className="text-2xl font-black text-white tracking-[0.2em] uppercase">
-                                    {content.siteName || "METAL ART"}
+                                <span className="text-2xl font-black text-white tracking-[0.15em] uppercase">
+                                    {content.siteName || "VERAL"}
                                 </span>
-                                <span className="text-[8px] font-bold text-[#D4AF37] tracking-[0.5em] uppercase">Noble Collection</span>
+                                <span className="text-[9px] font-bold text-[#D4AF37] tracking-[0.3em] uppercase">Torna & Teneke Ticaret</span>
                             </div>
                         </Link>
                         <p className="text-[#FDFBF7]/60 text-lg leading-relaxed max-w-sm">

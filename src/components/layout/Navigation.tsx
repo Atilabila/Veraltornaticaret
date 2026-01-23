@@ -36,26 +36,18 @@ export const Navigation = () => {
                     {/* Brand Logo */}
                     <div className="flex items-center gap-16">
                         <Link href="/" className="flex items-center gap-3 group">
-                            {content.headerLogo ? (
-                                <div className="h-10 transition-all duration-500">
-                                    <img
-                                        src={content.headerLogo}
-                                        alt={content.siteName}
-                                        className="h-full w-auto object-contain"
-                                    />
-                                </div>
-                            ) : (
-                                <div className="w-10 h-10 border border-[#D4AF37] flex items-center justify-center p-2 group-hover:bg-[#D4AF37] transition-all duration-500">
-                                    <svg className={`w-full h-full ${isScrolled || 'text-[#D4AF37]'} transition-colors`} fill="currentColor" viewBox="0 0 48 48">
-                                        <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" />
-                                    </svg>
-                                </div>
-                            )}
+                            <div className="h-12 w-12 transition-all duration-500 flex-shrink-0">
+                                <img
+                                    src={content.headerLogo || "/images/veral-logo.png"}
+                                    alt={content.siteName || "VERAL"}
+                                    className="h-full w-full object-contain rounded-full"
+                                />
+                            </div>
                             <div className="flex flex-col">
-                                <h2 className={`text-xl font-black uppercase tracking-[0.2em] ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
-                                    {content.siteName || "Metal Art"}
+                                <h2 className={`text-xl font-black uppercase tracking-[0.15em] ${isScrolled ? 'text-white' : 'text-white'}`}>
+                                    {content.siteName || "VERAL"}
                                 </h2>
-                                <span className="text-[7px] font-bold text-[#D4AF37] tracking-[0.5em] uppercase -mt-1">Noble Collection</span>
+                                <span className="text-[8px] font-bold text-[#D4AF37] tracking-[0.3em] uppercase -mt-0.5">Torna & Teneke Ticaret</span>
                             </div>
                         </Link>
 
