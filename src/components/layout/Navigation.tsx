@@ -38,7 +38,7 @@ export const Navigation = () => {
                         <Link href="/" className="flex items-center gap-3 group">
                             <div className="h-12 w-12 transition-all duration-500 flex-shrink-0">
                                 <img
-                                    src={content.headerLogo || "/images/veral-logo.png"}
+                                    src={(content.headerLogo && content.headerLogo.length > 0) ? content.headerLogo : "/images/veral-logo.png"}
                                     alt={content.siteName || "VERAL"}
                                     className="h-full w-full object-contain rounded-full"
                                 />

@@ -22,7 +22,7 @@ export const Footer = () => {
                         <Link href="/" className="flex items-center gap-4 group">
                             <div className="h-14 w-14 transition-all duration-500 flex-shrink-0">
                                 <img
-                                    src={content.footerLogo || "/images/veral-logo.png"}
+                                    src={(content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/images/veral-logo.png"}
                                     alt={content.siteName || "VERAL"}
                                     className="h-full w-full object-contain rounded-full"
                                 />
