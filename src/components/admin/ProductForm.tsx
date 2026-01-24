@@ -187,6 +187,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         if (formData.stock_quantity < 0) {
             newErrors.stock_quantity = "Stok negatif olamaz"
         }
+        if (!formData.category_id) {
+            newErrors.category_id = "Lütfen bir kategori seçin"
+        }
 
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
