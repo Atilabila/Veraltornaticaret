@@ -23,7 +23,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 01",
         "slug": "araba-plaka-3000x1500",
         "price": 350,
-        "image": "/products/arabalar-plaka/3000x1500.png",
+        "image": "/products/arabalar-plaka/3000x1500.webp",
         "description": "1.5MM ALÜMİNYUM PLAKA. YÜKSEK ÇÖZÜNÜRLÜKLÜ UV BASKI. ÖMÜR BOYU FORM KORUMA.",
         "story": "KUSURSUZ KENAR FORMU VE ENDÜSTRİYEL YÜZEY. GALERİ STANDARTLARINDA RENK DOĞRULUĞU.",
         "category": "ARABA_PLAKA",
@@ -46,7 +46,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/3000x1500.png"
+            "/products/arabalar-plaka/3000x1500.webp"
         ]
     },
     "araba-plaka-4340a30f809c58b892586adf8d844fb1": {
@@ -54,7 +54,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 02",
         "slug": "araba-plaka-4340a30f809c58b892586adf8d844fb1",
         "price": 350,
-        "image": "/products/arabalar-plaka/4340a30f809c58b892586adf8d844fb1.jpg",
+        "image": "/products/arabalar-plaka/4340a30f809c58b892586adf8d844fb1.webp",
         "description": "1.5MM ALÜMİNYUM PLAKA. YÜKSEK ÇÖZÜNÜRLÜKLÜ UV BASKI. ÖMÜR BOYU FORM KORUMA.",
         "story": "KUSURSUZ KENAR FORMU VE ENDÜSTRİYEL YÜZEY. GALERİ STANDARTLARINDA RENK DOĞRULUĞU.",
         "category": "ARABA_PLAKA",
@@ -77,7 +77,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/4340a30f809c58b892586adf8d844fb1.jpg"
+            "/products/arabalar-plaka/4340a30f809c58b892586adf8d844fb1.webp"
         ]
     },
     "araba-plaka-ford-4332266-960-720": {
@@ -85,7 +85,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 03",
         "slug": "araba-plaka-ford-4332266-960-720",
         "price": 350,
-        "image": "/products/arabalar-plaka/ford-4332266_960_720.jpg",
+        "image": "/products/arabalar-plaka/ford-4332266_960_720.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -108,7 +108,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/ford-4332266_960_720.jpg"
+            "/products/arabalar-plaka/ford-4332266_960_720.webp"
         ]
     },
     "araba-plaka-indir-4": {
@@ -116,7 +116,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 04",
         "slug": "araba-plaka-indir-4",
         "price": 350,
-        "image": "/products/arabalar-plaka/indir%20(4).jfif",
+        "image": "/products/arabalar-plaka/indir%20(4).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -139,7 +139,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/indir%20(4).jfif"
+            "/products/arabalar-plaka/indir%20(4).webp"
         ]
     },
     "araba-plaka-peakpx-15": {
@@ -147,7 +147,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 05",
         "slug": "araba-plaka-peakpx-15",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(15).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(15).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -170,7 +170,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(15).jpg"
+            "/products/arabalar-plaka/peakpx%20(15).webp"
         ]
     },
     "araba-plaka-peakpx-3": {
@@ -178,7 +178,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 06",
         "slug": "araba-plaka-peakpx-3",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(3).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(3).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -201,7 +201,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(3).jpg"
+            "/products/arabalar-plaka/peakpx%20(3).webp"
         ]
     },
     "araba-plaka-peakpx-4": {
@@ -209,7 +209,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 07",
         "slug": "araba-plaka-peakpx-4",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(4).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(4).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -232,7 +232,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(4).jpg"
+            "/products/arabalar-plaka/peakpx%20(4).webp"
         ]
     },
     "araba-plaka-peakpx-5": {
@@ -240,7 +240,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 08",
         "slug": "araba-plaka-peakpx-5",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(5).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(5).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -263,7 +263,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(5).jpg"
+            "/products/arabalar-plaka/peakpx%20(5).webp"
         ]
     },
     "araba-plaka-peakpx-6": {
@@ -271,7 +271,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 09",
         "slug": "araba-plaka-peakpx-6",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(6).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(6).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -294,7 +294,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(6).jpg"
+            "/products/arabalar-plaka/peakpx%20(6).webp"
         ]
     },
     "araba-plaka-peakpx-7": {
@@ -302,7 +302,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 10",
         "slug": "araba-plaka-peakpx-7",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(7).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(7).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -325,7 +325,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(7).jpg"
+            "/products/arabalar-plaka/peakpx%20(7).webp"
         ]
     },
     "araba-plaka-peakpx-8": {
@@ -333,7 +333,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 11",
         "slug": "araba-plaka-peakpx-8",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(8).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(8).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -356,7 +356,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(8).jpg"
+            "/products/arabalar-plaka/peakpx%20(8).webp"
         ]
     },
     "araba-plaka-peakpx-9": {
@@ -364,7 +364,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Araba 12",
         "slug": "araba-plaka-peakpx-9",
         "price": 350,
-        "image": "/products/arabalar-plaka/peakpx%20(9).jpg",
+        "image": "/products/arabalar-plaka/peakpx%20(9).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ARABA_PLAKA",
@@ -387,7 +387,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/arabalar-plaka/peakpx%20(9).jpg"
+            "/products/arabalar-plaka/peakpx%20(9).webp"
         ]
     },
     "ataturk-plaka-157cb5977d3ea1c7d072f5513841565f": {
@@ -395,7 +395,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 01",
         "slug": "ataturk-plaka-157cb5977d3ea1c7d072f5513841565f",
         "price": 350,
-        "image": "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.jpg",
+        "image": "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -418,7 +418,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.jpg"
+            "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.webp"
         ]
     },
     "ataturk-plaka-53-v2": {
@@ -426,7 +426,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 02",
         "slug": "ataturk-plaka-53-v2",
         "price": 350,
-        "image": "/products/ataturk-plaka/53-v2.jpg",
+        "image": "/products/ataturk-plaka/53-v2.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -449,7 +449,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/53-v2.jpg"
+            "/products/ataturk-plaka/53-v2.webp"
         ]
     },
     "ataturk-plaka-78b08d649d514dd7f10d28e563ec2955": {
@@ -457,7 +457,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 03",
         "slug": "ataturk-plaka-78b08d649d514dd7f10d28e563ec2955",
         "price": 350,
-        "image": "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.jpg",
+        "image": "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -480,7 +480,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.jpg"
+            "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.webp"
         ]
     },
     "ataturk-plaka-b6e4a72dc26713ac3461177e760397af": {
@@ -488,7 +488,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 04",
         "slug": "ataturk-plaka-b6e4a72dc26713ac3461177e760397af",
         "price": 350,
-        "image": "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.jpg",
+        "image": "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -511,7 +511,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.jpg"
+            "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.webp"
         ]
     },
     "ataturk-plaka-e279c3d9bbd2a1cc1228eea744ceab98": {
@@ -519,7 +519,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 05",
         "slug": "ataturk-plaka-e279c3d9bbd2a1cc1228eea744ceab98",
         "price": 350,
-        "image": "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.jpg",
+        "image": "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -542,7 +542,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.jpg"
+            "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.webp"
         ]
     },
     "ataturk-plaka-img-6338-2024-11-04-16-37-05": {
@@ -550,7 +550,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 06",
         "slug": "ataturk-plaka-img-6338-2024-11-04-16-37-05",
         "price": 350,
-        "image": "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.JPG",
+        "image": "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -573,7 +573,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.JPG"
+            "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.webp"
         ]
     },
     "ataturk-plaka-indir-2": {
@@ -581,7 +581,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 07",
         "slug": "ataturk-plaka-indir-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/indir%20(2).jpeg",
+        "image": "/products/ataturk-plaka/indir%20(2).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -604,7 +604,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/indir%20(2).jpeg"
+            "/products/ataturk-plaka/indir%20(2).webp"
         ]
     },
     "ataturk-plaka-157cb5977d3ea1c7d072f5513841565f-2": {
@@ -612,7 +612,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 08",
         "slug": "ataturk-plaka-157cb5977d3ea1c7d072f5513841565f-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/157cb5977d3ea1c7d072f5513841565f.png",
+        "image": "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -635,7 +635,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/157cb5977d3ea1c7d072f5513841565f.png"
+            "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.webp"
         ]
     },
     "ataturk-plaka-157cb5977d3ea1c7d072f5513841565f-3": {
@@ -643,7 +643,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 09",
         "slug": "ataturk-plaka-157cb5977d3ea1c7d072f5513841565f-3",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/157cb5977d3ea1c7d072f5513841565f.webp",
+        "image": "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -666,7 +666,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/157cb5977d3ea1c7d072f5513841565f.webp"
+            "/products/ataturk-plaka/157cb5977d3ea1c7d072f5513841565f.webp"
         ]
     },
     "ataturk-plaka-53-v2-2": {
@@ -674,7 +674,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 10",
         "slug": "ataturk-plaka-53-v2-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/53-v2.png",
+        "image": "/products/ataturk-plaka/53-v2.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -697,7 +697,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/53-v2.png"
+            "/products/ataturk-plaka/53-v2.webp"
         ]
     },
     "ataturk-plaka-53-v2-3": {
@@ -705,7 +705,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 11",
         "slug": "ataturk-plaka-53-v2-3",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/53-v2.webp",
+        "image": "/products/ataturk-plaka/53-v2.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -728,7 +728,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/53-v2.webp"
+            "/products/ataturk-plaka/53-v2.webp"
         ]
     },
     "ataturk-plaka-78b08d649d514dd7f10d28e563ec2955-2": {
@@ -736,7 +736,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 12",
         "slug": "ataturk-plaka-78b08d649d514dd7f10d28e563ec2955-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/78b08d649d514dd7f10d28e563ec2955.png",
+        "image": "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -759,7 +759,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/78b08d649d514dd7f10d28e563ec2955.png"
+            "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.webp"
         ]
     },
     "ataturk-plaka-78b08d649d514dd7f10d28e563ec2955-3": {
@@ -767,7 +767,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 13",
         "slug": "ataturk-plaka-78b08d649d514dd7f10d28e563ec2955-3",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/78b08d649d514dd7f10d28e563ec2955.webp",
+        "image": "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -790,7 +790,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/78b08d649d514dd7f10d28e563ec2955.webp"
+            "/products/ataturk-plaka/78b08d649d514dd7f10d28e563ec2955.webp"
         ]
     },
     "ataturk-plaka-b6e4a72dc26713ac3461177e760397af-2": {
@@ -798,7 +798,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 14",
         "slug": "ataturk-plaka-b6e4a72dc26713ac3461177e760397af-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/b6e4a72dc26713ac3461177e760397af.png",
+        "image": "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -821,7 +821,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/b6e4a72dc26713ac3461177e760397af.png"
+            "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.webp"
         ]
     },
     "ataturk-plaka-b6e4a72dc26713ac3461177e760397af-3": {
@@ -829,7 +829,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 15",
         "slug": "ataturk-plaka-b6e4a72dc26713ac3461177e760397af-3",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/b6e4a72dc26713ac3461177e760397af.webp",
+        "image": "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -852,7 +852,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/b6e4a72dc26713ac3461177e760397af.webp"
+            "/products/ataturk-plaka/b6e4a72dc26713ac3461177e760397af.webp"
         ]
     },
     "ataturk-plaka-e279c3d9bbd2a1cc1228eea744ceab98-2": {
@@ -860,7 +860,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 16",
         "slug": "ataturk-plaka-e279c3d9bbd2a1cc1228eea744ceab98-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/e279c3d9bbd2a1cc1228eea744ceab98.png",
+        "image": "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -883,7 +883,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/e279c3d9bbd2a1cc1228eea744ceab98.png"
+            "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.webp"
         ]
     },
     "ataturk-plaka-e279c3d9bbd2a1cc1228eea744ceab98-3": {
@@ -891,7 +891,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 17",
         "slug": "ataturk-plaka-e279c3d9bbd2a1cc1228eea744ceab98-3",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/e279c3d9bbd2a1cc1228eea744ceab98.webp",
+        "image": "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -914,7 +914,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/e279c3d9bbd2a1cc1228eea744ceab98.webp"
+            "/products/ataturk-plaka/e279c3d9bbd2a1cc1228eea744ceab98.webp"
         ]
     },
     "ataturk-plaka-img-6338-2024-11-04-16-37-05-2": {
@@ -922,7 +922,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 18",
         "slug": "ataturk-plaka-img-6338-2024-11-04-16-37-05-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/IMG_6338%202024-11-04%2016_37_05.png",
+        "image": "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -945,7 +945,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/IMG_6338%202024-11-04%2016_37_05.png"
+            "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.webp"
         ]
     },
     "ataturk-plaka-img-6338-2024-11-04-16-37-05-3": {
@@ -953,7 +953,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 19",
         "slug": "ataturk-plaka-img-6338-2024-11-04-16-37-05-3",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/IMG_6338%202024-11-04%2016_37_05.webp",
+        "image": "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -976,7 +976,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/IMG_6338%202024-11-04%2016_37_05.webp"
+            "/products/ataturk-plaka/IMG_6338%202024-11-04%2016_37_05.webp"
         ]
     },
     "ataturk-plaka-indir-2-2": {
@@ -984,7 +984,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 20",
         "slug": "ataturk-plaka-indir-2-2",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/indir%20(2).png",
+        "image": "/products/ataturk-plaka/indir%20(2).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -1007,7 +1007,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/indir%20(2).png"
+            "/products/ataturk-plaka/indir%20(2).webp"
         ]
     },
     "ataturk-plaka-indir-2-3": {
@@ -1015,7 +1015,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Ataturk 21",
         "slug": "ataturk-plaka-indir-2-3",
         "price": 350,
-        "image": "/products/ataturk-plaka/Output/indir%20(2).webp",
+        "image": "/products/ataturk-plaka/indir%20(2).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "ATATURK_PLAKA",
@@ -1038,7 +1038,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/ataturk-plaka/Output/indir%20(2).webp"
+            "/products/ataturk-plaka/indir%20(2).webp"
         ]
     },
     "character-plaka-1277": {
@@ -1046,7 +1046,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 01",
         "slug": "character-plaka-1277",
         "price": 350,
-        "image": "/products/karakterler-plaka/1277.jpg",
+        "image": "/products/karakterler-plaka/1277.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1069,7 +1069,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/1277.jpg"
+            "/products/karakterler-plaka/1277.webp"
         ]
     },
     "character-plaka-2800x1700": {
@@ -1077,7 +1077,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 02",
         "slug": "character-plaka-2800x1700",
         "price": 350,
-        "image": "/products/karakterler-plaka/2800x1700.jpg",
+        "image": "/products/karakterler-plaka/2800x1700.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1100,7 +1100,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/2800x1700.jpg"
+            "/products/karakterler-plaka/2800x1700.webp"
         ]
     },
     "character-plaka-2f282d75f1e29906dd030e291e5e1a7c": {
@@ -1108,7 +1108,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 03",
         "slug": "character-plaka-2f282d75f1e29906dd030e291e5e1a7c",
         "price": 350,
-        "image": "/products/karakterler-plaka/2f282d75f1e29906dd030e291e5e1a7c.jpg",
+        "image": "/products/karakterler-plaka/2f282d75f1e29906dd030e291e5e1a7c.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1131,7 +1131,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/2f282d75f1e29906dd030e291e5e1a7c.jpg"
+            "/products/karakterler-plaka/2f282d75f1e29906dd030e291e5e1a7c.webp"
         ]
     },
     "character-plaka-3f5759e36903a3c0cf0f746f354d504a": {
@@ -1139,7 +1139,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 04",
         "slug": "character-plaka-3f5759e36903a3c0cf0f746f354d504a",
         "price": 350,
-        "image": "/products/karakterler-plaka/3f5759e36903a3c0cf0f746f354d504a.jpg",
+        "image": "/products/karakterler-plaka/3f5759e36903a3c0cf0f746f354d504a.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1162,7 +1162,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/3f5759e36903a3c0cf0f746f354d504a.jpg"
+            "/products/karakterler-plaka/3f5759e36903a3c0cf0f746f354d504a.webp"
         ]
     },
     "character-plaka-7db49343d3d5e96b4d1ad43ba70e54ec": {
@@ -1170,7 +1170,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 05",
         "slug": "character-plaka-7db49343d3d5e96b4d1ad43ba70e54ec",
         "price": 350,
-        "image": "/products/karakterler-plaka/7db49343d3d5e96b4d1ad43ba70e54ec.jpg",
+        "image": "/products/karakterler-plaka/7db49343d3d5e96b4d1ad43ba70e54ec.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1193,7 +1193,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/7db49343d3d5e96b4d1ad43ba70e54ec.jpg"
+            "/products/karakterler-plaka/7db49343d3d5e96b4d1ad43ba70e54ec.webp"
         ]
     },
     "character-plaka-92a81d4e91f18899bf5a16b865912788": {
@@ -1201,7 +1201,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 06",
         "slug": "character-plaka-92a81d4e91f18899bf5a16b865912788",
         "price": 350,
-        "image": "/products/karakterler-plaka/92a81d4e91f18899bf5a16b865912788.jpg",
+        "image": "/products/karakterler-plaka/92a81d4e91f18899bf5a16b865912788.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1224,7 +1224,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/92a81d4e91f18899bf5a16b865912788.jpg"
+            "/products/karakterler-plaka/92a81d4e91f18899bf5a16b865912788.webp"
         ]
     },
     "character-plaka-a2f9f9042892abda64e30db84c5a931e": {
@@ -1232,7 +1232,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 07",
         "slug": "character-plaka-a2f9f9042892abda64e30db84c5a931e",
         "price": 350,
-        "image": "/products/karakterler-plaka/a2f9f9042892abda64e30db84c5a931e.jpg",
+        "image": "/products/karakterler-plaka/a2f9f9042892abda64e30db84c5a931e.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1255,7 +1255,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/a2f9f9042892abda64e30db84c5a931e.jpg"
+            "/products/karakterler-plaka/a2f9f9042892abda64e30db84c5a931e.webp"
         ]
     },
     "character-plaka-ab1db2f2dff290cd2ed05607056d09b0": {
@@ -1263,7 +1263,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 08",
         "slug": "character-plaka-ab1db2f2dff290cd2ed05607056d09b0",
         "price": 350,
-        "image": "/products/karakterler-plaka/ab1db2f2dff290cd2ed05607056d09b0.jpg",
+        "image": "/products/karakterler-plaka/ab1db2f2dff290cd2ed05607056d09b0.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1286,7 +1286,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/ab1db2f2dff290cd2ed05607056d09b0.jpg"
+            "/products/karakterler-plaka/ab1db2f2dff290cd2ed05607056d09b0.webp"
         ]
     },
     "character-plaka-b34effcfbf3297e0b2ed4d4bea69c9df": {
@@ -1294,7 +1294,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 09",
         "slug": "character-plaka-b34effcfbf3297e0b2ed4d4bea69c9df",
         "price": 350,
-        "image": "/products/karakterler-plaka/b34effcfbf3297e0b2ed4d4bea69c9df.jpg",
+        "image": "/products/karakterler-plaka/b34effcfbf3297e0b2ed4d4bea69c9df.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1317,7 +1317,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/b34effcfbf3297e0b2ed4d4bea69c9df.jpg"
+            "/products/karakterler-plaka/b34effcfbf3297e0b2ed4d4bea69c9df.webp"
         ]
     },
     "character-plaka-c742eedc17730e270ffb3f16e4f5d4c5": {
@@ -1325,7 +1325,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 10",
         "slug": "character-plaka-c742eedc17730e270ffb3f16e4f5d4c5",
         "price": 350,
-        "image": "/products/karakterler-plaka/c742eedc17730e270ffb3f16e4f5d4c5.jpg",
+        "image": "/products/karakterler-plaka/c742eedc17730e270ffb3f16e4f5d4c5.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1348,7 +1348,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/c742eedc17730e270ffb3f16e4f5d4c5.jpg"
+            "/products/karakterler-plaka/c742eedc17730e270ffb3f16e4f5d4c5.webp"
         ]
     },
     "character-plaka-download-cold-beer-vintage-retro-signage-vector-for-free": {
@@ -1356,7 +1356,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 11",
         "slug": "character-plaka-download-cold-beer-vintage-retro-signage-vector-for-free",
         "price": 350,
-        "image": "/products/karakterler-plaka/Download%20Cold%20Beer%20Vintage%20Retro%20Signage%20Vector%20for%20free.jfif",
+        "image": "/products/karakterler-plaka/Download%20Cold%20Beer%20Vintage%20Retro%20Signage%20Vector%20for%20free.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1379,7 +1379,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/Download%20Cold%20Beer%20Vintage%20Retro%20Signage%20Vector%20for%20free.jfif"
+            "/products/karakterler-plaka/Download%20Cold%20Beer%20Vintage%20Retro%20Signage%20Vector%20for%20free.webp"
         ]
     },
     "character-plaka-francesca-saraco-fc9ydjoooha-unsplash": {
@@ -1387,7 +1387,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 12",
         "slug": "character-plaka-francesca-saraco-fc9ydjoooha-unsplash",
         "price": 350,
-        "image": "/products/karakterler-plaka/francesca-saraco-fC9ydjoOOHA-unsplash.jpg",
+        "image": "/products/karakterler-plaka/francesca-saraco-fC9ydjoOOHA-unsplash.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1410,7 +1410,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/francesca-saraco-fC9ydjoOOHA-unsplash.jpg"
+            "/products/karakterler-plaka/francesca-saraco-fC9ydjoOOHA-unsplash.webp"
         ]
     },
     "character-plaka-galeri-gallery": {
@@ -1418,7 +1418,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 13",
         "slug": "character-plaka-galeri-gallery",
         "price": 350,
-        "image": "/products/karakterler-plaka/GALER%C4%B0%20%F0%9F%8C%90%F0%9F%94%B6%F0%9F%94%B8%F0%9F%8C%90%20GALLERY.jpg",
+        "image": "/products/karakterler-plaka/GALER%C4%B0%20%F0%9F%8C%90%F0%9F%94%B6%F0%9F%94%B8%F0%9F%8C%90%20GALLERY.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1441,7 +1441,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/GALER%C4%B0%20%F0%9F%8C%90%F0%9F%94%B6%F0%9F%94%B8%F0%9F%8C%90%20GALLERY.jpg"
+            "/products/karakterler-plaka/GALER%C4%B0%20%F0%9F%8C%90%F0%9F%94%B6%F0%9F%94%B8%F0%9F%8C%90%20GALLERY.webp"
         ]
     },
     "character-plaka-img-4576": {
@@ -1449,7 +1449,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 14",
         "slug": "character-plaka-img-4576",
         "price": 350,
-        "image": "/products/karakterler-plaka/IMG_4576.JPG",
+        "image": "/products/karakterler-plaka/IMG_4576.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1472,7 +1472,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/IMG_4576.JPG"
+            "/products/karakterler-plaka/IMG_4576.webp"
         ]
     },
     "character-plaka-indir-10": {
@@ -1480,7 +1480,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 15",
         "slug": "character-plaka-indir-10",
         "price": 350,
-        "image": "/products/karakterler-plaka/indir%20(10).jfif",
+        "image": "/products/karakterler-plaka/indir%20(10).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1503,7 +1503,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/indir%20(10).jfif"
+            "/products/karakterler-plaka/indir%20(10).webp"
         ]
     },
     "character-plaka-indir-3": {
@@ -1511,7 +1511,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 16",
         "slug": "character-plaka-indir-3",
         "price": 350,
-        "image": "/products/karakterler-plaka/indir%20(3).jpg",
+        "image": "/products/karakterler-plaka/indir%20(3).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1534,7 +1534,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/indir%20(3).jpg"
+            "/products/karakterler-plaka/indir%20(3).webp"
         ]
     },
     "character-plaka-indir-5": {
@@ -1542,7 +1542,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 17",
         "slug": "character-plaka-indir-5",
         "price": 350,
-        "image": "/products/karakterler-plaka/indir%20(5).jfif",
+        "image": "/products/karakterler-plaka/indir%20(5).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1565,7 +1565,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/indir%20(5).jfif"
+            "/products/karakterler-plaka/indir%20(5).webp"
         ]
     },
     "character-plaka-indir-7": {
@@ -1573,7 +1573,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 18",
         "slug": "character-plaka-indir-7",
         "price": 350,
-        "image": "/products/karakterler-plaka/indir%20(7).jfif",
+        "image": "/products/karakterler-plaka/indir%20(7).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1596,7 +1596,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/indir%20(7).jfif"
+            "/products/karakterler-plaka/indir%20(7).webp"
         ]
     },
     "character-plaka-kedii-patates": {
@@ -1604,7 +1604,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 19",
         "slug": "character-plaka-kedii-patates",
         "price": 350,
-        "image": "/products/karakterler-plaka/kedii%20patates.jpg",
+        "image": "/products/karakterler-plaka/kedii%20patates.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1627,7 +1627,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/kedii%20patates.jpg"
+            "/products/karakterler-plaka/kedii%20patates.webp"
         ]
     },
     "character-plaka-tasarim-poster": {
@@ -1635,7 +1635,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Karakter 20",
         "slug": "character-plaka-tasarim-poster",
         "price": 350,
-        "image": "/products/karakterler-plaka/tasar%C4%B1m%20poster.jpg",
+        "image": "/products/karakterler-plaka/tasar%C4%B1m%20poster.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "CHARACTER_PLAKA",
@@ -1658,7 +1658,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/karakterler-plaka/tasar%C4%B1m%20poster.jpg"
+            "/products/karakterler-plaka/tasar%C4%B1m%20poster.webp"
         ]
     },
     "motor-plaka-136217-scaled": {
@@ -1666,7 +1666,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 01",
         "slug": "motor-plaka-136217-scaled",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/136217-scaled.webp",
+        "image": "/products/motor-plaka/136217-scaled.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1689,7 +1689,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/136217-scaled.webp"
+            "/products/motor-plaka/136217-scaled.webp"
         ]
     },
     "motor-plaka-136258": {
@@ -1697,7 +1697,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 02",
         "slug": "motor-plaka-136258",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/136258.webp",
+        "image": "/products/motor-plaka/136258.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1720,7 +1720,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/136258.webp"
+            "/products/motor-plaka/136258.webp"
         ]
     },
     "motor-plaka-349472": {
@@ -1728,7 +1728,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 03",
         "slug": "motor-plaka-349472",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/349472.webp",
+        "image": "/products/motor-plaka/349472.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1751,7 +1751,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/349472.webp"
+            "/products/motor-plaka/349472.webp"
         ]
     },
     "motor-plaka-477445": {
@@ -1759,7 +1759,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 04",
         "slug": "motor-plaka-477445",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/477445.webp",
+        "image": "/products/motor-plaka/477445.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1782,7 +1782,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/477445.webp"
+            "/products/motor-plaka/477445.webp"
         ]
     },
     "motor-plaka-bmw-logo": {
@@ -1790,7 +1790,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 05",
         "slug": "motor-plaka-bmw-logo",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/BMW%20Logo.jpeg",
+        "image": "/products/motor-plaka/BMW%20Logo.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1813,7 +1813,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/BMW%20Logo.jpeg"
+            "/products/motor-plaka/BMW%20Logo.webp"
         ]
     },
     "motor-plaka-bmw-motorcycles-desktop-wallpaper": {
@@ -1821,7 +1821,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 06",
         "slug": "motor-plaka-bmw-motorcycles-desktop-wallpaper",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/Bmw%20Motorcycles%20Desktop%20Wallpaper.jpg",
+        "image": "/products/motor-plaka/Bmw%20Motorcycles%20Desktop%20Wallpaper.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1844,7 +1844,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/Bmw%20Motorcycles%20Desktop%20Wallpaper.jpg"
+            "/products/motor-plaka/Bmw%20Motorcycles%20Desktop%20Wallpaper.webp"
         ]
     },
     "motor-plaka-bmw-wallpaper-4k-logo": {
@@ -1852,7 +1852,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 07",
         "slug": "motor-plaka-bmw-wallpaper-4k-logo",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/Bmw%20Wallpaper%204k%20Logo.jpg",
+        "image": "/products/motor-plaka/Bmw%20Wallpaper%204k%20Logo.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1875,7 +1875,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/Bmw%20Wallpaper%204k%20Logo.jpg"
+            "/products/motor-plaka/Bmw%20Wallpaper%204k%20Logo.webp"
         ]
     },
     "motor-plaka-desert-drift-harley-rider-on-the-open-road": {
@@ -1883,7 +1883,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 08",
         "slug": "motor-plaka-desert-drift-harley-rider-on-the-open-road",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/Desert%20Drift%20%E2%80%93%20Harley%20Rider%20on%20the%20Open%20Road.jfif",
+        "image": "/products/motor-plaka/Desert%20Drift%20%E2%80%93%20Harley%20Rider%20on%20the%20Open%20Road.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1906,7 +1906,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/Desert%20Drift%20%E2%80%93%20Harley%20Rider%20on%20the%20Open%20Road.jfif"
+            "/products/motor-plaka/Desert%20Drift%20%E2%80%93%20Harley%20Rider%20on%20the%20Open%20Road.webp"
         ]
     },
     "motor-plaka-ducati": {
@@ -1914,7 +1914,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 09",
         "slug": "motor-plaka-ducati",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/DUCATI.jpeg",
+        "image": "/products/motor-plaka/DUCATI.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1937,7 +1937,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/DUCATI.jpeg"
+            "/products/motor-plaka/DUCATI.webp"
         ]
     },
     "motor-plaka-dzkfbsz-harley-davidson-symbol-images": {
@@ -1945,7 +1945,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 10",
         "slug": "motor-plaka-dzkfbsz-harley-davidson-symbol-images",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/dzkFbSz-harley-davidson-symbol-images.webp",
+        "image": "/products/motor-plaka/dzkFbSz-harley-davidson-symbol-images.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1968,7 +1968,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/dzkFbSz-harley-davidson-symbol-images.webp"
+            "/products/motor-plaka/dzkFbSz-harley-davidson-symbol-images.webp"
         ]
     },
     "motor-plaka-indir-14": {
@@ -1976,7 +1976,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 11",
         "slug": "motor-plaka-indir-14",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(14).jfif",
+        "image": "/products/motor-plaka/indir%20(14).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -1999,7 +1999,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(14).jfif"
+            "/products/motor-plaka/indir%20(14).webp"
         ]
     },
     "motor-plaka-indir-15": {
@@ -2007,7 +2007,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 12",
         "slug": "motor-plaka-indir-15",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(15).jfif",
+        "image": "/products/motor-plaka/indir%20(15).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2030,7 +2030,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(15).jfif"
+            "/products/motor-plaka/indir%20(15).webp"
         ]
     },
     "motor-plaka-indir-2": {
@@ -2038,7 +2038,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 13",
         "slug": "motor-plaka-indir-2",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(2).jpeg",
+        "image": "/products/motor-plaka/indir%20(2).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2061,7 +2061,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(2).jpeg"
+            "/products/motor-plaka/indir%20(2).webp"
         ]
     },
     "motor-plaka-indir-3": {
@@ -2069,7 +2069,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 14",
         "slug": "motor-plaka-indir-3",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(3).jpeg",
+        "image": "/products/motor-plaka/indir%20(3).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2092,7 +2092,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(3).jpeg"
+            "/products/motor-plaka/indir%20(3).webp"
         ]
     },
     "motor-plaka-indir-4": {
@@ -2100,7 +2100,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 15",
         "slug": "motor-plaka-indir-4",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(4).jpg",
+        "image": "/products/motor-plaka/indir%20(4).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2123,7 +2123,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(4).jpg"
+            "/products/motor-plaka/indir%20(4).webp"
         ]
     },
     "motor-plaka-indir-5": {
@@ -2131,7 +2131,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 16",
         "slug": "motor-plaka-indir-5",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(5).jpeg",
+        "image": "/products/motor-plaka/indir%20(5).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2154,7 +2154,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(5).jpeg"
+            "/products/motor-plaka/indir%20(5).webp"
         ]
     },
     "motor-plaka-indir-6": {
@@ -2162,7 +2162,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 17",
         "slug": "motor-plaka-indir-6",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(6).jpeg",
+        "image": "/products/motor-plaka/indir%20(6).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2185,7 +2185,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(6).jpeg"
+            "/products/motor-plaka/indir%20(6).webp"
         ]
     },
     "motor-plaka-indir-6-2": {
@@ -2193,7 +2193,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 18",
         "slug": "motor-plaka-indir-6-2",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(6).jpg",
+        "image": "/products/motor-plaka/indir%20(6).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2216,7 +2216,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(6).jpg"
+            "/products/motor-plaka/indir%20(6).webp"
         ]
     },
     "motor-plaka-indir-9": {
@@ -2224,7 +2224,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 19",
         "slug": "motor-plaka-indir-9",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/indir%20(9).jfif",
+        "image": "/products/motor-plaka/indir%20(9).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2247,7 +2247,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/indir%20(9).jfif"
+            "/products/motor-plaka/indir%20(9).webp"
         ]
     },
     "motor-plaka-kawasaki": {
@@ -2255,7 +2255,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 20",
         "slug": "motor-plaka-kawasaki",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/kawasaki.jpeg",
+        "image": "/products/motor-plaka/kawasaki.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2278,7 +2278,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/kawasaki.jpeg"
+            "/products/motor-plaka/kawasaki.webp"
         ]
     },
     "motor-plaka-old-school": {
@@ -2286,7 +2286,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 21",
         "slug": "motor-plaka-old-school",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/Old%20school_.jfif",
+        "image": "/products/motor-plaka/Old%20school_.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2309,7 +2309,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/Old%20school_.jfif"
+            "/products/motor-plaka/Old%20school_.webp"
         ]
     },
     "motor-plaka-peakpx-3": {
@@ -2317,7 +2317,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 22",
         "slug": "motor-plaka-peakpx-3",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/peakpx%20(3).jpg",
+        "image": "/products/motor-plaka/peakpx%20(3).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2340,7 +2340,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/peakpx%20(3).jpg"
+            "/products/motor-plaka/peakpx%20(3).webp"
         ]
     },
     "motor-plaka-peakpx-5": {
@@ -2348,7 +2348,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 23",
         "slug": "motor-plaka-peakpx-5",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/peakpx%20(5).jpg",
+        "image": "/products/motor-plaka/peakpx%20(5).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2371,7 +2371,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/peakpx%20(5).jpg"
+            "/products/motor-plaka/peakpx%20(5).webp"
         ]
     },
     "motor-plaka-pexels-giorgio-de-angelis-482403-1289539": {
@@ -2379,7 +2379,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 24",
         "slug": "motor-plaka-pexels-giorgio-de-angelis-482403-1289539",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/pexels-giorgio-de-angelis-482403-1289539.jpg",
+        "image": "/products/motor-plaka/pexels-giorgio-de-angelis-482403-1289539.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2402,7 +2402,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/pexels-giorgio-de-angelis-482403-1289539.jpg"
+            "/products/motor-plaka/pexels-giorgio-de-angelis-482403-1289539.webp"
         ]
     },
     "motor-plaka-ugyguji": {
@@ -2410,7 +2410,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 25",
         "slug": "motor-plaka-ugyguji",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/ugyguj%C4%B1.jfif",
+        "image": "/products/motor-plaka/ugyguj%C4%B1.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2433,7 +2433,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/ugyguj%C4%B1.jfif"
+            "/products/motor-plaka/ugyguj%C4%B1.webp"
         ]
     },
     "motor-plaka-view-cool-powerful-motorcycle-1": {
@@ -2441,7 +2441,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 26",
         "slug": "motor-plaka-view-cool-powerful-motorcycle-1",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/view-cool-powerful-motorcycle%20(1).jpg",
+        "image": "/products/motor-plaka/view-cool-powerful-motorcycle%20(1).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2464,7 +2464,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/view-cool-powerful-motorcycle%20(1).jpg"
+            "/products/motor-plaka/view-cool-powerful-motorcycle%20(1).webp"
         ]
     },
     "motor-plaka-wp2441539-kawasaki-logo-wallpapers": {
@@ -2472,7 +2472,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 27",
         "slug": "motor-plaka-wp2441539-kawasaki-logo-wallpapers",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/wp2441539-kawasaki-logo-wallpapers.webp",
+        "image": "/products/motor-plaka/wp2441539-kawasaki-logo-wallpapers.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2495,7 +2495,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/wp2441539-kawasaki-logo-wallpapers.webp"
+            "/products/motor-plaka/wp2441539-kawasaki-logo-wallpapers.webp"
         ]
     },
     "motor-plaka-wp2832601-honda-motorcycle-logo-wallpaper-1": {
@@ -2503,7 +2503,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 28",
         "slug": "motor-plaka-wp2832601-honda-motorcycle-logo-wallpaper-1",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/wp2832601-honda-motorcycle-logo-wallpaper%20(1).webp",
+        "image": "/products/motor-plaka/wp2832601-honda-motorcycle-logo-wallpaper%20(1).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2526,7 +2526,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/wp2832601-honda-motorcycle-logo-wallpaper%20(1).webp"
+            "/products/motor-plaka/wp2832601-honda-motorcycle-logo-wallpaper%20(1).webp"
         ]
     },
     "motor-plaka-wp2832601-honda-motorcycle-logo-wallpaper": {
@@ -2534,7 +2534,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 29",
         "slug": "motor-plaka-wp2832601-honda-motorcycle-logo-wallpaper",
         "price": 350,
-        "image": "/products/motor-plaka/---LOGO---/wp2832601-honda-motorcycle-logo-wallpaper.webp",
+        "image": "/products/motor-plaka/wp2832601-honda-motorcycle-logo-wallpaper.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2557,7 +2557,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/---LOGO---/wp2832601-honda-motorcycle-logo-wallpaper.webp"
+            "/products/motor-plaka/wp2832601-honda-motorcycle-logo-wallpaper.webp"
         ]
     },
     "motor-plaka-1050a35e9dd145fd0c3e9731271218b3": {
@@ -2565,7 +2565,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 30",
         "slug": "motor-plaka-1050a35e9dd145fd0c3e9731271218b3",
         "price": 350,
-        "image": "/products/motor-plaka/1050a35e9dd145fd0c3e9731271218b3.jpg",
+        "image": "/products/motor-plaka/1050a35e9dd145fd0c3e9731271218b3.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2588,7 +2588,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/1050a35e9dd145fd0c3e9731271218b3.jpg"
+            "/products/motor-plaka/1050a35e9dd145fd0c3e9731271218b3.webp"
         ]
     },
     "motor-plaka-30f1c4b41f2f1276d3cd6f8c470d4280": {
@@ -2596,7 +2596,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 31",
         "slug": "motor-plaka-30f1c4b41f2f1276d3cd6f8c470d4280",
         "price": 350,
-        "image": "/products/motor-plaka/30f1c4b41f2f1276d3cd6f8c470d4280.jpg",
+        "image": "/products/motor-plaka/30f1c4b41f2f1276d3cd6f8c470d4280.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2619,7 +2619,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/30f1c4b41f2f1276d3cd6f8c470d4280.jpg"
+            "/products/motor-plaka/30f1c4b41f2f1276d3cd6f8c470d4280.webp"
         ]
     },
     "motor-plaka-4f1ac3a9c1b6aaba0213dbe88a3c0996": {
@@ -2627,7 +2627,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 32",
         "slug": "motor-plaka-4f1ac3a9c1b6aaba0213dbe88a3c0996",
         "price": 350,
-        "image": "/products/motor-plaka/4f1ac3a9c1b6aaba0213dbe88a3c0996.jpg",
+        "image": "/products/motor-plaka/4f1ac3a9c1b6aaba0213dbe88a3c0996.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2650,7 +2650,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/4f1ac3a9c1b6aaba0213dbe88a3c0996.jpg"
+            "/products/motor-plaka/4f1ac3a9c1b6aaba0213dbe88a3c0996.webp"
         ]
     },
     "motor-plaka-american-style": {
@@ -2658,7 +2658,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 33",
         "slug": "motor-plaka-american-style",
         "price": 350,
-        "image": "/products/motor-plaka/american%20style%20.jpg",
+        "image": "/products/motor-plaka/american%20style%20.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2681,7 +2681,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/american%20style%20.jpg"
+            "/products/motor-plaka/american%20style%20.webp"
         ]
     },
     "motor-plaka-chris-pfeiffer-bmw-motorcycle-wide-high-definition": {
@@ -2689,7 +2689,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 34",
         "slug": "motor-plaka-chris-pfeiffer-bmw-motorcycle-wide-high-definition",
         "price": 350,
-        "image": "/products/motor-plaka/Chris%20Pfeiffer%20Bmw%20Motorcycle%20Wide%20High%20Definition.jpg",
+        "image": "/products/motor-plaka/Chris%20Pfeiffer%20Bmw%20Motorcycle%20Wide%20High%20Definition.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2712,7 +2712,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/Chris%20Pfeiffer%20Bmw%20Motorcycle%20Wide%20High%20Definition.jpg"
+            "/products/motor-plaka/Chris%20Pfeiffer%20Bmw%20Motorcycle%20Wide%20High%20Definition.webp"
         ]
     },
     "motor-plaka-chrome-surge-skull-harley-davidson-water-engine-power-by-martyrider": {
@@ -2720,7 +2720,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 35",
         "slug": "motor-plaka-chrome-surge-skull-harley-davidson-water-engine-power-by-martyrider",
         "price": 350,
-        "image": "/products/motor-plaka/Chrome%20Surge%20Skull%20%E2%80%93%20Harley%20Davidson%20Water%20Engine%20Power%20by%20Martyrider.jpeg",
+        "image": "/products/motor-plaka/Chrome%20Surge%20Skull%20%E2%80%93%20Harley%20Davidson%20Water%20Engine%20Power%20by%20Martyrider.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2743,7 +2743,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/Chrome%20Surge%20Skull%20%E2%80%93%20Harley%20Davidson%20Water%20Engine%20Power%20by%20Martyrider.jpeg"
+            "/products/motor-plaka/Chrome%20Surge%20Skull%20%E2%80%93%20Harley%20Davidson%20Water%20Engine%20Power%20by%20Martyrider.webp"
         ]
     },
     "motor-plaka-d4dc2a4491cb82ecff2d8ac12ebfce7e": {
@@ -2751,7 +2751,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 36",
         "slug": "motor-plaka-d4dc2a4491cb82ecff2d8ac12ebfce7e",
         "price": 350,
-        "image": "/products/motor-plaka/d4dc2a4491cb82ecff2d8ac12ebfce7e.jpg",
+        "image": "/products/motor-plaka/d4dc2a4491cb82ecff2d8ac12ebfce7e.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2774,7 +2774,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/d4dc2a4491cb82ecff2d8ac12ebfce7e.jpg"
+            "/products/motor-plaka/d4dc2a4491cb82ecff2d8ac12ebfce7e.webp"
         ]
     },
     "motor-plaka-f1cfebd0cd1e47b94115bc2ad7911456": {
@@ -2782,7 +2782,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 37",
         "slug": "motor-plaka-f1cfebd0cd1e47b94115bc2ad7911456",
         "price": 350,
-        "image": "/products/motor-plaka/f1cfebd0cd1e47b94115bc2ad7911456.jpg",
+        "image": "/products/motor-plaka/f1cfebd0cd1e47b94115bc2ad7911456.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2805,7 +2805,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/f1cfebd0cd1e47b94115bc2ad7911456.jpg"
+            "/products/motor-plaka/f1cfebd0cd1e47b94115bc2ad7911456.webp"
         ]
     },
     "motor-plaka-f313c4773fb5939602c4370b3883e15a": {
@@ -2813,7 +2813,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 38",
         "slug": "motor-plaka-f313c4773fb5939602c4370b3883e15a",
         "price": 350,
-        "image": "/products/motor-plaka/f313c4773fb5939602c4370b3883e15a.jpg",
+        "image": "/products/motor-plaka/f313c4773fb5939602c4370b3883e15a.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2836,7 +2836,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/f313c4773fb5939602c4370b3883e15a.jpg"
+            "/products/motor-plaka/f313c4773fb5939602c4370b3883e15a.webp"
         ]
     },
     "motor-plaka-hd-wallpaper-harley-davidson-motorcycle": {
@@ -2844,7 +2844,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 39",
         "slug": "motor-plaka-hd-wallpaper-harley-davidson-motorcycle",
         "price": 350,
-        "image": "/products/motor-plaka/HD-wallpaper-harley-davidson-motorcycle.jpg",
+        "image": "/products/motor-plaka/HD-wallpaper-harley-davidson-motorcycle.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2867,7 +2867,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/HD-wallpaper-harley-davidson-motorcycle.jpg"
+            "/products/motor-plaka/HD-wallpaper-harley-davidson-motorcycle.webp"
         ]
     },
     "motor-plaka-img-4564": {
@@ -2875,7 +2875,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 40",
         "slug": "motor-plaka-img-4564",
         "price": 350,
-        "image": "/products/motor-plaka/IMG_4564.JPG",
+        "image": "/products/motor-plaka/IMG_4564.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2898,7 +2898,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/IMG_4564.JPG"
+            "/products/motor-plaka/IMG_4564.webp"
         ]
     },
     "motor-plaka-indir-8": {
@@ -2906,7 +2906,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 41",
         "slug": "motor-plaka-indir-8",
         "price": 350,
-        "image": "/products/motor-plaka/indir%20(8).jfif",
+        "image": "/products/motor-plaka/indir%20(8).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2929,7 +2929,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/indir%20(8).jfif"
+            "/products/motor-plaka/indir%20(8).webp"
         ]
     },
     "motor-plaka-indir": {
@@ -2937,7 +2937,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 42",
         "slug": "motor-plaka-indir",
         "price": 350,
-        "image": "/products/motor-plaka/indir.jpeg",
+        "image": "/products/motor-plaka/indir.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2960,7 +2960,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/indir.jpeg"
+            "/products/motor-plaka/indir.webp"
         ]
     },
     "motor-plaka-peakpx-10": {
@@ -2968,7 +2968,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 43",
         "slug": "motor-plaka-peakpx-10",
         "price": 350,
-        "image": "/products/motor-plaka/peakpx%20(10).jpg",
+        "image": "/products/motor-plaka/peakpx%20(10).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -2991,7 +2991,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/peakpx%20(10).jpg"
+            "/products/motor-plaka/peakpx%20(10).webp"
         ]
     },
     "motor-plaka-peakpx-11": {
@@ -2999,7 +2999,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 44",
         "slug": "motor-plaka-peakpx-11",
         "price": 350,
-        "image": "/products/motor-plaka/peakpx%20(11).jpg",
+        "image": "/products/motor-plaka/peakpx%20(11).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3022,7 +3022,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/peakpx%20(11).jpg"
+            "/products/motor-plaka/peakpx%20(11).webp"
         ]
     },
     "motor-plaka-peakpx-12": {
@@ -3030,7 +3030,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 45",
         "slug": "motor-plaka-peakpx-12",
         "price": 350,
-        "image": "/products/motor-plaka/peakpx%20(12).jpg",
+        "image": "/products/motor-plaka/peakpx%20(12).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3053,7 +3053,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/peakpx%20(12).jpg"
+            "/products/motor-plaka/peakpx%20(12).webp"
         ]
     },
     "motor-plaka-peakpx-13": {
@@ -3061,7 +3061,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 46",
         "slug": "motor-plaka-peakpx-13",
         "price": 350,
-        "image": "/products/motor-plaka/peakpx%20(13).jpg",
+        "image": "/products/motor-plaka/peakpx%20(13).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3084,7 +3084,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/peakpx%20(13).jpg"
+            "/products/motor-plaka/peakpx%20(13).webp"
         ]
     },
     "motor-plaka-peakpx-14": {
@@ -3092,7 +3092,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 47",
         "slug": "motor-plaka-peakpx-14",
         "price": 350,
-        "image": "/products/motor-plaka/peakpx%20(14).jpg",
+        "image": "/products/motor-plaka/peakpx%20(14).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3115,7 +3115,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/peakpx%20(14).jpg"
+            "/products/motor-plaka/peakpx%20(14).webp"
         ]
     },
     "motor-plaka-peakpx-4": {
@@ -3123,7 +3123,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 48",
         "slug": "motor-plaka-peakpx-4",
         "price": 350,
-        "image": "/products/motor-plaka/peakpx%20(4).jpg",
+        "image": "/products/motor-plaka/peakpx%20(4).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3146,7 +3146,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/peakpx%20(4).jpg"
+            "/products/motor-plaka/peakpx%20(4).webp"
         ]
     },
     "motor-plaka-pexels-efrem-efre-2786187-28383583": {
@@ -3154,7 +3154,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 49",
         "slug": "motor-plaka-pexels-efrem-efre-2786187-28383583",
         "price": 350,
-        "image": "/products/motor-plaka/pexels-efrem-efre-2786187-28383583.jpg",
+        "image": "/products/motor-plaka/pexels-efrem-efre-2786187-28383583.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3177,7 +3177,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/pexels-efrem-efre-2786187-28383583.jpg"
+            "/products/motor-plaka/pexels-efrem-efre-2786187-28383583.webp"
         ]
     },
     "motor-plaka-pexels-yash-dhongade-1653701-3158136": {
@@ -3185,7 +3185,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 50",
         "slug": "motor-plaka-pexels-yash-dhongade-1653701-3158136",
         "price": 350,
-        "image": "/products/motor-plaka/pexels-yash-dhongade-1653701-3158136.jpg",
+        "image": "/products/motor-plaka/pexels-yash-dhongade-1653701-3158136.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3208,7 +3208,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/pexels-yash-dhongade-1653701-3158136.jpg"
+            "/products/motor-plaka/pexels-yash-dhongade-1653701-3158136.webp"
         ]
     },
     "motor-plaka-vespe": {
@@ -3216,7 +3216,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Motor 51",
         "slug": "motor-plaka-vespe",
         "price": 350,
-        "image": "/products/motor-plaka/VESPE.jpg",
+        "image": "/products/motor-plaka/VESPE.webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "MOTOR_PLAKA",
@@ -3239,7 +3239,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/motor-plaka/VESPE.jpg"
+            "/products/motor-plaka/VESPE.webp"
         ]
     },
     "yapay-city-indir-10": {
@@ -3247,7 +3247,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Yapay City 01",
         "slug": "yapay-city-indir-10",
         "price": 350,
-        "image": "/products/yapay-city/indir%20(10).jfif",
+        "image": "/products/yapay-city/indir%20(10).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "YAPAY_CITY",
@@ -3270,7 +3270,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/yapay-city/indir%20(10).jfif"
+            "/products/yapay-city/indir%20(10).webp"
         ]
     },
     "yapay-city-indir-7": {
@@ -3278,7 +3278,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Yapay City 02",
         "slug": "yapay-city-indir-7",
         "price": 350,
-        "image": "/products/yapay-city/indir%20(7).jfif",
+        "image": "/products/yapay-city/indir%20(7).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "YAPAY_CITY",
@@ -3301,7 +3301,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/yapay-city/indir%20(7).jfif"
+            "/products/yapay-city/indir%20(7).webp"
         ]
     },
     "yapay-city-indir-8": {
@@ -3309,7 +3309,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Yapay City 03",
         "slug": "yapay-city-indir-8",
         "price": 350,
-        "image": "/products/yapay-city/indir%20(8).jfif",
+        "image": "/products/yapay-city/indir%20(8).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "YAPAY_CITY",
@@ -3332,7 +3332,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/yapay-city/indir%20(8).jfif"
+            "/products/yapay-city/indir%20(8).webp"
         ]
     },
     "yapay-city-indir-9": {
@@ -3340,7 +3340,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "name": "Yapay City 04",
         "slug": "yapay-city-indir-9",
         "price": 350,
-        "image": "/products/yapay-city/indir%20(9).jfif",
+        "image": "/products/yapay-city/indir%20(9).webp",
         "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
         "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
         "category": "YAPAY_CITY",
@@ -3363,7 +3363,7 @@ export const PRODUCTS_DATA: Record<string, Product> = {
             ]
         },
         "images": [
-            "/products/yapay-city/indir%20(9).jfif"
+            "/products/yapay-city/indir%20(9).webp"
         ]
     }
 };
