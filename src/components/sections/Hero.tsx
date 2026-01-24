@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,90 +9,132 @@ import { useContentStore } from "@/store/useContentStore";
 
 export const Hero = () => {
     const { content } = useContentStore();
+    const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+    const images = content.heroImages && content.heroImages.length > 0 ? content.heroImages : [content.heroImage];
+
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        }, 5000);
+        return () => clearInterval(timer);
+    }, [images.length]);
 
     return (
-        <section className="relative min-h-screen flex items-center justify-center pt-32 pb-24 border-b-8 border-black overflow-hidden bg-transparent">
+        <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-white">
             {/* GRID_PATTERN_BACKGROUND */}
-            <div className="absolute inset-0 grid-terminal opacity-30" />
+            <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]" />
 
-            <div className="container-brutal grid lg:grid-cols-12 gap-12 items-center relative z-10">
-                {/* Left: Terminal Input */}
-                <div className="lg:col-span-7 space-y-12">
+            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                {/* Left Content */}
+                <div className="space-y-10">
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="inline-block bg-black text-white px-6 py-2 font-mono text-lg font-bold tracking-tighter"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex flex-wrap gap-x-2 gap-y-1 text-[10px] sm:text-xs font-black tracking-[0.2em] uppercase text-black/80"
                     >
-                        {content.heroTagline}
+                        <span>KAĞIT POSTERLERİ UNUTUN.</span>
+                        <span>BÜKÜLMEZ, SOLMAZ VE ŞIK</span>
+                        <span className="text-[var(--color-brand-safety-orange)]">METAL TABLOLARLA TANIŞIN</span>
                     </motion.div>
 
-                    <motion.h1
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-[Archivo Black] leading-[0.9] md:leading-[0.85] tracking-tighter uppercase"
+                        className="space-y-2"
                     >
-                        {content.heroTitle}
-                    </motion.h1>
+                        <h1 className="text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] font-black leading-[0.8] tracking-tighter uppercase flex flex-col">
+                            <span className="text-black">YAŞAM</span>
+                            <span className="text-gold-gradient italic font-serif opacity-80 pl-4 md:pl-8">ALANINIZ</span>
+                            <div className="flex items-baseline gap-4">
+                                <span className="text-gold-gradient italic font-serif opacity-80">İÇİN</span>
+                                <span className="inline-block border-4 border-black px-4 py-1 text-[40px] md:text-[60px] text-black">YENİ</span>
+                            </div>
+                            <span className="text-gold-gradient italic font-serif opacity-80">NESİL</span>
+                            <span className="text-gold-gradient italic font-serif opacity-80 pl-8 md:pl-16">DEKOR</span>
+                        </h1>
+                    </motion.div>
 
                     <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-xl md:text-2xl font-mono font-bold max-w-2xl border-l-8 border-black pl-8"
+                        className="text-sm md:text-base font-black text-black/60 max-w-lg uppercase tracking-wider"
                     >
                         {content.heroSubtitle}
                     </motion.p>
 
-                    <div className="flex flex-col sm:flex-row gap-0 border-4 border-black shadow-brutal max-w-fit overflow-hidden">
-                        <Link href="/urunler" className="btn-mechanical !border-0 bg-[var(--color-brand-safety-orange)] text-white border-b-4 sm:border-b-0 sm:border-r-4 !border-black hover:bg-black hover:text-[var(--color-brand-safety-orange)] text-lg sm:text-xl px-10 sm:px-14 py-5 sm:py-6 font-black">
-                            ÜRÜNLERİ GÖR <ArrowRight className="ml-4 w-6 h-6 sm:w-7 sm:h-7" />
+                    <div className="flex flex-wrap gap-6 pt-4">
+                        <Link href="/urunler" className="group relative px-10 py-5 bg-black text-white font-black text-sm uppercase tracking-[0.2em] overflow-hidden">
+                            <span className="relative z-10 flex items-center gap-3">
+                                Koleksiyonu Keşfet <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                            </span>
+                            <div className="absolute inset-0 bg-[var(--color-brand-safety-orange)] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                         </Link>
-                        <Link href="#production" className="btn-mechanical !border-0 !shadow-none bg-white text-black hover:bg-[#E5E7EB] text-lg sm:text-xl px-10 sm:px-14 py-5 sm:py-6 font-black">
-                            {content.heroButton2Text}
-                        </Link>
-                    </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-12">
-                        <StatusPill label="MALZEME" value="AL 1.5mm" />
-                        <StatusPill label="BASKI" value="UV DİJİTAL" />
-                        <StatusPill label="DAYANIKLILIK" value="ARŞİVSEL" />
+                        <div className="flex items-center gap-4 px-6 border border-black/10 bg-slate-50">
+                            <div className="flex -space-x-2">
+                                {[1, 2, 3].map(i => (
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200" />
+                                ))}
+                            </div>
+                            <div className="text-[10px] font-bold text-black/40 uppercase tracking-tighter">
+                                <span className="text-black block">5000+ MÜŞTERİ</span>
+                                <span>MEMNUNİYETİ</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Right: Technical Blueprint */}
+                {/* Right: Technical Blueprint / Slider */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="lg:col-span-5 relative"
+                    className="relative"
                 >
-                    <div className="border-industrial p-4 bg-white shadow-brutal-orange relative">
-                        <div className="absolute -top-4 -left-4 bg-black text-white px-2 py-1 text-base font-mono font-bold z-20">
-                            TASLAK v4.5
-                        </div>
-                        <div className="relative aspect-[2/3] bg-black border-4 border-black group">
-                            <Image
-                                src={content.heroImage || "/hero-mockup.png"}
-                                alt="Industrial Metal Poster"
-                                fill
-                                priority
-                                className="object-cover transition-none"
-                                sizes="(max-width: 768px) 100vw, 500px"
-                            />
-                            {/* Overlay Scanlines */}
-                            <div className="absolute inset-0 pointer-events-none border-[20px] border-black/20" />
-
-                            <div className="absolute bottom-4 left-4 right-4 bg-white border-2 border-black p-4 font-mono">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm md:text-base font-black text-black/50 uppercase">BAŞLANGIÇ FİYATI</span>
-                                    <span className="text-xs md:text-lg font-black text-[var(--color-brand-safety-orange)] uppercase">● KALİBRE EDİLDİ</span>
-                                </div>
-                                <div className="text-4xl font-[Archivo Black]">{content.heroPrice}</div>
-                            </div>
+                    <div className="relative aspect-[4/5] md:aspect-[3/4] bg-white p-4 shadow-[0_40px_80px_rgba(0,0,0,0.1)] border border-black/5 group">
+                        <div className="absolute -top-4 -right-4 bg-black text-white px-4 py-2 text-[10px] font-black z-20 uppercase tracking-widest">
+                            SERIES // NOBLE
                         </div>
 
-                        {/* Technical Markings */}
-                        <div className="absolute -bottom-8 -right-8 w-24 h-24 border-b-8 border-r-8 border-black" />
-                        <div className="absolute -top-8 -left-8 w-24 h-24 border-t-8 border-l-8 border-black" />
+                        <div className="relative w-full h-full overflow-hidden bg-slate-50">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentImageIndex}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.8, ease: "anticipate" }}
+                                    className="absolute inset-0"
+                                >
+                                    <Image
+                                        src={images[currentImageIndex]}
+                                        alt="Product Showcase"
+                                        fill
+                                        priority
+                                        className="object-contain p-4 transition-transform duration-[2000ms] group-hover:scale-105"
+                                    />
+                                </motion.div>
+                            </AnimatePresence>
+
+                            {/* Technical Overlay */}
+                            <div className="absolute inset-0 pointer-events-none border-[1px] border-black/5" />
+                            <div className="absolute top-8 left-8 bottom-8 right-8 border border-black/5 pointer-events-none" />
+                        </div>
+
+                        {/* Slider Controls */}
+                        <div className="absolute bottom-10 right-10 flex gap-2 z-30">
+                            {images.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCurrentImageIndex(idx)}
+                                    className={`h-1 transition-all duration-500 ${idx === currentImageIndex ? 'w-8 bg-black' : 'w-4 bg-black/20'}`}
+                                />
+                            ))}
+                        </div>
                     </div>
+
+                    {/* Decorative Elements */}
+                    <div className="absolute -bottom-6 -left-6 w-32 h-32 border-b border-l border-black/10 -z-10" />
+                    <div className="absolute -top-6 -right-6 w-32 h-32 border-t border-r border-black/10 -z-10" />
                 </motion.div>
             </div>
         </section>

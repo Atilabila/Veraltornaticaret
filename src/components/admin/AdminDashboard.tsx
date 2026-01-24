@@ -1239,9 +1239,8 @@ const CategoriesTab = ({ showNotification }: { showNotification: (type: "success
 const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
     const { content, updateContent } = useContentStore();
 
-    // Dynamically creating field list
     const imageFields = [
-        { key: "heroImage", label: "Ana Sayfa Hero Görseli", current: content.heroImage, folder: "hero" },
+        { key: "heroImage", label: "Ana Sayfa Hero Görseli (Varsayılan)", current: content.heroImage, folder: "hero" },
         { key: "aboutImage", label: "Hakkımızda Sayfası Görseli", current: content.aboutImage, folder: "about" },
         ...content.featureItems.map((item, index) => ({
             key: `feature_${index}`,
@@ -1260,6 +1259,22 @@ const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | 
             index
         }))
     ];
+
+    const handleAddHeroImage = () => {
+        const newImages = [...(content.heroImages || []), ""];
+        updateContent({ heroImages: newImages });
+    };
+
+    const handleRemoveHeroImage = (index: number) => {
+        const newImages = content.heroImages.filter((_, i) => i !== index);
+        updateContent({ heroImages: newImages });
+    };
+
+    const handleHeroImageUpdate = (index: number, url: string) => {
+        const newImages = [...content.heroImages];
+        newImages[index] = url;
+        updateContent({ heroImages: newImages });
+    };
 
     const handleImageUpdate = (key: string, value: string, isFeature?: boolean, isService?: boolean, index?: number) => {
         if (isFeature && index !== undefined) {
@@ -1285,24 +1300,57 @@ const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | 
                 </div>
             </header>
 
-            <div className="bg-slate-900/50 rounded-2xl border border-slate-800 p-6">
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                    {imageFields.map((field) => (
-                        <div key={field.key} className="bg-slate-800 rounded-xl p-6 shadow-lg">
-                            <ImageUploader
-                                label={field.label}
-                                currentImage={field.current}
-                                folder={field.folder}
-                                onImageUploaded={(url) => handleImageUpdate(
-                                    field.key,
-                                    url,
-                                    'isFeature' in field ? field.isFeature : undefined,
-                                    'isService' in field ? field.isService : undefined,
-                                    'index' in field ? field.index : undefined
-                                )}
-                            />
-                        </div>
-                    ))}
+            <div className="space-y-8">
+                <section className="bg-slate-900/50 rounded-2xl border border-slate-800 p-8">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="font-bold text-xl uppercase tracking-widest text-[#D4AF37]">Hero Slider Görselleri</h2>
+                        <button
+                            onClick={handleAddHeroImage}
+                            className="bg-black border border-[#D4AF37] text-[#D4AF37] px-4 py-2 text-xs font-black uppercase hover:bg-[#D4AF37] hover:text-white transition-all"
+                        >
+                            Yeni Görsel Ekle
+                        </button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {content.heroImages?.map((img, idx) => (
+                            <div key={idx} className="relative group bg-black/40 p-4 border border-slate-800 rounded-xl">
+                                <button
+                                    onClick={() => handleRemoveHeroImage(idx)}
+                                    className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                                <ImageUploader
+                                    label={`Slide ${idx + 1}`}
+                                    currentImage={img}
+                                    folder="hero-slider"
+                                    onImageUploaded={(url) => handleHeroImageUpdate(idx, url)}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                <div className="bg-slate-900/50 rounded-2xl border border-slate-800 p-8">
+                    <h2 className="font-bold text-xl uppercase tracking-widest text-[#D4AF37] mb-6">Diğer Sistem Görselleri</h2>
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                        {imageFields.map((field) => (
+                            <div key={field.key} className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+                                <ImageUploader
+                                    label={field.label}
+                                    currentImage={field.current}
+                                    folder={field.folder}
+                                    onImageUploaded={(url) => handleImageUpdate(
+                                        field.key,
+                                        url,
+                                        'isFeature' in field ? field.isFeature : undefined,
+                                        'isService' in field ? field.isService : undefined,
+                                        'index' in field ? field.index : undefined
+                                    )}
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

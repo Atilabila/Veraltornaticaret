@@ -15,6 +15,7 @@ export interface SiteContent {
     heroTagline: string;
     heroPrice: string;
     heroImage: string;
+    heroImages: string[];
     heroButton1Text: string;
     heroButton1Url: string;
     heroButton2Text: string;
@@ -114,11 +115,16 @@ const defaultContent: SiteContent = {
     siteName: "VERAL",
 
     // Hero
-    heroTitle: "Sanatta Asalet",
-    heroSubtitle: "1.5mm yüksek kaliteli çelik üzerine işlenen, ömür boyu garantili metal tablolar. Yaşam alanınıza modern bir müze havası katın.",
-    heroTagline: "MİRAS VE GELECEK",
+    heroTitle: "YAŞAM ALANINIZ İÇİN YENİ NESİL DEKOR",
+    heroSubtitle: "0.30 MM ENDÜSTRİYEL METAL PLAKALAR. UV DİJİTAL BASKI. SIFIR YUVARLAK KÖŞE.",
+    heroTagline: "KAĞIT POSTERLERİ UNUTUN. BÜKÜLMEZ, SOLMAZ VE ŞIK METAL TABLOLARLA TANIŞIN",
     heroPrice: "199 TL",
     heroImage: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
+    heroImages: [
+        "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1524169358666-79f22c79745d?q=80&w=2670&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=2680&auto=format&fit=crop"
+    ],
     heroButton1Text: "Koleksiyonu Keşfet",
     heroButton1Url: "/urunler",
     heroButton2Text: "Katalog İndir",

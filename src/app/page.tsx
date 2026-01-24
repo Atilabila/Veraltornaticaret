@@ -1,10 +1,11 @@
 "use client";
 
 import React from 'react';
+import '@/app/metal-art.css';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
-import { ArchiveHero } from '@/components/sections/ArchiveHero';
-import { TrustSection } from '@/components/sections/TrustSection';
+import { Hero } from '@/components/sections/Hero';
+import { ShowcaseGrid } from '@/components/sections/ShowcaseGrid';
 import { ProductGallery } from '@/components/sections/ProductGallery';
 import { GalleryShowcase } from '@/components/sections/GalleryShowcase';
 import { ProductConfigurator } from '@/components/sections/ProductConfigurator';
@@ -22,12 +23,12 @@ export default function HomePage() {
 
       {/* CORE_EXPERIENCE */}
       <section className="bg-transparent relative z-10">
-        <ArchiveHero />
+        <Hero />
       </section>
 
       {/* SYSTEM_STATUS_STRIP */}
       <section className="relative z-10">
-        <TrustSection />
+        <ShowcaseGrid />
       </section>
 
       {/* PRODUCT_GALLERY */}

@@ -40,7 +40,7 @@ export const Navigation = () => {
                                 <img
                                     src={(content.headerLogo && content.headerLogo.length > 0) ? content.headerLogo : "/veral-logo.webp"}
                                     alt={content.siteName || "VERAL"}
-                                    className="h-full w-full object-contain"
+                                    className={`h-full w-full object-contain transition-all duration-500 ${isScrolled ? 'brightness-100 invert mix-blend-screen' : 'mix-blend-multiply'}`}
                                 />
                             </div>
                             <div className="flex flex-col">

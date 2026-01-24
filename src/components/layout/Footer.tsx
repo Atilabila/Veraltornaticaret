@@ -24,7 +24,7 @@ export const Footer = () => {
                                 <img
                                     src={(content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/veral-logo.webp"}
                                     alt={content.siteName || "VERAL"}
-                                    className="h-full w-full object-contain"
+                                    className="h-full w-full object-contain invert brightness-100 mix-blend-screen"
                                 />
                             </div>
                             <div className="flex flex-col">
