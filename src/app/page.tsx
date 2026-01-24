@@ -8,7 +8,7 @@ import { Hero } from '@/components/sections/Hero';
 import { ShowcaseGrid } from '@/components/sections/ShowcaseGrid';
 import { ProductGallery } from '@/components/sections/ProductGallery';
 import { GalleryShowcase } from '@/components/sections/GalleryShowcase';
-import { ProductConfigurator } from '@/components/sections/ProductConfigurator';
+
 import { CustomerReviews } from '@/components/sections/CustomerReviews';
 import { InstagramFeed } from '@/components/sections/InstagramFeed';
 import { ProcessSection } from '@/components/sections/ProcessSection';
@@ -41,10 +41,7 @@ export default function HomePage() {
         <GalleryShowcase />
       </section>
 
-      {/* CONFIGURATOR */}
-      <section className="bg-transparent relative z-10">
-        <ProductConfigurator />
-      </section>
+
 
       {/* SOCIAL_PROOF */}
       <section className="bg-transparent relative z-10">

@@ -59,9 +59,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     const jsonLd = {
         "@context": "https://schema.org/",
         "@type": "Product",
-        "name": product.seo.title,
+        "name": product.seo?.title || product.name,
         "image": `https://veral.com${product.image}`,
-        "description": product.seo.description,
+        "description": product.seo?.description || product.description,
         "brand": {
             "@type": "Brand",
             "name": "Veral Torna & Teneke"

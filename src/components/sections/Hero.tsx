@@ -15,7 +15,7 @@ export const Hero = () => {
     React.useEffect(() => {
         const timer = setInterval(() => {
             setCurrentImageIndex((prev) => (prev + 1) % images.length);
-        }, 5000);
+        }, 3000);
         return () => clearInterval(timer);
     }, [images.length]);
 
@@ -46,8 +46,8 @@ export const Hero = () => {
                             <span className="text-black">YAŞAM</span>
                             <span className="text-gold-gradient italic font-serif opacity-80 pl-4 md:pl-8">ALANINIZ</span>
                             <div className="flex items-baseline gap-4">
-                                <span className="text-gold-gradient italic font-serif opacity-80">İÇİN</span>
-                                <span className="inline-block border-4 border-black px-4 py-1 text-[40px] md:text-[60px] text-black">YENİ</span>
+                                <span className="text-black opacity-80">İÇİN</span>
+                                <span className="text-black">YENİ</span>
                             </div>
                             <span className="text-gold-gradient italic font-serif opacity-80">NESİL</span>
                             <span className="text-gold-gradient italic font-serif opacity-80 pl-8 md:pl-16">DEKOR</span>

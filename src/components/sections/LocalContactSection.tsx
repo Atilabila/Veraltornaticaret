@@ -12,22 +12,22 @@ export const LocalContactSection = () => {
                 <div className="flex flex-col gap-4 mb-16">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">İletişim & Destek</span>
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">DİREKT HAT</span>
                     </div>
                     <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
-                        Bize <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Ulaşın</span>
+                        BİZE <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">ERİŞİN</span>
                     </h2>
-                    <p className="text-white/50 text-lg font-medium max-w-lg">Siparişiniz veya özel taslarımlar için uzman ekibimizle görüşün.</p>
+                    <p className="text-white/50 text-lg font-medium max-w-lg">TEKNİK DESTEK VE ÖZEL PROJELER İÇİN OPERASYON MERKEZİ.</p>
                 </div>
 
                 <div className="grid lg:grid-cols-12 gap-10">
                     {/* Contact Grid */}
                     <div className="lg:col-span-12 xl:col-span-7 grid sm:grid-cols-2 gap-4">
                         {[
-                            { icon: PackageCheck, title: "İADELER", desc: "14 GÜN KOLAY POLİTİKA" },
+                            { icon: PackageCheck, title: "İADE", desc: "14 GÜN KOŞULSUZ İADE POLİTİKASI" },
                             { icon: Phone, title: "TELEFON", desc: "+90 507 165 13 15" },
                             { icon: Mail, title: "E-POSTA", desc: "support@metalposter.co" },
-                            { icon: MessageCircle, title: "WHATSAPP", desc: "ANLIK DESTEK HATTI", color: "text-[#D4AF37]" }
+                            { icon: MessageCircle, title: "WHATSAPP", desc: "ANLIK OPERASYON HATTI", color: "text-[#D4AF37]" }
                         ].map((item, i) => (
                             <div key={i} className="bg-[#FDFBF7] p-12 flex flex-col gap-10 border border-[#0A0A0A]/5 hover:bg-[#0A0A0A] group transition-all duration-700">
                                 <div className={`w-14 h-14 border border-[#D4AF37]/30 flex items-center justify-center ${item.color || 'text-[#D4AF37]'} group-hover:bg-[#D4AF37] group-hover:text-white transition-all`}>

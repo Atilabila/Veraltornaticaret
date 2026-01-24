@@ -24,8 +24,8 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "slug": "araba-plaka-3000x1500",
         "price": 350,
         "image": "/ARABALAR%20PLAKA/3000x1500.png",
-        "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
-        "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
+        "description": "1.5MM ALÜMİNYUM PLAKA. YÜKSEK ÇÖZÜNÜRLÜKLÜ UV BASKI. ÖMÜR BOYU FORM KORUMA.",
+        "story": "KUSURSUZ KENAR FORMU VE ENDÜSTRİYEL YÜZEY. GALERİ STANDARTLARINDA RENK DOĞRULUĞU.",
         "category": "ARABA_PLAKA",
         "specs": {
             "material": "Aluminum",
@@ -55,8 +55,8 @@ export const PRODUCTS_DATA: Record<string, Product> = {
         "slug": "araba-plaka-4340a30f809c58b892586adf8d844fb1",
         "price": 350,
         "image": "/ARABALAR%20PLAKA/4340a30f809c58b892586adf8d844fb1.jpg",
-        "description": "Premium metal poster. 1.5mm aluminum, UV digital print, built to last.",
-        "story": "Crafted for bold walls. Clean metal finish, vibrant colors, and gallery-grade detail.",
+        "description": "1.5MM ALÜMİNYUM PLAKA. YÜKSEK ÇÖZÜNÜRLÜKLÜ UV BASKI. ÖMÜR BOYU FORM KORUMA.",
+        "story": "KUSURSUZ KENAR FORMU VE ENDÜSTRİYEL YÜZEY. GALERİ STANDARTLARINDA RENK DOĞRULUĞU.",
         "category": "ARABA_PLAKA",
         "specs": {
             "material": "Aluminum",

@@ -10,19 +10,19 @@ export const ShowcaseGrid = () => {
     const showcaseItems = [
         {
             title: "DOSYA TELİ",
-            desc: "ENDÜSTRİYEL SINIF DOSYA TELİ SİSTEMLERİ. ÖZEL ÖLÇÜ VE YÜKSEK GERİLİM DAYANIMI.",
+            desc: "ENDÜSTRİYEL SINIF ÇELİK TEL. YÜKSEK GERİLİM DİRENCİ VE HASSAS BÜKÜM.",
             image: "/images/showcase/dosya-teli.jpg",
             category: "ÜRETİM // 001"
         },
         {
             title: "TEF ZİLİ",
-            desc: "KUSURSUZ KESİM, ÜSTÜN AKUSTİK KALİTE. PROFESYONEL ENSTRÜMAN BİLEŞENLERİ.",
+            desc: "PASLANMAZ METAL ALAŞIM. KUSURSUZ AKUSTİK VE FORM KORUMA.",
             image: "/images/showcase/tef-zili.jpg",
             category: "ÜRETİM // 002"
         },
         {
             title: "METAL ETİKET",
-            desc: "HASSAS LAZER KESİM METAL ŞERİTLER VE ETİKETLEME ÇÖZÜMLERİ. KOROZYON DİRENÇLİ.",
+            desc: "LAZER KESİM ŞERİTLER. KOROZYON DİRENCİ VE YÜKSEK OKUNABİLİRLİK.",
             image: "/images/showcase/metal-etiket.jpg",
             category: "ÜRETİM // 003"
         }
@@ -51,10 +51,10 @@ export const ShowcaseGrid = () => {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="text-6xl md:text-9xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-[0.8] mb-4 font-display"
+                            className="text-4xl md:text-6xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-[0.9] mb-4 font-display max-w-4xl"
                         >
                             ENDÜSTRİYEL <br />
-                            <span className="text-gold-gradient italic opacity-90 pl-8 md:pl-20">Kabiliyetler</span>
+                            <span className="text-gold-gradient italic opacity-90 pl-8 md:pl-16">Kabiliyetler</span>
                         </motion.h2>
                     </div>
 

@@ -187,6 +187,111 @@ export type Database = {
                     updated_at?: string
                 }
             }
+            categories: {
+                Row: {
+                    id: string
+                    name: string
+                    slug: string
+                    description: string | null
+                    image_url: string | null
+                    display_order: number
+                    is_active: boolean
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    name: string
+                    slug: string
+                    description?: string | null
+                    image_url?: string | null
+                    display_order?: number
+                    is_active?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    name?: string
+                    slug?: string
+                    description?: string | null
+                    image_url?: string | null
+                    display_order?: number
+                    is_active?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
+            metal_products: {
+                Row: {
+                    id: string
+                    name: string
+                    slug: string
+                    description: string | null
+                    price: number
+                    image_url: string | null
+                    background_color: string
+                    category_id: string | null
+                    is_active: boolean
+                    stock_quantity: number
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    name: string
+                    slug: string
+                    description?: string | null
+                    price?: number
+                    image_url?: string | null
+                    background_color?: string
+                    category_id?: string | null
+                    is_active?: boolean
+                    stock_quantity?: number
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    name?: string
+                    slug?: string
+                    description?: string | null
+                    price?: number
+                    image_url?: string | null
+                    background_color?: string
+                    category_id?: string | null
+                    is_active?: boolean
+                    stock_quantity?: number
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
+            product_features: {
+                Row: {
+                    id: string
+                    product_id: string
+                    feature_text: string
+                    feature_icon: string | null
+                    display_order: number
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    product_id: string
+                    feature_text: string
+                    feature_icon?: string | null
+                    display_order?: number
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    product_id?: string
+                    feature_text?: string
+                    feature_icon?: string | null
+                    display_order?: number
+                    created_at?: string
+                }
+            }
         }
         Views: {
             [_ in never]: never

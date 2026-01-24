@@ -20,7 +20,7 @@ interface FeatureItemProps {
 // Map of icon names to components
 const getIcon = (iconName: string | null) => {
     if (!iconName) return LucideIcons.Sparkles
-    const Icon = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[iconName]
+    const Icon = (LucideIcons as any)[iconName]
     return Icon || LucideIcons.Sparkles
 }
 

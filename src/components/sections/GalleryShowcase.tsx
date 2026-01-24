@@ -15,12 +15,12 @@ export const GalleryShowcase = () => {
                 <div className="flex flex-col gap-4 mb-16">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Mekan Entegrasyonu</span>
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">MEKAN ANALİZİ</span>
                     </div>
-                    <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                        Asalet <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Mekanda Başlar</span>
+                    <h2 className="text-4xl lg:text-6xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
+                        ESTETİK <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">VE MEKAN</span>
                     </h2>
-                    <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">Metal tablolarımızın farklı ışık ve dekorasyon kombinasyonlarında nasıl göründüğünü keşfedin.</p>
+                    <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">IŞIK VE FORMUN DEKORASYONLA UYUMUNU GÖRÜN.</p>
                 </div>
 
                 {/* Grid */}

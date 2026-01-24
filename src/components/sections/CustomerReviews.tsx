@@ -10,7 +10,7 @@ const reviews = [
         name: "Ahmet Yılmaz",
         city: "İstanbul",
         rating: 5,
-        text: "Münih silueti posterini aldım, muazzam kalite. Metal dokusu gerçekten asil bir hava katıyor.",
+        text: "METALE AKTARILAN DETAYLAR KUSURSUZ. PLAKA SERTLEĞİ VE YÜZEY KALİTESİ BEKLENTİMİN ÜZERİNDE.",
         product: "Borusan Contemporary",
         image: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=200",
         date: "2 hafta önce"
@@ -20,7 +20,7 @@ const reviews = [
         name: "Zeynep Kaya",
         city: "Ankara",
         rating: 5,
-        text: "Ofisim için Porsche koleksiyonunu tercih ettim. Altın detaylar ve baskı kalitesi hayranlık verici.",
+        text: "DİKKAT ÇEKİCİ BİR DERİNLİK VAR. DİJİTAL BASKI NETLİĞİ VE RENK DOĞRULUĞU ŞAŞIRTICI.",
         product: "Klasik Porsche",
         image: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=200",
         date: "1 ay önce"
@@ -35,10 +35,10 @@ export const CustomerReviews = () => {
                 <div className="flex flex-col gap-4 mb-16 text-center items-center">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Miras Sahiplerinden</span>
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">KULLANICI DENEYİMİ</span>
                     </div>
                     <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                        Koleksiyoner <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Yorumları</span>
+                        GERÇEK <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">GÖRÜŞLER</span>
                     </h2>
                     <div className="flex items-center gap-2 mt-4">
                         <Star className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
@@ -93,9 +93,9 @@ export const CustomerReviews = () => {
                 {/* Stats Summary */}
                 <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-0 border border-[#0A0A0A]/5">
                     {[
-                        { label: "MUTLU KOLEKSİYONER", val: "2500+" },
-                        { label: "ORTALAMA PUAN", val: "4.9 / 5" },
-                        { label: "TAVSİYE ORANI", val: "%99" }
+                        { label: "BAŞARILI TESLİMAT", val: "2500+" },
+                        { label: "GENEL SKOR", val: "4.9 / 5" },
+                        { label: "MEMNUNİYET ORANI", val: "%99" }
                     ].map((stat, i) => (
                         <div key={i} className="bg-white p-12 text-center border-r border-[#0A0A0A]/5 last:border-r-0">
                             <div className="text-5xl lg:text-6xl font-black text-[#0A0A0A] italic tracking-tighter mb-4">{stat.val}</div>

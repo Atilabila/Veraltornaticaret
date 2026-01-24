@@ -6,28 +6,28 @@ export const ProcessSection = () => {
     const steps = [
         {
             stepNumber: "ETAP/01",
-            title: "Sanat Seçimi",
-            desc: "KOLEKSİYONUMUZDAN SİZİ YANSITAN ESERİ KEŞFEDİN."
+            title: "TASARIM SEÇİMİ",
+            desc: "KOLEKSİYONDAN SEÇİN. KARARINIZI NETLEŞTİRİN."
         },
         {
             stepNumber: "ETAP/02",
-            title: "Kalibrasyon",
-            desc: "EN CANLI RENKLER İÇİN 4K UV BASKI ÖN HAZIRLIĞI."
+            title: "DİJİTAL HAZIRLIK",
+            desc: "4K UV BASKI İÇİN PİKSEL KONTROLÜ VE RENK AYARI."
         },
         {
             stepNumber: "ETAP/03",
-            title: "Metal İşleme",
-            desc: "1.5MM PREMIUM ÇELİK ÜZERİNE HASSAS BASKI SÜRECİ."
+            title: "METALE AKTARIM",
+            desc: "1.5MM ÇELİK ÜZERİNE YÜKSEK ÇÖZÜNÜRLÜKLÜ BASKI."
         },
         {
             stepNumber: "ETAP/04",
-            title: "Zırhlı Paket",
-            desc: "MANYETİK APARATLAR VE GÜÇLENDİRİLMİŞ KUTULAMA."
+            title: "KORUYUCU AMBALAJ",
+            desc: "MANYETİK APARAT VE DARBE EMİCİ ÖZEL KUTULAMA."
         },
         {
             stepNumber: "ETAP/05",
-            title: "Hızlı Teslim",
-            desc: "24-48 SAAT İÇERİSİNDE LOJİSTİK MERKEZİNE TESLİM."
+            title: "LOJİSTİK ÇIKIŞ",
+            desc: "MAKSİMUM 48 SAAT İÇİNDE KARGOYA TESLİM."
         }
     ];
 
@@ -37,12 +37,12 @@ export const ProcessSection = () => {
                 <div className="flex flex-col gap-4 mb-16">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Üretim Manifestosu</span>
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">ÜRETİM PROTOKOLÜ</span>
                     </div>
                     <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                        Kusursuz <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Süreç</span>
+                        HASSAS <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">İŞÇİLİK</span>
                     </h2>
-                    <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">Atölyemizden duvarınıza kadar uzanan titiz işçilik hikayesi.</p>
+                    <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">HAMMADDEDEN DUVARINIZA: KUSURSUZ DÖNÜŞÜM.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-0 border border-[#0A0A0A]/5">

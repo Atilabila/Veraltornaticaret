@@ -21,10 +21,10 @@ export const InstagramFeed = () => {
                 <div className="flex flex-col gap-4 mb-16 items-center text-center">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Sosyal Medyada Biz</span>
+                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">DİJİTAL TOPLULUK</span>
                     </div>
                     <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                        Mekanı <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Paylaş</span>
+                        #METAL<span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">POSTERPRO</span>
                     </h2>
                     <p className="text-[#0A0A0A]/50 text-lg font-medium tracking-tight mt-2">@metalposterpro // #noblecollection</p>
                 </div>

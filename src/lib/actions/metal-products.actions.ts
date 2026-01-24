@@ -21,7 +21,7 @@ import type {
 
 export async function getCategories(): Promise<ApiResponse<Category[]>> {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('categories')
             .select('*')
             .order('display_order', { ascending: true })
@@ -43,7 +43,7 @@ export async function createCategory(formData: CategoryFormData): Promise<ApiRes
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '')
 
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('categories')
             .insert({
                 ...formData,
@@ -63,7 +63,7 @@ export async function createCategory(formData: CategoryFormData): Promise<ApiRes
 
 export async function updateCategory(id: string, formData: Partial<CategoryFormData>): Promise<ApiResponse<Category>> {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('categories')
             .update(formData)
             .eq('id', id)
@@ -81,7 +81,7 @@ export async function updateCategory(id: string, formData: Partial<CategoryFormD
 
 export async function deleteCategory(id: string): Promise<ApiResponse<null>> {
     try {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
             .from('categories')
             .delete()
             .eq('id', id)
@@ -101,7 +101,7 @@ export async function deleteCategory(id: string): Promise<ApiResponse<null>> {
 
 export async function getProducts(): Promise<ApiResponse<MetalProduct[]>> {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('metal_products')
             .select(`
                 *,
@@ -121,7 +121,7 @@ export async function getProducts(): Promise<ApiResponse<MetalProduct[]>> {
 
 export async function getProductById(id: string): Promise<ApiResponse<MetalProduct>> {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('metal_products')
             .select(`
                 *,
@@ -142,7 +142,7 @@ export async function getProductById(id: string): Promise<ApiResponse<MetalProdu
 
 export async function getProductBySlug(slug: string): Promise<ApiResponse<MetalProduct>> {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('metal_products')
             .select(`
                 *,
@@ -171,7 +171,7 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
             .replace(/(^-|-$)/g, '')
 
         // Insert product
-        const { data: product, error: productError } = await supabase
+        const { data: product, error: productError } = await (supabase as any)
             .from('metal_products')
             .insert({
                 name: formData.name,
@@ -198,7 +198,7 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
                 display_order: f.display_order || index + 1
             }))
 
-            const { error: featuresError } = await supabase
+            const { error: featuresError } = await (supabase as any)
                 .from('product_features')
                 .insert(featuresWithProductId)
 
@@ -209,7 +209,7 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
         }
 
         // Fetch the complete product with relations
-        const { data: fullProduct } = await supabase
+        const { data: fullProduct } = await (supabase as any)
             .from('metal_products')
             .select(`
                 *,
@@ -231,7 +231,7 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
         // Update product
         const { features, ...productData } = formData
 
-        const { error: productError } = await supabase
+        const { error: productError } = await (supabase as any)
             .from('metal_products')
             .update(productData)
             .eq('id', id)
@@ -241,7 +241,7 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
         // Handle features update if provided
         if (features !== undefined) {
             // Delete existing features
-            await supabase
+            await (supabase as any)
                 .from('product_features')
                 .delete()
                 .eq('product_id', id)
@@ -255,14 +255,14 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
                     display_order: f.display_order || index + 1
                 }))
 
-                await supabase
+                await (supabase as any)
                     .from('product_features')
                     .insert(featuresWithProductId)
             }
         }
 
         // Fetch updated product
-        const { data: updatedProduct } = await supabase
+        const { data: updatedProduct } = await (supabase as any)
             .from('metal_products')
             .select(`
                 *,
@@ -282,7 +282,7 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
 export async function deleteProduct(id: string): Promise<ApiResponse<null>> {
     try {
         // Features will be deleted automatically via CASCADE
-        const { error } = await supabase
+        const { error } = await (supabase as any)
             .from('metal_products')
             .delete()
             .eq('id', id)
@@ -311,7 +311,7 @@ export async function addProductFeature(
 ): Promise<ApiResponse<ProductFeature>> {
     try {
         // Get current max display_order
-        const { data: existing } = await supabase
+        const { data: existing } = await (supabase as any)
             .from('product_features')
             .select('display_order')
             .eq('product_id', productId)
@@ -322,7 +322,7 @@ export async function addProductFeature(
             ? existing[0].display_order + 1
             : 1
 
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('product_features')
             .insert({
                 product_id: productId,
@@ -344,7 +344,7 @@ export async function addProductFeature(
 
 export async function deleteProductFeature(id: string): Promise<ApiResponse<null>> {
     try {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
             .from('product_features')
             .delete()
             .eq('id', id)

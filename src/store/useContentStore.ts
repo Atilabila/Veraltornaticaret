@@ -116,8 +116,8 @@ const defaultContent: SiteContent = {
 
     // Hero
     heroTitle: "YAŞAM ALANINIZ İÇİN YENİ NESİL DEKOR",
-    heroSubtitle: "0.30 MM ENDÜSTRİYEL METAL PLAKALAR. UV DİJİTAL BASKI. SIFIR YUVARLAK KÖŞE.",
-    heroTagline: "KAĞIT POSTERLERİ UNUTUN. BÜKÜLMEZ, SOLMAZ VE ŞIK METAL TABLOLARLA TANIŞIN",
+    heroSubtitle: "0.30 MM ENDÜSTRİYEL METAL PLAKALAR. 4K UV BASKI. ÖMÜR BOYU DAYANIKLILIK.",
+    heroTagline: "POSTER DEĞİL, DEKOR DONANIMI. BÜKÜLMEZ, SOLMAZ, DEFORME OLMAZ.",
     heroPrice: "199 TL",
     heroImage: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
     heroImages: [
@@ -125,9 +125,9 @@ const defaultContent: SiteContent = {
         "https://images.unsplash.com/photo-1524169358666-79f22c79745d?q=80&w=2670&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=2680&auto=format&fit=crop"
     ],
-    heroButton1Text: "Koleksiyonu Keşfet",
+    heroButton1Text: "KOLEKSİYONU GÖR",
     heroButton1Url: "/urunler",
-    heroButton2Text: "Katalog İndir",
+    heroButton2Text: "KATALOG",
     heroButton2Url: "/katalog.pdf",
     heroStats: [
         { value: "24-48s", label: "TESLİMAT" },
@@ -136,8 +136,8 @@ const defaultContent: SiteContent = {
     ],
 
     // Features
-    featuresTitle: "NEDEN METAL?",
-    featuresSubtitle: "GELİŞMİŞ DEKOR DONANIMI. KALICILIK İÇİN TASARLANDI.",
+    featuresTitle: "METAL PROTOKOLÜ",
+    featuresSubtitle: "SANATIN EN DAYANIKLI HALİ. ENDÜSTRİYEL KALİTE.",
     featuresExploreText: "Tüm Özellikleri Keşfet",
     featuresExploreUrl: "/ozellikler",
     featureItems: [
