@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Search, ShoppingCart, User, Menu, X, Hammer } from 'lucide-react';
 import { useCartStore } from '@/store/useCartStore';
 import { useContentStore } from '@/store/useContentStore';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +13,7 @@ export const Navigation = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const cartCount = useCartStore((state) => state.items.length);
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -20,10 +22,10 @@ export const Navigation = () => {
     }, []);
 
     const navLinks = [
-        { name: 'Koleksiyon', href: '/urunler' },
-        { name: 'Showcase', href: '/metal-showcase' },
-        { name: 'Hakkimizda', href: '/hakkimizda' },
-        { name: 'Blog', href: '/blog' }
+        { name: 'Katalog', href: '/urunler' },
+        { name: 'Üretim (B2B)', href: '/uretim' },
+        { name: 'Teklif Al', href: '/teklif', primary: true },
+        { name: 'İletişim', href: '/iletisim' },
     ];
 
     return (
@@ -36,7 +38,7 @@ export const Navigation = () => {
                     {/* Brand Logo */}
                     <div className="flex items-center gap-16">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <div className="h-14 w-14 transition-all duration-500 flex-shrink-0">
+                            <div className="h-10 w-10 md:h-14 md:w-14 transition-all duration-500 flex-shrink-0">
                                 <img
                                     src={(content.headerLogo && content.headerLogo.length > 0) ? content.headerLogo : "/veral-logo.webp"}
                                     alt={content.siteName || "VERAL"}
@@ -44,42 +46,46 @@ export const Navigation = () => {
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <h2 className="text-xl font-black uppercase tracking-[0.15em] text-[#D4AF37]">
+                                <h2 className="text-lg md:text-xl font-black uppercase tracking-[0.15em] text-[#D4AF37]">
                                     {content.siteName || "VERAL"}
                                 </h2>
-                                <span className="text-[8px] font-bold text-white/80 tracking-[0.3em] uppercase -mt-0.5">Torna & Teneke Ticaret</span>
+                                <span className="text-[8px] font-bold text-white/80 tracking-[0.3em] uppercase -mt-0.5">Torna & Teneke Ti̇caret</span>
                             </div>
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <nav className="hidden lg:flex items-center gap-10">
+                        <nav className="hidden lg:flex items-center gap-8">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className={`text-xs font-black uppercase tracking-[0.2em] transition-all hover:text-[#D4AF37] ${isScrolled ? 'text-white/70' : 'text-[#0A0A0A]/60'}`}
+                                    className={`text-xs font-black uppercase tracking-[0.2em] transition-all hover:text-[#D4AF37] relative group
+                                    ${link.primary ? 'text-[#D4AF37]' : (isScrolled ? 'text-white/70' : 'text-[#0A0A0A]/60')}
+                                    ${pathname === link.href ? 'text-[#D4AF37]' : ''}
+                                    `}
                                 >
                                     {link.name}
+                                    {link.primary && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />}
                                 </Link>
                             ))}
                         </nav>
                     </div>
 
                     {/* Utils */}
-                    <div className="flex items-center gap-8">
+                    <div className="flex items-center gap-4 md:gap-8">
                         {/* Control Buttons */}
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 md:gap-4">
                             <button className={`relative group p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
                                 <Search className="w-5 h-5 group-hover:text-[#D4AF37]" />
                             </button>
-                            <button className={`relative group p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                            <Link href="/sepet" className={`relative group p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
                                 <ShoppingCart className="w-5 h-5 group-hover:text-[#D4AF37]" />
                                 {cartCount > 0 && (
                                     <span className="absolute top-0 right-0 w-4 h-4 bg-[#D4AF37] text-white text-[9px] font-black flex items-center justify-center rounded-full">
                                         {cartCount}
                                     </span>
                                 )}
-                            </button>
+                            </Link>
                             <button
                                 className={`lg:hidden p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}
                                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -88,9 +94,9 @@ export const Navigation = () => {
                             </button>
                         </div>
 
-                        <button className="hidden sm:flex items-center justify-center px-8 h-12 border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500">
+                        <Link href="/hesabim" className="hidden sm:flex items-center justify-center px-6 md:px-8 h-12 border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500">
                             Hesabim
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -116,16 +122,17 @@ export const Navigation = () => {
                                     key={link.name}
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-3xl font-black text-white hover:text-[#D4AF37] transition-colors uppercase tracking-tight"
+                                    className={`text-3xl font-black uppercase tracking-tight transition-colors 
+                                    ${link.primary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
                                 >
                                     {link.name}
                                 </Link>
                             ))}
                         </nav>
                         <div className="mt-auto pt-10 border-t border-[#D4AF37]/20">
-                            <button className="w-full h-16 bg-[#D4AF37] text-white font-black uppercase tracking-widest">
-                                GIRIS YAP
-                            </button>
+                            <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-16 bg-[#D4AF37] text-white font-black uppercase tracking-widest">
+                                GİRİŞ YAP
+                            </Link>
                         </div>
                     </motion.div>
                 )}

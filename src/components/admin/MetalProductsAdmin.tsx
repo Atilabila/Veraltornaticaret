@@ -1,3 +1,4 @@
+
 // =====================================================
 // METAL PRODUCTS ADMIN PANEL
 // Main Dashboard for Product Management (Part 1)
@@ -9,14 +10,23 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
     Package, Tags, Plus, Pencil, Trash2, Eye, EyeOff,
     LayoutDashboard, LogOut, Search, MoreHorizontal,
-    Home, ChevronRight, Loader2, RefreshCw
+    Home, ChevronRight, Loader2, RefreshCw, X
 } from "lucide-react"
-import { DataTable, Badge, type Column } from "@/components/ui/DataTable"
+import { DataTable, Badge } from "@/components/ui/DataTable"
+import { type Column } from "@/components/ui/DataTable"
 import { ProductForm } from "@/components/admin/ProductForm"
-import { Dialog, DialogContent, DialogClose } from "@/components/ui/Dialog"
-import { Input, Textarea, Select } from "@/components/ui/Input"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 import { cn, formatPrice, formatDate, slugify } from "@/lib/utils"
+// import * as actions from "@/lib/actions/metal-products.actions" // Mocking for UI Kit pass
+// Mock actions if they don't exist in file context, but assuming they do based on previous read.
+
+// Mocking actions for the sake of the example if the file is not reachable, 
+// but since I read it, I should keep the imports.
 import * as actions from "@/lib/actions/metal-products.actions"
+
 import type {
     MetalProduct,
     Category,
@@ -620,46 +630,56 @@ const CategoriesPanel: React.FC<PanelProps> = ({ showNotification }) => {
 
             {/* Category Form Modal */}
             <Dialog open={formOpen} onOpenChange={setFormOpen}>
-                <DialogContent
-                    title={editingCategory ? "Kategori Düzenle" : "Yeni Kategori"}
-                    description={editingCategory ? `"${editingCategory.name}" kategorisini düzenliyorsunuz` : "Yeni bir kategori oluşturun"}
-                >
-                    <DialogClose onClose={() => setFormOpen(false)} />
+                <DialogContent>
+                    <DialogTitle>{editingCategory ? "Kategori Düzenle" : "Yeni Kategori"}</DialogTitle>
+                    <DialogDescription>
+                        {editingCategory ? `"${editingCategory.name}" kategorisini düzenliyorsunuz` : "Yeni bir kategori oluşturun"}
+                    </DialogDescription>
+
+                    {/* <DialogClose onClose={() => setFormOpen(false)} /> */}
 
                     <div className="space-y-4 mt-4">
-                        <Input
-                            label="Kategori Adı *"
-                            value={formData.name}
-                            onChange={(e) => setFormData(prev => ({
-                                ...prev,
-                                name: e.target.value,
-                                slug: prev.slug || slugify(e.target.value)
-                            }))}
-                            placeholder="Tel Ürünler"
-                        />
+                        <div className="space-y-2">
+                            <Label>Kategori Adı *</Label>
+                            <Input
+                                value={formData.name}
+                                onChange={(e) => setFormData(prev => ({
+                                    ...prev,
+                                    name: e.target.value,
+                                    slug: prev.slug || slugify(e.target.value)
+                                }))}
+                                placeholder="Tel Ürünler"
+                            />
+                        </div>
 
-                        <Input
-                            label="URL Slug"
-                            value={formData.slug}
-                            onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                            placeholder="tel-urunler"
-                            hint="Otomatik oluşturulur"
-                        />
+                        <div className="space-y-2">
+                            <Label>URL Slug</Label>
+                            <Input
+                                value={formData.slug}
+                                onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
+                                placeholder="tel-urunler"
+                            />
+                            <span className="text-xs text-muted-foreground">Otomatik oluşturulur</span>
+                        </div>
 
-                        <Textarea
-                            label="Açıklama"
-                            value={formData.description || ""}
-                            onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                            placeholder="Kategori hakkında kısa açıklama..."
-                        />
+                        <div className="space-y-2">
+                            <Label>Açıklama</Label>
+                            <Textarea
+                                value={formData.description || ""}
+                                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                                placeholder="Kategori hakkında kısa açıklama..."
+                            />
+                        </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <Input
-                                label="Sıra No"
-                                type="number"
-                                value={formData.display_order}
-                                onChange={(e) => setFormData(prev => ({ ...prev, display_order: parseInt(e.target.value) || 0 }))}
-                            />
+                            <div className="space-y-2">
+                                <Label>Sıra No</Label>
+                                <Input
+                                    type="number"
+                                    value={formData.display_order}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, display_order: parseInt(e.target.value) || 0 }))}
+                                />
+                            </div>
 
                             <div className="flex items-end pb-3">
                                 <label className="flex items-center gap-3 cursor-pointer">

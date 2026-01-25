@@ -1,20 +1,27 @@
-// =====================================================
-// METAL PRODUCTS - PRODUCT FORM COMPONENT
-// Full CRUD Form for Adding/Editing Products
-// =====================================================
+
 "use client"
 
 import * as React from "react"
 import { motion } from "framer-motion"
 import {
     Plus, Trash2, Save, X, GripVertical,
-    Image as ImageIcon, Upload, Link as LinkIcon,
-    Sparkles
+    Link as LinkIcon, Upload, Sparkles
 } from "lucide-react"
-import { Dialog, DialogContent, DialogClose } from "@/components/ui/Dialog"
-import { Input, Textarea, Select } from "@/components/ui/Input"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 import { ColorPicker } from "@/components/ui/ColorPicker"
 import { cn, slugify } from "@/lib/utils"
+// import { Select } from "@/components/ui/select" // Imported below as RadixSelect to avoid conflict if needed, or just standard usage.
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
 import type {
     MetalProduct,
     Category,
@@ -210,84 +217,104 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         await onSubmit(dataToSubmit)
     }
 
-    // Category options for select
-    const categoryOptions = categories.map(c => ({
-        value: c.id,
-        label: c.name
-    }))
-
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent
-                title={isEditing ? "Ürün Düzenle" : "Yeni Ürün Ekle"}
-                description={isEditing ? `"${product?.name}" ürününü düzenliyorsunuz` : "Yeni bir ürün oluşturun"}
-                className="max-w-3xl"
-            >
-                <DialogClose onClose={() => onOpenChange(false)} />
+            <DialogContent className="max-w-3xl">
+                <DialogTitle>{isEditing ? "Ürün Düzenle" : "Yeni Ürün Ekle"}</DialogTitle>
+                <DialogDescription>
+                    {isEditing ? `"${product?.name}" ürününü düzenliyorsunuz` : "Yeni bir ürün oluşturun"}
+                </DialogDescription>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                {/* <DialogClose onClose={() => onOpenChange(false)} />  <-- DialogClose is usually inside Content or handled via OpenChange */}
+
+                <form onSubmit={handleSubmit} className="space-y-6 mt-4">
                     {/* Basic Info Section */}
                     <div className="space-y-4">
-                        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <h3 className="text-lg font-bold flex items-center gap-2">
                             <span className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-500">1</span>
                             Temel Bilgiler
                         </h3>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <Input
-                                label="Ürün Adı *"
-                                value={formData.name}
-                                onChange={(e) => handleNameChange(e.target.value)}
-                                placeholder="Galvanizli Çelik Tel"
-                                error={errors.name}
-                            />
+                            <div className="space-y-2">
+                                <Label>Ürün Adı *</Label>
+                                <Input
+                                    value={formData.name}
+                                    onChange={(e) => handleNameChange(e.target.value)}
+                                    placeholder="Galvanizli Çelik Tel"
+                                    className={errors.name ? "border-red-500" : ""}
+                                />
+                                {errors.name && <span className="text-xs text-red-500">{errors.name}</span>}
+                            </div>
 
-                            <Input
-                                label="URL Slug"
-                                value={formData.slug}
-                                onChange={(e) => updateField("slug", e.target.value)}
-                                placeholder="galvanizli-celik-tel"
-                                hint="Otomatik oluşturulur"
+                            <div className="space-y-2">
+                                <Label>URL Slug</Label>
+                                <Input
+                                    value={formData.slug}
+                                    onChange={(e) => updateField("slug", e.target.value)}
+                                    placeholder="galvanizli-celik-tel"
+                                />
+                                <span className="text-xs text-muted-foreground">Otomatik oluşturulur</span>
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label>Açıklama</Label>
+                            <Textarea
+                                value={formData.description || ""}
+                                onChange={(e) => updateField("description", e.target.value)}
+                                placeholder="Ürün hakkında detaylı bilgi..."
                             />
                         </div>
 
-                        <Textarea
-                            label="Açıklama"
-                            value={formData.description || ""}
-                            onChange={(e) => updateField("description", e.target.value)}
-                            placeholder="Ürün hakkında detaylı bilgi..."
-                        />
-
                         <div className="grid grid-cols-3 gap-4">
-                            <Input
-                                label="Fiyat (₺)"
-                                type="number"
-                                value={formData.price}
-                                onChange={(e) => updateField("price", parseFloat(e.target.value) || 0)}
-                                error={errors.price}
-                            />
+                            <div className="space-y-2">
+                                <Label>Fiyat (₺)</Label>
+                                <Input
+                                    type="number"
+                                    value={formData.price}
+                                    onChange={(e) => updateField("price", parseFloat(e.target.value) || 0)}
+                                    className={errors.price ? "border-red-500" : ""}
+                                />
+                                {errors.price && <span className="text-xs text-red-500">{errors.price}</span>}
+                            </div>
 
-                            <Input
-                                label="Stok Adedi"
-                                type="number"
-                                value={formData.stock_quantity}
-                                onChange={(e) => updateField("stock_quantity", parseInt(e.target.value) || 0)}
-                                error={errors.stock_quantity}
-                            />
+                            <div className="space-y-2">
+                                <Label>Stok Adedi</Label>
+                                <Input
+                                    type="number"
+                                    value={formData.stock_quantity}
+                                    onChange={(e) => updateField("stock_quantity", parseInt(e.target.value) || 0)}
+                                    className={errors.stock_quantity ? "border-red-500" : ""}
+                                />
+                                {errors.stock_quantity && <span className="text-xs text-red-500">{errors.stock_quantity}</span>}
+                            </div>
 
-                            <Select
-                                label="Kategori"
-                                value={formData.category_id || ""}
-                                onChange={(e) => updateField("category_id", e.target.value)}
-                                options={categoryOptions}
-                                placeholder="Kategori Seçin"
-                            />
+                            <div className="space-y-2">
+                                <Label>Kategori</Label>
+                                <Select
+                                    value={formData.category_id || ""}
+                                    onValueChange={(val) => updateField("category_id", val)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Kategori Seçin" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {categories.map((c) => (
+                                            <SelectItem key={c.id} value={c.id}>
+                                                {c.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                {errors.category_id && <span className="text-xs text-red-500">{errors.category_id}</span>}
+                            </div>
                         </div>
                     </div>
 
                     {/* Image & Color Section */}
                     <div className="space-y-4 pt-4 border-t border-slate-800">
-                        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <h3 className="text-lg font-bold flex items-center gap-2">
                             <span className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-500">2</span>
                             Görsel & Renk
                         </h3>
@@ -295,7 +322,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         <div className="grid grid-cols-2 gap-6">
                             {/* Image Input */}
                             <div className="space-y-3">
-                                <label className="block text-sm font-bold text-slate-400">Ürün Görseli</label>
+                                <Label>Ürün Görseli</Label>
 
                                 {/* Toggle between URL and Upload */}
                                 <div className="flex gap-2 mb-3">
@@ -361,6 +388,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
                             {/* Color Picker */}
                             <div className="relative">
+                                {/* Using existing ColorPicker but ensuring it works with correct imports if it uses Input internally */}
                                 <ColorPicker
                                     label="Arka Plan Rengi"
                                     value={formData.background_color}
@@ -373,7 +401,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     {/* Features Section */}
                     <div className="space-y-4 pt-4 border-t border-slate-800">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                            <h3 className="text-lg font-bold flex items-center gap-2">
                                 <span className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-500">3</span>
                                 Ürün Özellikleri
                             </h3>
@@ -451,7 +479,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 onChange={(e) => updateField("is_active", e.target.checked)}
                                 className="w-5 h-5 rounded bg-slate-800 border-slate-700 text-orange-500 focus:ring-orange-500"
                             />
-                            <span className="text-white font-bold">Aktif (Sitede Görünür)</span>
+                            <span className="font-bold">Aktif (Sitede Görünür)</span>
                         </label>
 
                         <div className="flex gap-3">
