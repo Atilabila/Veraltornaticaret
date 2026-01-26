@@ -1,3 +1,5 @@
+// MP-07: B2B Services Landing Page
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { SERVICES } from '@/data/services';
@@ -42,15 +44,15 @@ export default function HizmetlerPage() {
                                     </div>
                                 </div>
 
-                                <h2 className="font-[Archivo_Black] text-2xl uppercase mb-3">
+                                <h2 className="font-[Archivo_Black] text-2xl uppercase mb-3 text-[#0A0A0A] group-hover:text-white">
                                     {service.name}
                                 </h2>
 
-                                <p className="font-mono text-sm leading-relaxed mb-4 group-hover:text-white/80">
+                                <p className="font-mono text-sm leading-relaxed mb-4 text-[#0A0A0A]/80 group-hover:text-white/80">
                                     {service.shortDescription}
                                 </p>
 
-                                <div className="flex items-center gap-2 font-mono font-bold text-sm">
+                                <div className="flex items-center gap-2 font-mono font-bold text-sm text-[#0A0A0A] group-hover:text-white">
                                     <span>DETAYLI BİLGİ</span>
                                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                                 </div>
@@ -63,10 +65,10 @@ export default function HizmetlerPage() {
             {/* CTA Section */}
             <section className="bg-[var(--color-brand-safety-orange)] py-16 px-4">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="font-[Archivo_Black] text-3xl md:text-4xl uppercase mb-4">
+                    <h2 className="font-[Archivo_Black] text-3xl md:text-4xl uppercase mb-4 text-[#0A0A0A]">
                         ÖZEL PROJENİZ İÇİN TEKLİF ALIN
                     </h2>
-                    <p className="font-mono text-lg mb-8">
+                    <p className="font-mono text-lg mb-8 text-[#0A0A0A]/90">
                         Teknik çizimlerinizi gönderin, 24 saat içinde detaylı teklif alın.
                     </p>
                     <Link
@@ -83,16 +85,16 @@ export default function HizmetlerPage() {
                 <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                         <div>
-                            <div className="font-[Archivo_Black] text-4xl mb-2">±0.01mm</div>
-                            <div className="font-mono text-sm uppercase">Hassasiyet Toleransı</div>
+                            <div className="font-[Archivo_Black] text-4xl mb-2 text-[#0A0A0A]">±0.01mm</div>
+                            <div className="font-mono text-sm uppercase text-[#0A0A0A]/70">Hassasiyet Toleransı</div>
                         </div>
                         <div>
-                            <div className="font-[Archivo_Black] text-4xl mb-2">24 Saat</div>
-                            <div className="font-mono text-sm uppercase">Teklif Dönüş Süresi</div>
+                            <div className="font-[Archivo_Black] text-4xl mb-2 text-[#0A0A0A]">24 Saat</div>
+                            <div className="font-mono text-sm uppercase text-[#0A0A0A]/70">Teklif Dönüş Süresi</div>
                         </div>
                         <div>
-                            <div className="font-[Archivo_Black] text-4xl mb-2">15+ Yıl</div>
-                            <div className="font-mono text-sm uppercase">Sektör Deneyimi</div>
+                            <div className="font-[Archivo_Black] text-4xl mb-2 text-[#0A0A0A]">15+ Yıl</div>
+                            <div className="font-mono text-sm uppercase text-[#0A0A0A]/70">Sektör Deneyimi</div>
                         </div>
                     </div>
                 </div>

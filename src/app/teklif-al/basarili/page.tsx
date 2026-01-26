@@ -48,46 +48,14 @@ export default function TeklifBasariliPage() {
                     </div>
                 )}
 
-                {/* Next Steps */}
+                {/* Next Steps - MP-07 LOCKED COPY */}
                 <div className="border-4 border-black p-8 mb-8">
-                    <h2 className="font-[Archivo_Black] text-2xl uppercase mb-6">
+                    <h2 className="font-[Archivo_Black] text-2xl uppercase mb-4">
                         SONRAKI ADIMLAR
                     </h2>
-                    <div className="space-y-4">
-                        <div className="flex items-start gap-4">
-                            <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0">
-                                1
-                            </div>
-                            <div>
-                                <p className="font-mono font-bold mb-1">İNCELEME</p>
-                                <p className="font-mono text-sm text-black/70">
-                                    Teknik ekibimiz talebinizi inceleyecek (2-4 saat)
-                                </p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0">
-                                2
-                            </div>
-                            <div>
-                                <p className="font-mono font-bold mb-1">TEKLİF HAZIRLAMA</p>
-                                <p className="font-mono text-sm text-black/70">
-                                    Detaylı fiyat ve süre bilgisi hazırlanacak (12-24 saat)
-                                </p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0">
-                                3
-                            </div>
-                            <div>
-                                <p className="font-mono font-bold mb-1">İLETİŞİM</p>
-                                <p className="font-mono text-sm text-black/70">
-                                    E-posta veya telefon ile size ulaşacağız
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <p className="font-mono text-black/80 leading-relaxed">
+                        Talebiniz alındı. Teknik ekibimiz en geç 24 saat içinde sizinle iletişime geçecektir.
+                    </p>
                 </div>
 
                 {/* Contact Options */}
@@ -100,20 +68,20 @@ export default function TeklifBasariliPage() {
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <a
-                            href="https://wa.me/905326666666"
+                            href={`https://wa.me/90XXXXXXXXXX?text=${encodeURIComponent(`Merhaba, ${referenceNumber} numaralı teklifim hakkında bilgi almak istiyorum.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="border-2 border-white p-4 hover:bg-white hover:text-black transition-colors text-center"
                         >
                             <div className="font-mono font-bold">📱 WhatsApp</div>
-                            <div className="font-mono text-sm mt-1">0532 666 66 66</div>
+                            <div className="font-mono text-sm mt-1">Teklif Hakkında Sor</div>
                         </a>
                         <a
-                            href="tel:+905326666666"
+                            href="tel:+90XXXXXXXXXX"
                             className="border-2 border-white p-4 hover:bg-white hover:text-black transition-colors text-center"
                         >
                             <div className="font-mono font-bold">📞 Telefon</div>
-                            <div className="font-mono text-sm mt-1">0532 666 66 66</div>
+                            <div className="font-mono text-sm mt-1">Hemen Ara</div>
                         </a>
                     </div>
                 </div>

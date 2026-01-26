@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
+import path from 'path';
+
+const projectRoot = path.resolve('C:/Users/ati/.gemini/antigravity/scratch/metal-poster-pro');
+
 export default {
     turbopack: {
-        root: process.cwd(),
+        root: projectRoot,
     },
     typescript: {
         ignoreBuildErrors: true,

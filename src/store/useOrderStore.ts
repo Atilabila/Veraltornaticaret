@@ -70,12 +70,24 @@ interface OrderState {
 // HELPERS
 // =====================================================
 
+// MP-08: Order number format ORD-YYYYMMDD-XXXX (LOCKED)
 function generateOrderNumber(): string {
-    const date = new Date();
-    const year = date.getFullYear().toString().slice(-2);
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const random = Math.random().toString(36).substring(2, 8).toUpperCase();
-    return `VRL${year}${month}-${random}`;
+    const now = new Date();
+
+    // Date part: YYYYMMDD
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const datePart = `${year}${month}${day}`;
+
+    // Random part: 4 alphanumeric characters (uppercase)
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let randomPart = '';
+    for (let i = 0; i < 4; i++) {
+        randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    return `ORD-${datePart}-${randomPart}`;
 }
 
 function generateOrderId(): string {
@@ -83,7 +95,7 @@ function generateOrderId(): string {
 }
 
 // =====================================================
-// ORDER STORE (Mock DB - In Memory)
+// ORDER STORE (localStorage + Silent Sync)
 // =====================================================
 
 export const useOrderStore = create<OrderState>((set, get) => ({
@@ -122,14 +134,21 @@ export const useOrderStore = create<OrderState>((set, get) => ({
             currentOrder: order,
         }));
 
-        // Persist to localStorage
+        // Persist to localStorage (IMMEDIATE - user flow continues)
         if (typeof window !== 'undefined') {
             const existingOrders = JSON.parse(localStorage.getItem('metal-poster-orders') || '[]');
             localStorage.setItem('metal-poster-orders', JSON.stringify([...existingOrders, order]));
         }
 
-        // TODO MP-08: Silent Sync to Supabase will be implemented here
-        // For MP-06: localStorage-only approach (no DB dependency)
+        // MP-08: Silent Sync to Supabase (BACKGROUND - non-blocking)
+        if (typeof window !== 'undefined') {
+            import('@/lib/sync/syncService').then(({ syncOrderToSupabase }) => {
+                syncOrderToSupabase(order).catch((error) => {
+                    console.error('[ORDER] Silent sync failed (non-critical):', error);
+                    // User flow NOT affected - order is in localStorage
+                });
+            });
+        }
 
         console.log('[ORDER] Created:', order.orderNumber, order.id);
         return order;

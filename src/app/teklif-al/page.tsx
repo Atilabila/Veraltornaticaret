@@ -1,3 +1,5 @@
+// MP-07: Quote Request Form Page
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -5,6 +7,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useQuoteStore, ServiceType } from '@/store/useQuoteStore';
 import { SERVICES } from '@/data/services';
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_EXTENSIONS = ['pdf', 'jpg', 'jpeg', 'png', 'dwg'];
 
 export default function TeklifAlPage() {
     const router = useRouter();
@@ -18,28 +23,109 @@ export default function TeklifAlPage() {
     const [phone, setPhone] = useState('');
     const [serviceType, setServiceType] = useState<ServiceType>('diger');
     const [description, setDescription] = useState('');
-    const [files, setFiles] = useState<File[]>([]);
+    const [fileMetadata, setFileMetadata] = useState<{
+        fileName: string;
+        fileSize: number;
+        fileType: string;
+    } | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    // Pre-select service if coming from service detail page
-    useEffect(() => {
-        const serviceParam = searchParams.get('service');
-        if (serviceParam) {
-            setServiceType(serviceParam as ServiceType);
-        }
-    }, [searchParams]);
+    // Pre-select service if coming from service detail page (READ-ONLY)
+    const preSelectedService = searchParams.get('service');
+    const isServiceLocked = !!preSelectedService;
 
-    // File upload handler
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            const newFiles = Array.from(e.target.files).slice(0, 5); // Max 5 files
-            setFiles(prev => [...prev, ...newFiles].slice(0, 5));
+    useEffect(() => {
+        if (preSelectedService) {
+            setServiceType(preSelectedService as ServiceType);
         }
+    }, [preSelectedService]);
+
+    // Load draft from localStorage
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        try {
+            const draft = localStorage.getItem('metal-poster-quote-draft');
+            if (draft && !preSelectedService) {
+                const parsed = JSON.parse(draft);
+                setFullName(parsed.fullName || '');
+                setCompany(parsed.company || '');
+                setEmail(parsed.email || '');
+                setPhone(parsed.phone || '');
+                setServiceType(parsed.serviceType || 'diger');
+                setDescription(parsed.description || '');
+                if (parsed.fileMetadata) {
+                    setFileMetadata(parsed.fileMetadata);
+                }
+            }
+        } catch (error) {
+            console.error('Failed to load draft:', error);
+        }
+    }, [preSelectedService]);
+
+    // Auto-save draft
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (typeof window === 'undefined') return;
+
+            const draft = {
+                fullName,
+                company,
+                email,
+                phone,
+                serviceType,
+                description,
+                fileMetadata,
+                lastUpdated: new Date().toISOString()
+            };
+
+            try {
+                localStorage.setItem('metal-poster-quote-draft', JSON.stringify(draft));
+            } catch (error) {
+                console.error('Failed to save draft:', error);
+            }
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, [fullName, company, email, phone, serviceType, description, fileMetadata]);
+
+    // File upload handler (MP-07: Metadata only, NO base64)
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (!file) {
+            setFileMetadata(null);
+            return;
+        }
+
+        // Validate file size
+        if (file.size > MAX_FILE_SIZE) {
+            setErrors(prev => ({ ...prev, file: 'Dosya boyutu 5MB\'dan büyük olamaz' }));
+            setFileMetadata(null);
+            return;
+        }
+
+        // Validate file type
+        const extension = file.name.split('.').pop()?.toLowerCase();
+        if (!extension || !ALLOWED_EXTENSIONS.includes(extension)) {
+            setErrors(prev => ({ ...prev, file: 'Sadece PDF, JPG, PNG ve DWG dosyaları kabul edilir' }));
+            setFileMetadata(null);
+            return;
+        }
+
+        // Store metadata only (NO base64)
+        setFileMetadata({
+            fileName: file.name,
+            fileSize: file.size,
+            fileType: file.type || `application/${extension}`
+        });
+
+        setErrors(prev => ({ ...prev, file: '' }));
     };
 
-    const removeFile = (index: number) => {
-        setFiles(prev => prev.filter((_, i) => i !== index));
+    const removeFile = () => {
+        setFileMetadata(null);
     };
 
     // Validation
@@ -50,6 +136,7 @@ export default function TeklifAlPage() {
         if (!email.trim()) newErrors.email = 'E-posta gerekli';
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = 'Geçerli bir e-posta girin';
         if (!phone.trim()) newErrors.phone = 'Telefon gerekli';
+        else if (!/^[0-9\s\-\+\(\)]{10,}$/.test(phone)) newErrors.phone = 'Geçerli bir telefon numarası girin';
         if (!description.trim()) newErrors.description = 'Proje açıklaması gerekli';
 
         setErrors(newErrors);
@@ -67,33 +154,20 @@ export default function TeklifAlPage() {
         setIsSubmitting(true);
 
         try {
-            // Convert files to base64 for localStorage (MP-07 scope only)
-            const fileData = await Promise.all(
-                files.map(async (file) => {
-                    const reader = new FileReader();
-                    return new Promise<{ name: string; size: number; type: string; dataUrl?: string }>((resolve) => {
-                        reader.onloadend = () => {
-                            resolve({
-                                name: file.name,
-                                size: file.size,
-                                type: file.type,
-                                dataUrl: reader.result as string,
-                            });
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                })
-            );
-
             const quote = createQuote({
-                fullName,
-                company,
-                email,
-                phone,
+                fullName: fullName.trim(),
+                company: company.trim() || undefined,
+                email: email.trim(),
+                phone: phone.trim(),
                 serviceType,
-                description,
-                files: fileData,
+                description: description.trim(),
+                fileMetadata: fileMetadata || undefined,
             });
+
+            // Clear draft
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('metal-poster-quote-draft');
+            }
 
             // Redirect to success page
             router.push(`/teklif-al/basarili?ref=${quote.referenceNumber}`);
@@ -166,36 +240,35 @@ export default function TeklifAlPage() {
                                     />
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="email" className="block font-mono font-bold text-sm mb-2">
-                                            E-POSTA *
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            className={`w-full border-4 ${errors.email ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]`}
-                                            placeholder="ahmet@firma.com"
-                                        />
-                                        {errors.email && <p className="text-red-500 font-mono text-xs mt-1">{errors.email}</p>}
-                                    </div>
+                                <div>
+                                    <label htmlFor="email" className="block font-mono font-bold text-sm mb-2">
+                                        E-POSTA *
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className={`w-full border-4 ${errors.email ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]`}
+                                        placeholder="ahmet@firma.com"
+                                    />
+                                    {errors.email && <p className="text-red-500 font-mono text-xs mt-1">{errors.email}</p>}
+                                </div>
 
-                                    <div>
-                                        <label htmlFor="phone" className="block font-mono font-bold text-sm mb-2">
-                                            TELEFON *
-                                        </label>
-                                        <input
-                                            type="tel"
-                                            id="phone"
-                                            value={phone}
-                                            onChange={(e) => setPhone(e.target.value)}
-                                            className={`w-full border-4 ${errors.phone ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]`}
-                                            placeholder="0532 123 45 67"
-                                        />
-                                        {errors.phone && <p className="text-red-500 font-mono text-xs mt-1">{errors.phone}</p>}
-                                    </div>
+                                <div>
+                                    <label htmlFor="phone" className="block font-mono font-bold text-sm mb-2">
+                                        TELEFON *
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        inputMode="numeric"
+                                        id="phone"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
+                                        className={`w-full border-4 ${errors.phone ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]`}
+                                        placeholder="0532 123 45 67"
+                                    />
+                                    {errors.phone && <p className="text-red-500 font-mono text-xs mt-1">{errors.phone}</p>}
                                 </div>
                             </div>
                         </div>
@@ -215,7 +288,8 @@ export default function TeklifAlPage() {
                                         id="serviceType"
                                         value={serviceType}
                                         onChange={(e) => setServiceType(e.target.value as ServiceType)}
-                                        className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]"
+                                        disabled={isServiceLocked}
+                                        className={`w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)] ${isServiceLocked ? 'bg-black/5 cursor-not-allowed' : ''}`}
                                     >
                                         {SERVICES.map((service) => (
                                             <option key={service.id} value={service.slug}>
@@ -224,6 +298,11 @@ export default function TeklifAlPage() {
                                         ))}
                                         <option value="diger">Diğer</option>
                                     </select>
+                                    {isServiceLocked && (
+                                        <p className="text-xs font-mono mt-1 text-black/60">
+                                            Hizmet türü sayfadan otomatik seçildi
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div>
@@ -241,40 +320,60 @@ export default function TeklifAlPage() {
                                     {errors.description && <p className="text-red-500 font-mono text-xs mt-1">{errors.description}</p>}
                                 </div>
 
+                                {/* MP-07: Single File Upload (Metadata Only) */}
                                 <div>
-                                    <label htmlFor="files" className="block font-mono font-bold text-sm mb-2">
-                                        TEKNİK ÇİZİM / FOTOĞRAF (Maks. 5 dosya)
+                                    <label htmlFor="file" className="block font-mono font-bold text-sm mb-2">
+                                        TEKNİK ÇİZİM / FOTOĞRAF
                                     </label>
-                                    <input
-                                        type="file"
-                                        id="files"
-                                        multiple
-                                        accept=".pdf,.jpg,.jpeg,.png,.dwg"
-                                        onChange={handleFileChange}
-                                        className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]"
-                                    />
-                                    <p className="text-xs font-mono mt-2 text-black/60">
-                                        PDF, JPG, PNG, DWG formatları desteklenir. Teknik çizimleriniz gizli tutulur.
-                                    </p>
 
-                                    {files.length > 0 && (
-                                        <div className="mt-4 space-y-2">
-                                            {files.map((file, index) => (
-                                                <div key={index} className="flex items-center justify-between bg-black/5 p-2 font-mono text-xs">
-                                                    <span>{file.name} ({(file.size / 1024).toFixed(1)} KB)</span>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => removeFile(index)}
-                                                        className="text-red-500 hover:text-red-700 font-bold"
-                                                    >
-                                                        ✕
-                                                    </button>
-                                                </div>
-                                            ))}
+                                    {!fileMetadata ? (
+                                        <div>
+                                            <input
+                                                type="file"
+                                                id="file"
+                                                accept=".pdf,.jpg,.jpeg,.png,.dwg"
+                                                onChange={handleFileChange}
+                                                className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]"
+                                            />
+                                            <p className="text-xs font-mono mt-2 text-black/60">
+                                                PDF, JPG, PNG, DWG (Max 5MB). Teknik çizimleriniz gizlidir.
+                                            </p>
                                         </div>
+                                    ) : (
+                                        <div className="flex items-center justify-between bg-black/5 p-4 border-4 border-black">
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-mono text-sm font-bold truncate">{fileMetadata.fileName}</p>
+                                                <p className="font-mono text-xs text-black/60">
+                                                    {(fileMetadata.fileSize / 1024).toFixed(1)} KB
+                                                </p>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={removeFile}
+                                                className="ml-4 text-red-500 hover:text-red-700 font-bold"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {errors.file && <p className="text-red-500 font-mono text-xs mt-1">{errors.file}</p>}
+
+                                    {/* MP-07 Info Message */}
+                                    {fileMetadata && (
+                                        <p className="text-xs font-mono mt-2 bg-blue-50 border-2 border-blue-200 p-2 text-blue-900">
+                                            Dosya bilgisi kaydedildi. Dosyanız teklif sırasında ekibimizle güvenli şekilde paylaşılacaktır.
+                                        </p>
                                     )}
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Trust Message (MP-07 LOCKED COPY) */}
+                        <div className="bg-black/5 border-2 border-black p-4">
+                            <p className="font-mono text-sm text-black/80">
+                                Bilgileriniz üçüncü kişilerle paylaşılmaz.
+                            </p>
                         </div>
 
                         {/* Submit */}
@@ -291,10 +390,6 @@ export default function TeklifAlPage() {
                         >
                             {isSubmitting ? 'GÖNDERİLİYOR...' : 'TEKLİF TALEBİ GÖNDER →'}
                         </button>
-
-                        <p className="text-center font-mono text-xs text-black/60">
-                            Formu göndererek <Link href="/gizlilik" className="underline">Gizlilik Politikası</Link>'nı kabul etmiş olursunuz.
-                        </p>
                     </form>
                 </div>
             </section>

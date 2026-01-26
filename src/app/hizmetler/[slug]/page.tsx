@@ -73,24 +73,24 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                         <div className="md:col-span-2 space-y-8">
                             {/* Description */}
                             <div>
-                                <h2 className="font-[Archivo_Black] text-2xl uppercase mb-4 border-b-4 border-black pb-2">
+                                <h2 className="font-[Archivo_Black] text-2xl uppercase mb-4 border-b-4 border-black pb-2 text-[#0A0A0A]">
                                     HİZMET DETAYI
                                 </h2>
-                                <p className="font-mono leading-relaxed">
+                                <p className="font-mono leading-relaxed text-[#0A0A0A]/80">
                                     {service.fullDescription}
                                 </p>
                             </div>
 
                             {/* Use Cases */}
                             <div>
-                                <h2 className="font-[Archivo_Black] text-2xl uppercase mb-4 border-b-4 border-black pb-2">
+                                <h2 className="font-[Archivo_Black] text-2xl uppercase mb-4 border-b-4 border-black pb-2 text-[#0A0A0A]">
                                     KULLANIM ALANLARI
                                 </h2>
                                 <ul className="space-y-3">
                                     {service.useCases.map((useCase, index) => (
                                         <li key={index} className="flex items-start gap-3">
                                             <span className="text-[var(--color-brand-safety-orange)] font-black">▸</span>
-                                            <span className="font-mono">{useCase}</span>
+                                            <span className="font-mono text-[#0A0A0A]/80">{useCase}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -101,12 +101,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                         <div className="space-y-6">
                             {/* Technical Notes */}
                             <div className="border-4 border-black p-6">
-                                <h3 className="font-[Archivo_Black] text-lg uppercase mb-4">
+                                <h3 className="font-[Archivo_Black] text-lg uppercase mb-4 text-[#0A0A0A]">
                                     TEKNİK ÖZELLİKLER
                                 </h3>
                                 <ul className="space-y-2">
                                     {service.technicalNotes.map((note, index) => (
-                                        <li key={index} className="font-mono text-sm">
+                                        <li key={index} className="font-mono text-sm text-[#0A0A0A]/80">
                                             • {note}
                                         </li>
                                     ))}
@@ -115,10 +115,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
                             {/* CTA */}
                             <div className="bg-[var(--color-brand-safety-orange)] p-6 border-4 border-black">
-                                <h3 className="font-[Archivo_Black] text-xl uppercase mb-3">
+                                <h3 className="font-[Archivo_Black] text-xl uppercase mb-3 text-[#0A0A0A]">
                                     TEKLİF ALIN
                                 </h3>
-                                <p className="font-mono text-sm mb-4">
+                                <p className="font-mono text-sm mb-4 text-[#0A0A0A]/80">
                                     Bu hizmet için özel teklif almak ister misiniz?
                                 </p>
                                 <Link
@@ -132,8 +132,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                             {/* Trust Signal */}
                             <div className="border-4 border-black p-6">
                                 <div className="text-center">
-                                    <div className="font-[Archivo_Black] text-3xl mb-2">24 SAAT</div>
-                                    <div className="font-mono text-xs uppercase">Teklif Dönüş Garantisi</div>
+                                    <div className="font-[Archivo_Black] text-3xl mb-2 text-[#0A0A0A]">24 SAAT</div>
+                                    <div className="font-mono text-xs uppercase text-[#0A0A0A]/70">Teklif Dönüş Garantisi</div>
                                 </div>
                             </div>
                         </div>

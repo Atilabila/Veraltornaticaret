@@ -22,12 +22,12 @@ export interface QuoteRequest {
     phone: string;
     serviceType: ServiceType;
     description: string;
-    files?: {
-        name: string;
-        size: number;
-        type: string;
-        dataUrl?: string; // Base64 for preview (MP-07 only)
-    }[];
+    // MP-07: Single file metadata only (NO base64)
+    fileMetadata?: {
+        fileName: string;
+        fileSize: number;
+        fileType: string;
+    };
     status: 'pending' | 'contacted' | 'quoted' | 'closed';
     createdAt: string;
     updatedAt: string;
@@ -47,12 +47,24 @@ interface QuoteState {
 // HELPERS
 // =====================================================
 
+// MP-07: Reference format QTE-YYYYMMDD-XXXX (LOCKED)
 function generateReferenceNumber(): string {
-    const date = new Date();
-    const year = date.getFullYear().toString().slice(-2);
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const random = Math.random().toString(36).substring(2, 8).toUpperCase();
-    return `TKL${year}${month}-${random}`;
+    const now = new Date();
+
+    // Date part: YYYYMMDD
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const datePart = `${year}${month}${day}`;
+
+    // Random part: 4 alphanumeric characters (uppercase)
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let randomPart = '';
+    for (let i = 0; i < 4; i++) {
+        randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    return `QTE-${datePart}-${randomPart}`;
 }
 
 function generateQuoteId(): string {
@@ -84,14 +96,21 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
             currentQuote: quote,
         }));
 
-        // Persist to localStorage
+        // Persist to localStorage (IMMEDIATE - user flow continues)
         if (typeof window !== 'undefined') {
             const existingQuotes = JSON.parse(localStorage.getItem('metal-poster-quotes') || '[]');
             localStorage.setItem('metal-poster-quotes', JSON.stringify([...existingQuotes, quote]));
         }
 
-        // TODO MP-08: Silent sync to Supabase will be implemented here
-        // For MP-07: localStorage-only approach (no DB dependency)
+        // MP-08: Silent Sync to Supabase (BACKGROUND - non-blocking)
+        if (typeof window !== 'undefined') {
+            import('@/lib/sync/syncService').then(({ syncQuoteToSupabase }) => {
+                syncQuoteToSupabase(quote).catch((error) => {
+                    console.error('[QUOTE] Silent sync failed (non-critical):', error);
+                    // User flow NOT affected - quote is in localStorage
+                });
+            });
+        }
 
         console.log('[QUOTE] Created:', quote.referenceNumber, quote.id);
         return quote;
