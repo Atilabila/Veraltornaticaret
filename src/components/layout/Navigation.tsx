@@ -23,10 +23,9 @@ export const Navigation = () => {
 
     const navLinks = [
         { name: 'Katalog', href: '/urunler' },
+        { name: 'Hizmetler', href: '/hizmetler' },
         { name: 'Sipariş Sorgula', href: '/siparis-sorgula' },
-        { name: 'Üretim (B2B)', href: '/uretim' },
-        { name: 'Teklif Al', href: '/teklif', primary: true },
-        { name: 'İletişim', href: '/iletisim' },
+        { name: 'Teklif Al', href: '/teklif-al', primary: true },
     ];
 
     return (

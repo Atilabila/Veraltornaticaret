@@ -1,0 +1,22 @@
+BUGFIX REPORT (ozibugfix)
+
+Findings
+1) Critical: Payment provider never initialized; real payments never engage and mock is used in production.
+   Evidence: src/lib/payment/index.ts:15, src/lib/payment/index.ts:56, src/app/odeme/page.tsx:120.
+   Impact: Orders can be marked paid without real capture.
+
+2) High: Callback URL points to /api/payment/callback but no API route exists.
+   Evidence: src/lib/payment/index.ts:92; no src/app/api directory.
+   Impact: Provider callbacks/webhooks fail (404), breaking verification.
+
+3) Medium: Sales contract link points to /kosullar but route is /sartlar.
+   Evidence: src/app/odeme/page.tsx:452 and src/app/sartlar/page.tsx.
+   Impact: Users hit 404 from checkout.
+
+4) Medium: ContentProvider exists but is never mounted, so Supabase content updates are not fetched for public pages.
+   Evidence: src/components/layout/ContentProvider.tsx:6; not used in src/app/layout.tsx.
+   Impact: Admin-updated content not reflected on site.
+
+5) Low: Footer links use href="#" instead of real routes (privacy/terms/KVKK and nav).
+   Evidence: src/components/layout/Footer.tsx:43,56,90; routes exist at src/app/gizlilik/page.tsx, src/app/sartlar/page.tsx, src/app/kvkk/page.tsx.
+   Impact: Broken user navigation.
