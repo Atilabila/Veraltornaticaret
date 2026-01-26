@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ArrowLeft, Check } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { ArrowLeft, Check, ShoppingCart, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { formatPrice } from "@/lib/utils"
@@ -10,14 +11,19 @@ import { MetalProduct } from "@/lib/supabase/metal-products.types"
 import { ImageViewer } from "@/components/product/ImageViewer"
 import { ProductVariants, VariantState } from "@/components/product/ProductVariants"
 import { ProductInfoBlocks, ProductFAQ } from "@/components/product/ProductInfo"
+import { useCartStore } from "@/store/useCartStore"
 
 interface ProductDetailClientProps {
     product: MetalProduct
 }
 
 export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product }) => {
+    const router = useRouter()
+    const addItem = useCartStore((state) => state.addItem)
     const [variant, setVariant] = React.useState<VariantState>({ size: '45x60', orientation: 'vertical' })
     const [price, setPrice] = React.useState(product.price)
+    const [addedToCart, setAddedToCart] = React.useState(false)
+    const [cartError, setCartError] = React.useState<string | null>(null)
 
     // Simulate price change based on size
     React.useEffect(() => {
@@ -103,9 +109,83 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
                     {/* Actions */}
                     <div className="flex flex-col gap-4">
-                        <Button size="lg" className="w-full text-lg h-14 uppercase tracking-wider font-bold">
-                            Hemen Satın Al ({variant.size} - {variant.orientation === 'vertical' ? 'Dikey' : 'Yatay'})
+                        {/* Price Validation Warning */}
+                        {(!price || price <= 0) && (
+                            <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0" />
+                                <p className="text-sm text-destructive">Bu ürün şu an satışa kapalıdır. Lütfen iletişime geçin.</p>
+                            </div>
+                        )}
+
+                        {cartError && (
+                            <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0" />
+                                <p className="text-sm text-destructive">{cartError}</p>
+                            </div>
+                        )}
+
+                        {addedToCart && (
+                            <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                <p className="text-sm text-green-700 dark:text-green-400">Ürün sepete eklendi!</p>
+                                <Link href="/sepet" className="ml-auto text-sm font-medium text-green-700 dark:text-green-400 underline">
+                                    Sepete Git
+                                </Link>
+                            </div>
+                        )}
+
+                        <Button
+                            size="lg"
+                            className="w-full text-lg h-14 uppercase tracking-wider font-bold gap-3"
+                            disabled={!price || price <= 0}
+                            onClick={() => {
+                                setCartError(null)
+                                const result = addItem({
+                                    productId: product.id,
+                                    name: product.name,
+                                    slug: product.slug,
+                                    size: variant.size,
+                                    orientation: variant.orientation,
+                                    price: price,
+                                    image: product.image_url || '/products/arabalar-plaka/3000x1500.webp',
+                                })
+                                if (result.success) {
+                                    setAddedToCart(true)
+                                    setTimeout(() => setAddedToCart(false), 3000)
+                                } else {
+                                    setCartError(result.error || 'Ürün sepete eklenemedi')
+                                }
+                            }}
+                        >
+                            <ShoppingCart className="w-5 h-5" />
+                            Sepete Ekle ({variant.size} - {variant.orientation === 'vertical' ? 'Dikey' : 'Yatay'})
                         </Button>
+
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            className="w-full h-12"
+                            disabled={!price || price <= 0}
+                            onClick={() => {
+                                const result = addItem({
+                                    productId: product.id,
+                                    name: product.name,
+                                    slug: product.slug,
+                                    size: variant.size,
+                                    orientation: variant.orientation,
+                                    price: price,
+                                    image: product.image_url || '/products/arabalar-plaka/3000x1500.webp',
+                                })
+                                if (result.success) {
+                                    router.push('/odeme')
+                                } else {
+                                    setCartError(result.error || 'Ürün sepete eklenemedi')
+                                }
+                            }}
+                        >
+                            Hemen Satın Al
+                        </Button>
+
                         <p className="text-xs text-center text-muted-foreground">
                             Kurumsal alım ve toplu siparişler için iletişime geçin.
                         </p>

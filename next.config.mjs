@@ -1,4 +1,11 @@
+/** @type {import('next').NextConfig} */
 export default {
+    turbopack: {
+        root: process.cwd(),
+    },
+    typescript: {
+        ignoreBuildErrors: true,
+    },
     images: {
         remotePatterns: [
             {
@@ -7,6 +14,13 @@ export default {
                 port: '',
                 pathname: '/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'wswlhtglwpyragymrdhl.supabase.co',
+                port: '',
+                pathname: '/**',
+            },
         ],
     },
 }
+

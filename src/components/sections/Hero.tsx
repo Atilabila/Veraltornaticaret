@@ -10,14 +10,20 @@ import { useContentStore } from "@/store/useContentStore";
 export const Hero = () => {
     const { content } = useContentStore();
     const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-    const images = content.heroImages && content.heroImages.length > 0 ? content.heroImages : [content.heroImage];
+
+    // Filter out empty strings and provide fallback
+    const rawImages = content.heroImages && content.heroImages.length > 0 ? content.heroImages : [content.heroImage];
+    const images = rawImages.filter(img => img && img.trim() !== '');
+    const fallbackImage = "/products/arabalar-plaka/3000x1500.webp";
+    const displayImages = images.length > 0 ? images : [fallbackImage];
 
     React.useEffect(() => {
+        if (displayImages.length <= 1) return;
         const timer = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+            setCurrentImageIndex((prev) => (prev + 1) % displayImages.length);
         }, 3000);
         return () => clearInterval(timer);
-    }, [images.length]);
+    }, [displayImages.length]);
 
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-white">
@@ -106,7 +112,7 @@ export const Hero = () => {
                                     className="absolute inset-0"
                                 >
                                     <Image
-                                        src={images[currentImageIndex]}
+                                        src={displayImages[currentImageIndex]}
                                         alt="Product Showcase"
                                         fill
                                         priority
@@ -122,7 +128,7 @@ export const Hero = () => {
 
                         {/* Slider Controls */}
                         <div className="absolute bottom-10 right-10 flex gap-2 z-30">
-                            {images.map((_, idx) => (
+                            {displayImages.map((_, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setCurrentImageIndex(idx)}

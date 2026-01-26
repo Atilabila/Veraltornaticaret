@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, ShoppingCart, User, Menu, X, Hammer } from 'lucide-react';
-import { useCartStore } from '@/store/useCartStore';
+import { useCartItemCount } from '@/store/useCartStore';
 import { useContentStore } from '@/store/useContentStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -12,7 +12,7 @@ export const Navigation = () => {
     const { content } = useContentStore();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const cartCount = useCartStore((state) => state.items.length);
+    const cartCount = useCartItemCount();
     const pathname = usePathname();
 
     useEffect(() => {
