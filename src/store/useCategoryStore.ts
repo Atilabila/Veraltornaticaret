@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { CategoryService, Category } from '@/lib/supabase/categories.service';
+import { upsertAdminCategory, deleteAdminCategory as deleteAdminCategoryAction } from '@/actions/admin';
 
 interface CategoryStore {
     categories: Category[];
@@ -48,7 +49,7 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
                 .replace(/[\s-]+/g, '_')
                 .replace(/^_+|_+$/g, '');
 
-            const newCategory = await CategoryService.createCategory({
+            const result = await upsertAdminCategory({
                 name: categoryData.name,
                 slug: slug,
                 color: categoryData.color || '#3B82F6',
@@ -56,8 +57,10 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
                 is_active: true,
             });
 
+            if (!result.success || !result.data) throw new Error(result.error);
+
             set((state) => ({
-                categories: [...state.categories, newCategory],
+                categories: [...state.categories, result.data],
                 loading: false,
             }));
         } catch (error) {
@@ -72,11 +75,12 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
     updateCategory: async (id, updates) => {
         set({ loading: true, error: null });
         try {
-            const updatedCategory = await CategoryService.updateCategory(id, updates);
+            const result = await upsertAdminCategory({ id, ...updates });
+            if (!result.success || !result.data) throw new Error(result.error);
 
             set((state) => ({
                 categories: state.categories.map((c) =>
-                    c.id === id ? updatedCategory : c
+                    c.id === id ? result.data : c
                 ),
                 loading: false,
             }));
@@ -92,7 +96,8 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
     deleteCategory: async (id) => {
         set({ loading: true, error: null });
         try {
-            await CategoryService.deleteCategory(id);
+            const result = await deleteAdminCategoryAction(id);
+            if (!result.success) throw new Error(result.error);
 
             set((state) => ({
                 categories: state.categories.filter((c) => c.id !== id),

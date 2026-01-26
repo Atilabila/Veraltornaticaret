@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     LayoutDashboard, Package, FileText, Settings, LogOut, Plus,
     Pencil, Trash2, Save, X, Search, ChevronDown, ChevronUp,
-    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus
+    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye
 } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
@@ -13,6 +13,13 @@ import { useContentStore, SiteContent } from "@/store/useContentStore";
 import { Product } from "@/lib/products";
 import { ImageUploader } from "./ImageUploader";
 import type { Category } from "@/lib/supabase/categories.service";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+} from "@/components/ui/Dialog";
 
 export const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState("content");
@@ -1362,6 +1369,7 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
     const [orders, setOrders] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState<any>(null);
+    const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -1461,7 +1469,14 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                                 <td className="p-4 text-slate-400 text-xs">
                                     {new Date(order.created_at).toLocaleDateString('tr-TR')}
                                 </td>
-                                <td className="p-4 text-right">
+                                <td className="p-4 text-right flex items-center justify-end gap-2">
+                                    <button
+                                        onClick={() => setSelectedOrder(order)}
+                                        className="p-2 hover:bg-blue-500/20 text-blue-400 rounded-lg transition-colors"
+                                        title="Detayları Gör"
+                                    >
+                                        <Eye className="w-4 h-4" />
+                                    </button>
                                     <select
                                         value={order.status}
                                         onChange={(e) => handleStatusUpdate(order.id, e.target.value)}
@@ -1484,6 +1499,78 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                     </div>
                 )}
             </div>
+
+            {/* Order Detail Modal */}
+            <Dialog open={!!selectedOrder} onOpenChange={(open) => !open && setSelectedOrder(null)}>
+                <DialogContent className="max-w-2xl bg-slate-900 border-slate-800 text-white max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-black font-mono">
+                            SİPARİŞ DETAYI: {selectedOrder?.order_number || selectedOrder?.id?.slice(0, 8)}
+                        </DialogTitle>
+                        <DialogDescription className="text-slate-400">
+                            Müşteri bilgileri ve sipariş içeriği
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    {selectedOrder && (
+                        <div className="space-y-6 mt-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                                    <h4 className="text-xs font-black text-slate-500 uppercase mb-2">Müşteri Bilgileri</h4>
+                                    <p className="font-bold">{selectedOrder.customer_name}</p>
+                                    <p className="text-sm text-slate-400">{selectedOrder.customer_email || selectedOrder.email}</p>
+                                    <p className="text-sm text-slate-400">{selectedOrder.customer_phone}</p>
+                                </div>
+                                <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                                    <h4 className="text-xs font-black text-slate-500 uppercase mb-2">Teslimat Adresi</h4>
+                                    <p className="text-sm leading-relaxed">{selectedOrder.shipping_address}</p>
+                                </div>
+                            </div>
+
+                            <div className="bg-slate-800/50 rounded-xl border border-slate-700 overflow-hidden">
+                                <table className="w-full text-left">
+                                    <thead className="bg-slate-800 text-xs font-mono uppercase text-slate-500">
+                                        <tr>
+                                            <th className="p-3">Ürün (Slug)</th>
+                                            <th className="p-3">Özellikler</th>
+                                            <th className="p-3 text-center">Adet</th>
+                                            <th className="p-3 text-right">Fiyat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-sm">
+                                        {selectedOrder.order_items?.map((item: any, idx: number) => (
+                                            <tr key={idx} className="border-t border-slate-700/50">
+                                                <td className="p-3 font-bold">{item.product_slug}</td>
+                                                <td className="p-3 text-xs text-slate-400">
+                                                    {item.size && <span>{item.size}</span>}
+                                                    {item.orientation && <span> • {item.orientation}</span>}
+                                                </td>
+                                                <td className="p-3 text-center">{item.quantity}</td>
+                                                <td className="p-3 text-right">₺{item.unit_price || item.price}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr className="bg-slate-800/30">
+                                            <td colSpan={3} className="p-3 text-right font-bold uppercase text-xs text-slate-500">Toplam</td>
+                                            <td className="p-3 text-right font-black text-lg text-green-400">₺{selectedOrder.total_amount || selectedOrder.total_price}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                            <div className="flex justify-end gap-3">
+                                <button
+                                    onClick={() => setSelectedOrder(null)}
+                                    className="px-6 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors font-bold uppercase text-xs"
+                                >
+                                    KAPAT
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

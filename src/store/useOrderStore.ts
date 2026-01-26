@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { CartItem } from './useCartStore';
 import { ShippingInfo, BillingInfo } from './useCheckoutStore';
+// NOTE: OrderService import removed - DB sync deferred to MP-08
 
 // =====================================================
 // ORDER TYPES
@@ -19,6 +20,7 @@ export type OrderStatus =
 
 export interface OrderItem {
     productId: string;
+    slug: string;
     name: string;
     size: string;
     orientation: 'vertical' | 'horizontal';
@@ -97,6 +99,7 @@ export const useOrderStore = create<OrderState>((set, get) => ({
             status: 'created',
             items: data.items.map(item => ({
                 productId: item.productId,
+                slug: item.slug,
                 name: item.name,
                 size: item.size,
                 orientation: item.orientation,
@@ -119,11 +122,14 @@ export const useOrderStore = create<OrderState>((set, get) => ({
             currentOrder: order,
         }));
 
-        // Persist to localStorage for demo purposes
+        // Persist to localStorage
         if (typeof window !== 'undefined') {
             const existingOrders = JSON.parse(localStorage.getItem('metal-poster-orders') || '[]');
             localStorage.setItem('metal-poster-orders', JSON.stringify([...existingOrders, order]));
         }
+
+        // TODO MP-08: Silent Sync to Supabase will be implemented here
+        // For MP-06: localStorage-only approach (no DB dependency)
 
         console.log('[ORDER] Created:', order.orderNumber, order.id);
         return order;

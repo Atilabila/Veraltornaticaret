@@ -2,9 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { CheckCircle, XCircle, Clock, Package, Truck, MapPin, Mail, Phone, ArrowRight, Printer, Copy, Check } from "lucide-react";
 import { useOrderStore, getOrderFromStorage, Order, OrderStatus } from "@/store/useOrderStore";
+import { useCartStore } from "@/store/useCartStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 
@@ -33,6 +34,8 @@ export default function OrderConfirmationPage() {
     const [loading, setLoading] = React.useState(true);
     const [copied, setCopied] = React.useState(false);
     const getOrder = useOrderStore((state) => state.getOrder);
+    const addItem = useCartStore((state) => state.addItem);
+    const router = useRouter();
 
     React.useEffect(() => {
         // Try to get order from store first, then localStorage
@@ -47,6 +50,24 @@ export default function OrderConfirmationPage() {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         }
+    };
+
+    const handleReorder = () => {
+        if (!order) return;
+
+        order.items.forEach(item => {
+            addItem({
+                productId: item.productId,
+                slug: item.slug,
+                name: item.name,
+                size: item.size,
+                orientation: item.orientation,
+                price: item.price,
+                image: item.image
+            });
+        });
+
+        router.push('/sepet');
     };
 
     if (loading) {
@@ -119,9 +140,15 @@ export default function OrderConfirmationPage() {
                             </Button>
                         </div>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-4">
-                        Sipariş Tarihi: {new Date(order.createdAt).toLocaleString('tr-TR')}
-                    </p>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
+                        <p className="text-sm text-muted-foreground">
+                            Sipariş Tarihi: {new Date(order.createdAt).toLocaleString('tr-TR')}
+                        </p>
+                        <Button variant="outline" size="sm" onClick={handleReorder} className="gap-2 border-primary text-primary hover:bg-primary/5">
+                            <ArrowRight className="w-4 h-4" />
+                            Aynısını Tekrar Satın Al
+                        </Button>
+                    </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 mb-8">

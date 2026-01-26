@@ -15,7 +15,7 @@ export async function getAdminOrders(limit = 50) {
     try {
         const { data, error } = await (supabaseAdmin as any)
             .from('orders')
-            .select('*')
+            .select('*, order_items(*)')
             .order('created_at', { ascending: false })
             .limit(limit);
 
@@ -122,33 +122,57 @@ export async function deleteAdminProduct(productId: string) {
 // CATEGORY ACTIONS
 // =====================================================
 
-        export async function upsertAdminCategory(category: any) {
-            try {
-                const { data, error } = await (supabaseAdmin as any)
-                    .from('categories')
-                    .upsert(category)
-                    .select()
-                    .single();
+export async function upsertAdminCategory(category: any) {
+    try {
+        const { data, error } = await (supabaseAdmin as any)
+            .from('categories')
+            .upsert(category)
+            .select()
+            .single();
 
-                if (error) throw error;
-                return { success: true, data };
-            } catch (error) {
-                console.error('Admin Category Upsert Error:', error);
-                return { success: false, error: 'Failed to save category' };
-            }
-        }
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Admin Category Upsert Error:', error);
+        return { success: false, error: 'Failed to save category' };
+    }
+}
 
-        export async function deleteAdminCategory(categoryId: string) {
-            try {
-                const { error } = await (supabaseAdmin as any)
-                    .from('categories')
-                    .delete()
-                    .eq('id', categoryId);
+export async function deleteAdminCategory(categoryId: string) {
+    try {
+        const { error } = await (supabaseAdmin as any)
+            .from('categories')
+            .delete()
+            .eq('id', categoryId);
 
-                if (error) throw error;
-                return { success: true };
-            } catch (error) {
-                console.error('Admin Category Delete Error:', error);
-                return { success: false, error: 'Failed to delete category' };
-            }
-        }
+        if (error) throw error;
+        return { success: true };
+    } catch (error) {
+        console.error('Admin Category Delete Error:', error);
+        return { success: false, error: 'Failed to delete category' };
+    }
+}
+
+// =====================================================
+// CONTENT ACTIONS
+// =====================================================
+
+export async function upsertAdminContent(content: any) {
+    try {
+        const { data, error } = await (supabaseAdmin as any)
+            .from('site_content')
+            .upsert({
+                key: 'main_config',
+                data: content,
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'key' })
+            .select()
+            .single();
+
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Admin Content Upsert Error:', error);
+        return { success: false, error: 'Failed to save site content' };
+    }
+}

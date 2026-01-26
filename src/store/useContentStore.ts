@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ContentService } from "@/lib/supabase/content.service";
+import { upsertAdminContent } from "@/actions/admin";
 
 export interface SiteContent {
     // ... (existing interface lines remain same)
@@ -322,7 +323,8 @@ export const useContentStore = create<ContentStore>()(
 
             saveToSupabase: async () => {
                 const { content } = get();
-                return await ContentService.saveContent(content);
+                const result = await upsertAdminContent(content);
+                return result.success;
             },
         }),
         {

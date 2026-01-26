@@ -109,22 +109,28 @@ export type Database = {
             orders: {
                 Row: {
                     id: string
+                    order_number: string
                     customer_name: string
                     customer_email: string
                     customer_phone: string
                     shipping_address: string
                     total_amount: number
+                    total_price: number | null
+                    email: string | null
                     status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
                     created_at: string
                     updated_at: string
                 }
                 Insert: {
                     id?: string
+                    order_number: string
                     customer_name: string
                     customer_email: string
                     customer_phone: string
                     shipping_address: string
                     total_amount: number
+                    total_price?: number | null
+                    email?: string | null
                     status?: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
                     created_at?: string
                     updated_at?: string
@@ -145,17 +151,25 @@ export type Database = {
                 Row: {
                     id: string
                     order_id: string
-                    product_id: string
+                    product_id: string | null
+                    product_slug: string | null
                     quantity: number
                     unit_price: number
+                    price: number | null
+                    size: string | null
+                    orientation: string | null
                     created_at: string
                 }
                 Insert: {
                     id?: string
                     order_id: string
-                    product_id: string
+                    product_id?: string | null
+                    product_slug?: string | null
                     quantity: number
                     unit_price: number
+                    price?: number | null
+                    size?: string | null
+                    orientation?: string | null
                     created_at?: string
                 }
                 Update: {
