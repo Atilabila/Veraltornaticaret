@@ -1366,16 +1366,26 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const { OrderService } = await import('@/lib/supabase/orders.service');
-                const [ordersData, statsData] = await Promise.all([
-                    OrderService.getAllOrders(),
-                    OrderService.getOrderStats()
+                // Dynamically import Server Actions to avoid build issues if mixed
+                const { getAdminOrders, getAdminOrderStats } = await import('@/actions/admin');
+                const [ordersRes, statsRes] = await Promise.all([
+                    getAdminOrders(),
+                    getAdminOrderStats()
                 ]);
-                setOrders(ordersData);
-                setStats(statsData);
+
+                if (ordersRes.success) {
+                    setOrders(ordersRes.data || []);
+                } else {
+                    throw new Error(ordersRes.error);
+                }
+
+                if (statsRes.success) {
+                    setStats(statsRes.data);
+                }
+
             } catch (error) {
                 console.error("Failed to fetch orders:", error);
-                showNotification("error", "Siparişler yüklenemedi!");
+                showNotification("error", "Siparişler yüklenemedi! (Veritabanı bağlantısını kontrol edin)");
             } finally {
                 setLoading(false);
             }
@@ -1385,10 +1395,15 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
 
     const handleStatusUpdate = async (orderId: string, newStatus: any) => {
         try {
-            const { OrderService } = await import('@/lib/supabase/orders.service');
-            await OrderService.updateOrderStatus(orderId, newStatus);
-            setOrders(orders.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
-            showNotification("success", "Sipariş durumu güncellendi!");
+            const { updateAdminOrderStatus } = await import('@/actions/admin');
+            const result = await updateAdminOrderStatus(orderId, newStatus);
+
+            if (result.success) {
+                setOrders(orders.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
+                showNotification("success", "Sipariş durumu güncellendi!");
+            } else {
+                throw new Error(result.error);
+            }
         } catch (error) {
             showNotification("error", "Durum güncellenemedi!");
         }

@@ -48,6 +48,11 @@ const mapDbToProduct = (dbProduct: DbProduct): Product => ({
     }
 });
 
+// ... imports
+import { getAdminProducts, upsertAdminProduct, deleteAdminProduct } from '@/actions/admin';
+
+// ... existing mapDbToProduct ...
+
 export const useProductStore = create<ProductStore>()((set, get) => ({
     products: [],
     loading: false,
@@ -76,8 +81,11 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     fetchProductsAdmin: async () => {
         set({ loading: true, error: null });
         try {
-            const dbProducts = await ProductService.getAllProductsAdmin();
-            const products = dbProducts.map(mapDbToProduct);
+            // Use Server Action
+            const result = await getAdminProducts();
+            if (!result.success || !result.data) throw new Error(result.error || 'Failed to fetch');
+
+            const products = result.data.map(mapDbToProduct);
             set({ products, loading: false });
         } catch (error) {
             set({
@@ -112,8 +120,7 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
                 .replace(/[\s_-]+/g, '-')
                 .replace(/^-+|-+$/g, '');
 
-            // ProductService.createProduct expects DB Insert type
-            const newDbProduct = await ProductService.createProduct({
+            const newProductPayload = {
                 name: productData.name,
                 slug: slug,
                 description: productData.description,
@@ -131,7 +138,12 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
                 seo_description: productData.seo?.description || productData.description,
                 seo_keywords: productData.seo?.keywords || [productData.name, "metal poster", "dekorasyon"],
                 is_active: true,
-            } as any);
+            };
+
+            const result = await upsertAdminProduct(newProductPayload as any);
+            if (!result.success || !result.data) throw new Error(result.error || 'Failed to create');
+
+            const newDbProduct = result.data;
 
             set((state) => ({
                 products: [mapDbToProduct(newDbProduct), ...state.products],
@@ -150,7 +162,7 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
         set({ loading: true, error: null });
         try {
             // Map frontend structure updates back to flat DB fields if provided
-            const dbUpdates: any = { ...updates };
+            const dbUpdates: any = { ...updates, id }; // Include ID for upsert
             if (updates.specs) {
                 if (updates.specs.material) dbUpdates.material = updates.specs.material;
                 if (updates.specs.process) dbUpdates.process = updates.specs.process;
@@ -167,7 +179,10 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
                 delete dbUpdates.seo;
             }
 
-            const updatedDbProduct = await ProductService.updateProduct(id, dbUpdates);
+            const result = await upsertAdminProduct(dbUpdates);
+            if (!result.success || !result.data) throw new Error(result.error || 'Failed to update');
+
+            const updatedDbProduct = result.data;
 
             set((state) => ({
                 products: state.products.map((p) =>
@@ -187,7 +202,8 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     deleteProduct: async (id) => {
         set({ loading: true, error: null });
         try {
-            await ProductService.deleteProduct(id);
+            const result = await deleteAdminProduct(id);
+            if (!result.success) throw new Error(result.error || 'Failed to delete');
 
             set((state) => ({
                 products: state.products.filter((p) => p.id !== id),
