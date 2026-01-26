@@ -122,7 +122,13 @@ export default function CheckoutPage() {
                     phone: checkout.shipping.phone,
                     address: checkout.shipping.address,
                     city: checkout.shipping.city,
-                }
+                },
+                cart.items.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity
+                }))
             );
 
             if (paymentResult.success) {
@@ -314,8 +320,8 @@ export default function CheckoutPage() {
                                         type="button"
                                         onClick={() => handleBillingTypeChange('individual')}
                                         className={`flex-1 p-4 border rounded-lg text-center transition-all ${checkout.billing.type === 'individual'
-                                                ? 'border-primary bg-primary/5 ring-2 ring-primary'
-                                                : 'border-border hover:border-primary/50'
+                                            ? 'border-primary bg-primary/5 ring-2 ring-primary'
+                                            : 'border-border hover:border-primary/50'
                                             }`}
                                     >
                                         <p className="font-bold">Bireysel</p>
@@ -325,8 +331,8 @@ export default function CheckoutPage() {
                                         type="button"
                                         onClick={() => handleBillingTypeChange('company')}
                                         className={`flex-1 p-4 border rounded-lg text-center transition-all ${checkout.billing.type === 'company'
-                                                ? 'border-primary bg-primary/5 ring-2 ring-primary'
-                                                : 'border-border hover:border-primary/50'
+                                            ? 'border-primary bg-primary/5 ring-2 ring-primary'
+                                            : 'border-border hover:border-primary/50'
                                             }`}
                                     >
                                         <p className="font-bold">Kurumsal</p>

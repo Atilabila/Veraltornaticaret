@@ -74,7 +74,8 @@ export async function processPayment(
         phone: string;
         address: string;
         city: string;
-    }
+    },
+    items: Array<{ id: string; name: string; price: number; quantity: number }>
 ) {
     const provider = getPaymentProvider();
 
@@ -87,7 +88,7 @@ export async function processPayment(
             ...customer,
             country: 'TR',
         },
-        items: [], // Would be populated with actual cart items
+        items: items,
         callbackUrl: `${typeof window !== 'undefined' ? window.location.origin : ''}/api/payment/callback`,
         cancelUrl: `${typeof window !== 'undefined' ? window.location.origin : ''}/odeme?cancelled=true`,
     });

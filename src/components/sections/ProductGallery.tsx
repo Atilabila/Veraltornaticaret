@@ -125,7 +125,19 @@ export const ProductGallery = () => {
                                 <div className="flex justify-between items-center sm:mt-2 pt-6 border-t border-[#0A0A0A]/5">
                                     <p className="text-3xl font-black text-[#0A0A0A] italic tracking-tighter">{product.price} TL</p>
                                     <button
-                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); addItem(product as any); }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            addItem({
+                                                productId: product.id,
+                                                name: product.name,
+                                                slug: product.slug,
+                                                price: product.price,
+                                                image: product.image,
+                                                size: '45x60', // Default size matching base price
+                                                orientation: 'vertical' // Default orientation
+                                            });
+                                        }}
                                         className="px-8 h-12 bg-[#0A0A0A] text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-[#D4AF37] transition-all duration-500"
                                     >
                                         SEPETE EKLE

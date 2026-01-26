@@ -109,11 +109,18 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
                     {/* Actions */}
                     <div className="flex flex-col gap-4">
-                        {/* Price Validation Warning */}
+                        {/* Price & Stock Validation Warning */}
                         {(!price || price <= 0) && (
                             <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
                                 <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0" />
                                 <p className="text-sm text-destructive">Bu ürün şu an satışa kapalıdır. Lütfen iletişime geçin.</p>
+                            </div>
+                        )}
+
+                        {product.stock_quantity <= 0 && (
+                            <div className="flex items-center gap-3 p-4 bg-muted border border-border rounded-lg">
+                                <AlertTriangle className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                                <p className="text-sm text-muted-foreground">Bu ürün şu an stokta bulunmamaktadır.</p>
                             </div>
                         )}
 
@@ -137,7 +144,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         <Button
                             size="lg"
                             className="w-full text-lg h-14 uppercase tracking-wider font-bold gap-3"
-                            disabled={!price || price <= 0}
+                            disabled={!price || price <= 0 || product.stock_quantity <= 0}
                             onClick={() => {
                                 setCartError(null)
                                 const result = addItem({
@@ -165,7 +172,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                             size="lg"
                             variant="outline"
                             className="w-full h-12"
-                            disabled={!price || price <= 0}
+                            disabled={!price || price <= 0 || product.stock_quantity <= 0}
                             onClick={() => {
                                 const result = addItem({
                                     productId: product.id,

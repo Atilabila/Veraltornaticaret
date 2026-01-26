@@ -40,7 +40,7 @@ export const MOCK_PRODUCTS: MetalProduct[] = [
         background_color: "#d4af37",
         category_id: "cat-2",
         is_active: true,
-        stock_quantity: 120,
+        stock_quantity: 0,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         features: [
