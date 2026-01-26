@@ -43,9 +43,13 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                 {/* Visuals - Now interactive */}
                 <div className="space-y-4">
                     {product.image_url ? (
-                        <ImageViewer src={product.image_url} alt={product.name} />
+                        <ImageViewer
+                            src={product.image_url}
+                            alt={product.name}
+                            aspectRatio={variant.orientation === 'horizontal' ? "aspect-[3/2]" : "aspect-[2/3]"}
+                        />
                     ) : (
-                        <div className="aspect-square bg-muted/20 rounded-2xl animate-pulse" />
+                        <div className="aspect-[2/3] bg-muted/20 rounded-2xl animate-pulse" />
                     )}
                     <p className="text-center text-xs text-muted-foreground">
                         Görsele tıklayarak yakınlaştırabilirsiniz
@@ -100,7 +104,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     {/* Actions */}
                     <div className="flex flex-col gap-4">
                         <Button size="lg" className="w-full text-lg h-14 uppercase tracking-wider font-bold">
-                            Hemen Satın Al ({variant.size})
+                            Hemen Satın Al ({variant.size} - {variant.orientation === 'vertical' ? 'Dikey' : 'Yatay'})
                         </Button>
                         <p className="text-xs text-center text-muted-foreground">
                             Kurumsal alım ve toplu siparişler için iletişime geçin.
