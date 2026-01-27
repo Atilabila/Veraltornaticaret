@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
     Package, Tags, Plus, Pencil, Trash2, Eye, EyeOff,
     LayoutDashboard, LogOut, Search, MoreHorizontal,
-    Home, ChevronRight, Loader2, RefreshCw, X, LayoutTemplate
+    Home, ChevronRight, Loader2, RefreshCw, X, LayoutTemplate, Upload
 } from "lucide-react"
 import { DataTable, Badge } from "@/components/ui/DataTable"
 import { type Column } from "@/components/ui/DataTable"
@@ -390,10 +390,10 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
                     </button>
                     <button
                         onClick={() => setBulkFormOpen(true)}
-                        className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-3 rounded-xl font-bold transition-colors"
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg hover:scale-105 active:scale-95"
                     >
-                        <LayoutTemplate className="w-5 h-5" />
-                        Toplu Ekle
+                        <Upload className="w-5 h-5" />
+                        Toplu Ürün Ekle (Görselden)
                     </button>
                     <button
                         onClick={() => {

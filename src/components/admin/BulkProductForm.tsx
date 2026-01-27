@@ -57,21 +57,15 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
             const newFiles = Array.from(e.target.files)
 
             const newRows: BulkRow[] = newFiles.map(file => {
-                // Generate name from filename (remove extension and hyphens)
-                // "urun-ismi.webp" -> "Urun Ismi"
+                // Generate name from filename (remove extension)
                 const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "")
-
-                // Humanize: replace - and _ with space, Capitalize first letter of words
-                const humanName = nameWithoutExt
-                    .replace(/[-_]/g, " ")
-                    .replace(/\b\w/g, l => l.toUpperCase())
 
                 return {
                     id: Math.random().toString(36).substr(2, 9),
-                    name: humanName, // User can edit this, slug auto-updates
+                    name: nameWithoutExt, // Ürün ismi direkt dosya adından alınır
                     price: 0,
                     stock: 0,
-                    slug: slugify(nameWithoutExt), // Slug uses the filename base
+                    slug: slugify(nameWithoutExt), // Slug, Türkçe karakterleri çevirir ve boşlukları "-" yapar
                     file: file,
                     previewUrl: URL.createObjectURL(file)
                 }
