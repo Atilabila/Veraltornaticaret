@@ -10,11 +10,12 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
     Package, Tags, Plus, Pencil, Trash2, Eye, EyeOff,
     LayoutDashboard, LogOut, Search, MoreHorizontal,
-    Home, ChevronRight, Loader2, RefreshCw, X
+    Home, ChevronRight, Loader2, RefreshCw, X, LayoutTemplate
 } from "lucide-react"
 import { DataTable, Badge } from "@/components/ui/DataTable"
 import { type Column } from "@/components/ui/DataTable"
 import { ProductForm } from "@/components/admin/ProductForm"
+import { SiteContentAdmin } from "@/components/admin/SiteContentAdmin"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -38,7 +39,7 @@ import type {
 // MAIN ADMIN PANEL COMPONENT
 // =====================================================
 export const MetalProductsAdmin: React.FC = () => {
-    const [activeTab, setActiveTab] = React.useState<"products" | "categories">("products")
+    const [activeTab, setActiveTab] = React.useState<"products" | "categories" | "content">("products")
     const [notification, setNotification] = React.useState<{
         type: "success" | "error"
         message: string
@@ -102,6 +103,13 @@ export const MetalProductsAdmin: React.FC = () => {
                         active={activeTab === "categories"}
                         onClick={() => setActiveTab("categories")}
                     />
+
+                    <SidebarItem
+                        icon={<LayoutTemplate className="w-5 h-5" />}
+                        label="Site İçeriği"
+                        active={activeTab === "content"}
+                        onClick={() => setActiveTab("content")}
+                    />
                 </nav>
 
                 {/* Back to site */}
@@ -123,6 +131,9 @@ export const MetalProductsAdmin: React.FC = () => {
                 )}
                 {activeTab === "categories" && (
                     <CategoriesPanel showNotification={showNotification} />
+                )}
+                {activeTab === "content" && (
+                    <SiteContentAdmin />
                 )}
             </main>
         </div>

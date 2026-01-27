@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { ColorPicker } from "@/components/ui/ColorPicker"
+import { ImageUploader } from "@/components/admin/ImageUploader"
 import { cn, slugify } from "@/lib/utils"
 // import { Select } from "@/components/ui/select" // Imported below as RadixSelect to avoid conflict if needed, or just standard usage.
 import {
@@ -84,7 +85,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         features: []
     })
 
-    const [imageInputType, setImageInputType] = React.useState<"url" | "upload">("url")
     const [errors, setErrors] = React.useState<Record<string, string>>({})
 
     // Initialize form with product data when editing
@@ -322,68 +322,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         <div className="grid grid-cols-2 gap-6">
                             {/* Image Input */}
                             <div className="space-y-3">
-                                <Label>Ürün Görseli</Label>
-
-                                {/* Toggle between URL and Upload */}
-                                <div className="flex gap-2 mb-3">
-                                    <button
-                                        type="button"
-                                        onClick={() => setImageInputType("url")}
-                                        className={cn(
-                                            "flex-1 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2",
-                                            imageInputType === "url"
-                                                ? "bg-orange-500 text-white"
-                                                : "bg-slate-800 text-slate-400 hover:text-white"
-                                        )}
-                                    >
-                                        <LinkIcon className="w-4 h-4" />
-                                        URL
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setImageInputType("upload")}
-                                        className={cn(
-                                            "flex-1 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2",
-                                            imageInputType === "upload"
-                                                ? "bg-orange-500 text-white"
-                                                : "bg-slate-800 text-slate-400 hover:text-white"
-                                        )}
-                                    >
-                                        <Upload className="w-4 h-4" />
-                                        Yükle
-                                    </button>
-                                </div>
-
-                                {imageInputType === "url" ? (
-                                    <Input
-                                        value={formData.image_url || ""}
-                                        onChange={(e) => updateField("image_url", e.target.value)}
-                                        placeholder="/products/urun.webp veya https://..."
-                                    />
-                                ) : (
-                                    <div className="border-2 border-dashed border-slate-700 rounded-xl p-6 text-center hover:border-orange-500 transition-colors cursor-pointer">
-                                        <Upload className="w-8 h-8 mx-auto text-slate-500 mb-2" />
-                                        <p className="text-sm text-slate-400">Görsel Yükle</p>
-                                        <p className="text-xs text-slate-600 mt-1">WebP, PNG, SVG (Max 5MB)</p>
-                                    </div>
-                                )}
-
-                                {/* Image Preview */}
-                                {formData.image_url && (
-                                    <div
-                                        className="mt-3 rounded-xl overflow-hidden border border-slate-700 aspect-square flex items-center justify-center"
-                                        style={{ backgroundColor: formData.background_color }}
-                                    >
-                                        <img
-                                            src={formData.image_url}
-                                            alt="Önizleme"
-                                            className="max-w-full max-h-full object-contain"
-                                            onError={(e) => {
-                                                (e.target as HTMLImageElement).style.display = 'none'
-                                            }}
-                                        />
-                                    </div>
-                                )}
+                                <ImageUploader
+                                    label="Ürün Görseli"
+                                    currentImage={formData.image_url}
+                                    onImageUploaded={(url) => updateField("image_url", url)}
+                                    folder="products"
+                                />
                             </div>
 
                             {/* Color Picker */}
