@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import Link from "next/link";
 import { ArrowLeft, Scale, ShieldCheck, Truck, RefreshCw } from "lucide-react";
