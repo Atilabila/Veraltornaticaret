@@ -10,7 +10,11 @@ import { useContentStore } from "@/store/useContentStore";
 export const Hero = () => {
     const { content } = useContentStore();
     const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-    const images = content.heroImages && content.heroImages.length > 0 ? content.heroImages : [content.heroImage];
+    const rawImages = content.heroImages && content.heroImages.length > 0 ? content.heroImages : [content.heroImage];
+    // Filter out empty strings or undefined values
+    const validImages = rawImages.filter(img => img && img.trim() !== "");
+    // Fallback if no valid images exist
+    const images = validImages.length > 0 ? validImages : ["https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1000&auto=format&fit=crop"];
 
     React.useEffect(() => {
         const timer = setInterval(() => {

@@ -1,39 +1,74 @@
-import { Metadata } from 'next';
+import "@/app/metal-art.css"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { MOCK_PRODUCTS } from "@/lib/data/mock-products"
-import { ProductDetailClient } from "./ProductDetailClient"
+import { getProductBySlug, getProducts } from "@/lib/actions/metal-products.actions"
+import ProductDetailClient from "@/app/product/[slug]/ProductDetailClient"
+import { ProductSchema } from "@/components/seo/ProductSchema"
 
 interface PageProps {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { slug } = await params;
-    const product = MOCK_PRODUCTS.find(p => p.slug === slug);
+// Generate static paths
+export async function generateStaticParams() {
+    const result = await getProducts()
+    if (!result.success || !result.data) return []
 
-    if (!product) {
-        return { title: 'Ürün Bulunamadı' };
+    return result.data
+        .filter(p => p.is_active)
+        .map(product => ({
+            slug: product.slug
+        }))
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params
+    const result = await getProductBySlug(slug)
+
+    if (!result.success || !result.data) {
+        return {
+            title: "Ürün Bulunamadı | Metal Art Atelier",
+            description: "Aradığınız ürün bulunamadı."
+        }
     }
 
+    const product = result.data
+
     return {
-        title: `${product.name} | İzmir Alsancak Metal Ürünler`,
-        description: product.description || `${product.name} endüstriyel metal ürün detayı ve teknik özellikleri.`,
-    };
+        title: `${product.name} | VERAL Metal Works`,
+        description: product.description || `${product.name} - Premium endüstriyel metal tasarım.`,
+        openGraph: {
+            title: product.name,
+            description: product.description || undefined,
+            images: product.image_url ? [product.image_url] : undefined,
+            type: "website"
+        }
+    }
 }
 
-async function getProduct(slug: string) {
+export default async function ProductDetailPage({ params }: PageProps) {
+    const { slug } = await params
+    const result = await getProductBySlug(slug)
 
-    // Simulate delay
-    await new Promise(resolve => setTimeout(resolve, 300))
-    return MOCK_PRODUCTS.find(p => p.slug === slug)
-}
-
-export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-    const product = await getProduct(params.slug)
-
-    if (!product) {
+    if (!result.success || !result.data) {
         notFound()
     }
 
-    return <ProductDetailClient product={product} />
+    const product = result.data
+
+    return (
+        <>
+            <ProductSchema product={{
+                name: product.name,
+                description: product.description || "",
+                image: product.image_url || "",
+                sku: product.id,
+                price: product.price,
+                availability: product.stock_quantity > 0 ? "InStock" : "OutOfStock"
+            }} />
+            {/* Reuse the premium ProductDetailClient from the other route */}
+            <ProductDetailClient product={product} />
+        </>
+    )
 }

@@ -9,6 +9,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getProductBySlug, getProducts } from "@/lib/actions/metal-products.actions"
 import ProductDetailClient from "./ProductDetailClient"
+import { ProductSchema } from "@/components/seo/ProductSchema"
 
 interface PageProps {
     params: Promise<{ slug: string }>
@@ -58,6 +59,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 }
 
+
+
 export default async function ProductPage({ params }: PageProps) {
     const { slug } = await params
     const result = await getProductBySlug(slug)
@@ -66,5 +69,19 @@ export default async function ProductPage({ params }: PageProps) {
         notFound()
     }
 
-    return <ProductDetailClient product={result.data} />
+    const product = result.data
+
+    return (
+        <>
+            <ProductSchema product={{
+                name: product.name,
+                description: product.description || "",
+                image: product.image_url || "",
+                sku: product.id,
+                price: product.price,
+                availability: product.stock_quantity > 0 ? "InStock" : "OutOfStock"
+            }} />
+            <ProductDetailClient product={product} />
+        </>
+    )
 }

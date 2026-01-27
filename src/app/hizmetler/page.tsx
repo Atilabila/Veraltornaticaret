@@ -3,6 +3,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { SERVICES } from '@/data/services';
+import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'B2B Hizmetler | İzmir Alsancak Metal İşleme & Özel Üretim',
@@ -13,8 +14,15 @@ export default function HizmetlerPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <section className="bg-black text-white py-20 px-4">
-                <div className="max-w-6xl mx-auto">
+            <section className="bg-black text-white py-20 px-4 relative">
+                <Link
+                    href="/"
+                    className="absolute top-8 left-4 md:left-8 text-white/50 hover:text-white flex items-center gap-2 font-mono text-xs uppercase tracking-widest transition-colors z-10"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                    Ana Sayfa
+                </Link>
+                <div className="max-w-6xl mx-auto pt-8">
                     <div className="inline-block bg-[var(--color-brand-safety-orange)] text-black px-4 py-1 font-mono font-black text-xs uppercase mb-4">
                         B2B HİZMETLER — İZMİR ALSANCAK
                     </div>

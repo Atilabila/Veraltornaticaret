@@ -14,6 +14,7 @@ import {
 import { MetalImage } from "@/components/landing/MetalImage"
 import { useCartStore } from "@/store/useCollectionStore"
 import { cn, formatPrice } from "@/lib/utils"
+import { useToast } from "@/components/ui/use-toast"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
 
 interface ProductDetailProps {
@@ -27,15 +28,25 @@ const FEATURE_ICONS: Record<string, React.ElementType> = {
 
 export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     const { addItem, openCart, hasItem } = useCartStore()
+    const { toast } = useToast()
     const [isAdded, setIsAdded] = React.useState(false)
 
     const handleAddToCollection = () => {
         addItem(product)
         setIsAdded(true)
+
+        // Success Toast
+        toast({
+            title: "Sepete Eklendi",
+            description: `${product.name} koleksiyonunuza eklendi.`,
+            variant: "default", // or a custom 'success' variant if available, default is fine
+            duration: 3000,
+        })
+
         setTimeout(() => {
             openCart()
             setIsAdded(false)
-        }, 500)
+        }, 800) // Slightly longer delay to let user see the button change
     }
 
     const sortedFeatures = product.features?.sort((a, b) => a.display_order - b.display_order) || []

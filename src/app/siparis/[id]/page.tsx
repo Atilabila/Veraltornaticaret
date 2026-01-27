@@ -125,23 +125,23 @@ export default function OrderConfirmationPage() {
                 </div>
 
                 {/* Order Number */}
-                <div className="bg-card border border-border rounded-xl p-6 mb-8">
+                <div className="bg-white border border-zinc-200 rounded-xl p-6 mb-8">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm text-muted-foreground mb-1">Sipariş Numarası</p>
-                            <p className="text-2xl font-mono font-bold">{order.orderNumber}</p>
+                            <p className="text-sm text-zinc-500 mb-1">Sipariş Numarası</p>
+                            <p className="text-2xl font-mono font-bold text-zinc-900">{order.orderNumber}</p>
                         </div>
                         <div className="flex gap-2">
-                            <Button variant="outline" size="sm" onClick={copyOrderNumber}>
+                            <Button variant="outline" size="sm" onClick={copyOrderNumber} className="border-zinc-200 text-zinc-700 hover:bg-zinc-50">
                                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                             </Button>
-                            <Button variant="outline" size="sm" onClick={() => window.print()}>
+                            <Button variant="outline" size="sm" onClick={() => window.print()} className="border-zinc-200 text-zinc-700 hover:bg-zinc-50">
                                 <Printer className="w-4 h-4" />
                             </Button>
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-zinc-500">
                             Sipariş Tarihi: {new Date(order.createdAt).toLocaleString('tr-TR')}
                         </p>
                         <Button variant="outline" size="sm" onClick={handleReorder} className="gap-2 border-primary text-primary hover:bg-primary/5">
@@ -153,73 +153,73 @@ export default function OrderConfirmationPage() {
 
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
                     {/* Shipping Info */}
-                    <div className="bg-card border border-border rounded-xl p-6">
+                    <div className="bg-white border border-zinc-200 rounded-xl p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <MapPin className="w-5 h-5 text-primary" />
-                            <h2 className="font-bold">Teslimat Adresi</h2>
+                            <h2 className="font-bold text-zinc-900">Teslimat Adresi</h2>
                         </div>
-                        <div className="space-y-2 text-sm">
-                            <p className="font-medium">{order.shipping.fullName}</p>
-                            <p className="text-muted-foreground">{order.shipping.address}</p>
-                            <p className="text-muted-foreground">{order.shipping.district}, {order.shipping.city}</p>
-                            {order.shipping.postalCode && <p className="text-muted-foreground">{order.shipping.postalCode}</p>}
+                        <div className="space-y-2 text-sm text-zinc-600">
+                            <p className="font-medium text-zinc-900">{order.shipping.fullName}</p>
+                            <p>{order.shipping.address}</p>
+                            <p>{order.shipping.district}, {order.shipping.city}</p>
+                            {order.shipping.postalCode && <p>{order.shipping.postalCode}</p>}
                         </div>
                     </div>
 
                     {/* Contact Info */}
-                    <div className="bg-card border border-border rounded-xl p-6">
-                        <h2 className="font-bold mb-4">İletişim Bilgileri</h2>
+                    <div className="bg-white border border-zinc-200 rounded-xl p-6">
+                        <h2 className="font-bold mb-4 text-zinc-900">İletişim Bilgileri</h2>
                         <div className="space-y-3 text-sm">
-                            <div className="flex items-center gap-3">
-                                <Mail className="w-4 h-4 text-muted-foreground" />
+                            <div className="flex items-center gap-3 text-zinc-600">
+                                <Mail className="w-4 h-4 text-zinc-400" />
                                 <span>{order.shipping.email}</span>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <Phone className="w-4 h-4 text-muted-foreground" />
+                            <div className="flex items-center gap-3 text-zinc-600">
+                                <Phone className="w-4 h-4 text-zinc-400" />
                                 <span>{order.shipping.phone}</span>
                             </div>
                         </div>
                         {order.shipping.notes && (
-                            <div className="mt-4 pt-4 border-t">
-                                <p className="text-sm text-muted-foreground">Not: {order.shipping.notes}</p>
+                            <div className="mt-4 pt-4 border-t border-zinc-100">
+                                <p className="text-sm text-zinc-600">Not: {order.shipping.notes}</p>
                             </div>
                         )}
                     </div>
                 </div>
 
                 {/* Order Items */}
-                <div className="bg-card border border-border rounded-xl p-6 mb-8">
-                    <h2 className="font-bold mb-6">Sipariş Detayları</h2>
+                <div className="bg-white border border-zinc-200 rounded-xl p-6 mb-8">
+                    <h2 className="font-bold mb-6 text-zinc-900">Sipariş Detayları</h2>
                     <div className="space-y-4">
                         {order.items.map((item, idx) => (
-                            <div key={idx} className="flex gap-4 pb-4 border-b last:border-0 last:pb-0">
-                                <div className="w-20 h-20 flex-shrink-0 bg-muted rounded-lg overflow-hidden">
+                            <div key={idx} className="flex gap-4 pb-4 border-b border-zinc-100 last:border-0 last:pb-0">
+                                <div className="w-20 h-20 flex-shrink-0 bg-zinc-100 rounded-lg overflow-hidden">
                                     <img src={item.image} alt={item.name} className="w-full h-full object-contain p-2" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="font-medium">{item.name}</p>
-                                    <p className="text-sm text-muted-foreground">
+                                    <p className="font-medium text-zinc-900">{item.name}</p>
+                                    <p className="text-sm text-zinc-500">
                                         {item.size} • {item.orientation === 'vertical' ? 'Dikey' : 'Yatay'}
                                     </p>
-                                    <p className="text-sm text-muted-foreground">Adet: {item.quantity}</p>
+                                    <p className="text-sm text-zinc-500">Adet: {item.quantity}</p>
                                 </div>
-                                <p className="font-medium">{formatPrice(item.price * item.quantity)}</p>
+                                <p className="font-medium text-zinc-900">{formatPrice(item.price * item.quantity)}</p>
                             </div>
                         ))}
                     </div>
 
                     {/* Totals */}
-                    <div className="mt-6 pt-6 border-t space-y-3 text-sm">
+                    <div className="mt-6 pt-6 border-t border-zinc-100 space-y-3 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">Ara Toplam</span>
-                            <span>{formatPrice(order.subtotal)}</span>
+                            <span className="text-zinc-600">Ara Toplam</span>
+                            <span className="text-zinc-900">{formatPrice(order.subtotal)}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">Kargo</span>
+                            <span className="text-zinc-600">Kargo</span>
                             {order.shippingCost === 0 ? (
                                 <span className="text-green-600">Ücretsiz</span>
                             ) : (
-                                <span>{formatPrice(order.shippingCost)}</span>
+                                <span className="text-zinc-900">{formatPrice(order.shippingCost)}</span>
                             )}
                         </div>
                         {order.discount > 0 && (
@@ -228,9 +228,9 @@ export default function OrderConfirmationPage() {
                                 <span>-{formatPrice(order.discount)}</span>
                             </div>
                         )}
-                        <div className="flex justify-between text-xl font-bold pt-3 border-t">
-                            <span>Toplam</span>
-                            <span>{formatPrice(order.total)}</span>
+                        <div className="flex justify-between text-xl font-bold pt-3 border-t border-zinc-100">
+                            <span className="text-zinc-900">Toplam</span>
+                            <span className="text-zinc-900">{formatPrice(order.total)}</span>
                         </div>
                     </div>
                 </div>

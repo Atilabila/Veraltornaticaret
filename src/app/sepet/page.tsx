@@ -76,10 +76,10 @@ export default function CartPage() {
                         {items.map((item) => (
                             <div
                                 key={item.id}
-                                className="flex gap-6 p-6 bg-card rounded-xl border border-border"
+                                className="flex gap-6 p-6 bg-white rounded-xl border border-zinc-200"
                             >
                                 {/* Image */}
-                                <div className="w-28 h-28 flex-shrink-0 bg-muted rounded-lg overflow-hidden">
+                                <div className="w-28 h-28 flex-shrink-0 bg-zinc-100 rounded-lg overflow-hidden">
                                     <img
                                         src={item.image}
                                         alt={item.name}
@@ -91,8 +91,8 @@ export default function CartPage() {
                                 <div className="flex-1 min-w-0">
                                     <div className="flex justify-between items-start gap-4">
                                         <div>
-                                            <h3 className="font-bold text-lg mb-1 truncate">{item.name}</h3>
-                                            <p className="text-sm text-muted-foreground">
+                                            <h3 className="font-bold text-lg mb-1 truncate text-zinc-900">{item.name}</h3>
+                                            <p className="text-sm text-zinc-500">
                                                 {item.size} • {item.orientation === 'vertical' ? 'Dikey' : 'Yatay'}
                                             </p>
                                         </div>
@@ -100,7 +100,7 @@ export default function CartPage() {
                                             variant="ghost"
                                             size="icon"
                                             onClick={() => removeItem(item.id)}
-                                            className="text-muted-foreground hover:text-destructive"
+                                            className="text-zinc-400 hover:text-red-600"
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </Button>
@@ -108,20 +108,20 @@ export default function CartPage() {
 
                                     <div className="flex items-center justify-between mt-4">
                                         {/* Quantity */}
-                                        <div className="flex items-center gap-2 border rounded-lg">
+                                        <div className="flex items-center gap-2 border border-zinc-200 rounded-lg">
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                className="h-9 w-9"
+                                                className="h-9 w-9 text-zinc-600"
                                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                             >
                                                 <Minus className="w-4 h-4" />
                                             </Button>
-                                            <span className="w-8 text-center font-medium">{item.quantity}</span>
+                                            <span className="w-8 text-center font-medium text-zinc-900">{item.quantity}</span>
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                className="h-9 w-9"
+                                                className="h-9 w-9 text-zinc-600"
                                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                             >
                                                 <Plus className="w-4 h-4" />
@@ -131,15 +131,15 @@ export default function CartPage() {
                                         {/* Price */}
                                         <div className="text-right">
                                             {item.price <= 0 ? (
-                                                <div className="flex items-center gap-2 text-destructive">
+                                                <div className="flex items-center gap-2 text-red-600">
                                                     <AlertTriangle className="w-4 h-4" />
                                                     <span className="font-bold">Fiyat Hatası</span>
                                                 </div>
                                             ) : (
                                                 <>
-                                                    <p className="font-bold text-lg">{formatPrice(item.price * item.quantity)}</p>
+                                                    <p className="font-bold text-lg text-zinc-900">{formatPrice(item.price * item.quantity)}</p>
                                                     {item.quantity > 1 && (
-                                                        <p className="text-xs text-muted-foreground">
+                                                        <p className="text-xs text-zinc-500">
                                                             {formatPrice(item.price)} / adet
                                                         </p>
                                                     )}
@@ -154,30 +154,30 @@ export default function CartPage() {
 
                     {/* Order Summary */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-28 bg-card border border-border rounded-xl p-6 space-y-6">
-                            <h2 className="text-xl font-bold">Sipariş Özeti</h2>
+                        <div className="sticky top-28 bg-white border border-zinc-200 rounded-xl p-6 space-y-6">
+                            <h2 className="text-xl font-bold text-zinc-900">Sipariş Özeti</h2>
 
                             <div className="space-y-4 text-sm">
                                 <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Ara Toplam</span>
-                                    <span className="font-medium">{formatPrice(subtotal)}</span>
+                                    <span className="text-zinc-600">Ara Toplam</span>
+                                    <span className="font-medium text-zinc-900">{formatPrice(subtotal)}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Kargo</span>
+                                    <span className="text-zinc-600">Kargo</span>
                                     {shipping === 0 ? (
                                         <span className="text-green-600 font-medium">Ücretsiz</span>
                                     ) : (
-                                        <span className="font-medium">{formatPrice(shipping)}</span>
+                                        <span className="font-medium text-zinc-900">{formatPrice(shipping)}</span>
                                     )}
                                 </div>
                                 {shipping > 0 && (
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-xs text-zinc-500">
                                         {formatPrice(500 - subtotal)} daha ekleyin, ücretsiz kargo kazanın!
                                     </p>
                                 )}
-                                <div className="border-t pt-4 flex justify-between text-lg font-bold">
-                                    <span>Toplam</span>
-                                    <span>{formatPrice(total)}</span>
+                                <div className="border-t border-zinc-100 pt-4 flex justify-between text-lg font-bold">
+                                    <span className="text-zinc-900">Toplam</span>
+                                    <span className="text-zinc-900">{formatPrice(total)}</span>
                                 </div>
                             </div>
 
@@ -189,14 +189,14 @@ export default function CartPage() {
                             </Link>
 
                             <Link href="/urunler" className="block">
-                                <Button variant="outline" size="lg" className="w-full gap-2">
+                                <Button variant="outline" size="lg" className="w-full gap-2 border-zinc-200 text-zinc-700 hover:bg-zinc-50">
                                     <ArrowLeft className="w-4 h-4" />
                                     Alışverişe Devam Et
                                 </Button>
                             </Link>
 
                             {/* Trust Badges */}
-                            <div className="pt-4 border-t space-y-2 text-xs text-muted-foreground">
+                            <div className="pt-4 border-t border-zinc-100 space-y-2 text-xs text-zinc-500">
                                 <div className="flex items-center gap-2">
                                     <div className="w-4 h-4 rounded-full bg-green-500/20 flex items-center justify-center">
                                         <div className="w-2 h-2 rounded-full bg-green-500" />

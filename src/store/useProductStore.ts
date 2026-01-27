@@ -49,9 +49,35 @@ const mapDbToProduct = (dbProduct: DbProduct): Product => ({
 });
 
 // ... imports
+import { getProducts as getMetalProducts } from '@/lib/actions/metal-products.actions';
+import type { MetalProduct } from '@/lib/supabase/metal-products.types';
 import { getAdminProducts, upsertAdminProduct, deleteAdminProduct } from '@/actions/admin';
 
 // ... existing mapDbToProduct ...
+
+const mapMetalProductToProduct = (mp: MetalProduct): Product => ({
+    id: mp.id,
+    name: mp.name,
+    slug: mp.slug,
+    price: mp.price,
+    image: mp.image_url || '/placeholder.png',
+    description: mp.description || '',
+    story: mp.description || '',
+    category: mp.category?.slug || 'GENEL',
+    specs: {
+        material: "1.5mm Alüminyum",
+        process: "UV Baskı",
+        print: "Endüstriyel",
+        thickness: "1.5mm",
+        dims: "45x60cm",
+        mounting: "Mıknatıs",
+    },
+    seo: {
+        title: mp.name,
+        description: mp.description || '',
+        keywords: [mp.name, 'metal poster'],
+    }
+});
 
 export const useProductStore = create<ProductStore>()((set, get) => ({
     products: [],
@@ -61,9 +87,19 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     fetchProducts: async () => {
         set({ loading: true, error: null });
         try {
-            const dbProducts = await ProductService.getAllProducts();
-            const products = dbProducts.map(mapDbToProduct);
-            set({ products, loading: false });
+            // Use the Server Action for Metal Products (New System)
+            const result = await getMetalProducts();
+
+            if (result.success && result.data) {
+                const products = result.data.map(mapMetalProductToProduct);
+                set({ products, loading: false });
+            } else {
+                // Fallback to old system if new one is empty or fails
+                console.warn('Switching to legacy product fetch due to empty metal_products or error');
+                const dbProducts = await ProductService.getAllProducts();
+                const products = dbProducts.map(mapDbToProduct);
+                set({ products, loading: false });
+            }
         } catch (error) {
             console.error('Fetch products failed:', error);
             set({

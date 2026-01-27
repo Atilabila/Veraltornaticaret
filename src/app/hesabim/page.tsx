@@ -73,14 +73,14 @@ export default function HesabimPage() {
 
                         {orders.map((order) => (
                             <Link key={order.id} href={`/siparis/${order.id}`}>
-                                <div className="group bg-card border border-border rounded-2xl p-6 transition-all hover:border-primary hover:shadow-lg">
+                                <div className="group bg-white border border-zinc-200 rounded-2xl p-6 transition-all hover:border-primary hover:shadow-lg">
                                     <div className="flex flex-col md:flex-row justify-between gap-6">
                                         <div className="flex gap-4">
-                                            <div className="w-20 h-20 bg-muted rounded-xl flex items-center justify-center overflow-hidden shrink-0 border border-border/50">
+                                            <div className="w-20 h-20 bg-zinc-100 rounded-xl flex items-center justify-center overflow-hidden shrink-0 border border-zinc-200">
                                                 {order.items[0]?.image ? (
                                                     <img src={order.items[0].image} alt="" className="w-full h-full object-contain p-2" />
                                                 ) : (
-                                                    <Package className="w-8 h-8 text-muted-foreground" />
+                                                    <Package className="w-8 h-8 text-zinc-400" />
                                                 )}
                                                 {order.items.length > 1 && (
                                                     <div className="absolute top-1 right-1 bg-primary text-primary-foreground text-[10px] font-bold px-1.5 rounded-full">
@@ -90,23 +90,23 @@ export default function HesabimPage() {
                                             </div>
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2">
-                                                    <span className="font-mono font-bold text-lg">{order.orderNumber}</span>
+                                                    <span className="font-mono font-bold text-lg text-zinc-900">{order.orderNumber}</span>
                                                     <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${statusConfig[order.status]?.color}`}>
                                                         {statusConfig[order.status]?.label}
                                                     </span>
                                                 </div>
-                                                <p className="text-sm text-muted-foreground">
+                                                <p className="text-sm text-zinc-500">
                                                     {new Date(order.createdAt).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
                                                 </p>
                                                 <div className="flex items-center gap-4 mt-2">
                                                     <span className="font-bold text-primary">{formatPrice(order.total)}</span>
-                                                    <span className="text-xs text-muted-foreground">{order.items.length} Ürün</span>
+                                                    <span className="text-xs text-zinc-500">{order.items.length} Ürün</span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="flex items-center justify-end">
-                                            <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">
+                                            <div className="flex items-center gap-2 text-sm font-bold text-zinc-500 group-hover:text-primary transition-colors">
                                                 Detayları Gör
                                                 <ChevronRight className="w-4 h-4" />
                                             </div>

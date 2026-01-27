@@ -90,10 +90,14 @@ export const Navigation = () => {
                             <button className={`relative group p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
                                 <Search className="w-5 h-5 group-hover:text-[#D4AF37]" />
                             </button>
-                            <Link href="/sepet" className={`relative group p-2 transition-all ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                            <Link
+                                href="/sepet"
+                                aria-label="Sepet"
+                                className={`relative group p-2 transition-all cursor-pointer z-50 ${isScrolled ? 'text-white' : 'text-[#0A0A0A]'}`}
+                            >
                                 <ShoppingCart className="w-5 h-5 group-hover:text-[#D4AF37]" />
                                 {cartCount > 0 && (
-                                    <span className="absolute top-0 right-0 w-4 h-4 bg-[#D4AF37] text-white text-[9px] font-black flex items-center justify-center rounded-full">
+                                    <span className="absolute top-0 right-0 w-4 h-4 bg-[#D4AF37] text-white text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
                                         {cartCount}
                                     </span>
                                 )}
