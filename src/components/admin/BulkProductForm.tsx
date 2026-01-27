@@ -14,6 +14,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { cn, slugify } from "@/lib/utils"
+import { uploadProductImage } from "@/lib/actions/metal-products.actions"
 import type { Category, ProductFormData } from "@/lib/supabase/metal-products.types"
 
 interface BulkProductFormProps {
@@ -30,6 +31,8 @@ type BulkRow = {
     price: number | string
     stock: number | string
     slug: string
+    file?: File
+    previewUrl?: string
 }
 
 export const BulkProductForm: React.FC<BulkProductFormProps> = ({
@@ -46,6 +49,43 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
     const [selectedCategoryId, setSelectedCategoryId] = React.useState<string>("")
     const [pasteMode, setPasteMode] = React.useState(false)
     const [pasteContent, setPasteContent] = React.useState("")
+    const [isUploading, setIsUploading] = React.useState(false) // Local loading state for uploads
+
+    // Handle File Selection
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const newFiles = Array.from(e.target.files)
+
+            const newRows: BulkRow[] = newFiles.map(file => {
+                // Generate name from filename (remove extension and hyphens)
+                // "urun-ismi.webp" -> "Urun Ismi"
+                const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "")
+
+                // Humanize: replace - and _ with space, Capitalize first letter of words
+                const humanName = nameWithoutExt
+                    .replace(/[-_]/g, " ")
+                    .replace(/\b\w/g, l => l.toUpperCase())
+
+                return {
+                    id: Math.random().toString(36).substr(2, 9),
+                    name: humanName, // User can edit this, slug auto-updates
+                    price: 0,
+                    stock: 0,
+                    slug: slugify(nameWithoutExt), // Slug uses the filename base
+                    file: file,
+                    previewUrl: URL.createObjectURL(file)
+                }
+            })
+
+            setRows(prev => {
+                // If the first row is empty, replace it
+                if (prev.length === 1 && !prev[0].name) {
+                    return newRows
+                }
+                return [...prev, ...newRows]
+            })
+        }
+    }
 
     // Add empty row
     const addRow = () => {
@@ -131,20 +171,38 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
             return
         }
 
-        const productData: ProductFormData[] = validRows.map(row => ({
-            name: row.name,
-            slug: row.slug,
-            description: "", // Empty for now or maybe add a "Common Description" field
-            price: Number(row.price) || 0,
-            stock_quantity: Number(row.stock) || 0,
-            category_id: selectedCategoryId,
-            is_active: true,
-            image_url: "", // No images in bulk for now
-            background_color: "#ffffff",
-            features: [] // Required by type
+        setIsUploading(true)
+
+        // 1. Upload images first (if any)
+        const productsWithImages = await Promise.all(validRows.map(async (row) => {
+            let imageUrl = ""
+
+            if (row.file) {
+                // Upload image
+                const res = await uploadProductImage(row.file, row.slug)
+                if (res.success && res.data) {
+                    imageUrl = res.data
+                } else {
+                    console.error(`Failed to upload image for ${row.name}`)
+                }
+            }
+
+            return {
+                name: row.name,
+                slug: row.slug,
+                description: "",
+                price: Number(row.price) || 0,
+                stock_quantity: Number(row.stock) || 0,
+                category_id: selectedCategoryId,
+                is_active: true,
+                image_url: imageUrl,
+                background_color: "#ffffff",
+                features: []
+            }
         }))
 
-        await onSubmit(productData)
+        setIsUploading(false)
+        await onSubmit(productsWithImages)
     }
 
     return (
@@ -172,13 +230,27 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                             </Select>
                         </div>
 
-                        <button
-                            onClick={() => setPasteMode(!pasteMode)}
-                            className="flex items-center gap-2 px-4 py-3 bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 rounded-xl font-bold transition-colors border border-emerald-500/20"
-                        >
-                            <FileSpreadsheet className="w-5 h-5" />
-                            {pasteMode ? "Tabloya Dön" : "Excel'den Yapıştır"}
-                        </button>
+                        <div className="flex gap-2">
+                            <label className="flex items-center gap-2 px-4 py-3 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 rounded-xl font-bold transition-colors border border-blue-500/20 cursor-pointer">
+                                <Upload className="w-5 h-5" />
+                                Görsel Seç
+                                <input
+                                    type="file"
+                                    multiple
+                                    accept="image/webp,image/png,image/jpeg"
+                                    className="hidden"
+                                    onChange={handleFileSelect}
+                                />
+                            </label>
+
+                            <button
+                                onClick={() => setPasteMode(!pasteMode)}
+                                className="flex items-center gap-2 px-4 py-3 bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 rounded-xl font-bold transition-colors border border-emerald-500/20"
+                            >
+                                <FileSpreadsheet className="w-5 h-5" />
+                                {pasteMode ? "Tabloya Dön" : "Excel'den Yapıştır"}
+                            </button>
+                        </div>
                     </div>
 
                     {/* Content Area */}
@@ -205,7 +277,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                             <table className="w-full text-left border-collapse">
                                 <thead className="bg-slate-900 sticky top-0 z-10">
                                     <tr>
-                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider pl-4">#</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider pl-4 w-12 text-center">Img</th>
                                         <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-1/3">Ürün Adı</th>
                                         <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-1/4">Slug (Otomatik)</th>
                                         <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Fiyat</th>
@@ -216,7 +288,15 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                                 <tbody className="divide-y divide-slate-800">
                                     {rows.map((row, index) => (
                                         <tr key={row.id} className="group hover:bg-slate-800/50 transition-colors">
-                                            <td className="p-3 pl-4 text-slate-500 font-mono text-xs">{index + 1}</td>
+                                            <td className="p-3 pl-4 text-slate-500 font-mono text-xs text-center relative">
+                                                {row.previewUrl ? (
+                                                    <div className="w-10 h-10 rounded overflow-hidden border border-slate-700 bg-black">
+                                                        <img src={row.previewUrl} alt="" className="w-full h-full object-cover" />
+                                                    </div>
+                                                ) : (
+                                                    <span className="opacity-50">{index + 1}</span>
+                                                )}
+                                            </td>
                                             <td className="p-3">
                                                 <input
                                                     type="text"
@@ -294,14 +374,14 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                disabled={loading}
+                                disabled={loading || isUploading}
                                 className={cn(
                                     "px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-xl font-bold transition-colors flex items-center gap-2",
-                                    loading && "opacity-50 cursor-not-allowed"
+                                    (loading || isUploading) && "opacity-50 cursor-not-allowed"
                                 )}
                             >
                                 <Save className="w-4 h-4" />
-                                {loading ? "Kaydediliyor..." : "Tümünü Kaydet"}
+                                {isUploading ? "Görseller Yükleniyor..." : loading ? "Kaydediliyor..." : "Tümünü Kaydet"}
                             </button>
                         </div>
                     </div>

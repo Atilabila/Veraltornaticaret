@@ -380,7 +380,6 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
                         Toplam {products.length} ürün
                     </p>
                 </div>
-                </div>
                 <div className="flex gap-3">
                     <button
                         onClick={loadData}
@@ -407,67 +406,67 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
                         Yeni Ürün Ekle
                     </button>
                 </div>
-            </header >
+            </header>
 
-    {/* Data Table */ }
-    < DataTable
-columns = { columns }
-data = { products }
-loading = { loading }
-searchKey = "name"
-searchPlaceholder = "Ürün ara..."
-emptyMessage = "Henüz ürün eklenmemiş"
-actions = {(row) => (
-    <div className="flex items-center gap-2">
-        <button
-            onClick={() => handleToggleStatus(row)}
-            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-            title={row.is_active ? "Pasife Al" : "Aktifleştir"}
-        >
-            {row.is_active ? (
-                <EyeOff className="w-4 h-4 text-slate-400" />
-            ) : (
-                <Eye className="w-4 h-4 text-slate-400" />
-            )}
-        </button>
-        <button
-            onClick={() => {
-                setEditingProduct(row)
-                setFormOpen(true)
-            }}
-            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-        >
-            <Pencil className="w-4 h-4 text-blue-400" />
-        </button>
-        <button
-            onClick={() => handleDelete(row)}
-            className="p-2 hover:bg-red-500/10 rounded-lg transition-colors"
-        >
-            <Trash2 className="w-4 h-4 text-red-400" />
-        </button>
-    </div>
-)}
+            {/* Data Table */}
+            <DataTable
+                columns={columns}
+                data={products}
+                loading={loading}
+                searchKey="name"
+                searchPlaceholder="Ürün ara..."
+                emptyMessage="Henüz ürün eklenmemiş"
+                actions={(row) => (
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => handleToggleStatus(row)}
+                            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+                            title={row.is_active ? "Pasife Al" : "Aktifleştir"}
+                        >
+                            {row.is_active ? (
+                                <EyeOff className="w-4 h-4 text-slate-400" />
+                            ) : (
+                                <Eye className="w-4 h-4 text-slate-400" />
+                            )}
+                        </button>
+                        <button
+                            onClick={() => {
+                                setEditingProduct(row)
+                                setFormOpen(true)
+                            }}
+                            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+                        >
+                            <Pencil className="w-4 h-4 text-blue-400" />
+                        </button>
+                        <button
+                            onClick={() => handleDelete(row)}
+                            className="p-2 hover:bg-red-500/10 rounded-lg transition-colors"
+                        >
+                            <Trash2 className="w-4 h-4 text-red-400" />
+                        </button>
+                    </div>
+                )}
             />
 
-{/* Product Form Modal */ }
-<ProductForm
-    open={formOpen}
-    onOpenChange={setFormOpen}
-    product={editingProduct}
-    categories={categories}
-    onSubmit={handleFormSubmit}
-    loading={formLoading}
-/>
+            {/* Product Form Modal */}
+            <ProductForm
+                open={formOpen}
+                onOpenChange={setFormOpen}
+                product={editingProduct}
+                categories={categories}
+                onSubmit={handleFormSubmit}
+                loading={formLoading}
+            />
 
-{/* Bulk Product Form Modal */ }
-<BulkProductForm
-    open={bulkFormOpen}
-    onOpenChange={setBulkFormOpen}
-    categories={categories}
-    onSubmit={handleBulkSubmit}
-    loading={formLoading}
-/>
-        </div >
+            {/* Bulk Product Form Modal */}
+            <BulkProductForm
+                open={bulkFormOpen}
+                onOpenChange={setBulkFormOpen}
+                categories={categories}
+                onSubmit={handleBulkSubmit}
+                loading={formLoading}
+            />
+        </div>
     )
 }
 
