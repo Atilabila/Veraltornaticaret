@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Instagram, Heart, ExternalLink } from "lucide-react";
 import { getInstagramFeed, type InstagramPost } from "@/lib/actions/instagram.actions";
+import { DirectEdit } from "@/components/admin/DirectEdit";
 
 export const InstagramMarquee = () => {
     const [posts, setPosts] = useState<InstagramPost[]>([]);
@@ -44,68 +45,59 @@ export const InstagramMarquee = () => {
     if (!loading && posts.length === 0) return null;
 
     return (
-        <section className="py-0 bg-[#0A0A0A] border-t border-b border-[#D4AF37]/20 relative overflow-hidden">
-            {/* Header Strip */}
-            <div className="absolute top-0 left-0 z-20 bg-[#0A0A0A] px-6 py-2 border-r border-[#D4AF37]/20 flex items-center gap-4">
-                <Instagram className="w-5 h-5 text-[#E1306C]" />
-                <span className="text-[10px] font-black tracking-[0.2em] text-white/80 uppercase">
-                    @VERALTENEKETICARET
-                </span>
-            </div>
-
-            {/* Gradient Overlays for Fade effect */}
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
-
-            {/* Marquee Container */}
-            <div className="flex overflow-hidden select-none py-12 group">
-                <motion.div
-                    className="flex gap-8 flex-nowrap"
-                    animate={{
-                        x: ["0%", "-33.333%"]
-                    }}
-                    transition={{
-                        duration: 30,
-                        ease: "linear",
-                        repeat: Infinity
-                    }}
-                    style={{ width: "fit-content" }}
-                >
-                    {marqueePosts.map((post, idx) => (
-                        <a
-                            key={`${post.id}-${idx}`}
-                            href={post.permalink || "https://instagram.com/veralteneketicaret"}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="relative w-[300px] h-[300px] shrink-0 border border-white/10 hover:border-[#D4AF37] transition-colors duration-500 overflow-hidden bg-white/5"
-                        >
-                            <Image
-                                src={post.image_url}
-                                alt="Instagram Feed"
-                                fill
-                                className="object-cover transition-transform duration-700 hover:scale-110 grayscale hover:grayscale-0"
-                                sizes="300px"
-                            />
-
-                            {/* Hover Info */}
-                            <div className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white gap-2">
-                                <Instagram className="w-8 h-8 text-[#E1306C]" />
-                                <div className="flex items-center gap-1 font-bold">
-                                    <Heart className="w-4 h-4 text-white fill-white" />
-                                    <span>{post.likes}</span>
-                                </div>
-                            </div>
-                        </a>
-                    ))}
-                </motion.div>
-            </div>
-
-            {/* Scroller Text Background */}
-            <div className="absolute -bottom-4 left-0 w-full overflow-hidden opacity-[0.03] pointer-events-none">
-                <div className="text-[10rem] font-black text-white whitespace-nowrap leading-none tracking-tighter">
-                    FOLLOW US ON INSTAGRAM <span className="text-transparent stroke-white stroke-2">@VERALTENEKETICARET</span>
+        <DirectEdit tab="instagram">
+            <section className="py-0 bg-[#0A0A0A] border-b border-[#D4AF37]/10 relative overflow-hidden">
+                {/* Header Strip */}
+                <div className="absolute top-0 left-0 z-20 bg-[#0A0A0A] px-4 py-1.5 border-r border-[#D4AF37]/10 flex items-center gap-3">
+                    <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
+                    <span className="text-[9px] font-black tracking-[0.2em] text-white/50 uppercase">
+                        @VERALTENEKETICARET
+                    </span>
                 </div>
-            </div>
-        </section>
+
+                {/* Marquee Container */}
+                <div className="flex overflow-hidden select-none py-8 group">
+                    <motion.div
+                        className="flex gap-6 flex-nowrap"
+                        animate={{
+                            x: ["-33.333%", "0%"] // Scroll RIGHT
+                        }}
+                        transition={{
+                            duration: 60, // Slower
+                            ease: "linear",
+                            repeat: Infinity
+                        }}
+                        style={{ width: "fit-content" }}
+                    >
+                        {marqueePosts.map((post, idx) => (
+                            <a
+                                key={`${post.id}-${idx}`}
+                                href={post.permalink || "https://instagram.com/veralteneketicaret"}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="relative w-[220px] h-[220px] shrink-0 border border-white/5 hover:border-[#D4AF37]/50 transition-colors duration-500 overflow-hidden bg-white/5"
+                            >
+                                <Image
+                                    src={post.image_url}
+                                    alt="Instagram Feed"
+                                    fill
+                                    className="object-cover transition-transform duration-700 hover:scale-110"
+                                    sizes="220px"
+                                />
+
+                                {/* Hover Info */}
+                                <div className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white gap-2">
+                                    <Instagram className="w-6 h-6 text-[#E1306C]" />
+                                    <div className="flex items-center gap-1 font-bold text-sm">
+                                        <Heart className="w-3.5 h-3.5 text-white fill-white" />
+                                        <span>{post.likes}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+        </DirectEdit>
     );
 };

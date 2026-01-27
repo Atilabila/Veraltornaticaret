@@ -13,6 +13,7 @@ import { CustomerReviews } from '@/components/sections/CustomerReviews';
 import { InstagramFeed } from '@/components/sections/InstagramFeed';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { InstagramMarquee } from '@/components/sections/InstagramMarquee';
+import { StatsMarquee } from '@/components/sections/StatsMarquee';
 import { LocalContactSection } from '@/components/sections/LocalContactSection';
 import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 
@@ -35,6 +36,7 @@ export default function HomePage() {
       {/* INSTAGRAM_MARQUEE_FEED */}
       <section className="bg-[#0A0A0A] relative z-20">
         <InstagramMarquee />
+        <StatsMarquee />
       </section>
 
       {/* PRODUCT_GALLERY */}

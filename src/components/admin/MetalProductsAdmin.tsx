@@ -15,6 +15,7 @@ import {
 import { DataTable, Badge } from "@/components/ui/DataTable"
 import { type Column } from "@/components/ui/DataTable"
 import { ProductForm } from "@/components/admin/ProductForm"
+import { BulkProductForm } from "@/components/admin/BulkProductForm"
 import { SiteContentAdmin } from "@/components/admin/SiteContentAdmin"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -186,6 +187,7 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
     const [categories, setCategories] = React.useState<Category[]>([])
     const [loading, setLoading] = React.useState(true)
     const [formOpen, setFormOpen] = React.useState(false)
+    const [bulkFormOpen, setBulkFormOpen] = React.useState(false)
     const [editingProduct, setEditingProduct] = React.useState<MetalProduct | null>(null)
     const [formLoading, setFormLoading] = React.useState(false)
 
@@ -212,6 +214,25 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
             showNotification("error", "Veriler yüklenemedi")
         } finally {
             setLoading(false)
+        }
+    }
+
+    // Handle bulk submit
+    const handleBulkSubmit = async (data: ProductFormData[]) => {
+        setFormLoading(true)
+        try {
+            const result = await actions.createBulkProducts(data)
+            if (result.success) {
+                showNotification("success", `${result.data} ürün başarıyla eklendi!`)
+                setBulkFormOpen(false)
+                loadData()
+            } else {
+                showNotification("error", result.error || "Toplu ekleme başarısız")
+            }
+        } catch (error) {
+            showNotification("error", "İşlem sırasında hata oluştu")
+        } finally {
+            setFormLoading(false)
         }
     }
 
@@ -359,6 +380,7 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
                         Toplam {products.length} ürün
                     </p>
                 </div>
+                </div>
                 <div className="flex gap-3">
                     <button
                         onClick={loadData}
@@ -366,6 +388,13 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
                         className="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
                     >
                         <RefreshCw className={cn("w-5 h-5", loading && "animate-spin")} />
+                    </button>
+                    <button
+                        onClick={() => setBulkFormOpen(true)}
+                        className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-3 rounded-xl font-bold transition-colors"
+                    >
+                        <LayoutTemplate className="w-5 h-5" />
+                        Toplu Ekle
                     </button>
                     <button
                         onClick={() => {
@@ -378,58 +407,67 @@ const ProductsPanel: React.FC<PanelProps> = ({ showNotification }) => {
                         Yeni Ürün Ekle
                     </button>
                 </div>
-            </header>
+            </header >
 
-            {/* Data Table */}
-            <DataTable
-                columns={columns}
-                data={products}
-                loading={loading}
-                searchKey="name"
-                searchPlaceholder="Ürün ara..."
-                emptyMessage="Henüz ürün eklenmemiş"
-                actions={(row) => (
-                    <div className="flex items-center gap-2">
-                        <button
-                            onClick={() => handleToggleStatus(row)}
-                            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-                            title={row.is_active ? "Pasife Al" : "Aktifleştir"}
-                        >
-                            {row.is_active ? (
-                                <EyeOff className="w-4 h-4 text-slate-400" />
-                            ) : (
-                                <Eye className="w-4 h-4 text-slate-400" />
-                            )}
-                        </button>
-                        <button
-                            onClick={() => {
-                                setEditingProduct(row)
-                                setFormOpen(true)
-                            }}
-                            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-                        >
-                            <Pencil className="w-4 h-4 text-blue-400" />
-                        </button>
-                        <button
-                            onClick={() => handleDelete(row)}
-                            className="p-2 hover:bg-red-500/10 rounded-lg transition-colors"
-                        >
-                            <Trash2 className="w-4 h-4 text-red-400" />
-                        </button>
-                    </div>
-                )}
+    {/* Data Table */ }
+    < DataTable
+columns = { columns }
+data = { products }
+loading = { loading }
+searchKey = "name"
+searchPlaceholder = "Ürün ara..."
+emptyMessage = "Henüz ürün eklenmemiş"
+actions = {(row) => (
+    <div className="flex items-center gap-2">
+        <button
+            onClick={() => handleToggleStatus(row)}
+            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+            title={row.is_active ? "Pasife Al" : "Aktifleştir"}
+        >
+            {row.is_active ? (
+                <EyeOff className="w-4 h-4 text-slate-400" />
+            ) : (
+                <Eye className="w-4 h-4 text-slate-400" />
+            )}
+        </button>
+        <button
+            onClick={() => {
+                setEditingProduct(row)
+                setFormOpen(true)
+            }}
+            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+        >
+            <Pencil className="w-4 h-4 text-blue-400" />
+        </button>
+        <button
+            onClick={() => handleDelete(row)}
+            className="p-2 hover:bg-red-500/10 rounded-lg transition-colors"
+        >
+            <Trash2 className="w-4 h-4 text-red-400" />
+        </button>
+    </div>
+)}
             />
 
-            {/* Product Form Modal */}
-            <ProductForm
-                open={formOpen}
-                onOpenChange={setFormOpen}
-                product={editingProduct}
-                categories={categories}
-                onSubmit={handleFormSubmit}
-                loading={formLoading}
-            />
-        </div>
+{/* Product Form Modal */ }
+<ProductForm
+    open={formOpen}
+    onOpenChange={setFormOpen}
+    product={editingProduct}
+    categories={categories}
+    onSubmit={handleFormSubmit}
+    loading={formLoading}
+/>
+
+{/* Bulk Product Form Modal */ }
+<BulkProductForm
+    open={bulkFormOpen}
+    onOpenChange={setBulkFormOpen}
+    categories={categories}
+    onSubmit={handleBulkSubmit}
+    loading={formLoading}
+/>
+        </div >
     )
 }
 

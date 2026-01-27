@@ -130,7 +130,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         setFormData(prev => ({
             ...prev,
             name,
-            slug: prev.slug || slugify(name)
+            // Only auto-update slug if creating a new product
+            // This prevents accidental URL changes for existing products
+            slug: !isEditing ? slugify(name) : prev.slug
         }))
     }
 

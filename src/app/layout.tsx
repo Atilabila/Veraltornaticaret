@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { AdminProvider } from "@/components/providers/AdminProvider";
 
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 
@@ -24,7 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LocalBusinessSchema />
       </head>
       <body>
-        {children}
+        <AdminProvider>
+          {children}
+        </AdminProvider>
         <Toaster />
       </body>
     </html>

@@ -92,6 +92,70 @@ export interface SiteContent {
     metalShowcaseSubtitle: string;
     metalShowcaseHeroImage: string;
     metalShowcaseTrustBadges: { icon: string; text: string }[];
+    metalShowcaseItems: {
+        title: string;
+        desc: string;
+        image: string;
+        category: string;
+    }[];
+
+    // ===== INSTAGRAM FEED =====
+    instagramPosts: {
+        id: string;
+        image_url: string;
+        permalink?: string;
+        caption?: string;
+        likes?: number;
+        display_order: number;
+        is_active: boolean;
+    }[];
+
+    // ===== DYNAMIC HOME SECTIONS =====
+    heroTagline1: string;
+    heroTagline2: string;
+    heroTagline3: string;
+    heroCustomerCount: string;
+
+    statsItems: {
+        label: string;
+        value: string;
+        icon: string;
+    }[];
+
+    reviewsTitle: string;
+    reviewsSubtitle: string;
+    reviewsRatingLabel: string;
+    reviewItems: {
+        id: string;
+        name: string;
+        city: string;
+        rating: number;
+        text: string;
+        product: string;
+        image: string;
+        date: string;
+    }[];
+
+    processTitle: string;
+    processSubtitle: string;
+    processDescription: string;
+    processItems: {
+        stepNumber: string;
+        title: string;
+        desc: string;
+    }[];
+
+    contactTitle: string;
+    contactSubtitle: string;
+    contactDescription: string;
+    contactItems: {
+        icon: string;
+        title: string;
+        desc: string;
+        color?: string;
+    }[];
+    inquiryTitle: string;
+    inquiryDescription: string;
 }
 
 interface ContentStore {
@@ -248,7 +312,93 @@ const defaultContent: SiteContent = {
         { icon: "Zap", text: "Hızlı Üretim" },
         { icon: "Shield", text: "10 Yıl Garanti" },
         { icon: "Award", text: "Premium Kalite" }
-    ]
+    ],
+    metalShowcaseItems: [
+        {
+            title: "DOSYA TELİ",
+            desc: "ENDÜSTRİYEL SINIF ÇELİK TEL. YÜKSEK GERİLİM DİRENCİ VE HASSAS BÜKÜM.",
+            image: "/images/showcase/dosya-teli.jpg",
+            category: "ÜRETİM // 001"
+        },
+        {
+            title: "TEF ZİLİ",
+            desc: "PASLANMAZ METAL ALAŞIM. KUSURSUZ AKUSTİK VE FORM KORUMA.",
+            image: "/images/showcase/tef-zili.jpg",
+            category: "ÜRETİM // 002"
+        },
+        {
+            title: "METAL ETİKET",
+            desc: "LAZER KESİM ŞERİTLER. KOROZYON DİRENCİ VE YÜKSEK OKUNABİLİRLİK.",
+            image: "/images/showcase/metal-etiket.jpg",
+            category: "ÜRETİM // 003"
+        }
+    ],
+
+    // Instagram Feed
+    instagramPosts: [],
+
+    // Dynamic Home Sections
+    heroTagline1: "KAĞIT POSTERLERİ UNUTUN.",
+    heroTagline2: "BÜKÜLMEZ, SOLMAZ VE ŞIK",
+    heroTagline3: "METAL TABLOLARLA TANIŞIN",
+    heroCustomerCount: "5000+",
+
+    statsItems: [
+        { label: "BAŞARILI TESLİMAT", value: "2500+", icon: "ShieldCheck" },
+        { label: "GENEL SKOR", value: "4.9 / 5", icon: "Star" },
+        { label: "MEMNUNİYET ORANI", value: "%99", icon: "Users" },
+        { label: "ÜRETİM PROTOKOLÜ", value: "ISO-9001", icon: "Factory" },
+        { label: "HASSAS İŞÇİLİK", value: "YÜKSEK KALİTE", icon: "Target" },
+    ],
+
+    reviewsTitle: "GERÇEK",
+    reviewsSubtitle: "GÖRÜŞLER",
+    reviewsRatingLabel: "4.9 / 5 Müşteri Memnuniyeti",
+    reviewItems: [
+        {
+            id: "1",
+            name: "Ahmet Yılmaz",
+            city: "İstanbul",
+            rating: 5,
+            text: "METALE AKTARILAN DETAYLAR KUSURSUZ. PLAKA SERTLEĞİ VE YÜZEY KALİTESİ BEKLENTİMİN ÜZERİNDE.",
+            product: "Borusan Contemporary",
+            image: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=200",
+            date: "2 hafta önce"
+        },
+        {
+            id: "2",
+            name: "Zeynep Kaya",
+            city: "Ankara",
+            rating: 5,
+            text: "DİKKAT ÇEKİCİ BİR DERİNLİK VAR. DİJİTAL BASKI NETLİĞİ VE RENK DOĞRULUĞU ŞAŞIRTICI.",
+            product: "Klasik Porsche",
+            image: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=200",
+            date: "1 ay önce"
+        }
+    ],
+
+    processTitle: "HASSAS",
+    processSubtitle: "İŞÇİLİK",
+    processDescription: "HAMMADDEDEN DUVARINIZA: KUSURSUZ DÖNÜŞÜM.",
+    processItems: [
+        { stepNumber: "ETAP/01", title: "TASARIM SEÇİMİ", desc: "KOLEKSİYONDAN SEÇİN. KARARINIZI NETLEŞTİRİN." },
+        { stepNumber: "ETAP/02", title: "DİJİTAL HAZIRLIK", desc: "4K UV BASKI İÇİN PİKSEL KONTROLÜ VE RENK AYARI." },
+        { stepNumber: "ETAP/03", title: "METALE AKTARIM", desc: "1.5MM ÇELİK ÜZERİNE YÜKSEK ÇÖZÜNÜRLÜKLÜ BASKI." },
+        { stepNumber: "ETAP/04", title: "KORUYUCU AMBALAJ", desc: "MANYETİK APARAT VE DARBE EMİCİ ÖZEL KUTULAMA." },
+        { stepNumber: "ETAP/05", title: "LOJİSTİK ÇIKIŞ", desc: "MAKSİMUM 48 SAAT İÇİNDE KARGOYA TESLİM." }
+    ],
+
+    contactTitle: "BİZE",
+    contactSubtitle: "ERİŞİN",
+    contactDescription: "TEKNİK DESTEK VE ÖZEL PROJELER İÇİN OPERASYON MERKEZİ.",
+    contactItems: [
+        { icon: "PackageCheck", title: "İADE", desc: "14 GÜN KOŞULSUZ İADE POLİTİKASI" },
+        { icon: "Phone", title: "TELEFON", desc: "+90 507 165 13 15" },
+        { icon: "Mail", title: "E-POSTA", desc: "support@metalposter.co" },
+        { icon: "MessageCircle", title: "WHATSAPP", desc: "ANLIK OPERASYON HATTI", color: "text-[#D4AF37]" }
+    ],
+    inquiryTitle: "Özel Sipariş Sorgulama",
+    inquiryDescription: "Mevcut siparişlerinizle ilgili durum takibi yapabilir veya kurumsal projeleriniz için özel teklif isteyebilirsiniz."
 };
 
 export const useContentStore = create<ContentStore>()(

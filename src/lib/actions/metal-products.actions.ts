@@ -389,7 +389,49 @@ export async function uploadProductImage(
 
         return { data: urlData.publicUrl, error: null, success: true }
     } catch (err) {
-        console.error('Error uploading image:', err)
         return { data: null, error: 'Görsel yüklenemedi', success: false }
+    }
+}
+
+export async function createBulkProducts(products: ProductFormData[]): Promise<ApiResponse<number>> {
+    try {
+        // Prepare data with slugs
+        const productsToInsert = products.map(p => {
+            const slug = p.slug || p.name
+                .toLowerCase()
+                .replace(/ğ/g, 'g')
+                .replace(/ü/g, 'u')
+                .replace(/ş/g, 's')
+                .replace(/ı/g, 'i')
+                .replace(/ö/g, 'o')
+                .replace(/ç/g, 'c')
+                .replace(/[^a-z0-9-]/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '')
+
+            return {
+                name: p.name,
+                slug,
+                description: p.description,
+                price: p.price,
+                stock_quantity: p.stock_quantity,
+                category_id: p.category_id,
+                is_active: p.is_active,
+                image_url: p.image_url,
+                background_color: p.background_color // Optional default
+            }
+        })
+
+        const { data, error } = await (supabaseAdmin as any)
+            .from('metal_products')
+            .insert(productsToInsert)
+            .select()
+
+        if (error) throw error
+
+        return { data: data.length, error: null, success: true }
+    } catch (err) {
+        console.error('Error creating bulk products:', err)
+        return { data: null, error: 'Toplu ürün ekleme başarısız', success: false }
     }
 }

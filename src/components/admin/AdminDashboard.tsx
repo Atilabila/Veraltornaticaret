@@ -1,17 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     LayoutDashboard, Package, FileText, Settings, LogOut, Plus,
     Pencil, Trash2, Save, X, Search, ChevronDown, ChevronUp,
-    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye, ShieldCheck
+    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye, ShieldCheck, Instagram
 } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import { useContentStore, SiteContent } from "@/store/useContentStore";
 import { Product } from "@/lib/products";
 import { ImageUploader } from "./ImageUploader";
+import { InstagramAdmin } from "@/components/admin/InstagramAdmin";
 import type { Category } from "@/lib/supabase/categories.service";
 import { AdminLogoutButton } from "./AdminLogoutButton";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
@@ -25,7 +27,23 @@ import {
 } from "@/components/ui/dialog";
 
 export const AdminDashboard = () => {
+    const searchParams = useSearchParams();
     const [activeTab, setActiveTab] = useState("content");
+    const [activeSection, setActiveSection] = useState("hero");
+
+    useEffect(() => {
+        const tab = searchParams.get("tab");
+        if (tab) {
+            const contentSections = ["hero", "stats", "features", "reviews", "process"];
+            if (contentSections.includes(tab)) {
+                setActiveTab("content");
+                setActiveSection(tab);
+            } else {
+                setActiveTab(tab);
+            }
+        }
+    }, [searchParams]);
+
     const [notification, setNotification] = useState<{ type: "success" | "error"; message: string } | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const { fetchContent } = useContentStore();
@@ -114,6 +132,12 @@ export const AdminDashboard = () => {
                         active={activeTab === "images"}
                         onClick={() => setActiveTab("images")}
                     />
+                    <SidebarItem
+                        icon={<Instagram className="w-5 h-5" />}
+                        label="Instagram Feed"
+                        active={activeTab === "instagram"}
+                        onClick={() => setActiveTab("instagram")}
+                    />
 
                     <p className="text-xs text-slate-500 uppercase tracking-wider px-4 mb-2 mt-6">Ürün & Sipariş</p>
                     <SidebarItem
@@ -168,10 +192,17 @@ export const AdminDashboard = () => {
             <main className="flex-1 p-8 overflow-y-auto">
                 {activeTab === "branding" && <BrandingTab showNotification={showNotification} />}
                 {activeTab === "showcase" && <MetalShowcaseTab showNotification={showNotification} />}
-                {activeTab === "content" && <HomeContentTab showNotification={showNotification} />}
+                {activeTab === "content" && (
+                    <HomeContentTab
+                        showNotification={showNotification}
+                        activeSection={activeSection}
+                        setActiveSection={setActiveSection}
+                    />
+                )}
                 {activeTab === "pages" && <OtherPagesTab showNotification={showNotification} />}
                 {activeTab === "contact" && <ContactTab showNotification={showNotification} />}
                 {activeTab === "images" && <ImagesTab showNotification={showNotification} />}
+                {activeTab === "instagram" && <div className="p-6 bg-slate-900/50 rounded-2xl border border-slate-800"><InstagramAdmin /></div>}
                 {activeTab === "products" && <ProductsTab showNotification={showNotification} />}
                 {activeTab === "categories" && <CategoriesTab showNotification={showNotification} />}
                 {activeTab === "orders" && <OrdersTab showNotification={showNotification} />}
@@ -183,13 +214,23 @@ export const AdminDashboard = () => {
 };
 
 // ========== HOME CONTENT TAB ==========
-const HomeContentTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
+const HomeContentTab = ({
+    showNotification,
+    activeSection,
+    setActiveSection
+}: {
+    showNotification: (type: "success" | "error", message: string) => void,
+    activeSection: string,
+    setActiveSection: (section: string) => void
+}) => {
     const { content, updateContent, updateFeatureItem, updateFaqItem, addFaqItem, removeFaqItem, updateServiceItem, saveToSupabase } = useContentStore();
-    const [activeSection, setActiveSection] = useState("hero");
 
     const sections = [
         { id: "hero", label: "Hero (Giriş)", icon: "🏠" },
+        { id: "stats", label: "İstatistikler", icon: "📊" },
         { id: "features", label: "Özellikler", icon: "⚡" },
+        { id: "reviews", label: "Yorumlar", icon: "⭐" },
+        { id: "process", label: "Süreç", icon: "⚙️" },
         { id: "services", label: "Hizmetler", icon: "🔧" },
         { id: "faq", label: "SSS (FAQ)", icon: "❓" },
     ];
@@ -598,6 +639,113 @@ const HomeContentTab = ({ showNotification }: { showNotification: (type: "succes
                                         placeholder="Cevap"
                                         className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[80px]"
                                     />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* STATS SECTION */}
+                {activeSection === "stats" && (
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">📊 İstatistik Bandı</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {(content.statsItems || []).map((item, index) => (
+                                <div key={index} className="bg-slate-800 p-6 rounded-xl border border-white/5 space-y-4">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-500">Değer</label>
+                                            <input
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2"
+                                                value={item.value}
+                                                onChange={(e) => {
+                                                    const n = [...(content.statsItems || [])];
+                                                    n[index].value = e.target.value;
+                                                    updateContent({ statsItems: n });
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-500">İkon (Lucide Name)</label>
+                                            <input
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2"
+                                                value={item.icon}
+                                                onChange={(e) => {
+                                                    const n = [...(content.statsItems || [])];
+                                                    n[index].icon = e.target.value;
+                                                    updateContent({ statsItems: n });
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-500">Etiket</label>
+                                        <input
+                                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2"
+                                            value={item.label}
+                                            onChange={(e) => {
+                                                const n = [...(content.statsItems || [])];
+                                                n[index].label = e.target.value;
+                                                updateContent({ statsItems: n });
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* REVIEWS SECTION */}
+                {activeSection === "reviews" && (
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">⭐ Müşteri Yorumları</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-slate-500">Başlık</label>
+                                <input className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3" value={content.reviewsTitle} onChange={(e) => updateContent({ reviewsTitle: e.target.value })} />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-slate-500">Alt Başlık</label>
+                                <input className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3" value={content.reviewsSubtitle} onChange={(e) => updateContent({ reviewsSubtitle: e.target.value })} />
+                            </div>
+                        </div>
+                        <div className="space-y-4">
+                            {(content.reviewItems || []).map((item, index) => (
+                                <div key={index} className="bg-slate-800 p-6 rounded-xl border border-white/5 space-y-4">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <input placeholder="İsim" className="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2" value={item.name} onChange={(e) => { const n = [...(content.reviewItems || [])]; n[index].name = e.target.value; updateContent({ reviewItems: n }); }} />
+                                        <input placeholder="Şehir" className="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2" value={item.city} onChange={(e) => { const n = [...(content.reviewItems || [])]; n[index].city = e.target.value; updateContent({ reviewItems: n }); }} />
+                                    </div>
+                                    <textarea placeholder="Yorum" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 min-h-[100px]" value={item.text} onChange={(e) => { const n = [...(content.reviewItems || [])]; n[index].text = e.target.value; updateContent({ reviewItems: n }); }} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* PROCESS SECTION */}
+                {activeSection === "process" && (
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">⚙️ Üretim Süreci</h3>
+                        <div className="grid grid-cols-2 gap-6 mb-8">
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-slate-500">Başlık</label>
+                                <input className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3" value={content.processTitle} onChange={(e) => updateContent({ processTitle: e.target.value })} />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-slate-500">Alt Başlık</label>
+                                <input className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3" value={content.processSubtitle} onChange={(e) => updateContent({ processSubtitle: e.target.value })} />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {(content.processItems || []).map((item, index) => (
+                                <div key={index} className="bg-slate-800 p-6 rounded-xl border border-white/5 space-y-4">
+                                    <div className="flex gap-4">
+                                        <input className="w-20 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 font-bold text-center" value={item.stepNumber} onChange={(e) => { const n = [...(content.processItems || [])]; n[index].stepNumber = e.target.value; updateContent({ processItems: n }); }} />
+                                        <input className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 font-bold" value={item.title} onChange={(e) => { const n = [...(content.processItems || [])]; n[index].title = e.target.value; updateContent({ processItems: n }); }} />
+                                    </div>
+                                    <textarea className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-sm min-h-[80px]" value={item.desc} onChange={(e) => { const n = [...(content.processItems || [])]; n[index].desc = e.target.value; updateContent({ processItems: n }); }} />
                                 </div>
                             ))}
                         </div>
