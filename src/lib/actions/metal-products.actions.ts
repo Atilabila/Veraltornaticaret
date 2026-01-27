@@ -6,7 +6,9 @@
 // =====================================================
 
 import { supabase } from '@/lib/supabase/client'
-import { supabaseAdmin } from '@/lib/supabase/admin'
+import { createAdminSupabaseClient } from '@/lib/supabase/admin'
+
+const supabaseAdmin = createAdminSupabaseClient()
 import type {
     MetalProduct,
     Category,

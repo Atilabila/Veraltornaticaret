@@ -1,18 +1,18 @@
+import { Metadata } from "next"
 import { MetalProduct } from "@/lib/supabase/metal-products.types"
-import { MOCK_PRODUCTS } from "@/lib/data/mock-products"
 
-// Mock fetch function (replace with Supabase call later)
-async function getProducts(): Promise<MetalProduct[]> {
-    // Simulate delay
-    await new Promise(resolve => setTimeout(resolve, 500))
-    return MOCK_PRODUCTS
-}
+export const metadata: Metadata = {
+    title: "Ürün Kataloğu | VERAL Metal Ürünler & Endüstriyel Levhalar",
+    description: "VERAL metal ürün kataloğu; endüstriyel levhalar, borular ve özel üretim metal parçalar. İzmir Alsancak güvencesiyle yüksek kalite standartları.",
+};
 
+import { getProducts } from "@/lib/actions/metal-products.actions"
 import { ProductGrid } from "@/components/product/ProductGrid"
 import { Button } from "@/components/ui/button"
 
 export default async function ProductsPage() {
-    const products = await getProducts()
+    const { data: products } = await getProducts()
+
 
     return (
         <div className="min-h-screen bg-background">
@@ -39,7 +39,7 @@ export default async function ProductsPage() {
                     <Button variant="outline" className="rounded-full">Borular</Button>
                 </div>
 
-                <ProductGrid products={products} />
+                <ProductGrid products={products || []} />
             </div>
         </div>
     )

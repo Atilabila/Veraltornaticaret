@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     return {
-        title: `${service.name} | B2B Hizmetler`,
-        description: service.shortDescription,
+        title: `${service.name} | İzmir Alsancak B2B Hizmetler`,
+        description: `${service.shortDescription} İzmir Alsancak merkezli profesyonel çözümler.`,
     };
 }
 

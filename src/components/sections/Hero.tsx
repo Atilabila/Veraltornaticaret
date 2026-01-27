@@ -44,13 +44,13 @@ export const Hero = () => {
                     >
                         <h1 className="text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] font-black leading-[0.8] tracking-tighter uppercase flex flex-col">
                             <span className="text-black">YAŞAM</span>
-                            <span className="text-gold-gradient italic font-serif opacity-80 pl-4 md:pl-8">ALANINIZ</span>
+                            <span className="text-gold-metal pl-4 md:pl-8">ALANINIZ</span>
                             <div className="flex items-baseline gap-4">
                                 <span className="text-black opacity-80">İÇİN</span>
                                 <span className="text-black">YENİ</span>
                             </div>
-                            <span className="text-gold-gradient italic font-serif opacity-80">NESİL</span>
-                            <span className="text-gold-gradient italic font-serif opacity-80 pl-8 md:pl-16">DEKOR</span>
+                            <span className="text-gold-metal">NESİL</span>
+                            <span className="text-gold-metal pl-8 md:pl-16">DEKOR</span>
                         </h1>
                     </motion.div>
 

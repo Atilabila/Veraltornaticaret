@@ -113,11 +113,15 @@ export type Database = {
                     customer_name: string
                     customer_email: string
                     customer_phone: string
-                    shipping_address: string
-                    total_amount: number
-                    total_price: number | null
-                    email: string | null
-                    status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+                    shipping_address: Json
+                    subtotal: number
+                    shipping_cost: number
+                    total: number
+                    payment_method: string
+                    payment_status: string
+                    status: string
+                    synced_from_local: boolean | null
+                    sync_error: string | null
                     created_at: string
                     updated_at: string
                 }
@@ -127,22 +131,33 @@ export type Database = {
                     customer_name: string
                     customer_email: string
                     customer_phone: string
-                    shipping_address: string
-                    total_amount: number
-                    total_price?: number | null
-                    email?: string | null
-                    status?: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+                    shipping_address: Json
+                    subtotal: number
+                    shipping_cost: number
+                    total: number
+                    payment_method: string
+                    payment_status?: string
+                    status?: string
+                    synced_from_local?: boolean | null
+                    sync_error?: string | null
                     created_at?: string
                     updated_at?: string
                 }
                 Update: {
                     id?: string
+                    order_number?: string
                     customer_name?: string
                     customer_email?: string
                     customer_phone?: string
-                    shipping_address?: string
-                    total_amount?: number
-                    status?: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+                    shipping_address?: Json
+                    subtotal?: number
+                    shipping_cost?: number
+                    total?: number
+                    payment_method?: string
+                    payment_status?: string
+                    status?: string
+                    synced_from_local?: boolean | null
+                    sync_error?: string | null
                     created_at?: string
                     updated_at?: string
                 }
@@ -151,34 +166,91 @@ export type Database = {
                 Row: {
                     id: string
                     order_id: string
-                    product_id: string | null
-                    product_slug: string | null
-                    quantity: number
+                    product_id: string
+                    product_slug: string
+                    product_name: string
+                    size: string
+                    orientation: string
                     unit_price: number
-                    price: number | null
-                    size: string | null
-                    orientation: string | null
+                    quantity: number
+                    subtotal: number
                     created_at: string
                 }
                 Insert: {
                     id?: string
                     order_id: string
-                    product_id?: string | null
-                    product_slug?: string | null
-                    quantity: number
+                    product_id: string
+                    product_slug: string
+                    product_name: string
+                    size: string
+                    orientation: string
                     unit_price: number
-                    price?: number | null
-                    size?: string | null
-                    orientation?: string | null
+                    quantity?: number
+                    subtotal: number
                     created_at?: string
                 }
                 Update: {
                     id?: string
                     order_id?: string
                     product_id?: string
-                    quantity?: number
+                    product_slug?: string
+                    product_name?: string
+                    size?: string
+                    orientation?: string
                     unit_price?: number
+                    quantity?: number
+                    subtotal?: number
                     created_at?: string
+                }
+            }
+            quotes: {
+                Row: {
+                    id: string
+                    quote_number: string
+                    full_name: string
+                    company: string | null
+                    email: string
+                    phone: string
+                    service_type: string
+                    description: string
+                    file_metadata: Json | null
+                    status: string
+                    synced_from_local: boolean | null
+                    sync_error: string | null
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    quote_number: string
+                    full_name: string
+                    company?: string | null
+                    email: string
+                    phone: string
+                    service_type: string
+                    description: string
+                    file_metadata?: Json | null
+                    status?: string
+                    synced_from_local?: boolean | null
+                    sync_error?: string | null
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    quote_number?: string
+                    full_name?: string
+                    company?: string | null
+                    email?: string
+                    phone?: string
+                    service_type?: string
+                    description?: string
+                    file_metadata?: Json | null
+                    status?: string
+                    synced_from_local?: boolean | null
+                    sync_error?: string | null
+                    created_at?: string
+                    updated_at?: string
                 }
             }
             site_content: {

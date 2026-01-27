@@ -143,6 +143,8 @@ export default function TeklifAlPage() {
         return Object.keys(newErrors).length === 0;
     };
 
+    const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
+
     // Submit handler
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -152,8 +154,12 @@ export default function TeklifAlPage() {
         }
 
         setIsSubmitting(true);
+        setUploadStatus('idle');
+
+        let uploadSuccess = true; // Declare uploadSuccess here
 
         try {
+            // 1. Create quote in local state + trigger silent sync
             const quote = createQuote({
                 fullName: fullName.trim(),
                 company: company.trim() || undefined,
@@ -164,13 +170,45 @@ export default function TeklifAlPage() {
                 fileMetadata: fileMetadata || undefined,
             });
 
-            // Clear draft
+            // 2. Clear draft
             if (typeof window !== 'undefined') {
                 localStorage.removeItem('metal-poster-quote-draft');
             }
 
+            // 3. Handle Actual File Upload (MP-09)
+            const fileInput = document.getElementById('file') as HTMLInputElement;
+            const file = fileInput?.files?.[0];
+
+            if (file && fileMetadata) {
+                setUploadStatus('uploading');
+
+                const { uploadQuoteAttachment, recordQuoteAttachment } = await import('@/lib/supabase/storage');
+
+                const uploadResult = await uploadQuoteAttachment(quote.referenceNumber, file);
+
+                if (uploadResult.success && uploadResult.path) {
+                    const recordRes = await recordQuoteAttachment({
+                        quoteReference: quote.referenceNumber,
+                        filePath: uploadResult.path,
+                        fileName: file.name,
+                        fileType: file.type || 'application/octet-stream',
+                        fileSize: file.size
+                    });
+
+                    if (recordRes) {
+                        setUploadStatus('success');
+                    } else {
+                        setUploadStatus('error');
+                        uploadSuccess = false;
+                    }
+                } else {
+                    setUploadStatus('error');
+                    uploadSuccess = false;
+                }
+            }
+
             // Redirect to success page
-            router.push(`/teklif-al/basarili?ref=${quote.referenceNumber}`);
+            router.push(`/teklif-al/basarili?ref=${quote.referenceNumber}${file ? `&upload=${uploadSuccess ? 'ok' : 'fail'}` : ''}`);
         } catch (error) {
             console.error('Quote submission error:', error);
             setErrors({ submit: 'Bir hata oluştu. Lütfen tekrar deneyin.' });
@@ -320,7 +358,7 @@ export default function TeklifAlPage() {
                                     {errors.description && <p className="text-red-500 font-mono text-xs mt-1">{errors.description}</p>}
                                 </div>
 
-                                {/* MP-07: Single File Upload (Metadata Only) */}
+                                {/* MP-09: Single File Upload */}
                                 <div>
                                     <label htmlFor="file" className="block font-mono font-bold text-sm mb-2">
                                         TEKNİK ÇİZİM / FOTOĞRAF
@@ -340,9 +378,14 @@ export default function TeklifAlPage() {
                                             </p>
                                         </div>
                                     ) : (
-                                        <div className="flex items-center justify-between bg-black/5 p-4 border-4 border-black">
+                                        <div className={`flex items-center justify-between p-4 border-4 border-black ${uploadStatus === 'error' ? 'bg-red-50' : 'bg-black/5'}`}>
                                             <div className="flex-1 min-w-0">
-                                                <p className="font-mono text-sm font-bold truncate">{fileMetadata.fileName}</p>
+                                                <div className="flex items-center gap-2">
+                                                    <p className="font-mono text-sm font-bold truncate">{fileMetadata.fileName}</p>
+                                                    {uploadStatus === 'success' && <span className="text-green-500 text-xs font-bold text-[10px] uppercase">YÜKLENDİ</span>}
+                                                    {uploadStatus === 'uploading' && <span className="text-blue-500 text-xs font-bold animate-pulse text-[10px] uppercase">YÜKLENİYOR...</span>}
+                                                    {uploadStatus === 'error' && <span className="text-red-500 text-xs font-bold text-[10px] uppercase">HATA!</span>}
+                                                </div>
                                                 <p className="font-mono text-xs text-black/60">
                                                     {(fileMetadata.fileSize / 1024).toFixed(1)} KB
                                                 </p>
@@ -350,6 +393,7 @@ export default function TeklifAlPage() {
                                             <button
                                                 type="button"
                                                 onClick={removeFile}
+                                                disabled={isSubmitting}
                                                 className="ml-4 text-red-500 hover:text-red-700 font-bold"
                                             >
                                                 ✕
@@ -358,21 +402,14 @@ export default function TeklifAlPage() {
                                     )}
 
                                     {errors.file && <p className="text-red-500 font-mono text-xs mt-1">{errors.file}</p>}
-
-                                    {/* MP-07 Info Message */}
-                                    {fileMetadata && (
-                                        <p className="text-xs font-mono mt-2 bg-blue-50 border-2 border-blue-200 p-2 text-blue-900">
-                                            Dosya bilgisi kaydedildi. Dosyanız teklif sırasında ekibimizle güvenli şekilde paylaşılacaktır.
-                                        </p>
-                                    )}
                                 </div>
                             </div>
                         </div>
 
-                        {/* Trust Message (MP-07 LOCKED COPY) */}
+                        {/* Trust Message */}
                         <div className="bg-black/5 border-2 border-black p-4">
                             <p className="font-mono text-sm text-black/80">
-                                Bilgileriniz üçüncü kişilerle paylaşılmaz.
+                                Bilgileriniz üçüncü kişilerle paylaşılmaz. Teknik verileriniz endüstriyel gizlilik protokolü ile korunur.
                             </p>
                         </div>
 
@@ -388,7 +425,8 @@ export default function TeklifAlPage() {
                             disabled={isSubmitting}
                             className="w-full bg-[var(--color-brand-safety-orange)] text-black py-4 px-6 font-mono font-black text-lg uppercase border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {isSubmitting ? 'GÖNDERİLİYOR...' : 'TEKLİF TALEBİ GÖNDER →'}
+                            {uploadStatus === 'uploading' ? 'DOSYA YÜKLENİYOR...' :
+                                isSubmitting ? 'İŞLENİYOR...' : 'TEKLİF TALEBİ GÖNDER →'}
                         </button>
                     </form>
                 </div>

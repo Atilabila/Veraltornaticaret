@@ -18,6 +18,18 @@ export const Navigation = () => {
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
+
+        // Start background sync service
+        const initSync = async () => {
+            try {
+                const { startBackgroundSync } = await import('@/lib/sync/syncService');
+                startBackgroundSync();
+            } catch (error) {
+                console.error('[SYNC] Failed to initialize sync service:', error);
+            }
+        };
+        initSync();
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 

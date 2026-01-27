@@ -54,7 +54,7 @@ export const ShowcaseGrid = () => {
                             className="text-4xl md:text-6xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-[0.9] mb-4 font-display max-w-4xl"
                         >
                             ENDÜSTRİYEL <br />
-                            <span className="text-gold-gradient italic opacity-90 pl-8 md:pl-16">Kabiliyetler</span>
+                            <span className="text-gold-metal italic pl-8 md:pl-16">Kabiliyetler</span>
                         </motion.h2>
                     </div>
 

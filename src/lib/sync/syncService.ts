@@ -54,8 +54,6 @@ function setSyncStatus(status: Partial<SyncStatus>): void {
 
 export async function syncOrderToSupabase(orderData: any): Promise<boolean> {
     try {
-        const supabase = createClient();
-
         // Transform localStorage order to DB format
         const dbOrder = {
             order_number: orderData.orderNumber,
@@ -63,20 +61,21 @@ export async function syncOrderToSupabase(orderData: any): Promise<boolean> {
             customer_email: orderData.customerInfo.email,
             customer_phone: orderData.customerInfo.phone,
             shipping_address: orderData.shippingAddress,
-            subtotal: orderData.subtotal,
-            shipping_cost: orderData.shippingCost,
-            total: orderData.total,
+            subtotal: Number(orderData.subtotal),
+            shipping_cost: Number(orderData.shippingCost),
+            total: Number(orderData.total),
             payment_method: orderData.paymentMethod,
             payment_status: orderData.paymentStatus || 'pending',
             status: orderData.status || 'pending',
             synced_from_local: true,
+            sync_error: null,
             created_at: orderData.createdAt,
             updated_at: orderData.updatedAt || orderData.createdAt,
         };
 
         // Upsert order (idempotent - won't create duplicates)
-        const { data: order, error: orderError } = await supabase
-            .from('orders')
+        const { data: order, error: orderError } = await (supabase
+            .from('orders') as any)
             .upsert(dbOrder, {
                 onConflict: 'order_number',
                 ignoreDuplicates: false,
@@ -89,6 +88,11 @@ export async function syncOrderToSupabase(orderData: any): Promise<boolean> {
             return false;
         }
 
+        if (!order) {
+            console.error('[SYNC] Order sync returned no data');
+            return false;
+        }
+
         // Sync order items
         if (orderData.items && orderData.items.length > 0) {
             const dbItems = orderData.items.map((item: any) => ({
@@ -98,16 +102,16 @@ export async function syncOrderToSupabase(orderData: any): Promise<boolean> {
                 product_name: item.name,
                 size: item.size,
                 orientation: item.orientation,
-                unit_price: item.price,
-                quantity: item.quantity,
-                subtotal: item.price * item.quantity,
+                unit_price: Number(item.price),
+                quantity: Number(item.quantity),
+                subtotal: Number(item.price) * Number(item.quantity),
             }));
 
             // Delete existing items for this order (in case of re-sync)
-            await supabase.from('order_items').delete().eq('order_id', order.id);
+            await (supabase.from('order_items') as any).delete().eq('order_id', order.id);
 
             // Insert new items
-            const { error: itemsError } = await supabase.from('order_items').insert(dbItems);
+            const { error: itemsError } = await (supabase.from('order_items') as any).insert(dbItems);
 
             if (itemsError) {
                 console.error('[SYNC] Order items sync failed:', itemsError);
@@ -129,8 +133,6 @@ export async function syncOrderToSupabase(orderData: any): Promise<boolean> {
 
 export async function syncQuoteToSupabase(quoteData: any): Promise<boolean> {
     try {
-        const supabase = createClient();
-
         // Transform localStorage quote to DB format
         const dbQuote = {
             quote_number: quoteData.referenceNumber || quoteData.id,
@@ -143,13 +145,14 @@ export async function syncQuoteToSupabase(quoteData: any): Promise<boolean> {
             file_metadata: quoteData.fileMetadata || null,
             status: quoteData.status || 'pending',
             synced_from_local: true,
+            sync_error: null,
             created_at: quoteData.createdAt,
             updated_at: quoteData.updatedAt || quoteData.createdAt,
         };
 
         // Upsert quote (idempotent)
-        const { error } = await supabase
-            .from('quotes')
+        const { error } = await (supabase
+            .from('quotes') as any)
             .upsert(dbQuote, {
                 onConflict: 'quote_number',
                 ignoreDuplicates: false,

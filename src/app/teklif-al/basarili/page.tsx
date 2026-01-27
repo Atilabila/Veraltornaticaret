@@ -6,17 +6,19 @@ import Link from 'next/link';
 
 export default function TeklifBasariliPage() {
     const searchParams = useSearchParams();
+    const [uploadStatus, setUploadStatus] = useState<'ok' | 'fail' | null>(null);
     const [referenceNumber, setReferenceNumber] = useState<string>('');
 
     useEffect(() => {
         const ref = searchParams.get('ref');
-        if (ref) {
-            setReferenceNumber(ref);
-        }
+        const upload = searchParams.get('upload');
+        if (ref) setReferenceNumber(ref);
+        if (upload === 'ok') setUploadStatus('ok');
+        else if (upload === 'fail') setUploadStatus('fail');
     }, [searchParams]);
 
     return (
-        <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="min-h-screen bg-white flex items-center justify-center px-4 py-20">
             <div className="max-w-2xl w-full">
                 {/* Success Icon */}
                 <div className="text-center mb-8">
@@ -26,23 +28,35 @@ export default function TeklifBasariliPage() {
                         </svg>
                     </div>
                     <h1 className="font-[Archivo_Black] text-4xl uppercase mb-4">
-                        TALEBİNİZ ALINDI!
+                        {uploadStatus === 'fail' ? 'TALEP ALINDI (EKSİK)' : 'TALEBİNİZ ALINDI!'}
                     </h1>
                     <p className="font-mono text-lg text-black/80">
-                        Teklif talebiniz başarıyla kaydedildi.
+                        {uploadStatus === 'fail'
+                            ? 'Teklif talebiniz kaydedildi ancak dosya yüklenirken bir hata oluştu.'
+                            : 'Teklif talebiniz başarıyla kaydedildi.'}
                     </p>
                 </div>
 
+                {/* Upload Error Alert */}
+                {uploadStatus === 'fail' && (
+                    <div className="bg-red-50 border-4 border-red-500 p-6 mb-8 font-mono">
+                        <p className="font-bold text-red-700 uppercase mb-2">⚠️ DOSYA YÜKLEME HATASI</p>
+                        <p className="text-sm text-red-600">
+                            Teknik çiziminiz sisteme yüklenemedi. Lütfen çiziminizi WhatsApp üzerinden referans numaranızla birlikte gönderin.
+                        </p>
+                    </div>
+                )}
+
                 {/* Reference Number */}
                 {referenceNumber && (
-                    <div className="bg-[var(--color-brand-safety-orange)] border-4 border-black p-6 mb-8">
+                    <div className="bg-[var(--color-brand-safety-orange)] border-4 border-black p-6 mb-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <div className="text-center">
                             <p className="font-mono text-sm uppercase mb-2">REFERANS NUMARANIZ</p>
                             <p className="font-[Archivo_Black] text-3xl tracking-wider">
                                 {referenceNumber}
                             </p>
                             <p className="font-mono text-xs mt-2">
-                                Bu numarayı not alın. İletişimde kullanılacaktır.
+                                Bizimle iletişime geçerken bu numarayı kullanın.
                             </p>
                         </div>
                     </div>

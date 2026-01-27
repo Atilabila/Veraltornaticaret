@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { SERVICES } from '@/data/services';
 
 export const metadata: Metadata = {
-    title: 'B2B Hizmetler | Metal İşleme & Özel Üretim',
-    description: 'CNC torna, özel metal üretim, seri imalat ve metal etiket hizmetleri. Endüstriyel kalite, hassas toleranslar.',
+    title: 'B2B Hizmetler | İzmir Alsancak Metal İşleme & Özel Üretim',
+    description: 'İzmir Alsancak merkezli CNC torna, özel metal üretim, seri imalat ve metal etiket hizmetleri. Endüstriyel kalite, hassas toleranslar.',
 };
 
 export default function HizmetlerPage() {
@@ -16,13 +16,13 @@ export default function HizmetlerPage() {
             <section className="bg-black text-white py-20 px-4">
                 <div className="max-w-6xl mx-auto">
                     <div className="inline-block bg-[var(--color-brand-safety-orange)] text-black px-4 py-1 font-mono font-black text-xs uppercase mb-4">
-                        B2B HİZMETLER
+                        B2B HİZMETLER — İZMİR ALSANCAK
                     </div>
                     <h1 className="font-[Archivo_Black] text-4xl md:text-6xl uppercase mb-6">
                         ENDÜSTRİYEL METAL<br />İŞLEME HİZMETLERİ
                     </h1>
                     <p className="font-mono text-lg text-white/80 max-w-2xl">
-                        CNC torna, özel metal üretim, seri imalat. Hassas toleranslar, zamanında teslimat.
+                        İzmir Alsancak tesislerimizde CNC torna, özel metal üretim ve seri imalat çözümleri sunuyoruz. Hassas toleranslar, kurumsal disiplin.
                     </p>
                 </div>
             </section>

@@ -1,26 +1,28 @@
-import { createClient } from '@supabase/supabase-js';
-import type { Database } from './database.types';
+import "server-only";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "./database.types";
 
-// WARNING: This client uses the SERVICE_ROLE_KEY and has full admin access.
-// It should ONLY be used in Server Components, Server Actions, or API Routes.
-// NEVER use this on the client side.
+/**
+ * Creates a Supabase client with SERVICE_ROLE privileges.
+ * 
+ * ⚠️ WARNING: This client bypasses ALL RLS policies.
+ * Only use in Server Components, Server Actions, or API Routes.
+ * NEVER import this in client-side code.
+ */
+export function createAdminSupabaseClient() {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-if (!supabaseUrl || !supabaseServiceKey) {
-    if (process.env.NODE_ENV === 'development') {
-        console.warn('⚠️ Missing Supabase Admin Keys. Admin actions will fail.');
+    if (!url || !serviceRole) {
+        throw new Error(
+            "Missing Supabase credentials. Ensure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set."
+        );
     }
-}
 
-export const supabaseAdmin = createClient<Database>(
-    supabaseUrl || 'https://placeholder.supabase.co',
-    supabaseServiceKey || 'placeholder',
-    {
+    return createClient<Database>(url, serviceRole, {
         auth: {
-            autoRefreshToken: false,
             persistSession: false,
+            autoRefreshToken: false,
         },
-    }
-);
+    });
+}

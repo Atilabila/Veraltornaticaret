@@ -35,8 +35,12 @@ export const Footer = () => {
                             </div>
                         </Link>
                         <p className="text-[#FDFBF7]/60 text-lg leading-relaxed max-w-sm">
-                            Yaşam alanlarınıza değer katan, el yapımı titizliğinde üretilen premium metal sanat eserleri.
+                            Endüstriyel metal üretiminde İzmir Alsancak merkezli, yarım asırlık tecrübe ve modern teknoloji ile çözüm ortağınız.
                         </p>
+                        <div className="flex flex-col gap-2">
+                            <span className="text-[10px] font-black text-[#D4AF37] tracking-[0.2em] uppercase">MERKEZ & ATÖLYE</span>
+                            <span className="text-sm font-bold text-white/80">Alsancak, İzmir / TÜRKİYE</span>
+                        </div>
                         {/* SOCIAL ICONS */}
                         <div className="flex gap-6">
                             {[Instagram, Facebook, Twitter].map((Icon, i) => (

@@ -55,7 +55,7 @@ export const ProductGallery = () => {
                             <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Seçkin Katalog</span>
                         </div>
                         <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                            Trend <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Eserler</span>
+                            Trend <span className="text-gold-metal normal-case tracking-normal">Eserler</span>
                         </h2>
                         <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">Sadece metal değil; her biri titizlikle tasarlanmış bir sanat parçası.</p>
                     </div>
@@ -117,7 +117,7 @@ export const ProductGallery = () => {
                                     </span>
                                 </div>
                                 <Link href={`/urunler/${product.slug}`}>
-                                    <h3 className="text-3xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-none italic group-hover:text-gold-rich transition-colors">
+                                    <h3 className="text-3xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-none italic group-hover:text-gold-metal transition-colors">
                                         {product.name}
                                     </h3>
                                 </Link>

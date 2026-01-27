@@ -65,16 +65,12 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
             const products = dbProducts.map(mapDbToProduct);
             set({ products, loading: false });
         } catch (error) {
-            console.warn('Supabase fetch failed, using static products as fallback');
-            try {
-                const { PRODUCTS } = await import('@/lib/products');
-                set({ products: PRODUCTS, loading: false, error: null });
-            } catch (fallbackError) {
-                set({
-                    error: error instanceof Error ? error.message : 'Failed to fetch products',
-                    loading: false
-                });
-            }
+            console.error('Fetch products failed:', error);
+            set({
+                error: error instanceof Error ? error.message : 'Failed to fetch products',
+                loading: false,
+                products: [] // Ensure products is empty on error
+            });
         }
     },
 

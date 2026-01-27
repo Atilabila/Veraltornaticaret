@@ -18,7 +18,7 @@ export const GalleryShowcase = () => {
                         <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">MEKAN ANALİZİ</span>
                     </div>
                     <h2 className="text-4xl lg:text-6xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                        ESTETİK <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">VE MEKAN</span>
+                        ESTETİK <span className="text-gold-metal normal-case tracking-normal">VE MEKAN</span>
                     </h2>
                     <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">IŞIK VE FORMUN DEKORASYONLA UYUMUNU GÖRÜN.</p>
                 </div>

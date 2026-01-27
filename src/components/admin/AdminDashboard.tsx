@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     LayoutDashboard, Package, FileText, Settings, LogOut, Plus,
     Pencil, Trash2, Save, X, Search, ChevronDown, ChevronUp,
-    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye
+    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye, ShieldCheck
 } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
@@ -13,21 +13,30 @@ import { useContentStore, SiteContent } from "@/store/useContentStore";
 import { Product } from "@/lib/products";
 import { ImageUploader } from "./ImageUploader";
 import type { Category } from "@/lib/supabase/categories.service";
+import { AdminLogoutButton } from "./AdminLogoutButton";
+import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
+import { User } from "@supabase/supabase-js";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogDescription,
-} from "@/components/ui/Dialog";
+} from "@/components/ui/dialog";
 
 export const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState("content");
     const [notification, setNotification] = useState<{ type: "success" | "error"; message: string } | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const { fetchContent } = useContentStore();
 
-    // Fetch content from Supabase on mount
     useEffect(() => {
+        const getUser = async () => {
+            const supabase = createBrowserSupabaseClient();
+            const { data: { user } } = await supabase.auth.getUser();
+            setUser(user);
+        };
+        getUser();
         fetchContent();
     }, [fetchContent]);
 
@@ -125,12 +134,33 @@ export const AdminDashboard = () => {
                         active={activeTab === "orders"}
                         onClick={() => setActiveTab("orders")}
                     />
+                    <SidebarItem
+                        icon={<FileText className="w-5 h-5" />}
+                        label="Teklifler"
+                        active={activeTab === "quotes"}
+                        onClick={() => setActiveTab("quotes")}
+                    />
+                    <SidebarItem
+                        icon={<ShieldCheck className="w-5 h-5" />}
+                        label="Audit Logs"
+                        active={activeTab === "logs"}
+                        onClick={() => setActiveTab("logs")}
+                    />
                 </nav>
 
                 <div className="mt-auto space-y-2 border-t border-white/5 pt-6">
-                    <a href="/" className="w-full block">
-                        <SidebarItem icon={<LogOut className="w-5 h-5" />} label="Siteye Dön" className="text-blue-400 hover:bg-blue-500/10" />
+                    {user && (
+                        <div className="px-4 py-3 mb-2 bg-white/5 rounded-xl border border-white/5">
+                            <p className="text-[10px] text-slate-500 uppercase font-black mb-1">OTURUM AÇIK</p>
+                            <p className="text-xs font-mono font-bold truncate text-[var(--color-brand-safety-orange)]">{user.email}</p>
+                        </div>
+                    )}
+                    <a href="/" target="_blank" className="w-full block">
+                        <SidebarItem icon={<Home className="w-5 h-5" />} label="Siteyi Görüntüle" className="text-blue-400 hover:bg-blue-500/10" />
                     </a>
+                    <div className="px-4">
+                        <AdminLogoutButton />
+                    </div>
                 </div>
             </aside>
 
@@ -145,6 +175,8 @@ export const AdminDashboard = () => {
                 {activeTab === "products" && <ProductsTab showNotification={showNotification} />}
                 {activeTab === "categories" && <CategoriesTab showNotification={showNotification} />}
                 {activeTab === "orders" && <OrdersTab showNotification={showNotification} />}
+                {activeTab === "quotes" && <QuotesTab showNotification={showNotification} />}
+                {activeTab === "logs" && <AuditLogsTab />}
             </main>
         </div>
     );
@@ -1374,7 +1406,6 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                // Dynamically import Server Actions to avoid build issues if mixed
                 const { getAdminOrders, getAdminOrderStats } = await import('@/actions/admin');
                 const [ordersRes, statsRes] = await Promise.all([
                     getAdminOrders(),
@@ -1393,7 +1424,7 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
 
             } catch (error) {
                 console.error("Failed to fetch orders:", error);
-                showNotification("error", "Siparişler yüklenemedi! (Veritabanı bağlantısını kontrol edin)");
+                showNotification("error", "Siparişler yüklenemedi!");
             } finally {
                 setLoading(false);
             }
@@ -1428,7 +1459,6 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                 </div>
             </header>
 
-            {/* Stats Dashboard */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <StatCard label="TOPLAM SİPARİŞ" value={stats?.total || 0} icon={<ShoppingCart className="w-5 h-5 text-blue-400" />} />
                 <StatCard label="BEKLEYEN" value={stats?.pending || 0} icon={<Activity className="w-5 h-5 text-yellow-400" />} />
@@ -1436,12 +1466,11 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                 <StatCard label="TOPLAM CİRO" value={`₺${stats?.totalRevenue?.toLocaleString() || 0}`} icon={<Save className="w-5 h-5 text-purple-400" />} />
             </div>
 
-            {/* Orders Table */}
             <div className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden">
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="bg-slate-800/50 text-slate-400 font-mono text-xs uppercase tracking-widest border-b border-slate-800">
-                            <th className="p-4">SİPARİŞ ID</th>
+                            <th className="p-4">SİPARİŞ ID / NO</th>
                             <th className="p-4">MÜŞTERİ</th>
                             <th className="p-4">TUTAR</th>
                             <th className="p-4">DURUM</th>
@@ -1452,12 +1481,15 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                     <tbody className="text-sm">
                         {orders.map((order) => (
                             <tr key={order.id} className="border-b border-slate-800 hover:bg-white/5 transition-colors">
-                                <td className="p-4 font-mono font-bold text-blue-400">#{order.id.slice(0, 8)}</td>
+                                <td className="p-4 font-mono">
+                                    <div className="font-bold text-blue-400">{order.order_number || `#${order.id.slice(0, 8)}`}</div>
+                                    {order.synced_from_local && <div className="text-[9px] text-slate-600 uppercase">SYNC_OK</div>}
+                                </td>
                                 <td className="p-4">
                                     <div className="font-bold">{order.customer_name}</div>
                                     <div className="text-xs text-slate-500">{order.customer_email}</div>
                                 </td>
-                                <td className="p-4 font-bold text-lg">₺{order.total_amount}</td>
+                                <td className="p-4 font-bold text-lg">₺{order.total}</td>
                                 <td className="p-4">
                                     <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${order.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' :
                                         order.status === 'delivered' ? 'bg-green-500/10 text-green-500 border border-green-500/20' :
@@ -1501,7 +1533,7 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
             </div>
 
             {/* Order Detail Modal */}
-            <Dialog open={!!selectedOrder} onOpenChange={(open) => !open && setSelectedOrder(null)}>
+            <Dialog open={!!selectedOrder} onOpenChange={(open: any) => !open && setSelectedOrder(null)}>
                 <DialogContent className="max-w-2xl bg-slate-900 border-slate-800 text-white max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-2xl font-black font-mono">
@@ -1518,12 +1550,21 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                                 <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
                                     <h4 className="text-xs font-black text-slate-500 uppercase mb-2">Müşteri Bilgileri</h4>
                                     <p className="font-bold">{selectedOrder.customer_name}</p>
-                                    <p className="text-sm text-slate-400">{selectedOrder.customer_email || selectedOrder.email}</p>
+                                    <p className="text-sm text-slate-400">{selectedOrder.customer_email}</p>
                                     <p className="text-sm text-slate-400">{selectedOrder.customer_phone}</p>
                                 </div>
                                 <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
                                     <h4 className="text-xs font-black text-slate-500 uppercase mb-2">Teslimat Adresi</h4>
-                                    <p className="text-sm leading-relaxed">{selectedOrder.shipping_address}</p>
+                                    <div className="text-sm leading-relaxed text-slate-300">
+                                        {typeof selectedOrder.shipping_address === 'object' ? (
+                                            <>
+                                                <p>{selectedOrder.shipping_address.street}</p>
+                                                <p>{selectedOrder.shipping_address.district} / {selectedOrder.shipping_address.city}</p>
+                                            </>
+                                        ) : (
+                                            <p>{selectedOrder.shipping_address}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
@@ -1531,7 +1572,7 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                                 <table className="w-full text-left">
                                     <thead className="bg-slate-800 text-xs font-mono uppercase text-slate-500">
                                         <tr>
-                                            <th className="p-3">Ürün (Slug)</th>
+                                            <th className="p-3">Ürün Snapshot</th>
                                             <th className="p-3">Özellikler</th>
                                             <th className="p-3 text-center">Adet</th>
                                             <th className="p-3 text-right">Fiyat</th>
@@ -1540,20 +1581,31 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                                     <tbody className="text-sm">
                                         {selectedOrder.order_items?.map((item: any, idx: number) => (
                                             <tr key={idx} className="border-t border-slate-700/50">
-                                                <td className="p-3 font-bold">{item.product_slug}</td>
+                                                <td className="p-3">
+                                                    <div className="font-bold">{item.product_name || item.product_slug}</div>
+                                                    <div className="text-[10px] text-slate-500">{item.product_id}</div>
+                                                </td>
                                                 <td className="p-3 text-xs text-slate-400">
                                                     {item.size && <span>{item.size}</span>}
                                                     {item.orientation && <span> • {item.orientation}</span>}
                                                 </td>
                                                 <td className="p-3 text-center">{item.quantity}</td>
-                                                <td className="p-3 text-right">₺{item.unit_price || item.price}</td>
+                                                <td className="p-3 text-right">₺{item.unit_price}</td>
                                             </tr>
                                         ))}
                                     </tbody>
                                     <tfoot>
                                         <tr className="bg-slate-800/30">
+                                            <td colSpan={3} className="p-3 text-right font-bold uppercase text-xs text-slate-500">Ara Toplam</td>
+                                            <td className="p-3 text-right font-bold text-slate-300">₺{selectedOrder.subtotal}</td>
+                                        </tr>
+                                        <tr className="bg-slate-800/30">
+                                            <td colSpan={3} className="p-3 text-right font-bold uppercase text-xs text-slate-500">Kargo</td>
+                                            <td className="p-3 text-right font-bold text-slate-300">₺{selectedOrder.shipping_cost}</td>
+                                        </tr>
+                                        <tr className="bg-slate-800/30">
                                             <td colSpan={3} className="p-3 text-right font-bold uppercase text-xs text-slate-500">Toplam</td>
-                                            <td className="p-3 text-right font-black text-lg text-green-400">₺{selectedOrder.total_amount || selectedOrder.total_price}</td>
+                                            <td className="p-3 text-right font-black text-lg text-green-400">₺{selectedOrder.total}</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -1566,6 +1618,254 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                                 >
                                     KAPAT
                                 </button>
+                            </div>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
+        </div>
+    );
+};
+
+// ========== QUOTES TAB ==========
+const QuotesTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
+    const [quotes, setQuotes] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [stats, setStats] = useState<any>(null);
+    const [selectedQuote, setSelectedQuote] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchQuotes = async () => {
+            try {
+                const { getAdminQuotes, getAdminQuoteStats } = await import('@/actions/admin');
+                const [quotesRes, statsRes] = await Promise.all([
+                    getAdminQuotes(),
+                    getAdminQuoteStats()
+                ]);
+
+                if (quotesRes.success) {
+                    setQuotes(quotesRes.data || []);
+                } else {
+                    throw new Error(quotesRes.error);
+                }
+
+                if (statsRes.success) {
+                    setStats(statsRes.data);
+                }
+
+            } catch (error) {
+                console.error("Failed to fetch quotes:", error);
+                showNotification("error", "Teklifler yüklenemedi!");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchQuotes();
+    }, [showNotification]);
+
+    const handleStatusUpdate = async (quoteId: string, newStatus: any) => {
+        try {
+            const { updateAdminQuoteStatus } = await import('@/actions/admin');
+            const result = await updateAdminQuoteStatus(quoteId, newStatus);
+
+            if (result.success) {
+                setQuotes(quotes.map(q => q.id === quoteId ? { ...q, status: newStatus } : q));
+                showNotification("success", "Teklif durumu güncellendi!");
+            } else {
+                throw new Error(result.error);
+            }
+        } catch (error) {
+            showNotification("error", "Durum güncellenemedi!");
+        }
+    };
+
+    if (loading) return <div className="text-center py-20 font-mono text-slate-500">TEKNİK SERVİS VERİLERİ ÇEKİLİYOR...</div>;
+
+    return (
+        <div className="space-y-8">
+            <header className="flex justify-between items-center">
+                <div>
+                    <h1 className="text-3xl font-bold italic tracking-tighter">B2B TEKLİF YÖNETİMİ</h1>
+                    <p className="text-slate-500 mt-1">Endüstriyel hizmet ve üretim talepleri</p>
+                </div>
+            </header>
+
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <StatCard label="TOPLAM TALEP" value={stats?.total || 0} icon={<FileText className="w-5 h-5 text-blue-400" />} />
+                <StatCard label="BEKLEYEN" value={stats?.pending || 0} icon={<Activity className="w-5 h-5 text-yellow-500" />} />
+                <StatCard label="TAMAMLANAN" value={stats?.completed || 0} icon={<Check className="w-5 h-5 text-green-400" />} />
+                <StatCard label="İPTAL/RED" value={stats?.cancelled || 0} icon={<X className="w-5 h-5 text-red-500" />} />
+            </div>
+
+            {/* Quotes Table */}
+            <div className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden">
+                <table className="w-full text-left border-collapse">
+                    <thead>
+                        <tr className="bg-slate-800/50 text-slate-400 font-mono text-[10px] uppercase tracking-[0.2em] border-b border-slate-800">
+                            <th className="p-4">REFERANS NO</th>
+                            <th className="p-4">FİRMA / YETKİLİ</th>
+                            <th className="p-4">HİZMET TİPİ</th>
+                            <th className="p-4">DURUM</th>
+                            <th className="p-4 text-right">EYLEM</th>
+                        </tr>
+                    </thead>
+                    <tbody className="text-sm">
+                        {quotes.map((quote) => (
+                            <tr key={quote.id} className="border-b border-slate-800 hover:bg-white/5 transition-colors">
+                                <td className="p-4 font-mono">
+                                    <div className="font-bold text-yellow-500">{quote.quote_number}</div>
+                                    <div className="text-[9px] text-slate-600">{new Date(quote.created_at).toLocaleString('tr-TR')}</div>
+                                </td>
+                                <td className="p-4">
+                                    <div className="font-bold">{quote.company || "ŞAHIS"}</div>
+                                    <div className="text-xs text-slate-400">{quote.full_name}</div>
+                                </td>
+                                <td className="p-4">
+                                    <div className="text-xs font-black uppercase text-slate-300 bg-slate-800 inline-block px-2 py-1 rounded">
+                                        {quote.service_type}
+                                    </div>
+                                </td>
+                                <td className="p-4">
+                                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${quote.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' :
+                                        quote.status === 'completed' || quote.status === 'sent' ? 'bg-green-500/10 text-green-500 border border-green-500/20' :
+                                            'bg-red-500/10 text-red-500 border border-red-500/20'
+                                        }`}>
+                                        {quote.status}
+                                    </span>
+                                </td>
+                                <td className="p-4 text-right flex items-center justify-end gap-2">
+                                    <button
+                                        onClick={() => setSelectedQuote(quote)}
+                                        className="p-2 hover:bg-yellow-500/20 text-yellow-500 rounded-lg transition-colors"
+                                        title="Talep Detaylarını Gör"
+                                    >
+                                        <Eye className="w-4 h-4" />
+                                    </button>
+                                    <select
+                                        value={quote.status}
+                                        onChange={(e) => handleStatusUpdate(quote.id, e.target.value)}
+                                        className="bg-slate-800 border border-slate-700 text-xs p-1 rounded-lg focus:outline-none"
+                                    >
+                                        <option value="pending">BEKLİYOR</option>
+                                        <option value="evaluating">İNCELENİYOR</option>
+                                        <option value="sent">TEKLİF GÖNDERİLDİ</option>
+                                        <option value="completed">ONAYLANDI</option>
+                                        <option value="rejected">REDDEDİLDİ</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {quotes.length === 0 && (
+                    <div className="p-20 text-center text-slate-500 font-mono uppercase italic tracking-widest">
+                        GÜNCEL TEKLİF TALEBİ BULUNMAMAKTADIR
+                    </div>
+                )}
+            </div>
+
+            {/* Quote Detail Modal */}
+            <Dialog open={!!selectedQuote} onOpenChange={(open: any) => !open && setSelectedQuote(null)}>
+                <DialogContent className="max-w-3xl bg-slate-900 border-slate-800 text-white max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-black font-mono tracking-tighter text-yellow-500 uppercase">
+                            TEKLİF DETAYI: {selectedQuote?.quote_number}
+                        </DialogTitle>
+                        <DialogDescription className="text-slate-400">
+                            B2B Servis Talebi ve Teknik Veriler
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    {selectedQuote && (
+                        <div className="space-y-6 mt-6">
+                            <div className="grid grid-cols-2 gap-6">
+                                <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+                                    <h4 className="text-[10px] font-black text-slate-500 uppercase mb-4 tracking-widest">Müşteri / Firma Bilgisi</h4>
+                                    <div className="space-y-3">
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold">Firma</p>
+                                            <p className="font-bold text-lg">{selectedQuote.company || "Bireysel Müşteri"}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold">Yetkili</p>
+                                            <p className="font-bold">{selectedQuote.full_name}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold">İletişim</p>
+                                            <p className="text-sm text-slate-300">{selectedQuote.email}</p>
+                                            <p className="text-sm text-slate-300">{selectedQuote.phone}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+                                    <h4 className="text-[10px] font-black text-slate-500 uppercase mb-4 tracking-widest">Hizmet Parametreleri</h4>
+                                    <div className="space-y-3">
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold">Hizmet Tipi</p>
+                                            <p className="font-bold text-[var(--color-brand-safety-orange)]">{selectedQuote.service_type}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold">Talep Tarihi</p>
+                                            <p className="font-bold">{new Date(selectedQuote.created_at).toLocaleString('tr-TR')}</p>
+                                        </div>
+                                        {selectedQuote.quote_attachments?.[0] ? (
+                                            <div>
+                                                <p className="text-[10px] text-slate-500 uppercase font-bold">Teknik Dosya</p>
+                                                <div className="flex items-center justify-between mt-1 bg-black/40 p-3 rounded-lg border border-slate-700">
+                                                    <div className="flex items-center gap-2">
+                                                        <FileText className="w-4 h-4 text-blue-400" />
+                                                        <span className="text-xs font-mono">{selectedQuote.quote_attachments[0].file_name}</span>
+                                                    </div>
+                                                    <button
+                                                        onClick={async () => {
+                                                            const { getQuoteSignedUrl } = await import('@/actions/admin');
+                                                            const res = await getQuoteSignedUrl(selectedQuote.quote_attachments[0].file_path);
+                                                            if (res.success && res.url) {
+                                                                window.open(res.url, '_blank');
+                                                            } else {
+                                                                showNotification("error", "Link oluşturulamadı!");
+                                                            }
+                                                        }}
+                                                        className="text-[10px] bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded font-black uppercase tracking-tighter"
+                                                    >
+                                                        DOSYAYI AÇ
+                                                    </button>
+                                                </div>
+                                                <p className="text-[9px] text-slate-500 mt-2 font-mono">
+                                                    BOYUT: {(selectedQuote.quote_attachments[0].file_size / 1024 / 1024).toFixed(2)} MB • {selectedQuote.quote_attachments[0].file_type}
+                                                </p>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <p className="text-[10px] text-slate-500 uppercase font-bold">Teknik Dosya</p>
+                                                <p className="text-xs text-slate-400 mt-1 italic">Dosya yüklenmedi.</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+                                <h4 className="text-[10px] font-black text-slate-500 uppercase mb-4 tracking-widest">Talep Açıklaması</h4>
+                                <div className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap bg-black/20 p-4 rounded-xl border border-slate-800">
+                                    {selectedQuote.description}
+                                </div>
+                            </div>
+
+                            <div className="flex justify-end gap-3 pt-4">
+                                <button
+                                    onClick={() => setSelectedQuote(null)}
+                                    className="px-6 py-3 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors font-black uppercase text-[10px] tracking-widest border border-slate-700"
+                                >
+                                    PENCEREYİ KAPAT
+                                </button>
+                                <a
+                                    href={`mailto:${selectedQuote.email}?subject=Veral Teknoloji - Teklif Talebiniz Hakkında (${selectedQuote.quote_number})`}
+                                    className="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl transition-colors font-black uppercase text-[10px] tracking-widest text-white flex items-center gap-2"
+                                >
+                                    İLETİŞİME GEÇ (E-POSTA)
+                                </a>
                             </div>
                         </div>
                     )}
@@ -1592,6 +1892,74 @@ const SidebarItem = ({ icon, label, active, onClick, className }: { icon: React.
         <span className="text-sm font-medium">{label}</span>
     </button>
 );
+
+// ========== AUDIT LOGS TAB ==========
+const AuditLogsTab = () => {
+    const [logs, setLogs] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchLogs = async () => {
+            const { getAdminLogs } = await import('@/actions/admin');
+            const res = await getAdminLogs();
+            if (res.success) setLogs(res.data);
+            setIsLoading(false);
+        };
+        fetchLogs();
+    }, []);
+
+    if (isLoading) return <div className="p-20 text-center font-mono animate-pulse uppercase tracking-widest text-slate-500">Loglar Yükleniyor...</div>;
+
+    return (
+        <div>
+            <header className="mb-8">
+                <h1 className="text-3xl font-bold">Audit Logs</h1>
+                <p className="text-slate-500 mt-1">Sistem üzerinde yapılan tüm yönetici işlemlerinin kaydı</p>
+            </header>
+
+            <div className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+                <table className="w-full text-left border-collapse">
+                    <thead>
+                        <tr className="bg-slate-800/50 text-slate-400 font-mono text-[10px] uppercase tracking-[0.2em] border-b border-slate-800">
+                            <th className="p-4">TARİH</th>
+                            <th className="p-4">ADMİN</th>
+                            <th className="p-4">EYLEM</th>
+                            <th className="p-4">VARLIK</th>
+                            <th className="p-4">IP / CİHAZ</th>
+                        </tr>
+                    </thead>
+                    <tbody className="text-xs">
+                        {logs.map((log) => (
+                            <tr key={log.id} className="border-b border-slate-800 hover:bg-white/5 transition-colors">
+                                <td className="p-4 font-mono text-slate-500">
+                                    {new Date(log.created_at).toLocaleString('tr-TR')}
+                                </td>
+                                <td className="p-4">
+                                    <div className="font-bold text-slate-300">{log.admin_email}</div>
+                                </td>
+                                <td className="p-4">
+                                    <span className="font-black text-[var(--color-brand-safety-orange)]">{log.action}</span>
+                                </td>
+                                <td className="p-4 text-slate-400">
+                                    {log.entity} <span className="text-[10px] bg-slate-800 px-1 rounded">{log.entity_id}</span>
+                                </td>
+                                <td className="p-4 text-[10px] text-slate-500 font-mono">
+                                    <div>{log.ip}</div>
+                                    <div className="truncate max-w-[200px]">{log.user_agent}</div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {logs.length === 0 && (
+                    <div className="p-20 text-center text-slate-500 font-mono uppercase italic tracking-widest">
+                        HENÜZ HİÇBİR İŞLEM KAYDEDİLMEMİŞ
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
 
 // ========== BRANDING TAB ==========
 const BrandingTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
