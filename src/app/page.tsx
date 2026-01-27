@@ -12,6 +12,7 @@ import { GalleryShowcase } from '@/components/sections/GalleryShowcase';
 import { CustomerReviews } from '@/components/sections/CustomerReviews';
 import { InstagramFeed } from '@/components/sections/InstagramFeed';
 import { ProcessSection } from '@/components/sections/ProcessSection';
+import { InstagramMarquee } from '@/components/sections/InstagramMarquee';
 import { LocalContactSection } from '@/components/sections/LocalContactSection';
 import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 
@@ -31,6 +32,11 @@ export default function HomePage() {
         <ShowcaseGrid />
       </section>
 
+      {/* INSTAGRAM_MARQUEE_FEED */}
+      <section className="bg-[#0A0A0A] relative z-20">
+        <InstagramMarquee />
+      </section>
+
       {/* PRODUCT_GALLERY */}
       <section className="bg-transparent relative z-10">
         <ProductGallery />
@@ -48,10 +54,10 @@ export default function HomePage() {
         <CustomerReviews />
       </section>
 
-      {/* COMMUNITY */}
-      <section className="bg-transparent relative z-10">
+      {/* COMMUNITY (OLD FEED - REMOVED) */}
+      {/* <section className="bg-transparent relative z-10">
         <InstagramFeed />
-      </section>
+      </section> */}
 
       {/* PROCESS_MATRIX */}
       <section className="bg-transparent relative z-10">

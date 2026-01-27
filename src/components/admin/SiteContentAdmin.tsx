@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Save, Loader2, Plus, Trash2 } from "lucide-react"
+import { Save, Loader2, Plus, Trash2, Instagram } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { InstagramAdmin } from "@/components/admin/InstagramAdmin"
 
 export const SiteContentAdmin = () => {
     const store = useContentStore()
@@ -71,6 +72,7 @@ export const SiteContentAdmin = () => {
                     <TabsTrigger value="hero" className="flex-1 min-w-[120px]">Hero Alanı</TabsTrigger>
                     <TabsTrigger value="features" className="flex-1 min-w-[120px]">Özellikler</TabsTrigger>
                     <TabsTrigger value="showcase" className="flex-1 min-w-[120px]">Vitrin</TabsTrigger>
+                    <TabsTrigger value="instagram" className="flex-1 min-w-[120px] text-[#E1306C] data-[state=active]:bg-[#E1306C] data-[state=active]:text-white">Instagram</TabsTrigger>
                     <TabsTrigger value="about" className="flex-1 min-w-[120px]">Hakkımızda</TabsTrigger>
                 </TabsList>
 
@@ -322,6 +324,22 @@ export const SiteContentAdmin = () => {
                                     />
                                 </div>
                             </div>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+
+                {/* INSTAGRAM */}
+                <TabsContent value="instagram">
+                    <Card className="bg-slate-900 border-white/10">
+                        <CardHeader>
+                            <CardTitle>Sosyal Medya Akışı</CardTitle>
+                            <CardDescription>
+                                @veralteneketicaret Instagram akışını buradan yönetebilirsiniz.
+                                "Ajanımız" veya siz buradan görsel eklediğinizde anasayfada otomatik olarak kayan yazı (marquee) şeklinde görünür.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <InstagramAdmin />
                         </CardContent>
                     </Card>
                 </TabsContent>
