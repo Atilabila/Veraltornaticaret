@@ -63,6 +63,10 @@ export interface SiteContent {
     footerPhone: string;
     footerEmail: string;
     footerInstagram: string;
+    footerMapLat: string;
+    footerMapLng: string;
+    footerMapZoom: number;
+    footerMapLink: string;
 
     // ===== WHATSAPP =====
     whatsappNumber: string;
@@ -76,6 +80,12 @@ export interface SiteContent {
     aboutStats: { label: string; value: string }[];
     aboutExploreText: string;
     aboutExploreUrl: string;
+    milestones: {
+        year: string;
+        title: string;
+        desc: string;
+        icon: string;
+    }[];
 
     // ===== PRODUCTS PAGE (URUNLER) =====
     productsPageTitle: string;
@@ -156,6 +166,14 @@ export interface SiteContent {
     }[];
     inquiryTitle: string;
     inquiryDescription: string;
+
+    // ===== SERVICE STATS =====
+    serviceStats: { value: string; label: string }[];
+
+    // ===== LEGAL PAGES =====
+    privacyPolicy: string;
+    termsOfService: string;
+    kvkkText: string;
 }
 
 interface ContentStore {
@@ -166,6 +184,8 @@ interface ContentStore {
     removeFaqItem: (index: number) => void;
     updateFeatureItem: (index: number, item: SiteContent["featureItems"][0]) => void;
     updateServiceItem: (index: number, item: SiteContent["serviceItems"][0]) => void;
+    addServiceItem: () => void;
+    removeServiceItem: (index: number) => void;
     updateAboutStat: (index: number, stat: { label: string; value: string }) => void;
 
     // Supabase Sync Methods
@@ -276,6 +296,10 @@ const defaultContent: SiteContent = {
     footerPhone: "+90 507 165 13 15",
     footerEmail: "LOG@VERAL.COM",
     footerInstagram: "@VERALTICARET",
+    footerMapLat: "38.4357",
+    footerMapLng: "27.1495",
+    footerMapZoom: 15,
+    footerMapLink: "https://maps.app.goo.gl/VERAL",
 
     // WhatsApp
     whatsappNumber: "905071651315",
@@ -293,6 +317,32 @@ const defaultContent: SiteContent = {
     ],
     aboutExploreText: "Hikayemizi Keşfet",
     aboutExploreUrl: "/hakkimizda",
+    milestones: [
+        {
+            year: "1980",
+            title: "Temeller",
+            desc: "İzmir Alsancak’ta torna ve metal işleme atölyesinin kuruluşu.",
+            icon: "Factory"
+        },
+        {
+            year: "1995",
+            title: "Teneke İmalat Hattı",
+            desc: "Takvim tenekesi ve dosya teli seri üretimi için ilk otomatik hatların devreye alınması.",
+            icon: "Target"
+        },
+        {
+            year: "2010",
+            title: "2. Nesil Dönüşümü",
+            desc: "Üretim süreçlerinde modernizasyon ve kurumsal kimlik çalışmaları.",
+            icon: "Users"
+        },
+        {
+            year: "2024",
+            title: "3. Nesil & Dijitalleşme",
+            desc: "UV baskı teknolojisi ve küresel pazarlar için endüstriyel arşiv sisteminin lansmanı.",
+            icon: "Award"
+        }
+    ],
 
     // Products Page
     productsPageTitle: "ÜRÜN KATALOĞU",
@@ -398,7 +448,18 @@ const defaultContent: SiteContent = {
         { icon: "MessageCircle", title: "WHATSAPP", desc: "ANLIK OPERASYON HATTI", color: "text-[#D4AF37]" }
     ],
     inquiryTitle: "Özel Sipariş Sorgulama",
-    inquiryDescription: "Mevcut siparişlerinizle ilgili durum takibi yapabilir veya kurumsal projeleriniz için özel teklif isteyebilirsiniz."
+    inquiryDescription: "Mevcut siparişlerinizle ilgili durum takibi yapabilir veya kurumsal projeleriniz için özel teklif isteyebilirsiniz.",
+
+    serviceStats: [
+        { value: "±0.01mm", label: "Hassasiyet Toleransı" },
+        { value: "24 Saat", label: "Teklif Dönüş Süresi" },
+        { value: "15+ Yıl", label: "Sektör Deneyimi" }
+    ],
+
+    // Legal
+    privacyPolicy: "Gizlilik politikası içeriği buraya gelecek...",
+    termsOfService: "Kullanım şartları içeriği buraya gelecek...",
+    kvkkText: "KVKK aydınlatma metni içeriği buraya gelecek...",
 };
 
 export const useContentStore = create<ContentStore>()(
@@ -454,6 +515,33 @@ export const useContentStore = create<ContentStore>()(
                 });
             },
 
+            addServiceItem: () => {
+                set((state) => ({
+                    content: {
+                        ...state.content,
+                        serviceItems: [
+                            ...state.content.serviceItems,
+                            {
+                                title: "YENİ HİZMET",
+                                description: "Hizmet açıklaması...",
+                                image: "/placeholder.png",
+                                features: ["Özellik 1"],
+                                exploreUrl: "/hizmetler"
+                            }
+                        ]
+                    }
+                }));
+            },
+
+            removeServiceItem: (index) => {
+                set((state) => ({
+                    content: {
+                        ...state.content,
+                        serviceItems: state.content.serviceItems.filter((_, i) => i !== index)
+                    }
+                }));
+            },
+
             updateAboutStat: (index, stat) => {
                 set((state) => {
                     const newStats = [...state.content.aboutStats];
@@ -479,19 +567,17 @@ export const useContentStore = create<ContentStore>()(
         }),
         {
             name: "site-content-storage",
-            version: 1,
+            version: 2,
             migrate: (persistedState: any, version: number) => {
-                if (version === 0) {
-                    return {
-                        ...persistedState,
-                        content: {
-                            ...defaultContent,
-                            ...(persistedState.content || {}),
-                            featureItems: persistedState.content?.featureItems || defaultContent.featureItems,
-                        }
+                const newState = { ...persistedState };
+                if (version < 2) {
+                    newState.content = {
+                        ...defaultContent,
+                        ...(newState.content || {}),
+                        serviceStats: newState.content?.serviceStats || defaultContent.serviceStats,
                     };
                 }
-                return persistedState;
+                return newState;
             },
         }
     )

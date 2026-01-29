@@ -24,26 +24,26 @@ interface ProductStore {
     getProduct: (id: string) => Product | undefined;
 }
 
-const mapDbToProduct = (dbProduct: DbProduct): Product => ({
+const mapDbToProduct = (dbProduct: any): Product => ({
     id: dbProduct.id,
     name: dbProduct.name,
     slug: dbProduct.slug,
     price: dbProduct.price,
-    image: dbProduct.image,
+    image: dbProduct.image_url || dbProduct.image || '/placeholder.png', // Handle both schemas
     description: dbProduct.description,
-    story: dbProduct.story,
-    category: dbProduct.category,
+    story: dbProduct.story || dbProduct.description,
+    category: dbProduct.category || dbProduct.category_id, // category_id is used for metal_products
     specs: {
-        material: dbProduct.material,
-        process: dbProduct.process,
-        print: dbProduct.print,
-        thickness: dbProduct.thickness,
-        dims: dbProduct.dims,
-        mounting: dbProduct.mounting,
+        material: dbProduct.material || "1.5mm Alüminyum",
+        process: dbProduct.process || "UV Baskı",
+        print: dbProduct.print || "Endüstriyel",
+        thickness: dbProduct.thickness || "1.5mm",
+        dims: dbProduct.dims || "45x60cm",
+        mounting: dbProduct.mounting || "Mıknatıs",
     },
     seo: {
-        title: dbProduct.seo_title,
-        description: dbProduct.seo_description,
+        title: dbProduct.seo_title || dbProduct.name,
+        description: dbProduct.seo_description || dbProduct.description,
         keywords: dbProduct.seo_keywords || [],
     }
 });
@@ -115,13 +115,13 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
         try {
             // Use Server Action
             const result = await getAdminProducts();
-            if (!result.success || !result.data) throw new Error(result.error || 'Failed to fetch');
+            if (!result.success || !result.data) throw new Error('Failed to fetch');
 
             const products = result.data.map(mapDbToProduct);
             set({ products, loading: false });
         } catch (error) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to fetch products for admin',
+                error: 'Failed to fetch products for admin',
                 loading: false
             });
         }
@@ -157,23 +157,14 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
                 slug: slug,
                 description: productData.description,
                 price: productData.price,
-                image: productData.image,
-                category: productData.category,
-                story: productData.story || `${productData.name} - Metal Poster Koleksiyonu.`,
-                material: productData.specs?.material || "1.5mm Alüminyum",
-                process: productData.specs?.process || "UV Statik Baskı",
-                print: productData.specs?.print || "Endüstriyel Gen-3",
-                thickness: productData.specs?.thickness || "1.5mm",
-                dims: productData.specs?.dims || "Var sayılan",
-                mounting: productData.specs?.mounting || "Mikro Mıknatıs",
-                seo_title: productData.seo?.title || productData.name,
-                seo_description: productData.seo?.description || productData.description,
-                seo_keywords: productData.seo?.keywords || [productData.name, "metal poster", "dekorasyon"],
+                image_url: productData.image, // Map image to image_url for metal_products
+                category_id: productData.category_id || productData.category, // Handle both
                 is_active: true,
+                stock_quantity: 100, // Default for now
             };
 
             const result = await upsertAdminProduct(newProductPayload as any);
-            if (!result.success || !result.data) throw new Error(result.error || 'Failed to create');
+            if (!result.success || !result.data) throw new Error('Failed to create');
 
             const newDbProduct = result.data;
 
@@ -194,25 +185,22 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
         set({ loading: true, error: null });
         try {
             // Map frontend structure updates back to flat DB fields if provided
-            const dbUpdates: any = { ...updates, id }; // Include ID for upsert
-            if (updates.specs) {
-                if (updates.specs.material) dbUpdates.material = updates.specs.material;
-                if (updates.specs.process) dbUpdates.process = updates.specs.process;
-                if (updates.specs.print) dbUpdates.print = updates.specs.print;
-                if (updates.specs.thickness) dbUpdates.thickness = updates.specs.thickness;
-                if (updates.specs.dims) dbUpdates.dims = updates.specs.dims;
-                if (updates.specs.mounting) dbUpdates.mounting = updates.specs.mounting;
-                delete dbUpdates.specs;
+            const dbUpdates: any = { ...updates, id };
+
+            // Handle image mapping
+            if (updates.image) {
+                dbUpdates.image_url = updates.image;
+                delete dbUpdates.image;
             }
-            if (updates.seo) {
-                if (updates.seo.title) dbUpdates.seo_title = updates.seo.title;
-                if (updates.seo.description) dbUpdates.seo_description = updates.seo.description;
-                if (updates.seo.keywords) dbUpdates.seo_keywords = updates.seo.keywords;
-                delete dbUpdates.seo;
+
+            // Handle category mapping
+            if (updates.category) {
+                dbUpdates.category_id = updates.category;
+                // Note: If 'category' is a slug in Admin UI, it needs conversion to UUID for metal_products
             }
 
             const result = await upsertAdminProduct(dbUpdates);
-            if (!result.success || !result.data) throw new Error(result.error || 'Failed to update');
+            if (!result.success || !result.data) throw new Error('Failed to update');
 
             const updatedDbProduct = result.data;
 
@@ -235,7 +223,7 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
         set({ loading: true, error: null });
         try {
             const result = await deleteAdminProduct(id);
-            if (!result.success) throw new Error(result.error || 'Failed to delete');
+            if (!result.success) throw new Error('Failed to delete');
 
             set((state) => ({
                 products: state.products.filter((p) => p.id !== id),

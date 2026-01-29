@@ -4,14 +4,17 @@
 
 import Link from 'next/link';
 import { QuoteRequest } from '@/lib/b2b/types';
+import { useContentStore } from '@/store/useContentStore';
 
 interface QuoteConfirmationProps {
     quote: QuoteRequest;
 }
 
 export default function QuoteConfirmation({ quote }: QuoteConfirmationProps) {
+    const { content } = useContentStore();
+
     // WhatsApp link with pre-filled message
-    const whatsappNumber = '90XXXXXXXXXX'; // TODO: Replace with actual business number
+    const whatsappNumber = content.whatsappNumber;
     const whatsappMessage = `Merhaba, ${quote.id} numaralı teklifim hakkında bilgi almak istiyorum.`;
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -120,7 +123,7 @@ export default function QuoteConfirmation({ quote }: QuoteConfirmationProps) {
 
                 {/* Phone CTA */}
                 <a
-                    href="tel:+90XXXXXXXXXX"
+                    href={`tel:${content.footerPhone.replace(/\s/g, '')}`}
                     className="flex items-center justify-center gap-3 w-full bg-neutral-900 text-white font-medium py-4 rounded-lg hover:bg-neutral-800 transition-colors"
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

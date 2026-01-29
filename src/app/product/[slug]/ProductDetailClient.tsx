@@ -12,10 +12,11 @@ import {
     Zap, Shield, Package, Truck, Check
 } from "lucide-react"
 import { MetalImage } from "@/components/landing/MetalImage"
-import { useCartStore } from "@/store/useCollectionStore"
-import { CollectionSidebar, CollectionButton } from "@/components/cart/CollectionSidebar"
+import { useCartStore } from "@/store/useCartStore"
+import { useToast } from "@/components/ui/use-toast"
 import { cn, formatPrice } from "@/lib/utils"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
+import { useRouter } from "next/navigation"
 
 interface ProductDetailClientProps {
     product: MetalProduct
@@ -27,20 +28,44 @@ const FEATURE_ICONS: Record<string, React.ElementType> = {
 }
 
 export default function ProductDetailClient({ product }: ProductDetailClientProps) {
-    const { addItem, openCart, hasItem } = useCartStore()
-    const [isAdded, setIsAdded] = React.useState(false)
+    const { addItem, items } = useCartStore()
+    const { toast } = useToast()
+    const router = useRouter()
+    const [isAdding, setIsAdding] = React.useState(false)
 
-    const handleAddToCollection = () => {
-        addItem(product)
-        setIsAdded(true)
-        setTimeout(() => {
-            openCart()
-            setIsAdded(false)
-        }, 500)
+    const inCart = items.some(item => item.productId === product.id)
+
+    const handleAddToCart = (redirect: boolean = false) => {
+        setIsAdding(true)
+        const result = addItem({
+            productId: product.id,
+            name: product.name,
+            slug: product.slug,
+            price: product.price,
+            image: product.image_url || "/placeholder.png",
+            size: "Standart (45x60cm)",
+            orientation: "vertical"
+        })
+
+        if (result.success) {
+            toast({
+                title: "Başarılı",
+                description: "Ürün sepetinize eklendi!",
+            })
+            if (redirect) {
+                router.push("/sepet")
+            }
+        } else {
+            toast({
+                title: "Hata",
+                description: result.error,
+                variant: "destructive"
+            })
+        }
+        setIsAdding(false)
     }
 
     const sortedFeatures = product.features?.sort((a, b) => a.display_order - b.display_order) || []
-    const inCart = hasItem(product.id)
 
     return (
         <main className="min-h-screen bg-zinc-950">
@@ -160,32 +185,51 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                                     </span>
                                 </div>
 
-                                <motion.button
-                                    onClick={handleAddToCollection}
-                                    disabled={inCart}
-                                    className={cn(
-                                        "flex items-center gap-3 px-8 py-4",
-                                        "rounded-sm font-bold text-sm uppercase tracking-wider",
-                                        "transition-all duration-300",
-                                        inCart
-                                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                                            : "bg-gradient-to-r from-zinc-200 to-zinc-300 text-zinc-900 hover:from-zinc-100 hover:to-zinc-200",
-                                        "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]"
-                                    )}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    {inCart ? (
-                                        <>
-                                            <Check className="w-5 h-5" />
-                                            Koleksiyonda
-                                        </>
-                                    ) : (
-                                        <>
-                                            <ShoppingBag className="w-5 h-5" />
-                                            {isAdded ? "Eklendi!" : "Koleksiyona Ekle"}
-                                        </>
-                                    )}
-                                </motion.button>
+                                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                    <motion.button
+                                        onClick={() => handleAddToCart()}
+                                        disabled={inCart || isAdding}
+                                        className={cn(
+                                            "flex-1 sm:flex-none flex items-center justify-center gap-3 px-8 py-4",
+                                            "rounded-sm font-bold text-sm uppercase tracking-wider",
+                                            "transition-all duration-300",
+                                            inCart
+                                                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                                                : "bg-zinc-800 text-zinc-100 border border-zinc-700 hover:bg-zinc-700",
+                                            "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]"
+                                        )}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        {inCart ? (
+                                            <>
+                                                <Check className="w-5 h-5" />
+                                                Koleksiyonda
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ShoppingBag className="w-5 h-5" />
+                                                {isAdding ? "Ekleniyor..." : "Sepete Ekle"}
+                                            </>
+                                        )}
+                                    </motion.button>
+
+                                    <motion.button
+                                        onClick={() => handleAddToCart(true)}
+                                        disabled={isAdding}
+                                        className={cn(
+                                            "flex-1 sm:flex-none flex items-center justify-center gap-3 px-10 py-4",
+                                            "rounded-sm font-bold text-sm uppercase tracking-wider",
+                                            "transition-all duration-300",
+                                            "bg-gradient-to-r from-[var(--color-brand-safety-orange)] to-amber-500 text-black",
+                                            "hover:brightness-110",
+                                            "shadow-[0_4px_20px_-4px_rgba(255,103,0,0.4)]"
+                                        )}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        <Zap className="w-5 h-5 fill-current" />
+                                        Şimdi Al
+                                    </motion.button>
+                                </div>
                             </div>
 
                             {/* Features */}
@@ -253,9 +297,6 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 </div>
             </div>
 
-            {/* Cart Components */}
-            <CollectionSidebar />
-            <CollectionButton />
         </main>
     )
 }

@@ -6,10 +6,11 @@ import Image from 'next/image';
 interface SystemLabelProps {
     text: string;
     active?: boolean;
+    className?: string;
 }
 
-export const SystemLabel: React.FC<SystemLabelProps> = ({ text, active }) => (
-    <span className={`system-label ${active ? 'active' : ''}`}>
+export const SystemLabel: React.FC<SystemLabelProps> = ({ text, active, className = "" }) => (
+    <span className={`system-label ${active ? 'active' : ''} ${className}`}>
         {text}
     </span>
 );

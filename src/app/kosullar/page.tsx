@@ -1,126 +1,101 @@
-"use client"
-
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Scale, ShieldCheck, Truck, RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Scale, ShieldCheck, Truck, RefreshCw, Printer } from "lucide-react";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { SystemLabel } from "@/components/ui/Industrial";
 
 export default function KosullarPage() {
     return (
-        <main className="min-h-screen bg-background pt-32 pb-20">
-            <div className="container max-w-4xl mx-auto px-6">
+        <main className="min-h-screen bg-[#0A0A0A] text-white">
+            <Navigation />
 
-                {/* Header */}
-                <div className="mb-12">
-                    <Link href="/odeme" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors group">
-                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                        Ödeme Sayfasına Dön
-                    </Link>
-                    <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <Scale className="w-6 h-6 text-primary" />
-                        </div>
-                        <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-zinc-900">
-                            Mesafeli Satış Sözleşmesi
-                        </h1>
-                    </div>
-                    <p className="text-zinc-500 text-lg max-w-2xl">
-                        İşbu sözleşme, alıcı ve satıcı arasındaki hak ve yükümlülükleri, 6502 sayılı Tüketicinin Korunması Hakkında Kanun hükümleri gereğince düzenlemektedir.
-                    </p>
+            <div className="container mx-auto px-6 pt-48 pb-24 max-w-4xl">
+                <div className="flex flex-col gap-6 mb-16">
+                    <SystemLabel text="HUKUKİ PROTOKOL // E-TİCARET" active />
+                    <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic leading-none">
+                        Mesafeli <span className="text-gold-gradient normal-case italic font-serif font-normal tracking-normal border-b-4 border-[#D4AF37]/30">Satış Sözleşmesi</span>
+                    </h1>
                 </div>
 
-                {/* Content */}
-                <div className="space-y-12">
-
-                    {/* Section 1 */}
-                    <section className="bg-white border border-zinc-200 p-8 rounded-2xl shadow-sm">
-                        <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-zinc-900">
-                            <span className="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-xs">01</span>
-                            Taraflar
+                <div className="space-y-12 text-white/70 font-medium leading-relaxed">
+                    <section className="bg-white/5 border border-white/10 p-10 rounded-2xl relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+                        <h2 className="text-2xl font-black text-white uppercase mb-6 relative z-10 italic tracking-tighter flex items-center gap-3">
+                            <Scale className="w-6 h-6 text-[#D4AF37]" /> 1. Taraflar
                         </h2>
-                        <div className="grid md:grid-cols-2 gap-8 text-sm text-zinc-600">
-                            <div className="space-y-2">
-                                <h3 className="font-bold text-zinc-900 uppercase tracking-wider text-xs">Satıcı Bilgileri</h3>
-                                <p><span className="font-medium text-zinc-900">Ünvan:</span> Veral Torna & Teneke Ticaret</p>
-                                <p><span className="font-medium text-zinc-900">Adres:</span> Alsancak, İzmir / TÜRKİYE</p>
-                                <p><span className="font-medium text-zinc-900">Telefon:</span> 0850 XXX XX XX</p>
-                                <p><span className="font-medium text-zinc-900">E-posta:</span> info@metalposter.pro</p>
-                                <p><span className="font-medium text-zinc-900">Vergi Dairesi:</span> Kordon V.D.</p>
+                        <div className="grid md:grid-cols-2 gap-8 relative z-10">
+                            <div className="space-y-4">
+                                <h3 className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">SATICI BİLGİLERİ</h3>
+                                <div className="text-sm space-y-1">
+                                    <p className="text-white font-bold">VERAL Torna & Teneke Ticaret</p>
+                                    <p>Alsancak, Konak, İzmir / TÜRKİYE</p>
+                                    <p>Destek Hattı: +90 507 165 13 15</p>
+                                    <p>E-posta: info@veralteneketicaret.com</p>
+                                </div>
                             </div>
-                            <div className="space-y-2">
-                                <h3 className="font-bold text-zinc-900 uppercase tracking-wider text-xs">Alıcı Bilgileri</h3>
-                                <p>Sipariş sırasında "Alıcı" tarafından ödeme ve teslimat ekranlarında girilen ad, soyad ve iletişim bilgileri esas alınır.</p>
+                            <div className="space-y-4">
+                                <h3 className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest">ALICI BİLGİLERİ</h3>
+                                <p className="text-sm">
+                                    Sipariş esnasında sistem kayıtlarına girilen ve fatura detaylarında belirtilen gerçek veya tüzel kişi "Alıcı" olarak kabul edilir.
+                                </p>
                             </div>
                         </div>
                     </section>
 
-                    {/* Section 2 */}
-                    <section>
-                        <h2 className="text-xl font-bold mb-4 text-zinc-900">2. Sözleşmenin Konusu</h2>
-                        <p className="text-zinc-600 leading-relaxed">
-                            İşbu sözleşmenin konusu, Alıcının, Satıcıya ait web sitesi üzerinden elektronik ortamda siparişini verdiği aşağıda nitelikleri ve satış fiyatı belirtilen ürünün satışı ve teslimi ile ilgili olarak 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmelere Dair Yönetmelik hükümleri gereğince tarafların hak ve yükümlülüklerinin saptanmasıdır.
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter border-l-4 border-[#D4AF37] pl-4">2. Sözleşmenin Konusu</h2>
+                        <p>
+                            İşbu sözleşmenin konusu, Alıcının, Satıcıya ait internet sitesi üzerinden elektronik ortamda siparişini verdiği ürünlerin satışı ve teslimi ile ilgili olarak 6502 sayılı Tüketicinin Korunması Hakkında Kanun hükümleri gereğince tarafların hak ve yükümlülüklerinin belirlenmesidir. 1.5mm endüstriyel metal plakalar ve UV baskı teknolojisi ile üretilen ürünlerin teknik hassasiyeti ve lojistik standartları bu sözleşmenin ayrılmaz bir parçasıdır.
                         </p>
                     </section>
 
-                    {/* Section 3 */}
-                    <section>
-                        <h2 className="text-xl font-bold mb-4 text-zinc-900">3. Cayma Hakkı</h2>
-                        <div className="bg-zinc-50 p-6 rounded-xl border border-zinc-200 space-y-4">
-                            <div className="flex gap-4">
-                                <RefreshCw className="w-6 h-6 text-primary flex-shrink-0" />
-                                <div>
-                                    <h3 className="font-bold text-zinc-900 mb-2">14 Gün İçinde İade</h3>
-                                    <p className="text-zinc-600 text-sm leading-relaxed">
-                                        Alıcı; mal satışına ilişkin mesafeli sözleşmelerde, ürünün kendisine veya gösterdiği adresteki kişi/kuruluşa teslim tarihinden itibaren 14 (on dört) gün içerisinde, hiçbir hukuki ve cezai sorumluluk üstlenmeksizin ve hiçbir gerekçe göstermeksizin malı reddederek sözleşmeden cayma hakkına sahiptir.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex gap-4 pt-4 border-t border-zinc-200">
-                                <ShieldCheck className="w-6 h-6 text-primary flex-shrink-0" />
-                                <div>
-                                    <h3 className="font-bold text-zinc-900 mb-2">İade Koşulları</h3>
-                                    <p className="text-zinc-600 text-sm leading-relaxed">
-                                        Cayma hakkının kullanılması için bu süre içinde Satıcıya faks, e-posta veya telefon ile bildirimde bulunulması ve ürünün 6. madde hükümleri çerçevesinde kullanılmamış, ambalajı bozulmamış ve tekrar satılabilir özelliğini yitirmemiş olması şarttır.
-                                    </p>
-                                </div>
-                            </div>
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter border-l-4 border-[#D4AF37] pl-4">3. Teslimat ve Lojistik Protokolü</h2>
+                        <p>
+                            Ürünler, yasal 30 günlük süreyi aşmamak kaydıyla, internet sitesinde belirtilen süreler doğrultusunda Alıcının belirttiği adrese güvenli ambalaj içerisinde teslim edilir. Kargo teslimatı sırasında ürünün kontrol edilmesi mecburidir. Hasar görmüş (ezik, bükülmüş, kırık) paketler "Hasar Tespit Tutanağı" tutulmadan teslim alınmamalıdır. Tutanak tutulmayan hasarlı paketlerde Alıcının iade hakkı saklı kalmakla birlikte ispat yükümlülüğü Alıcıya aittir.
+                        </p>
+                    </section>
+
+                    <section className="bg-white/5 border border-white/10 p-10 rounded-2xl">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-8 flex items-center gap-3">
+                            <RefreshCw className="w-6 h-6 text-[#D4AF37]" /> 4. Cayma Hakkı ve İade
+                        </h2>
+                        <div className="space-y-6 text-sm">
+                            <p>
+                                <strong>14 Gün Koşulsuz İade:</strong> Alıcı, standart katalog ürünlerinde, teslim tarihinden itibaren 14 gün içerisinde hiçbir gerekçe göstermeksizin cayma hakkını kullanabilir.
+                            </p>
+                            <p className="text-[#D4AF37] font-bold uppercase tracking-tighter">
+                                İstisna: Kişiye özel tasarlanan, üzerine isim, tarih veya özel görsel eklenen "Kişiselleştirilmiş Üretimler"de cayma hakkı kullanılamaz.
+                            </p>
+                            <p>
+                                İade edilecek ürünün orijinal ambalajı, aksesuarları ve faturası ile birlikte, tekrar satışa uygun kondisyonda gönderilmesi gerekmektedir.
+                            </p>
                         </div>
                     </section>
 
-                    {/* Section 4 */}
-                    <section>
-                        <h2 className="text-xl font-bold mb-4 text-zinc-900">4. Genel Hükümler</h2>
-                        <ul className="space-y-4 text-zinc-600 list-disc pl-5 marker:text-primary">
-                            <li>Alıcı, web sitesinde sözleşme konusu ürünün temel nitelikleri, satış fiyatı ve ödeme şekli ile teslimata ilişkin ön bilgileri okuyup bilgi sahibi olduğunu ve elektronik ortamda gerekli teyidi verdiğini beyan eder.</li>
-                            <li>Sözleşme konusu ürün, yasal 30 günlük süreyi aşmamak koşulu ile her bir ürün için Alıcının yerleşim yerinin uzaklığına bağlı olarak internet sitesinde ön bilgiler içinde açıklanan süre zarfında Alıcı veya gösterdiği adresteki kişi/kuruluşa teslim edilir.</li>
-                            <li>Ürünün teslimatı sırasında kargo yetkilisi huzurunda kontrol edilmesi, ezik, kırık, ambalajı yırtılmış vb. hasarlı ve ayıplı ürün teslim alınmamalıdır. Teslim alınan ürünün hasarsız ve sağlam olduğu kabul edilecektir.</li>
-                        </ul>
-                    </section>
-
-                    {/* Section 5 */}
-                    <section>
-                        <h2 className="text-xl font-bold mb-4 text-zinc-900">5. Uyuşmazlıkların Çözümü</h2>
-                        <p className="text-zinc-600 leading-relaxed">
-                            İşbu sözleşmenin uygulanmasında, Sanayi ve Ticaret Bakanlığınca ilan edilen değere kadar Tüketici Hakem Heyetleri ile Alıcının veya Satıcının yerleşim yerindeki Tüketici Mahkemeleri yetkilidir.
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter border-l-4 border-[#D4AF37] pl-4">5. Yetkili Mahkeme</h2>
+                        <p>
+                            İşbu sözleşmeden doğacak uyuşmazlıklarda, T.C. Ticaret Bakanlığı tarafından her yıl ilan edilen değerlere kadar Tüketici Hakem Heyetleri, bu değerin üzerindeki uyuşmazlıklarda ise İzmir Tüketici Mahkemeleri yetkilidir.
                         </p>
                     </section>
-
                 </div>
 
-                {/* Footer Actions */}
-                <div className="mt-20 pt-8 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-xs text-zinc-400">Son Güncelleme: 27 Ocak 2026</p>
+                <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Son Güncelleme: 29 Ocak 2026</p>
                     <div className="flex gap-4">
-                        <Button variant="outline" onClick={() => window.print()}>
-                            Sayfayı Yazdır
-                        </Button>
-                        <Link href="/iletisim">
-                            <Button>Bize Ulaşın</Button>
-                        </Link>
+                        <button
+                            onClick={() => window.print()}
+                            className="flex items-center gap-2 text-xs font-black text-white/40 hover:text-white uppercase tracking-widest transition-colors"
+                        >
+                            <Printer className="w-4 h-4" /> SAYFAYI YAZDIR
+                        </button>
                     </div>
                 </div>
-
             </div>
+
+            <Footer />
         </main>
     );
 }

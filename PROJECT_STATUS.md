@@ -1,137 +1,64 @@
 # Proje Durumu ve İlerleme Raporu - Metal Poster Pro
-**Son Güncelleme:** 17 Ocak 2026 - 15:25
+**Son Güncelleme:** 29 Ocak 2026
 
 ## 🎉 Build Durumu: ✅ BAŞARILI
 
-```
-✓ Compiled successfully in 3.9s
-✓ Generating static pages (9/9)
-Exit code: 0
-```
+---
+
+## 🚀 TAMAMLANAN UI POLISH & ÖZELLİKLER (29 Ocak 2026)
+
+### 1. Katalog & Ürün Listeleme
+- ✅ **Gelişmiş Filtreleme Barı**: Kategori butonları, arama çubuğu ve sıralama menüsü büyütüldü ve modernize edildi.
+- ✅ **Arama Entegrasyonu**: Header'daki büyüteç ikonuna full-screen arama overlay'i eklendi (Ürün, Hizmet hızlı erişim).
+- ✅ **Header Fix (Metal Ürünler)**: `/metal-urunler` sayfasında header ve footer görünürlüğü sağlandı.
+
+### 2. Footer & İletişim
+- ✅ **Harita Entegrasyonu**: Footer'a Google Maps iframe ve yönlendirme linkleri eklendi.
+- ✅ **Yasal Linkler**: En alta Gizlilik, Şartlar ve KVKK linkleri eklendi ve görünürlüğü artırıldı.
+- ✅ **Dinamik İletişim**: Footer telefon, email ve adres bilgileri Admin panelden yönetilebilir hale getirildi.
+
+### 3. Admin Panel Geliştirmeleri
+- ✅ **Map Settings**: Contact tab'a Google Maps (enlem, boylam, zoom) ayarları eklendi.
+- ✅ **Yasal Metin Yönetimi**: Gizlilik Politikası, Kullanım Şartları ve KVKK için düzenleme editörü eklendi.
+- ✅ **Retro UI**: "Kaydet" butonları ve bazı UI elementleri retro/brutalist stile (border-4, shadow-brutal) güncellendi.
+- ✅ **Hizmet Yönetimi**: Hizmetler (Services) bölümü dinamik hale getirildi (ekle/sil/düzenle).
+
+### 4. Entegrasyon & Senkronizasyon
+- ✅ **WhatsApp Sync**: Tüm butonlar (Footer, Sipariş Sorgula, Diğer Hizmetler) Admin panelden girilen WhatsApp numarasını kullanıyor.
+- ✅ **Teklif Formu (Quote)**: Onay ekranındaki telefon ve WhatsApp linkleri dinamik hale getirildi.
+- ✅ **Sepet Entegrasyonu**: Ürün detay sayfasında "Sepete Ekle" ve "Şimdi Al" fonksiyonları iyileştirildi.
 
 ---
 
-## 🚀 SON OTURUMDA TAMAMLANAN GÖREVLER
+## 📁 Dosya Yapısı & Önemli Değişiklikler
 
-### 1. Marka Güncellemesi
-- ✅ Tüm "VERAL INDUSTRIAL" referansları "VERAL TORNA & TENEKE // TİCARET" olarak güncellendi
-- ✅ Logo renkleri (altın #FFD700, yeşil) CSS değişkenlerine entegre edildi
-- ✅ Header, Footer ve tüm sayfalarda marka tutarlılığı sağlandı
-
-### 2. Mobil Görünüm Optimizasyonu
-- ✅ Desktop görünümü mobilde zorlandı (viewport width: 1200px)
-- ✅ initialScale: 0.35 ile telefon ekranına otomatik sığdırma
-- ✅ userScalable: true - kullanıcı parmakla zoom yapabilir
-
-### 3. Ürün Galeri İyileştirmesi
-- ✅ Ana sayfada ürün görsellerine tıklanınca detay sayfasına yönlendirme eklendi
-- ✅ Sepete ekle butonu bağımsız çalışıyor (link'i engellemiyor)
-
-### 4. Pop Art Özellik Showcase (Ürün Detay Sayfası)
-- ✅ Canlı renk paletli (pembe, turkuaz, altın, mor) özellik kartları
-- ✅ Comic book tarzı "WOW!" efekti
-- ✅ 4 temel özellik vurgulanıyor: 100+ yıl, 1.5mm, Solmaz, Su geçirmez
-- ✅ Ücretsiz Kargo + Ömür Boyu Garanti vurgusu
-
-### 5. "Nasıl Kullanılır?" Animasyonlu Demo Bölümü
-- ✅ Sol kolonda (mockup altında) 2x2 grid animasyonlu demo kartları
-- ✅ CSS keyframe animasyonları ile canlı gösterim:
-  - 01: SÜRÜKLE & BIRAK
-  - 02: BOYUT AYARLA
-  - 03: ORTAM SEÇ
-  - 04: GÖRSEL YÜKLE
-- ✅ İpucu kutusu eklendi
-
-### 6. Admin Dashboard Düzeltmeleri
-- ✅ Activity icon import'u eklendi
-- ✅ stats?.totalRevenue?.toLocaleString() null-safety düzeltmesi
-
-### 7. Build Konfigürasyonu
-- ✅ TypeScript build hataları ignore ediliyor (Supabase tip uyumsuzlukları için)
-- ✅ Deprecated eslint config kaldırıldı
-
----
-
-## 📁 Değiştirilen Dosyalar
-
-| Dosya | Değişiklik |
-|-------|------------|
-| `src/app/layout.tsx` | Viewport zorlaması, marka güncellemesi |
-| `src/app/globals.css` | CSS animasyonları, mobil optimizasyon |
-| `src/components/sections/ProductGallery.tsx` | Görsel tıklama özelliği |
-| `src/components/product/ProductDetailClient.tsx` | Pop art + How-to demolar |
-| `src/components/admin/AdminDashboard.tsx` | Activity import, null-safety |
-| `src/lib/products.ts` | Marka adı güncellemesi |
-| `src/store/useContentStore.ts` | Footer marka adı |
-| `next.config.ts` | Build config temizleme |
-| Tüm sayfa dosyaları | Marka tutarlılığı |
-
----
-
-## 🔧 Deploy için Hazırlık
-
-### Vercel Deploy (Önerilen)
-```bash
-# 1. Vercel CLI yükle (eğer yoksa)
-npm i -g vercel
-
-# 2. Deploy et
-vercel
-
-# 3. Prodüksiyon deploy
-vercel --prod
-```
-
-### Alternatif: Netlify
-```bash
-# Build komutu
-npm run build
-
-# Output klasörü
-.next
-```
-
-### Environment Variables (Vercel/Netlify'da ayarla)
-```
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-```
-
----
-
-## 🎯 Sonraki Adımlar (Deploy Sonrası)
-
-1. **Domain Bağlama**
-   - Custom domain ekle (örn: veralticaret.com)
-   - SSL sertifikası otomatik
-
-2. **Analytics Entegrasyonu**
-   - Google Analytics 4
-   - Vercel Analytics (ücretsiz)
-
-3. **SEO Optimizasyonu**
-   - Google Search Console kaydı
-   - Sitemap submit
-
-4. **Ödeme Entegrasyonu**
-   - iyzico veya PayTR
-   - Sipariş akışı tamamlama
-
-5. **İçerik Yönetimi**
-   - Admin panel aktivasyonu
-   - Ürün görseli yükleme sistemi
+| Dosya | Yapılan İşlem |
+|-------|---------------|
+| `src/components/admin/AdminDashboard.tsx` | Harita, Yasal Metinler, Retro Butonlar, Hizmet Yönetimi |
+| `src/store/useContentStore.ts` | Yeni alanlar (Map, Legal, WhatsApp) |
+| `src/components/layout/Footer.tsx` | Harita, Yasal Menü, Dinamik İçerik |
+| `src/components/layout/Navigation.tsx` | Search Overlay, Mobil Menü Fix |
+| `src/components/product/CatalogContainer.tsx` | UI Polish, Büyük Filtreler |
+| `src/app/metal-urunler/page.tsx` | Navigation & Footer Eklendi |
+| `src/components/b2b/QuoteConfirmation.tsx` | Dinamik WhatsApp/Tel |
+| `POLISH_TASKS.md` | Görev Takibi |
 
 ---
 
 ## 📝 Teknik Notlar
 
 - **Framework:** Next.js 16.1.1 (App Router)
-- **Styling:** Tailwind CSS v4
-- **State:** Zustand
-- **Database:** Supabase (PostgreSQL) - hazır ama aktif değil
-- **Deploy Hedefi:** Vercel (edge functions destekli)
-- **Mobil Strateji:** Forced desktop viewport (1200px)
+- **Styling:** Tailwind CSS v4 + Brutalist Design System
+- **State:** Zustand (useContentStore, useProductStore, useCartStore)
+- **Maps:** Google Maps Embed API (iframe)
+- **Data:** Supabase Entegrasyonu (Admin panel üzerinden)
 
 ---
 
-*Build başarılı, deploy'a hazır! 🚀*
+## 🎯 Sıradaki Adımlar
+
+1. **Yasal Metin İçerikleri**: Admin panel üzerinden gerçek KVKK ve Gizlilik metinlerinin girilmesi.
+2. **SEO Kontrolleri**: Yeni eklenen sayfaların meta etiketlerinin kontrolü.
+3. **Deploy & Test**: Production ortamında yeni build'in test edilmesi.
+
+*Sistem stabil, UI polish tamamlandı ve yeni özellikler entegre edildi. 🚀*

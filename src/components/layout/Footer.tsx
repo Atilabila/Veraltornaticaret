@@ -84,32 +84,44 @@ export const Footer = () => {
                                 <div className="text-sm text-[#FDFBF7]/50">{content.footerEmail}</div>
                             </div>
 
-                            <div className="pt-6 border-t border-white/5 flex flex-col gap-4">
-                                <p className="text-sm text-[#FDFBF7]/50 font-medium">Bültene katılarak yeni eserlerden haberdar olun.</p>
-                                <div className="flex flex-col gap-4">
-                                    <input
-                                        type="text"
-                                        placeholder="E-posta Adresiniz"
-                                        className="bg-transparent border-b border-[#D4AF37]/30 py-4 text-white text-lg focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-[#FDFBF7]/20"
+                            <div className="pt-6 border-t border-white/5 flex flex-col gap-6">
+                                <h4 className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">KONUM // NAVİGASYON</h4>
+                                <div className="w-full h-48 rounded-sm overflow-hidden border border-[#D4AF37]/20 grayscale hover:grayscale-0 transition-all duration-700">
+                                    <iframe
+                                        width="100%"
+                                        height="100%"
+                                        frameBorder="0"
+                                        scrolling="no"
+                                        marginHeight={0}
+                                        marginWidth={0}
+                                        src={`https://maps.google.com/maps?q=${content.footerMapLat},${content.footerMapLng}&z=${content.footerMapZoom}&output=embed`}
                                     />
-                                    <button className="h-16 bg-[#D4AF37] text-black font-black text-xs tracking-[0.3em] uppercase hover:bg-white transition-all cursor-pointer">
-                                        ABONE OL
-                                    </button>
                                 </div>
+                                <a
+                                    href={content.footerMapLink || `https://www.google.com/maps/dir/?api=1&destination=${content.footerMapLat},${content.footerMapLng}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 h-14 border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.2em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all"
+                                >
+                                    YOL TARİFİ AL <ArrowUpRight className="w-4 h-4" />
+                                </a>
                             </div>
                         </div>
-
                     </div>
 
                     {/* BOTTOM BAR */}
                     <div className="pt-12 border-t border-[#D4AF37]/10 flex flex-col md:flex-row justify-between items-center gap-10">
-                        <p className="text-[9px] font-black text-[#FDFBF7]/20 tracking-[0.2em] uppercase">
+                        <p className="text-xs font-bold text-white/40 tracking-[0.1em] uppercase">
                             © 2024 {content.footerCompanyName} - TÜM HAKLARI SAKLIDIR.
                         </p>
-                        <div className="flex gap-10">
-                            {['GİZLİLİK', 'ŞARTLAR', 'KVKK'].map((item) => (
-                                <Link key={item} href={`/${item.toLowerCase()}`} className="text-[9px] font-black text-[#FDFBF7]/20 hover:text-[#D4AF37] transition-colors tracking-[0.4em] uppercase">
-                                    {item}
+                        <div className="flex flex-wrap justify-center gap-8">
+                            {[
+                                { label: 'GİZLİLİK POLİTİKASI', href: '/gizlilik' },
+                                { label: 'KULLANIM ŞARTLARI', href: '/sartlar' },
+                                { label: 'KVKK AYDINLATMA', href: '/kvkk' }
+                            ].map((item) => (
+                                <Link key={item.label} href={item.href} className="text-xs font-bold text-white/50 hover:text-[#D4AF37] transition-colors tracking-widest uppercase">
+                                    {item.label}
                                 </Link>
                             ))}
                         </div>

@@ -218,39 +218,49 @@ export default function TeklifAlPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-[var(--color-brand-safety-orange)] selection:text-black pt-20 md:pt-24">
+            {/* Background Elements */}
+            <div className="fixed inset-0 bg-grid-white/[0.02] pointer-events-none" />
+            <div className="fixed inset-0 bg-gradient-to-b from-slate-950 via-slate-950/90 to-slate-950 pointer-events-none" />
+
             {/* Hero */}
-            <section className="bg-black text-white py-12 px-4">
-                <div className="max-w-3xl mx-auto">
+            <section className="relative py-12 px-4 overflow-hidden border-b border-white/5">
+                <div className="max-w-3xl mx-auto relative z-10">
                     <Link
                         href="/hizmetler"
-                        className="inline-flex items-center gap-2 font-mono text-sm mb-6 hover:text-[var(--color-brand-safety-orange)] transition-colors"
+                        className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest mb-6 text-white/40 hover:text-[var(--color-brand-safety-orange)] transition-colors group"
                     >
-                        ← Hizmetler
+                        <span className="group-hover:-translate-x-1 transition-transform">←</span> Geri: Hizmetler
                     </Link>
 
-                    <h1 className="font-[Archivo_Black] text-3xl md:text-5xl uppercase mb-4">
-                        TEKLİF FORMU
+                    <h1 className="font-[Archivo_Black] text-4xl md:text-6xl uppercase mb-6 tracking-tighter italic">
+                        TEKLİF <span className="text-[var(--color-brand-safety-orange)]">FORMU</span>
                     </h1>
-                    <p className="font-mono text-white/80">
-                        Projeniz için detaylı teklif almak üzere formu doldurun. 24 saat içinde dönüş yapıyoruz.
-                    </p>
+                    <div className="p-4 bg-[var(--color-brand-safety-orange)]/10 border-l-4 border-[var(--color-brand-safety-orange)]">
+                        <p className="font-mono text-sm text-[var(--color-brand-safety-orange)] font-bold">
+                            Endüstriyel metal işleme ve özel üretim talepleriniz için 24 saat içinde detaylı teknik dönüş yapıyoruz.
+                        </p>
+                    </div>
                 </div>
             </section>
 
             {/* Form */}
-            <section className="py-12 px-4">
-                <div className="max-w-3xl mx-auto">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+            <section className="relative py-16 px-4">
+                <div className="max-w-3xl mx-auto relative z-10">
+                    <form onSubmit={handleSubmit} className="space-y-12">
                         {/* Personal Info */}
-                        <div className="border-4 border-black p-6">
-                            <h2 className="font-[Archivo_Black] text-xl uppercase mb-6">
-                                İLETİŞİM BİLGİLERİ
-                            </h2>
+                        <div className="space-y-8">
+                            <div className="flex items-center gap-4">
+                                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-xs font-black font-mono">01</span>
+                                <h2 className="font-[Archivo_Black] text-xl uppercase tracking-wider">
+                                    İLETİŞİM BİLGİLERİ
+                                </h2>
+                                <div className="flex-1 h-px bg-white/5" />
+                            </div>
 
-                            <div className="space-y-4">
-                                <div>
-                                    <label htmlFor="fullName" className="block font-mono font-bold text-sm mb-2">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label htmlFor="fullName" className="block font-mono font-black text-[10px] uppercase tracking-widest text-white/40 mb-2">
                                         AD SOYAD *
                                     </label>
                                     <input
@@ -258,14 +268,14 @@ export default function TeklifAlPage() {
                                         id="fullName"
                                         value={fullName}
                                         onChange={(e) => setFullName(e.target.value)}
-                                        className={`w-full border-4 ${errors.fullName ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]`}
+                                        className={`w-full bg-white/5 border-2 ${errors.fullName ? 'border-red-500/50' : 'border-white/10'} p-4 font-mono text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)] transition-all placeholder:text-white/10`}
                                         placeholder="Ahmet Yılmaz"
                                     />
-                                    {errors.fullName && <p className="text-red-500 font-mono text-xs mt-1">{errors.fullName}</p>}
+                                    {errors.fullName && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase font-bold">{errors.fullName}</p>}
                                 </div>
 
-                                <div>
-                                    <label htmlFor="company" className="block font-mono font-bold text-sm mb-2">
+                                <div className="space-y-2">
+                                    <label htmlFor="company" className="block font-mono font-black text-[10px] uppercase tracking-widest text-white/40 mb-2">
                                         FİRMA ADI (Opsiyonel)
                                     </label>
                                     <input
@@ -273,13 +283,13 @@ export default function TeklifAlPage() {
                                         id="company"
                                         value={company}
                                         onChange={(e) => setCompany(e.target.value)}
-                                        className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]"
-                                        placeholder="ABC Makine San. Tic. Ltd. Şti."
+                                        className="w-full bg-white/5 border-2 border-white/10 p-4 font-mono text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)] transition-all placeholder:text-white/10"
+                                        placeholder="ABC Makine LTD."
                                     />
                                 </div>
 
-                                <div>
-                                    <label htmlFor="email" className="block font-mono font-bold text-sm mb-2">
+                                <div className="space-y-2">
+                                    <label htmlFor="email" className="block font-mono font-black text-[10px] uppercase tracking-widest text-white/40 mb-2">
                                         E-POSTA *
                                     </label>
                                     <input
@@ -287,14 +297,14 @@ export default function TeklifAlPage() {
                                         id="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className={`w-full border-4 ${errors.email ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]`}
+                                        className={`w-full bg-white/5 border-2 ${errors.email ? 'border-red-500/50' : 'border-white/10'} p-4 font-mono text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)] transition-all placeholder:text-white/10`}
                                         placeholder="ahmet@firma.com"
                                     />
-                                    {errors.email && <p className="text-red-500 font-mono text-xs mt-1">{errors.email}</p>}
+                                    {errors.email && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase font-bold">{errors.email}</p>}
                                 </div>
 
-                                <div>
-                                    <label htmlFor="phone" className="block font-mono font-bold text-sm mb-2">
+                                <div className="space-y-2">
+                                    <label htmlFor="phone" className="block font-mono font-black text-[10px] uppercase tracking-widest text-white/40 mb-2">
                                         TELEFON *
                                     </label>
                                     <input
@@ -303,23 +313,27 @@ export default function TeklifAlPage() {
                                         id="phone"
                                         value={phone}
                                         onChange={(e) => setPhone(e.target.value)}
-                                        className={`w-full border-4 ${errors.phone ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]`}
+                                        className={`w-full bg-white/5 border-2 ${errors.phone ? 'border-red-500/50' : 'border-white/10'} p-4 font-mono text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)] transition-all placeholder:text-white/10`}
                                         placeholder="0532 123 45 67"
                                     />
-                                    {errors.phone && <p className="text-red-500 font-mono text-xs mt-1">{errors.phone}</p>}
+                                    {errors.phone && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase font-bold">{errors.phone}</p>}
                                 </div>
                             </div>
                         </div>
 
                         {/* Project Details */}
-                        <div className="border-4 border-black p-6">
-                            <h2 className="font-[Archivo_Black] text-xl uppercase mb-6">
-                                PROJE DETAYLARI
-                            </h2>
+                        <div className="space-y-8">
+                            <div className="flex items-center gap-4">
+                                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-xs font-black font-mono">02</span>
+                                <h2 className="font-[Archivo_Black] text-xl uppercase tracking-wider">
+                                    PROJE DETAYLARI
+                                </h2>
+                                <div className="flex-1 h-px bg-white/5" />
+                            </div>
 
-                            <div className="space-y-4">
-                                <div>
-                                    <label htmlFor="serviceType" className="block font-mono font-bold text-sm mb-2">
+                            <div className="space-y-8">
+                                <div className="space-y-2">
+                                    <label htmlFor="serviceType" className="block font-mono font-black text-[10px] uppercase tracking-widest text-white/40 mb-2">
                                         HİZMET TİPİ *
                                     </label>
                                     <select
@@ -327,7 +341,7 @@ export default function TeklifAlPage() {
                                         value={serviceType}
                                         onChange={(e) => setServiceType(e.target.value as ServiceType)}
                                         disabled={isServiceLocked}
-                                        className={`w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)] ${isServiceLocked ? 'bg-black/5 cursor-not-allowed' : ''}`}
+                                        className={`w-full bg-slate-900 border-2 border-white/10 p-4 font-mono text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)] transition-all appearance-none ${isServiceLocked ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     >
                                         {SERVICES.map((service) => (
                                             <option key={service.id} value={service.slug}>
@@ -337,14 +351,14 @@ export default function TeklifAlPage() {
                                         <option value="diger">Diğer</option>
                                     </select>
                                     {isServiceLocked && (
-                                        <p className="text-xs font-mono mt-1 text-black/60">
-                                            Hizmet türü sayfadan otomatik seçildi
+                                        <p className="text-[10px] font-mono mt-2 text-[var(--color-brand-safety-orange)] uppercase font-bold">
+                                            ✓ Hizmet türü seçili sayfadan otomatik kilitlendi
                                         </p>
                                     )}
                                 </div>
 
-                                <div>
-                                    <label htmlFor="description" className="block font-mono font-bold text-sm mb-2">
+                                <div className="space-y-2">
+                                    <label htmlFor="description" className="block font-mono font-black text-[10px] uppercase tracking-widest text-white/40 mb-2">
                                         PROJE AÇIKLAMASI *
                                     </label>
                                     <textarea
@@ -352,82 +366,94 @@ export default function TeklifAlPage() {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         rows={6}
-                                        className={`w-full border-4 ${errors.description ? 'border-red-500' : 'border-black'} p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)] resize-none`}
-                                        placeholder="Projenizi detaylı anlatın: malzeme, boyutlar, miktar, toleranslar..."
+                                        className={`w-full bg-white/5 border-2 ${errors.description ? 'border-red-500/50' : 'border-white/10'} p-4 font-mono text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)] transition-all resize-none placeholder:text-white/10`}
+                                        placeholder="Malzeme tipi, boyutlar, miktar ve tolerans beklentilerinizi belirtiniz..."
                                     />
-                                    {errors.description && <p className="text-red-500 font-mono text-xs mt-1">{errors.description}</p>}
+                                    {errors.description && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase font-bold">{errors.description}</p>}
                                 </div>
 
-                                {/* MP-09: Single File Upload */}
-                                <div>
-                                    <label htmlFor="file" className="block font-mono font-bold text-sm mb-2">
-                                        TEKNİK ÇİZİM / FOTOĞRAF
+                                {/* File Upload */}
+                                <div className="space-y-2">
+                                    <label htmlFor="file" className="block font-mono font-black text-[10px] uppercase tracking-widest text-white/40 mb-2">
+                                        TEKNİK ÇİZİM / DOSYA EKLE
                                     </label>
 
                                     {!fileMetadata ? (
-                                        <div>
+                                        <div className="relative group">
                                             <input
                                                 type="file"
                                                 id="file"
                                                 accept=".pdf,.jpg,.jpeg,.png,.dwg"
                                                 onChange={handleFileChange}
-                                                className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[var(--color-brand-safety-orange)]"
+                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                                             />
-                                            <p className="text-xs font-mono mt-2 text-black/60">
-                                                PDF, JPG, PNG, DWG (Max 5MB). Teknik çizimleriniz gizlidir.
-                                            </p>
+                                            <div className="border-2 border-dashed border-white/10 p-8 text-center group-hover:border-[var(--color-brand-safety-orange)]/50 group-hover:bg-white/[0.02] transition-all">
+                                                <div className="text-[var(--color-brand-safety-orange)] mb-2">↑</div>
+                                                <p className="font-mono text-xs text-white/40 uppercase tracking-widest font-black">
+                                                    Çizimlerinizi buraya bırakın veya tıklayın
+                                                </p>
+                                                <p className="text-[9px] font-mono mt-2 text-white/20 uppercase">
+                                                    PDF, JPG, PNG, DWG (Max 5MB)
+                                                </p>
+                                            </div>
                                         </div>
                                     ) : (
-                                        <div className={`flex items-center justify-between p-4 border-4 border-black ${uploadStatus === 'error' ? 'bg-red-50' : 'bg-black/5'}`}>
+                                        <div className={`flex items-center justify-between p-4 bg-white/5 border-2 ${uploadStatus === 'error' ? 'border-red-500/50' : 'border-[var(--color-brand-safety-orange)]/30'}`}>
                                             <div className="flex-1 min-w-0">
-                                                <div className="flex items-center gap-2">
-                                                    <p className="font-mono text-sm font-bold truncate">{fileMetadata.fileName}</p>
-                                                    {uploadStatus === 'success' && <span className="text-green-500 text-xs font-bold text-[10px] uppercase">YÜKLENDİ</span>}
-                                                    {uploadStatus === 'uploading' && <span className="text-blue-500 text-xs font-bold animate-pulse text-[10px] uppercase">YÜKLENİYOR...</span>}
-                                                    {uploadStatus === 'error' && <span className="text-red-500 text-xs font-bold text-[10px] uppercase">HATA!</span>}
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 flex items-center justify-center bg-white/5 border border-white/10 rounded font-mono text-[10px] font-bold">DOC</div>
+                                                    <div>
+                                                        <p className="font-mono text-xs font-bold truncate text-white">{fileMetadata.fileName}</p>
+                                                        <p className="font-mono text-[10px] text-white/40 uppercase">
+                                                            {(fileMetadata.fileSize / 1024).toFixed(1)} KB — {uploadStatus === 'success' ? 'YÜKLENDİ' : uploadStatus === 'uploading' ? 'YÜKLENİYOR...' : uploadStatus === 'error' ? 'HATA!' : 'HAZIR'}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <p className="font-mono text-xs text-black/60">
-                                                    {(fileMetadata.fileSize / 1024).toFixed(1)} KB
-                                                </p>
                                             </div>
                                             <button
                                                 type="button"
                                                 onClick={removeFile}
                                                 disabled={isSubmitting}
-                                                className="ml-4 text-red-500 hover:text-red-700 font-bold"
+                                                className="p-2 text-white/20 hover:text-red-500 transition-colors"
                                             >
                                                 ✕
                                             </button>
                                         </div>
                                     )}
 
-                                    {errors.file && <p className="text-red-500 font-mono text-xs mt-1">{errors.file}</p>}
+                                    {errors.file && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase font-bold">{errors.file}</p>}
                                 </div>
                             </div>
                         </div>
 
-                        {/* Trust Message */}
-                        <div className="bg-black/5 border-2 border-black p-4">
-                            <p className="font-mono text-sm text-black/80">
-                                Bilgileriniz üçüncü kişilerle paylaşılmaz. Teknik verileriniz endüstriyel gizlilik protokolü ile korunur.
-                            </p>
-                        </div>
-
-                        {/* Submit */}
-                        {errors.submit && (
-                            <div className="bg-red-100 border-4 border-red-500 p-4 font-mono text-red-700">
-                                {errors.submit}
+                        {/* Submit Section */}
+                        <div className="space-y-8 pt-8 border-t border-white/5">
+                            <div className="bg-slate-900 border border-white/5 p-6 flex gap-4 items-start">
+                                <div className="text-[var(--color-brand-safety-orange)] text-lg">🛡</div>
+                                <p className="font-mono text-[11px] text-white/40 uppercase leading-relaxed tracking-wider">
+                                    Bilgileriniz ve teknik verileriniz endüstriyel gizlilik protokolü ile korunur. Formu göndererek hizmet şartlarımızı kabul etmiş sayılırsınız.
+                                </p>
                             </div>
-                        )}
 
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="w-full bg-[var(--color-brand-safety-orange)] text-black py-4 px-6 font-mono font-black text-lg uppercase border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {uploadStatus === 'uploading' ? 'DOSYA YÜKLENİYOR...' :
-                                isSubmitting ? 'İŞLENİYOR...' : 'TEKLİF TALEBİ GÖNDER →'}
-                        </button>
+                            {errors.submit && (
+                                <div className="bg-red-500/10 border-2 border-red-500/50 p-4 font-mono text-red-500 text-xs font-bold uppercase tracking-widest text-center">
+                                    {errors.submit}
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="group relative w-full bg-[var(--color-brand-safety-orange)] text-black py-6 px-8 font-black text-xl uppercase tracking-tighter transition-all hover:scale-[1.01] hover:shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)] disabled:opacity-50 disabled:cursor-not-allowed disabled:grayscale"
+                            >
+                                <div className="relative z-10 flex items-center justify-center gap-4">
+                                    {uploadStatus === 'uploading' ? 'DOSYA YÜKLENİYOR...' :
+                                        isSubmitting ? 'İŞLENİYOR...' : 'SİSTEME GÖNDER'}
+                                    <span className="group-hover:translate-x-2 transition-transform">→</span>
+                                </div>
+                                <div className="absolute inset-x-0 bottom-0 h-1 bg-black/20" />
+                            </button>
+                        </div>
                     </form>
                 </div>
             </section>

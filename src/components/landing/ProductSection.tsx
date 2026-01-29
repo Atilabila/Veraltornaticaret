@@ -12,6 +12,8 @@ import { FeatureItem } from "./FeatureItem"
 import { MetalImage } from "./MetalImage"
 import { cn, formatPrice } from "@/lib/utils"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
+import { useCartStore } from "@/store/useCartStore"
+import { useToast } from "@/components/ui/use-toast"
 
 interface ProductSectionProps {
     product: MetalProduct
@@ -61,6 +63,50 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
     const bgClass = product.background_color.startsWith("bg-")
         ? product.background_color
         : ""
+
+    const addItem = useCartStore(state => state.addItem);
+    const { toast } = useToast();
+
+    const handleAddToCart = () => {
+        if (product.stock_quantity === 0) {
+            toast({
+                title: "Stokta Yok",
+                description: "Bu ürün şu anda stokta bulunmamaktadır.",
+                variant: "destructive"
+            });
+            return;
+        }
+
+        const result = addItem({
+            productId: product.id,
+            name: product.name,
+            slug: product.slug,
+            price: product.price,
+            image: product.image_url || "/placeholder.png",
+            size: "Standart (45x60cm)", // Default size
+            orientation: "vertical"
+        });
+
+        if (result.success) {
+            toast({
+                title: "Başarılı",
+                description: "Ürün koleksiyonunuza eklendi!",
+            });
+        } else {
+            toast({
+                title: "Hata",
+                description: result.error || "Bir hata oluştu.",
+                variant: "destructive"
+            });
+        }
+    };
+
+    const handleScrollDown = () => {
+        const nextSection = (ref.current as HTMLElement)?.nextElementSibling;
+        if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return (
         <section
@@ -263,21 +309,27 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             </div>
 
                             {/* CTA Button - Metallic */}
-                            <button className={cn(
-                                "flex items-center gap-3 px-8 py-4",
-                                "font-bold text-sm uppercase tracking-wider",
-                                "rounded-sm transition-all duration-300",
-                                // Metal gradient
-                                isDark
-                                    ? "bg-gradient-to-r from-zinc-200 to-zinc-300 text-zinc-900 hover:from-zinc-100 hover:to-zinc-200"
-                                    : "bg-gradient-to-r from-zinc-800 to-zinc-900 text-white hover:from-zinc-700 hover:to-zinc-800",
-                                // Industrial shadow
-                                "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]",
-                                "hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.4)]",
-                                "hover:-translate-y-0.5"
-                            )}>
+                            <button
+                                onClick={handleAddToCart}
+                                disabled={product.stock_quantity === 0}
+                                className={cn(
+                                    "flex items-center gap-3 px-8 py-4",
+                                    "font-bold text-sm uppercase tracking-wider",
+                                    "rounded-sm transition-all duration-300",
+                                    product.stock_quantity === 0
+                                        ? "bg-zinc-800 text-zinc-500 cursor-not-allowed opacity-50"
+                                        : [
+                                            isDark
+                                                ? "bg-gradient-to-r from-zinc-200 to-zinc-300 text-zinc-900 hover:from-zinc-100 hover:to-zinc-200"
+                                                : "bg-gradient-to-r from-zinc-800 to-zinc-900 text-white hover:from-zinc-700 hover:to-zinc-800",
+                                            "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]",
+                                            "hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.4)]",
+                                            "hover:-translate-y-0.5"
+                                        ]
+                                )}
+                            >
                                 <ShoppingBag className="w-5 h-5" />
-                                Koleksiyona Ekle
+                                {product.stock_quantity === 0 ? "Stokta Yok" : "Koleksiyona Ekle"}
                             </button>
                         </motion.div>
                     </div>
@@ -293,10 +345,11 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                     className="absolute bottom-8 left-1/2 -translate-x-1/2"
                 >
                     <motion.div
+                        onClick={handleScrollDown}
                         animate={{ y: [0, 8, 0] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                         className={cn(
-                            "p-3 rounded-sm",
+                            "p-3 rounded-sm cursor-pointer hover:bg-white/10 transition-colors",
                             isDark ? "bg-white/5 border border-white/10" : "bg-black/5 border border-black/10"
                         )}
                     >

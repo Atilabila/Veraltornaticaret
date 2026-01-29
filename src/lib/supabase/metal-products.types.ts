@@ -64,6 +64,7 @@ export interface MetalProductsDatabase {
                     category_id: string | null
                     is_active: boolean
                     stock_quantity: number
+                    sku: string | null
                     created_at: string
                     updated_at: string
                 }
@@ -78,6 +79,7 @@ export interface MetalProductsDatabase {
                     category_id?: string | null
                     is_active?: boolean
                     stock_quantity?: number
+                    sku?: string | null
                     created_at?: string
                     updated_at?: string
                 }
@@ -92,6 +94,7 @@ export interface MetalProductsDatabase {
                     category_id?: string | null
                     is_active?: boolean
                     stock_quantity?: number
+                    sku?: string | null
                     created_at?: string
                     updated_at?: string
                 }
@@ -162,6 +165,7 @@ export interface MetalProduct {
     category_id: string | null
     is_active: boolean
     stock_quantity: number
+    sku: string | null
     created_at: string
     updated_at: string
     // Joined data
@@ -192,6 +196,7 @@ export interface ProductFormData {
     category_id?: string
     is_active: boolean
     stock_quantity: number
+    sku?: string
     features: FeatureFormData[]
 }
 

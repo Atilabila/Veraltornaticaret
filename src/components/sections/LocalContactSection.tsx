@@ -21,13 +21,13 @@ export const LocalContactSection = () => {
                             <div className="w-12 h-[1px] bg-[#D4AF37]" />
                             <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">DİREKT HAT</span>
                         </div>
-                        <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
+                        <h2 className="text-5xl lg:text-7xl font-bold text-white tracking-tighter uppercase leading-none italic">
                             {content.contactTitle}{" "}
-                            <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">
+                            <span className="italic font-bold text-gold-gradient">
                                 {content.contactSubtitle}
                             </span>
                         </h2>
-                        <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">
+                        <p className="text-white/60 text-lg font-medium max-w-lg">
                             {content.contactDescription}
                         </p>
                     </div>
@@ -61,10 +61,10 @@ export const LocalContactSection = () => {
                             <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/5 rounded-full -mr-32 -mt-32 group-hover:scale-150 transition-transform duration-1000 ease-out" />
 
                             <div className="relative z-10 space-y-6">
-                                <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter italic leading-none">
+                                <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter italic leading-none text-white">
                                     {content.inquiryTitle}
                                 </h3>
-                                <p className="text-lg font-medium text-white/50 leading-relaxed max-w-sm">
+                                <p className="text-lg font-medium text-white/80 leading-relaxed max-w-sm">
                                     {content.inquiryDescription}
                                 </p>
                             </div>

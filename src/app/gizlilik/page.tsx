@@ -1,104 +1,70 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Lock, Shield, Eye, Database } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Lock, Shield, Eye, Database } from "lucide-react";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { SystemLabel } from "@/components/ui/Industrial";
 
 export default function GizlilikPage() {
     return (
-        <main className="min-h-screen bg-background pt-32 pb-20">
-            <div className="container max-w-4xl mx-auto px-6">
+        <main className="min-h-screen bg-[#0A0A0A] text-white">
+            <Navigation />
 
-                {/* Header */}
-                <div className="mb-12">
-                    <Link href="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors group">
-                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                        Ana Sayfaya Dön
-                    </Link>
-                    <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <Lock className="w-6 h-6 text-primary" />
-                        </div>
-                        <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-zinc-900">
-                            Gizlilik Politikası
-                        </h1>
-                    </div>
-                    <p className="text-zinc-500 text-lg max-w-2xl">
-                        Veral Torna & Teneke Ticaret olarak, kişisel verilerinizin güvenliğine en üst düzeyde önem veriyoruz.
-                    </p>
+            <div className="container mx-auto px-6 pt-48 pb-24 max-w-4xl">
+                <div className="flex flex-col gap-6 mb-16">
+                    <SystemLabel text="GÜVENLİK PROTOKOLÜ // PRIVACY" active />
+                    <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic leading-none">
+                        Gizlilik <span className="text-gold-gradient normal-case italic font-serif font-normal tracking-normal border-b-4 border-[#D4AF37]/30">Politikası</span>
+                    </h1>
                 </div>
 
-                {/* Content */}
-                <div className="space-y-12">
-
-                    {/* Section 1 */}
-                    <section className="bg-white border border-zinc-200 p-8 rounded-2xl shadow-sm">
-                        <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-zinc-900">
-                            <Shield className="w-5 h-5 text-zinc-500" />
-                            Veri Güvenliği
+                <div className="space-y-12 text-white/70 font-medium leading-relaxed">
+                    {/* Security Layer */}
+                    <section className="bg-white/5 border border-white/10 p-10 rounded-2xl relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+                        <h2 className="text-2xl font-black text-white uppercase mb-6 relative z-10 italic tracking-tighter flex items-center gap-3">
+                            <Lock className="w-6 h-6 text-[#D4AF37]" /> SSL ve Ödeme Güvenliği
                         </h2>
-                        <p className="text-zinc-600 leading-relaxed mb-4">
-                            Sitemiz üzerinden gerçekleştirdiğiniz işlemlerde girmiş olduğunuz kredi kartı bilgileri, 256-bit SSL sertifikası ile şifrelenerek doğrudan bankaya iletilir. <span className="font-bold text-zinc-900">Kredi kartı bilgileriniz sistemimizde kesinlikle saklanmaz.</span>
+                        <p className="relative z-10">
+                            Veral Torna & Teneke üzerinden gerçekleştirdiğiniz tüm işlemler emniyet altındadır. Ödeme aşamasında girilen kredi kartı bilgileri, <strong>256-bit SSL (Secure Sockets Layer)</strong> teknolojisi ile şifrelenerek doğrudan ilgili bankanın sistemine iletilir. Şirketimiz bünyesinde kredi kartı verileri kesinlikle depolanmaz ve personelimiz dahil üçüncü şahıslar tarafından erişilemez.
                         </p>
                     </section>
 
-                    {/* Section 2 */}
-                    <section>
-                        <h2 className="text-xl font-bold mb-4 text-zinc-900 flex items-center gap-2">
-                            <Database className="w-5 h-5 text-zinc-500" />
-                            Hangi Verileri Topluyoruz?
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter border-l-4 border-[#D4AF37] pl-4 flex items-center gap-3">
+                            <Database className="w-6 h-6" /> Bilgi Toplama Kapsamı
                         </h2>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="bg-zinc-50 p-6 rounded-xl border border-zinc-200">
-                                <h3 className="font-bold text-zinc-900 mb-2">Zorunlu Veriler</h3>
-                                <p className="text-sm text-zinc-600">Siparişin size ulaşabilmesi için gerekli olan ad, soyad, adres, telefon ve fatura bilgilerini topluyoruz.</p>
-                            </div>
-                            <div className="bg-zinc-50 p-6 rounded-xl border border-zinc-200">
-                                <h3 className="font-bold text-zinc-900 mb-2">Çerezler (Cookies)</h3>
-                                <p className="text-sm text-zinc-600">Size daha iyi bir alışveriş deneyimi sunmak, sepetinizi hatırlamak ve site performansını ölçmek için çerezler kullanıyoruz.</p>
-                            </div>
-                        </div>
+                        <p>
+                            Siparişlerinizin lojistik süreçlerini yönetmek, faturalandırma işlemlerini tamamlamak ve teknik destek sağlamak amacıyla; ad-soyad, teslimat adresi, iletişim numarası ve e-posta adresi gibi temel verileri topluyoruz. Bu veriler, hizmet kalitemizi artırmak ve yasal yükümlülüklerimizi yerine getirmek dışında kullanılmaz.
+                        </p>
                     </section>
 
-                    {/* Section 3 */}
-                    <section>
-                        <h2 className="text-xl font-bold mb-4 text-zinc-900 flex items-center gap-2">
-                            <Eye className="w-5 h-5 text-zinc-500" />
-                            Verilerin Kullanımı ve Paylaşımı
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter border-l-4 border-[#D4AF37] pl-4 flex items-center gap-3">
+                            <Eye className="w-6 h-6" /> Çerez (Cookie) Kullanımı
                         </h2>
-                        <p className="text-zinc-600 leading-relaxed mb-4">
-                            Kişisel verileriniz; siparişlerin işlenmesi, teslimatı, faturalandırılması ve müşteri hizmetleri desteği sağlamak amacıyla kullanılır. Yasal zorunluluklar haricinde, verileriniz üçüncü şahıslarla asla paylaşılmaz ve ticari amaçla satılmaz.
+                        <p>
+                            İnternet sitemizde, kullanıcı deneyimini kişiselleştirmek ve site trafiğini analiz etmek amacıyla tanımlama bilgileri (çerezler) kullanılmaktadır. Çerezler, tarayıcınız aracılığıyla cihazınıza yerleştirilen küçük veri dosyalarıdır. Tarayıcı ayarlarınızdan çerez kullanımını kısıtlayabilirsiniz, ancak bu durum bazı site fonksiyonlarının çalışmasını engelleyebilir.
                         </p>
                     </section>
 
-                    {/* Section 4 KVKK Info */}
-                    <section className="bg-zinc-900 text-zinc-300 p-8 rounded-2xl">
-                        <h2 className="text-xl font-bold mb-4 text-white">KVKK Kapsamında Haklarınız</h2>
-                        <p className="leading-relaxed mb-4">
-                            6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca, dilediğiniz zaman bizimle iletişime geçerek:
-                        </p>
-                        <ul className="list-disc pl-5 space-y-2 marker:text-primary">
-                            <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme,</li>
-                            <li>İşlenmişse buna ilişkin bilgi talep etme,</li>
-                            <li>Verilerinizin silinmesini veya yok edilmesini isteme</li>
-                        </ul>
-                        <p className="mt-6">
-                            Hakkına sahipsiniz.
+                    <section className="bg-[#111111] border border-white/5 p-10 rounded-2xl">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-6">Üçüncü Şahıslarla Paylaşım</h2>
+                        <p>
+                            Toplanan kişisel veriler, yalnızca siparişin teslimatı amacıyla kargo firmalarıyla ve yasal bir zorunluluk doğması halinde resmi makamlarla paylaşılır. Verileriniz hiçbir koşulda reklam veya pazarlama amacıyla başka kurum/kuruluşlara satılmaz veya devredilmez.
                         </p>
                     </section>
-
                 </div>
 
-                {/* Footer Actions */}
-                <div className="mt-20 pt-8 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-xs text-zinc-400">Son Güncelleme: 27 Ocak 2026</p>
-                    <Link href="/kvkk">
-                        <Button variant="outline">
-                            KVKK Aydınlatma Metni
-                        </Button>
+                <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Son Güncelleme: 29 Ocak 2026</p>
+                    <Link href="/kvkk" className="text-xs font-black text-[#D4AF37] uppercase tracking-widest hover:text-white transition-colors">
+                        KVKK AYDINLATMA METNİ
                     </Link>
                 </div>
-
             </div>
+
+            <Footer />
         </main>
-    )
+    );
 }

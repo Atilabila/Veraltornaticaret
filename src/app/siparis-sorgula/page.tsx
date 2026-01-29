@@ -7,6 +7,10 @@ import { Input } from "@/components/ui/input";
 import { getOrderFromStorage, Order } from "@/store/useOrderStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
+import { SystemLabel } from "@/components/ui/Industrial";
 
 export default function SiparisSorgulaPage() {
     const [email, setEmail] = React.useState("");
@@ -44,84 +48,99 @@ export default function SiparisSorgulaPage() {
     };
 
     return (
-        <main className="min-h-screen bg-background pt-32 pb-16">
-            <div className="container max-w-xl mx-auto px-4">
-                <div className="text-center mb-10">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Search className="w-8 h-8 text-primary" />
-                    </div>
-                    <h1 className="text-3xl font-black uppercase tracking-tight mb-2">Sipariş Sorgula</h1>
-                    <p className="text-muted-foreground">
-                        Siparişinizin durumunu öğrenmek için e-posta ve sipariş numaranızı girin.
+        <main className="min-h-screen bg-[#0A0A0A] selection:bg-[#D4AF37] selection:text-white relative">
+            <Navigation />
+
+            {/* Background elements */}
+            <div className="absolute inset-0 bg-grid-metal opacity-20 pointer-events-none" />
+            <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-[#D4AF37]/5 blur-[150px] pointer-events-none" />
+
+            <div className="container max-w-xl mx-auto px-6 pt-48 pb-24 relative z-10">
+                <div className="text-center mb-16 flex flex-col items-center">
+                    <SystemLabel text="SORGULAMA SİSTEMİ v2.1" active className="mb-6" />
+                    <h1 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic mb-4">
+                        SİPARİŞ <span className="text-gold-gradient normal-case italic font-serif font-normal tracking-normal">Takibi</span>
+                    </h1>
+                    <p className="text-white/50 text-lg font-medium max-w-md">
+                        Üretim ve sevkiyat durumunuzu anlık olarak bu terminal üzerinden takip edebilirsiniz.
                     </p>
                 </div>
 
-                <div className="bg-white border border-zinc-200 shadow-xl rounded-2xl p-8">
-                    <form onSubmit={handleSearch} className="space-y-6">
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-zinc-900">
-                                <Mail className="w-4 h-4 text-primary" />
-                                E-Posta Adresi
+                <div className="bg-[#111111] border border-white/5 shadow-2xl p-10 lg:p-12 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 transition-transform duration-1000 group-hover:scale-150" />
+
+                    <form onSubmit={handleSearch} className="space-y-8 relative z-10">
+                        <div className="space-y-3">
+                            <label className="text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] flex items-center gap-3">
+                                <Mail className="w-3 h-3" />
+                                Müşteri E-Posta
                             </label>
                             <Input
                                 type="email"
-                                placeholder="ornek@mail.com"
+                                placeholder="kayitli@e-posta.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="h-12 bg-white text-zinc-900 border-zinc-300 placeholder:text-zinc-400"
+                                className="h-16 bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-[#D4AF37] transition-all rounded-none"
                                 required
                             />
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-zinc-900">
-                                <Hash className="w-4 h-4 text-primary" />
-                                Sipariş Numarası
+                        <div className="space-y-3">
+                            <label className="text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] flex items-center gap-3">
+                                <Hash className="w-3 h-3" />
+                                Sipariş No
                             </label>
                             <Input
                                 type="text"
-                                placeholder="VRL2401-XXXXXX"
+                                placeholder="VRL2501-XXXX"
                                 value={orderNumber}
                                 onChange={(e) => setOrderNumber(e.target.value)}
-                                className="h-12 bg-white text-zinc-900 border-zinc-300 placeholder:text-zinc-400"
+                                className="h-16 bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-[#D4AF37] transition-all rounded-none"
                                 required
                             />
                         </div>
 
                         {error && (
-                            <div className="p-4 bg-red-50 border border-red-100 rounded-lg text-red-600 text-sm">
-                                {error}
+                            <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold uppercase tracking-wider">
+                                [ HATA ]: {error}
                             </div>
                         )}
 
-                        <Button type="submit" className="w-full h-12 text-lg font-bold uppercase" disabled={loading}>
-                            {loading ? "Sorgulanıyor..." : "Siparişi Bul"}
-                            {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
-                        </Button>
+                        <button
+                            type="submit"
+                            className="w-full h-20 bg-[#D4AF37] text-black font-black text-xs uppercase tracking-[0.4em] hover:bg-white transition-all duration-500 disabled:opacity-50 flex items-center justify-center gap-4"
+                            disabled={loading}
+                        >
+                            {loading ? "SİSTEM TARANIYOR..." : "VERİLERİ ÇEK"}
+                            {!loading && <ArrowRight size={20} />}
+                        </button>
                     </form>
                 </div>
 
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-zinc-100 p-6 rounded-xl border border-zinc-200 flex items-start gap-4">
-                        <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0 shadow-sm">
-                            <Package className="w-5 h-5 text-primary" />
+                <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-white/5 p-8 border border-white/5 flex items-start gap-6 group hover:bg-white/[0.08] transition-all">
+                        <div className="w-12 h-12 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] shrink-0 group-hover:bg-[#D4AF37] group-hover:text-black transition-all">
+                            <Package size={20} />
                         </div>
                         <div>
-                            <h3 className="font-bold mb-1 text-zinc-900">Hesabım Yok?</h3>
-                            <p className="text-sm text-zinc-600">Siparişinizi sorgulamak için üye olmanıza gerek yoktur.</p>
+                            <h3 className="font-black text-white uppercase text-lg mb-2 tracking-tighter italic">HIZLI SORGULAMA</h3>
+                            <p className="text-xs text-white/50 font-medium leading-relaxed uppercase tracking-wider">Hesap oluşturmadan sipariş numaranız ile anlık durum kontrolü.</p>
                         </div>
                     </div>
-                    <div className="bg-zinc-100 p-6 rounded-xl border border-zinc-200 flex items-start gap-4">
-                        <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0 shadow-sm">
-                            <Search className="w-5 h-5 text-primary" />
+                    <div className="bg-white/5 p-8 border border-white/5 flex items-start gap-6 group hover:bg-white/[0.08] transition-all">
+                        <div className="w-12 h-12 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] shrink-0 group-hover:bg-[#D4AF37] group-hover:text-black transition-all">
+                            <Search size={20} />
                         </div>
                         <div>
-                            <h3 className="font-bold mb-1 text-zinc-900">Yardım Lazım?</h3>
-                            <p className="text-sm text-zinc-600">Bilgilerinize ulaşamıyorsanız <Link href="/iletisim" className="text-primary underline">destek</Link> alın.</p>
+                            <h3 className="font-black text-white uppercase text-lg mb-2 tracking-tighter italic">OPERASYON DESTEK</h3>
+                            <p className="text-xs text-white/50 font-medium leading-relaxed uppercase tracking-wider">Verileriniz eşleşmiyorsa <Link href="/iletisim" className="text-[#D4AF37] underline">teknik birimimiz</Link> ile senkronize olun.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <Footer />
+            <MobileStickyBar />
         </main>
     );
 }

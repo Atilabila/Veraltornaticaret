@@ -1,16 +1,22 @@
-// MP-07: B2B Services Landing Page
-
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { SERVICES } from '@/data/services';
 import { ArrowLeft } from 'lucide-react';
+import { ContentService } from '@/lib/supabase/content.service';
 
 export const metadata: Metadata = {
     title: 'B2B Hizmetler | İzmir Alsancak Metal İşleme & Özel Üretim',
     description: 'İzmir Alsancak merkezli CNC torna, özel metal üretim, seri imalat ve metal etiket hizmetleri. Endüstriyel kalite, hassas toleranslar.',
 };
 
-export default function HizmetlerPage() {
+export default async function HizmetlerPage() {
+    const content = await ContentService.getContent();
+    const stats = content?.serviceStats || [
+        { value: "±0.01mm", label: "Hassasiyet Toleransı" },
+        { value: "24 Saat", label: "Teklif Dönüş Süresi" },
+        { value: "15+ Yıl", label: "Sektör Deneyimi" }
+    ];
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
@@ -92,18 +98,12 @@ export default function HizmetlerPage() {
             <section className="py-12 px-4 border-t-4 border-black">
                 <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                        <div>
-                            <div className="font-[Archivo_Black] text-4xl mb-2 text-[#0A0A0A]">±0.01mm</div>
-                            <div className="font-mono text-sm uppercase text-[#0A0A0A]/70">Hassasiyet Toleransı</div>
-                        </div>
-                        <div>
-                            <div className="font-[Archivo_Black] text-4xl mb-2 text-[#0A0A0A]">24 Saat</div>
-                            <div className="font-mono text-sm uppercase text-[#0A0A0A]/70">Teklif Dönüş Süresi</div>
-                        </div>
-                        <div>
-                            <div className="font-[Archivo_Black] text-4xl mb-2 text-[#0A0A0A]">15+ Yıl</div>
-                            <div className="font-mono text-sm uppercase text-[#0A0A0A]/70">Sektör Deneyimi</div>
-                        </div>
+                        {stats.map((stat: any, i: number) => (
+                            <div key={i}>
+                                <div className="font-[Archivo_Black] text-4xl mb-2 text-[#0A0A0A]">{stat.value}</div>
+                                <div className="font-mono text-sm uppercase text-[#0A0A0A]/70">{stat.label}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

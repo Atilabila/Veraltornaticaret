@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     LayoutDashboard, Package, FileText, Settings, LogOut, Plus,
     Pencil, Trash2, Save, X, Search, ChevronDown, ChevronUp,
-    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye, ShieldCheck, Instagram
+    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye, ShieldCheck, Instagram, Upload, Globe, Mail
 } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
@@ -34,7 +34,7 @@ export const AdminDashboard = () => {
     useEffect(() => {
         const tab = searchParams.get("tab");
         if (tab) {
-            const contentSections = ["hero", "stats", "features", "reviews", "process"];
+            const contentSections = ["hero", "stats", "features", "reviews", "process", "services", "faq"];
             if (contentSections.includes(tab)) {
                 setActiveTab("content");
                 setActiveSection(tab);
@@ -223,7 +223,7 @@ const HomeContentTab = ({
     activeSection: string,
     setActiveSection: (section: string) => void
 }) => {
-    const { content, updateContent, updateFeatureItem, updateFaqItem, addFaqItem, removeFaqItem, updateServiceItem, saveToSupabase } = useContentStore();
+    const { content, updateContent, updateFeatureItem, updateFaqItem, addFaqItem, removeFaqItem, updateServiceItem, addServiceItem, removeServiceItem, saveToSupabase } = useContentStore();
 
     const sections = [
         { id: "hero", label: "Hero (Giriş)", icon: "🏠" },
@@ -253,7 +253,7 @@ const HomeContentTab = ({
                 </div>
                 <button
                     onClick={handleSave}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
                 >
                     <Save className="w-5 h-5" /> Kaydet
                 </button>
@@ -558,7 +558,17 @@ const HomeContentTab = ({
                         <div className="space-y-4">
                             {content.serviceItems.map((item, index) => (
                                 <div key={index} className="bg-slate-800 rounded-xl p-4 space-y-3">
-                                    <p className="text-sm font-bold text-[var(--color-brand-safety-orange)]">Hizmet #{index + 1}</p>
+                                    <div className="flex justify-between items-center">
+                                        <p className="text-sm font-bold text-[var(--color-brand-safety-orange)]">Hizmet #{index + 1}</p>
+                                        <button
+                                            onClick={() => {
+                                                if (confirm("Bu hizmeti silmek istediğinizden emin misiniz?")) removeServiceItem(index);
+                                            }}
+                                            className="text-red-500 hover:text-red-400 p-1"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </button>
+                                    </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <input
                                             type="text"
@@ -583,13 +593,22 @@ const HomeContentTab = ({
                                         <input
                                             type="text"
                                             value={item.features.join(", ")}
-                                            onChange={(e) => updateServiceItem(index, { ...item, features: e.target.value.split(", ") })}
+                                            onChange={(e) => updateServiceItem(index, { ...item, features: e.target.value.split(", ").filter(f => f) })}
                                             placeholder="Özellikler (virgülle ayırın)"
                                             className="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-[var(--color-brand-safety-orange)] col-span-2"
                                         />
                                     </div>
                                 </div>
                             ))}
+                        </div>
+
+                        <div className="mt-6">
+                            <button
+                                onClick={addServiceItem}
+                                className="flex items-center gap-2 bg-slate-800 text-white px-6 py-3 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-bold uppercase text-xs"
+                            >
+                                <Plus className="w-4 h-4" /> Yeni Hizmet Ekle
+                            </button>
                         </div>
                     </div>
                 )}
@@ -769,8 +788,12 @@ const OtherPagesTab = ({ showNotification }: { showNotification: (type: "success
                     <p className="text-slate-500 mt-1">Hakkımızda, Ürünler ve Blog sayfalarını düzenleyin</p>
                 </div>
                 <button
-                    onClick={() => showNotification("success", "Değişiklikler kaydedildi!")}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    onClick={async () => {
+                        const success = await useContentStore.getState().saveToSupabase();
+                        if (success) showNotification("success", "Sayfa içerikleri kaydedildi!");
+                        else showNotification("error", "Kayıt hatası!");
+                    }}
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
                 >
                     <Save className="w-5 h-5" /> Kaydet
                 </button>
@@ -781,6 +804,8 @@ const OtherPagesTab = ({ showNotification }: { showNotification: (type: "success
                     { id: "about", label: "Hakkımızda" },
                     { id: "products", label: "Ürünler Sayfası" },
                     { id: "blog", label: "Blog Sayfası" },
+                    { id: "services", label: "Hizmetler" },
+                    { id: "legal", label: "Yasal Metinler" },
                 ].map(page => (
                     <button
                         key={page.id}
@@ -876,6 +901,95 @@ const OtherPagesTab = ({ showNotification }: { showNotification: (type: "success
                                 </div>
                             ))}
                         </div>
+
+                        <div className="flex justify-between items-center mt-12 mb-6">
+                            <h4 className="font-bold text-slate-300">Zaman Tüneli (Milestones)</h4>
+                            <button
+                                onClick={() => {
+                                    const newMilestones = [...(content.milestones || [])];
+                                    newMilestones.push({
+                                        year: "2024",
+                                        title: "Yeni Başarı",
+                                        desc: "Açıklama buraya...",
+                                        icon: "Target"
+                                    });
+                                    updateContent({ milestones: newMilestones });
+                                }}
+                                className="flex items-center gap-2 text-xs bg-white/5 hover:bg-white/10 text-white px-4 py-2 rounded-lg transition-colors"
+                            >
+                                <Plus className="w-4 h-4" /> Milestone Ekle
+                            </button>
+                        </div>
+
+                        <div className="space-y-4">
+                            {(content.milestones || []).map((ms, index) => (
+                                <div key={index} className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 space-y-4 relative group">
+                                    <button
+                                        onClick={() => {
+                                            const newMS = (content.milestones || []).filter((_, i) => i !== index);
+                                            updateContent({ milestones: newMS });
+                                        }}
+                                        className="absolute top-4 right-4 text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    >
+                                        <LogOut className="w-4 h-4 rotate-45" />
+                                    </button>
+
+                                    <div className="grid grid-cols-4 gap-4">
+                                        <div>
+                                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">YIL</label>
+                                            <input
+                                                type="text"
+                                                value={ms.year}
+                                                onChange={(e) => {
+                                                    const newMS = [...(content.milestones || [])];
+                                                    newMS[index] = { ...ms, year: e.target.value };
+                                                    updateContent({ milestones: newMS });
+                                                }}
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                            />
+                                        </div>
+                                        <div className="col-span-2">
+                                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">BAŞLIK</label>
+                                            <input
+                                                type="text"
+                                                value={ms.title}
+                                                onChange={(e) => {
+                                                    const newMS = [...(content.milestones || [])];
+                                                    newMS[index] = { ...ms, title: e.target.value };
+                                                    updateContent({ milestones: newMS });
+                                                }}
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">İKON (Lucide Name)</label>
+                                            <input
+                                                type="text"
+                                                value={ms.icon}
+                                                onChange={(e) => {
+                                                    const newMS = [...(content.milestones || [])];
+                                                    newMS[index] = { ...ms, icon: e.target.value };
+                                                    updateContent({ milestones: newMS });
+                                                }}
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                            />
+                                        </div>
+                                        <div className="col-span-4">
+                                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">AÇIKLAMA</label>
+                                            <textarea
+                                                value={ms.desc}
+                                                onChange={(e) => {
+                                                    const newMS = [...(content.milestones || [])];
+                                                    newMS[index] = { ...ms, desc: e.target.value };
+                                                    updateContent({ milestones: newMS });
+                                                }}
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[60px]"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
 
@@ -950,6 +1064,116 @@ const OtherPagesTab = ({ showNotification }: { showNotification: (type: "success
                         </div>
                     </div>
                 )}
+
+                {activePage === "services" && (
+                    <div className="space-y-6">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xl font-bold">Hizmetler Sayfası İstatistikleri</h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {(content.serviceStats || []).map((stat, index) => (
+                                <div key={index} className="bg-slate-800 rounded-2xl p-6 border border-slate-700 space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-xs font-black text-[var(--color-brand-safety-orange)] tracking-widest uppercase">
+                                            İSTATİSTİK #{index + 1}
+                                        </span>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">DEĞER (Örn: ±0.01mm)</label>
+                                            <input
+                                                type="text"
+                                                value={stat.value}
+                                                onChange={(e) => {
+                                                    const newStats = [...(content.serviceStats || [])];
+                                                    newStats[index] = { ...stat, value: e.target.value };
+                                                    updateContent({ serviceStats: newStats });
+                                                }}
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] font-bold text-xl"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">ETİKET (Örn: Hassasiyet)</label>
+                                            <input
+                                                type="text"
+                                                value={stat.label}
+                                                onChange={(e) => {
+                                                    const newStats = [...(content.serviceStats || [])];
+                                                    newStats[index] = { ...stat, label: e.target.value };
+                                                    updateContent({ serviceStats: newStats });
+                                                }}
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] text-sm"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-8 p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl">
+                            <p className="text-sm text-blue-400 font-medium">
+                                💡 Bu istatistikler "hizmetler" sayfasının en altında güven sinyalleri (trust signals) olarak gösterilir.
+                            </p>
+                        </div>
+                    </div>
+                )}
+
+                {activePage === "legal" && (
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-12 h-12 rounded-sm bg-[var(--color-brand-safety-orange)]/10 border border-[var(--color-brand-safety-orange)]/20 flex items-center justify-center">
+                                <ShieldCheck className="w-6 h-6 text-[var(--color-brand-safety-orange)]" />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold">Yasal Metinler & Sözleşmeler</h3>
+                                <p className="text-xs text-slate-500">Site genelindeki yasal uyarılar ve politikalar</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-8">
+                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                                <label className="block text-sm font-bold text-slate-400 mb-4 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-safety-orange)]"></span>
+                                    Gizlilik Politikası
+                                </label>
+                                <textarea
+                                    value={content.privacyPolicy}
+                                    onChange={(e) => updateContent({ privacyPolicy: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[200px] font-mono text-sm"
+                                    placeholder="Gizlilik politikası metnini buraya girin..."
+                                />
+                            </div>
+
+                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                                <label className="block text-sm font-bold text-slate-400 mb-4 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-safety-orange)]"></span>
+                                    Kullanım Şartları
+                                </label>
+                                <textarea
+                                    value={content.termsOfService}
+                                    onChange={(e) => updateContent({ termsOfService: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[200px] font-mono text-sm"
+                                    placeholder="Kullanım şartları metnini buraya girin..."
+                                />
+                            </div>
+
+                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                                <label className="block text-sm font-bold text-slate-400 mb-4 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-safety-orange)]"></span>
+                                    KVKK Aydınlatma Metni
+                                </label>
+                                <textarea
+                                    value={content.kvkkText}
+                                    onChange={(e) => updateContent({ kvkkText: e.target.value })}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[300px] font-mono text-sm"
+                                    placeholder="KVKK aydınlatma metnini buraya girin..."
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -967,8 +1191,12 @@ const ContactTab = ({ showNotification }: { showNotification: (type: "success" |
                     <p className="text-slate-500 mt-1">İletişim bilgilerini ve footer içeriklerini düzenleyin</p>
                 </div>
                 <button
-                    onClick={() => showNotification("success", "Değişiklikler kaydedildi!")}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    onClick={async () => {
+                        const success = await useContentStore.getState().saveToSupabase();
+                        if (success) showNotification("success", "İletişim ayarları kaydedildi!");
+                        else showNotification("error", "Kayıt hatası!");
+                    }}
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
                 >
                     <Save className="w-5 h-5" /> Kaydet
                 </button>
@@ -1046,6 +1274,59 @@ const ContactTab = ({ showNotification }: { showNotification: (type: "success" |
                         />
                     </div>
                 </div>
+
+                <div className="pt-8 border-t border-slate-800 mt-8">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 rounded-sm bg-[var(--color-brand-safety-orange)]/10 border border-[var(--color-brand-safety-orange)]/20 flex items-center justify-center">
+                            <Globe className="w-6 h-6 text-[var(--color-brand-safety-orange)]" />
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-bold">Harita Ayarları</h3>
+                            <p className="text-xs text-slate-500">Google Maps koordinatları ve navigasyon linki</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div>
+                            <label className="block text-sm font-bold text-slate-400 mb-2">Enlem (Latitude)</label>
+                            <input
+                                type="text"
+                                value={content.footerMapLat}
+                                onChange={(e) => updateContent({ footerMapLat: e.target.value })}
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                placeholder="38.4357"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-bold text-slate-400 mb-2">Boylam (Longitude)</label>
+                            <input
+                                type="text"
+                                value={content.footerMapLng}
+                                onChange={(e) => updateContent({ footerMapLng: e.target.value })}
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                placeholder="27.1495"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-bold text-slate-400 mb-2">Zoom Seviyesi</label>
+                            <input
+                                type="number"
+                                value={content.footerMapZoom}
+                                onChange={(e) => updateContent({ footerMapZoom: parseInt(e.target.value) || 15 })}
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-bold text-slate-400 mb-2">Yol Tarifi Linki</label>
+                            <input
+                                type="text"
+                                value={content.footerMapLink}
+                                onChange={(e) => updateContent({ footerMapLink: e.target.value })}
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                placeholder="https://maps.app.goo.gl/..."
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -1070,7 +1351,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
     // Expand all categories once loaded
     useEffect(() => {
         if (categories.length > 0 && expandedCategories.length === 0) {
-            setExpandedCategories(categories.map(c => c.slug));
+            setExpandedCategories(categories.map(c => c.id)); // Use ID for expansion state
         }
     }, [categories]);
 
@@ -1088,13 +1369,13 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
     });
 
     const groupedProducts = categories.reduce((acc: Record<string, any[]>, cat: Category) => {
-        acc[cat.slug] = filteredProducts.filter(p => p.category === cat.slug);
+        acc[cat.id] = filteredProducts.filter(p => p.category === cat.id || p.category === cat.slug);
         return acc;
     }, {} as Record<string, any[]>);
 
-    const toggleCategory = (catSlug: string) => {
+    const toggleCategory = (catId: string) => {
         setExpandedCategories(prev =>
-            prev.includes(catSlug) ? prev.filter(id => id !== catSlug) : [...prev, catSlug]
+            prev.includes(catId) ? prev.filter(id => id !== catId) : [...prev, catId]
         );
     };
 
@@ -1134,7 +1415,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                 </div>
                 <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
                 >
                     <Plus className="w-5 h-5" /> Yeni Ürün Ekle
                 </button>
@@ -1165,13 +1446,13 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
 
             <div className="space-y-6">
                 {categories.map((category: Category) => {
-                    const categoryProducts = groupedProducts[category.slug] || [];
+                    const categoryProducts = groupedProducts[category.id] || [];
                     if (categoryProducts.length === 0 && selectedCategory) return null;
 
                     return (
-                        <div key={category.slug} className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden">
+                        <div key={category.id} className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden">
                             <button
-                                onClick={() => toggleCategory(category.slug)}
+                                onClick={() => toggleCategory(category.id)}
                                 className="w-full flex items-center justify-between p-5 hover:bg-slate-800/50 transition-colors"
                             >
                                 <div className="flex items-center gap-4">
@@ -1179,14 +1460,14 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                                     <h3 className="text-xl font-bold">{category.name}</h3>
                                     <span className="text-slate-500 text-sm">({categoryProducts.length} ürün)</span>
                                 </div>
-                                {expandedCategories.includes(category.slug) ?
+                                {expandedCategories.includes(category.id) ?
                                     <ChevronUp className="w-5 h-5 text-slate-400" /> :
                                     <ChevronDown className="w-5 h-5 text-slate-400" />
                                 }
                             </button>
 
                             <AnimatePresence>
-                                {expandedCategories.includes(category.slug) && (
+                                {expandedCategories.includes(category.id) && (
                                     <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
                                         <div className="p-5 pt-0 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                             {categoryProducts.map((product: Product) => (
@@ -1204,7 +1485,12 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                                                     </div>
                                                     <div className="p-4">
                                                         <h4 className="font-bold text-sm truncate">{product.name}</h4>
-                                                        <p className="text-[var(--color-brand-safety-orange)] font-bold mt-1">₺{product.price}</p>
+                                                        <div className="flex justify-between items-center mt-1">
+                                                            <p className="text-[var(--color-brand-safety-orange)] font-bold">₺{product.price}</p>
+                                                            <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-500 uppercase font-mono">
+                                                                {categories.find(c => c.id === product.category || c.slug === product.category)?.name || "Kategorisiz"}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))}
@@ -1237,10 +1523,11 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Produc
     const [formData, setFormData] = useState({
         id: product?.id || "",
         name: product?.name || "",
+        sku: product?.sku || "",
         description: product?.description || "",
         price: product?.price || 350,
         image: product?.image || "",
-        category: product?.category || "CUSTOM",
+        category: product?.category || "", // This will store the category ID (UUID)
         specs: product?.specs || { material: "ALÜMİNYUM", thickness: "1.5MM", process: "UV_STATİK", print: "ENDÜSTRİYEL_GEN_3" }
     });
 
@@ -1253,9 +1540,24 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Produc
                 </div>
                 <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="p-6 space-y-6">
                     <div className="grid grid-cols-2 gap-6">
-                        <div className="col-span-2">
-                            <label className="block text-sm font-bold text-slate-400 mb-2">Ürün Adı</label>
+                        <div className="col-span-1">
+                            <label className="block text-sm font-bold text-slate-400 mb-2 flex items-center gap-2">
+                                <FileText className="w-4 h-4" /> Ürün Adı
+                            </label>
                             <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]" required />
+                        </div>
+                        <div className="col-span-1">
+                            <label className="block text-sm font-bold text-slate-400 mb-2 flex items-center gap-2">
+                                <Package className="w-4 h-4" /> SKU (Stok Kodu)
+                            </label>
+                            <input
+                                type="text"
+                                value={formData.sku}
+                                onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] disabled:opacity-50"
+                                placeholder="SİSTEM TARAFINDAN ÜRETİLECEK"
+                                readOnly={!!product?.sku}
+                            />
                         </div>
                         <div className="col-span-2">
                             <label className="block text-sm font-bold text-slate-400 mb-2">Açıklama</label>
@@ -1269,12 +1571,13 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Produc
                             <label className="block text-sm font-bold text-slate-400 mb-2">Kategori</label>
                             <div className="flex gap-2">
                                 <select
-                                    value={formData.category}
+                                    value={formData.category} // Using category field to store ID
                                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                     className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
                                 >
+                                    <option value="">Kategori Seçin</option>
                                     {useCategoryStore.getState().categories.map(cat => (
-                                        <option key={cat.slug} value={cat.slug}>{cat.name}</option>
+                                        <option key={cat.id} value={cat.id}>{cat.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -1563,7 +1866,7 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                 if (ordersRes.success) {
                     setOrders(ordersRes.data || []);
                 } else {
-                    throw new Error(ordersRes.error);
+                    throw new Error("Failed to fetch orders");
                 }
 
                 if (statsRes.success) {
@@ -1589,7 +1892,7 @@ const OrdersTab = ({ showNotification }: { showNotification: (type: "success" | 
                 setOrders(orders.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
                 showNotification("success", "Sipariş durumu güncellendi!");
             } else {
-                throw new Error(result.error);
+                throw new Error("Failed to update status");
             }
         } catch (error) {
             showNotification("error", "Durum güncellenemedi!");
@@ -1794,7 +2097,7 @@ const QuotesTab = ({ showNotification }: { showNotification: (type: "success" | 
                 if (quotesRes.success) {
                     setQuotes(quotesRes.data || []);
                 } else {
-                    throw new Error(quotesRes.error);
+                    throw new Error("Failed to fetch quotes");
                 }
 
                 if (statsRes.success) {
@@ -1820,7 +2123,7 @@ const QuotesTab = ({ showNotification }: { showNotification: (type: "success" | 
                 setQuotes(quotes.map(q => q.id === quoteId ? { ...q, status: newStatus } : q));
                 showNotification("success", "Teklif durumu güncellendi!");
             } else {
-                throw new Error(result.error);
+                throw new Error("Failed to update status");
             }
         } catch (error) {
             showNotification("error", "Durum güncellenemedi!");
@@ -2121,8 +2424,12 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
                     <p className="text-slate-500 mt-1">Site logosu ve marka ayarlarını düzenleyin</p>
                 </div>
                 <button
-                    onClick={() => showNotification("success", "Marka ayarları kaydedildi!")}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    onClick={async () => {
+                        const success = await useContentStore.getState().saveToSupabase();
+                        if (success) showNotification("success", "Marka ayarları kaydedildi!");
+                        else showNotification("error", "Kayıt hatası!");
+                    }}
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
                 >
                     <Save className="w-5 h-5" /> Kaydet
                 </button>
@@ -2141,28 +2448,82 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-bold text-slate-400 mb-2">Header Logo URL</label>
-                        <input
-                            type="text"
-                            value={content.headerLogo || ""}
-                            onChange={(e) => updateContent({ headerLogo: e.target.value })}
-                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
-                            placeholder="/logo.svg"
-                        />
-                        <p className="text-xs text-slate-500 mt-1">Navigasyon çubuğunda görünecek logo</p>
+                    <div className="space-y-4">
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Header Logo</label>
+                        <div className="flex gap-4">
+                            <input
+                                type="text"
+                                value={content.headerLogo || ""}
+                                onChange={(e) => updateContent({ headerLogo: e.target.value })}
+                                className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] font-mono text-xs"
+                                placeholder="/logo.svg"
+                            />
+                            <div className="relative">
+                                <input
+                                    type="file"
+                                    accept="image/svg+xml,image/webp,image/png,image/jpeg"
+                                    className="absolute inset-0 opacity-0 cursor-pointer"
+                                    onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            const formData = new FormData();
+                                            formData.append("file", file);
+                                            formData.append("path", "branding");
+                                            const { uploadSiteAsset } = await import("@/actions/admin");
+                                            try {
+                                                const result = await uploadSiteAsset(formData);
+                                                if (result.success) updateContent({ headerLogo: result.url });
+                                            } catch (err: any) {
+                                                showNotification("error", err.message);
+                                            }
+                                        }
+                                    }}
+                                />
+                                <button className="h-full px-4 bg-slate-700 hover:bg-slate-600 rounded-xl transition-colors">
+                                    <Upload className="w-5 h-5" />
+                                </button>
+                            </div>
+                        </div>
+                        <p className="text-xs text-slate-500">Navigasyon çubuğunda görünecek logo (SVG/WebP önerilir)</p>
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-bold text-slate-400 mb-2">Footer Logo URL</label>
-                        <input
-                            type="text"
-                            value={content.footerLogo || ""}
-                            onChange={(e) => updateContent({ footerLogo: e.target.value })}
-                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
-                            placeholder="/logo-white.svg"
-                        />
-                        <p className="text-xs text-slate-500 mt-1">Footer'da görünecek logo (genellikle beyaz)</p>
+                    <div className="space-y-4">
+                        <label className="block text-sm font-bold text-slate-400 mb-2">Footer Logo</label>
+                        <div className="flex gap-4">
+                            <input
+                                type="text"
+                                value={content.footerLogo || ""}
+                                onChange={(e) => updateContent({ footerLogo: e.target.value })}
+                                className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] font-mono text-xs"
+                                placeholder="/logo-white.svg"
+                            />
+                            <div className="relative">
+                                <input
+                                    type="file"
+                                    accept="image/svg+xml,image/webp,image/png,image/jpeg"
+                                    className="absolute inset-0 opacity-0 cursor-pointer"
+                                    onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            const formData = new FormData();
+                                            formData.append("file", file);
+                                            formData.append("path", "branding");
+                                            const { uploadSiteAsset } = await import("@/actions/admin");
+                                            try {
+                                                const result = await uploadSiteAsset(formData);
+                                                if (result.success) updateContent({ footerLogo: result.url });
+                                            } catch (err: any) {
+                                                showNotification("error", err.message);
+                                            }
+                                        }
+                                    }}
+                                />
+                                <button className="h-full px-4 bg-slate-700 hover:bg-slate-600 rounded-xl transition-colors">
+                                    <Upload className="w-5 h-5" />
+                                </button>
+                            </div>
+                        </div>
+                        <p className="text-xs text-slate-500">Footer'da görünecek logo (genellikle beyaz)</p>
                     </div>
                 </div>
 
@@ -2215,7 +2576,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                 </div>
                 <button
                     onClick={handleSave}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
                 >
                     <Save className="w-5 h-5" /> Kaydet
                 </button>

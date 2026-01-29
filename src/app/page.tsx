@@ -14,6 +14,7 @@ import { InstagramFeed } from '@/components/sections/InstagramFeed';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { InstagramMarquee } from '@/components/sections/InstagramMarquee';
 import { StatsMarquee } from '@/components/sections/StatsMarquee';
+import { OtherServices } from '@/components/sections/OtherServices';
 import { LocalContactSection } from '@/components/sections/LocalContactSection';
 import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 
@@ -64,6 +65,11 @@ export default function HomePage() {
       {/* PROCESS_MATRIX */}
       <section className="bg-transparent relative z-10">
         <ProcessSection />
+      </section>
+
+      {/* SERVICES_MODULE */}
+      <section className="bg-transparent relative z-10">
+        <OtherServices />
       </section>
 
       {/* CONTACT_TERMINAL */}
