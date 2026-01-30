@@ -14,6 +14,7 @@ import { useContentStore, SiteContent } from "@/store/useContentStore";
 import { Product } from "@/lib/products";
 import { ImageUploader } from "./ImageUploader";
 import { InstagramAdmin } from "@/components/admin/InstagramAdmin";
+import { BulkProductForm } from "@/components/admin/BulkProductForm";
 import type { Category } from "@/lib/supabase/categories.service";
 import { AdminLogoutButton } from "./AdminLogoutButton";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
@@ -1339,6 +1340,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isBulkAddModalOpen, setIsBulkAddModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<any | null>(null);
     const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
@@ -1364,8 +1366,9 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
 
     const filteredProducts = products.filter(p => {
         const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = !selectedCategory || p.category === selectedCategory;
-        return matchesSearch && matchesCategory;
+        const matchesCategory = !selectedCategory || p.category === selectedCategory || p.category_id === selectedCategory;
+        const isNotShowcase = !p.is_showcase; // Don't show showcase products here
+        return matchesSearch && matchesCategory && isNotShowcase;
     });
 
     const groupedProducts = categories.reduce((acc: Record<string, any[]>, cat: Category) => {
@@ -1413,12 +1416,20 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                     <h1 className="text-3xl font-bold">Ürün Yönetimi</h1>
                     <p className="text-slate-500 mt-1">Toplam {products.length} ürün</p>
                 </div>
-                <button
-                    onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
-                >
-                    <Plus className="w-5 h-5" /> Yeni Ürün Ekle
-                </button>
+                <div className="flex gap-4">
+                    <button
+                        onClick={() => setIsBulkAddModalOpen(true)}
+                        className="flex items-center gap-2 bg-slate-800 text-white px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
+                    >
+                        <FolderPlus className="w-5 h-5" /> Toplu Ürün Ekle (5+)
+                    </button>
+                    <button
+                        onClick={() => setIsAddModalOpen(true)}
+                        className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
+                    >
+                        <Plus className="w-5 h-5" /> Yeni Ürün Ekle
+                    </button>
+                </div>
             </header>
 
             <div className="flex gap-4 mb-8">
@@ -1513,6 +1524,25 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                         isLoading={loading}
                     />
                 )}
+                {isBulkAddModalOpen && (
+                    <BulkProductForm
+                        open={isBulkAddModalOpen}
+                        onOpenChange={setIsBulkAddModalOpen}
+                        categories={categories as any}
+                        onSubmit={async (data) => {
+                            const { createBulkProducts } = await import("@/lib/actions/metal-products.actions");
+                            const res = await createBulkProducts(data);
+                            if (res.success) {
+                                showNotification("success", `${res.data} ürün başarıyla eklendi!`);
+                                fetchProductsAdmin();
+                                setIsBulkAddModalOpen(false);
+                            } else {
+                                showNotification("error", res.error || "Hata oluştu");
+                            }
+                        }}
+                        loading={loading}
+                    />
+                )}
             </AnimatePresence>
         </div>
     );
@@ -1528,6 +1558,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Produc
         price: product?.price || 350,
         image: product?.image || "",
         category: product?.category || "", // This will store the category ID (UUID)
+        is_showcase: product?.is_showcase || false,
         specs: product?.specs || { material: "ALÜMİNYUM", thickness: "1.5MM", process: "UV_STATİK", print: "ENDÜSTRİYEL_GEN_3" }
     });
 
@@ -1581,6 +1612,21 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: Produc
                                     ))}
                                 </select>
                             </div>
+                        </div>
+                        <div className="col-span-2">
+                            <label className="flex items-center gap-2 cursor-pointer group">
+                                <div className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${formData.is_showcase ? 'bg-[var(--color-brand-safety-orange)] border-[var(--color-brand-safety-orange)]' : 'border-slate-700 group-hover:border-slate-500'}`}>
+                                    {formData.is_showcase && <Check className="w-4 h-4 text-black" />}
+                                </div>
+                                <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={formData.is_showcase}
+                                    onChange={(e) => setFormData({ ...formData, is_showcase: e.target.checked })}
+                                />
+                                <span className="font-bold text-slate-300">Metal Showcase Sayfasında Göster</span>
+                            </label>
+                            <p className="text-xs text-slate-500 mt-1 ml-8">Bu ürün /metal-showcase sayfasında öne çıkarılacaktır.</p>
                         </div>
                         <div className="col-span-2">
                             <ImageUploader
@@ -2557,6 +2603,18 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
 // ========== METAL SHOWCASE TAB ==========
 const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
     const { content, updateContent, saveToSupabase } = useContentStore();
+    const { products, loading, fetchProductsAdmin, addProduct, updateProduct, deleteProduct } = useProductStore();
+    const { categories, fetchCategories } = useCategoryStore();
+
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [editingProduct, setEditingProduct] = useState<any | null>(null);
+
+    useEffect(() => {
+        fetchProductsAdmin();
+        fetchCategories();
+    }, [fetchProductsAdmin, fetchCategories]);
+
+    const showcaseProducts = products.filter(p => p.is_showcase);
 
     const handleSave = async () => {
         const success = await saveToSupabase();
@@ -2564,6 +2622,33 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
             showNotification("success", "Metal Showcase ayarları Supabase'e kaydedildi!");
         } else {
             showNotification("error", "Kayıt sırasında bir hata oluştu!");
+        }
+    };
+
+    const handleSaveProduct = async (product: any) => {
+        try {
+            if (product.id) {
+                await updateProduct(product.id, product);
+                showNotification("success", "Ürün güncellendi!");
+            } else {
+                await addProduct({ ...product, is_showcase: true });
+                showNotification("success", "Yeni showcase ürünü eklendi!");
+            }
+            setEditingProduct(null);
+            setIsAddModalOpen(false);
+        } catch (err) {
+            showNotification("error", "İşlem başarısız oldu!");
+        }
+    };
+
+    const handleDeleteProduct = async (id: string) => {
+        if (confirm("Bu ürünü showcase'den silmek istediğinizden emin misiniz?")) {
+            try {
+                await deleteProduct(id);
+                showNotification("success", "Ürün silindi.");
+            } catch (err) {
+                showNotification("error", "Silme işlemi başarısız oldu!");
+            }
         }
     };
 
@@ -2656,7 +2741,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                 </div>
 
                 {/* Preview Link */}
-                <div className="mt-6 pt-6 border-t border-slate-700">
+                <div className="mt-6 pt-6 border-t border-slate-700 flex justify-between items-center">
                     <a
                         href="/metal-showcase"
                         target="_blank"
@@ -2668,6 +2753,59 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                     </a>
                 </div>
             </div>
+
+            {/* Showcase Products Management */}
+            <div className="mt-12 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 space-y-6">
+                <header className="flex justify-between items-center">
+                    <div>
+                        <h3 className="text-xl font-bold italic">Metal Showcase Ürünleri</h3>
+                        <p className="text-sm text-slate-500 italic">Özel seride sergilenen {showcaseProducts.length} adet ürün</p>
+                    </div>
+                    <button
+                        onClick={() => setIsAddModalOpen(true)}
+                        className="flex items-center gap-2 bg-white text-black px-4 py-2 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all font-black text-xs uppercase"
+                    >
+                        <Plus className="w-4 h-4" /> Showcase Ürünü Ekle
+                    </button>
+                </header>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {showcaseProducts.map((product) => (
+                        <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-safety-orange)] transition-all relative">
+                            <div className="aspect-square bg-slate-900 border-b border-white/5">
+                                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                    <button onClick={() => setEditingProduct(product)} className="p-2 bg-[var(--color-brand-safety-orange)] rounded-lg hover:scale-110 transition-transform">
+                                        <Pencil className="w-4 h-4 text-black" />
+                                    </button>
+                                    <button onClick={() => handleDeleteProduct(product.id)} className="p-2 bg-red-500 rounded-lg hover:scale-110 transition-transform">
+                                        <Trash2 className="w-4 h-4 text-white" />
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="p-3">
+                                <p className="text-xs font-bold truncate text-slate-300 italic uppercase">{product.name}</p>
+                            </div>
+                        </div>
+                    ))}
+                    {showcaseProducts.length === 0 && (
+                        <div className="col-span-full py-12 text-center border-2 border-dashed border-slate-800 rounded-xl">
+                            <p className="text-slate-500 font-mono text-sm">HENÜZ SHOWCASE ÜRÜNÜ EKLENMEMİŞ</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <AnimatePresence>
+                {(isAddModalOpen || editingProduct) && (
+                    <ProductModal
+                        product={editingProduct}
+                        onSave={handleSaveProduct}
+                        onClose={() => { setIsAddModalOpen(false); setEditingProduct(null); }}
+                        isLoading={loading}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 };

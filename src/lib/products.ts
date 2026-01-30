@@ -16,6 +16,7 @@ export interface Product {
     images?: string[];
     stock_quantity?: number;
     sku?: string;
+    is_showcase?: boolean;
 }
 
 export const PRODUCTS_DATA: Record<string, Product> = {

@@ -44,7 +44,11 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
 }) => {
     // State
     const [rows, setRows] = React.useState<BulkRow[]>([
-        { id: "1", name: "", price: "", stock: "", slug: "" }
+        { id: "1", name: "", price: "", stock: "", slug: "" },
+        { id: "2", name: "", price: "", stock: "", slug: "" },
+        { id: "3", name: "", price: "", stock: "", slug: "" },
+        { id: "4", name: "", price: "", stock: "", slug: "" },
+        { id: "5", name: "", price: "", stock: "", slug: "" }
     ])
     const [selectedCategoryId, setSelectedCategoryId] = React.useState<string>("")
     const [pasteMode, setPasteMode] = React.useState(false)
@@ -189,6 +193,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                 stock_quantity: Number(row.stock) || 0,
                 category_id: selectedCategoryId,
                 is_active: true,
+                is_showcase: false,
                 image_url: imageUrl,
                 background_color: "#ffffff",
                 features: []

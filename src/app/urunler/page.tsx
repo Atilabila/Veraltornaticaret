@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     description: "Endüstriyel metal tablo ve dekorasyon koleksiyonu.",
 };
 
+export const revalidate = 0; // Disable cache for debugging or set to 60
+
 export default async function ProductsPage() {
     const [{ data: products }, { data: categories }] = await Promise.all([
         getProducts(),

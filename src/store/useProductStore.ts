@@ -60,6 +60,7 @@ const mapMetalProductToProduct = (mp: MetalProduct): Product => ({
     name: mp.name,
     slug: mp.slug,
     price: mp.price,
+    is_showcase: mp.is_showcase,
     image: mp.image_url || '/placeholder.png',
     description: mp.description || '',
     story: mp.description || '',
@@ -161,6 +162,7 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
                 category_id: productData.category_id || productData.category, // Handle both
                 is_active: true,
                 stock_quantity: 100, // Default for now
+                is_showcase: productData.is_showcase || false,
             };
 
             const result = await upsertAdminProduct(newProductPayload as any);

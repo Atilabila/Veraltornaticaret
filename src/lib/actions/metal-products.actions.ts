@@ -185,7 +185,8 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
                 background_color: formData.background_color,
                 category_id: formData.category_id,
                 is_active: formData.is_active,
-                stock_quantity: formData.stock_quantity
+                stock_quantity: formData.stock_quantity,
+                is_showcase: formData.is_showcase
             })
             .select()
             .single()
@@ -418,7 +419,8 @@ export async function createBulkProducts(products: ProductFormData[]): Promise<A
                 category_id: p.category_id,
                 is_active: p.is_active,
                 image_url: p.image_url,
-                background_color: p.background_color // Optional default
+                background_color: p.background_color,
+                is_showcase: p.is_showcase === undefined ? false : p.is_showcase
             }
         })
 
