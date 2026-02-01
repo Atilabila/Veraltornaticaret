@@ -173,8 +173,8 @@ export async function getAdminProducts() {
     const admin = createAdminSupabaseClient();
 
     const { data, error } = await admin
-        .from("metal_products")
-        .select("*") // Correct table name
+        .from("products")
+        .select("*")
         .order("created_at", { ascending: false });
 
     if (error) throw new Error("Failed to fetch product data");
@@ -185,44 +185,39 @@ export async function upsertAdminProduct(product: any) {
     const { userId } = await requireAdmin();
     const admin = createAdminSupabaseClient();
 
-    // Map legacy 'image' to 'image_url' if needed
+    // Prepare product object for 'products' table
     const dbProduct = { ...product };
-    if ('image' in dbProduct) {
-        dbProduct.image_url = dbProduct.image;
-        delete dbProduct.image;
+
+    // Remove ID if it's "new" or empty string to let DB generate UUID
+    if (!dbProduct.id || dbProduct.id === "new") {
+        delete dbProduct.id;
     }
 
-    // Map 'category' to 'category_id' if it's a UUID, or handle mapping
-    // Note: metal_products uses category_id (UUID) while legacy might have used category (slug)
-    // We'll trust the caller passes correct fields for now or handle in store
-
-    // Auto-generate SKU if missing
-    if (!dbProduct.sku) {
-        try {
-            const { data: nextSku } = await admin.rpc('generate_next_sku');
-            if (nextSku) {
-                dbProduct.sku = nextSku;
-            }
-        } catch (e) {
-            console.warn("Failed to generate SKU via RPC:", e);
-        }
+    // Ensure we don't send 'image_url' if the input has it but DB expects 'image'
+    // If input comes from a form that sends 'image_url' but DB is 'products' (image), we might need to map back?
+    // Based on database.types.ts: products has 'image'.
+    // If the form sends 'image' -> we are good.
+    // If the form sends 'image_url' -> we should map it to 'image'.
+    if ('image_url' in dbProduct && !('image' in dbProduct)) {
+        dbProduct.image = dbProduct.image_url;
+        delete dbProduct.image_url;
     }
 
     const { data, error } = await (admin as any)
-        .from("metal_products")
+        .from("products")
         .upsert(dbProduct)
         .select()
         .single();
 
     if (error) {
         console.error("Upsert error:", error);
-        throw new Error("Failed to save product to database");
+        throw new Error("Failed to save product to database: " + error.message);
     }
 
     await logAdminAction({
         adminUserId: userId,
         action: "PRODUCT_UPSERT",
-        entity: "metal_products",
+        entity: "products",
         entityId: data?.id || "new",
         payload: dbProduct,
     });
@@ -234,14 +229,14 @@ export async function deleteAdminProduct(productId: string) {
     const { userId } = await requireAdmin();
     const admin = createAdminSupabaseClient();
 
-    const { error } = await admin.from("metal_products").delete().eq("id", productId);
+    const { error } = await admin.from("products").delete().eq("id", productId);
 
     if (error) throw new Error("Failed to delete product data");
 
     await logAdminAction({
         adminUserId: userId,
         action: "PRODUCT_DELETE",
-        entity: "metal_products",
+        entity: "products",
         entityId: productId,
     });
 
@@ -250,26 +245,47 @@ export async function deleteAdminProduct(productId: string) {
 
 // =====================================================
 // CATEGORY ACTIONS
-// =================================0====================
+// =====================================================
 
 export async function upsertAdminCategory(category: any) {
     const { userId } = await requireAdmin();
     const admin = createAdminSupabaseClient();
 
+    const dbCategory = { ...category };
+
+    // FIX: Map 'image' to 'image_url' for categories table
+    if ('image' in dbCategory) {
+        dbCategory.image_url = dbCategory.image;
+        delete dbCategory.image;
+    }
+
+    // FIX: Remove 'color' as it does not exist in 'categories' table
+    if ('color' in dbCategory) {
+        delete dbCategory.color;
+    }
+
+    // Remove ID if it's "new" to allow auto-generation
+    if (!dbCategory.id || dbCategory.id === "new") {
+        delete dbCategory.id;
+    }
+
     const { data, error } = await (admin as any)
         .from("categories")
-        .upsert(category)
+        .upsert(dbCategory)
         .select()
         .single();
 
-    if (error) throw new Error("Failed to save category");
+    if (error) {
+        console.error("Category Upsert Error:", error);
+        throw new Error("Failed to save category: " + error.message);
+    }
 
     await logAdminAction({
         adminUserId: userId,
         action: "CATEGORY_UPSERT",
         entity: "categories",
         entityId: data?.id || "new",
-        payload: category,
+        payload: dbCategory,
     });
 
     return { success: true, data };

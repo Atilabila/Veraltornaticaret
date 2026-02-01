@@ -1,7 +1,7 @@
 import "@/app/metal-art.css"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getProductBySlug, getProducts } from "@/lib/actions/metal-products.actions"
+import { getProductBySlug, getProducts, getRelatedProducts } from "@/lib/actions/metal-products.actions"
 import ProductDetailClient from "@/app/product/[slug]/ProductDetailClient"
 import { ProductSchema } from "@/components/seo/ProductSchema"
 
@@ -57,6 +57,15 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
     const product = result.data
 
+    // Fetch related products
+    let relatedProducts: any[] = []
+    if (product.category_id) {
+        const relatedRes = await getRelatedProducts(product.category_id, product.id)
+        if (relatedRes.success && relatedRes.data) {
+            relatedProducts = relatedRes.data
+        }
+    }
+
     return (
         <>
             <ProductSchema product={{
@@ -68,7 +77,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 availability: product.stock_quantity > 0 ? "InStock" : "OutOfStock"
             }} />
             {/* Reuse the premium ProductDetailClient from the other route */}
-            <ProductDetailClient product={product} />
+            <ProductDetailClient product={product} relatedProducts={relatedProducts} />
         </>
     )
 }

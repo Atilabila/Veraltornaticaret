@@ -1,149 +1,165 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { useContentStore } from "@/store/useContentStore";
-import { DirectEdit } from "@/components/admin/DirectEdit";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowRight, ShieldCheck, Ruler, Factory, Package } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Hero = () => {
     const { content } = useContentStore();
-    const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-    const rawImages = content.heroImages && content.heroImages.length > 0 ? content.heroImages : [content.heroImage];
-    // Filter out empty strings or undefined values
-    const validImages = rawImages.filter(img => img && img.trim() !== "");
-    // Fallback if no valid images exist
-    const images = validImages.length > 0 ? validImages : ["https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1000&auto=format&fit=crop"];
-
-    React.useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length);
-        }, 3000);
-        return () => clearInterval(timer);
-    }, [images.length]);
 
     return (
-        <DirectEdit tab="hero">
-            <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-white">
-                {/* GRID_PATTERN_BACKGROUND */}
-                <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]" />
+        <section className="relative min-h-[90vh] flex items-center bg-[#FAFBFF] overflow-hidden">
+            {/* Background Texture - Industrial Grid */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
-                <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] grid lg:grid-cols-2 gap-16 items-center relative z-10">
-                    {/* Left Content */}
-                    <div className="space-y-10">
+            <div className="container mx-auto px-6 lg:px-12 relative z-10">
+                <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+
+                    {/* Left Column: Typography & CTAs */}
+                    <div className="lg:col-span-7 flex flex-col gap-8 lg:gap-10">
+                        {/* Eyebrow */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="flex flex-wrap gap-x-2 gap-y-1 text-[10px] sm:text-xs font-black tracking-[0.2em] uppercase text-black/80"
+                            transition={{ duration: 0.5 }}
+                            className="flex items-center gap-3"
                         >
-                            <span>{content.heroTagline1}</span>
-                            <span>{content.heroTagline2}</span>
-                            <span className="text-[var(--color-brand-safety-orange)]">{content.heroTagline3}</span>
+                            <span className="h-[2px] w-8 bg-black/80" />
+                            <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/70">
+                                {content.heroSubtitle || "Yerli üretim metal tablolar, teneke ürünler ve özel baskı çözümleri"}
+                            </span>
                         </motion.div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                        {/* Main Headline */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="space-y-2"
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter uppercase text-black"
                         >
-                            <h1 className="text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] font-black leading-[0.8] tracking-tighter uppercase flex flex-col">
-                                <span className="text-black">YAŞAM</span>
-                                <span className="text-gold-metal pl-4 md:pl-8">ALANINIZ</span>
-                                <div className="flex items-baseline gap-4">
-                                    <span className="text-black opacity-80">İÇİN</span>
-                                    <span className="text-black">YENİ</span>
-                                </div>
-                                <span className="text-gold-metal">NESİL</span>
-                                <span className="text-gold-metal pl-8 md:pl-16">DEKOR</span>
-                            </h1>
+                            <span dangerouslySetInnerHTML={{ __html: content.heroTitle?.replace(/\n/g, '<br/>') || "METAL TABLO &<br/>TENEKELERDE<br/>YENİ NESİL<br/>DEKOR VE ÜRETİM" }} />
+                        </motion.h1>
+
+                        {/* Supporting Text */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="border-l-4 border-black pl-6 py-2"
+                        >
+                            <p className="font-mono text-sm md:text-base font-medium text-black/70 uppercase tracking-widest leading-relaxed">
+                                {content.heroTagline || "0.30MM ENDÜSTRİYEL METAL PLAKALAR · UV DİJİTAL KALİBRASYON · SIFIR YUVARLAK KÖŞE"}
+                            </p>
                         </motion.div>
 
-                        <motion.p
+                        {/* CTAs */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="flex flex-col sm:flex-row gap-4 pt-4"
+                        >
+                            <Button
+                                asChild
+                                size="lg"
+                                className="h-16 px-8 text-base font-black tracking-widest uppercase rounded-none bg-black hover:bg-gray-800 transition-all duration-300"
+                            >
+                                <Link href={content.heroButton1Url || "/urunler"}>
+                                    <span className="flex items-center gap-3">
+                                        {content.heroButton1Text || "Koleksiyonu Keşfet"}
+                                        <ArrowRight className="w-5 h-5" />
+                                    </span>
+                                </Link>
+                            </Button>
+
+                            <Button
+                                asChild
+                                variant="outline"
+                                size="lg"
+                                className="h-16 px-8 text-base font-bold tracking-widest uppercase rounded-none border-2 border-black hover:bg-black hover:text-white transition-all duration-300"
+                            >
+                                <Link href={content.heroButton2Url || "/iletisim"}>
+                                    {content.heroButton2Text || "Özel Üretim / Toptan Teklif Al"}
+                                </Link>
+                            </Button>
+                        </motion.div>
+
+                        {/* Trust Badges */}
+                        <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            className="text-sm md:text-base font-black text-black/60 max-w-lg uppercase tracking-wider"
+                            transition={{ duration: 0.5, delay: 0.4 }}
+                            className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-black/10"
                         >
-                            {content.heroSubtitle}
-                        </motion.p>
-
-                        <div className="flex flex-wrap gap-6 pt-4">
-                            <Link href="/urunler" className="group relative px-10 py-5 bg-black text-white font-black text-sm uppercase tracking-[0.2em] overflow-hidden">
-                                <span className="relative z-10 flex items-center gap-3">
-                                    Koleksiyonu Keşfet <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                                </span>
-                                <div className="absolute inset-0 bg-[var(--color-brand-safety-orange)] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                            </Link>
-
-                            <div className="flex items-center gap-4 px-6 border border-black/10 bg-slate-50">
-                                <div className="flex -space-x-2">
-                                    {[1, 2, 3].map(i => (
-                                        <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200" />
-                                    ))}
-                                </div>
-                                <div className="text-[10px] font-bold text-black/40 uppercase tracking-tighter">
-                                    <span className="text-black block">{content.heroCustomerCount} MÜŞTERİ</span>
-                                    <span>MEMNUNİYETİ YA DA {content.heroPrice}'DEN BAŞLAYAN!</span>
-                                </div>
-                            </div>
-                        </div>
+                            {(content.metalShowcaseTrustBadges || []).map((badge, index) => (
+                                <TrustItem key={index} iconName={badge.icon} text={badge.text} />
+                            ))}
+                            {(!content.metalShowcaseTrustBadges || content.metalShowcaseTrustBadges.length === 0) && (
+                                <>
+                                    <TrustItem iconName="Factory" text="Yerli Üretim" />
+                                    <TrustItem iconName="Ruler" text="Özel Ölçü & Baskı" />
+                                    <TrustItem iconName="Package" text="Kurumsal Sipariş" />
+                                    <TrustItem iconName="ShieldCheck" text="Minimum Adet Bilgisi" />
+                                </>
+                            )}
+                        </motion.div>
                     </div>
 
-                    {/* Right: Technical Blueprint / Slider */}
+                    {/* Right Column: Visual */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="relative"
+                        transition={{ duration: 0.8, ease: "circOut" }}
+                        className="lg:col-span-5 relative hidden lg:block"
                     >
-                        <div className="relative aspect-[4/5] md:aspect-[3/4] bg-white p-4 shadow-[0_40px_80px_rgba(0,0,0,0.1)] border border-black/5 group">
-                            <div className="absolute -top-4 -right-4 bg-black text-white px-4 py-2 text-[10px] font-black z-20 uppercase tracking-widest">
-                                SERIES // NOBLE
-                            </div>
+                        <div className="relative aspect-[3/4] bg-gray-100">
+                            {/* Main Visual */}
+                            <Image
+                                src={content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop"}
+                                alt="Industrial Metal Production"
+                                fill
+                                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                priority
+                            />
 
-                            <div className="relative w-full h-full overflow-hidden bg-slate-50">
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={currentImageIndex}
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -20 }}
-                                        transition={{ duration: 0.8, ease: "anticipate" }}
-                                        className="absolute inset-0"
-                                    >
-                                        <Image
-                                            src={images[currentImageIndex]}
-                                            alt="Product Showcase"
-                                            fill
-                                            priority
-                                            className="object-contain p-4 transition-transform duration-[2000ms] group-hover:scale-105"
-                                        />
-                                    </motion.div>
-                                </AnimatePresence>
+                            {/* Technical Overlay */}
+                            <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none" />
 
-                                {/* Technical Overlay */}
-                                <div className="absolute inset-0 pointer-events-none border-[1px] border-black/5" />
-                                <div className="absolute top-8 left-8 bottom-8 right-8 border border-black/5 pointer-events-none" />
-                            </div>
-
-                            {/* Slider Controls */}
-                            <div className="absolute bottom-10 right-10 flex gap-2 z-30">
-                                {images.map((_, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setCurrentImageIndex(idx)}
-                                        className={`h-1 transition-all duration-500 ${idx === currentImageIndex ? 'w-8 bg-black' : 'w-4 bg-black/20'}`}
-                                    />
-                                ))}
+                            {/* Floating Card */}
+                            <div className="absolute -bottom-8 -left-8 bg-white p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] max-w-[240px] border-l-4 border-black">
+                                <div className="text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Technical Specs</div>
+                                <div className="text-3xl font-black text-black">0.30<span className="text-sm align-top">mm</span></div>
+                                <div className="text-sm font-bold text-gray-800 mt-1">Industrial Grade Steel</div>
                             </div>
                         </div>
 
-                        {/* Decorative Elements */}
-                        <div className="absolute -bottom-6 -left-6 w-32 h-32 border-b border-l border-black/10 -z-10" />
-                        <div className="absolute -top-6 -right-6 w-32 h-32 border-t border-r border-black/10 -z-10" />
+                        {/* Background Decor */}
+                        <div className="absolute -z-10 top-10 -right-10 w-full h-full border-2 border-black/5" />
                     </motion.div>
                 </div>
-            </section>
-        </DirectEdit>
+            </div>
+        </section>
+    );
+};
+
+import * as LucideIcons from "lucide-react";
+import { useContentStore } from "@/store/useContentStore";
+
+const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => {
+    // Dynamically retrieve the icon component, default to ShieldCheck if not found
+    const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.ShieldCheck;
+
+    return (
+        <div className="flex flex-col items-center sm:items-start md:flex-row gap-3">
+            <div className="p-2 bg-black/5 rounded-none">
+                <IconComponent className="w-5 h-5 text-black/80" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-tight leading-tight text-gray-600 max-w-[100px] text-center sm:text-left">
+                {text}
+            </span>
+        </div>
     );
 };

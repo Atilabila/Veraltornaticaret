@@ -17,6 +17,10 @@ export interface Product {
     stock_quantity?: number;
     sku?: string;
     is_showcase?: boolean;
+    is_active?: boolean;
+    background_color?: string;
+    category_id?: string;
+    features?: any[];
 }
 
 export const PRODUCTS_DATA: Record<string, Product> = {

@@ -29,10 +29,15 @@ const mapDbToProduct = (dbProduct: any): Product => ({
     name: dbProduct.name,
     slug: dbProduct.slug,
     price: dbProduct.price,
-    image: dbProduct.image_url || dbProduct.image || '/placeholder.png', // Handle both schemas
+    image: dbProduct.image_url || dbProduct.image || '/placeholder.png',
     description: dbProduct.description,
-    story: dbProduct.story || dbProduct.description,
-    category: dbProduct.category || dbProduct.category_id, // category_id is used for metal_products
+    story: dbProduct.description,
+    category: dbProduct.category_id || dbProduct.category,
+    is_showcase: dbProduct.is_showcase || false,
+    stock_quantity: dbProduct.stock_quantity || 0,
+    is_active: dbProduct.is_active ?? true,
+    background_color: dbProduct.background_color || "#0A0A0A",
+    sku: dbProduct.sku || "",
     specs: {
         material: dbProduct.material || "1.5mm Alüminyum",
         process: dbProduct.process || "UV Baskı",
@@ -40,7 +45,12 @@ const mapDbToProduct = (dbProduct: any): Product => ({
         thickness: dbProduct.thickness || "1.5mm",
         dims: dbProduct.dims || "45x60cm",
         mounting: dbProduct.mounting || "Mıknatıs",
+        ...(dbProduct.features?.reduce((acc: any, f: any) => {
+            acc[f.feature_text] = f.feature_text;
+            return acc;
+        }, {}) || {})
     },
+    features: dbProduct.features || [],
     seo: {
         title: dbProduct.seo_title || dbProduct.name,
         description: dbProduct.seo_description || dbProduct.description,
@@ -49,36 +59,52 @@ const mapDbToProduct = (dbProduct: any): Product => ({
 });
 
 // ... imports
-import { getProducts as getMetalProducts } from '@/lib/actions/metal-products.actions';
+import { getProducts as getMetalProducts, createProduct as createMetalProduct, updateProduct as updateMetalProduct, deleteProduct as deleteMetalProduct } from '@/lib/actions/metal-products.actions';
 import type { MetalProduct } from '@/lib/supabase/metal-products.types';
-import { getAdminProducts, upsertAdminProduct, deleteAdminProduct } from '@/actions/admin';
+import { getAdminOrderStats } from '@/actions/admin';
 
 // ... existing mapDbToProduct ...
 
-const mapMetalProductToProduct = (mp: MetalProduct): Product => ({
-    id: mp.id,
-    name: mp.name,
-    slug: mp.slug,
-    price: mp.price,
-    is_showcase: mp.is_showcase,
-    image: mp.image_url || '/placeholder.png',
-    description: mp.description || '',
-    story: mp.description || '',
-    category: mp.category?.slug || 'GENEL',
-    specs: {
+const mapMetalProductToProduct = (mp: MetalProduct): Product => {
+    // Convert features array to specs record
+    const specs: Record<string, string> = {
         material: "1.5mm Alüminyum",
         process: "UV Baskı",
         print: "Endüstriyel",
         thickness: "1.5mm",
         dims: "45x60cm",
         mounting: "Mıknatıs",
-    },
-    seo: {
-        title: mp.name,
-        description: mp.description || '',
-        keywords: [mp.name, 'metal poster'],
+    };
+
+    if (mp.features && mp.features.length > 0) {
+        mp.features.forEach((f, idx) => {
+            specs[`Detay ${idx + 1}`] = f.feature_text;
+        });
     }
-});
+
+    return {
+        id: mp.id,
+        name: mp.name,
+        slug: mp.slug,
+        price: mp.price,
+        is_showcase: mp.is_showcase,
+        stock_quantity: mp.stock_quantity,
+        is_active: mp.is_active,
+        background_color: mp.background_color,
+        sku: mp.sku || "",
+        image: mp.image_url || '/placeholder.png',
+        description: mp.description || '',
+        story: mp.description || '',
+        category: mp.category?.id || mp.category_id || 'GENEL',
+        features: mp.features || [],
+        specs,
+        seo: {
+            title: mp.name,
+            description: mp.description || '',
+            keywords: [mp.name, 'metal poster'],
+        }
+    };
+};
 
 export const useProductStore = create<ProductStore>()((set, get) => ({
     products: [],
@@ -114,15 +140,15 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     fetchProductsAdmin: async () => {
         set({ loading: true, error: null });
         try {
-            // Use Server Action
-            const result = await getAdminProducts();
-            if (!result.success || !result.data) throw new Error('Failed to fetch');
+            // Use the same standard action for Admin too to ensure data consistency
+            const result = await getMetalProducts();
+            if (!result.success || !result.data) throw new Error('Failed to fetch admin products');
 
-            const products = result.data.map(mapDbToProduct);
+            const products = result.data.map(mapMetalProductToProduct);
             set({ products, loading: false });
         } catch (error) {
             set({
-                error: 'Failed to fetch products for admin',
+                error: 'Envanter verileri çekilemedi. Lütfen sistem yöneticisine başvurun.',
                 loading: false
             });
         }
@@ -145,38 +171,18 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     addProduct: async (productData) => {
         set({ loading: true, error: null });
         try {
-            // Generate slug if not provided
-            const slug = productData.slug || productData.name
-                .toLowerCase()
-                .trim()
-                .replace(/[^\w\s-]/g, '')
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+            const result = await createMetalProduct(productData);
+            if (!result.success || !result.data) throw new Error(result.error || 'Failed to create');
 
-            const newProductPayload = {
-                name: productData.name,
-                slug: slug,
-                description: productData.description,
-                price: productData.price,
-                image_url: productData.image, // Map image to image_url for metal_products
-                category_id: productData.category_id || productData.category, // Handle both
-                is_active: true,
-                stock_quantity: 100, // Default for now
-                is_showcase: productData.is_showcase || false,
-            };
-
-            const result = await upsertAdminProduct(newProductPayload as any);
-            if (!result.success || !result.data) throw new Error('Failed to create');
-
-            const newDbProduct = result.data;
+            const newProduct = result.data;
 
             set((state) => ({
-                products: [mapDbToProduct(newDbProduct), ...state.products],
+                products: [mapMetalProductToProduct(newProduct), ...state.products],
                 loading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to add product',
+                error: error.message || 'Failed to add product',
                 loading: false
             });
             throw error;
@@ -186,35 +192,20 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     updateProduct: async (id, updates) => {
         set({ loading: true, error: null });
         try {
-            // Map frontend structure updates back to flat DB fields if provided
-            const dbUpdates: any = { ...updates, id };
+            const result = await updateMetalProduct(id, updates);
+            if (!result.success || !result.data) throw new Error(result.error || 'Failed to update');
 
-            // Handle image mapping
-            if (updates.image) {
-                dbUpdates.image_url = updates.image;
-                delete dbUpdates.image;
-            }
-
-            // Handle category mapping
-            if (updates.category) {
-                dbUpdates.category_id = updates.category;
-                // Note: If 'category' is a slug in Admin UI, it needs conversion to UUID for metal_products
-            }
-
-            const result = await upsertAdminProduct(dbUpdates);
-            if (!result.success || !result.data) throw new Error('Failed to update');
-
-            const updatedDbProduct = result.data;
+            const updatedProduct = result.data;
 
             set((state) => ({
                 products: state.products.map((p) =>
-                    p.id === id ? mapDbToProduct(updatedDbProduct) : p
+                    p.id === id ? mapMetalProductToProduct(updatedProduct) : p
                 ),
                 loading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to update product',
+                error: error.message || 'Failed to update product',
                 loading: false
             });
             throw error;
@@ -224,16 +215,16 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     deleteProduct: async (id) => {
         set({ loading: true, error: null });
         try {
-            const result = await deleteAdminProduct(id);
-            if (!result.success) throw new Error('Failed to delete');
+            const result = await deleteMetalProduct(id);
+            if (!result.success) throw new Error(result.error || 'Failed to delete');
 
             set((state) => ({
                 products: state.products.filter((p) => p.id !== id),
                 loading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to delete product',
+                error: error.message || 'Failed to delete product',
                 loading: false
             });
             throw error;

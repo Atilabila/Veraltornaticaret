@@ -38,26 +38,34 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
         }
     },
 
-    addCategory: async (categoryData) => {
+    addCategory: async (categoryData: Partial<Category> & { name: string }) => {
         set({ loading: true, error: null });
         try {
-            // Generate slug from name
-            const slug = categoryData.name
+            // Generate slug from name if not provided
+            const slug = categoryData.slug || categoryData.name
                 .toUpperCase()
                 .trim()
-                .replace(/[^a-zA-ZğüşöçıİĞÜŞÖÇ\s-]/g, '')
+                .replace(/[^a-zA-Z0-9\s-]/g, '') // Simplified regex for safety
                 .replace(/[\s-]+/g, '_')
                 .replace(/^_+|_+$/g, '');
 
-            const result = await upsertAdminCategory({
+            const payload = {
                 name: categoryData.name,
                 slug: slug,
-                color: categoryData.color || '#3B82F6',
-                display_order: get().categories.length + 1,
-                is_active: true,
-            });
+                image: categoryData.image || null, // Map to image (which service maps to image_url if needed)
+                display_order: categoryData.display_order || get().categories.length + 1,
+                is_active: categoryData.is_active !== undefined ? categoryData.is_active : true,
+                is_featured: categoryData.is_featured || false,
+                // Remove color if not used in DB schema, but keep if UI uses it locally
+                // DB schema check: categories table has image_url, name, slug, display_order, is_active.
+                // It does NOT have color. So we should probably drop it or store it in metadata if we had it.
+                // For now, we'll exclude it from the payload sent to upsertAdminCategory if it's not in DB type.
+                // However, upsertAdminCategory (in actions/admin) cleans up 'color'.
+            };
 
-            if (!result.success || !result.data) throw new Error(result.error);
+            const result = await upsertAdminCategory(payload);
+
+            if (!result.success || !result.data) throw new Error("Kategori kaydedilemedi");
 
             set((state) => ({
                 categories: [...state.categories, result.data],
@@ -65,7 +73,7 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
             }));
         } catch (error) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to add category',
+                error: (error instanceof Error ? error.message : "Bilinmeyen hata"),
                 loading: false
             });
             throw error;
@@ -76,7 +84,7 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
         set({ loading: true, error: null });
         try {
             const result = await upsertAdminCategory({ id, ...updates });
-            if (!result.success || !result.data) throw new Error(result.error);
+            if (!result.success || !result.data) throw new Error("Kategori güncellenemedi");
 
             set((state) => ({
                 categories: state.categories.map((c) =>
@@ -86,7 +94,7 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
             }));
         } catch (error) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to update category',
+                error: (error instanceof Error ? error.message : "Güncelleme hatası"),
                 loading: false
             });
             throw error;
@@ -97,7 +105,7 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
         set({ loading: true, error: null });
         try {
             const result = await deleteAdminCategoryAction(id);
-            if (!result.success) throw new Error(result.error);
+            if (!result.success) throw new Error("Silme işlemi başarısız");
 
             set((state) => ({
                 categories: state.categories.filter((c) => c.id !== id),
@@ -105,7 +113,7 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
             }));
         } catch (error) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to delete category',
+                error: (error instanceof Error ? error.message : "Silme hatası"),
                 loading: false
             });
             throw error;

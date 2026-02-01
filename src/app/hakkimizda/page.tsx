@@ -13,6 +13,7 @@ import { useContentStore } from '@/store/useContentStore';
 export default function HakkimizdaPage() {
     const { content } = useContentStore();
     const milestones = content.milestones || [];
+    const stats = content.aboutStats || [];
 
     return (
         <main className="min-h-screen bg-[#0A0A0A] selection:bg-[#D4AF37] selection:text-white">
@@ -28,16 +29,19 @@ export default function HakkimizdaPage() {
                                 <SystemLabel text="KRONOLOJİK KAYIT" active />
                                 <SystemLabel text="LOC: İZMİR" />
                             </div>
-                            <h1 className="text-5xl md:text-7xl font-bold font-space uppercase leading-none text-white">
-                                Yarım Asırlık <br />
-                                <span className="text-gold-gradient normal-case italic font-serif font-normal tracking-normal border-b-4 border-[#D4AF37]/30">Metal Hafızası</span>
+                            <h1 className="text-5xl md:text-7xl font-bold font-space uppercase leading-none text-white whitespace-pre-line">
+                                {content.aboutTitle || "Yarım Asırlık Metal Hafızası"}
                             </h1>
                             <p className="text-xl text-white/60 font-medium leading-relaxed max-w-[500px]">
-                                1980'den bugüne, Alsancak'taki atölyemizde metale şekil veriyor, usta-çırak geleneğini modern teknolojiyle harmanlıyoruz.
+                                {content.aboutSubtitle || "1980'den bugüne, Alsancak'taki atölyemizde metale şekil veriyor, usta-çırak geleneğini modern teknolojiyle harmanlıyoruz."}
                             </p>
                         </div>
                         <div className="relative border border-white/10 aspect-video bg-white/5 overflow-hidden grayscale group">
-                            <img src="/alsancak-mockup.png" alt="Atölye" className="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100" />
+                            <img
+                                src={content.aboutImage || "/alsancak-mockup.png"}
+                                alt="Atölye"
+                                className="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
                         </div>
                     </div>
@@ -49,7 +53,7 @@ export default function HakkimizdaPage() {
                 <div className="max-w-[1240px] mx-auto px-6">
                     <div className="grid lg:grid-cols-12 gap-16">
                         <div className="lg:col-span-4 flex flex-col gap-8">
-                            <h2 className="text-4xl font-black font-space uppercase text-white tracking-tighter italic">Biz Kimiz?</h2>
+                            <h2 className="text-4xl font-black font-space uppercase text-white tracking-tighter italic">HİKAYEMİZ</h2>
                             <div className="w-20 h-1 bg-[#D4AF37]" />
 
                             {/* Brand Logo and Name */}
@@ -66,27 +70,38 @@ export default function HakkimizdaPage() {
                             </div>
                         </div>
                         <div className="lg:col-span-8 space-y-8 text-xl text-white/70 font-medium leading-relaxed">
-                            <p>
-                                Veral Torna & Teneke, İzmir’in endüstriyel kalbi Alsancak’ta temelleri atılmış bir aile işletmesidir.
-                                Kuruluşumuzdan bu yana temel ilkemiz; "Hassas işçilik, dürüst ticaret" olmuştur.
-                            </p>
-                            <p>
-                                Bugün 3. kuşağın yönetiminde, geleneksel torna işleme tekniklerini, son teknoloji UV baskı ve CNC form verme sistemleriyle birleştiriyoruz.
-                                Sadece bir üretici değil, müşterilerimizin projelerinde teknik çözüm ortağı olarak konumlanıyoruz.
-                            </p>
+                            <div className="whitespace-pre-line">
+                                {content.aboutContent || `Veral Torna & Teneke, İzmir’in endüstriyel kalbi Alsancak’ta temelleri atılmış bir aile işletmesidir. Kuruluşumuzdan bu yana temel ilkemiz; "Hassas işçilik, dürüst ticaret" olmuştur.
+
+Bugün 3. kuşağın yönetiminde, geleneksel torna işleme tekniklerini, son teknoloji UV baskı ve CNC form verme sistemleriyle birleştiriyoruz. Sadece bir üretici değil, müşterilerimizin projelerinde teknik çözüm ortağı olarak konumlanıyoruz.`}
+                            </div>
+
                             <div className="grid sm:grid-cols-2 gap-8 pt-12">
-                                <div className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-                                    <LucideIcons.ShieldCheck className="text-[#D4AF37] mb-6 relative z-10" size={40} />
-                                    <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">Kalite Protokolü</h4>
-                                    <p className="text-sm text-white/50 relative z-10 font-medium uppercase tracking-wider leading-relaxed">Her birim, atölyemizden çıkmadan önce manuel ve dijital kontrol süreçlerinden geçer.</p>
-                                </div>
-                                <div className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-                                    <LucideIcons.History className="text-[#D4AF37] mb-6 relative z-10" size={40} />
-                                    <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">Süreklilik</h4>
-                                    <p className="text-sm text-white/50 relative z-10 font-medium uppercase tracking-wider leading-relaxed">40 yılı aşkın süredir aynı lokasyonda, aynı disiplinle hizmet vermeye devam ediyoruz.</p>
-                                </div>
+                                {stats.length > 0 ? (
+                                    stats.map((stat, idx) => (
+                                        <div key={idx} className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+                                            <LucideIcons.CheckCircle2 className="text-[#D4AF37] mb-6 relative z-10" size={40} />
+                                            <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">{stat.label}</h4>
+                                            <p className="text-4xl text-white font-black relative z-10 tracking-tighter">{stat.value}</p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <>
+                                        <div className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+                                            <LucideIcons.ShieldCheck className="text-[#D4AF37] mb-6 relative z-10" size={40} />
+                                            <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">Kalite Protokolü</h4>
+                                            <p className="text-sm text-white/50 relative z-10 font-medium uppercase tracking-wider leading-relaxed">Her birim, atölyemizden çıkmadan önce manuel ve dijital kontrol süreçlerinden geçer.</p>
+                                        </div>
+                                        <div className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+                                            <LucideIcons.History className="text-[#D4AF37] mb-6 relative z-10" size={40} />
+                                            <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">Süreklilik</h4>
+                                            <p className="text-sm text-white/50 relative z-10 font-medium uppercase tracking-wider leading-relaxed">40 yılı aşkın süredir aynı lokasyonda, aynı disiplinle hizmet vermeye devam ediyoruz.</p>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

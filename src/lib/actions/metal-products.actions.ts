@@ -102,22 +102,32 @@ export async function deleteCategory(id: string): Promise<ApiResponse<null>> {
 // PRODUCT ACTIONS
 // =====================================================
 
-export async function getProducts(): Promise<ApiResponse<MetalProduct[]>> {
+export async function getProducts(isShowcase?: boolean): Promise<ApiResponse<MetalProduct[]>> {
+    console.log(`[ACTION] getProducts called with isShowcase:`, isShowcase);
     try {
-        const { data, error } = await (supabase as any)
+        let query = (supabaseAdmin as any)
             .from('metal_products')
             .select(`
                 *,
                 category:categories(*),
                 features:product_features(*)
-            `)
-            .order('created_at', { ascending: false })
+            `);
 
-        if (error) throw error
+        if (isShowcase !== undefined) {
+            query = query.eq('is_showcase', isShowcase);
+        }
 
+        const { data, error } = await query.order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('[ACTION] getProducts error:', error);
+            throw error;
+        }
+
+        console.log(`[ACTION] getProducts returned ${data?.length || 0} items`);
         return { data: data as MetalProduct[], error: null, success: true }
     } catch (err) {
-        console.error('Error fetching products:', err)
+        console.error('[ACTION] Error fetching products:', err)
         return { data: null, error: 'Ürünler yüklenemedi', success: false }
     }
 }
@@ -186,7 +196,12 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
                 category_id: formData.category_id,
                 is_active: formData.is_active,
                 stock_quantity: formData.stock_quantity,
-                is_showcase: formData.is_showcase
+                is_showcase: formData.is_showcase,
+                sku: formData.sku,
+                material: formData.material,
+                paint: formData.paint,
+                installation: formData.installation,
+                origin: formData.origin
             })
             .select()
             .single()
@@ -237,7 +252,10 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
 
         const { error: productError } = await (supabaseAdmin as any)
             .from('metal_products')
-            .update(productData)
+            .update({
+                ...productData,
+                updated_at: new Date().toISOString()
+            })
             .eq('id', id)
 
         if (productError) throw productError
@@ -398,7 +416,7 @@ export async function createBulkProducts(products: ProductFormData[]): Promise<A
     try {
         // Prepare data with slugs
         const productsToInsert = products.map(p => {
-            const slug = p.slug || p.name
+            const baseSlug = p.slug || p.name
                 .toLowerCase()
                 .replace(/ğ/g, 'g')
                 .replace(/ü/g, 'u')
@@ -410,17 +428,24 @@ export async function createBulkProducts(products: ProductFormData[]): Promise<A
                 .replace(/-+/g, '-')
                 .replace(/^-|-$/g, '')
 
+            // Add short random suffix to ensure uniqueness in bulk uploads
+            const slug = `${baseSlug}-${Math.random().toString(36).substring(2, 5)}`
+
             return {
                 name: p.name,
                 slug,
-                description: p.description,
-                price: p.price,
-                stock_quantity: p.stock_quantity,
+                description: p.description || "",
+                price: Number(p.price) || 0,
+                stock_quantity: Number(p.stock_quantity) || 0,
                 category_id: p.category_id,
                 is_active: p.is_active,
                 image_url: p.image_url,
-                background_color: p.background_color,
-                is_showcase: p.is_showcase === undefined ? false : p.is_showcase
+                background_color: p.background_color || "#ffffff",
+                is_showcase: p.is_showcase === undefined ? false : p.is_showcase,
+                material: p.material,
+                paint: p.paint,
+                installation: p.installation,
+                origin: p.origin
             }
         })
 
@@ -429,11 +454,41 @@ export async function createBulkProducts(products: ProductFormData[]): Promise<A
             .insert(productsToInsert)
             .select()
 
+        if (error) {
+            console.error('Bulk Insert Error:', error)
+            throw error
+        }
+
+        return { data: data?.length || 0, error: null, success: true }
+    } catch (err: any) {
+        console.error('Error creating bulk products:', err)
+        return {
+            data: null,
+            error: err.message || 'Toplu ürün ekleme başarısız. Lütfen verileri kontrol edin.',
+            success: false
+        }
+    }
+}
+
+export async function getRelatedProducts(categoryId: string, currentProductId: string): Promise<ApiResponse<MetalProduct[]>> {
+    try {
+        const { data, error } = await (supabase as any)
+            .from('metal_products')
+            .select(`
+                *,
+                category:categories(*),
+                features:product_features(*)
+            `)
+            .eq('category_id', categoryId)
+            .neq('id', currentProductId)
+            .eq('is_active', true)
+            .limit(4)
+
         if (error) throw error
 
-        return { data: data.length, error: null, success: true }
+        return { data: data as MetalProduct[], error: null, success: true }
     } catch (err) {
-        console.error('Error creating bulk products:', err)
-        return { data: null, error: 'Toplu ürün ekleme başarısız', success: false }
+        console.error('Error fetching related products:', err)
+        return { data: [], error: 'Benzer ürünler yüklenemedi', success: false }
     }
 }

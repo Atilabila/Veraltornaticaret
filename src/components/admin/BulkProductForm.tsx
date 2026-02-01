@@ -28,11 +28,16 @@ interface BulkProductFormProps {
 type BulkRow = {
     id: string
     name: string
+    description: string
     price: number | string
     stock: number | string
     slug: string
     file?: File
     previewUrl?: string
+    material: string
+    paint: string
+    installation: string
+    origin: string
 }
 
 export const BulkProductForm: React.FC<BulkProductFormProps> = ({
@@ -44,11 +49,11 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
 }) => {
     // State
     const [rows, setRows] = React.useState<BulkRow[]>([
-        { id: "1", name: "", price: "", stock: "", slug: "" },
-        { id: "2", name: "", price: "", stock: "", slug: "" },
-        { id: "3", name: "", price: "", stock: "", slug: "" },
-        { id: "4", name: "", price: "", stock: "", slug: "" },
-        { id: "5", name: "", price: "", stock: "", slug: "" }
+        { id: "1", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "2", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "3", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "4", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "5", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }
     ])
     const [selectedCategoryId, setSelectedCategoryId] = React.useState<string>("")
     const [pasteMode, setPasteMode] = React.useState(false)
@@ -66,12 +71,17 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
 
                 return {
                     id: Math.random().toString(36).substr(2, 9),
-                    name: nameWithoutExt, // Ürün ismi direkt dosya adından alınır
+                    name: nameWithoutExt,
+                    description: "", // Added description field
                     price: 0,
                     stock: 0,
-                    slug: slugify(nameWithoutExt), // Slug, Türkçe karakterleri çevirir ve boşlukları "-" yapar
+                    slug: slugify(nameWithoutExt),
                     file: file,
-                    previewUrl: URL.createObjectURL(file)
+                    previewUrl: URL.createObjectURL(file),
+                    material: "1.5mm DKP Çelik",
+                    paint: "Elektrostatik Toz",
+                    installation: "Hazır Askı Sistemi",
+                    origin: "Yerli Üretim (İzmir)"
                 }
             })
 
@@ -89,7 +99,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
     const addRow = () => {
         setRows(prev => [
             ...prev,
-            { id: Math.random().toString(36).substr(2, 9), name: "", price: "", stock: "", slug: "" }
+            { id: Math.random().toString(36).substr(2, 9), name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }
         ])
     }
 
@@ -97,7 +107,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
     const removeRow = (id: string) => {
         if (rows.length === 1) {
             // Don't remove last row, just clear it
-            setRows([{ id: "1", name: "", price: "", stock: "", slug: "" }])
+            setRows([{ id: "1", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }])
             return
         }
         setRows(prev => prev.filter(r => r.id !== id))
@@ -115,6 +125,11 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                 updates.slug = slugify(value as string)
             }
 
+            // Handle file and preview
+            if (field === "file") {
+                updates.previewUrl = value ? URL.createObjectURL(value as File) : undefined
+            }
+
             return { ...row, ...updates }
         }))
     }
@@ -128,18 +143,34 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
             // Try to split by tab (Excel/Google Sheets default)
             const parts = line.split("\t")
 
-            // Expected format: Name | Price | Stock
-            // If only Name is present, that's fine too
+            // Expected format: Name | [Description] | Price | Stock
             const name = parts[0]?.trim() || ""
-            const price = parts[1] ? parseFloat(parts[1].replace(/[^0-9.-]+/g, "")) : ""
-            const stock = parts[2] ? parseInt(parts[2].replace(/[^0-9]+/g, "")) : ""
+            let description = ""
+            let price: string | number = ""
+            let stock: string | number = ""
+
+            if (parts.length >= 4) {
+                // Name | Description | Price | Stock
+                description = parts[1]?.trim() || ""
+                price = parts[2] ? parseFloat(parts[2].replace(/[^0-9.-]+/g, "")) : ""
+                stock = parts[3] ? parseInt(parts[3].replace(/[^0-9]+/g, "")) : ""
+            } else {
+                // Name | Price | Stock
+                price = parts[1] ? parseFloat(parts[1].replace(/[^0-9.-]+/g, "")) : ""
+                stock = parts[2] ? parseInt(parts[2].replace(/[^0-9]+/g, "")) : ""
+            }
 
             return {
                 id: Math.random().toString(36).substr(2, 9),
                 name,
+                description,
                 price: price || 0,
                 stock: stock || 0,
-                slug: slugify(name)
+                slug: slugify(name),
+                material: "1.5mm DKP Çelik",
+                paint: "Elektrostatik Toz",
+                installation: "Hazır Askı Sistemi",
+                origin: "Yerli Üretim (İzmir)"
             }
         }).filter(r => r.name) // Filter out empty lines
 
@@ -188,16 +219,20 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
             return {
                 name: row.name,
                 slug: row.slug,
-                description: "",
+                description: row.description || "",
                 price: Number(row.price) || 0,
                 stock_quantity: Number(row.stock) || 0,
                 category_id: selectedCategoryId,
                 is_active: true,
                 is_showcase: false,
                 image_url: imageUrl,
-                background_color: "#ffffff",
+                background_color: "#0A0A0A",
+                material: row.material,
+                paint: row.paint,
+                installation: row.installation,
+                origin: row.origin,
                 features: []
-            }
+            } as any
         }))
 
         setIsUploading(false)
@@ -253,7 +288,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                     </div>
 
                     {/* Content Area */}
-                    <div className="flex-1 overflow-y-auto min-h-[400px] border border-slate-800 rounded-xl bg-slate-900/30 relative">
+                    <div className="flex-1 overflow-auto min-h-[400px] border border-slate-800 rounded-xl bg-slate-900/30 relative">
                         {pasteMode ? (
                             <div className="absolute inset-0 p-4">
                                 <textarea
@@ -277,24 +312,42 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                                 <thead className="bg-slate-900 sticky top-0 z-10">
                                     <tr>
                                         <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider pl-4 w-12 text-center">Img</th>
-                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-1/3">Ürün Adı</th>
-                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-1/4">Slug (Otomatik)</th>
-                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Fiyat</th>
-                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Stok</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-64">Ürün Adı</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-64">Açıklama</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-32">Malzeme</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-32">Boya</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-32">Montaj</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-32">Menşei</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-32">Fiyat</th>
+                                        <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-20">Stok</th>
                                         <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider w-10"></th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-800">
                                     {rows.map((row, index) => (
                                         <tr key={row.id} className="group hover:bg-slate-800/50 transition-colors">
-                                            <td className="p-3 pl-4 text-slate-500 font-mono text-xs text-center relative">
-                                                {row.previewUrl ? (
-                                                    <div className="w-10 h-10 rounded overflow-hidden border border-slate-700 bg-black">
-                                                        <img src={row.previewUrl} alt="" className="w-full h-full object-cover" />
+                                            <td className="p-3 pl-4 text-center">
+                                                <label className="cursor-pointer group/img block">
+                                                    <div className={cn(
+                                                        "w-12 h-12 rounded-lg overflow-hidden border border-slate-700 bg-black flex items-center justify-center transition-all mx-auto",
+                                                        row.previewUrl ? "border-emerald-500/50" : "border-dashed hover:border-slate-500"
+                                                    )}>
+                                                        {row.previewUrl ? (
+                                                            <img src={row.previewUrl} alt="" className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <Plus className="w-4 h-4 text-slate-600 group-hover/img:text-slate-400" />
+                                                        )}
                                                     </div>
-                                                ) : (
-                                                    <span className="opacity-50">{index + 1}</span>
-                                                )}
+                                                    <input
+                                                        type="file"
+                                                        className="hidden"
+                                                        accept="image/*"
+                                                        onChange={(e) => {
+                                                            const file = e.target.files?.[0]
+                                                            if (file) updateRow(row.id, "file", file)
+                                                        }}
+                                                    />
+                                                </label>
                                             </td>
                                             <td className="p-3">
                                                 <input
@@ -308,10 +361,46 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                                             <td className="p-3">
                                                 <input
                                                     type="text"
-                                                    value={row.slug}
-                                                    disabled
-                                                    className="w-full bg-transparent text-slate-500 text-sm py-1"
-                                                    placeholder="urun-adi"
+                                                    value={row.description}
+                                                    onChange={(e) => updateRow(row.id, "description", e.target.value)}
+                                                    className="w-full bg-transparent border-b border-transparent focus:border-orange-500 focus:outline-none py-1 text-sm"
+                                                    placeholder="Ürün açıklaması..."
+                                                />
+                                            </td>
+                                            <td className="p-3">
+                                                <input
+                                                    type="text"
+                                                    value={row.material}
+                                                    onChange={(e) => updateRow(row.id, "material", e.target.value)}
+                                                    className="w-full bg-transparent border-b border-transparent focus:border-orange-500 focus:outline-none py-1 text-sm"
+                                                    placeholder="Malzeme"
+                                                />
+                                            </td>
+                                            <td className="p-3">
+                                                <input
+                                                    type="text"
+                                                    value={row.paint}
+                                                    onChange={(e) => updateRow(row.id, "paint", e.target.value)}
+                                                    className="w-full bg-transparent border-b border-transparent focus:border-orange-500 focus:outline-none py-1 text-sm"
+                                                    placeholder="Boya"
+                                                />
+                                            </td>
+                                            <td className="p-3">
+                                                <input
+                                                    type="text"
+                                                    value={row.installation}
+                                                    onChange={(e) => updateRow(row.id, "installation", e.target.value)}
+                                                    className="w-full bg-transparent border-b border-transparent focus:border-orange-500 focus:outline-none py-1 text-sm"
+                                                    placeholder="Montaj"
+                                                />
+                                            </td>
+                                            <td className="p-3">
+                                                <input
+                                                    type="text"
+                                                    value={row.origin}
+                                                    onChange={(e) => updateRow(row.id, "origin", e.target.value)}
+                                                    className="w-full bg-transparent border-b border-transparent focus:border-orange-500 focus:outline-none py-1 text-sm"
+                                                    placeholder="Menşei"
                                                 />
                                             </td>
                                             <td className="p-3">

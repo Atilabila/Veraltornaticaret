@@ -9,14 +9,15 @@ import type { MetalProduct } from "@/lib/supabase/metal-products.types"
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: "Metal Atölyesi | VERAL Metal Works",
-    description: "Endüstriyel ürünler özel serisi.",
+    title: "İzmir Metal Üretim & Özel İmalat Atölyesi | VERAL Metal Works",
+    description: "İzmir Alsancak'ta endüstriyel metal baskı, fason üretim ve özel tasarım teneke kutu/levha imalatı. Kurumsal çözümler için hemen teklif alın.",
+    keywords: ["İzmir metal üretim", "özel metal imalatı", "teneke seri üretim", "metal fason üretim İzmir", "metal etiket", "dosya teli imalatı"]
 }
 
 export const revalidate = 60
 
 export default async function MetalUrunlerPage() {
-    const result = await getProducts()
+    const result = await getProducts(true)
     const products: MetalProduct[] = result.success && result.data ? result.data : []
 
     return (

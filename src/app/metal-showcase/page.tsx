@@ -9,8 +9,9 @@ import { getProducts } from "@/lib/actions/metal-products.actions"
 import { ProductShowcase } from "@/components/landing"
 import { CollectionSidebar, CollectionButton } from "@/components/cart/CollectionSidebar"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
+import { Metadata } from "next"
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Metal Art Atelier | Premium Metal Ürünler",
     description: "Endüstriyel kalite, sanatsal tasarım. Tel, etiket ve mıknatıs çözümlerinde güvenilir partneriniz.",
     keywords: ["metal", "endüstriyel", "tel", "etiket", "mıknatıs", "premium"],
@@ -21,7 +22,7 @@ export const revalidate = 60
 
 export default async function MetalShowcasePage() {
     // Fetch products from Supabase using server action
-    const result = await getProducts()
+    const result = await getProducts(true)
 
     const products: MetalProduct[] = result.success && result.data
         ? result.data

@@ -68,6 +68,10 @@ export interface MetalProductsDatabase {
                     created_at: string
                     updated_at: string
                     is_showcase: boolean
+                    material: string | null
+                    paint: string | null
+                    installation: string | null
+                    origin: string | null
                 }
                 Insert: {
                     id?: string
@@ -84,6 +88,10 @@ export interface MetalProductsDatabase {
                     created_at?: string
                     updated_at?: string
                     is_showcase?: boolean
+                    material?: string | null
+                    paint?: string | null
+                    installation?: string | null
+                    origin?: string | null
                 }
                 Update: {
                     id?: string
@@ -100,6 +108,10 @@ export interface MetalProductsDatabase {
                     created_at?: string
                     updated_at?: string
                     is_showcase?: boolean
+                    material?: string | null
+                    paint?: string | null
+                    installation?: string | null
+                    origin?: string | null
                 }
             }
             product_features: {
@@ -172,6 +184,10 @@ export interface MetalProduct {
     created_at: string
     updated_at: string
     is_showcase: boolean
+    material: string | null
+    paint: string | null
+    installation: string | null
+    origin: string | null
     // Joined data
     category?: Category | null
     features?: ProductFeature[]
@@ -202,6 +218,10 @@ export interface ProductFormData {
     stock_quantity: number
     is_showcase: boolean
     sku?: string
+    material?: string
+    paint?: string
+    installation?: string
+    origin?: string
     features: FeatureFormData[]
 }
 

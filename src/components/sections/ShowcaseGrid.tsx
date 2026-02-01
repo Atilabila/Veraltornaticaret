@@ -64,22 +64,22 @@ export const ShowcaseGrid = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        {showcaseItems.map((item, idx) => (
+                        {(content.productCategories || []).slice(0, 3).map((item, idx) => (
                             <motion.div
-                                key={idx}
+                                key={item.id || idx}
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                                 className="group"
                             >
-                                <Link href="/hizmetler" className="block space-y-8">
+                                <Link href={item.ctaLink || `/urunler?category=${item.slug}`} className="block space-y-8">
                                     <div className="relative aspect-[3/4] overflow-hidden bg-white shadow-2xl border border-black/5">
                                         {/* Subtle Image Vignette */}
                                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                                         <Image
-                                            src={item.image}
+                                            src={item.coverImage || "/images/placeholder-category.jpg"}
                                             alt={item.title}
                                             fill
                                             className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
@@ -90,7 +90,7 @@ export const ShowcaseGrid = () => {
 
                                         {/* Category Tag - More Industrial */}
                                         <div className="absolute top-8 left-8 bg-black text-white px-5 py-2.5 font-sans text-[10px] font-black tracking-[0.2em] uppercase z-20">
-                                            {item.category}
+                                            {item.slug?.replace(/-/g, ' ')}
                                         </div>
 
                                         {/* Corner Accents - Sharper */}
@@ -105,11 +105,11 @@ export const ShowcaseGrid = () => {
                                                 {item.title}
                                             </h3>
                                         </div>
-                                        <p className="text-sm font-medium text-[#0A0A0A]/60 uppercase leading-relaxed tracking-wider font-sans">
-                                            {item.desc}
+                                        <p className="text-sm font-medium text-[#0A0A0A]/60 uppercase leading-relaxed tracking-wider font-sans line-clamp-2">
+                                            {item.description}
                                         </p>
                                         <div className="pt-4 flex items-center gap-4 text-[10px] font-black tracking-[0.3em] text-[#D4AF37] uppercase font-sans">
-                                            <span>DETAYLARI İNCELE</span>
+                                            <span>{item.ctaLabel || "DETAYLARI İNCELE"}</span>
                                             <div className="flex-1 h-[1px] bg-[#D4AF37]/20 group-hover:bg-[#D4AF37]/50 transition-colors duration-700" />
                                             <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-500" />
                                         </div>

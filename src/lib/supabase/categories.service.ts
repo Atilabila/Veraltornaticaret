@@ -11,6 +11,7 @@ export interface Category {
     is_active: boolean;
     created_at: string;
     updated_at: string;
+    is_featured?: boolean;
 }
 
 export interface CategoryInsert {
@@ -21,15 +22,16 @@ export interface CategoryInsert {
     image?: string;
     display_order?: number;
     is_active?: boolean;
+    is_featured?: boolean;
 }
 
 // Default categories as fallback
 const DEFAULT_CATEGORIES: Category[] = [
-    { id: '1', name: 'Arabalar', slug: 'ARABA_PLAKA', color: '#3B82F6', display_order: 1, is_active: true, created_at: '', updated_at: '' },
-    { id: '2', name: 'Atatürk', slug: 'ATATURK_PLAKA', color: '#EF4444', display_order: 2, is_active: true, created_at: '', updated_at: '' },
-    { id: '3', name: 'Karakterler', slug: 'CHARACTER_PLAKA', color: '#8B5CF6', display_order: 3, is_active: true, created_at: '', updated_at: '' },
-    { id: '4', name: 'Motorlar', slug: 'MOTOR_PLAKA', color: '#F59E0B', display_order: 4, is_active: true, created_at: '', updated_at: '' },
-    { id: '5', name: 'Özel Ürünler', slug: 'CUSTOM', color: '#10B981', display_order: 5, is_active: true, created_at: '', updated_at: '' },
+    { id: '1', name: 'Arabalar', slug: 'ARABA_PLAKA', color: '#3B82F6', display_order: 1, is_active: true, is_featured: true, created_at: '', updated_at: '' },
+    { id: '2', name: 'Atatürk', slug: 'ATATURK_PLAKA', color: '#EF4444', display_order: 2, is_active: true, is_featured: true, created_at: '', updated_at: '' },
+    { id: '3', name: 'Karakterler', slug: 'CHARACTER_PLAKA', color: '#8B5CF6', display_order: 3, is_active: true, is_featured: false, created_at: '', updated_at: '' },
+    { id: '4', name: 'Motorlar', slug: 'MOTOR_PLAKA', color: '#F59E0B', display_order: 4, is_active: true, is_featured: false, created_at: '', updated_at: '' },
+    { id: '5', name: 'Özel Ürünler', slug: 'CUSTOM', color: '#10B981', display_order: 5, is_active: true, is_featured: false, created_at: '', updated_at: '' },
 ];
 
 /**
@@ -56,6 +58,29 @@ export class CategoryService {
         } catch (err) {
             console.warn('Supabase connection error, using default categories:', err);
             return DEFAULT_CATEGORIES;
+        }
+    }
+
+    /**
+     * Get featured categories
+     */
+    static async getFeaturedCategories(): Promise<Category[]> {
+        try {
+            const { data, error } = await supabase
+                .from('categories')
+                .select('*')
+                .eq('is_active', true)
+                .eq('is_featured', true)
+                .order('display_order', { ascending: true });
+
+            if (error) {
+                console.warn('Supabase featured categories fetch failed:', error.message);
+                return DEFAULT_CATEGORIES.filter(c => c.is_featured);
+            }
+
+            return (data && data.length > 0) ? data as Category[] : DEFAULT_CATEGORIES.filter(c => c.is_featured);
+        } catch (err) {
+            return DEFAULT_CATEGORIES.filter(c => c.is_featured);
         }
     }
 
@@ -90,7 +115,7 @@ export class CategoryService {
      */
     static async createCategory(category: CategoryInsert): Promise<Category> {
         // @ts-ignore
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('categories')
             .insert(category)
             .select()
@@ -109,7 +134,7 @@ export class CategoryService {
      */
     static async updateCategory(id: string, updates: Partial<CategoryInsert>): Promise<Category> {
         // @ts-ignore
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from('categories')
             .update(updates)
             .eq('id', id)
@@ -129,7 +154,7 @@ export class CategoryService {
      */
     static async deleteCategory(id: string): Promise<void> {
         // @ts-ignore
-        const { error } = await supabase
+        const { error } = await (supabase as any)
             .from('categories')
             .update({ is_active: false })
             .eq('id', id);

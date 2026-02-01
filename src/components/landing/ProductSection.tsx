@@ -1,19 +1,13 @@
-// =====================================================
-// PRODUCT SECTION - METAL ART EDITION
-// Full-Screen Display with Ambient Glow
-// =====================================================
 "use client"
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import { ArrowDown, ShoppingBag, Zap } from "lucide-react"
+import { ArrowDown, Zap, FileText, Factory, Ruler, MapPin } from "lucide-react"
 import { useInView } from "@/hooks/useInView"
 import { FeatureItem } from "./FeatureItem"
 import { MetalImage } from "./MetalImage"
-import { cn, formatPrice } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
-import { useCartStore } from "@/store/useCartStore"
-import { useToast } from "@/components/ui/use-toast"
 
 interface ProductSectionProps {
     product: MetalProduct
@@ -63,43 +57,6 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
     const bgClass = product.background_color.startsWith("bg-")
         ? product.background_color
         : ""
-
-    const addItem = useCartStore(state => state.addItem);
-    const { toast } = useToast();
-
-    const handleAddToCart = () => {
-        if (product.stock_quantity === 0) {
-            toast({
-                title: "Stokta Yok",
-                description: "Bu ürün şu anda stokta bulunmamaktadır.",
-                variant: "destructive"
-            });
-            return;
-        }
-
-        const result = addItem({
-            productId: product.id,
-            name: product.name,
-            slug: product.slug,
-            price: product.price,
-            image: product.image_url || "/placeholder.png",
-            size: "Standart (45x60cm)", // Default size
-            orientation: "vertical"
-        });
-
-        if (result.success) {
-            toast({
-                title: "Başarılı",
-                description: "Ürün koleksiyonunuza eklendi!",
-            });
-        } else {
-            toast({
-                title: "Hata",
-                description: result.error || "Bir hata oluştu.",
-                variant: "destructive"
-            });
-        }
-    };
 
     const handleScrollDown = () => {
         const nextSection = (ref.current as HTMLElement)?.nextElementSibling;
@@ -153,26 +110,26 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         }}
                         className="relative order-2 lg:order-1"
                     >
-                        {/* Product Number - Industrial Badge */}
+                        {/* SKU Badge - Industrial Tag */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0, rotate: -10 }}
                             animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0, rotate: -10 }}
                             transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
                             className={cn(
                                 "absolute -top-4 -left-4 z-20",
-                                "w-16 h-16 flex items-center justify-center",
+                                "px-4 py-2 flex items-center justify-center gap-2",
                                 // Sharp industrial style
-                                "rounded-sm",
-                                "font-bold text-2xl tracking-tight",
+                                "rounded-sm border-l-4 border-l-orange-500",
+                                "font-mono text-xs font-bold tracking-widest uppercase",
                                 // Metal surface
                                 isDark
-                                    ? "bg-gradient-to-br from-zinc-200 to-zinc-400 text-zinc-900"
-                                    : "bg-gradient-to-br from-zinc-800 to-zinc-900 text-zinc-100",
-                                // Embossed effect
-                                "shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_8px_24px_-4px_rgba(0,0,0,0.4)]"
+                                    ? "bg-zinc-900 border-y border-r border-zinc-800 text-zinc-300"
+                                    : "bg-white border-y border-r border-zinc-200 text-zinc-900",
+                                "shadow-xl"
                             )}
                         >
-                            {String(index + 1).padStart(2, "0")}
+                            <Factory className="w-3 h-3 text-orange-500" />
+                            {product.sku || `PRD-${String(index + 1).padStart(3, "0")}`}
                         </motion.div>
 
                         {/* Image Container - Metal Frame */}
@@ -192,7 +149,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                     src={product.image_url}
                                     alt={product.name}
                                     backgroundColor={product.background_color}
-                                    className="w-full h-full p-8"
+                                    className="w-full h-full p-8 object-contain"
                                     showAmbientGlow={false}
                                 />
                             ) : (
@@ -221,24 +178,33 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                     </motion.div>
 
                     {/* Right: Product Info */}
-                    <div className="order-1 lg:order-2 space-y-6">
+                    <div className="order-1 lg:order-2 space-y-8">
                         {/* Category Badge - Industrial Tag */}
                         <motion.div
                             initial={{ opacity: 0, y: -20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
                             transition={{ duration: 0.5 }}
+                            className="flex items-center gap-4"
                         >
                             <span className={cn(
-                                "inline-flex items-center gap-2 px-4 py-2",
-                                "text-xs font-bold uppercase tracking-[0.2em]",
-                                // Sharp industrial
+                                "inline-flex items-center gap-2 px-3 py-1",
+                                "text-[10px] font-black uppercase tracking-[0.2em]",
                                 "rounded-sm",
                                 isDark
-                                    ? "bg-white/5 text-zinc-400 border border-white/10"
-                                    : "bg-black/5 text-zinc-600 border border-black/10"
+                                    ? "bg-orange-500/10 text-orange-500 border border-orange-500/20"
+                                    : "bg-orange-600/10 text-orange-600 border border-orange-600/20"
                             )}>
                                 <Zap className="w-3 h-3" />
-                                {product.category?.name || "ÜRÜN"}
+                                SERİ ÜRETİM
+                            </span>
+
+                            <span className={cn(
+                                "hidden md:inline-flex items-center gap-2 px-3 py-1",
+                                "text-[10px] font-bold uppercase tracking-[0.1em] font-mono",
+                                isDark ? "text-zinc-500" : "text-zinc-400"
+                            )}>
+                                <MapPin className="w-3 h-3" />
+                                İZMİR / ALSANCAK
                             </span>
                         </motion.div>
 
@@ -248,7 +214,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ delay: 0.1, duration: 0.6 }}
                             className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl font-bold leading-tight",
+                                "text-4xl md:text-5xl lg:text-6xl font-bold leading-none",
                                 "font-['Syne',sans-serif] tracking-tight",
                                 isDark ? "text-white" : "text-zinc-900"
                             )}
@@ -263,7 +229,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                                 transition={{ delay: 0.2, duration: 0.6 }}
                                 className={cn(
-                                    "text-lg leading-relaxed",
+                                    "text-lg leading-relaxed max-w-xl",
                                     isDark ? "text-zinc-400" : "text-zinc-600"
                                 )}
                             >
@@ -271,67 +237,66 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             </motion.p>
                         )}
 
-                        {/* Features - Drop with Impact */}
+                        {/* Features - Grid Layout for Specs */}
                         {sortedFeatures.length > 0 && (
-                            <div className="space-y-3 pt-4">
-                                {sortedFeatures.map((feature, featureIndex) => (
-                                    <FeatureItem
-                                        key={feature.id}
-                                        feature={feature}
-                                        index={featureIndex}
-                                        isInView={isInView}
-                                        variant={isDark ? "light" : "dark"}
-                                    />
-                                ))}
+                            <div className="pt-4">
+                                <h4 className={cn(
+                                    "text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2",
+                                    isDark ? "text-zinc-500" : "text-zinc-400"
+                                )}>
+                                    <Ruler className="w-4 h-4" />
+                                    Teknik Özellikler & Varyasyonlar
+                                </h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {sortedFeatures.map((feature, featureIndex) => (
+                                        <FeatureItem
+                                            key={feature.id}
+                                            feature={feature}
+                                            index={featureIndex}
+                                            isInView={isInView}
+                                            variant={isDark ? "light" : "dark"}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         )}
 
-                        {/* Price & CTA - Metal Buttons */}
+                        {/* B2B CTA - WhatsApp Button */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                             transition={{ delay: 0.5, duration: 0.6 }}
-                            className="flex items-center gap-6 pt-6"
+                            className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6"
                         >
-                            {/* Price - Metal Badge */}
-                            <div className={cn(
-                                "px-6 py-3 rounded-sm",
-                                isDark
-                                    ? "bg-white/5 border border-white/10"
-                                    : "bg-black/5 border border-black/10"
-                            )}>
-                                <span className={cn(
-                                    "text-3xl md:text-4xl font-bold tracking-tight",
-                                    isDark ? "text-white" : "text-zinc-900"
-                                )}>
-                                    {formatPrice(product.price)}
-                                </span>
-                            </div>
-
-                            {/* CTA Button - Metallic */}
-                            <button
-                                onClick={handleAddToCart}
-                                disabled={product.stock_quantity === 0}
+                            <a
+                                href={`https://wa.me/905071651315?text=Merhaba, ${encodeURIComponent(product.name)} modeli için üretim teklifi almak istiyorum.`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className={cn(
-                                    "flex items-center gap-3 px-8 py-4",
-                                    "font-bold text-sm uppercase tracking-wider",
-                                    "rounded-sm transition-all duration-300",
-                                    product.stock_quantity === 0
-                                        ? "bg-zinc-800 text-zinc-500 cursor-not-allowed opacity-50"
-                                        : [
-                                            isDark
-                                                ? "bg-gradient-to-r from-zinc-200 to-zinc-300 text-zinc-900 hover:from-zinc-100 hover:to-zinc-200"
-                                                : "bg-gradient-to-r from-zinc-800 to-zinc-900 text-white hover:from-zinc-700 hover:to-zinc-800",
-                                            "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]",
-                                            "hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.4)]",
-                                            "hover:-translate-y-0.5"
-                                        ]
+                                    "flex items-center gap-4 px-8 py-5",
+                                    "font-black text-sm uppercase tracking-wider",
+                                    "rounded-sm transition-all duration-300 w-full sm:w-auto",
+                                    isDark
+                                        ? "bg-[#D4AF37] text-zinc-900 hover:bg-[#F4CF57]"
+                                        : "bg-zinc-900 text-white hover:bg-zinc-800",
+                                    "shadow-[0_4px_20px_-4px_rgba(212,175,55,0.3)]",
+                                    "hover:shadow-[0_8px_30px_-4px_rgba(212,175,55,0.4)]",
+                                    "hover:-translate-y-1 relative overflow-hidden group"
                                 )}
                             >
-                                <ShoppingBag className="w-5 h-5" />
-                                {product.stock_quantity === 0 ? "Stokta Yok" : "Koleksiyona Ekle"}
-                            </button>
+                                <span className="relative z-10 flex items-center gap-3">
+                                    <FileText className="w-5 h-5" />
+                                    Teklif ve Bilgi Alın
+                                </span>
+                            </a>
                         </motion.div>
+
+                        <p className={cn(
+                            "text-xs font-mono opacity-50",
+                            isDark ? "text-zinc-500" : "text-zinc-400"
+                        )}>
+                            * Kurumsal ve toptan siparişler için özel fiyatlandırma mevcuttur.
+                        </p>
                     </div>
                 </div>
             </div>

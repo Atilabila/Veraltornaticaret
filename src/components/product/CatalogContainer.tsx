@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, SlidersHorizontal, PackageOpen, ChevronDown } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { MetalProduct, Category } from '@/lib/supabase/metal-products.types';
 import ProductCard from './ProductCard';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useContentStore } from '@/store/useContentStore';
 
 interface CatalogContainerProps {
     products: MetalProduct[];
@@ -14,10 +16,30 @@ interface CatalogContainerProps {
 type SortOption = 'newest' | 'price-asc' | 'price-desc' | 'name-asc';
 
 export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, categories }) => {
+    const { content } = useContentStore();
+    const searchParams = useSearchParams();
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState<SortOption>('newest');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+    // Initial category from URL
+    useEffect(() => {
+        const cat = searchParams.get('cat') || searchParams.get('category');
+        if (cat) {
+            // Find category by slug or ID
+            const found = categories.find(c => c.slug === cat || c.id === cat);
+            if (found) {
+                setSelectedCategory(found.id);
+            }
+        }
+    }, [searchParams, categories]);
+
+    // Dynamic Header Data (Defaults are safe)
+    const headerTitle = content.productsPageTitle || "METAL KOLEKSİYON";
+    const headerSubtitle = content.productsPageSubtitle || "Endüstriyel metal tablo ve dekorasyon koleksiyonu.";
+    const headerLabel = content.productsPageIntroLabel || "Sistem: Katalog Çıktısı";
+    const headerBg = content.productsPageBackgroundImage;
 
     const filteredProducts = useMemo(() => {
         let result = [...products];
@@ -57,11 +79,41 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
     }, [products, selectedCategory, searchQuery, sortBy]);
 
     return (
-        <section className="bg-zinc-950 min-h-screen py-12">
-            <div className="container mx-auto px-6">
+        <section className="bg-zinc-950 min-h-screen">
+            {/* DYNAMIC HEADER */}
+            <div className="pt-32 pb-16 md:pt-48 md:pb-32 px-6 overflow-hidden border-b border-white/5 relative">
+                {headerBg && (
+                    <div
+                        className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none mix-blend-overlay"
+                        style={{ backgroundImage: `url(${headerBg})` }}
+                    />
+                )}
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#D4AF37]/5 to-transparent opacity-50 pointer-events-none" />
+                <div className="absolute w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[120px] rounded-full -top-32 -right-32 pointer-events-none mix-blend-screen" />
+
+                <div className="container mx-auto">
+                    <div className="flex flex-col gap-6 max-w-4xl relative z-10">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#D4AF37]/20 bg-[#D4AF37]/5 w-fit">
+                            <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+                            <span className="text-[10px] font-black font-mono text-[#D4AF37] uppercase tracking-[0.2em]">{headerLabel}</span>
+                        </div>
+
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-white font-[Archivo_Black] italic leading-none max-w-5xl">
+                            {headerTitle.split(" ").map((word, i) => (
+                                <span key={i} className={i % 2 !== 0 ? "metallic-shiny" : ""}>{word} </span>
+                            ))}
+                        </h1>
+
+                        <p className="text-xl text-white/50 max-w-2xl font-medium leading-relaxed italic uppercase">
+                            {headerSubtitle}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="container mx-auto px-6 py-12">
                 {/* TOOLBAR */}
-                {/* TOOLBAR */}
-                <div className="sticky top-20 z-40 bg-zinc-950/90 backdrop-blur-xl border-y border-white/10 p-6 mb-16 flex flex-col xl:flex-row items-center gap-10">
+                <div className="sticky top-20 z-40 bg-zinc-950/90 backdrop-blur-xl border-y border-white/10 p-6 mb-16 flex flex-col xl:flex-row items-center gap-10 shadow-2xl shadow-black/50">
                     {/* CATEGORY SELECTOR */}
                     <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2 xl:pb-0 w-full xl:w-auto">
                         <button
@@ -141,7 +193,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
                 {filteredProducts.length === 0 && (
                     <div className="py-32 text-center border-2 border-dashed border-white/5 rounded-3xl">
                         <PackageOpen className="w-16 h-16 text-white/10 mx-auto mb-6" />
-                        <h3 className="text-2xl font-black uppercase text-white mb-2 tracking-tighter">Birim Bulunamadı</h3>
+                        <h3 className="text-2xl font-black uppercase text-white mb-2 tracking-tighter">Kayıt Bulunamadı</h3>
                         <p className="text-white/30 font-mono text-xs uppercase tracking-widest">Seçili kriterlere uygun üretim kaydı mevcut değil.</p>
                         <button
                             onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }}

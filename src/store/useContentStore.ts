@@ -90,6 +90,8 @@ export interface SiteContent {
     // ===== PRODUCTS PAGE (URUNLER) =====
     productsPageTitle: string;
     productsPageSubtitle: string;
+    productsPageIntroLabel: string;
+    productsPageBackgroundImage: string;
     productsExploreText: string;
     productsExploreUrl: string;
 
@@ -174,6 +176,182 @@ export interface SiteContent {
     privacyPolicy: string;
     termsOfService: string;
     kvkkText: string;
+
+    // ===== NAVIGATION SYSTEM (CMS DRIVEN) =====
+    menuItems: {
+        id: string;
+        key: string;
+        label: string;
+        url: string;
+        type: 'link' | 'dropdown' | 'dynamic_catalog';
+        children?: { label: string; url: string; }[];
+        isPrimary?: boolean;
+        visible: boolean;
+        order: number;
+    }[];
+
+    // ===== CATEGORY SYSTEM =====
+    productCategories: {
+        id: string;
+        title: string;
+        slug: string;
+        description: string;
+        coverImage: string;
+        icon: string;
+        seoTitle: string;
+        seoDescription: string;
+        ctaLabel: string;
+        ctaLink: string;
+        isFeatured: boolean;
+        order: number;
+    }[];
+
+    // ===== HEADER CONFIGURATION =====
+    headerConfig: {
+        logoLight: string;
+        logoDark: string;
+        mode: 'auto' | 'translucent' | 'light' | 'dark';
+        transparency: number;
+        blur: number; // Backdrop blur in px
+        showBorder: boolean;
+        shadow: 'none' | 'sm' | 'md' | 'lg';
+        ctaText: string;
+        ctaLink: string;
+        announcementText?: string;
+        announcementLink?: string;
+        announcementActive: boolean;
+    };
+
+    // ===== GLOBAL GRID SYSTEM =====
+    globalGridConfig: {
+        enabled: boolean;
+        style: 'dots' | 'lines' | 'squares';
+        intensityLight: number; // 0-100 opacity
+        intensityDark: number; // 0-100 opacity
+    };
+
+    // ===== SERVICES CMS SYSTEM =====
+    services: {
+        id: string;
+        slug: string;
+        title: string;
+        shortDescription: string;
+        fullDescription: string;
+        icon: string;
+        image: string;
+        seoTitle: string;
+        seoDescription: string;
+        features: { key: string; value: string }[]; // Technical specs
+        applicationAreas: string[]; // Usage areas
+        slaText: string; // e.g. "24 Saat İçinde Teklif Garantisi"
+        ctaTitle: string;
+        ctaLabel: string;
+        order: number;
+        isActive: boolean;
+    }[];
+
+    servicesPageHeader: {
+        title: string;
+        subtitle: string;
+    };
+
+    // ===== PAGE LEVEL TOKENS (OVERRIDES) =====
+    pageSettings: {
+        path: string; // e.g. "/hakkimizda" or "/"
+        theme: 'light' | 'dark';
+        headerModeOverride: 'inherit' | 'auto' | 'translucent';
+        gridOverride: 'inherit' | 'on' | 'off';
+        seoTitle?: string;
+        seoDescription?: string;
+    }[];
+
+    // ===== THEME CONFIGURATION (Legacy/Fallback) =====
+    themeConfig: {
+        darkPaths: string[];
+    };
+
+    // ===== QUOTE PAGE CONFIGURATION (CMS) =====
+    quotePage: {
+        title: string;
+        subtitle: string;
+        description: string;
+        headerMode: 'dark' | 'light' | 'auto';
+        seoTitle: string;
+        seoDescription: string;
+
+        // Form Sections Labels
+        contactSectionTitle: string;
+        projectSectionTitle: string;
+        uploadSectionTitle: string;
+
+        // Field Labels & Placeholders
+        nameLabel: string;
+        namePlaceholder: string;
+        companyLabel: string;
+        companyPlaceholder: string;
+        emailLabel: string;
+        emailPlaceholder: string;
+        phoneLabel: string;
+        phonePlaceholder: string;
+
+        serviceLabel: string;
+        descriptionLabel: string;
+        descriptionPlaceholder: string;
+        quantityLabel: string;
+        quantityPlaceholder: string;
+        materialLabel: string;
+        materialPlaceholder: string;
+
+        fileLabel: string;
+        fileDescription: string;
+        maxFiles: number;
+        maxSizeMB: number;
+
+        // CTA & Feedback
+        submitButtonText: string;
+        successTitle: string;
+        successMessage: string;
+
+        // Trust Blocks
+        trustBlocks: {
+            title: string;
+            description: string;
+            icon: string;
+        }[];
+
+        // Dropdown Options
+        serviceOptions: string[];
+    };
+
+    // ===== CART PAGE CONFIGURATION (CMS) =====
+    cartPage: {
+        title: string;
+        emptyTitle: string;
+        emptyDescription: string;
+        continueShoppingText: string;
+        checkoutButtonText: string;
+        shippingIncentiveText: string;
+        freeShippingThreshold: number;
+        advantageBlocks: { icon: string; text: string }[];
+        showProgressBar: boolean;
+        relatedProductsTitle: string;
+    };
+
+    // ===== CHECKOUT PAGE CONFIGURATION (CMS) =====
+    checkoutPage: {
+        title: string;
+        showStepLabels: boolean;
+        stepLabels: {
+            shipping: string;
+            billing: string;
+            payment: string;
+        };
+        trustBlocks: { icon: string; title: string }[];
+        legalText: string;
+        successTitle: string;
+        successMessage: string;
+        completeButtonText: string;
+    };
 }
 
 interface ContentStore {
@@ -188,16 +366,154 @@ interface ContentStore {
     removeServiceItem: (index: number) => void;
     updateAboutStat: (index: number, stat: { label: string; value: string }) => void;
 
+    // Navigation & Category Actions
+    nav_updateItem: (index: number, item: SiteContent["menuItems"][0]) => void;
+    nav_reorder: (newOrder: SiteContent["menuItems"]) => void;
+    cat_update: (index: number, item: SiteContent["productCategories"][0]) => void;
+    cat_add: () => void;
+    cat_remove: (index: number) => void;
+
     // Supabase Sync Methods
     fetchContent: () => Promise<void>;
     saveToSupabase: () => Promise<boolean>;
 }
 
-const defaultContent: SiteContent = {
+export const defaultContent: SiteContent = {
     // Branding
     headerLogo: "/logo.svg",
     footerLogo: "/logo-white.svg",
     siteName: "VERAL",
+
+    // Header Defaults
+    headerConfig: {
+        logoLight: "/logo-white.svg",
+        logoDark: "/logo.svg",
+        mode: 'translucent',
+        transparency: 90,
+        blur: 12,
+        showBorder: true,
+        shadow: 'none',
+        ctaText: "TEKLİF AL",
+        ctaLink: "/teklif-al",
+        announcementText: "YENİ SEZON KOLEKSİYONU YAYINDA",
+        announcementLink: "/urunler",
+        announcementActive: false
+    },
+
+    // Grid Defaults
+    globalGridConfig: {
+        enabled: true,
+        style: 'lines',
+        intensityLight: 5,
+        intensityDark: 10
+    },
+
+    // Services Defaults
+    services: [
+        {
+            id: '1',
+            slug: 'cnc-torna',
+            title: 'CNC Torna İşleme',
+            shortDescription: 'Hassas toleranslı metal parça üretimi. Ø2mm - Ø200mm arası işleme kapasitesi.',
+            fullDescription: 'Endüstriyel standartlarda CNC torna hizmetimiz ile pirinç, çelik ve alüminyum malzemelerde milimetrik hassasiyet sağlıyoruz.',
+            icon: 'Settings',
+            image: '',
+            seoTitle: 'CNC Torna ve Seri İmalat | VERAL İzmir',
+            seoDescription: 'İzmir CNC torna hizmetleri. Yüksek hassasiyetli metal işleme ve seri üretim çözümleri.',
+            features: [
+                { key: 'Hassasiyet', value: '0.01mm' },
+                { key: 'Malzeme', value: 'Pirinç, Çelik, Alüminyum' }
+            ],
+            applicationAreas: ['Otomotiv', 'Savunma Sanayi', 'Dekorasyon'],
+            slaText: '24 Saat İçinde Teklif Garantisi',
+            ctaTitle: 'Projeniz İçin Teklif Alın',
+            ctaLabel: 'Hemen Başlayalım',
+            order: 1,
+            isActive: true
+        },
+        {
+            id: '2',
+            slug: 'ozel-uretim',
+            title: 'Özel Metal Ürün Üretimi',
+            shortDescription: 'Teknik çiziminize göre özel metal ürün tasarım ve üretimi.',
+            fullDescription: 'Hayalinizdeki veya teknik çizimi hazır olan metal ürünleri, en uygun malzeme ve teknikle hayata geçiriyoruz.',
+            icon: 'Wrench',
+            image: '',
+            seoTitle: 'Özel Metal Üretim Hizmetleri | VERAL',
+            seoDescription: 'Size özel metal ürün tasarımı ve butik üretim çözümleri.',
+            features: [
+                { key: 'Tasarım', value: 'Teknik Çizim Desteği' },
+                { key: 'Esneklik', value: 'Butik ve Proje Bazlı' }
+            ],
+            applicationAreas: ['Mobilya', 'Aydınlatma', 'Endüstriyel Tasarım'],
+            slaText: 'Hızlı Projelendirme',
+            ctaTitle: 'Özel Projenizi Başlatın',
+            ctaLabel: 'Teklif Al',
+            order: 2,
+            isActive: true
+        },
+        {
+            id: '3',
+            slug: 'seri-imalat',
+            title: 'Seri İmalat',
+            shortDescription: 'Yüksek hacimli metal parça üretimi. Min. 100 adet, max. sınırsız.',
+            fullDescription: 'Otomatik üretim hatlarımızla yüksek adetli siparişlerinizi hızla ve standart kalitede teslim ediyoruz.',
+            icon: 'Repeat',
+            image: '',
+            seoTitle: 'Seri Metal Parça Üretimi | VERAL',
+            seoDescription: 'Yüksek kapasiteli metal parça imalatı ve tedarik çözümleri.',
+            features: [
+                { key: 'Kapasite', value: 'Günlük 10.000+ Adet' },
+                { key: 'Maliyet', value: 'Avantajlı Birim Fiyat' }
+            ],
+            applicationAreas: ['Hırdavat', 'Beyaz Eşya', 'Sektörel Yedek Parça'],
+            slaText: 'Zamanında Teslimat',
+            ctaTitle: 'Toplu Sipariş Alın',
+            ctaLabel: 'Fiyat Al',
+            order: 3,
+            isActive: true
+        },
+        {
+            id: '4',
+            slug: 'metal-etiket',
+            title: 'Metal Etiket & Plaka',
+            shortDescription: 'Endüstriyel metal etiket, seri numarası plakası, uyarı levhaları.',
+            fullDescription: 'Kalıcı ve dayanıklı metal etiket çözümleri. Lazer markalama veya asit indirme teknikleriyle uzun ömürlü markalama.',
+            icon: 'Tag',
+            image: '',
+            seoTitle: 'Endüstriyel Metal Etiket | VERAL',
+            seoDescription: 'Makine etiketleri, seri numarası plakaları ve uyarı levhaları üretimi.',
+            features: [
+                { key: 'Dayanıklılık', value: 'Korozyon Direnci' },
+                { key: 'Teknik', value: 'Lazer / Asit İndirme' }
+            ],
+            applicationAreas: ['Makine İmalatçıları', 'Elektrik Panoları', 'İş Güvenliği'],
+            slaText: 'Hassas Markalama',
+            ctaTitle: 'Etiket Talebi Oluşturun',
+            ctaLabel: 'Detaylar',
+            order: 4,
+            isActive: true
+        }
+    ],
+
+    servicesPageHeader: {
+        title: 'Endüstriyel Hizmetlerimiz',
+        subtitle: 'Metal işleme ve tasarımda 20 yıllık tecrübe ile kurumsal çözümler.'
+    },
+
+    // Page Settings Defaults (Common paths)
+    pageSettings: [
+        { path: '/', theme: 'dark', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/urunler', theme: 'dark', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/teklif-al', theme: 'dark', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/hakkimizda', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+    ],
+
+    // Theme Fallback (Keep for backward compatibility)
+    themeConfig: {
+        darkPaths: ['/urunler', '/metal-urunler', '/teklif-al', '/siparis-sorgula', '/product', '/metal-tablolar']
+    },
+
 
     // Hero
     heroTitle: "YAŞAM ALANINIZ İÇİN YENİ NESİL DEKOR",
@@ -347,6 +663,8 @@ const defaultContent: SiteContent = {
     // Products Page
     productsPageTitle: "ÜRÜN KATALOĞU",
     productsPageSubtitle: "TÜM METAL POSTER KOLEKSİYONUMUZU KEŞFEDİN",
+    productsPageIntroLabel: "Sistem: Katalog Çıktısı",
+    productsPageBackgroundImage: "", // Default empty to use CSS gradient/fallback
     productsExploreText: "Tüm Ürünleri Gör",
     productsExploreUrl: "/urunler",
 
@@ -460,6 +778,156 @@ const defaultContent: SiteContent = {
     privacyPolicy: "Gizlilik politikası içeriği buraya gelecek...",
     termsOfService: "Kullanım şartları içeriği buraya gelecek...",
     kvkkText: "KVKK aydınlatma metni içeriği buraya gelecek...",
+
+    // Navigation Defaults
+    menuItems: [
+        { id: "nav_1", key: "catalog", label: "Katalog", url: "/urunler", type: "dynamic_catalog", visible: true, order: 1 },
+        { id: "nav_2", key: "about", label: "Hakkımızda", url: "/hakkimizda", type: "link", visible: true, order: 2 },
+        { id: "nav_3", key: "workshop", label: "Metal Atölyesi", url: "/metal-urunler", type: "link", visible: true, order: 3 },
+        { id: "nav_4", key: "services", label: "Hizmetler", url: "/hizmetler", type: "link", visible: true, order: 4 },
+        { id: "nav_5", key: "order_tracking", label: "Sipariş Sorgula", url: "/siparis-sorgula", type: "link", visible: true, order: 5 },
+        { id: "nav_6", key: "quote", label: "Teklif Al", url: "/teklif-al", type: "link", isPrimary: true, visible: true, order: 6 }
+    ],
+
+    // Product Categories Defaults
+    productCategories: [
+        {
+            id: "cat_1",
+            title: "Metal Tablolar",
+            slug: "metal-tablolar",
+            description: "Yüksek çözünürlüklü UV baskı ile üretilen dekoratif metal tablolar.",
+            coverImage: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?q=80&w=1000",
+            icon: "Frame",
+            seoTitle: "Metal Tablo Modelleri - VERAL",
+            seoDescription: "En şık metal tablo modellerini keşfedin.",
+            ctaLabel: "Tabloları İncele",
+            ctaLink: "/urunler?cat=metal-tablolar",
+            isFeatured: true,
+            order: 1
+        },
+        {
+            id: "cat_2",
+            title: "Teneke Ürünler",
+            slug: "teneke-urunler",
+            description: "Retro ve endüstriyel tarzda teneke kutu ve levha çözümleri.",
+            coverImage: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1000",
+            icon: "Box",
+            seoTitle: "Teneke Kutu ve Levha - VERAL",
+            seoDescription: "Özel üretim teneke kutu ve levha modelleri.",
+            ctaLabel: "Tenekeleri Gör",
+            ctaLink: "/urunler?cat=teneke-urunler",
+            isFeatured: true,
+            order: 2
+        },
+        {
+            id: "cat_3",
+            title: "Özel Üretim",
+            slug: "ozel-uretim",
+            description: "Kurumsal ve kişisel projeleriniz için özel metal çözümleri.",
+            coverImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000",
+            icon: "Settings",
+            seoTitle: "Özel Metal Üretim - VERAL",
+            seoDescription: "Projenize özel metal üretim hizmetleri.",
+            ctaLabel: "Teklif İste",
+            ctaLink: "/hizmetler/ozel-uretim",
+            isFeatured: false,
+            order: 3
+        }
+    ],
+
+    // Quote Page Defaults
+    quotePage: {
+        title: "Teklif Formu",
+        subtitle: "Projeniz İçin Teknik Analiz ve Fiyatlandırma",
+        description: "İzmir merkezli atölyemizde endüstriyel metal tasarımı, CNC kesim ve özel üretim projeleriniz için 24 saat içinde teknik değerlendirme ve teklif sunuyoruz.",
+        headerMode: "dark",
+        seoTitle: "Teklif Al | Özel Metal Üretim ve Tasarım - VERAL Metal Works",
+        seoDescription: "Endüstriyel metal projeleriniz, CNC kesim ve özel tasarım talepleriniz için hemen teklif alın. İzmir'in öncü metal atölyesi.",
+
+        contactSectionTitle: "İletişim Bilgileri",
+        projectSectionTitle: "Proje Detayları",
+        uploadSectionTitle: "Dosya Yükleme",
+
+        nameLabel: "Ad Soyad",
+        namePlaceholder: "Adınızı ve soyadınızı giriniz",
+        companyLabel: "Firma Adı",
+        companyPlaceholder: "Varsa firma adını giriniz (Opsiyonel)",
+        emailLabel: "E-posta",
+        emailPlaceholder: "Size ulaşabileceğimiz e-posta adresi",
+        phoneLabel: "Telefon",
+        phonePlaceholder: "05xx xxx xx xx",
+
+        serviceLabel: "Hizmet Türü",
+        descriptionLabel: "Proje Açıklaması",
+        descriptionPlaceholder: "Projenizle ilgili teknik detayları, beklentilerinizi ve varsa özel notlarınızı buraya yazınız.",
+        quantityLabel: "Tahmini Adet",
+        quantityPlaceholder: "Örn: 50 adet veya 1.000 metre",
+        materialLabel: "Malzeme Türü",
+        materialPlaceholder: "Örn: Alüminyum, Paslanmaz Çelik vb. (Opsiyonel)",
+
+        fileLabel: "Teknik Çizim / Görsel",
+        fileDescription: "PDF, JPG, PNG veya DXF formatında teknik çizimlerinizi yükleyebilirsiniz.",
+        maxFiles: 3,
+        maxSizeMB: 10,
+
+        submitButtonText: "Teklif Talebini Gönder",
+        successTitle: "Talebiniz Alındı",
+        successMessage: "Teklif talebiniz başarıyla tarafımıza ulaştı. Mühendislerimiz projenizi inceleyip 24 saat içinde size geri dönüş yapacaktır.",
+
+        trustBlocks: [
+            { title: "24 Saat İçinde Geri Dönüş", description: "Talepleriniz iş günlerinde 24 saat içinde yanıtlanır.", icon: "Clock" },
+            { title: "Teknik İnceleme", description: "Mühendislerimiz çizimlerinizi teknik açıdan analiz eder.", icon: "Search" },
+            { title: "Ücretsiz Ön Değerlendirme", description: "Projeniz için fizibilite çalışması ücretsiz yapılır.", icon: "CheckCircle" }
+        ],
+
+        serviceOptions: [
+            "Lazer Kesim & Büküm",
+            "Endüstriyel Metal Etiketler",
+            "Özel Tasarım Metal Tablolar",
+            "Seri Üretim Teneke Kutu/Levha",
+            "Mimari Metal Detaylar",
+            "Diğer / Özel Proje"
+        ]
+    },
+
+    // Cart Page Defaults
+    cartPage: {
+        title: "SEPETİM",
+        emptyTitle: "SEPETİNİZ BOŞ",
+        emptyDescription: "HENÜZ SEPETE ÜRÜN EKLEMEDİNİZ. KOLEKSİYONUMUZU KEŞFEDİN.",
+        continueShoppingText: "ALIŞVERİŞE DEVAM ET",
+        checkoutButtonText: "ÖDEMEYE GEÇ",
+        shippingIncentiveText: "₺{amount} DAHA EKLEYİN, ÜCRETSİZ KARGO KAZANIN!",
+        freeShippingThreshold: 500,
+        advantageBlocks: [
+            { icon: "ShieldCheck", text: "GÜVENLİ ÖDEME (SSL)" },
+            { icon: "RotateCcw", text: "14 GÜN İADE GARANTİSİ" },
+            { icon: "Factory", text: "YERLİ ÜRETİM" },
+            { icon: "Zap", text: "HIZLI KARGO" }
+        ],
+        showProgressBar: true,
+        relatedProductsTitle: "BUNLAR DA İLGİNİZİ ÇEKEBİLİR"
+    },
+
+    // Checkout Page Defaults
+    checkoutPage: {
+        title: "ÖDEME PROTOKOLÜ",
+        showStepLabels: true,
+        stepLabels: {
+            shipping: "01 TESLİMAT BİLGİLERİ",
+            billing: "02 FATURA BİLGİLERİ",
+            payment: "03 ÖDEME"
+        },
+        trustBlocks: [
+            { icon: "Lock", title: "SSL GÜVENLİ ÖDEME" },
+            { icon: "CheckCircle", title: "KVKK UYUMLU" },
+            { icon: "CreditCard", title: "IYZICO ALTYAPISI" }
+        ],
+        legalText: "Siparişi tamamlayarak <a href='/sartlar' class='underline'>Satış Sözleşmesi</a>'ni kabul etmiş olursunuz.",
+        successTitle: "SİPARİŞİNİZ ALINDI",
+        successMessage: "SİPARİŞİNİZ BAŞARIYLA OLUŞTURULDU. DETAYLAR E-POSTA ADRESİNİZE GÖNDERİLDİ.",
+        completeButtonText: "SİPARİŞİ TAMAMLA"
+    }
 };
 
 export const useContentStore = create<ContentStore>()(
@@ -550,6 +1018,64 @@ export const useContentStore = create<ContentStore>()(
                 });
             },
 
+            // ===== NAVIGATION & CATEGORY ACTIONS =====
+            nav_updateItem: (index, item) => {
+                set((state) => {
+                    const newItems = [...state.content.menuItems];
+                    newItems[index] = item;
+                    newItems.sort((a, b) => a.order - b.order);
+                    return { content: { ...state.content, menuItems: newItems } };
+                });
+            },
+
+            nav_reorder: (newOrder) => {
+                set((state) => ({
+                    content: { ...state.content, menuItems: newOrder }
+                }));
+            },
+
+            cat_update: (index, item) => {
+                set((state) => {
+                    const newCats = [...state.content.productCategories];
+                    newCats[index] = item;
+                    return { content: { ...state.content, productCategories: newCats } };
+                });
+            },
+
+            cat_add: () => {
+                set((state) => ({
+                    content: {
+                        ...state.content,
+                        productCategories: [
+                            ...state.content.productCategories,
+                            {
+                                id: `cat_${Date.now()}`,
+                                title: "Yeni Kategori",
+                                slug: "yeni-kategori",
+                                description: "Açıklama giriniz...",
+                                coverImage: "",
+                                icon: "Box",
+                                seoTitle: "",
+                                seoDescription: "",
+                                ctaLabel: "İncele",
+                                ctaLink: "#",
+                                isFeatured: false,
+                                order: state.content.productCategories.length + 1
+                            }
+                        ]
+                    }
+                }));
+            },
+
+            cat_remove: (index) => {
+                set((state) => ({
+                    content: {
+                        ...state.content,
+                        productCategories: state.content.productCategories.filter((_, i) => i !== index)
+                    }
+                }));
+            },
+
             fetchContent: async () => {
                 const data = await ContentService.getContent();
                 if (data) {
@@ -567,14 +1093,47 @@ export const useContentStore = create<ContentStore>()(
         }),
         {
             name: "site-content-storage",
-            version: 2,
+            version: 9,
             migrate: (persistedState: any, version: number) => {
                 const newState = { ...persistedState };
-                if (version < 2) {
+                if (version < 8) {
                     newState.content = {
                         ...defaultContent,
-                        ...(newState.content || {}),
-                        serviceStats: newState.content?.serviceStats || defaultContent.serviceStats,
+                        ...newState.content,
+                        headerConfig: {
+                            ...defaultContent.headerConfig,
+                            ...(newState.content?.headerConfig || {})
+                        },
+                        quotePage: {
+                            ...defaultContent.quotePage,
+                            ...(newState.content?.quotePage || {})
+                        },
+                        globalGridConfig: newState.content?.globalGridConfig || defaultContent.globalGridConfig,
+                        services: newState.content?.services || defaultContent.services,
+                        servicesPageHeader: newState.content?.servicesPageHeader || defaultContent.servicesPageHeader,
+                        pageSettings: newState.content?.pageSettings || defaultContent.pageSettings,
+                        themeConfig: newState.content?.themeConfig || defaultContent.themeConfig,
+                        cartPage: {
+                            ...defaultContent.cartPage,
+                            ...(newState.content?.cartPage || {})
+                        },
+                        checkoutPage: {
+                            ...defaultContent.checkoutPage,
+                            ...(newState.content?.checkoutPage || {})
+                        },
+                    };
+                }
+                if (version < 9) {
+                    newState.content = {
+                        ...newState.content,
+                        cartPage: {
+                            ...defaultContent.cartPage,
+                            ...(newState.content?.cartPage || {})
+                        },
+                        checkoutPage: {
+                            ...defaultContent.checkoutPage,
+                            ...(newState.content?.checkoutPage || {})
+                        },
                     };
                 }
                 return newState;

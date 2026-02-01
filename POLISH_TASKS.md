@@ -10,6 +10,7 @@
 - [x] **Header Search Fix**: Header'daki büyüteç ikonunun çalışmamasını düzelt.
 - [x] **Metal Ürünler Header**: `/metal-urunler` sayfasında header'ın görünmemesi sorununu gider.
 - [x] **WhatsApp Senkronizasyonu**: Tüm sayfalardaki WhatsApp numaralarını ve mesajlarını admin panel ayarlarıyla bağla.
+- [x] **Global Header & Grid System**: Header ve Grid sistemi admin panelden yönetilebilir hale getirildi (Auto/Translucent mod, Grid stili/yoğunluğu).
 
 ## 🛠️ Tech Debt & Fixes
 - [x] Admin Panel Logo Seçiciler (SVG/WebP desteği + Upload)

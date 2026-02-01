@@ -9,7 +9,8 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import {
     ArrowLeft, ShoppingBag, Share2, Heart,
-    Zap, Shield, Package, Truck, Check
+    Zap, Shield, Package, Truck, Check,
+    Info, Ruler, FileText, Factory
 } from "lucide-react"
 import { MetalImage } from "@/components/landing/MetalImage"
 import { useCartStore } from "@/store/useCartStore"
@@ -17,23 +18,26 @@ import { useToast } from "@/components/ui/use-toast"
 import { cn, formatPrice } from "@/lib/utils"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
 import { useRouter } from "next/navigation"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 interface ProductDetailClientProps {
     product: MetalProduct
+    relatedProducts?: any[]
 }
 
 // Dynamic icon mapping
 const FEATURE_ICONS: Record<string, React.ElementType> = {
-    Shield, Zap, Package, Truck, Check
+    Shield, Zap, Package, Truck, Check, Info, Ruler, FileText, Factory
 }
 
-export default function ProductDetailClient({ product }: ProductDetailClientProps) {
+export default function ProductDetailClient({ product, relatedProducts = [] }: ProductDetailClientProps) {
     const { addItem, items } = useCartStore()
     const { toast } = useToast()
     const router = useRouter()
     const [isAdding, setIsAdding] = React.useState(false)
 
     const inCart = items.some(item => item.productId === product.id)
+    const isRetail = product.price > 0 && product.stock_quantity > 0;
 
     const handleAddToCart = (redirect: boolean = false) => {
         setIsAdding(true)
@@ -73,11 +77,11 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             <nav className="fixed top-0 left-0 right-0 z-40 bg-zinc-950/90 backdrop-blur-lg border-b border-zinc-800">
                 <div className="container mx-auto px-6 py-4 flex items-center justify-between">
                     <Link
-                        href="/metal-showcase"
+                        href="/urunler"
                         className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
-                        <span className="text-sm font-medium">Geri</span>
+                        <span className="text-sm font-medium">Kataloğa Dön</span>
                     </Link>
 
                     <div className="flex items-center gap-2">
@@ -92,7 +96,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             </nav>
 
             {/* Main Content */}
-            <div className="pt-20 pb-32">
+            <div className="pt-24 pb-32">
                 <div className="container mx-auto px-6">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
@@ -142,7 +146,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                                 </div>
 
                                 {/* Stock Badge */}
-                                {product.stock_quantity > 0 && (
+                                {isRetail && (
                                     <div className="absolute top-4 right-4">
                                         <span className={cn(
                                             "inline-flex items-center gap-1 px-2 py-1",
@@ -164,12 +168,21 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                             transition={{ duration: 0.6, delay: 0.1 }}
                             className="space-y-8 pt-8 lg:pt-0"
                         >
-                            {/* Title */}
+                            {/* Title & SKU */}
                             <div>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest">
+                                        SKU: {product.sku || product.id.slice(0, 8)}
+                                    </span>
+                                    {product.is_showcase && (
+                                        <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-bold uppercase">
+                                            Vitrin Ürünü
+                                        </span>
+                                    )}
+                                </div>
                                 <h1 className="font-['Syne',sans-serif] text-4xl md:text-5xl font-bold text-white mb-4">
                                     {product.name}
                                 </h1>
-
                                 {product.description && (
                                     <p className="text-lg text-zinc-400 leading-relaxed">
                                         {product.description}
@@ -178,125 +191,231 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                             </div>
 
                             {/* Price & CTA */}
-                            <div className="flex flex-wrap items-center gap-6">
-                                <div className="px-6 py-4 rounded-sm bg-zinc-900 border border-zinc-800">
-                                    <span className="text-3xl font-bold text-white">
-                                        {formatPrice(product.price)}
-                                    </span>
-                                </div>
-
-                                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                                    <motion.button
-                                        onClick={() => handleAddToCart()}
-                                        disabled={inCart || isAdding}
-                                        className={cn(
-                                            "flex-1 sm:flex-none flex items-center justify-center gap-3 px-8 py-4",
-                                            "rounded-sm font-bold text-sm uppercase tracking-wider",
-                                            "transition-all duration-300",
-                                            inCart
-                                                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                                                : "bg-zinc-800 text-zinc-100 border border-zinc-700 hover:bg-zinc-700",
-                                            "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]"
-                                        )}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        {inCart ? (
-                                            <>
-                                                <Check className="w-5 h-5" />
-                                                Koleksiyonda
-                                            </>
-                                        ) : (
-                                            <>
-                                                <ShoppingBag className="w-5 h-5" />
-                                                {isAdding ? "Ekleniyor..." : "Sepete Ekle"}
-                                            </>
-                                        )}
-                                    </motion.button>
-
-                                    <motion.button
-                                        onClick={() => handleAddToCart(true)}
-                                        disabled={isAdding}
-                                        className={cn(
-                                            "flex-1 sm:flex-none flex items-center justify-center gap-3 px-10 py-4",
-                                            "rounded-sm font-bold text-sm uppercase tracking-wider",
-                                            "transition-all duration-300",
-                                            "bg-gradient-to-r from-[var(--color-brand-safety-orange)] to-amber-500 text-black",
-                                            "hover:brightness-110",
-                                            "shadow-[0_4px_20px_-4px_rgba(255,103,0,0.4)]"
-                                        )}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        <Zap className="w-5 h-5 fill-current" />
-                                        Şimdi Al
-                                    </motion.button>
-                                </div>
-                            </div>
-
-                            {/* Features */}
-                            {sortedFeatures.length > 0 && (
-                                <div className="pt-6 border-t border-zinc-800">
-                                    <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-500 mb-4">
-                                        Özellikler
-                                    </h3>
-                                    <div className="space-y-3">
-                                        {sortedFeatures.map((feature, index) => (
-                                            <motion.div
-                                                key={feature.id}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.2 + index * 0.1 }}
-                                                className={cn(
-                                                    "flex items-center gap-4 px-4 py-3",
-                                                    "rounded-sm bg-zinc-900/50 border border-zinc-800"
-                                                )}
-                                            >
-                                                <div className={cn(
-                                                    "w-10 h-10 rounded-sm flex items-center justify-center shrink-0",
-                                                    "bg-gradient-to-br from-zinc-700 to-zinc-800"
-                                                )}>
-                                                    {feature.feature_icon && FEATURE_ICONS[feature.feature_icon] ? (
-                                                        React.createElement(FEATURE_ICONS[feature.feature_icon], {
-                                                            className: "w-5 h-5 text-zinc-300"
-                                                        })
-                                                    ) : (
-                                                        <Zap className="w-5 h-5 text-zinc-300" />
-                                                    )}
-                                                </div>
-                                                <span className="text-zinc-300">{feature.feature_text}</span>
-                                            </motion.div>
-                                        ))}
+                            {isRetail ? (
+                                <div className="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 space-y-6">
+                                    <div className="flex items-baseline gap-4">
+                                        <span className="text-4xl font-bold text-white">
+                                            {formatPrice(product.price)}
+                                        </span>
+                                        <span className="text-sm text-zinc-500 font-medium bg-zinc-800 px-2 py-1 rounded">
+                                            KDV Dahil
+                                        </span>
                                     </div>
+
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <motion.button
+                                            onClick={() => handleAddToCart()}
+                                            disabled={inCart || isAdding}
+                                            className={cn(
+                                                "flex-1 flex items-center justify-center gap-3 px-8 py-4",
+                                                "rounded-lg font-bold text-sm uppercase tracking-wider",
+                                                "transition-all duration-300",
+                                                inCart
+                                                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                                    : "bg-zinc-800 text-zinc-100 border border-zinc-700 hover:bg-zinc-700",
+                                            )}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            {inCart ? (
+                                                <>
+                                                    <Check className="w-5 h-5" />
+                                                    Sepette
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <ShoppingBag className="w-5 h-5" />
+                                                    {isAdding ? "..." : "Sepete Ekle"}
+                                                </>
+                                            )}
+                                        </motion.button>
+
+                                        <motion.button
+                                            onClick={() => handleAddToCart(true)}
+                                            disabled={isAdding}
+                                            className={cn(
+                                                "flex-1 flex items-center justify-center gap-3 px-10 py-4",
+                                                "rounded-lg font-bold text-sm uppercase tracking-wider",
+                                                "transition-all duration-300",
+                                                "bg-[var(--color-brand-safety-orange)] text-white",
+                                                "hover:bg-orange-600",
+                                                "shadow-lg shadow-orange-500/20"
+                                            )}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            <Zap className="w-5 h-5 fill-current" />
+                                            Hemen Al
+                                        </motion.button>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 text-xs text-zinc-500 justify-center">
+                                        <Shield className="w-3 h-3" />
+                                        <span>Güvenli Ödeme &SSL Koruması</span>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 space-y-4">
+                                    <div className="flex items-center gap-3 text-amber-500 mb-2">
+                                        <Info className="w-5 h-5" />
+                                        <span className="font-bold uppercase tracking-wider">Özel Üretim / Proje Ürünü</span>
+                                    </div>
+                                    <p className="text-zinc-400 text-sm">
+                                        Bu ürün stoktan satışa kapalıdır. Projeleriniz için özel üretim olarak talep edebilirsiniz.
+                                    </p>
+                                    <a
+                                        href={`https://wa.me/905071651315?text=Merhaba, ${encodeURIComponent(product.name)} (SKU: ${product.sku}) için fiyat teklifi almak istiyorum.`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={cn(
+                                            "flex items-center justify-center gap-3 px-8 py-4 w-full",
+                                            "rounded-lg font-bold text-sm uppercase tracking-wider",
+                                            "bg-white text-black hover:bg-zinc-200 transition-colors"
+                                        )}
+                                    >
+                                        <FileText className="w-5 h-5" />
+                                        Fiyat Teklifi İste
+                                    </a>
                                 </div>
                             )}
 
-                            {/* Trust Badges */}
-                            <div className="grid grid-cols-2 gap-4 pt-6">
-                                {[
-                                    { icon: Truck, text: "Ücretsiz Kargo", sub: "₺500 üzeri" },
-                                    { icon: Shield, text: "10 Yıl Garanti", sub: "Tüm ürünlerde" },
-                                    { icon: Package, text: "Güvenli Paket", sub: "Özel ambalaj" },
-                                    { icon: Zap, text: "Hızlı Üretim", sub: "3-5 iş günü" }
-                                ].map((item, i) => (
-                                    <div
-                                        key={i}
-                                        className={cn(
-                                            "flex items-center gap-3 px-4 py-3",
-                                            "rounded-sm bg-zinc-900/30 border border-zinc-800/50"
-                                        )}
-                                    >
-                                        <item.icon className="w-5 h-5 text-zinc-500 shrink-0" />
-                                        <div>
-                                            <p className="text-sm font-medium text-zinc-300">{item.text}</p>
-                                            <p className="text-xs text-zinc-500">{item.sub}</p>
+                            {/* Detailed Info Tabs */}
+                            <div className="pt-8">
+                                <Tabs defaultValue="features" className="w-full">
+                                    <TabsList className="w-full grid grid-cols-3 bg-zinc-900 border border-zinc-800 rounded-lg p-1">
+                                        <TabsTrigger value="features" className="data-[state=active]:bg-zinc-800">Özellikler</TabsTrigger>
+                                        <TabsTrigger value="shipping" className="data-[state=active]:bg-zinc-800">Teslimat</TabsTrigger>
+                                        <TabsTrigger value="warranty" className="data-[state=active]:bg-zinc-800">Garanti</TabsTrigger>
+                                    </TabsList>
+
+                                    <TabsContent value="features" className="mt-6 space-y-4">
+                                        <div className="grid grid-cols-1 gap-3">
+                                            {sortedFeatures.map((feature, index) => (
+                                                <div key={index} className="flex gap-4 p-4 rounded-lg bg-zinc-900/30 border border-zinc-800/50">
+                                                    <div className="mt-1">
+                                                        {feature.feature_icon && FEATURE_ICONS[feature.feature_icon] ? (
+                                                            React.createElement(FEATURE_ICONS[feature.feature_icon], { className: "w-5 h-5 text-zinc-500" })
+                                                        ) : <Zap className="w-5 h-5 text-zinc-500" />}
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-zinc-300 text-sm mb-1">{product.category?.name || "Özellik"}</h4>
+                                                        <p className="text-zinc-400 text-sm">{feature.feature_text}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                            {/* Default Specs if none */}
+                                            {sortedFeatures.length === 0 && (
+                                                <div className="text-zinc-500 text-sm italic p-4">Bu ürün için ek teknik özellik girilmemiştir.</div>
+                                            )}
+
+                                            {/* Common Specs */}
+                                            <div className="grid grid-cols-2 gap-3 mt-4">
+                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
+                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Malzeme</span>
+                                                    <span className="text-sm text-zinc-300">{product.material || "1.5mm DKP Çelik"}</span>
+                                                </div>
+                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
+                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Boya</span>
+                                                    <span className="text-sm text-zinc-300">{product.paint || "Elektrostatik Toz"}</span>
+                                                </div>
+                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
+                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Montaj</span>
+                                                    <span className="text-sm text-zinc-300">{product.installation || "Hazır Askı Sistemi"}</span>
+                                                </div>
+                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
+                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Menşei</span>
+                                                    <span className="text-sm text-zinc-300">{product.origin || "Yerli Üretim (İzmir)"}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    </TabsContent>
+
+                                    <TabsContent value="shipping" className="mt-6">
+                                        <div className="space-y-4 text-zinc-400 text-sm leading-relaxed p-4 bg-zinc-900/30 rounded-lg border border-zinc-800">
+                                            <p><strong className="text-white">Standart Teslimat:</strong> Siparişiniz, onaylandıktan sonraki 2-4 iş günü içerisinde kargoya teslim edilir.</p>
+                                            <p><strong className="text-white">Özenli Paketleme:</strong> Tüm metal posterlerimiz, darbelere dayanıklı özel kutularda ve koruyucu strafor destekli olarak gönderilir.</p>
+                                            <p className="text-xs text-zinc-500">*Resmi tatiller ve kampanya dönemlerinde teslimat sürelerinde değişiklik olabilir.</p>
+                                        </div>
+                                    </TabsContent>
+
+                                    <TabsContent value="warranty" className="mt-6">
+                                        <div className="space-y-4 text-zinc-400 text-sm leading-relaxed p-4 bg-zinc-900/30 rounded-lg border border-zinc-800">
+                                            <div className="flex items-center gap-3 mb-2">
+                                                <Shield className="w-6 h-6 text-emerald-500" />
+                                                <span className="text-white font-bold">10 Yıl Solmazlık Garantisi</span>
+                                            </div>
+                                            <p>VERAL Metal Works ürünleri, en yüksek kalitede malzemeler ve boya teknolojisi kullanılarak üretilir. İç mekan kullanımında solmaya, paslanmaya ve deformasyona karşı 10 yıl garanti sunuyoruz.</p>
+                                            <p>İade ve değişim işlemleriniz için 14 gün içerisinde müşteri hizmetlerimizle iletişime geçebilirsiniz.</p>
+                                        </div>
+                                    </TabsContent>
+                                </Tabs>
                             </div>
                         </motion.div>
                     </div>
                 </div>
             </div>
 
-        </main>
+            {/* Related Products Section */}
+            {relatedProducts && relatedProducts.length > 0 && (
+                <section className="py-24 border-t border-zinc-900">
+                    <div className="container mx-auto px-6">
+                        <div className="flex items-center justify-between mb-12">
+                            <h2 className="text-2xl font-bold font-['Syne',sans-serif] text-white">
+                                Benzer Ürünler
+                            </h2>
+                            <Link
+                                href="/urunler"
+                                className="text-sm text-zinc-500 hover:text-white transition-colors flex items-center gap-2"
+                            >
+                                Tümünü Gör <ArrowLeft className="w-4 h-4 rotate-180" />
+                            </Link>
+                        </div>
+
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                            {relatedProducts.map((relProduct) => (
+                                <Link
+                                    key={relProduct.id}
+                                    href={`/urunler/${relProduct.slug}`}
+                                    className="group block"
+                                >
+                                    <div
+                                        className="aspect-square rounded-sm overflow-hidden mb-4 relative"
+                                        style={{ backgroundColor: relProduct.background_color }}
+                                    >
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+
+                                        {relProduct.image_url ? (
+                                            <MetalImage
+                                                src={relProduct.image_url}
+                                                alt={relProduct.name}
+                                                backgroundColor={relProduct.background_color}
+                                                className="w-full h-full p-8 transition-transform duration-500 group-hover:scale-110"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-zinc-700">
+                                                <Zap className="w-8 h-8" />
+                                            </div>
+                                        )}
+
+                                        {relProduct.price > 0 && (
+                                            <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-white">
+                                                {formatPrice(relProduct.price)}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <h3 className="text-white font-bold truncate group-hover:text-amber-500 transition-colors">
+                                        {relProduct.name}
+                                    </h3>
+                                    <p className="text-sm text-zinc-500 truncate">
+                                        {relProduct.category?.name || "Metal Tablo"}
+                                    </p>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )
+            }
+
+        </main >
     )
 }

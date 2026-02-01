@@ -28,7 +28,9 @@ export const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) =>
     const { content } = useContentStore()
     const activeProducts = products.filter(p => p.is_active)
 
-    if (activeProducts.length === 0) {
+
+    // If data is undefined/loading (though this is typically handled by Suspense in newer Next.js)
+    if (!products) {
         return (
             <section className="min-h-screen flex items-center justify-center bg-zinc-950">
                 <div className="text-center">
@@ -41,8 +43,35 @@ export const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) =>
         )
     }
 
+    // If result arrived but no active products found
+    if (activeProducts.length === 0) {
+        return (
+            <section className="min-h-screen flex items-center justify-center bg-zinc-950 px-4">
+                <div className="text-center bg-zinc-900/50 border border-zinc-800 p-12 rounded-2xl max-w-lg mx-auto">
+                    <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-zinc-800 flex items-center justify-center">
+                        <ArrowDown className="w-10 h-10 text-zinc-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4 italic">HENÜZ ÜRÜN BULUNMUYOR</h3>
+                    <p className="text-zinc-500 mb-8 leading-relaxed">
+                        Aradığınız kategoride henüz aktif bir ürün bulunmamaktadır.
+                        Lütfen daha sonra tekrar kontrol ediniz.
+                    </p>
+                    <a
+                        href="/"
+                        className="inline-block px-8 py-3 bg-zinc-100 text-zinc-900 font-bold uppercase text-xs tracking-widest hover:bg-white transition-all"
+                    >
+                        ANASAYFAYA DÖN
+                    </a>
+                </div>
+            </section>
+        )
+    }
+
     return (
         <div className="relative bg-zinc-950">
+            {/* Hero Section - Top */}
+            <HeroSection productCount={activeProducts.length} />
+
             {/* Product Sections */}
             {activeProducts.map((product, index) => (
                 <ProductSection
@@ -53,9 +82,6 @@ export const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) =>
                 />
             ))}
 
-            {/* Info Section (Moved from top) */}
-            <InfoSection productCount={activeProducts.length} />
-
             {/* Footer CTA */}
             <FooterCTA />
         </div>
@@ -65,11 +91,11 @@ export const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) =>
 // =====================================================
 // HERO SECTION - METAL ART EDITION
 // =====================================================
-const InfoSection: React.FC<{ productCount: number }> = ({ productCount }) => {
+const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
     const { content } = useContentStore()
 
     return (
-        <section className="py-24 relative overflow-hidden bg-zinc-950 border-t border-zinc-900">
+        <section className="py-32 relative overflow-hidden bg-zinc-950 border-b border-zinc-900">
             {/* Background - Industrial Grid */}
             <div className="absolute inset-0 bg-grid-metal opacity-20" />
 
@@ -93,7 +119,7 @@ const InfoSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                 >
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400">
-                        {productCount} Premium Ürün
+                        {productCount} Üretim Modeli Aktif
                     </span>
                 </motion.div>
 
@@ -125,7 +151,7 @@ const InfoSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                     transition={{ delay: 0.3, duration: 0.6 }}
                     className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed"
                 >
-                    {content.metalShowcaseSubtitle}
+                    {content.metalShowcaseSubtitle || "İzmir Alsancak üretim tesisimizde, endüstriyel kalitede seri üretim hizmetleri sunuyoruz."}
                 </motion.p>
 
                 {/* Trust Badges */}
@@ -134,7 +160,7 @@ const InfoSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5, duration: 0.6 }}
-                    className="flex flex-wrap justify-center gap-6 mb-16"
+                    className="flex flex-wrap justify-center gap-6 mb-8"
                 >
                     {content.metalShowcaseTrustBadges?.map((item, i) => {
                         const BadgeIcon = iconMap[item.icon] || HelpCircle
@@ -161,7 +187,7 @@ const InfoSection: React.FC<{ productCount: number }> = ({ productCount }) => {
 // =====================================================
 const FooterCTA: React.FC = () => {
     return (
-        <section className="min-h-[60vh] flex items-center justify-center relative overflow-hidden bg-zinc-950">
+        <section className="min-h-[50vh] flex items-center justify-center relative overflow-hidden bg-zinc-950 border-t border-zinc-900">
             {/* Background Elements */}
             <div className="absolute inset-0 bg-grid-metal opacity-10" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-zinc-800/20 rounded-full blur-[150px]" />
@@ -175,9 +201,9 @@ const FooterCTA: React.FC = () => {
                     transition={{ duration: 0.8 }}
                     className="font-['Syne',sans-serif] text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
                 >
-                    <span className="text-white">Projeniz için</span>
+                    <span className="text-white">Projeniz İçin</span>
                     <br />
-                    <span className="shimmer-gold">doğru çözüm</span>
+                    <span className="shimmer-gold">Özel Çözümler</span>
                 </motion.h2>
 
                 <motion.p
@@ -187,7 +213,7 @@ const FooterCTA: React.FC = () => {
                     transition={{ delay: 0.2, duration: 0.6 }}
                     className="text-lg text-zinc-500 mb-10"
                 >
-                    Özel gereksinimleriniz için bizimle iletişime geçin.
+                    İzmir üretim tesisimiz, kurumsal ve özel projeleriniz için hizmetinizdedir.
                 </motion.p>
 
                 <motion.div
@@ -198,7 +224,7 @@ const FooterCTA: React.FC = () => {
                     className="flex flex-col sm:flex-row gap-4 justify-center"
                 >
                     <a
-                        href="/urunler"
+                        href="/hizmetler/ozel-uretim"
                         className={cn(
                             "inline-flex items-center justify-center gap-2 px-8 py-4",
                             "rounded-sm font-bold text-sm uppercase tracking-wider",
@@ -208,7 +234,7 @@ const FooterCTA: React.FC = () => {
                             "shadow-[0_4px_20px_-4px_rgba(255,255,255,0.1)]"
                         )}
                     >
-                        Tüm Ürünleri Gör
+                        Özel Üretim Detayları
                     </a>
                     <a
                         href="https://wa.me/905071651315"

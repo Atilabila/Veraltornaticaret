@@ -57,16 +57,16 @@ export async function syncOrderToSupabase(orderData: any): Promise<boolean> {
         // Transform localStorage order to DB format
         const dbOrder = {
             order_number: orderData.orderNumber,
-            customer_name: orderData.customerInfo.name,
-            customer_email: orderData.customerInfo.email,
-            customer_phone: orderData.customerInfo.phone,
-            shipping_address: orderData.shippingAddress,
+            customer_name: orderData.shipping.fullName,
+            customer_email: orderData.shipping.email,
+            customer_phone: orderData.shipping.phone,
+            shipping_address: orderData.shipping, // Store full JSON
             subtotal: Number(orderData.subtotal),
             shipping_cost: Number(orderData.shippingCost),
             total: Number(orderData.total),
-            payment_method: orderData.paymentMethod,
-            payment_status: orderData.paymentStatus || 'pending',
-            status: orderData.status || 'pending',
+            payment_method: orderData.paymentMethod || 'credit_card',
+            payment_status: orderData.paymentStatus || (orderData.status === 'paid' ? 'paid' : 'pending'),
+            status: orderData.status || 'created',
             synced_from_local: true,
             sync_error: null,
             created_at: orderData.createdAt,
