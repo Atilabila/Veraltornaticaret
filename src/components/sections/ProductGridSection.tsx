@@ -8,7 +8,7 @@ export const ProductGridSection = () => {
     const products = Object.values(PRODUCTS_DATA);
 
     return (
-        <section id="products" className="bg-white border-b border-fog-gray">
+        <section id="products" className="bg-transparent border-b border-black/5">
             <div className="max-w-[1240px] mx-auto px-6">
                 <div className="flex flex-col gap-4 mb-12">
                     <SystemLabel text="EN COK SATANLAR" active />

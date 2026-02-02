@@ -404,8 +404,8 @@ export const defaultContent: SiteContent = {
     globalGridConfig: {
         enabled: true,
         style: 'lines',
-        intensityLight: 5,
-        intensityDark: 10
+        intensityLight: 40,
+        intensityDark: 60
     },
 
     // Services Defaults

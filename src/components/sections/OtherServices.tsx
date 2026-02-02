@@ -17,7 +17,7 @@ export const OtherServices = () => {
     const { content } = useContentStore();
 
     return (
-        <section id="other-services" className="py-24 bg-[#0A0A0A] border-b-8 border-white/5">
+        <section id="other-services" className="py-24 bg-transparent border-b-8 border-white/5">
             <div className="container-brutal">
                 {/* SYSTEM_HEADER */}
                 <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">

@@ -17,7 +17,7 @@ export const StatsMarquee = () => {
 
     return (
         <DirectEdit tab="content">
-            <section className="py-2.5 bg-[#0A0A0A] border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
+            <section className="py-2.5 bg-transparent border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
                 <div className="flex overflow-hidden">
                     <motion.div
                         className="flex items-center gap-12 md:gap-16 whitespace-nowrap"
@@ -56,9 +56,9 @@ export const StatsMarquee = () => {
                     </motion.div>
                 </div>
 
-                {/* Soft Side Masks */}
-                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
+                {/* Soft Side Masks - Updated to transparent */}
+                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-transparent to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-transparent to-transparent z-10 pointer-events-none" />
             </section>
         </DirectEdit>
     );

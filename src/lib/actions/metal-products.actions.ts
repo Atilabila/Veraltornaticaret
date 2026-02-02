@@ -177,40 +177,56 @@ export async function getProductBySlug(slug: string): Promise<ApiResponse<MetalP
 
 export async function createProduct(formData: ProductFormData): Promise<ApiResponse<MetalProduct>> {
     try {
+        console.log(`[ACTION] createProduct called`, formData);
+
         // Auto-generate slug if not provided
         const slug = formData.slug || formData.name
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '')
 
+        const { features, ...rest } = formData as any;
+
+        // Strip non-insertable or analytical fields
+        const allowedColumns = [
+            'name', 'slug', 'description', 'price', 'image_url',
+            'background_color', 'category_id', 'is_active',
+            'stock_quantity', 'sku', 'is_showcase',
+            'material', 'paint', 'installation', 'origin'
+        ];
+
+        const productData: any = {};
+
+        // Handle field mapping
+        if (rest.image && !rest.image_url) rest.image_url = rest.image;
+        if (rest.category && !rest.category_id && typeof rest.category === 'string') rest.category_id = rest.category;
+
+        Object.keys(rest).forEach(key => {
+            if (allowedColumns.includes(key)) {
+                productData[key] = rest[key];
+            }
+        });
+
+        // Ensure slug is in productData
+        productData.slug = slug;
+
+        console.log(`[ACTION] productData for insert:`, productData);
+
         // Insert product
         const { data: product, error: productError } = await (supabaseAdmin as any)
             .from('metal_products')
-            .insert({
-                name: formData.name,
-                slug,
-                description: formData.description,
-                price: formData.price,
-                image_url: formData.image_url,
-                background_color: formData.background_color,
-                category_id: formData.category_id,
-                is_active: formData.is_active,
-                stock_quantity: formData.stock_quantity,
-                is_showcase: formData.is_showcase,
-                sku: formData.sku,
-                material: formData.material,
-                paint: formData.paint,
-                installation: formData.installation,
-                origin: formData.origin
-            })
+            .insert(productData)
             .select()
             .single()
 
-        if (productError) throw productError
+        if (productError) {
+            console.error('[DATABASE ERROR] Product creation failed:', productError);
+            throw productError
+        }
 
         // Insert features if any
-        if (formData.features && formData.features.length > 0) {
-            const featuresWithProductId = formData.features.map((f, index) => ({
+        if (features && features.length > 0) {
+            const featuresWithProductId = features.map((f: any, index: number) => ({
                 product_id: product.id,
                 feature_text: f.feature_text,
                 feature_icon: f.feature_icon,
@@ -222,13 +238,12 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
                 .insert(featuresWithProductId)
 
             if (featuresError) {
-                console.error('Error inserting features:', featuresError)
-                // Don't fail the entire operation, product is created
+                console.error('[DATABASE ERROR] Feature insertion failed:', featuresError)
             }
         }
 
         // Fetch the complete product with relations
-        const { data: fullProduct } = await (supabase as any)
+        const { data: fullProduct, error: fetchError } = await (supabaseAdmin as any)
             .from('metal_products')
             .select(`
                 *,
@@ -238,17 +253,47 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
             .eq('id', product.id)
             .single()
 
+        if (fetchError) {
+            console.error('[DATABASE ERROR] Fetching created product failed:', fetchError);
+            throw fetchError;
+        }
+
         return { data: fullProduct as MetalProduct, error: null, success: true }
-    } catch (err) {
-        console.error('Error creating product:', err)
-        return { data: null, error: 'Ürün oluşturulamadı', success: false }
+    } catch (err: any) {
+        console.error('[CRITICAL ACTION ERROR] createProduct failed:', err)
+        return { data: null, error: `Ürün oluşturulamadı: ${err.message || 'Bilinmeyen hata'}`, success: false }
     }
 }
 
 export async function updateProduct(id: string, formData: Partial<ProductFormData>): Promise<ApiResponse<MetalProduct>> {
     try {
+        console.log(`[ACTION] updateProduct called for ID: ${id}`, formData);
+
         // Update product
-        const { features, ...productData } = formData
+        const { features, ...rest } = formData as any;
+
+        // Strip non-updatable or analytical fields that might exist in the object
+        // but not in the database schema.
+        const allowedColumns = [
+            'name', 'slug', 'description', 'price', 'image_url',
+            'background_color', 'category_id', 'is_active',
+            'stock_quantity', 'sku', 'is_showcase',
+            'material', 'paint', 'installation', 'origin'
+        ];
+
+        const productData: any = {};
+
+        // Handle field mapping (sometimes frontend sends 'image' instead of 'image_url')
+        if (rest.image && !rest.image_url) rest.image_url = rest.image;
+        if (rest.category && !rest.category_id && typeof rest.category === 'string') rest.category_id = rest.category;
+
+        Object.keys(rest).forEach(key => {
+            if (allowedColumns.includes(key)) {
+                productData[key] = rest[key];
+            }
+        });
+
+        console.log(`[ACTION] Filtered productData for update:`, productData);
 
         const { error: productError } = await (supabaseAdmin as any)
             .from('metal_products')
@@ -256,35 +301,46 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
                 ...productData,
                 updated_at: new Date().toISOString()
             })
-            .eq('id', id)
+            .eq('id', id);
 
-        if (productError) throw productError
+        if (productError) {
+            console.error('[DATABASE ERROR] Product update failed:', productError);
+            throw productError;
+        }
 
         // Handle features update if provided
         if (features !== undefined) {
             // Delete existing features
-            await (supabaseAdmin as any)
+            const { error: deleteError } = await (supabaseAdmin as any)
                 .from('product_features')
                 .delete()
-                .eq('product_id', id)
+                .eq('product_id', id);
+
+            if (deleteError) {
+                console.warn('[DATABASE WARNING] Feature deletion failed:', deleteError);
+            }
 
             // Insert new features
             if (features.length > 0) {
-                const featuresWithProductId = features.map((f, index) => ({
+                const featuresWithProductId = features.map((f: any, index: number) => ({
                     product_id: id,
                     feature_text: f.feature_text,
                     feature_icon: f.feature_icon,
                     display_order: f.display_order || index + 1
-                }))
+                }));
 
-                await (supabaseAdmin as any)
+                const { error: insertError } = await (supabaseAdmin as any)
                     .from('product_features')
-                    .insert(featuresWithProductId)
+                    .insert(featuresWithProductId);
+
+                if (insertError) {
+                    console.error('[DATABASE ERROR] Feature insert failed:', insertError);
+                }
             }
         }
 
         // Fetch updated product
-        const { data: updatedProduct } = await (supabase as any)
+        const { data: updatedProduct, error: fetchError } = await (supabaseAdmin as any)
             .from('metal_products')
             .select(`
                 *,
@@ -292,12 +348,20 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
                 features:product_features(*)
             `)
             .eq('id', id)
-            .single()
+            .single();
+
+        if (fetchError) {
+            console.error('[DATABASE ERROR] Fetching updated product failed:', fetchError);
+            // Even if fetch fails, the update was successful. 
+            // Return what we have or a partial success? 
+            // For now throw to match existing behavior.
+            throw fetchError;
+        }
 
         return { data: updatedProduct as MetalProduct, error: null, success: true }
-    } catch (err) {
-        console.error('Error updating product:', err)
-        return { data: null, error: 'Ürün güncellenemedi', success: false }
+    } catch (err: any) {
+        console.error('[CRITICAL ACTION ERROR] updateProduct failed:', err);
+        return { data: null, error: `Ürün güncellenemedi: ${err.message || 'Bilinmeyen hata'}`, success: false }
     }
 }
 
@@ -414,6 +478,16 @@ export async function uploadProductImage(
 
 export async function createBulkProducts(products: ProductFormData[]): Promise<ApiResponse<number>> {
     try {
+        console.log(`[ACTION] createBulkProducts called for ${products.length} products`);
+
+        // Strip non-insertable or analytical fields
+        const allowedColumns = [
+            'name', 'slug', 'description', 'price', 'image_url',
+            'background_color', 'category_id', 'is_active',
+            'stock_quantity', 'sku', 'is_showcase',
+            'material', 'paint', 'installation', 'origin'
+        ];
+
         // Prepare data with slugs
         const productsToInsert = products.map(p => {
             const baseSlug = p.slug || p.name
@@ -431,22 +505,27 @@ export async function createBulkProducts(products: ProductFormData[]): Promise<A
             // Add short random suffix to ensure uniqueness in bulk uploads
             const slug = `${baseSlug}-${Math.random().toString(36).substring(2, 5)}`
 
-            return {
-                name: p.name,
-                slug,
-                description: p.description || "",
-                price: Number(p.price) || 0,
-                stock_quantity: Number(p.stock_quantity) || 0,
-                category_id: p.category_id,
-                is_active: p.is_active,
-                image_url: p.image_url,
-                background_color: p.background_color || "#ffffff",
-                is_showcase: p.is_showcase === undefined ? false : p.is_showcase,
-                material: p.material,
-                paint: p.paint,
-                installation: p.installation,
-                origin: p.origin
-            }
+            const row: any = p;
+            const productData: any = {};
+
+            // Handle field mapping
+            if (row.image && !row.image_url) row.image_url = row.image;
+            if (row.category && !row.category_id && typeof row.category === 'string') row.category_id = row.category;
+
+            Object.keys(row).forEach(key => {
+                if (allowedColumns.includes(key)) {
+                    productData[key] = row[key];
+                }
+            });
+
+            // Force slug and numeric types
+            productData.slug = slug;
+            productData.price = Number(productData.price) || 0;
+            productData.stock_quantity = Number(productData.stock_quantity) || 0;
+            productData.is_active = productData.is_active ?? true;
+            productData.is_showcase = productData.is_showcase ?? false;
+
+            return productData;
         })
 
         const { data, error } = await (supabaseAdmin as any)
@@ -455,16 +534,16 @@ export async function createBulkProducts(products: ProductFormData[]): Promise<A
             .select()
 
         if (error) {
-            console.error('Bulk Insert Error:', error)
+            console.error('[DATABASE ERROR] Bulk Insert Error:', error)
             throw error
         }
 
         return { data: data?.length || 0, error: null, success: true }
     } catch (err: any) {
-        console.error('Error creating bulk products:', err)
+        console.error('[CRITICAL ACTION ERROR] createBulkProducts failed:', err)
         return {
             data: null,
-            error: err.message || 'Toplu ürün ekleme başarısız. Lütfen verileri kontrol edin.',
+            error: `Toplu ürün ekleme başarısız: ${err.message || 'Bilinmeyen hata'}`,
             success: false
         }
     }

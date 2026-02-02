@@ -8,9 +8,14 @@ import type { Database } from "./database.types";
  * 
  * Safe for client components - uses ANON key only.
  */
+let client: ReturnType<typeof createBrowserClient<Database>> | null = null;
+
 export function createBrowserSupabaseClient() {
+    if (client) return client;
+
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-    return createBrowserClient<Database>(url, anon);
+    client = createBrowserClient<Database>(url, anon);
+    return client;
 }

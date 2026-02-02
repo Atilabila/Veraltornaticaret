@@ -10,7 +10,7 @@ export const Features = () => {
     const { content } = useContentStore();
 
     return (
-        <section id="features" className="py-24 bg-[#E5E7EB] border-b-8 border-black overflow-hidden">
+        <section id="features" className="py-24 bg-transparent border-b-8 border-black overflow-hidden">
             <div className="container-brutal">
                 {/* SYSTEM_HEADER */}
                 <div className="mb-24 border-8 border-black p-12 bg-white shadow-brutal">

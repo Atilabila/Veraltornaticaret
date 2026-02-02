@@ -13,9 +13,8 @@ export const Hero = () => {
     const { content } = useContentStore();
 
     return (
-        <section className="relative min-h-[90vh] flex items-center bg-[#FAFBFF] overflow-hidden">
-            {/* Background Texture - Industrial Grid */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <section className="relative min-h-[90vh] flex items-center bg-transparent overflow-hidden">
+            {/* Background Texture - Global Grid will show through */}
 
             <div className="container mx-auto px-6 lg:px-12 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
