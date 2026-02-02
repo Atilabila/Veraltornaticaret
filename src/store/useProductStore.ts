@@ -22,6 +22,7 @@ interface ProductStore {
 
     // Local state helpers
     getProduct: (id: string) => Product | undefined;
+    clearError: () => void;
 }
 
 const mapDbToProduct = (dbProduct: any): Product => ({
@@ -234,4 +235,5 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
     getProduct: (id) => {
         return get().products.find((p) => p.id === id);
     },
+    clearError: () => set({ error: null }),
 }));

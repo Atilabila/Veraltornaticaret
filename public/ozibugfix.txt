@@ -1,22 +1,44 @@
-BUGFIX REPORT (ozibugfix)
+CODEx — TEK GÖREV: Repo’da arayıp bul, düzelt, SADECE git diff ver.
 
-Findings
-1) Critical: Payment provider never initialized; real payments never engage and mock is used in production.
-   Evidence: src/lib/payment/index.ts:15, src/lib/payment/index.ts:56, src/app/odeme/page.tsx:120.
-   Impact: Orders can be marked paid without real capture.
+Proje: Next.js (App Router) + TailwindCSS.
+Hedef: 1) Ana sayfa HERO sağ görsel davranışı 2) /urunler ürün kart görselleri davranışı.
 
-2) High: Callback URL points to /api/payment/callback but no API route exists.
-   Evidence: src/lib/payment/index.ts:92; no src/app/api directory.
-   Impact: Provider callbacks/webhooks fail (404), breaking verification.
+KURAL: Çıktın sadece tek bir unified git diff (```diff ... ```) + en sonda 3 maddelik “How to verify” olacak. Tavsiye/yorum yok.
 
-3) Medium: Sales contract link points to /kosullar but route is /sartlar.
-   Evidence: src/app/odeme/page.tsx:452 and src/app/sartlar/page.tsx.
-   Impact: Users hit 404 from checkout.
+ÖNCE DOSYALARI BUL
+- ripgrep ile arat ve gerçek componentleri tespit et:
+  - "METAL ÜRETİM" 
+  - "KATALOG BAŞLAT"
+  - "/urunler" veya "urunler" route
+  - "grayscale" 
+  - "hover:grayscale-0"
+  - "ProductCard" / "ProductGrid" / "Catalog" benzeri
+- Hero sağdaki görselin <Image>/<img> satırını ve ürün kartı görsellerini render eden yeri bul.
 
-4) Medium: ContentProvider exists but is never mounted, so Supabase content updates are not fetched for public pages.
-   Evidence: src/components/layout/ContentProvider.tsx:6; not used in src/app/layout.tsx.
-   Impact: Admin-updated content not reflected on site.
+İSTENEN DAVRANIŞ (NET)
+A) HERO SAĞ GÖRSEL:
+- WEB (hover destekli cihaz): varsayılan SİYAH-BEYAZ kalsın. (İstersen hover’da renklenebilir; tercih: hover’da renklenme kalsın)
+- MOBİL (touch/hover yok): varsayılan RENKLİ olsun.
+- Mevcut `grayscale`, `hover:grayscale-0`, `filter` class’ları yanlışsa kaldır/yeniden düzenle.
+- Uygulama tercihi: Tailwind arbitrary media variant kullan:
+  - mobil default: `filter-none grayscale-0`
+  - sadece hover cihazda: `[@media(hover:hover)_and_(pointer:fine)]:grayscale`
+  - hover’da renklenme istiyorsan: `[@media(hover:hover)_and_(pointer:fine)]:hover:grayscale-0`
+- Eğer projede global CSS ile img’lere grayscale veriliyorsa bunu da düzelt (mobilde filter none, webde koşullu).
 
-5) Low: Footer links use href="#" instead of real routes (privacy/terms/KVKK and nav).
-   Evidence: src/components/layout/Footer.tsx:43,56,90; routes exist at src/app/gizlilik/page.tsx, src/app/sartlar/page.tsx, src/app/kvkk/page.tsx.
-   Impact: Broken user navigation.
+B) /URUNLER ÜRÜN KART GÖRSELLERİ:
+- WEB + MOBİL: HER ZAMAN RENKLİ olacak. Siyah-beyaz yok.
+- Ürün görsellerinde veya parent’larında bulunan tüm grayscale/filter kurallarını kaldır.
+- En garanti: ürün görseline `filter-none grayscale-0` uygula ve varsa global grayscale’i override et.
+
+C) REGRESYON KONTROL
+- Diğer sayfalardaki görselleri bozma: sadece hero sağ görsel koşullu, ürün kart görselleri tamamen renkli.
+- Tailwind class çatışmalarını temizle (aynı elementte hem grayscale hem grayscale-0 bırakma).
+
+SONUÇ
+- Gerekirse globals.css (veya tailwind layer utilities) ekle.
+- Değiştirdiğin dosyalar: hero component + ürün kart component + (gerekirse) globals.css.
+- Sadece diff ver, sonra 3 maddelik doğrulama listesi:
+  1) mobilde hero renkli
+  2) webde hero siyah-beyaz (hover’da renkleniyorsa renklenir)
+  3) ürün kart görselleri web+mobil renkli

@@ -113,15 +113,15 @@ export const Hero = () => {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, ease: "circOut" }}
-                        className="lg:col-span-5 relative hidden lg:block"
+                        className="lg:col-span-5 relative block mt-10 lg:mt-0"
                     >
-                        <div className="relative aspect-[3/4] bg-gray-100">
+                        <div className="relative aspect-[3/4] bg-gray-100 max-w-[420px] mx-auto lg:max-w-none">
                             {/* Main Visual */}
                             <Image
                                 src={content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop"}
                                 alt="Industrial Metal Production"
                                 fill
-                                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                className="object-cover grayscale-0 transition-[filter] duration-200 [@media(hover:hover)_and_(pointer:fine)]:grayscale [@media(hover:hover)_and_(pointer:fine)]:hover:grayscale-0"
                                 priority
                             />
 

@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { Upload, X, Check, Loader2, Image as LucideImage } from 'lucide-react';
 import { uploadImage } from '@/lib/supabase/storage.service';
+import { normalizeImagePath } from '@/lib/utils';
 
 interface ImageUploaderProps {
     currentImage?: string;
@@ -122,7 +123,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                 <div className="relative w-32 aspect-square bg-slate-900 rounded-xl overflow-hidden border border-slate-700 shrink-0">
                     {currentImage ? (
                         <img
-                            src={currentImage}
+                            src={normalizeImagePath(currentImage)}
                             alt="Preview"
                             className="w-full h-full object-cover"
                         />

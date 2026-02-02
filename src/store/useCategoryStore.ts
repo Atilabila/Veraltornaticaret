@@ -18,6 +18,7 @@ interface CategoryStore {
     // Local helpers
     getCategory: (id: string) => Category | undefined;
     getCategoryBySlug: (slug: string) => Category | undefined;
+    clearError: () => void;
 }
 
 export const useCategoryStore = create<CategoryStore>()((set, get) => ({
@@ -122,4 +123,5 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
     getCategoryBySlug: (slug) => {
         return get().categories.find((c) => c.slug === slug);
     },
+    clearError: () => set({ error: null }),
 }));

@@ -4,7 +4,7 @@
 import Link from "next/link"
 import { ArrowUpRight, Shield, Zap, Sparkles, Box, FileText } from "lucide-react"
 import { MetalProduct } from "@/lib/supabase/metal-products.types"
-import { formatPrice } from "@/lib/utils"
+import { formatPrice, normalizeImagePath } from "@/lib/utils"
 import { SystemLabel } from "@/components/ui/Industrial"
 
 interface ProductCardProps {
@@ -30,12 +30,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
 
             {/* Image Area */}
-            <Link href={`/urunler/${product.slug}`} className="relative aspect-square overflow-hidden bg-black block group-image">
+            <Link href={`/urunler/${product.slug}`} className="relative aspect-square overflow-hidden bg-black block group-image filter-none grayscale-0">
                 {product.image_url ? (
                     <img
-                        src={product.image_url}
+                        src={normalizeImagePath(product.image_url)}
                         alt={product.name}
-                        className="object-contain w-full h-full transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100 p-8 grayscale group-hover:grayscale-0"
+                        className="object-contain w-full h-full transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100 p-8 filter-none grayscale-0 saturate-100"
                     />
                 ) : (
                     <div className="flex items-center justify-center w-full h-full text-white/5">
@@ -100,8 +100,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     <Link
                         href={`/urunler/${product.slug}`}
                         className={`flex items-center justify-center w-12 h-12 border transition-all group/btn ${isRetail
-                                ? 'bg-white/5 border-white/10 text-white hover:bg-white hover:text-black hover:border-white'
-                                : 'bg-[#D4AF37]/10 border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black'
+                            ? 'bg-white/5 border-white/10 text-white hover:bg-white hover:text-black hover:border-white'
+                            : 'bg-[#D4AF37]/10 border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black'
                             }`}
                     >
                         {isRetail ? (

@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useContentStore } from '@/store/useContentStore';
+import { normalizeImagePath } from '@/lib/utils';
 
 export const ArchiveHero = () => {
     const { content } = useContentStore();
@@ -80,7 +81,7 @@ export const ArchiveHero = () => {
                             {/* Main Product Frame */}
                             <div className="w-full h-full bg-white relative z-10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-[10px] border-white group-hover:shadow-[0_80px_150px_-30px_rgba(212,175,55,0.2)] transition-all duration-1000">
                                 <img
-                                    src={content.heroImage}
+                                    src={normalizeImagePath(content.heroImage)}
                                     alt="Lüks Metal Tablo"
                                     className="w-full h-full object-cover"
                                 />

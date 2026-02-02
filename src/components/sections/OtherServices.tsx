@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Wrench, Tag, Music, ArrowUpRight } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
+import { normalizeImagePath } from "@/lib/utils";
 
 const icons = [
     <Wrench key="wrench" className="w-8 h-8" />,
@@ -45,7 +46,7 @@ export const OtherServices = () => {
                             {/* VISUAL_ARRAY */}
                             <div className="relative aspect-square overflow-hidden border-b-8 border-white/10 bg-black">
                                 <Image
-                                    src={service.image}
+                                    src={normalizeImagePath(service.image)}
                                     alt={service.title}
                                     fill
                                     className="object-cover transition-none group-hover:scale-105"

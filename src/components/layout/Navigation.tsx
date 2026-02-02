@@ -8,6 +8,7 @@ import { useCartItemCount } from '@/store/useCartStore';
 import { useContentStore } from '@/store/useContentStore';
 import { useThemeDetection } from '@/hooks/useThemeDetection';
 import { motion, AnimatePresence } from 'framer-motion';
+import { normalizeImagePath } from '@/lib/utils';
 
 export const Navigation = () => {
     const { content } = useContentStore();
@@ -108,7 +109,7 @@ export const Navigation = () => {
                         <Link href="/" className="flex items-center gap-3 group">
                             <div className="h-10 w-10 md:h-14 md:w-14 transition-all duration-500 flex-shrink-0 relative">
                                 <img
-                                    src={logoSrc || "/veral-logo.webp"}
+                                    src={normalizeImagePath(logoSrc || "/veral-logo.webp")}
                                     alt={content.siteName || "VERAL"}
                                     className="h-full w-full object-contain transition-all duration-500"
                                 />

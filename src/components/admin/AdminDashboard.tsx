@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -20,6 +20,7 @@ import { AdminLogoutButton } from "./AdminLogoutButton";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 import { User } from "@supabase/supabase-js";
+import { normalizeImagePath } from "@/lib/utils";
 import {
     Dialog,
     DialogContent,
@@ -65,10 +66,10 @@ export const AdminDashboard = () => {
         fetchContent();
     }, [fetchContent]);
 
-    const showNotification = (type: "success" | "error", message: string) => {
+    const showNotification = useCallback((type: "success" | "error", message: string) => {
         setNotification({ type, message });
         setTimeout(() => setNotification(null), 3000);
-    };
+    }, []);
 
     return (
         <div className="flex min-h-screen bg-slate-950 text-white font-sans dark">
@@ -203,7 +204,7 @@ export const AdminDashboard = () => {
 
 // ========== PRODUCTS TAB ==========
 const ProductsTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
-    const { products, loading, error, fetchProductsAdmin, addProduct, updateProduct, deleteProduct } = useProductStore();
+    const { products, loading, error, fetchProductsAdmin, addProduct, updateProduct, deleteProduct, clearError } = useProductStore();
     const { categories, fetchCategories } = useCategoryStore();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -229,8 +230,9 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
     useEffect(() => {
         if (error) {
             showNotification("error", error);
+            clearError();
         }
-    }, [error, showNotification]);
+    }, [error, showNotification, clearError]);
 
     const filteredProducts = products.filter(p => {
         const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -364,7 +366,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                                             {categoryProducts.map((product: Product) => (
                                                 <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-safety-orange)] transition-all">
                                                     <div className="relative aspect-square bg-slate-900">
-                                                        <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                                                        <img src={normalizeImagePath(product.image)} alt={product.name} className="w-full h-full object-cover" />
                                                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                                                             <button onClick={() => setEditingProduct(product)} className="p-3 bg-[var(--color-brand-safety-orange)] rounded-xl hover:bg-[var(--color-brand-safety-orange)]/80">
                                                                 <Pencil className="w-5 h-5" />
@@ -646,13 +648,20 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: any | 
 
 // ========== CATEGORIES TAB ==========
 const CategoriesTab = ({ showNotification }: { showNotification: (type: "success" | "error", message: string) => void }) => {
-    const { categories, loading, fetchCategories, addCategory, deleteCategory } = useCategoryStore();
+    const { categories, loading, error, fetchCategories, addCategory, deleteCategory, clearError } = useCategoryStore();
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [newCategory, setNewCategory] = useState({ name: "", color: "#3B82F6" });
 
     useEffect(() => {
         fetchCategories();
     }, [fetchCategories]);
+
+    useEffect(() => {
+        if (error) {
+            showNotification("error", error);
+            clearError();
+        }
+    }, [error, showNotification, clearError]);
 
     const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -1568,14 +1577,14 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
                     <div className="grid grid-cols-2 gap-6">
                         <div className="bg-white p-6 rounded-xl flex items-center justify-center min-h-[100px]">
                             {content.headerLogo ? (
-                                <img src={content.headerLogo} alt="Header Logo" className="max-h-16 object-contain" />
+                                <img src={normalizeImagePath(content.headerLogo)} alt="Header Logo" className="max-h-16 object-contain" />
                             ) : (
                                 <span className="text-slate-400 text-sm">Header Logo URL girin</span>
                             )}
                         </div>
                         <div className="bg-slate-950 p-6 rounded-xl flex items-center justify-center min-h-[100px]">
                             {content.footerLogo ? (
-                                <img src={content.footerLogo} alt="Footer Logo" className="max-h-16 object-contain" />
+                                <img src={normalizeImagePath(content.footerLogo)} alt="Footer Logo" className="max-h-16 object-contain" />
                             ) : (
                                 <span className="text-slate-600 text-sm">Footer Logo URL girin</span>
                             )}
@@ -1771,7 +1780,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                     {showcaseProducts.map((product) => (
                         <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-safety-orange)] transition-all relative">
                             <div className="aspect-square bg-slate-900 border-b border-white/5">
-                                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                                <img src={normalizeImagePath(product.image)} alt={product.name} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                                     <button onClick={() => setEditingProduct(product)} className="p-2 bg-[var(--color-brand-safety-orange)] rounded-lg hover:scale-110 transition-transform">
                                         <Pencil className="w-4 h-4 text-black" />
