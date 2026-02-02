@@ -264,6 +264,11 @@ export async function upsertAdminCategory(category: any) {
         delete dbCategory.color;
     }
 
+    // FIX: Remove 'is_featured' as it does not exist in 'categories' table
+    if ('is_featured' in dbCategory) {
+        delete dbCategory.is_featured;
+    }
+
     // Remove ID if it's "new" to allow auto-generation
     if (!dbCategory.id || dbCategory.id === "new") {
         delete dbCategory.id;

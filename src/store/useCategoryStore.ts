@@ -55,12 +55,7 @@ export const useCategoryStore = create<CategoryStore>()((set, get) => ({
                 image: categoryData.image || null, // Map to image (which service maps to image_url if needed)
                 display_order: categoryData.display_order || get().categories.length + 1,
                 is_active: categoryData.is_active !== undefined ? categoryData.is_active : true,
-                is_featured: categoryData.is_featured || false,
-                // Remove color if not used in DB schema, but keep if UI uses it locally
-                // DB schema check: categories table has image_url, name, slug, display_order, is_active.
-                // It does NOT have color. So we should probably drop it or store it in metadata if we had it.
-                // For now, we'll exclude it from the payload sent to upsertAdminCategory if it's not in DB type.
-                // However, upsertAdminCategory (in actions/admin) cleans up 'color'.
+                // Remove 'color' and 'is_featured' as they are not in the database schema
             };
 
             const result = await upsertAdminCategory(payload);
