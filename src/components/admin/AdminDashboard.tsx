@@ -72,7 +72,7 @@ export const AdminDashboard = () => {
     }, []);
 
     return (
-        <div className="flex min-h-screen bg-slate-950 text-white font-sans dark">
+        <div className="admin-panel flex min-h-screen bg-slate-950 text-white font-sans dark">
             {/* Notification */}
             <AnimatePresence>
                 {notification && (

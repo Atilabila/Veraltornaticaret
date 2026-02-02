@@ -52,7 +52,7 @@ export const MetalProductsAdmin: React.FC = () => {
     }
 
     return (
-        <div className="flex min-h-screen bg-slate-950 text-white font-sans">
+        <div className="admin-panel flex min-h-screen bg-slate-950 text-white font-sans">
             {/* Notification Toast */}
             <AnimatePresence>
                 {notification && (

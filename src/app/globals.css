@@ -152,6 +152,12 @@
     position: relative;
     display: inline-block;
   }
+
+  .admin-panel,
+  .admin-panel * {
+    color: #fff !important;
+    font-weight: 700;
+  }
 }
 
 /* Gold Metallic Gradient - Readable on White */

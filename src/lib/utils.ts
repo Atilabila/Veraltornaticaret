@@ -65,3 +65,8 @@ export function normalizeImagePath(path: string | undefined | null): string {
 
     return slugified;
 }
+
+export function toWebp(url: string | undefined | null): string {
+    if (!url) return '/placeholder.png';
+    return url.replace(/\.(png|jpg|jpeg)(\?.*)?$/i, ".webp$2");
+}

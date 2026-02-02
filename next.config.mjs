@@ -41,6 +41,18 @@ export default {
                 port: '',
                 pathname: '/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'drive.google.com',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+                port: '',
+                pathname: '/**',
+            },
         ],
         formats: ['image/avif', 'image/webp'], // Modern image formats
         deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

@@ -51,7 +51,7 @@ export const ArchiveHero = () => {
                             </Link>
                             <Link
                                 href={content.heroButton2Url || "/urunler"}
-                                className="h-20 px-12 border border-[#0A0A0A]/10 text-[12px] font-black uppercase tracking-[0.4em] text-[#0A0A0A] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-500 flex items-center justify-center"
+                                className="h-20 px-12 text-[12px] font-black tracking-[0.4em] uppercase rounded-none border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-all duration-500 flex items-center justify-center disabled:opacity-100 disabled:bg-white disabled:text-black disabled:border-black/40"
                             >
                                 {content.heroButton2Text}
                             </Link>

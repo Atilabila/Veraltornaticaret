@@ -6,6 +6,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Ruler, Factory, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useContentStore } from "@/store/useContentStore";
+import * as LucideIcons from "lucide-react";
 
 export const Hero = () => {
     const { content } = useContentStore();
@@ -79,10 +81,10 @@ export const Hero = () => {
                                 asChild
                                 variant="outline"
                                 size="lg"
-                                className="h-16 px-8 text-base font-bold tracking-widest uppercase rounded-none border-2 border-black hover:bg-black hover:text-white transition-all duration-300"
+                                className="h-16 px-8 text-base font-black tracking-widest uppercase rounded-none border-2 border-black bg-white text-black hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/80 focus-visible:ring-offset-2 disabled:opacity-100 disabled:bg-white disabled:text-black disabled:border-black/40 transition-all duration-300"
                             >
-                                <Link href={content.heroButton2Url || "/iletisim"}>
-                                    {content.heroButton2Text || "Özel Üretim / Toptan Teklif Al"}
+                                <Link href={content.heroButton2Url || "/urunler"}>
+                                    {content.heroButton2Text || "KATALOG"}
                                 </Link>
                             </Button>
                         </motion.div>
@@ -145,8 +147,6 @@ export const Hero = () => {
     );
 };
 
-import * as LucideIcons from "lucide-react";
-import { useContentStore } from "@/store/useContentStore";
 
 const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => {
     // Dynamically retrieve the icon component, default to ShieldCheck if not found
