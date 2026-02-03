@@ -81,6 +81,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         background_color: "#ffffff",
         category_id: "",
         is_active: true,
+        is_showcase: false,
         stock_quantity: 0,
         features: []
     })
@@ -99,6 +100,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 background_color: product.background_color,
                 category_id: product.category_id || "",
                 is_active: product.is_active,
+                is_showcase: product.is_showcase || false,
                 stock_quantity: product.stock_quantity,
                 features: product.features?.map(f => ({
                     id: f.id,
@@ -118,6 +120,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 background_color: "#ffffff",
                 category_id: "",
                 is_active: true,
+                is_showcase: false,
                 stock_quantity: 0,
                 features: []
             })
@@ -417,7 +420,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     </div>
 
                     {/* Status & Submit */}
-                    <div className="flex items-center justify-between pt-6 border-t border-slate-800">
+                    <div className="flex items-center gap-8 pt-6 border-t border-slate-800">
                         <label className="flex items-center gap-3 cursor-pointer">
                             <input
                                 type="checkbox"
@@ -427,6 +430,18 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                             />
                             <span className="font-bold">Aktif (Sitede Görünür)</span>
                         </label>
+
+                        <label className="flex items-center gap-3 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={formData.is_showcase}
+                                onChange={(e) => updateField("is_showcase", e.target.checked)}
+                                className="w-5 h-5 rounded bg-slate-800 border-slate-700 text-orange-500 focus:ring-orange-500"
+                            />
+                            <span className="font-bold">Showcase (Özel Vitrin)</span>
+                        </label>
+
+                        <div className="flex-1" />
 
                         <div className="flex gap-3">
                             <button

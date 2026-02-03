@@ -37,13 +37,15 @@ export const ProductConfigurator = () => {
 
     const handleAddToCart = () => {
         addItem({
-            id: product.id + "_" + selectedSize.id + "_" + orientation,
+            productId: product.id,
             name: product.name,
+            slug: product.slug,
             size: (orientation === 'landscape'
                 ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM`
                 : selectedSize.name) + ` (${orientation === 'portrait' ? 'DİKEY' : 'YATAY'})`,
             price: totalPrice,
             image: product.image,
+            orientation: orientation === 'portrait' ? 'vertical' : 'horizontal',
         });
         setAdded(true);
         setIsCartOpen(true);
