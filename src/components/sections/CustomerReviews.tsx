@@ -19,7 +19,7 @@ export const CustomerReviews = () => {
                             <div className="w-12 h-[1px] bg-[#D4AF37]" />
                             <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">KULLANICI DENEYİMİ</span>
                         </div>
-                        <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
+                        <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
                             {content.reviewsTitle}{" "}
                             <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">
                                 {content.reviewsSubtitle}
@@ -27,7 +27,7 @@ export const CustomerReviews = () => {
                         </h2>
                         <div className="flex items-center gap-2 mt-4">
                             <Star className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
-                            <span className="text-sm font-black text-[#0A0A0A] uppercase tracking-[0.2em]">
+                            <span className="text-sm font-black text-white uppercase tracking-[0.2em]">
                                 {content.reviewsRatingLabel}
                             </span>
                         </div>
@@ -51,7 +51,7 @@ export const CustomerReviews = () => {
                                     ))}
                                 </div>
 
-                                <p className="text-2xl lg:text-3xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-tight italic mb-12">
+                                <p className="text-2xl lg:text-3xl font-black text-black uppercase tracking-tighter leading-tight italic mb-12">
                                     "{review.text}"
                                 </p>
 
@@ -61,15 +61,15 @@ export const CustomerReviews = () => {
                                             {review.name.charAt(0)}
                                         </div>
                                         <div>
-                                            <div className="text-lg font-black text-[#0A0A0A] uppercase tracking-tighter leading-none mb-2">{review.name}</div>
+                                            <div className="text-lg font-black text-black uppercase tracking-tighter leading-none mb-2">{review.name}</div>
                                             <div className="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">{review.city} // {review.date}</div>
                                         </div>
                                     </div>
 
                                     <div className="hidden sm:flex items-center gap-4 border-l border-[#D4AF37]/20 pl-6">
                                         <div className="text-right">
-                                            <span className="text-[10px] font-black text-[#0A0A0A]/30 uppercase block mb-1">ESER</span>
-                                            <span className="text-[10px] font-black text-[#0A0A0A] uppercase tracking-widest">{review.product}</span>
+                                            <span className="text-[10px] font-black text-black/30 uppercase block mb-1">ESER</span>
+                                            <span className="text-[10px] font-black text-black uppercase tracking-widest">{review.product}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@ export const CustomerReviews = () => {
                     <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-0 border border-[#0A0A0A]/5">
                         {(content.statsItems || []).slice(0, 3).map((stat, i) => (
                             <div key={i} className="bg-white p-12 text-center border-r border-[#0A0A0A]/5 last:border-r-0">
-                                <div className="text-5xl lg:text-6xl font-black text-[#0A0A0A] italic tracking-tighter mb-4">{stat.value}</div>
+                                <div className="text-5xl lg:text-6xl font-black text-black italic tracking-tighter mb-4">{stat.value}</div>
                                 <div className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">{stat.label}</div>
                             </div>
                         ))}

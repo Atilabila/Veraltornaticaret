@@ -3,18 +3,12 @@ import path from 'path';
 
 const projectRoot = path.resolve('C:/Users/ati/.gemini/antigravity/scratch/metal-poster-pro');
 
-// Trigger deploy
 export default {
-    /*
-        turbopack: {
-            root: projectRoot,
-        },
-    */
     typescript: {
         ignoreBuildErrors: true,
     },
-    compress: true, // Enable gzip compression
-    productionBrowserSourceMaps: false, // Disable source maps in production for faster builds
+    compress: true,
+    poweredByHeader: false,
     images: {
         remotePatterns: [
             {
@@ -54,11 +48,8 @@ export default {
                 pathname: '/**',
             },
         ],
-        formats: ['image/avif', 'image/webp'], // Modern image formats
-        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+        formats: ['image/avif', 'image/webp'],
+        minimumCacheTTL: 60,
+        dangerouslyAllowSVG: true,
     },
-    // Performance optimizations
-    poweredByHeader: false, // Remove X-Powered-By header for security
 }
-

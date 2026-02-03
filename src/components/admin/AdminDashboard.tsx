@@ -31,17 +31,20 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 
+import { useAdminStore } from "@/store/useAdminStore";
+
 export const AdminDashboard = () => {
     const searchParams = useSearchParams();
     const [activeTab, setActiveTab] = useState("content");
     const [subTab, setSubTab] = useState("global");
+    const setAdmin = useAdminStore((state) => state.setAdmin);
 
     useEffect(() => {
         const tab = searchParams.get("tab");
         const section = searchParams.get("section");
 
         if (tab) {
-            const cmsTabs = ["global", "services", "pages", "branding", "hero", "stats", "features", "reviews", "process", "showcase", "contact", "instagram"];
+            const cmsTabs = ["global", "services", "pages", "branding", "hero", "stats", "features", "reviews", "process", "showcase", "contact", "instagram", "quote", "cart", "checkout"];
 
             if (cmsTabs.includes(tab)) {
                 setActiveTab("content");
@@ -62,10 +65,13 @@ export const AdminDashboard = () => {
             const supabase = createBrowserSupabaseClient();
             const { data: { user } } = await supabase.auth.getUser();
             setUser(user);
+            if (user) {
+                setAdmin(true);
+            }
         };
         getUser();
         fetchContent();
-    }, [fetchContent]);
+    }, [fetchContent, setAdmin]);
 
     const showNotification = useCallback((type: "success" | "error", message: string) => {
         setNotification({ type, message });

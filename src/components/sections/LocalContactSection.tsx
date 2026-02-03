@@ -21,13 +21,13 @@ export const LocalContactSection = () => {
                             <div className="w-12 h-[1px] bg-[#D4AF37]" />
                             <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">DİREKT HAT</span>
                         </div>
-                        <h2 className="text-5xl lg:text-7xl font-bold text-white tracking-tighter uppercase leading-none italic">
+                        <h2 className="text-5xl lg:text-7xl font-bold text-black tracking-tighter uppercase leading-none italic">
                             {content.contactTitle}{" "}
                             <span className="italic font-bold text-gold-gradient">
                                 {content.contactSubtitle}
                             </span>
                         </h2>
-                        <p className="text-white/60 text-lg font-medium max-w-lg">
+                        <p className="text-black/60 text-lg font-medium max-w-lg">
                             {content.contactDescription}
                         </p>
                     </div>

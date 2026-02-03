@@ -7,11 +7,13 @@ type DbProduct = Database['public']['Tables']['products']['Row'];
 
 interface ProductStore {
     products: Product[];
+    categories: Category[]; // Added categories
     loading: boolean;
     error: string | null;
 
     // Fetch operations
     fetchProducts: () => Promise<void>;
+    fetchCategories: () => Promise<void>; // Added fetchCategories
     fetchProductsAdmin: () => Promise<void>;
     fetchProductsByCategory: (category: string) => Promise<void>;
 
@@ -60,8 +62,8 @@ const mapDbToProduct = (dbProduct: any): Product => ({
 });
 
 // ... imports
-import { getProducts as getMetalProducts, createProduct as createMetalProduct, updateProduct as updateMetalProduct, deleteProduct as deleteMetalProduct } from '@/lib/actions/metal-products.actions';
-import type { MetalProduct } from '@/lib/supabase/metal-products.types';
+import { getProducts as getMetalProducts, getCategories as getMetalCategories, createProduct as createMetalProduct, updateProduct as updateMetalProduct, deleteProduct as deleteMetalProduct } from '@/lib/actions/metal-products.actions';
+import type { MetalProduct, Category } from '@/lib/supabase/metal-products.types';
 import { getAdminOrderStats } from '@/actions/admin';
 
 // ... existing mapDbToProduct ...
@@ -109,8 +111,20 @@ const mapMetalProductToProduct = (mp: MetalProduct): Product => {
 
 export const useProductStore = create<ProductStore>()((set, get) => ({
     products: [],
+    categories: [],
     loading: false,
     error: null,
+
+    fetchCategories: async () => {
+        try {
+            const result = await getMetalCategories();
+            if (result.success && result.data) {
+                set({ categories: result.data });
+            }
+        } catch (error) {
+            console.error('Fetch categories failed:', error);
+        }
+    },
 
     fetchProducts: async () => {
         set({ loading: true, error: null });

@@ -113,7 +113,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
 
             <div className="container mx-auto px-6 py-12">
                 {/* TOOLBAR */}
-                <div className="sticky top-20 z-40 bg-zinc-950/90 backdrop-blur-xl border-y border-white/10 p-6 mb-16 flex flex-col xl:flex-row items-center gap-10 shadow-2xl shadow-black/50">
+                <div className="sticky top-20 z-40 bg-zinc-950 border-y border-white/10 p-6 mb-16 flex flex-col xl:flex-row items-center gap-10 shadow-2xl shadow-black/50">
                     {/* CATEGORY SELECTOR */}
                     <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2 xl:pb-0 w-full xl:w-auto">
                         <button

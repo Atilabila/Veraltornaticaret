@@ -13,94 +13,48 @@ export const GlobalGrid = () => {
 
     if (!isGridEnabled) return null;
 
-    // Grid will adapt to section backgrounds automatically
-    const gridColorLight = 'rgba(0, 0, 0, 0.08)'; // For white backgrounds
-    const gridColorDark = 'rgba(255, 255, 255, 0.08)'; // For black backgrounds
+    // FORCE SQUARES PATTERN - Siyah kareler
+    const gridColorLight = 'rgba(0, 0, 0, 0.15)'; // Beyaz arka planlarda siyah grid - Daha belirgin
+    const gridColorDark = 'rgba(255, 255, 255, 0.15)'; // Siyah arka planlarda beyaz grid - Daha belirgin
 
     return (
         <>
-            {/* Grid for WHITE sections */}
+            {/* Grid for WHITE sections - BLACK SQUARES */}
             <div
                 className="fixed inset-0 pointer-events-none select-none overflow-hidden"
-                style={{ zIndex: 1 }}
+                style={{ zIndex: 50 }} // Sitting right above the background
             >
-                {config.style === 'lines' && (
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: `linear-gradient(to right, ${gridColorLight} 1px, transparent 1px), linear-gradient(to bottom, ${gridColorLight} 1px, transparent 1px)`,
-                            backgroundSize: '32px 32px',
-                            opacity: config.intensityLight / 100,
-                            mixBlendMode: 'multiply', // Blend with white backgrounds
-                        }}
-                    />
-                )}
-
-                {config.style === 'dots' && (
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: `radial-gradient(${gridColorLight} 1.5px, transparent 1.5px)`,
-                            backgroundSize: '20px 20px',
-                            opacity: config.intensityLight / 100,
-                            mixBlendMode: 'multiply',
-                        }}
-                    />
-                )}
-
-                {config.style === 'squares' && (
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: `linear-gradient(${gridColorLight} 1px, transparent 1px), linear-gradient(90deg, ${gridColorLight} 1px, transparent 1px)`,
-                            backgroundSize: '16px 16px',
-                            opacity: config.intensityLight / 100,
-                            mixBlendMode: 'multiply',
-                        }}
-                    />
-                )}
+                <div
+                    className="w-full h-full"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(${gridColorLight} 1px, transparent 1px),
+                            linear-gradient(90deg, ${gridColorLight} 1px, transparent 1px)
+                        `,
+                        backgroundSize: '40px 40px', // Daha büyük, belirgin kareler
+                        opacity: 1,
+                        mixBlendMode: 'multiply',
+                    }}
+                />
             </div>
 
-            {/* Grid for BLACK sections */}
+            {/* Grid for BLACK sections - WHITE SQUARES */}
             <div
                 className="fixed inset-0 pointer-events-none select-none overflow-hidden"
-                style={{ zIndex: 1 }}
+                style={{ zIndex: 50 }} // Sitting right above the background
             >
-                {config.style === 'lines' && (
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: `linear-gradient(to right, ${gridColorDark} 1px, transparent 1px), linear-gradient(to bottom, ${gridColorDark} 1px, transparent 1px)`,
-                            backgroundSize: '32px 32px',
-                            opacity: config.intensityDark / 100,
-                            mixBlendMode: 'screen', // Blend with black backgrounds
-                        }}
-                    />
-                )}
-
-                {config.style === 'dots' && (
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: `radial-gradient(${gridColorDark} 1.5px, transparent 1.5px)`,
-                            backgroundSize: '20px 20px',
-                            opacity: config.intensityDark / 100,
-                            mixBlendMode: 'screen',
-                        }}
-                    />
-                )}
-
-                {config.style === 'squares' && (
-                    <div
-                        className="w-full h-full"
-                        style={{
-                            backgroundImage: `linear-gradient(${gridColorDark} 1px, transparent 1px), linear-gradient(90deg, ${gridColorDark} 1px, transparent 1px)`,
-                            backgroundSize: '16px 16px',
-                            opacity: config.intensityDark / 100,
-                            mixBlendMode: 'screen',
-                        }}
-                    />
-                )}
+                <div
+                    className="w-full h-full"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(${gridColorDark} 1px, transparent 1px),
+                            linear-gradient(90deg, ${gridColorDark} 1px, transparent 1px)
+                        `,
+                        backgroundSize: '40px 40px', // Daha büyük, belirgin kareler
+                        opacity: 1,
+                        mixBlendMode: 'screen',
+                    }}
+                />
             </div>
         </>
     );

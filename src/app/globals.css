@@ -1,10 +1,10 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* PROTOKOL / ARŞİV ESTETİĞİ: yüksek kontrast, net sınırlar */
+/* PROTOKOL / ARÅÄ°V ESTETÄ°ÄÄ°: yÃ¼ksek kontrast, net sÄ±nÄ±rlar */
 @theme {
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -152,12 +152,6 @@
     position: relative;
     display: inline-block;
   }
-
-  .admin-panel,
-  .admin-panel * {
-    color: #fff !important;
-    font-weight: 700;
-  }
 }
 
 /* Gold Metallic Gradient - Readable on White */
@@ -167,4 +161,21 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 900;
+}
+
+/* Global Grid System */
+.bg-white, main.bg-white {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-attachment: fixed;
+}
+
+.bg-\[\#0A0A0A\], .bg-zinc-950, main.bg-\[\#0A0A0A\], main.bg-zinc-950 {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-attachment: fixed;
 }

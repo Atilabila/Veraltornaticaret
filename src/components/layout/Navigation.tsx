@@ -9,6 +9,8 @@ import { useContentStore } from '@/store/useContentStore';
 import { useThemeDetection } from '@/hooks/useThemeDetection';
 import { motion, AnimatePresence } from 'framer-motion';
 import { normalizeImagePath } from '@/lib/utils';
+import { useAdminStore } from '@/store/useAdminStore';
+import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 
 export const Navigation = () => {
     const { content } = useContentStore();
@@ -19,9 +21,18 @@ export const Navigation = () => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
+    const setAdmin = useAdminStore((state) => state.setAdmin);
+
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
+
+        const checkAuth = async () => {
+            const supabase = createBrowserSupabaseClient();
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) setAdmin(true);
+        };
+        checkAuth();
 
         // Start background sync service
         const initSync = async () => {
@@ -42,7 +53,7 @@ export const Navigation = () => {
         : [
             { id: 'f1', label: 'Katalog', url: '/urunler', isPrimary: false },
             { id: 'f2', label: 'Hakkımızda', url: '/hakkimizda', isPrimary: false },
-            { id: 'f3', label: 'Hizmetler', url: '/hizmetler', isPrimary: false },
+            { id: 'f3', label: 'Hizmetler', url: '/metal-urunler', isPrimary: false },
             { id: 'f4', label: 'Teklif Al', url: '/teklif-al', isPrimary: true },
         ]; // Fallback while loading or if empty
 
@@ -83,118 +94,124 @@ export const Navigation = () => {
     const borderColor = isTextWhite ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
 
     return (
-        <header
-            className="fixed top-0 z-[100] w-full transition-all duration-700"
-            style={{
-                backgroundColor:
-                    (isScrolled || isTranslucentMode || effectiveMode === 'light') ? `rgba(10, 10, 10, ${headerBgOpacity})` :
-                        (effectiveMode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'transparent'),
-                backdropFilter: (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark') ? `blur(${config.blur || 12}px)` : 'none',
-                borderBottom: (config.showBorder && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')) ? `1px solid ${borderColor}` : 'none',
-                boxShadow: isScrolled ? '0 10px 40px rgba(0,0,0,0.3)' : (config.shadow !== 'none' && (isTranslucentMode || effectiveMode !== 'auto') ? `0 4px 20px rgba(0,0,0,${config.shadow === 'sm' ? 0.1 : config.shadow === 'md' ? 0.2 : 0.3})` : 'none')
-            }}
-        >
-            {config.announcementActive && config.announcementText && (
-                <div className="bg-[#D4AF37] text-black text-[10px] font-bold py-1 text-center tracking-widest uppercase">
-                    <Link href={config.announcementLink || '#'}>
-                        {config.announcementText}
-                    </Link>
-                </div>
-            )}
-
-            <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
-                <div className={`flex items-center justify-between ${config.announcementActive ? 'py-4' : 'py-6'}`}>
-                    {/* Brand Logo */}
-                    <div className="flex items-center gap-16">
-                        <Link href="/" className="flex items-center gap-3 group">
-                            <div className="h-10 w-10 md:h-14 md:w-14 transition-all duration-500 flex-shrink-0 relative">
-                                <img
-                                    src={normalizeImagePath(logoSrc || "/veral-logo.webp")}
-                                    alt={content.siteName || "VERAL"}
-                                    className="h-full w-full object-contain transition-all duration-500"
-                                />
-                            </div>
-                            <div className="flex flex-col">
-                                <h2 className="text-lg md:text-xl font-black uppercase tracking-[0.15em] text-[#D4AF37]">
-                                    {content.siteName || "VERAL"}
-                                </h2>
-                                <span className={`text-[8px] font-bold tracking-[0.3em] uppercase -mt-0.5 ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
-                            </div>
+        <>
+            <header
+                className="fixed top-0 z-[100] w-full transition-all duration-700"
+                style={{
+                    backgroundColor:
+                        (isScrolled || isTranslucentMode || effectiveMode === 'light') ? `rgba(10, 10, 10, ${headerBgOpacity})` :
+                            (effectiveMode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'transparent'),
+                    backdropFilter: (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark') ? `blur(${config.blur || 12}px)` : 'none',
+                    borderBottom: (config.showBorder && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')) ? `1px solid ${borderColor}` : 'none',
+                    boxShadow: isScrolled ? '0 10px 40px rgba(0,0,0,0.3)' : (config.shadow !== 'none' && (isTranslucentMode || effectiveMode !== 'auto') ? `0 4px 20px rgba(0,0,0,${config.shadow === 'sm' ? 0.1 : config.shadow === 'md' ? 0.2 : 0.3})` : 'none')
+                }}
+            >
+                {config.announcementActive && config.announcementText && (
+                    <div className="bg-[#D4AF37] text-black text-[10px] font-bold py-1 text-center tracking-widest uppercase">
+                        <Link href={config.announcementLink || '#'}>
+                            {config.announcementText}
                         </Link>
-
-                        {/* Desktop Navigation */}
-                        <nav className="hidden lg:flex items-center gap-8">
-                            {activeLinks.map((link) => (
-                                <Link
-                                    key={link.id || link.label}
-                                    href={link.url}
-                                    className={`text-xs font-black uppercase tracking-[0.2em] transition-all relative group
-                                    ${link.isPrimary ? 'text-[#D4AF37]' : (pathname === link.url ? 'text-[#D4AF37]' : `${textColorClass} hover:text-[#D4AF37]`)}
-                                    `}
-                                >
-                                    {link.label}
-                                    {link.isPrimary && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />}
-                                </Link>
-                            ))}
-                        </nav>
                     </div>
+                )}
 
-                    {/* Utils */}
-                    <div className="flex items-center gap-4 md:gap-8">
-                        {/* Control Buttons */}
-                        <div className="flex items-center gap-2 md:gap-4">
-                            <button
-                                onClick={() => setIsSearchOpen(true)}
-                                className={`relative group p-2 transition-all ${textColorClass} hover:text-[#D4AF37]`}
-                            >
-                                <Search className="w-5 h-5" />
-                            </button>
-                            <Link
-                                href="/sepet"
-                                aria-label="Sepet"
-                                className={`relative group p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
-                            >
-                                <ShoppingCart className="w-5 h-5" />
-                                {cartCount > 0 && (
-                                    <span className="absolute top-0 right-0 w-4 h-4 bg-[#D4AF37] text-white text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
-                                        {cartCount}
-                                    </span>
-                                )}
+                <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
+                    <div className={`flex items-center justify-between ${config.announcementActive ? 'py-4' : 'py-6'}`}>
+                        {/* Brand Logo */}
+                        <div className="flex items-center gap-16">
+                            <Link href="/" className="flex items-center gap-3 group">
+                                <div className="h-10 w-10 md:h-14 md:w-14 transition-all duration-500 flex-shrink-0 relative">
+                                    <img
+                                        src={normalizeImagePath(logoSrc || "/veral-logo.webp")}
+                                        alt={content.siteName || "VERAL"}
+                                        className="h-full w-full object-contain transition-all duration-500"
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <h2 className="text-lg md:text-xl font-black uppercase tracking-[0.15em] text-[#D4AF37]">
+                                        {content.siteName || "VERAL"}
+                                    </h2>
+                                    <span className={`text-[8px] font-bold tracking-[0.3em] uppercase -mt-0.5 ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
+                                </div>
                             </Link>
-                            <button
-                                className={`lg:hidden p-2 transition-all ${textColorClass}`}
-                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            >
-                                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                            </button>
+
+                            {/* Desktop Navigation */}
+                            <nav className="hidden lg:flex items-center gap-8">
+                                {activeLinks.map((link) => (
+                                    <Link
+                                        key={link.id || link.label}
+                                        href={link.url}
+                                        className={`text-xs font-black uppercase tracking-[0.2em] transition-all relative group
+                                        ${link.isPrimary ? 'text-[#D4AF37]' : (pathname === link.url ? 'text-[#D4AF37]' : `${textColorClass} hover:text-[#D4AF37]`)}
+                                        `}
+                                    >
+                                        {link.label}
+                                        {link.isPrimary && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />}
+                                    </Link>
+                                ))}
+                            </nav>
                         </div>
 
-                        <Link href={config.ctaLink || "/teklif-al"} className="hidden sm:flex items-center justify-center px-6 md:px-8 h-12 border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500">
-                            {config.ctaText || "TEKLİF AL"}
-                        </Link>
+                        {/* Utils */}
+                        <div className="flex items-center gap-4 md:gap-8">
+                            {/* Control Buttons */}
+                            <div className="flex items-center gap-2 md:gap-4">
+                                <button
+                                    onClick={() => setIsSearchOpen(true)}
+                                    className={`relative group p-2 transition-all ${textColorClass} hover:text-[#D4AF37]`}
+                                >
+                                    <Search className="w-5 h-5" />
+                                </button>
+                                <Link
+                                    href="/sepet"
+                                    aria-label="Sepet"
+                                    className={`relative group p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
+                                >
+                                    <ShoppingCart className="w-5 h-5" />
+                                    {cartCount > 0 && (
+                                        <span className="absolute top-0 right-0 w-4 h-4 bg-[#D4AF37] text-white text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
+                                            {cartCount}
+                                        </span>
+                                    )}
+                                </Link>
+                                <button
+                                    className={`lg:hidden p-2 transition-all ${textColorClass}`}
+                                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                >
+                                    {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                                </button>
+                            </div>
+
+                            <Link href={config.ctaLink || "/teklif-al"} className="hidden sm:flex items-center justify-center px-6 md:px-8 h-12 border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500">
+                                {config.ctaText || "TEKLİF AL"}
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </header>
 
-            {/* Search Overlay & Mobile Menu (Keep existing) */}
+            {/* OVERLAYS MOVED OUTSIDE FOR STACKING CONTEXT FIX */}
+
+            {/* Search Overlay */}
             <AnimatePresence>
                 {isSearchOpen && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[10000] bg-[#0A0A0A] flex flex-col items-center justify-start pt-32 px-6 isolate"
+                        className="fixed inset-0 z-[100000] flex flex-col items-center justify-start pt-32 px-6 overflow-y-auto"
+                        style={{ backgroundColor: '#000000' }}
                     >
-                        <div className="absolute inset-0 bg-grid-metal opacity-10 pointer-events-none" />
+                        {/* Subtle Pattern */}
+                        <div className="absolute inset-0 opacity-10 pointer-events-none grid-pattern-dark" />
 
                         <button
                             onClick={() => setIsSearchOpen(false)}
-                            className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors z-[10001]"
+                            className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors z-[100001]"
                         >
                             <X className="w-12 h-12" />
                         </button>
 
-                        <div className="w-full max-w-4xl space-y-12 relative z-[10001]">
+                        <div className="w-full max-w-4xl space-y-12 relative z-[100001] pb-20">
                             <div className="space-y-4">
                                 <span className="text-[10px] font-black text-[#D4AF37] tracking-[0.5em] uppercase">NE ARIYORSUNUZ?</span>
                                 <div className="relative">
@@ -209,9 +226,9 @@ export const Navigation = () => {
                                                 window.location.href = `/urunler?search=${encodeURIComponent(searchQuery)}`;
                                             }
                                         }}
-                                        className="w-full bg-transparent border-b-4 border-white/10 py-8 text-4xl md:text-7xl font-black text-white focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-white/5 uppercase"
+                                        className="w-full bg-[#1A1A1A] border-b-4 border-[#D4AF37] py-8 px-6 text-4xl md:text-7xl font-black text-white focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-white/10 uppercase italic"
                                     />
-                                    <Search className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 text-[#D4AF37]" />
+                                    <Search className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 text-[#D4AF37]" />
                                 </div>
                                 <p className="text-white/30 font-mono text-xs uppercase tracking-widest mt-4">Aramak için ENTER tuşuna basın</p>
                             </div>
@@ -253,21 +270,23 @@ export const Navigation = () => {
                 )}
             </AnimatePresence>
 
+            {/* Mobile Menu */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
                         initial={{ opacity: 0, x: '100%' }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '100%' }}
-                        className="fixed inset-0 z-[101] bg-[#0A0A0A] flex flex-col p-10 lg:hidden"
+                        className="fixed inset-0 z-[100000] flex flex-col p-10 lg:hidden overflow-y-auto"
+                        style={{ backgroundColor: '#000000' }}
                     >
-                        <div className="flex justify-between items-center mb-16">
+                        <div className="flex justify-between items-center mb-16 relative z-10">
                             <span className="text-xl font-black text-white uppercase tracking-widest">MENU</span>
                             <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]">
                                 <X className="w-10 h-10" />
                             </button>
                         </div>
-                        <nav className="flex flex-col gap-8">
+                        <nav className="flex flex-col gap-8 relative z-10 pb-20">
                             {activeLinks.map((link) => (
                                 <Link
                                     key={link.id || link.label}
@@ -279,15 +298,17 @@ export const Navigation = () => {
                                     {link.label}
                                 </Link>
                             ))}
+                            <div className="mt-8 pt-10 border-t border-[#D4AF37]/20">
+                                <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
+                                    GİRİŞ YAP
+                                </Link>
+                            </div>
                         </nav>
-                        <div className="mt-auto pt-10 border-t border-[#D4AF37]/20">
-                            <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-16 bg-[#D4AF37] text-white font-black uppercase tracking-widest">
-                                GİRİŞ YAP
-                            </Link>
-                        </div>
+                        {/* Pattern Overlay */}
+                        <div className="absolute inset-0 opacity-5 pointer-events-none grid-pattern-dark" />
                     </motion.div>
                 )}
             </AnimatePresence>
-        </header>
+        </>
     );
 };

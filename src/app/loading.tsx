@@ -1,8 +1,8 @@
 export default function Loading() {
     return (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-zinc-950 pointer-events-none">
-            {/* Background Noise */}
-            <div className="absolute inset-0 opacity-20 bg-[url('/noise.png')] mix-blend-overlay"></div>
+            {/* Background Noise - Removed: file doesn't exist */}
+            {/* <div className="absolute inset-0 opacity-20 bg-[url('/noise.png')] mix-blend-overlay"></div> */}
 
             <div className="flex flex-col items-center gap-8 relative z-10">
                 {/* Logo / Spinner Container */}

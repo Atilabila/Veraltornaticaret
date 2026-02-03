@@ -3,90 +3,139 @@
     --admin-bg: #F5F1E8;
     --admin-card-bg: #FFFFFF;
     --admin-card-border: rgba(100, 100, 100, 0.15);
-    --admin-text: #1e293b;
-    --admin-text-muted: #64748b;
-    --admin-input-bg: #FAFAF8;
-    --admin-input-border: #D4CFC5;
+    --admin-text: #0F172A;
+    /* Even darker for high contrast */
+    --admin-text-muted: #475569;
+    /* Much darker gray than before */
+    --admin-input-bg: #FFFFFF;
+    --admin-input-border: #94A3B8;
+    /* Darker border for inputs */
 }
 
-.admin-panel .bg-slate-900 {
+/* Backgrounds */
+.admin-panel,
+.admin-panel main,
+.admin-panel .bg-slate-100,
+.admin-panel .bg-zinc-950,
+.admin-panel .bg-black {
+    background-color: var(--admin-bg) !important;
+}
+
+.admin-panel .bg-slate-900,
+.admin-panel .bg-zinc-900,
+.admin-panel .bg-slate-800 {
     background-color: var(--admin-card-bg) !important;
 }
 
-.admin-panel .bg-slate-900\/50 {
-    background-color: rgba(255, 255, 255, 0.8) !important;
+/* ===== COMPREHENSIVE TEXT COLOR OVERRIDES ===== */
+
+/* High contrast for all text */
+.admin-panel * {
+    border-color: var(--admin-card-border);
 }
 
-.admin-panel .bg-slate-800 {
-    background-color: #F8F6F2 !important;
-}
-
-.admin-panel .bg-slate-800\/30 {
-    background-color: rgba(248, 246, 242, 0.5) !important;
-}
-
-.admin-panel .border-white\/10,
-.admin-panel .border-white\/5 {
-    border-color: var(--admin-card-border) !important;
-}
-
-.admin-panel .border-slate-700,
-.admin-panel .border-slate-800 {
-    border-color: var(--admin-input-border) !important;
-}
-
-.admin-panel .text-white {
+/* Force dark text on everything that isn't a status pill or designated color */
+.admin-panel h1,
+.admin-panel h2,
+.admin-panel h3,
+.admin-panel h4,
+.admin-panel h5,
+.admin-panel h6,
+.admin-panel p,
+.admin-panel span,
+.admin-panel label,
+.admin-panel div:not([class*="bg-"]),
+.admin-panel .text-white,
+.admin-panel .text-slate-100,
+.admin-panel .text-slate-200,
+.admin-panel .text-slate-300,
+.admin-panel .text-slate-400,
+.admin-panel .text-slate-500,
+.admin-panel .text-zinc-100,
+.admin-panel .text-zinc-400,
+.admin-panel .text-zinc-500 {
     color: var(--admin-text) !important;
 }
 
+/* Subtitles and muted text */
+.admin-panel .text-white\/60,
+.admin-panel .text-white\/50,
 .admin-panel .text-slate-400,
-.admin-panel .text-slate-500 {
+.admin-panel .text-zinc-400 {
     color: var(--admin-text-muted) !important;
 }
 
-.admin-panel .text-slate-300 {
-    color: #475569 !important;
+/* Admin title in the header */
+.admin-panel .text-4xl,
+.admin-panel .text-5xl,
+.admin-panel .font-black {
+    color: var(--admin-text) !important;
 }
 
+/* Sidebar labels */
+.admin-panel aside span,
+.admin-panel aside div {
+    color: var(--admin-text) !important;
+}
+
+/* Forms */
 .admin-panel input,
 .admin-panel textarea,
 .admin-panel select {
     background-color: var(--admin-input-bg) !important;
-    border-color: var(--admin-input-border) !important;
+    border: 1px solid var(--admin-input-border) !important;
     color: var(--admin-text) !important;
 }
 
-.admin-panel input::placeholder,
-.admin-panel textarea::placeholder {
-    color: var(--admin-text-muted) !important;
+.admin-panel input::placeholder {
+    color: #94A3B8 !important;
+}
+
+/* Buttons */
+.admin-panel button:not([class*="bg-blue"]):not([class*="bg-red"]):not([class*="bg-green"]):not([class*="bg-orange"]) {
+    color: var(--admin-text) !important;
+    border-color: var(--admin-input-border) !important;
+}
+
+.admin-panel .bg-white\/10 {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Specific fix for faint titles in the user's image */
+.admin-panel .text-lg.font-medium,
+.admin-panel .text-sm.text-zinc-400 {
+    color: var(--admin-text) !important;
+    opacity: 1 !important;
 }
 
 /* Tabs */
 .admin-panel [role="tablist"] {
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    border-color: var(--admin-card-border) !important;
-}
-
-.admin-panel [role="tab"] {
-    color: var(--admin-text-muted) !important;
+    background-color: #E2E8F0 !important;
 }
 
 .admin-panel [role="tab"][data-state="active"] {
     background-color: white !important;
     color: var(--admin-text) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Cards */
-.admin-panel .bg-black\/20,
-.admin-panel .bg-black\/30 {
-    background-color: rgba(0, 0, 0, 0.03) !important;
+.admin-panel [role="tab"]:not([data-state="active"]) {
+    color: #64748B !important;
 }
 
-/* Sidebar active state */
-.admin-panel aside button[class*="bg-slate"] {
+/* Sidebar navigation */
+.admin-panel aside a,
+.admin-panel aside button {
+    color: var(--admin-text-muted) !important;
+}
+
+.admin-panel aside a:hover,
+.admin-panel aside button:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
     color: var(--admin-text) !important;
 }
 
-.admin-panel aside button:hover {
-    background-color: rgba(255, 255, 255, 0.8) !important;
+.admin-panel aside .bg-slate-800 {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    color: var(--admin-text) !important;
 }

@@ -113,8 +113,11 @@ export async function getProducts(isShowcase?: boolean): Promise<ApiResponse<Met
                 features:product_features(*)
             `);
 
-        if (isShowcase !== undefined) {
-            query = query.eq('is_showcase', isShowcase);
+        if (isShowcase === true) {
+            query = query.eq('is_showcase', true);
+        } else if (isShowcase === false) {
+            // Include both false and null for regular products
+            query = query.or('is_showcase.eq.false,is_showcase.is.null');
         }
 
         const { data, error } = await query.order('created_at', { ascending: false });

@@ -12,28 +12,35 @@ import { DirectEdit } from "@/components/admin/DirectEdit";
 
 export const ProductGallery = () => {
     const { content } = useContentStore();
-    const { products, loading, fetchProducts } = useProductStore();
+    const { products, categories: allCategories, loading, fetchProducts, fetchCategories } = useProductStore();
     const addItem = useCartStore((state) => state.addItem);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         fetchProducts();
-    }, [fetchProducts]);
+        fetchCategories();
 
-    const categories = [
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, [fetchProducts, fetchCategories]);
+
+    // Only show categories that HAVE products (excluding showcase-only products)
+    const activeCategories = [
         { id: null, label: "TÜM KOLEKSİYON" },
-        { id: "ARABA_PLAKA", label: "OTOMOBİL" },
-        { id: "ATATURK_PLAKA", label: "MİRAS" },
-        { id: "CHARACTER_PLAKA", label: "KARAKTERLER" },
-        { id: "MOTOR_PLAKA", label: "MOTOSİKLET" },
-        { id: "YAPAY_CITY", label: "MODERN" },
+        ...allCategories
+            .filter(cat => products.some(p => (p.category === cat.id || p.category_id === cat.id) && !p.is_showcase))
+            .map(cat => ({ id: cat.id, label: cat.name }))
     ];
 
     const filteredProducts = selectedCategory
-        ? products.filter((p) => p.category === selectedCategory)
-        : products;
+        ? products.filter((p) => p.category === selectedCategory && !p.is_showcase)
+        : products.filter((p) => !p.is_showcase);
 
-    const displayProducts = filteredProducts.slice(0, 12);
+    // Limit to 5 on mobile, 12 on desktop
+    const displayProducts = isMobile ? filteredProducts.slice(0, 5) : filteredProducts.slice(0, 12);
 
     if (loading) {
         return (
@@ -56,23 +63,23 @@ export const ProductGallery = () => {
                                 <div className="w-12 h-[1px] bg-[#D4AF37]" />
                                 <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Seçkin Katalog</span>
                             </div>
-                            <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
+                            <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
                                 Trend <span className="text-gold-metal normal-case tracking-normal">Eserler</span>
                             </h2>
-                            <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">Sadece metal değil; her biri titizlikle tasarlanmış bir sanat parçası.</p>
+                            <p className="text-white/50 text-lg font-medium max-w-lg">Sadece metal değil; her biri titizlikle tasarlanmış bir sanat parçası.</p>
                         </div>
 
                         {/* Category Filter */}
                         <div className="flex gap-4 overflow-x-auto pb-6 no-scrollbar -mx-6 px-6 lg:mx-0 lg:px-0">
-                            {categories.map((cat) => (
+                            {activeCategories.map((cat) => (
                                 <button
                                     key={cat.id || "all"}
                                     onClick={() => setSelectedCategory(cat.id)}
                                     className={`
                                         px-10 py-4 text-[10px] font-black tracking-[0.3em] uppercase transition-all whitespace-nowrap border
                                         ${selectedCategory === cat.id
-                                            ? "bg-[#0A0A0A] text-white border-[#0A0A0A] shadow-2xl"
-                                            : "bg-transparent text-[#0A0A0A]/40 border-[#0A0A0A]/10 hover:border-[#D4AF37] hover:text-[#D4AF37]"
+                                            ? "bg-white text-black border-white shadow-2xl"
+                                            : "bg-transparent text-white/40 border-white/10 hover:border-[#D4AF37] hover:text-[#D4AF37]"
                                         }
                                     `}
                                 >
@@ -119,13 +126,13 @@ export const ProductGallery = () => {
                                         </span>
                                     </div>
                                     <Link href={`/urunler/${product.slug}`}>
-                                        <h3 className="text-3xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-none italic group-hover:text-gold-metal transition-colors">
+                                        <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none italic group-hover:text-gold-metal transition-colors">
                                             {product.name}
                                         </h3>
                                     </Link>
 
                                     <div className="flex justify-between items-center sm:mt-2 pt-6 border-t border-[#0A0A0A]/5">
-                                        <p className="text-3xl font-black text-[#0A0A0A] italic tracking-tighter">{product.price} TL</p>
+                                        <p className="text-3xl font-black text-white italic tracking-tighter">{product.price} TL</p>
                                         <button
                                             onClick={(e) => {
                                                 e.preventDefault();
@@ -154,7 +161,7 @@ export const ProductGallery = () => {
                     <div className="text-center mt-32">
                         <Link
                             href={content.productsExploreUrl || "/urunler"}
-                            className="inline-flex items-center justify-center gap-8 px-16 h-20 bg-transparent border border-[#0A0A0A] text-[#0A0A0A] font-black tracking-[0.5em] transition-all hover:bg-[#0A0A0A] hover:text-white group relative overflow-hidden"
+                            className="inline-flex items-center justify-center gap-8 px-16 h-20 bg-transparent border border-white/20 text-white font-black tracking-[0.5em] transition-all hover:bg-white hover:text-black group relative overflow-hidden"
                         >
                             <span className="relative z-10 uppercase text-xs">
                                 {content.productsExploreText || "TÜMÜNÜ İNCELE"}

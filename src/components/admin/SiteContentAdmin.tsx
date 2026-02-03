@@ -790,11 +790,22 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                     </div>
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
+                                            <Label>Slogan (Tekil)</Label>
+                                            <CMSPreview
+                                                label="Hero Slogan"
+                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                description="Ana başlığın hemen altında, tek satır olarak görünür"
+                                            />
+                                        </div>
+                                        <Input value={store.content.heroTagline} onChange={(e) => store.updateContent({ heroTagline: e.target.value })} placeholder="VERAL" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between">
                                             <Label>Alt Başlık Listesi (Sloganlar)</Label>
                                             <CMSPreview
                                                 label="Hero Alt Başlıklar"
                                                 previewImage="/artifacts/hero_section_preview_1770115021977.png"
-                                                description="Ana başlığın hemen altında, gri renkte görünür"
+                                                description="Slogan listesi - geçişli olabilir"
                                             />
                                         </div>
                                         <div className="grid grid-cols-1 gap-2">

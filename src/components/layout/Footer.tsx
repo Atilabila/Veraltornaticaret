@@ -13,7 +13,7 @@ export const Footer = () => {
         <DirectEdit tab="contact">
             <footer className="bg-[#0A0A0A] pt-40 pb-20 border-t border-[#D4AF37]/20 relative overflow-hidden">
                 {/* Background Texture Overlay */}
-                <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] pointer-events-none" />
+                {/* Removed external texture for performance */}
 
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 mb-32">
@@ -62,7 +62,7 @@ export const Footer = () => {
                             <ul className="flex flex-col gap-6">
                                 {[
                                     { label: 'Koleksiyon', href: '/urunler' },
-                                    { label: 'Hizmetler', href: '/hizmetler' },
+                                    { label: 'Hizmetler', href: '/metal-urunler' },
                                     { label: 'Hakkımızda', href: '/hakkimizda' },
                                     { label: 'İletişim', href: '/iletisim' }
                                 ].map((item) => (

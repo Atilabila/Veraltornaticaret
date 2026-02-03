@@ -7,6 +7,7 @@ import { ContentSyncProvider } from "@/components/providers/ContentSyncProvider"
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -30,13 +31,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LocalBusinessSchema />
       </head>
       <body>
-        <GlobalGrid />
         <AdminProvider>
           <ContentSyncProvider>
             <DynamicMetadata />
             {children}
           </ContentSyncProvider>
         </AdminProvider>
+        <WhatsAppButton />
         <Toaster />
       </body>
     </html>

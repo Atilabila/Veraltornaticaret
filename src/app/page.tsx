@@ -25,48 +25,48 @@ export default function HomePage() {
       <Navigation />
 
       {/* CORE_EXPERIENCE - WHITE */}
-      <section className="bg-white text-black relative z-10">
+      <section className="bg-white text-black relative">
         <Hero />
       </section>
 
       {/* SYSTEM_STATUS_STRIP - BLACK */}
-      <section className="bg-[#0A0A0A] text-white relative z-10">
+      <section className="bg-[#0A0A0A] text-white relative">
         <ShowcaseGrid />
       </section>
 
-      {/* INSTAGRAM_MARQUEE_FEED - WHITE */}
-      <section className="bg-white text-black relative z-10">
+      {/* INSTAGRAM_MARQUEE_FEED - BLACK */}
+      <section className="bg-[#0A0A0A] text-white relative">
         <InstagramMarquee />
         <StatsMarquee />
       </section>
 
       {/* PRODUCT_GALLERY - BLACK */}
-      <section className="bg-[#0A0A0A] text-white relative z-10">
+      <section className="bg-[#0A0A0A] text-white relative">
         <ProductGallery />
       </section>
 
       {/* SHOWCASE - WHITE */}
-      <section className="bg-white text-black relative z-10">
+      <section className="bg-white text-black relative">
         <GalleryShowcase />
       </section>
 
       {/* SOCIAL_PROOF - BLACK */}
-      <section className="bg-[#0A0A0A] text-white relative z-10">
+      <section className="bg-[#0A0A0A] text-white relative">
         <CustomerReviews />
       </section>
 
       {/* PROCESS_MATRIX - WHITE */}
-      <section className="bg-white text-black relative z-10">
+      <section className="bg-white text-black relative">
         <ProcessSection />
       </section>
 
       {/* SERVICES_MODULE - BLACK */}
-      <section className="bg-[#0A0A0A] text-white relative z-10">
+      <section className="bg-[#0A0A0A] text-white relative">
         <OtherServices />
       </section>
 
       {/* CONTACT_TERMINAL - WHITE */}
-      <section className="bg-white text-black relative z-10">
+      <section className="bg-white text-black relative">
         <LocalContactSection />
       </section>
 

@@ -16,7 +16,13 @@ export const ShowcaseGrid = () => {
         <DirectEdit tab="showcase">
             <section className="py-24 relative overflow-hidden bg-transparent">
                 {/* Industrial Background Pattern */}
-                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('/images/site-pattern.jpg')] bg-repeat" style={{ backgroundSize: '400px' }} />
+                <div
+                    className="absolute inset-0 opacity-[0.03] pointer-events-none bg-repeat"
+                    style={{
+                        backgroundImage: `url(${content.metalShowcaseHeroImage || '/images/site-pattern.jpg'})`,
+                        backgroundSize: '400px'
+                    }}
+                />
 
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
@@ -36,7 +42,7 @@ export const ShowcaseGrid = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="text-4xl md:text-6xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-[0.9] mb-4 font-display max-w-4xl"
+                                className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4 font-display max-w-4xl"
                             >
                                 {content.metalShowcaseTitle.split(' ').map((word, i) => (
                                     <React.Fragment key={i}>
@@ -53,8 +59,8 @@ export const ShowcaseGrid = () => {
                             viewport={{ once: true }}
                         >
                             <Link
-                                href="/hizmetler"
-                                className="group flex items-center gap-6 px-12 py-6 bg-[#0A0A0A] text-white font-black text-xs uppercase tracking-[0.3em] hover:bg-[#D4AF37] transition-all duration-700 relative overflow-hidden"
+                                href="/metal-urunler"
+                                className="group flex items-center gap-6 px-12 py-6 bg-white text-black font-black text-xs uppercase tracking-[0.3em] hover:bg-[#D4AF37] hover:text-white transition-all duration-700 relative overflow-hidden"
                             >
                                 <span className="relative z-10">TÜMÜNÜ GÖR</span>
                                 <ArrowUpRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
@@ -74,7 +80,7 @@ export const ShowcaseGrid = () => {
                                 className="group"
                             >
                                 <Link href={item.ctaLink || `/urunler?category=${item.slug}`} className="block space-y-8">
-                                    <div className="relative aspect-[3/4] overflow-hidden bg-white shadow-2xl border border-black/5">
+                                    <div className="relative aspect-[3/4] overflow-hidden bg-white shadow-2xl border border-white/10">
                                         {/* Subtle Image Vignette */}
                                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
@@ -82,6 +88,7 @@ export const ShowcaseGrid = () => {
                                             src={item.coverImage || "/images/placeholder-category.jpg"}
                                             alt={item.title}
                                             fill
+                                            sizes="(max-width: 768px) 100vw, 33vw"
                                             className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                                         />
 
@@ -94,18 +101,18 @@ export const ShowcaseGrid = () => {
                                         </div>
 
                                         {/* Corner Accents - Sharper */}
-                                        <div className="absolute top-0 right-0 w-16 h-16 border-t-[1px] border-r-[1px] border-black/10 group-hover:border-[#D4AF37] z-20 transition-all duration-700 group-hover:w-20 group-hover:h-20" />
-                                        <div className="absolute bottom-0 left-0 w-16 h-16 border-b-[1px] border-l-[1px] border-black/10 group-hover:border-[#D4AF37] z-20 transition-all duration-700 group-hover:w-20 group-hover:h-20" />
+                                        <div className="absolute top-0 right-0 w-16 h-16 border-t-[1px] border-r-[1px] border-white/20 group-hover:border-[#D4AF37] z-20 transition-all duration-700 group-hover:w-20 group-hover:h-20" />
+                                        <div className="absolute bottom-0 left-0 w-16 h-16 border-b-[1px] border-l-[1px] border-white/20 group-hover:border-[#D4AF37] z-20 transition-all duration-700 group-hover:w-20 group-hover:h-20" />
                                     </div>
 
                                     <div className="space-y-4 px-2">
                                         <div className="flex items-center gap-3">
                                             <div className="w-8 h-[1px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
-                                            <h3 className="text-3xl font-black text-[#0A0A0A] uppercase tracking-tighter group-hover:text-[#D4AF37] transition-colors duration-500 font-display">
+                                            <h3 className="text-3xl font-black text-white uppercase tracking-tighter group-hover:text-[#D4AF37] transition-colors duration-500 font-display">
                                                 {item.title}
                                             </h3>
                                         </div>
-                                        <p className="text-sm font-medium text-[#0A0A0A]/60 uppercase leading-relaxed tracking-wider font-sans line-clamp-2">
+                                        <p className="text-sm font-medium text-white/60 uppercase leading-relaxed tracking-wider font-sans line-clamp-2">
                                             {item.description}
                                         </p>
                                         <div className="pt-4 flex items-center gap-4 text-[10px] font-black tracking-[0.3em] text-[#D4AF37] uppercase font-sans">
@@ -120,6 +127,6 @@ export const ShowcaseGrid = () => {
                     </div>
                 </div>
             </section>
-        </DirectEdit>
+        </DirectEdit >
     );
 };
