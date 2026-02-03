@@ -785,8 +785,9 @@ export const defaultContent: SiteContent = {
         { id: "nav_2", key: "about", label: "Hakkımızda", url: "/hakkimizda", type: "link", visible: true, order: 2 },
         { id: "nav_3", key: "workshop", label: "Metal Atölyesi", url: "/metal-urunler", type: "link", visible: true, order: 3 },
         { id: "nav_4", key: "services", label: "Hizmetler", url: "/hizmetler", type: "link", visible: true, order: 4 },
-        { id: "nav_5", key: "order_tracking", label: "Sipariş Sorgula", url: "/siparis-sorgula", type: "link", visible: true, order: 5 },
-        { id: "nav_6", key: "quote", label: "Teklif Al", url: "/teklif-al", type: "link", isPrimary: true, visible: true, order: 6 }
+        { id: "nav_blog", key: "blog", label: "Raporlar & Blog", url: "/blog", type: "link", visible: true, order: 5 },
+        { id: "nav_5", key: "order_tracking", label: "Sipariş Sorgula", url: "/siparis-sorgula", type: "link", visible: true, order: 6 },
+        { id: "nav_6", key: "quote", label: "Teklif Al", url: "/teklif-al", type: "link", isPrimary: true, visible: true, order: 7 }
     ],
 
     // Product Categories Defaults
