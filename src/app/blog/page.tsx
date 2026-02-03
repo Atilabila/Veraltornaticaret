@@ -9,6 +9,39 @@ import Image from "next/image";
 // Blog yazıları veritabanı
 const blogPosts = [
     {
+        id: "takvim-tenekesi-imalati-izmir",
+        title: "TAKVİM TENEKESİ İMALATI: İZMİR'DE SERİ ÜRETİM VE KALİTE STANDARTLARI",
+        excerpt: "TAKVİM YAYINCILIĞI İÇİN KRİTİK BİLEŞENLER. TENEKE KALINLIĞI, RENK HASSASİYETİ VE HIZLI TERMİN SÜREÇLERİNİN ANALİZİ.",
+        category: "ENDÜSTRİYEL İMALAT",
+        date: "03.02.2026",
+        readTime: "06 DAKİKA",
+        image: "/images/production/teneke.jpg",
+        featured: true,
+        tags: ["TAKVİM TENEKESİ", "İMALAT", "İZMİR", "SERİ ÜRETİM"],
+    },
+    {
+        id: "dosya-teli-ve-arsiv-sistemleri",
+        title: "DOSYA TELİ ÜRETİMİNDE MALZEME BİLİMİ: PASLANMAZ DİRENÇLİ ÇÖZÜMLER",
+        excerpt: "KIRTASİYE VE ARŞİV SEKTÖRÜ İÇİN ENDÜSTRİYEL DOSYA TELİ ANALİZİ. METAL YORGUNLUĞU VE KOROZYON DİRENCİ PARAMETRELERİ.",
+        category: "KIRTASİYE EKİPMANLARI",
+        date: "03.02.2026",
+        readTime: "05 DAKİKA",
+        image: "/images/production/dosya-teli.jpg",
+        featured: false,
+        tags: ["DOSYA TELİ", "METAL", "ARŞİV", "ÜRETİM"],
+    },
+    {
+        id: "miknatisli-magnet-ve-metal-poster-estetigi",
+        title: "MIKNATISLI MAGNET VE METAL POSTER: MODERN DEKORASYONDA YENİ NESİL DOKUNUŞ",
+        excerpt: "YAŞAM ALANLARINDA MANYETİK MONTAJIN AVANTAJLARI. UV BASKI KALİTESİYLE METAL POSTERLERİN ESTETİK ÜSTÜNLÜĞÜ.",
+        category: "DEKORASYON",
+        date: "03.02.2026",
+        readTime: "09 DAKİKA",
+        image: "/images/production/poster.jpg",
+        featured: false,
+        tags: ["METAL POSTER", "MAGNET", "DEKORASYON", "MIKNATISLI"],
+    },
+    {
         id: "endustriyel-metal-baski-rehberi",
         title: "ENDÜSTRİYEL METAL BASKI PROTOKOLÜ: DİJİTAL DÖNÜŞÜM ANALİZİ",
         excerpt: "METAL BASKI TEKNOLOJİLERİNİN EVRİMİ. UV, SERİGRAFİ VE LAZER KAZIMA YÖNTEMLERİNİN TEKNİK KARŞILAŞTIRMASI VE SEKTÖREL VERİMLİLİK RAPORU.",
@@ -19,31 +52,9 @@ const blogPosts = [
         featured: true,
         tags: ["METAL", "UV BASKI", "SERİGRAFİ", "PLAKA"],
     },
-    {
-        id: "is-guvenligi-levhalari-standartlar",
-        title: "İŞ GÜVENLİĞİ LEVHALARI: ISO 7010 STANDARTLARI VE MATERYAL DİRENCİ",
-        excerpt: "ENDÜSTRİYEL ALANLARDA GÜVENLİK PROTOKOLLERİNE UYGUN LEVHA SEÇİMİ. ISO 7010 STANDARTLARI, BOYUT HESAPLAMALARI VE MONTAJ PARAMETRELERİ.",
-        category: "GÜVENLİK SİSTEMLERİ",
-        date: "12.01.2026",
-        readTime: "10 DAKİKA",
-        image: "/porsche.png",
-        featured: true,
-        tags: ["GÜVENLİK", "ISO 7010", "UYARI", "ENDÜSTRİYEL"],
-    },
-    {
-        id: "retro-otomobiller-aluminyum-poster",
-        title: "RETRO OTOMOBİLLER VE ALÜMİNYUM: MEKANİK ESTETİK UYUMU",
-        excerpt: "KLASİK OTOMOBİLLERİN ZAMANSIZ ESTETİĞİ VE PREMİUM ALÜMİNYUM YÜZEYLER. UV TEKNOLOJİSİ İLE 100 YIL DAYANIMLI MEKANİK POSTER SİSTEMLERİ.",
-        category: "METAL POSTER",
-        date: "12.01.2026",
-        readTime: "07 DAKİKA",
-        image: "/porsche.png",
-        featured: false,
-        tags: ["POSTER", "RETRO", "ALÜMİNYUM", "MEKANİK"],
-    },
 ];
 
-const categories = ["TÜM KAYITLAR", "ENDÜSTRİYEL BASKI", "GÜVENLİK SİSTEMLERİ", "METAL POSTER"];
+const categories = ["TÜM KAYITLAR", "ENDÜSTRİYEL İMALAT", "DEKORASYON", "METAL POSTER", "ENDÜSTRİYEL BASKI"];
 
 export default function BlogPage() {
     const [selectedCategory, setSelectedCategory] = useState("TÜM KAYITLAR");
