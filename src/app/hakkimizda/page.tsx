@@ -16,12 +16,11 @@ export default function HakkimizdaPage() {
     const stats = content.aboutStats || [];
 
     return (
-        <main className="min-h-screen bg-[#0A0A0A] selection:bg-[#D4AF37] selection:text-white">
+        <main className="min-h-screen bg-white selection:bg-[#D4AF37] selection:text-white">
             <Navigation />
 
-            {/* Hero Section */}
-            <section className="pt-40 pb-24 border-b border-white/5 bg-transparent overflow-hidden relative">
-                <div className="absolute inset-0 bg-grid-metal opacity-10" />
+            {/* Hero Section - WHITE */}
+            <section className="pt-40 pb-24 border-b border-black/10 bg-white text-black overflow-hidden relative z-10">
                 <div className="max-w-[1240px] mx-auto px-6">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="flex flex-col gap-8">
@@ -29,27 +28,27 @@ export default function HakkimizdaPage() {
                                 <SystemLabel text="KRONOLOJİK KAYIT" active />
                                 <SystemLabel text="LOC: İZMİR" />
                             </div>
-                            <h1 className="text-5xl md:text-7xl font-bold font-space uppercase leading-none text-white whitespace-pre-line">
+                            <h1 className="text-5xl md:text-7xl font-bold font-space uppercase leading-none text-black whitespace-pre-line">
                                 {content.aboutTitle || "Yarım Asırlık Metal Hafızası"}
                             </h1>
-                            <p className="text-xl text-white/60 font-medium leading-relaxed max-w-[500px]">
+                            <p className="text-xl text-black/60 font-medium leading-relaxed max-w-[500px]">
                                 {content.aboutSubtitle || "1980'den bugüne, Alsancak'taki atölyemizde metale şekil veriyor, usta-çırak geleneğini modern teknolojiyle harmanlıyoruz."}
                             </p>
                         </div>
-                        <div className="relative border border-white/10 aspect-video bg-white/5 overflow-hidden grayscale group">
+                        <div className="relative border border-black/10 aspect-video bg-black/5 overflow-hidden grayscale group">
                             <img
                                 src={content.aboutImage || "/alsancak-mockup.png"}
                                 alt="Atölye"
                                 className="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Content Section */}
-            <section className="py-24 border-b border-white/5 bg-transparent">
+            {/* Content Section - BLACK */}
+            <section className="py-24 border-b border-white/10 bg-[#0A0A0A] text-white relative z-10">
                 <div className="max-w-[1240px] mx-auto px-6">
                     <div className="grid lg:grid-cols-12 gap-16">
                         <div className="lg:col-span-4 flex flex-col gap-8">
@@ -71,7 +70,7 @@ export default function HakkimizdaPage() {
                         </div>
                         <div className="lg:col-span-8 space-y-8 text-xl text-white/70 font-medium leading-relaxed">
                             <div className="whitespace-pre-line">
-                                {content.aboutContent || `Veral Torna & Teneke, İzmir’in endüstriyel kalbi Alsancak’ta temelleri atılmış bir aile işletmesidir. Kuruluşumuzdan bu yana temel ilkemiz; "Hassas işçilik, dürüst ticaret" olmuştur.
+                                {content.aboutContent || `Veral Torna & Teneke, İzmir'in endüstriyel kalbi Alsancak'ta temelleri atılmış bir aile işletmesidir. Kuruluşumuzdan bu yana temel ilkemiz; "Hassas işçilik, dürüst ticaret" olmuştur.
 
 Bugün 3. kuşağın yönetiminde, geleneksel torna işleme tekniklerini, son teknoloji UV baskı ve CNC form verme sistemleriyle birleştiriyoruz. Sadece bir üretici değil, müşterilerimizin projelerinde teknik çözüm ortağı olarak konumlanıyoruz.`}
                             </div>
@@ -108,30 +107,27 @@ Bugün 3. kuşağın yönetiminde, geleneksel torna işleme tekniklerini, son te
                 </div>
             </section>
 
-            {/* Timeline Section */}
-            <section className="py-24 bg-[#0A0A0A] text-white overflow-hidden relative border-b border-white/5">
-                {/* Background pattern */}
-                <div className="absolute inset-0 bg-grid-metal opacity-20 pointer-events-none" />
-
+            {/* Timeline Section - WHITE */}
+            <section className="py-24 bg-white text-black overflow-hidden relative border-b border-black/10 z-10">
                 <div className="max-w-[1240px] mx-auto px-6 relative z-10">
                     <div className="flex flex-col gap-4 mb-24 text-center items-center">
                         <SystemLabel text="SİSTEM EVRİMİ" active />
-                        <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
+                        <h2 className="text-5xl md:text-7xl font-black text-black tracking-tighter uppercase leading-none italic">
                             TARİHSEL <span className="text-gold-gradient normal-case italic font-serif font-normal tracking-normal">Gelişim Kördüğümü</span>
                         </h2>
                     </div>
 
-                    <div className="grid md:grid-cols-4 gap-0 border border-white/10">
+                    <div className="grid md:grid-cols-4 gap-0 border border-black/10">
                         {milestones.map((item, idx) => (
-                            <div key={idx} className="p-12 border-r border-white/10 last:border-r-0 hover:bg-white/5 transition-all duration-500 group relative overflow-hidden">
+                            <div key={idx} className="p-12 border-r border-black/10 last:border-r-0 hover:bg-black/5 transition-all duration-500 group relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
                                 <span className="text-6xl font-black text-[#D4AF37]/40 block mb-8 tracking-tighter group-hover:text-[#D4AF37] transition-colors">{item.year}</span>
                                 {(() => {
                                     const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.HelpCircle;
-                                    return <IconComponent className="mb-8 text-white/20 group-hover:text-[#D4AF37] transition-all duration-500" size={32} />;
+                                    return <IconComponent className="mb-8 text-black/20 group-hover:text-[#D4AF37] transition-all duration-500" size={32} />;
                                 })()}
-                                <h3 className="font-black uppercase text-xl mb-4 text-white tracking-tighter italic">{item.title}</h3>
-                                <p className="text-white/40 text-sm font-medium uppercase tracking-wider leading-relaxed group-hover:text-white/60 transition-colors">{item.desc}</p>
+                                <h3 className="font-black uppercase text-xl mb-4 text-black tracking-tighter italic">{item.title}</h3>
+                                <p className="text-black/40 text-sm font-medium uppercase tracking-wider leading-relaxed group-hover:text-black/60 transition-colors">{item.desc}</p>
                             </div>
                         ))}
                     </div>

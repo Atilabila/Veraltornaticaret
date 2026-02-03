@@ -19,10 +19,10 @@ export default async function ProductsPage() {
     ])
 
     return (
-        <main className="min-h-screen bg-zinc-950">
+        <main className="min-h-screen bg-white">
             <Navigation />
 
-            <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-white">Yükleniyor...</div>}>
+            <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-black">Yükleniyor...</div>}>
                 <CatalogContainer
                     products={products || []}
                     categories={categories || []}

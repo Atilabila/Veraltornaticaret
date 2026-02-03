@@ -20,64 +20,57 @@ import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#FAFBFF] selection:bg-[#D4AF37] selection:text-white">
+    <main className="min-h-screen bg-white selection:bg-[#D4AF37] selection:text-white">
       {/* GLOBAL_NAV */}
       <Navigation />
 
-      {/* CORE_EXPERIENCE */}
-      <section className="bg-transparent relative z-10">
+      {/* CORE_EXPERIENCE - WHITE */}
+      <section className="bg-white text-black relative z-10">
         <Hero />
       </section>
 
-      {/* SYSTEM_STATUS_STRIP */}
-      <section className="relative z-10">
+      {/* SYSTEM_STATUS_STRIP - BLACK */}
+      <section className="bg-[#0A0A0A] text-white relative z-10">
         <ShowcaseGrid />
       </section>
 
-      {/* INSTAGRAM_MARQUEE_FEED */}
-      <section className="bg-[#0A0A0A] relative z-20">
+      {/* INSTAGRAM_MARQUEE_FEED - WHITE */}
+      <section className="bg-white text-black relative z-10">
         <InstagramMarquee />
         <StatsMarquee />
       </section>
 
-      {/* PRODUCT_GALLERY */}
-      <section className="bg-transparent relative z-10">
+      {/* PRODUCT_GALLERY - BLACK */}
+      <section className="bg-[#0A0A0A] text-white relative z-10">
         <ProductGallery />
       </section>
 
-      {/* SHOWCASE */}
-      <section className="bg-transparent relative z-10">
+      {/* SHOWCASE - WHITE */}
+      <section className="bg-white text-black relative z-10">
         <GalleryShowcase />
       </section>
 
-
-
-      {/* SOCIAL_PROOF */}
-      <section className="bg-transparent relative z-10">
+      {/* SOCIAL_PROOF - BLACK */}
+      <section className="bg-[#0A0A0A] text-white relative z-10">
         <CustomerReviews />
       </section>
 
-      {/* COMMUNITY (OLD FEED - REMOVED) */}
-      {/* <section className="bg-transparent relative z-10">
-        <InstagramFeed />
-      </section> */}
-
-      {/* PROCESS_MATRIX */}
-      <section className="bg-transparent relative z-10">
+      {/* PROCESS_MATRIX - WHITE */}
+      <section className="bg-white text-black relative z-10">
         <ProcessSection />
       </section>
 
-      {/* SERVICES_MODULE */}
-      <section className="bg-transparent relative z-10">
+      {/* SERVICES_MODULE - BLACK */}
+      <section className="bg-[#0A0A0A] text-white relative z-10">
         <OtherServices />
       </section>
 
-      {/* CONTACT_TERMINAL */}
-      <section className="bg-[#0A0A0A] relative z-10">
+      {/* CONTACT_TERMINAL - WHITE */}
+      <section className="bg-white text-black relative z-10">
         <LocalContactSection />
       </section>
 
-      {/* GLOBAL_FOOTER */}
+      {/* GLOBAL_FOOTER - BLACK */}
       <Footer />
 
       {/* INTERACTION_LAYER */}
