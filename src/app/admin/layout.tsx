@@ -1,5 +1,6 @@
 import { requireAdmin } from '@/lib/auth/requireAdmin';
 import { redirect } from 'next/navigation';
+import '../admin-theme.css';
 
 export default async function AdminLayout({
     children,

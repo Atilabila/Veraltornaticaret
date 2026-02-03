@@ -1,0 +1,92 @@
+/* Admin Panel Beige Theme Override */
+.admin-panel {
+    --admin-bg: #F5F1E8;
+    --admin-card-bg: #FFFFFF;
+    --admin-card-border: rgba(100, 100, 100, 0.15);
+    --admin-text: #1e293b;
+    --admin-text-muted: #64748b;
+    --admin-input-bg: #FAFAF8;
+    --admin-input-border: #D4CFC5;
+}
+
+.admin-panel .bg-slate-900 {
+    background-color: var(--admin-card-bg) !important;
+}
+
+.admin-panel .bg-slate-900\/50 {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.admin-panel .bg-slate-800 {
+    background-color: #F8F6F2 !important;
+}
+
+.admin-panel .bg-slate-800\/30 {
+    background-color: rgba(248, 246, 242, 0.5) !important;
+}
+
+.admin-panel .border-white\/10,
+.admin-panel .border-white\/5 {
+    border-color: var(--admin-card-border) !important;
+}
+
+.admin-panel .border-slate-700,
+.admin-panel .border-slate-800 {
+    border-color: var(--admin-input-border) !important;
+}
+
+.admin-panel .text-white {
+    color: var(--admin-text) !important;
+}
+
+.admin-panel .text-slate-400,
+.admin-panel .text-slate-500 {
+    color: var(--admin-text-muted) !important;
+}
+
+.admin-panel .text-slate-300 {
+    color: #475569 !important;
+}
+
+.admin-panel input,
+.admin-panel textarea,
+.admin-panel select {
+    background-color: var(--admin-input-bg) !important;
+    border-color: var(--admin-input-border) !important;
+    color: var(--admin-text) !important;
+}
+
+.admin-panel input::placeholder,
+.admin-panel textarea::placeholder {
+    color: var(--admin-text-muted) !important;
+}
+
+/* Tabs */
+.admin-panel [role="tablist"] {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    border-color: var(--admin-card-border) !important;
+}
+
+.admin-panel [role="tab"] {
+    color: var(--admin-text-muted) !important;
+}
+
+.admin-panel [role="tab"][data-state="active"] {
+    background-color: white !important;
+    color: var(--admin-text) !important;
+}
+
+/* Cards */
+.admin-panel .bg-black\/20,
+.admin-panel .bg-black\/30 {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Sidebar active state */
+.admin-panel aside button[class*="bg-slate"] {
+    color: var(--admin-text) !important;
+}
+
+.admin-panel aside button:hover {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}

@@ -15,6 +15,7 @@ import { Product } from "@/lib/products";
 import { SiteContentAdmin } from "./SiteContentAdmin";
 import { InstagramAdmin } from "@/components/admin/InstagramAdmin";
 import { BulkProductForm } from "@/components/admin/BulkProductForm";
+import { HeroPreviewDemo } from "@/components/admin/HeroPreviewDemo";
 import type { Category } from "@/lib/supabase/categories.service";
 import { AdminLogoutButton } from "./AdminLogoutButton";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
@@ -72,7 +73,7 @@ export const AdminDashboard = () => {
     }, []);
 
     return (
-        <div className="admin-panel flex min-h-screen bg-slate-950 text-white font-sans dark">
+        <div className="admin-panel flex min-h-screen bg-gradient-to-br from-[#F5F1E8] via-[#EDE7DC] to-[#E8DFD0] text-slate-900 font-sans">
             {/* Notification */}
             <AnimatePresence>
                 {notification && (
@@ -90,18 +91,18 @@ export const AdminDashboard = () => {
             </AnimatePresence>
 
             {/* Sidebar */}
-            <aside className="w-72 border-r border-white/10 p-6 flex flex-col gap-8 bg-slate-900/50 shrink-0">
+            <aside className="w-72 border-r border-slate-300/50 p-6 flex flex-col gap-8 bg-white/60 backdrop-blur-sm shrink-0 shadow-lg">
                 <div className="flex items-center gap-3 px-2">
                     <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-safety-orange)] text-white flex items-center justify-center font-bold text-2xl shadow-lg">V</div>
                     <div>
-                        <span className="font-bold text-xl tracking-tight">Veral</span>
-                        <span className="text-slate-500 text-xl">Panel</span>
+                        <span className="font-bold text-xl tracking-tight text-slate-900">Veral</span>
+                        <span className="text-slate-600 text-xl">Panel</span>
                         <p className="text-xs text-slate-500">Yönetim Sistemi</p>
                     </div>
                 </div>
 
                 <nav className="flex flex-col gap-2">
-                    <p className="text-xs text-slate-500 uppercase tracking-wider px-4 mb-2">Genel Yönetim</p>
+                    <p className="text-xs text-slate-600 uppercase tracking-wider px-4 mb-2 font-bold">Genel Yönetim</p>
                     <SidebarItem
                         icon={<Globe className="w-5 h-5" />}
                         label="Site İçeriği (CMS)"
@@ -194,6 +195,13 @@ export const AdminDashboard = () => {
                 {activeTab === "orders" && <OrdersTab showNotification={showNotification} />}
                 {activeTab === "quotes" && <QuotesTab showNotification={showNotification} />}
                 {activeTab === "logs" && <AuditLogsTab />}
+
+                {/* Preview Demo - Remove this after testing */}
+                {activeTab === "content" && subTab === "global" && (
+                    <div className="mt-8">
+                        <HeroPreviewDemo />
+                    </div>
+                )}
             </main>
         </div>
     );
