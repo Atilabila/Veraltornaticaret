@@ -11,6 +11,7 @@ import { Save, Loader2, Plus, Trash2, Instagram, Star, MessageSquare, Repeat, Ph
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { InstagramAdmin } from "@/components/admin/InstagramAdmin"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { CMSPreview } from "@/components/admin/CMSPreview"
 
 export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: string }) => {
     const store = useContentStore()
@@ -183,7 +184,14 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>CTA Buton Metni</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>CTA Buton Metni</Label>
+                                            <CMSPreview
+                                                label="Header CTA Butonu"
+                                                previewImage="/artifacts/header_preview_1770115069617.png"
+                                                description="Sayfanın sağ üst köşesinde turuncu buton"
+                                            />
+                                        </div>
                                         <Input
                                             value={store.content.headerConfig?.ctaText}
                                             onChange={(e) => store.updateContent({ headerConfig: { ...store.content.headerConfig, ctaText: e.target.value } })}
@@ -761,16 +769,34 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                     <Card className="bg-slate-900 border-white/10">
                         <CardHeader>
                             <CardTitle>Ana Sayfa Giriş (Hero)</CardTitle>
+                            <CardDescription className="flex items-center gap-2 text-slate-400">
+                                <Layout className="w-4 h-4" />
+                                Her alanın yanındaki önizleme butonuna tıklayarak sitenin neresinde göründüğünü görebilirsiniz
+                            </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4">
                                     <div className="space-y-2">
-                                        <Label>Ana Başlık</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Ana Başlık</Label>
+                                            <CMSPreview
+                                                label="Hero Ana Başlık"
+                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                description="Ana sayfanın en üstünde, büyük beyaz yazı ile görünür"
+                                            />
+                                        </div>
                                         <Textarea value={store.content.heroTitle} onChange={(e) => store.updateContent({ heroTitle: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Alt Başlık Listesi (Sloganlar)</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Alt Başlık Listesi (Sloganlar)</Label>
+                                            <CMSPreview
+                                                label="Hero Alt Başlıklar"
+                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                description="Ana başlığın hemen altında, gri renkte görünür"
+                                            />
+                                        </div>
                                         <div className="grid grid-cols-1 gap-2">
                                             <Input value={store.content.heroTagline1} onChange={(e) => store.updateContent({ heroTagline1: e.target.value })} placeholder="1. Slogan" />
                                             <Input value={store.content.heroTagline2} onChange={(e) => store.updateContent({ heroTagline2: e.target.value })} placeholder="2. Slogan" />
@@ -778,7 +804,14 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Özet Açıklama</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Özet Açıklama</Label>
+                                            <CMSPreview
+                                                label="Hero Açıklama Metni"
+                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                description="CTA butonunun üstünde görünür"
+                                            />
+                                        </div>
                                         <Textarea value={store.content.heroSubtitle} onChange={(e) => store.updateContent({ heroSubtitle: e.target.value })} rows={3} />
                                     </div>
                                 </div>
@@ -789,7 +822,14 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                         <Input value={store.content.heroCustomerCount} onChange={(e) => store.updateContent({ heroCustomerCount: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Başlangıç Fiyatı</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Başlangıç Fiyatı</Label>
+                                            <CMSPreview
+                                                label="Hero CTA Butonu"
+                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                description="Turuncu buton - sayfanın ortasında"
+                                            />
+                                        </div>
                                         <Input value={store.content.heroPrice} onChange={(e) => store.updateContent({ heroPrice: e.target.value })} />
                                     </div>
                                 </div>
