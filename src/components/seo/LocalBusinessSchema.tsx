@@ -3,29 +3,29 @@ import React from 'react';
 export const LocalBusinessSchema = () => {
     const schema = {
         "@context": "https://schema.org",
-        "@type": "HomeGoodsStore", // Hem mağaza hem atölye
-        "name": "VERAL Torna & Teneke Ticaret",
-        "alternateName": "Veral Metal Works",
+        "@type": "LocalBusiness",
+        "name": "VERAL Torna & Teneke Ticaret - İzmir Metal Poster & İmalat",
+        "alternateName": "Veral Teneke",
         "image": [
             "https://www.veralteneketicaret.com/veral-logo.webp",
             "https://www.veralteneketicaret.com/og-image.jpg"
         ],
-        "description": "İzmir Alsancak merkezli endüstriyel metal üretim, özel tasarım metal tablolar, CNC torna ve seri imalat atölyesi. Kişiye özel metal dekorasyon ve kurumsal çözümler.",
+        "description": "İzmir Alsancak merkezli VERAL Torna, takvim tenekesi, dosya teli, metal poster, mıknatıslı magnet ve tef zili üretimi yapmaktadır. 40 yılı aşkın tecrübe ile Türkiye geneli metal imalat çözümleri.",
         "url": "https://www.veralteneketicaret.com",
-        "telephone": "+905000000000", // Update with real number if available
+        "telephone": "+905071651315",
         "email": "info@metalposter.pro",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Alsancak Mahallesi", // Daha detaylı adres varsa eklenmeli
+            "streetAddress": "1512 Sk. No: 42/1 Alsancak Mahallesi",
             "addressLocality": "Konak",
             "addressRegion": "İzmir",
-            "postalCode": "35220",
+            "postalCode": "35210",
             "addressCountry": "TR"
         },
         "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 38.4382,
-            "longitude": 27.1418
+            "latitude": 38.4357,
+            "longitude": 27.1495
         },
         "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",
@@ -38,20 +38,21 @@ export const LocalBusinessSchema = () => {
                 "Saturday"
             ],
             "opens": "09:00",
-            "closes": "19:00"
+            "closes": "18:00"
         },
         "priceRange": "₺₺",
         "currenciesAccepted": "TRY",
         "paymentAccepted": "Credit Card, Cash, Bank Transfer",
         "areaServed": {
-            "@type": "City",
-            "name": "İzmir"
+            "@type": "Country",
+            "name": "Türkiye"
         },
-        "hasMap": "https://maps.google.com/?q=Alsancak,Izmir",
+        "hasMap": "https://maps.app.goo.gl/VERAL",
         "sameAs": [
-            "https://www.instagram.com/veralteneke",
+            "https://www.instagram.com/veralticaret",
             "https://www.facebook.com/veral"
-        ]
+        ],
+        "keywords": "takvim tenekesi, dosya teli, metal poster, mıknatıslı magnet, tef zili, izmir metal imalat, metal baskı izmir"
     };
 
     return (

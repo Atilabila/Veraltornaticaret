@@ -412,85 +412,85 @@ export const defaultContent: SiteContent = {
     services: [
         {
             id: '1',
-            slug: 'cnc-torna',
-            title: 'CNC Torna İşleme',
-            shortDescription: 'Hassas toleranslı metal parça üretimi. Ø2mm - Ø200mm arası işleme kapasitesi.',
-            fullDescription: 'Endüstriyel standartlarda CNC torna hizmetimiz ile pirinç, çelik ve alüminyum malzemelerde milimetrik hassasiyet sağlıyoruz.',
-            icon: 'Settings',
+            slug: 'takvim-tenekesi',
+            title: 'Takvim Tenekesi İmalatı',
+            shortDescription: 'İzmir merkezli seri takvim tenekesi üretimi. Özel ölçü ve yüksek kapasite.',
+            fullDescription: '40 yılı aşkın tecrübemizle, takvim yayıncıları ve matbaalar için yüksek kaliteli takvim tenekesi üretimi yapıyoruz. Farklı renk ve ölçü seçenekleriyle seri imalat kapasitemizle hizmetinizdeyiz.',
+            icon: 'Calendar',
             image: '',
-            seoTitle: 'CNC Torna ve Seri İmalat | VERAL İzmir',
-            seoDescription: 'İzmir CNC torna hizmetleri. Yüksek hassasiyetli metal işleme ve seri üretim çözümleri.',
+            seoTitle: 'Takvim Tenekesi İmalatı İzmir | VERAL Teneke',
+            seoDescription: 'Toptan takvim tenekesi üretimi. İzmir Alsancak merkezli atölyemizde yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.',
             features: [
-                { key: 'Hassasiyet', value: '0.01mm' },
-                { key: 'Malzeme', value: 'Pirinç, Çelik, Alüminyum' }
+                { key: 'Kapasite', value: 'Günlük 50.000+ Adet' },
+                { key: 'Malzeme', value: '0.22 - 0.30mm Teneke' }
             ],
-            applicationAreas: ['Otomotiv', 'Savunma Sanayi', 'Dekorasyon'],
-            slaText: '24 Saat İçinde Teklif Garantisi',
-            ctaTitle: 'Projeniz İçin Teklif Alın',
-            ctaLabel: 'Hemen Başlayalım',
+            applicationAreas: ['Matbaalar', 'Ajanslar', 'Yayınevleri'],
+            slaText: 'Hızlı Termin Süresi',
+            ctaTitle: 'Toptan Sipariş İçin Teklif Alın',
+            ctaLabel: 'Teklif Al',
             order: 1,
             isActive: true
         },
         {
             id: '2',
-            slug: 'ozel-uretim',
-            title: 'Özel Metal Ürün Üretimi',
-            shortDescription: 'Teknik çiziminize göre özel metal ürün tasarım ve üretimi.',
-            fullDescription: 'Hayalinizdeki veya teknik çizimi hazır olan metal ürünleri, en uygun malzeme ve teknikle hayata geçiriyoruz.',
-            icon: 'Wrench',
+            slug: 'dosya-teli',
+            title: 'Dosya Teli Üretimi',
+            shortDescription: 'Endüstriyel sınıf dayanıklı dosya teli imalatı. Toptan ve perakende.',
+            fullDescription: 'Arşivleme sistemleri ve dosya üreticileri için standart ve özel boylarda dosya teli üretimi yapıyoruz. Paslanmaz yapı ve yüksek esneklik dayanımı.',
+            icon: 'FileText',
             image: '',
-            seoTitle: 'Özel Metal Üretim Hizmetleri | VERAL',
-            seoDescription: 'Size özel metal ürün tasarımı ve butik üretim çözümleri.',
+            seoTitle: 'Dosya Teli İmalatı ve Toptan Satış | VERAL',
+            seoDescription: 'İzmir dosya teli üreticisi. Kırtasiye ve arşiv sistemleri için yüksek kaliteli, dayanıklı metal dosya telleri.',
             features: [
-                { key: 'Tasarım', value: 'Teknik Çizim Desteği' },
-                { key: 'Esneklik', value: 'Butik ve Proje Bazlı' }
+                { key: 'Dayanıklılık', value: 'Paslanmaz Kaplama' },
+                { key: 'Ölçü', value: 'Standart ve Özel Boy' }
             ],
-            applicationAreas: ['Mobilya', 'Aydınlatma', 'Endüstriyel Tasarım'],
-            slaText: 'Hızlı Projelendirme',
-            ctaTitle: 'Özel Projenizi Başlatın',
-            ctaLabel: 'Teklif Al',
+            applicationAreas: ['Kırtasiye Sektörü', 'Arşiv Merkezleri', 'Dosya İmalatçıları'],
+            slaText: 'Stoktan Teslimat',
+            ctaTitle: 'Toplu Alım İçin Bize Ulaşın',
+            ctaLabel: 'İletişime Geç',
             order: 2,
             isActive: true
         },
         {
             id: '3',
-            slug: 'seri-imalat',
-            title: 'Seri İmalat',
-            shortDescription: 'Yüksek hacimli metal parça üretimi. Min. 100 adet, max. sınırsız.',
-            fullDescription: 'Otomatik üretim hatlarımızla yüksek adetli siparişlerinizi hızla ve standart kalitede teslim ediyoruz.',
-            icon: 'Repeat',
+            slug: 'tef-zili',
+            title: 'Tef Zili Üretimi',
+            shortDescription: 'Profesyonel tef zili imalatı. Akustik kalibrasyon ve özel metal alaşım.',
+            fullDescription: 'Müzik aleti üreticileri için yüksek akustik performanslı tef zili üretimi. Pirinç ve çelik alaşım seçenekleriyle, altı köşe ve yuvarlak formlarda seri imalat.',
+            icon: 'Music',
             image: '',
-            seoTitle: 'Seri Metal Parça Üretimi | VERAL',
-            seoDescription: 'Yüksek kapasiteli metal parça imalatı ve tedarik çözümleri.',
+            seoTitle: 'Tef Zili İmalatı İzmir | VERAL Metal',
+            seoDescription: 'Müzik aletleri için profesyonel tef zili üretimi. Pirinç ve çelik yüzey seçenekleriyle en iyi akustik performans.',
             features: [
-                { key: 'Kapasite', value: 'Günlük 10.000+ Adet' },
-                { key: 'Maliyet', value: 'Avantajlı Birim Fiyat' }
+                { key: 'Malzeme', value: 'Pirinç / Paslanmaz Çelik' },
+                { key: 'Akustik', value: 'Kalibre Edilmiş Ses' }
             ],
-            applicationAreas: ['Hırdavat', 'Beyaz Eşya', 'Sektörel Yedek Parça'],
-            slaText: 'Zamanında Teslimat',
-            ctaTitle: 'Toplu Sipariş Alın',
-            ctaLabel: 'Fiyat Al',
+            applicationAreas: ['Enstrüman Üreticileri', 'Darbuka Atölyeleri', 'Müzik Marketler'],
+            slaText: 'Yüksek Parlaklık Garantisi',
+            ctaTitle: 'Özel Öretim Talebi Oluşturun',
+            ctaLabel: 'Detay Al',
             order: 3,
             isActive: true
         },
         {
             id: '4',
-            slug: 'metal-etiket',
-            title: 'Metal Etiket & Plaka',
-            shortDescription: 'Endüstriyel metal etiket, seri numarası plakası, uyarı levhaları.',
-            fullDescription: 'Kalıcı ve dayanıklı metal etiket çözümleri. Lazer markalama veya asit indirme teknikleriyle uzun ömürlü markalama.',
-            icon: 'Tag',
+            slug: 'miknatisli-magnet',
+            title: 'Mıknatıslı Magnet & Metal Poster',
+            shortDescription: 'UV baskılı dekoratif metal posterler ve güçlü mıknatıslı magnetler.',
+            fullDescription: 'Kişiye özel veya seri üretim mıknatıslı magnetler. 4K UV baskı teknolojisi ile metal yüzeylere kalıcı, solmayan görseller aktarıyoruz. Hem dekoratif hem kurumsal çözümler.',
+            icon: 'Zap',
             image: '',
-            seoTitle: 'Endüstriyel Metal Etiket | VERAL',
-            seoDescription: 'Makine etiketleri, seri numarası plakaları ve uyarı levhaları üretimi.',
+            seoTitle: 'Metal Poster & Magnet Üretimi İzmir | VERAL',
+            seoDescription: 'Özel tasarım metal posterler ve mıknatıslı magnet imalatı. UV baskı kalitesiyle İzmir dekorasyon çözümleri.',
             features: [
-                { key: 'Dayanıklılık', value: 'Korozyon Direnci' },
-                { key: 'Teknik', value: 'Lazer / Asit İndirme' }
+                { key: 'Baskı', value: '4K UV Digital' },
+                { key: 'Sistem', value: 'Kolay Manyetik Montaj' }
             ],
-            applicationAreas: ['Makine İmalatçıları', 'Elektrik Panoları', 'İş Güvenliği'],
-            slaText: 'Hassas Markalama',
-            ctaTitle: 'Etiket Talebi Oluşturun',
-            ctaLabel: 'Detaylar',
+            applicationAreas: ['Ev Dekorasyonu', 'Promosyon', 'Hediyelik Eşya'],
+            slaText: 'Ömür Boyu Renk Garantisi',
+            ctaTitle: 'Kendi Tasarımını Bastır',
+            ctaLabel: 'Şimdi Oluştur',
             order: 4,
             isActive: true
         }
@@ -516,9 +516,9 @@ export const defaultContent: SiteContent = {
 
 
     // Hero
-    heroTitle: "YAŞAM ALANINIZ İÇİN YENİ NESİL DEKOR",
-    heroSubtitle: "0.30 MM ENDÜSTRİYEL METAL PLAKALAR. 4K UV BASKI. ÖMÜR BOYU DAYANIKLILIK.",
-    heroTagline: "POSTER DEĞİL, DEKOR DONANIMI. BÜKÜLMEZ, SOLMAZ, DEFORME OLMAZ.",
+    heroTitle: "İZMİR'İN METAL ÜRETİM MERKEZİ",
+    heroSubtitle: "TAKVİM TENEKESİ, DOSYA TELİ VE METAL POSTER İMALATINDA 40 YILLIK TECRÜBE.",
+    heroTagline: "ENDÜSTRİYEL METAL ÇÖZÜMLERİ. TAKVİM TENEKESİNDEN ÖZEL METAL POSTERLERE.",
     heroPrice: "199 TL",
     heroImage: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
     heroImages: [
@@ -576,25 +576,25 @@ export const defaultContent: SiteContent = {
     servicesExploreUrl: "/hizmetler",
     serviceItems: [
         {
-            title: "DOSYA TELİ İMALATI",
-            description: "ENDÜSTRİYEL SINIF DOSYA TELİ ÜRETİMİ. ÖZEL ÖLÇÜLER. YÜKSEK GERİLİM DAYANIKLILIK DERECESİ.",
-            image: "/dosya-teli.jpg",
-            features: ["STANDART ÖLÇÜ", "ÖZEL TASARIM", "TOPLU ÜRETİM"],
-            exploreUrl: "/hizmetler/dosya-teli"
+            title: "TAKVİM TENEKESİ & DOSYA TELİ",
+            description: "SERİ TAKVİM TENEKESİ VE DOSYA TELİ İMALATI. İZMİR MERKEZLİ TÜRKİYE GENELİ SEVKİYAT.",
+            image: "/images/production/teneke.jpg",
+            features: ["HASSAS KESİM", "KOROZYON DİRENÇLİ", "TOPLU ÜRETİM"],
+            exploreUrl: "/hizmetler/takvim-tenekesi"
         },
         {
-            title: "METAL ETİKET ÇIKTISI",
-            description: "HASSAS LAZER VE MEKANİK ETİKETLEME. KOROZYON DİRENÇLİ. AĞIR MAKİNE UYGULAMALARI İÇİN.",
-            image: "/metal-etiket.png",
-            features: ["DEĞİŞKEN BOYUT", "LOGO BASKI", "YÜKSEK KALİTE"],
-            exploreUrl: "/hizmetler/metal-etiket"
+            title: "METAL POSTER & MAGNET",
+            description: "4K UV BASKILI METAL POSTERLER VE MIKNATISLI MAGNET ÜRETİMİ. ÖMÜR BOYU DAYANIKLI RENKLER.",
+            image: "/images/production/poster.jpg",
+            features: ["UV BASKI", "MIKNATISLI SİSTEM", "KİŞİYE ÖZEL"],
+            exploreUrl: "/urunler"
         },
         {
-            title: "DEF SİSTEMLERİ",
-            description: "PROFESYONEL METAL ENSTRÜMAN BİLEŞENLERİ. RENK KODLU YÜZEY. AKUSTİK OLARAK KALİBRE EDİLDİ.",
-            image: "/tef.png",
-            features: ["KROM KAPLAMA", "ÖZEL DİZİN", "HASSAS AYAR"],
-            exploreUrl: "/hizmetler/def-sistemleri"
+            title: "TEF ZİLİ & METAL AKSESUAR",
+            description: "PROFESYONEL TEF ZİLİ İMALATI VE ÖZEL METAL AKSESUAR ÇÖZÜMLERİ. AKUSTİK KALİTE.",
+            image: "/images/production/tef.jpg",
+            features: ["ALTI KÖŞE ZİL", "PİRİNÇ / ÇELİK", "ÖZEL KAPLAMA"],
+            exploreUrl: "/hizmetler/tef-zili"
         }
     ],
 
@@ -624,7 +624,7 @@ export const defaultContent: SiteContent = {
     // About Page
     aboutTitle: "HAKKIMIZDA",
     aboutSubtitle: "VERAL TORNA & TENEKE - METAL POSTER ÜRETİCİSİ",
-    aboutContent: "2020 yılından bu yana İzmir'de faaliyet gösteren firmamız, yüksek kaliteli alüminyum baskılı metal posterler üretmektedir. UV dijital baskı teknolojisi ile 100+ yıl dayanıklı, solmaz ve su geçirmez ürünler sunuyoruz.",
+    aboutContent: "İzmir Alsancak'ta 40 yılı aşkın tecrübesiyle faaliyet gösteren VERAL, takvim tenekesi, dosya teli, tef zili ve mıknatıslı magnet imalatında Türkiye'nin öncü firmalarından biridir. Modern UV baskı teknolojimizle ürettiğimiz metal posterler, yaşam alanlarınıza endüstriyel kalite ve sanatsal estetik katıyor. Tüm üretim süreçlerimizde hammadde kalitesini ve müşteri memnuniyetini en üst seviyede tutuyoruz.",
     aboutImage: "/about-image.png",
     aboutStats: [
         { label: "Yıllık Deneyim", value: "5+" },

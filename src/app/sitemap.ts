@@ -1,18 +1,21 @@
 import { MetadataRoute } from 'next'
 import { getProducts, getCategories } from '@/lib/actions/metal-products.actions'
+import { ContentService } from '@/lib/supabase/content.service'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://veralteneketicaret.com'
     const lastMod = new Date()
 
     // Fetch dynamic data
-    const [productsRes, categoriesRes] = await Promise.all([
+    const [productsRes, categoriesRes, siteContent] = await Promise.all([
         getProducts(), // Fetches active products by default
-        getCategories()
+        getCategories(),
+        ContentService.getContent()
     ])
 
     const products = productsRes.success && productsRes.data ? productsRes.data : []
     const categories = categoriesRes.success && categoriesRes.data ? categoriesRes.data : []
+    const services = siteContent?.services || []
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
@@ -33,6 +36,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: lastMod,
             changeFrequency: 'daily',
             priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/hizmetler`,
+            lastModified: lastMod,
+            changeFrequency: 'weekly',
+            priority: 0.8,
         },
         {
             url: `${baseUrl}/teklif-al`,
@@ -72,6 +81,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     ]
 
+    // Service pages
+    const servicePages: MetadataRoute.Sitemap = services
+        .filter(s => s.isActive)
+        .map(service => ({
+            url: `${baseUrl}/hizmetler/${service.slug}`,
+            lastModified: lastMod,
+            changeFrequency: 'weekly',
+            priority: 0.8,
+        }))
+
     // Category pages (Katalog filters)
     const categoryPages: MetadataRoute.Sitemap = categories
         .filter(c => c.is_active)
@@ -92,5 +111,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         }))
 
-    return [...staticPages, ...categoryPages, ...productPages]
+    return [...staticPages, ...servicePages, ...categoryPages, ...productPages]
 }
