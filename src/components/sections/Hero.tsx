@@ -17,11 +17,11 @@ export const Hero = () => {
 
     return (
         <DirectEdit tab="hero">
-            <section className="relative min-h-[90vh] flex items-center bg-transparent overflow-hidden">
+            <section className="relative min-h-[70vh] lg:min-h-[80vh] xl:min-h-[90vh] flex items-center bg-transparent overflow-hidden">
                 {/* Background Texture - Global Grid will show through */}
 
-                <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                    <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+                    <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-20 items-center">
 
                         {/* Left Column: Typography & CTAs */}
                         <div className="lg:col-span-7 flex flex-col gap-8 lg:gap-10">
@@ -45,7 +45,7 @@ export const Hero = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
-                                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter uppercase text-black"
+                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.9] tracking-tighter uppercase text-black"
                             >
                                 <TextInspector label="Hero-Headline">
                                     <span dangerouslySetInnerHTML={{ __html: content.heroTitle?.replace(/\n/g, '<br/>') || "METAL TABLO &<br/>TENEKELERDE<br/>YENİ NESİL<br/>DEKOR VE ÜRETİM" }} />

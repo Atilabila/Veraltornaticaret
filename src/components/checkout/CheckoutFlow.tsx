@@ -244,7 +244,7 @@ export const CheckoutFlow = () => {
                             <div className="inline-flex items-center justify-center w-32 h-32 bg-[var(--color-brand-safety-orange)] text-white p-6 border-4 border-black shadow-brutal mb-12 animate-bounce">
                                 <CheckCircle2 className="w-full h-full" />
                             </div>
-                            <h2 className="text-6xl md:text-8xl font-[Archivo Black] mb-8 uppercase leading-none">
+                            <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-[Archivo Black] mb-8 uppercase leading-none">
                                 İŞLEM <span className="text-[var(--color-brand-safety-orange)]">ONAYLANDI!</span>
                             </h2>
                             <div className="max-w-xl mx-auto space-y-6 mb-16">

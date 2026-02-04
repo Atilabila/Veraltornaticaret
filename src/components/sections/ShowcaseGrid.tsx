@@ -15,7 +15,7 @@ export const ShowcaseGrid = () => {
 
     return (
         <DirectEdit tab="showcase">
-            <section className="py-24 relative overflow-hidden bg-transparent">
+            <section id="features" className="py-12 lg:py-20 xl:py-24 bg-transparent border-b-8 border-black overflow-hidden relative bg-transparent">
                 {/* Industrial Background Pattern */}
                 <div
                     className="absolute inset-0 opacity-[0.03] pointer-events-none bg-repeat"

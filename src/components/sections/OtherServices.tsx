@@ -17,7 +17,7 @@ export const OtherServices = () => {
     const { content } = useContentStore();
 
     return (
-        <section id="other-services" className="py-24 bg-transparent border-b-8 border-white/5">
+        <section id="other-services" className="py-12 lg:py-20 xl:py-24 bg-transparent border-b-8 border-white/5">
             <div className="container-brutal">
                 {/* SYSTEM_HEADER */}
                 <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -25,7 +25,7 @@ export const OtherServices = () => {
                         <div className="inline-flex items-center gap-2 bg-white text-black px-4 py-1 font-mono text-base font-black mb-6">
                             [ BİRİM: İMALAT GENİŞLEME ]
                         </div>
-                        <h2 className="text-6xl md:text-8xl font-[Archivo Black] leading-none uppercase text-white">
+                        <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-[Archivo Black] leading-none uppercase text-white">
                             {content.servicesTitle.split(" ").slice(0, 1)}<br />
                             <span className="text-[var(--color-brand-safety-orange)]">{content.servicesTitle.split(" ").slice(1).join(" ")}</span>
                         </h2>

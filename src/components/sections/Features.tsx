@@ -10,7 +10,7 @@ export const Features = () => {
     const { content } = useContentStore();
 
     return (
-        <section id="features" className="py-24 bg-transparent border-b-8 border-black overflow-hidden">
+        <section id="features" className="py-12 lg:py-20 xl:py-24 bg-transparent border-b-8 border-black overflow-hidden">
             <div className="container-brutal">
                 {/* SYSTEM_HEADER */}
                 <div className="mb-24 border-8 border-black p-12 bg-white shadow-brutal">
@@ -18,7 +18,7 @@ export const Features = () => {
                         <Activity className="w-8 h-8 text-[var(--color-brand-safety-orange)] animate-pulse" />
                         <span className="font-mono font-black text-xl tracking-[0.2em]">SİSTEM AVANTAJLARI</span>
                     </div>
-                    <h2 className="text-6xl md:text-8xl font-[Archivo Black] leading-none mb-4 uppercase">
+                    <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-[Archivo Black] leading-none mb-4 uppercase">
                         {(content?.featuresTitle || "").split(" ").slice(0, 1)}<br />
                         <span className="text-[var(--color-brand-safety-orange)]">{(content?.featuresTitle || "").split(" ").slice(1).join(" ")}</span>
                     </h2>

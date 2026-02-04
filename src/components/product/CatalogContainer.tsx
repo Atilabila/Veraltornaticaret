@@ -98,7 +98,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
                             <span className="text-[10px] font-black font-mono text-[#D4AF37] uppercase tracking-[0.2em]">{headerLabel}</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-white font-[Archivo_Black] italic leading-none max-w-5xl">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black uppercase tracking-tighter text-white font-[Archivo_Black] italic leading-none max-w-5xl">
                             {headerTitle.split(" ").map((word, i) => (
                                 <span key={i} className={i % 2 !== 0 ? "metallic-shiny" : ""}>{word} </span>
                             ))}

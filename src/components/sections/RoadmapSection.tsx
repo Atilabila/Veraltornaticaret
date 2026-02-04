@@ -57,7 +57,7 @@ const roadmapItems = [
 
 export const RoadmapSection = () => {
     return (
-        <section id="roadmap" className="py-24 bg-black text-white overflow-hidden relative border-t-8 border-white">
+        <section id="roadmap" className="py-12 lg:py-20 xl:py-24 bg-black text-white overflow-hidden relative border-t-8 border-white">
             {/* Background scanline effect */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none z-10" />
 
@@ -71,7 +71,7 @@ export const RoadmapSection = () => {
                         >
                             <Zap className="w-4 h-4" /> SİSTEM EVRİMİ v4.5
                         </motion.div>
-                        <h2 className="text-5xl md:text-8xl font-[Archivo Black] leading-none uppercase tracking-tighter">
+                        <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-[Archivo Black] leading-none uppercase tracking-tighter">
                             FLASH <span className="text-outline-white">YOL HARİTASI</span>
                         </h2>
                     </div>
