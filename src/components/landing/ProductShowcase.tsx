@@ -69,8 +69,8 @@ export const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) =>
 
     return (
         <div className="relative bg-zinc-950">
-            {/* Hero Section - Top */}
-            <HeroSection productCount={activeProducts.length} />
+            {/* Top Space for Navigation */}
+            <div className="h-10" />
 
             {/* Product Sections */}
             {activeProducts.map((product, index) => (
@@ -82,6 +82,11 @@ export const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) =>
                 />
             ))}
 
+            {/* Industrial Info Section - Relocated to bottom and shrunk per user request */}
+            <div className="border-t border-zinc-900">
+                <HeroSection productCount={activeProducts.length} />
+            </div>
+
             {/* Footer CTA */}
             <FooterCTA />
         </div>
@@ -89,88 +94,80 @@ export const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) =>
 }
 
 // =====================================================
-// HERO SECTION - METAL ART EDITION
+// HERO SECTION (RESIZED & RELOCATED)
 // =====================================================
 const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
     const { content } = useContentStore()
 
     return (
-        <section className="py-32 relative overflow-hidden bg-zinc-950 border-b border-zinc-900">
-            {/* Background - Industrial Grid */}
-            <div className="absolute inset-0 bg-grid-metal opacity-20" />
-
-            {/* Ambient Light Effects */}
+        <section className="py-16 relative overflow-hidden bg-zinc-950">
+            {/* Ambient Light Effects - Subdued */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* Steel Glow - Top */}
-                <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-zinc-500/10 blur-[150px]" />
-                {/* Warm Accent - Bottom */}
-                <div className="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-amber-500/5 blur-[120px]" />
+                <div className="absolute top-0 left-1/4 w-[400px] h-[200px] bg-zinc-500/5 blur-[100px]" />
             </div>
 
             {/* Content */}
             <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
                 {/* Industrial Badge */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="inline-flex items-center gap-3 px-5 py-2 mb-10 rounded-sm bg-zinc-900/80 border border-zinc-800"
+                    className="inline-flex items-center gap-3 px-4 py-1.5 mb-6 rounded-sm bg-zinc-900/80 border border-zinc-800"
                 >
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
                         {productCount} Üretim Modeli Aktif
                     </span>
                 </motion.div>
 
-                {/* Main Title - Syne Font */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
+                {/* Title - Reduced Size */}
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.1, duration: 0.8 }}
-                    className="font-['Syne',sans-serif] text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
+                    transition={{ delay: 0.1, duration: 0.6 }}
+                    className="font-['Syne',sans-serif] text-3xl md:text-5xl lg:text-6xl font-bold mb-4"
                 >
                     <span className="text-white">
                         {content.metalShowcaseTitle?.split(" ")[0] || "Metal"}
                     </span>
-                    <br />
-                    <span className="shimmer-steel">
+                    <span className="shimmer-steel mx-4">
                         {content.metalShowcaseTitle?.split(" ")[1] || "Art"}
                     </span>
-                    <span className="text-zinc-600 ml-4">
+                    <span className="text-zinc-600 block md:inline mt-2 md:mt-0">
                         {content.metalShowcaseTitle?.split(" ").slice(2).join(" ") || "Atelier"}
                     </span>
-                </motion.h1>
+                </motion.h2>
 
-                {/* Subtitle */}
+                {/* Subtitle - Reduced Size */}
                 <motion.p
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
-                    className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed"
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="text-base text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed"
                 >
                     {content.metalShowcaseSubtitle || "İzmir Alsancak üretim tesisimizde, endüstriyel kalitede seri üretim hizmetleri sunuyoruz."}
                 </motion.p>
 
-                {/* Trust Badges */}
+                {/* Trust Badges - Smaller Gap */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                    className="flex flex-wrap justify-center gap-6 mb-8"
+                    transition={{ delay: 0.3, duration: 0.6 }}
+                    className="flex flex-wrap justify-center gap-4"
                 >
                     {content.metalShowcaseTrustBadges?.map((item, i) => {
                         const BadgeIcon = iconMap[item.icon] || HelpCircle
                         return (
                             <div
                                 key={i}
-                                className="flex items-center gap-2 px-4 py-2 rounded-sm bg-zinc-900/50 border border-zinc-800"
+                                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-zinc-900/30 border border-zinc-800/50"
                             >
-                                <BadgeIcon className="w-4 h-4 text-zinc-500" />
-                                <span className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+                                <BadgeIcon className="w-3 h-3 text-zinc-600" />
+                                <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
                                     {item.text}
                                 </span>
                             </div>
