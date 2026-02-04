@@ -10,32 +10,49 @@ interface ProductSchemaProps {
         currency?: string;
         availability: 'InStock' | 'OutOfStock';
         brand?: string;
+        url?: string;
     }
 }
 
 export const ProductSchema: React.FC<ProductSchemaProps> = ({ product }) => {
+    // Ensure we have an absolute URL for the image
+    const getAbsoluteUrl = (path: string) => {
+        if (!path) return '';
+        if (path.startsWith('http')) return path;
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralmetal.com';
+        return `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+    };
+
+    const absoluteImageUrl = getAbsoluteUrl(product.image);
+    const absoluteProductUrl = product.url || (typeof window !== 'undefined' ? window.location.href : '');
+
     const schema = {
         "@context": "https://schema.org",
         "@type": "Product",
         "name": product.name,
-        "image": [product.image],
-        "description": product.description || `${product.name} - Özel Tasarım Metal Tablo`,
+        "image": [absoluteImageUrl],
+        "description": product.description || `${product.name} - Premium Metal Tasarım`,
         "sku": product.sku,
+        "mpn": product.sku, // Manufacturing Part Number
         "brand": {
             "@type": "Brand",
             "name": product.brand || "VERAL"
         },
         "offers": {
             "@type": "Offer",
-            "url": typeof window !== 'undefined' ? window.location.href : '',
+            "url": absoluteProductUrl,
             "priceCurrency": product.currency || "TRY",
             "price": product.price,
-            "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+            "priceValidUntil": "2026-12-31",
             "itemCondition": "https://schema.org/NewCondition",
             "availability": `https://schema.org/${product.availability}`,
-            "seller": {
-                "@type": "Organization",
-                "name": "VERAL Torna & Teneke Ticaret"
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "TR",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnPeriod",
+                "merchantReturnDays": 14,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
             },
             "shippingDetails": {
                 "@type": "OfferShippingDetails",
@@ -55,10 +72,14 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({ product }) => {
                     "transitTime": {
                         "@type": "QuantitativeValue",
                         "minValue": 1,
-                        "maxValue": 5,
+                        "maxValue": 3,
                         "unitCode": "DAY"
                     }
                 }
+            },
+            "seller": {
+                "@type": "Organization",
+                "name": "VERAL"
             }
         }
     };

@@ -1352,7 +1352,10 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                         <CardContent className="space-y-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-white/5">
                                 <div className="space-y-2">
-                                    <Label>Sayfa Başlığı</Label>
+                                    <div className="flex items-center justify-between">
+                                        <Label>Sayfa Başlığı</Label>
+                                        <TypographyEditor fieldId="Cart-Title" label="Sepet Sayfa Başlığı" />
+                                    </div>
                                     <Input value={store.content.cartPage?.title} onChange={(e) => store.updateContent({ cartPage: { ...store.content.cartPage, title: e.target.value } })} />
                                 </div>
                                 <div className="space-y-2">
@@ -1389,7 +1392,10 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                         <Label>İlerleme Çubuğunu Göster</Label>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>İlgili Ürünler Başlığı</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>İlgili Ürünler Başlığı</Label>
+                                            <TypographyEditor fieldId="Cart-Related-Title" label="Sepet Benzer Ürünler" />
+                                        </div>
                                         <Input value={store.content.cartPage?.relatedProductsTitle} onChange={(e) => store.updateContent({ cartPage: { ...store.content.cartPage, relatedProductsTitle: e.target.value } })} />
                                     </div>
                                 </div>
@@ -1447,7 +1453,10 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                         <CardContent className="space-y-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-white/5">
                                 <div className="space-y-2">
-                                    <Label>Sayfa Başlığı</Label>
+                                    <div className="flex items-center justify-between">
+                                        <Label>Sayfa Başlığı</Label>
+                                        <TypographyEditor fieldId="Checkout-Title" label="Ödeme Sayfa Başlığı" />
+                                    </div>
                                     <Input value={store.content.checkoutPage?.title} onChange={(e) => store.updateContent({ checkoutPage: { ...store.content.checkoutPage, title: e.target.value } })} />
                                 </div>
                                 <div className="space-y-2">

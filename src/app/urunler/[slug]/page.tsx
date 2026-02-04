@@ -42,7 +42,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             title: product.name,
             description: product.description || undefined,
             images: product.image_url ? [product.image_url] : undefined,
-            type: "website"
+            type: "website",
+        },
+        other: {
+            "product:price:amount": product.price.toString(),
+            "product:price:currency": "TRY",
+            "product:availability": product.stock_quantity > 0 ? "instock" : "oos",
+            "product:brand": "VERAL"
         }
     }
 }
@@ -66,15 +72,19 @@ export default async function ProductDetailPage({ params }: PageProps) {
         }
     }
 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralmetal.com';
+    const absoluteProductUrl = `${baseUrl}/urunler/${product.slug}`;
+
     return (
         <>
             <ProductSchema product={{
                 name: product.name,
                 description: product.description || "",
                 image: product.image_url || "",
-                sku: product.id,
+                sku: product.sku || product.id,
                 price: product.price,
-                availability: product.stock_quantity > 0 ? "InStock" : "OutOfStock"
+                availability: product.stock_quantity > 0 ? "InStock" : "OutOfStock",
+                url: absoluteProductUrl
             }} />
             {/* Reuse the premium ProductDetailClient from the other route */}
             <ProductDetailClient product={product} relatedProducts={relatedProducts} />

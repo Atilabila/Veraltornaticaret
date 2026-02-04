@@ -4,6 +4,8 @@ import { QuoteForm } from '@/components/contact/QuoteForm';
 import { GlobalGrid } from '@/components/layout/GlobalGrid';
 import { ContentProvider } from '@/components/layout/ContentProvider';
 import { ContentService } from '@/lib/supabase/content.service';
+import { Navigation } from '@/components/layout/Navigation';
+import { Footer } from '@/components/layout/Footer';
 
 import { defaultContent } from '@/store/useContentStore';
 
@@ -28,6 +30,7 @@ export default async function QuotePage() {
     return (
         <ContentProvider initialContent={content}>
             <main className="relative min-h-screen bg-[#0A0A0A] overflow-hidden pt-32 pb-24">
+                <Navigation />
                 {/* Global Background Systems */}
                 <div className="absolute inset-0 pointer-events-none opacity-40">
                     <GlobalGrid />
@@ -56,6 +59,7 @@ export default async function QuotePage() {
                 {/* Decorative Elements */}
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-orange-500/5 rounded-full blur-[120px] -mr-96 -mt-96 pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[100px] -ml-48 -mb-48 pointer-events-none" />
+                <Footer />
             </main>
         </ContentProvider>
     );

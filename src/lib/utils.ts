@@ -37,33 +37,33 @@ export function slugify(str: string) {
 
 export function normalizeImagePath(path: string | undefined | null): string {
     if (!path) return '/placeholder.png';
-    if (path.startsWith('http') || path.startsWith('data:')) return path;
 
-    // Normalize path: replace backslashes, handle leading slash
-    let normalized = path.replace(/\\/g, '/');
-
-    // If it's a relative path from public, ensure it starts with /
-    if (!normalized.startsWith('/') && !normalized.includes('://')) {
-        normalized = '/' + normalized;
+    // If it's an absolute URL or data URI, return as is
+    if (path.startsWith('http') || path.startsWith('data:') || path.startsWith('blob:')) {
+        return path;
     }
 
-    // Handle Turkish characters and spaces to match the filesystem normalization
-    const turkishMap: Record<string, string> = {
-        'ğ': 'g', 'ü': 'u', 'ş': 's', 'ı': 'i', 'ö': 'o', 'ç': 'c',
-        'Ğ': 'g', 'Ü': 'u', 'Ş': 's', 'İ': 'i', 'Ö': 'o', 'Ç': 'c',
-        ' ': '-'
-    };
+    // Normalize path separators
+    let normalized = path.replace(/\\/g, '/');
 
-    let slugified = normalized.toLowerCase().split('').map(char => turkishMap[char] || char).join('');
+    // If it's clearly a local public path (starts with /), don't over-normalize
+    if (normalized.startsWith('/')) {
+        return normalized;
+    }
 
-    // Remove duplicate hyphens and keep only valid characters (preserving slashes and dots)
-    // We allow / and . for paths and extensions
-    slugified = slugified.replace(/[^a-z0-9\/\.-]/g, '-').replace(/-+/g, '-');
-
-    // Avoid double hyphens before extension
-    slugified = slugified.replace(/-\./g, '.');
-
-    return slugified;
+    // For other relative paths, ensure leading slash and replace invalid chars
+    // But be careful not to break the structure
+    return '/' + normalized.toLowerCase()
+        .replace(/[ğĞ]/g, 'g')
+        .replace(/[üÜ]/g, 'u')
+        .replace(/[şŞ]/g, 's')
+        .replace(/[ıİ]/g, 'i')
+        .replace(/[öÖ]/g, 'o')
+        .replace(/[çÇ]/g, 'c')
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9\/\.-]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/-\./g, '.');
 }
 
 export function toWebp(url: string | undefined | null): string {

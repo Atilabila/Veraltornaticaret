@@ -30,15 +30,22 @@ export const MetalImage: React.FC<MetalImageProps> = ({
     const [svgContent, setSvgContent] = React.useState<string | null>(null)
     const [isLoaded, setIsLoaded] = React.useState(false)
     const [isHovered, setIsHovered] = React.useState(false)
+    const [hasError, setHasError] = React.useState(false)
 
     const isSvg = src?.endsWith('.svg')
 
     // Fetch and inject SVG for CSS interactions
     React.useEffect(() => {
-        if (!isSvg || !src) return
+        if (!isSvg || !src) {
+            setIsLoaded(true)
+            return
+        }
 
         fetch(src)
-            .then(res => res.text())
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to load SVG')
+                return res.text()
+            })
             .then(text => {
                 // Clean up SVG and add our classes
                 let svg = text
@@ -48,8 +55,13 @@ export const MetalImage: React.FC<MetalImageProps> = ({
 
                 setSvgContent(svg)
                 setIsLoaded(true)
+                setHasError(false)
             })
-            .catch(() => setIsLoaded(true))
+            .catch((err) => {
+                console.error('SVG load error:', err)
+                setHasError(true)
+                setIsLoaded(true)
+            })
     }, [src, isSvg])
 
     // Determine ambient glow color
@@ -85,7 +97,28 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
             >
-                {isSvg && svgContent ? (
+                {!isLoaded ? (
+                    // Loading placeholder
+                    <div className="w-full h-full flex items-center justify-center">
+                        <div className="w-16 h-16 border-4 border-zinc-700 border-t-zinc-400 rounded-full animate-spin" />
+                    </div>
+                ) : hasError && isSvg ? (
+                    // Error fallback - try as regular image
+                    <img
+                        src={src}
+                        alt={alt}
+                        className={cn(
+                            "w-full h-full object-contain",
+                            "drop-shadow-2xl transition-all duration-300",
+                            isHovered && "brightness-110"
+                        )}
+                        loading={priority ? "eager" : "lazy"}
+                        onError={(e) => {
+                            console.error('Image failed to load:', src)
+                            e.currentTarget.style.display = 'none'
+                        }}
+                    />
+                ) : isSvg && svgContent ? (
                     // Injected SVG for CSS interactions
                     <div
                         className={cn(
@@ -107,7 +140,26 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                             isHovered && "brightness-110"
                         )}
                         loading={priority ? "eager" : "lazy"}
+                        onLoad={() => setIsLoaded(true)}
+                        onError={(e) => {
+                            console.error('Image failed to load:', src)
+                            setHasError(true)
+                            // Show placeholder icon instead
+                            e.currentTarget.style.display = 'none'
+                        }}
                     />
+                )}
+
+                {/* Show placeholder if image failed */}
+                {hasError && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/50">
+                        <div className="text-center">
+                            <svg className="w-16 h-16 mx-auto text-zinc-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <p className="text-xs text-zinc-500">Resim yüklenemedi</p>
+                        </div>
+                    </div>
                 )}
 
                 {/* Metallic Shimmer Overlay on Hover */}
