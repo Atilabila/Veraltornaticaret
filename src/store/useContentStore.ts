@@ -793,6 +793,34 @@ export const defaultContent: SiteContent = {
     // Product Categories Defaults
     productCategories: [
         {
+            id: "cat_4",
+            title: "Dosya Teli",
+            slug: "dosya-teli",
+            description: "Endüstriyel sınıf, yüksek dayanımlı çelik dosya telleri ve mekanizmaları.",
+            coverImage: "/images/showcase/dosya-teli.webp",
+            icon: "FileText",
+            seoTitle: "Dosya Teli Üretimi ve Toptan Satış | VERAL",
+            seoDescription: "Kırtasiye ve arşiv sistemleri için yüksek kaliteli, dayanıklı metal dosya telleri.",
+            ctaLabel: "Detayları Gör",
+            ctaLink: "/hizmetler/dosya-teli",
+            isFeatured: true,
+            order: 1
+        },
+        {
+            id: "cat_5",
+            title: "Takvim Tenekesi",
+            slug: "takvim-tenekesi",
+            description: "Matbaalar ve ajanslar için seri üretim, özel ölçü ve renklerde takvim tenekeleri.",
+            coverImage: "/images/showcase/takvim-tenekesi.webp",
+            icon: "Calendar",
+            seoTitle: "Takvim Tenekesi İmalatı İzmir | VERAL",
+            seoDescription: "Toptan takvim tenekesi üretimi. Yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.",
+            ctaLabel: "Detayları Gör",
+            ctaLink: "/hizmetler/takvim-tenekesi",
+            isFeatured: true,
+            order: 2
+        },
+        {
             id: "cat_1",
             title: "Metal Tablolar",
             slug: "metal-tablolar",
@@ -804,7 +832,7 @@ export const defaultContent: SiteContent = {
             ctaLabel: "Tabloları İncele",
             ctaLink: "/urunler?cat=metal-tablolar",
             isFeatured: true,
-            order: 1
+            order: 3
         },
         {
             id: "cat_2",
@@ -818,7 +846,7 @@ export const defaultContent: SiteContent = {
             ctaLabel: "Tenekeleri Gör",
             ctaLink: "/urunler?cat=teneke-urunler",
             isFeatured: true,
-            order: 2
+            order: 4
         },
         {
             id: "cat_3",
@@ -832,7 +860,7 @@ export const defaultContent: SiteContent = {
             ctaLabel: "Teklif İste",
             ctaLink: "/hizmetler/ozel-uretim",
             isFeatured: false,
-            order: 3
+            order: 5
         }
     ],
 
