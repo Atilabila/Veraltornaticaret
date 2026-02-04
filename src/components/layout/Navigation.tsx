@@ -115,11 +115,13 @@ export const Navigation = () => {
                 )}
 
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
-                    <div className={`flex items-center justify-between ${config.announcementActive ? 'py-4' : 'py-6'}`}>
+                    <div className={`flex items-center justify-between transition-all duration-500 ${config.announcementActive ? (isScrolled ? 'py-2' : 'py-3') : (isScrolled ? 'py-3' : 'py-4 md:py-5')
+                        }`}>
                         {/* Brand Logo */}
                         <div className="flex items-center gap-16">
                             <Link href="/" className="flex items-center gap-3 group">
-                                <div className="h-10 w-10 md:h-14 md:w-14 transition-all duration-500 flex-shrink-0 relative">
+                                <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-8 w-8 md:h-10 md:w-10' : 'h-10 w-10 md:h-12 md:w-12'
+                                    }`}>
                                     <img
                                         src={normalizeImagePath(logoSrc || "/veral-logo.webp")}
                                         alt={content.siteName || "VERAL"}
@@ -127,10 +129,12 @@ export const Navigation = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col">
-                                    <h2 className="text-lg md:text-xl font-black uppercase tracking-[0.15em] text-[#D4AF37]">
+                                    <h2 className={`font-black uppercase tracking-[0.15em] text-[#D4AF37] transition-all duration-500 ${isScrolled ? 'text-base md:text-lg' : 'text-lg md:text-xl'
+                                        }`}>
                                         {content.siteName || "VERAL"}
                                     </h2>
-                                    <span className={`text-[8px] font-bold tracking-[0.3em] uppercase -mt-0.5 ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
+                                    <span className={`text-[7px] md:text-[8px] font-bold tracking-[0.3em] uppercase -mt-0.5 transition-all duration-500 ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
+                                        } ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
                                 </div>
                             </Link>
 
@@ -181,7 +185,8 @@ export const Navigation = () => {
                                 </button>
                             </div>
 
-                            <Link href={config.ctaLink || "/teklif-al"} className="hidden sm:flex items-center justify-center px-6 md:px-8 h-12 border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500">
+                            <Link href={config.ctaLink || "/teklif-al"} className={`hidden sm:flex items-center justify-center border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500 ${isScrolled ? 'px-4 h-10' : 'px-6 md:px-8 h-12'
+                                }`}>
                                 {config.ctaText || "TEKLİF AL"}
                             </Link>
                         </div>

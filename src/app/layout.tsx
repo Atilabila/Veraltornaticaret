@@ -10,18 +10,18 @@ import { GlobalGrid } from "@/components/layout/GlobalGrid";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-}
+  // 1600px forces the browser to zoom out significantly, achieving that orderly, 
+  // distant desktop view the user desires for a premium mobile experience.
+  width: 1600,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: "VERAL - Metal Sanat Eserleri",
   description: "Özel tasarım metal posterler ve sanat eserleri",
-}
+  robots: "index, follow",
+};
 
-// Revalidate every 10 seconds to show admin changes immediately
 export const revalidate = 10;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -29,8 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="tr">
       <head>
         <LocalBusinessSchema />
+        <meta name="viewport" content="width=1600" />
       </head>
-      <body className="antialiased">
+      <body className="antialiased overflow-x-hidden">
         <AdminProvider>
           <ContentSyncProvider>
             <DynamicMetadata />

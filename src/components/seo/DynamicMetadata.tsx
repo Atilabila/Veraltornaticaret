@@ -62,6 +62,17 @@ export const DynamicMetadata = () => {
             meta.setAttribute('content', tag.content);
         });
 
+        // SAFETY: Remove any errant noindex tags on valid public pages
+        const noindexMeta = document.querySelector('meta[name="robots"][content*="noindex"]');
+        if (noindexMeta && !pathname?.startsWith('/admin')) {
+            noindexMeta.remove();
+            // Replace with index/follow
+            const robots = document.createElement('meta');
+            robots.setAttribute('name', 'robots');
+            robots.setAttribute('content', 'index, follow, max-image-preview:large');
+            document.head.appendChild(robots);
+        }
+
     }, [pathname, content])
 
     return null; // This component doesn't render anything

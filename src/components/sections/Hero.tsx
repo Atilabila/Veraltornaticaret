@@ -17,15 +17,11 @@ export const Hero = () => {
 
     return (
         <DirectEdit tab="hero">
-            <section className="relative min-h-[70vh] lg:min-h-[80vh] xl:min-h-[90vh] flex items-center bg-transparent overflow-hidden">
-                {/* Background Texture - Global Grid will show through */}
-
-                <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-                    <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-20 items-center">
-
+            <section className="relative min-h-[38vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center bg-white overflow-hidden py-10">
+                <div className="container mx-auto px-6 lg:px-12 relative z-10">
+                    <div className="grid grid-cols-12 gap-10 items-center">
                         {/* Left Column: Typography & CTAs */}
-                        <div className="lg:col-span-7 flex flex-col gap-8 lg:gap-10">
-                            {/* Eyebrow */}
+                        <div className="col-span-12 md:col-span-7 flex flex-col gap-6">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -40,24 +36,22 @@ export const Hero = () => {
                                 </TextInspector>
                             </motion.div>
 
-                            {/* Main Headline */}
                             <motion.h1
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
-                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.9] tracking-tighter uppercase text-black"
+                                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.97] tracking-tighter uppercase text-black"
                             >
                                 <TextInspector label="Hero-Headline">
                                     <span dangerouslySetInnerHTML={{ __html: content.heroTitle?.replace(/\n/g, '<br/>') || "METAL TABLO &<br/>TENEKELERDE<br/>YENİ NESİL<br/>DEKOR VE ÜRETİM" }} />
                                 </TextInspector>
                             </motion.h1>
 
-                            {/* Supporting Text */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
-                                className="border-l-4 border-black pl-6 py-2"
+                                className="border-l-4 border-black pl-4 py-0.5"
                             >
                                 <TextInspector label="Hero-Tagline">
                                     <p className="font-mono text-sm md:text-base font-medium text-black/70 uppercase tracking-widest leading-relaxed">
@@ -66,17 +60,16 @@ export const Hero = () => {
                                 </TextInspector>
                             </motion.div>
 
-                            {/* CTAs */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.3 }}
-                                className="flex flex-col sm:flex-row gap-4 pt-4"
+                                className="flex flex-col sm:flex-row gap-4 pt-2"
                             >
                                 <Button
                                     asChild
                                     size="lg"
-                                    className="h-16 px-8 text-base font-black tracking-widest uppercase rounded-none bg-black hover:bg-gray-800 transition-all duration-300"
+                                    className="h-14 px-10 text-[14px] font-black tracking-[0.28em] uppercase rounded-none bg-black hover:bg-gray-800 transition-all duration-300"
                                 >
                                     <Link href={content.heroButton1Url || "/urunler"}>
                                         <span className="flex items-center gap-3">
@@ -90,7 +83,7 @@ export const Hero = () => {
                                     asChild
                                     variant="outline"
                                     size="lg"
-                                    className="h-16 px-8 text-base font-black tracking-widest uppercase rounded-none border-2 border-black bg-white text-black hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/80 focus-visible:ring-offset-2 disabled:opacity-100 disabled:bg-white disabled:text-black disabled:border-black/40 transition-all duration-300"
+                                    className="h-14 px-10 text-[14px] font-black tracking-[0.28em] uppercase rounded-none border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-all duration-300"
                                 >
                                     <Link href={content.heroButton2Url || "/urunler"}>
                                         {content.heroButton2Text || "KATALOG"}
@@ -98,12 +91,11 @@ export const Hero = () => {
                                 </Button>
                             </motion.div>
 
-                            {/* Trust Badges */}
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
-                                className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-black/10"
+                                className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-black/10"
                             >
                                 {(content.metalShowcaseTrustBadges || []).map((badge, index) => (
                                     <TrustItem key={index} iconName={badge.icon} text={badge.text} />
@@ -124,32 +116,23 @@ export const Hero = () => {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, ease: "circOut" }}
-                            className="lg:col-span-5 relative block mt-10 lg:mt-0"
+                            className="col-span-12 md:col-span-5 relative block"
                         >
-                            <div className="relative aspect-[3/4] bg-gray-100 max-w-[420px] mx-auto lg:max-w-none">
-                                {/* Main Visual */}
+                            <div className="relative aspect-[3/4] bg-gray-100 w-full shadow-2xl">
                                 <Image
                                     src={content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop"}
                                     alt="Industrial Metal Production"
                                     fill
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                    className="object-cover grayscale-0 transition-[filter] duration-200 [@media(hover:hover)_and_(pointer:fine)]:grayscale [@media(hover:hover)_and_(pointer:fine)]:hover:grayscale-0"
+                                    className="object-cover"
                                     priority
                                 />
-
-                                {/* Technical Overlay */}
                                 <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none" />
-
-                                {/* Floating Card */}
-                                <div className="absolute -bottom-8 -left-8 bg-white p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] max-w-[240px] border-l-4 border-black">
-                                    <div className="text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Technical Specs</div>
-                                    <div className="text-3xl font-black text-black">0.30<span className="text-sm align-top">mm</span></div>
-                                    <div className="text-sm font-bold text-gray-800 mt-1">Industrial Grade Steel</div>
+                                <div className="absolute -bottom-6 -left-6 bg-white p-5 shadow-2xl border-l-8 border-black z-20">
+                                    <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Technical Specs</div>
+                                    <div className="text-3xl font-black text-black">0.30<span className="text-[12px] align-top ml-1">mm</span></div>
+                                    <div className="text-[13px] font-bold text-gray-800 mt-1">Industrial Grade Steel</div>
                                 </div>
                             </div>
-
-                            {/* Background Decor */}
-                            <div className="absolute -z-10 top-10 -right-10 w-full h-full border-2 border-black/5" />
                         </motion.div>
                     </div>
                 </div>
@@ -158,17 +141,14 @@ export const Hero = () => {
     );
 };
 
-
 const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => {
-    // Dynamically retrieve the icon component, default to ShieldCheck if not found
     const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.ShieldCheck;
-
     return (
-        <div className="flex flex-col items-center sm:items-start md:flex-row gap-3">
+        <div className="flex flex-col items-center md:items-start lg:flex-row gap-3">
             <div className="p-2 bg-black/5 rounded-none">
                 <IconComponent className="w-5 h-5 text-black/80" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-tight leading-tight text-gray-600 max-w-[100px] text-center sm:text-left">
+            <span className="text-[11px] font-bold uppercase tracking-tight leading-tight text-gray-600 max-w-[100px] text-center md:text-left">
                 {text}
             </span>
         </div>
