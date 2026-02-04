@@ -6,7 +6,8 @@ import { ArrowDown, Zap, FileText, Factory, Ruler, MapPin } from "lucide-react"
 import { useInView } from "@/hooks/useInView"
 import { FeatureItem } from "./FeatureItem"
 import { MetalImage } from "./MetalImage"
-import { cn } from "@/lib/utils"
+import { cn, slugify } from "@/lib/utils"
+import Link from "next/link"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
 
 interface ProductSectionProps {
@@ -133,23 +134,27 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         </motion.div>
 
                         {/* Image Container - Metal Frame */}
-                        <div className={cn(
-                            "relative aspect-square flex items-center justify-center",
-                            "overflow-hidden",
-                            // Sharp edges
-                            "rounded-sm",
-                            // Metal inset effect
-                            isDark
-                                ? "bg-white/5 border border-white/10"
-                                : "bg-black/5 border border-black/10",
-                            "shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)]"
-                        )}>
+                        <Link
+                            href={`/urunler/${product.slug || slugify(product.name)}`}
+                            className={cn(
+                                "relative aspect-square flex items-center justify-center",
+                                "overflow-hidden block group/image",
+                                // Sharp edges
+                                "rounded-sm",
+                                // Metal inset effect
+                                isDark
+                                    ? "bg-white/5 border border-white/10"
+                                    : "bg-black/5 border border-black/10",
+                                "shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)]",
+                                "transition-all duration-500 hover:border-[#D4AF37]/50"
+                            )}
+                        >
                             {product.image_url ? (
                                 <MetalImage
                                     src={product.image_url}
                                     alt={product.name}
                                     backgroundColor={product.background_color}
-                                    className="w-full h-full p-8 object-contain"
+                                    className="w-full h-full p-8 object-contain transition-transform duration-700 group-hover/image:scale-110"
                                     showAmbientGlow={false}
                                 />
                             ) : (
@@ -158,7 +163,10 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                     isDark ? "bg-white/10" : "bg-black/10"
                                 )} />
                             )}
-                        </div>
+
+                            {/* Hover Overlay */}
+                            <div className="absolute inset-0 bg-[#D4AF37]/5 opacity-0 group-hover/image:opacity-100 transition-opacity duration-500" />
+                        </Link>
 
                         {/* Decorative Corner Rivets */}
                         {["-top-1 -right-1", "-bottom-1 -right-1", "-bottom-1 -left-1"].map((pos, i) => (
@@ -213,13 +221,17 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ delay: 0.1, duration: 0.6 }}
-                            className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl font-bold leading-none",
-                                "font-['Syne',sans-serif] tracking-tight",
-                                isDark ? "text-white" : "text-zinc-900"
-                            )}
                         >
-                            {product.name}
+                            <Link
+                                href={`/urunler/${product.slug || slugify(product.name)}`}
+                                className={cn(
+                                    "text-4xl md:text-5xl lg:text-6xl font-bold leading-none block",
+                                    "font-['Syne',sans-serif] tracking-tight hover:text-[#D4AF37] transition-colors duration-300",
+                                    isDark ? "text-white" : "text-zinc-900"
+                                )}
+                            >
+                                {product.name}
+                            </Link>
                         </motion.h2>
 
                         {/* Description */}

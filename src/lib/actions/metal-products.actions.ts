@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase/client'
 import { createAdminSupabaseClient } from '@/lib/supabase/admin'
 
 const supabaseAdmin = createAdminSupabaseClient()
+import { slugify } from '@/lib/utils'
 import type {
     MetalProduct,
     Category,
@@ -493,17 +494,7 @@ export async function createBulkProducts(products: ProductFormData[]): Promise<A
 
         // Prepare data with slugs
         const productsToInsert = products.map(p => {
-            const baseSlug = p.slug || p.name
-                .toLowerCase()
-                .replace(/ğ/g, 'g')
-                .replace(/ü/g, 'u')
-                .replace(/ş/g, 's')
-                .replace(/ı/g, 'i')
-                .replace(/ö/g, 'o')
-                .replace(/ç/g, 'c')
-                .replace(/[^a-z0-9-]/g, '-')
-                .replace(/-+/g, '-')
-                .replace(/^-|-$/g, '')
+            const baseSlug = p.slug || slugify(p.name)
 
             // Add short random suffix to ensure uniqueness in bulk uploads
             const slug = `${baseSlug}-${Math.random().toString(36).substring(2, 5)}`
@@ -572,5 +563,36 @@ export async function getRelatedProducts(categoryId: string, currentProductId: s
     } catch (err) {
         console.error('Error fetching related products:', err)
         return { data: [], error: 'Benzer ürünler yüklenemedi', success: false }
+    }
+}
+
+export async function ensureMissingSlugs(): Promise<ApiResponse<number>> {
+    try {
+        const { data, error } = await (supabaseAdmin as any)
+            .from('metal_products')
+            .select('id, name, slug')
+            .or('slug.is.null,slug.eq.""')
+
+        if (error) throw error
+
+        if (!data || data.length === 0) {
+            return { data: 0, error: null, success: true }
+        }
+
+        let updatedCount = 0
+        for (const item of data) {
+            const newSlug = slugify(item.name)
+            const { error: updateError } = await (supabaseAdmin as any)
+                .from('metal_products')
+                .update({ slug: newSlug })
+                .eq('id', item.id)
+
+            if (!updateError) updatedCount++
+        }
+
+        return { data: updatedCount, error: null, success: true }
+    } catch (err) {
+        console.error('Error ensuring missing slugs:', err)
+        return { data: 0, error: 'Sluglar güncellenemedi', success: false }
     }
 }

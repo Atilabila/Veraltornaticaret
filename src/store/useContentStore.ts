@@ -352,6 +352,17 @@ export interface SiteContent {
         successMessage: string;
         completeButtonText: string;
     };
+
+    // ===== TYPOGRAPHY OVERRIDES =====
+    typographyOverrides?: Record<string, {
+        fontSize?: string;
+        fontWeight?: string;
+        color?: string;
+        fontStyle?: string;
+        lineHeight?: string;
+        letterSpacing?: string;
+        textAlign?: 'left' | 'center' | 'right';
+    }>;
 }
 
 interface ContentStore {
@@ -376,6 +387,9 @@ interface ContentStore {
     // Supabase Sync Methods
     fetchContent: () => Promise<void>;
     saveToSupabase: () => Promise<boolean>;
+
+    // Typography Actions
+    updateTypography: (id: string, styles: any) => void;
 }
 
 export const defaultContent: SiteContent = {
@@ -622,9 +636,9 @@ export const defaultContent: SiteContent = {
     whatsappMessage: "Merhaba, ürünleriniz hakkında bilgi almak istiyorum.",
 
     // About Page
-    aboutTitle: "HAKKIMIZDA",
-    aboutSubtitle: "VERAL TORNA & TENEKE - METAL POSTER ÜRETİCİSİ",
-    aboutContent: "İzmir Alsancak'ta 40 yılı aşkın tecrübesiyle faaliyet gösteren VERAL, takvim tenekesi, dosya teli, tef zili ve mıknatıslı magnet imalatında Türkiye'nin öncü firmalarından biridir. Modern UV baskı teknolojimizle ürettiğimiz metal posterler, yaşam alanlarınıza endüstriyel kalite ve sanatsal estetik katıyor. Tüm üretim süreçlerimizde hammadde kalitesini ve müşteri memnuniyetini en üst seviyede tutuyoruz.",
+    aboutTitle: "1983'ten Beri Darağaç'tayız",
+    aboutSubtitle: "Baba Yadigârı Atölyemizde, Esnaf Kültürüyle Üretiyoruz.",
+    aboutContent: "Hikâyemiz 1983 yılında, İzmir Alsancak’ın o meşhur Darağaç sokaklarında başladı. Aile büyüklerimizden devraldığımız atölyemizde, o günkü esnaf kültürü ve dürüstlük neyse bugün de aynı heyecanla çalışmaya devam ediyoruz.\n\nGeçen 40 yılda çok şey değişti ama bizim işimize olan bakışımız hiç değişmedi. Eskinin o titiz el işçiliğini, bugünün modern imkanlarıyla birleştirerek metal ve teneke üzerine çözümler üretiyoruz. Bizim için asıl mesele, söz verdiğimiz kaliteyi bozmamak ve kapımızdan çıkan her işin arkasında durabilmektir.\n\nİster özel bir tasarım olsun, ister kurumsal bir üretim; atölyemize giren her talebi kendi işimiz gibi görüyor, Alsancak’ın o köklü dükkan ruhunu yaşatıyoruz.",
     aboutImage: "/about-image.png",
     aboutStats: [
         { label: "Yıllık Deneyim", value: "5+" },
@@ -1118,6 +1132,21 @@ export const useContentStore = create<ContentStore>()(
                 const { content } = get();
                 const result = await upsertAdminContent(content);
                 return result.success;
+            },
+
+            updateTypography: (id: string, styles: any) => {
+                set((state) => ({
+                    content: {
+                        ...state.content,
+                        typographyOverrides: {
+                            ...(state.content.typographyOverrides || {}),
+                            [id]: {
+                                ...(state.content.typographyOverrides?.[id] || {}),
+                                ...styles
+                            }
+                        }
+                    }
+                }));
             },
         }),
         {

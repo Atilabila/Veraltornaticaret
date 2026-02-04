@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { TextInspector } from "@/components/admin/TextInspector";
 
 export const ShowcaseGrid = () => {
     const { content } = useContentStore();
@@ -34,9 +35,11 @@ export const ShowcaseGrid = () => {
                                 className="flex items-center gap-4"
                             >
                                 <div className="w-12 h-[2px] bg-[#D4AF37]" />
-                                <span className="text-sm font-black text-[#D4AF37] tracking-[0.4em] uppercase font-sans">
-                                    METAL SHOWCASE
-                                </span>
+                                <TextInspector label="Section Label">
+                                    <span className="text-sm font-black text-[#D4AF37] tracking-[0.4em] uppercase font-sans">
+                                        METAL SHOWCASE
+                                    </span>
+                                </TextInspector>
                             </motion.div>
                             <motion.h2
                                 initial={{ opacity: 0, y: 20 }}
@@ -44,12 +47,16 @@ export const ShowcaseGrid = () => {
                                 viewport={{ once: true }}
                                 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4 font-display max-w-4xl"
                             >
-                                {content.metalShowcaseTitle.split(' ').map((word, i) => (
-                                    <React.Fragment key={i}>
-                                        {word}{' '}
-                                        {i === 0 && <br />}
-                                    </React.Fragment>
-                                ))}
+                                <TextInspector label="Section Title">
+                                    <span>
+                                        {content.metalShowcaseTitle.split(' ').map((word, i) => (
+                                            <React.Fragment key={i}>
+                                                {word}{' '}
+                                                {i === 0 && <br />}
+                                            </React.Fragment>
+                                        ))}
+                                    </span>
+                                </TextInspector>
                             </motion.h2>
                         </div>
 

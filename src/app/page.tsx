@@ -25,12 +25,12 @@ export default function HomePage() {
       <Navigation />
 
       {/* CORE_EXPERIENCE - WHITE */}
-      <section className="bg-white text-black relative">
+      <section className="bg-white text-black relative z-0">
         <Hero />
       </section>
 
       {/* SYSTEM_STATUS_STRIP - BLACK */}
-      <section className="bg-[#0A0A0A] text-white relative">
+      <section className="bg-[#0A0A0A] text-white relative z-0">
         <ShowcaseGrid />
       </section>
 
@@ -40,13 +40,13 @@ export default function HomePage() {
         <StatsMarquee />
       </section>
 
-      {/* PRODUCT_GALLERY - BLACK */}
-      <section className="bg-[#0A0A0A] text-white relative">
+      {/* PRODUCT_GALLERY - BLACK (Heavy: Hide Grid) */}
+      <section className="bg-[#0A0A0A] text-white relative z-10">
         <ProductGallery />
       </section>
 
-      {/* SHOWCASE - WHITE */}
-      <section className="bg-white text-black relative">
+      {/* SHOWCASE - WHITE (Heavy: Hide Grid) */}
+      <section className="bg-white text-black relative z-10">
         <GalleryShowcase />
       </section>
 
@@ -56,7 +56,7 @@ export default function HomePage() {
       </section>
 
       {/* PROCESS_MATRIX - WHITE */}
-      <section className="bg-white text-black relative">
+      <section className="bg-white text-black relative z-0">
         <ProcessSection />
       </section>
 

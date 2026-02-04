@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { InstagramAdmin } from "@/components/admin/InstagramAdmin"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CMSPreview } from "@/components/admin/CMSPreview"
+import { TypographyEditor } from "@/components/admin/TypographyEditor"
 
 export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: string }) => {
     const store = useContentStore()
@@ -780,22 +781,28 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
                                             <Label>Ana Başlık</Label>
-                                            <CMSPreview
-                                                label="Hero Ana Başlık"
-                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
-                                                description="Ana sayfanın en üstünde, büyük beyaz yazı ile görünür"
-                                            />
+                                            <div className="flex items-center gap-2">
+                                                <TypographyEditor fieldId="Hero-Headline" label="Ana Başlık" />
+                                                <CMSPreview
+                                                    label="Hero Ana Başlık"
+                                                    previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                    description="Ana sayfanın en üstünde, büyük beyaz yazı ile görünür"
+                                                />
+                                            </div>
                                         </div>
                                         <Textarea value={store.content.heroTitle} onChange={(e) => store.updateContent({ heroTitle: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
                                             <Label>Slogan (Tekil)</Label>
-                                            <CMSPreview
-                                                label="Hero Slogan"
-                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
-                                                description="Ana başlığın hemen altında, tek satır olarak görünür"
-                                            />
+                                            <div className="flex items-center gap-2">
+                                                <TypographyEditor fieldId="Hero-Tagline" label="Slogan" />
+                                                <CMSPreview
+                                                    label="Hero Slogan"
+                                                    previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                    description="Ana başlığın hemen altında, tek satır olarak görünür"
+                                                />
+                                            </div>
                                         </div>
                                         <Input value={store.content.heroTagline} onChange={(e) => store.updateContent({ heroTagline: e.target.value })} placeholder="VERAL" />
                                     </div>
@@ -817,11 +824,14 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
                                             <Label>Özet Açıklama</Label>
-                                            <CMSPreview
-                                                label="Hero Açıklama Metni"
-                                                previewImage="/artifacts/hero_section_preview_1770115021977.png"
-                                                description="CTA butonunun üstünde görünür"
-                                            />
+                                            <div className="flex items-center gap-2">
+                                                <TypographyEditor fieldId="Hero-Eyebrow" label="Özet Açıklama" />
+                                                <CMSPreview
+                                                    label="Hero Açıklama Metni"
+                                                    previewImage="/artifacts/hero_section_preview_1770115021977.png"
+                                                    description="CTA butonunun üstünde görünür"
+                                                />
+                                            </div>
                                         </div>
                                         <Textarea value={store.content.heroSubtitle} onChange={(e) => store.updateContent({ heroSubtitle: e.target.value })} rows={3} />
                                     </div>
@@ -860,15 +870,24 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4">
                                     <div className="space-y-2">
-                                        <Label>Ana Başlık</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Ana Başlık</Label>
+                                            <TypographyEditor fieldId="About-Title" label="Hakkımızda Başlık" />
+                                        </div>
                                         <Input value={store.content.aboutTitle} onChange={(e) => store.updateContent({ aboutTitle: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Alt Başlık</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Alt Başlık</Label>
+                                            <TypographyEditor fieldId="About-Subtitle" label="Hakkımızda Alt Başlık" />
+                                        </div>
                                         <Input value={store.content.aboutSubtitle} onChange={(e) => store.updateContent({ aboutSubtitle: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Hikaye / İçerik</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Hikaye / İçerik</Label>
+                                            <TypographyEditor fieldId="About-Content" label="Hakkımızda İçerik" />
+                                        </div>
                                         <Textarea value={store.content.aboutContent} onChange={(e) => store.updateContent({ aboutContent: e.target.value })} rows={5} />
                                     </div>
                                 </div>
@@ -1029,11 +1048,17 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                         <CardContent className="space-y-8">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label>Bölüm Başlığı</Label>
+                                    <div className="flex items-center justify-between">
+                                        <Label>Bölüm Başlığı</Label>
+                                        <TypographyEditor fieldId="Features-Title" label="Özellikler Başlık" />
+                                    </div>
                                     <Input value={store.content.featuresTitle} onChange={(e) => store.updateContent({ featuresTitle: e.target.value })} />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Alt Başlık</Label>
+                                    <div className="flex items-center justify-between">
+                                        <Label>Alt Başlık</Label>
+                                        <TypographyEditor fieldId="Features-Subtitle" label="Özellikler Alt Başlık" />
+                                    </div>
                                     <Input value={store.content.featuresSubtitle} onChange={(e) => store.updateContent({ featuresSubtitle: e.target.value })} />
                                 </div>
                             </div>
@@ -1070,8 +1095,20 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="grid grid-cols-3 gap-4">
-                                <div className="space-y-2"><Label>Başlık</Label><Input value={store.content.reviewsTitle} onChange={(e) => store.updateContent({ reviewsTitle: e.target.value })} /></div>
-                                <div className="space-y-2"><Label>Alt Başlık</Label><Input value={store.content.reviewsSubtitle} onChange={(e) => store.updateContent({ reviewsSubtitle: e.target.value })} /></div>
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <Label>Başlık</Label>
+                                        <TypographyEditor fieldId="Reviews-Title" label="Yorumlar Başlık" />
+                                    </div>
+                                    <Input value={store.content.reviewsTitle} onChange={(e) => store.updateContent({ reviewsTitle: e.target.value })} />
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <Label>Alt Başlık</Label>
+                                        <TypographyEditor fieldId="Reviews-Subtitle" label="Yorumlar Alt Başlık" />
+                                    </div>
+                                    <Input value={store.content.reviewsSubtitle} onChange={(e) => store.updateContent({ reviewsSubtitle: e.target.value })} />
+                                </div>
                                 <div className="space-y-2"><Label>Toplam Skor Etiketi</Label><Input value={store.content.reviewsRatingLabel} onChange={(e) => store.updateContent({ reviewsRatingLabel: e.target.value })} /></div>
                             </div>
                             <div className="space-y-4">
@@ -1097,8 +1134,20 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="grid grid-cols-2 gap-4">
-                                <Input value={store.content.processTitle} onChange={(e) => store.updateContent({ processTitle: e.target.value })} />
-                                <Input value={store.content.processSubtitle} onChange={(e) => store.updateContent({ processSubtitle: e.target.value })} />
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <Label>Başlık</Label>
+                                        <TypographyEditor fieldId="Process-Title" label="Süreç Başlık" />
+                                    </div>
+                                    <Input value={store.content.processTitle} onChange={(e) => store.updateContent({ processTitle: e.target.value })} />
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <Label>Alt Başlık</Label>
+                                        <TypographyEditor fieldId="Process-Subtitle" label="Süreç Alt Başlık" />
+                                    </div>
+                                    <Input value={store.content.processSubtitle} onChange={(e) => store.updateContent({ processSubtitle: e.target.value })} />
+                                </div>
                             </div>
                             {store.content.processItems.map((item, index) => (
                                 <div key={index} className="p-4 bg-slate-800/30 rounded-lg space-y-2">
@@ -1124,11 +1173,17 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-b border-white/5 pb-8">
                                 <div className="space-y-4">
                                     <div className="space-y-2">
-                                        <Label>Ana Başlık</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Ana Başlık</Label>
+                                            <TypographyEditor fieldId="Showcase-Title" label="Vitrin Başlık" />
+                                        </div>
                                         <Input value={store.content.metalShowcaseTitle} onChange={(e) => store.updateContent({ metalShowcaseTitle: e.target.value })} />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Alt Başlık</Label>
+                                        <div className="flex items-center justify-between">
+                                            <Label>Alt Başlık</Label>
+                                            <TypographyEditor fieldId="Showcase-Subtitle" label="Vitrin Alt Başlık" />
+                                        </div>
                                         <Textarea value={store.content.metalShowcaseSubtitle} onChange={(e) => store.updateContent({ metalShowcaseSubtitle: e.target.value })} />
                                     </div>
                                 </div>

@@ -30,10 +30,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <LocalBusinessSchema />
       </head>
-      <body>
+      <body className="antialiased">
         <AdminProvider>
           <ContentSyncProvider>
             <DynamicMetadata />
+            <GlobalGrid />
             {children}
           </ContentSyncProvider>
         </AdminProvider>

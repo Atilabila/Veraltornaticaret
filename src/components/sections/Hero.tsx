@@ -10,6 +10,7 @@ import { useContentStore } from "@/store/useContentStore";
 import * as LucideIcons from "lucide-react";
 
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { TextInspector } from "@/components/admin/TextInspector";
 
 export const Hero = () => {
     const { content } = useContentStore();
@@ -32,9 +33,11 @@ export const Hero = () => {
                                 className="flex items-center gap-3"
                             >
                                 <span className="h-[2px] w-8 bg-black/80" />
-                                <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/70">
-                                    {content.heroSubtitle || "Yerli üretim metal tablolar, teneke ürünler ve özel baskı çözümleri"}
-                                </span>
+                                <TextInspector label="Hero-Eyebrow">
+                                    <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/70">
+                                        {content.heroSubtitle || "Yerli üretim metal tablolar, teneke ürünler ve özel baskı çözümleri"}
+                                    </span>
+                                </TextInspector>
                             </motion.div>
 
                             {/* Main Headline */}
@@ -44,7 +47,9 @@ export const Hero = () => {
                                 transition={{ duration: 0.5, delay: 0.1 }}
                                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter uppercase text-black"
                             >
-                                <span dangerouslySetInnerHTML={{ __html: content.heroTitle?.replace(/\n/g, '<br/>') || "METAL TABLO &<br/>TENEKELERDE<br/>YENİ NESİL<br/>DEKOR VE ÜRETİM" }} />
+                                <TextInspector label="Hero-Headline">
+                                    <span dangerouslySetInnerHTML={{ __html: content.heroTitle?.replace(/\n/g, '<br/>') || "METAL TABLO &<br/>TENEKELERDE<br/>YENİ NESİL<br/>DEKOR VE ÜRETİM" }} />
+                                </TextInspector>
                             </motion.h1>
 
                             {/* Supporting Text */}
@@ -54,9 +59,11 @@ export const Hero = () => {
                                 transition={{ duration: 0.5, delay: 0.2 }}
                                 className="border-l-4 border-black pl-6 py-2"
                             >
-                                <p className="font-mono text-sm md:text-base font-medium text-black/70 uppercase tracking-widest leading-relaxed">
-                                    {content.heroTagline || "0.30MM ENDÜSTRİYEL METAL PLAKALAR · UV DİJİTAL KALİBRASYON · SIFIR YUVARLAK KÖŞE"}
-                                </p>
+                                <TextInspector label="Hero-Tagline">
+                                    <p className="font-mono text-sm md:text-base font-medium text-black/70 uppercase tracking-widest leading-relaxed">
+                                        {content.heroTagline || "0.30MM ENDÜSTRİYEL METAL PLAKALAR · UV DİJİTAL KALİBRASYON · SIFIR YUVARLAK KÖŞE"}
+                                    </p>
+                                </TextInspector>
                             </motion.div>
 
                             {/* CTAs */}
