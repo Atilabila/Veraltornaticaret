@@ -30,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{
           __html: `
             (function() {
+              var timeout;
               function fixViewport() {
                 var width = 1600;
                 var scale = window.screen.width / width;
@@ -42,9 +43,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 }
                 meta.content = content;
               }
+              function debouncedFix() {
+                clearTimeout(timeout);
+                timeout = setTimeout(fixViewport, 150);
+              }
               fixViewport();
-              window.addEventListener('resize', fixViewport);
-              window.addEventListener('orientationchange', fixViewport);
+              window.addEventListener('resize', debouncedFix);
+              window.addEventListener('orientationchange', debouncedFix);
             })();
           `
         }} />

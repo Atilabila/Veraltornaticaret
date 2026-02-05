@@ -19,7 +19,7 @@ export const Footer = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 mb-32">
 
                         {/* LEFT: LOGO & ABOUT */}
-                        <div className="lg:col-span-12 xl:col-span-5 flex flex-col gap-10">
+                        <div className="lg:col-span-12 xl:col-span-4 flex flex-col gap-10">
                             <Link href="/" className="flex items-center gap-4 group">
                                 <div className="h-16 w-16 transition-all duration-500 flex-shrink-0">
                                     <img
@@ -77,7 +77,7 @@ export const Footer = () => {
                         </div>
 
                         {/* RIGHT: CONTACT INFO & BÜLTEN */}
-                        <div className="lg:col-span-6 xl:col-span-4 flex flex-col gap-10">
+                        <div className="lg:col-span-6 xl:col-span-5 flex flex-col gap-10">
                             <h4 className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase mb-4">İLETİŞİM</h4>
                             <div className="space-y-2">
                                 <div className="text-lg font-bold text-white tracking-widest">{content.footerPhone}</div>

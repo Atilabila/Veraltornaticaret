@@ -13,9 +13,14 @@ export const metadata: Metadata = {
 export const revalidate = 0; // Disable cache for debugging or set to 60
 
 export default async function ProductsPage() {
-    const [{ data: products }, { data: categories }] = await Promise.all([
+    const [
+        { data: products },
+        { data: categories },
+        { data: showcase }
+    ] = await Promise.all([
         getProducts(false),
-        getCategories()
+        getCategories(),
+        getProducts(true)
     ])
 
     return (
@@ -25,6 +30,7 @@ export default async function ProductsPage() {
             <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-black">Yükleniyor...</div>}>
                 <CatalogContainer
                     products={products || []}
+                    showcaseProducts={showcase || []}
                     categories={categories || []}
                 />
             </Suspense>

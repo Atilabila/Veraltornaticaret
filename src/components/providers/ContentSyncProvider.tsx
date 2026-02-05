@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useContentStore } from "@/store/useContentStore";
 
 /**
@@ -10,10 +11,15 @@ import { useContentStore } from "@/store/useContentStore";
  */
 export function ContentSyncProvider({ children }: { children: React.ReactNode }) {
     const fetchContent = useContentStore((state) => state.fetchContent);
+    const pathname = usePathname();
 
     useEffect(() => {
         // Fetch fresh content on mount
         fetchContent();
+
+        // Don't poll on admin pages to prevent overwriting unsaved work
+        // Admin pages manage their own state and syncing
+        if (pathname?.startsWith("/admin")) return;
 
         // Set up periodic refresh (every 30 seconds)
         const interval = setInterval(() => {
@@ -21,7 +27,7 @@ export function ContentSyncProvider({ children }: { children: React.ReactNode })
         }, 30000);
 
         return () => clearInterval(interval);
-    }, [fetchContent]);
+    }, [fetchContent, pathname]);
 
     return <>{children}</>;
 }

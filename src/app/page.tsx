@@ -37,7 +37,9 @@ export default function HomePage() {
       {/* INSTAGRAM_MARQUEE_FEED - BLACK */}
       <section className="bg-[#0A0A0A] text-white relative">
         <InstagramMarquee />
-        <StatsMarquee />
+        <div className="hide-on-mobile-force">
+          <StatsMarquee />
+        </div>
       </section>
 
       {/* PRODUCT_GALLERY - BLACK (Heavy: Hide Grid) */}

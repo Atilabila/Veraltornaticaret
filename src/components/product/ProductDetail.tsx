@@ -58,11 +58,11 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
             <nav className="fixed top-0 left-0 right-0 z-40 glass-nav">
                 <div className="container mx-auto px-6 py-4 flex items-center justify-between">
                     <Link
-                        href="/metal-showcase"
+                        href="/urunler"
                         className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
-                        <span className="text-sm font-medium">Geri</span>
+                        <span className="text-sm font-medium">Kataloga Dön</span>
                     </Link>
 
                     <div className="flex items-center gap-2">

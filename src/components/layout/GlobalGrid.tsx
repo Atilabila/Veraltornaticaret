@@ -31,7 +31,7 @@ export const GlobalGrid = () => {
         : `rgba(0, 0, 0, ${intensity / 1000})`;
 
     // SVG Tile is the most performant way to render patterns in browsers
-    const svgPattern = `data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 100 0 L 0 0 0 100' fill='none' stroke='${encodeURIComponent(gridColor)}' stroke-width='0.5'/%3E%3C/svg%3E`;
+    const svgPattern = `data:image/svg+xml,%3Csvg width='140' height='140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 140 0 L 0 0 0 140' fill='none' stroke='${encodeURIComponent(gridColor)}' stroke-width='0.5'/%3E%3C/svg%3E`;
 
     return (
         <div
@@ -40,7 +40,7 @@ export const GlobalGrid = () => {
             style={{
                 zIndex: 5, // Above background, below interactive content
                 backgroundImage: `url("${svgPattern}")`,
-                backgroundSize: '100px 100px',
+                backgroundSize: '140px 140px',
 
                 // 🚀 HARDWARE ACCELERATION (GPU Layer)
                 transform: 'translateZ(0)',

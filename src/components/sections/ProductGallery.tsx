@@ -39,8 +39,8 @@ export const ProductGallery = () => {
         ? products.filter((p) => p.category === selectedCategory && !p.is_showcase)
         : products.filter((p) => !p.is_showcase);
 
-    // Limit to 5 on mobile, 12 on desktop
-    const displayProducts = isMobile ? filteredProducts.slice(0, 5) : filteredProducts.slice(0, 12);
+    // Limit to 8 products as requested
+    const displayProducts = filteredProducts.slice(0, 8);
 
     if (loading) {
         return (

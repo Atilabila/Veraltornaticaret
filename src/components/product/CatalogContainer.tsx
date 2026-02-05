@@ -38,7 +38,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
     // Dynamic Header Data (Defaults are safe)
     const headerTitle = content.productsPageTitle || "METAL KOLEKSİYON";
     const headerSubtitle = content.productsPageSubtitle || "Endüstriyel metal tablo ve dekorasyon koleksiyonu.";
-    const headerLabel = content.productsPageIntroLabel || "Sistem: Katalog Çıktısı";
+    const headerLabel = content.productsPageIntroLabel || "ÖZEL KOLEKSİYON";
     const headerBg = content.productsPageBackgroundImage;
 
     const filteredProducts = useMemo(() => {
@@ -143,7 +143,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
                             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4AF37]" />
                             <input
                                 type="text"
-                                placeholder="MODEL, STİL VEYA SKU İLE ARA..."
+                                placeholder="MODEL VEYA STİL İLE ARA..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="w-full bg-white/5 border-2 border-white/10 py-5 pl-16 pr-8 font-mono text-xs tracking-[0.2em] text-white focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-white/20 uppercase"

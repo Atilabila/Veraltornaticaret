@@ -42,20 +42,7 @@ export const GalleryShowcase = () => {
 
                     {/* Grid */}
                     <div className="grid md:grid-cols-2 gap-10">
-                        {[
-                            {
-                                id: "01",
-                                title: "YAŞAM ALANI",
-                                desc: "MODERN KONUT SERİSİ // NOBLE",
-                                img: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=2574&auto=format&fit=crop"
-                            },
-                            {
-                                id: "02",
-                                title: "OFİS & STÜDYO",
-                                desc: "PROFESYONEL ÇALIŞMA ALANLARI",
-                                img: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2543&auto=format&fit=crop"
-                            }
-                        ].map((sc, idx) => (
+                        {(content.galleryShowcaseItems || []).map((sc, idx) => (
                             <motion.div
                                 key={sc.id}
                                 initial={{ opacity: 0, scale: 0.95 }}

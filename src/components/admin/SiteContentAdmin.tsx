@@ -73,6 +73,7 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                 <TabsList className="w-full bg-slate-900/50 p-1 rounded-xl border border-white/5 flex flex-wrap h-auto gap-1">
                     <TabsTrigger value="global" className="flex-1 min-w-[120px]">Global Ayarlar</TabsTrigger>
                     <TabsTrigger value="services" className="flex-1 min-w-[120px]">Hizmetler CMS</TabsTrigger>
+                    <TabsTrigger value="other-services" className="flex-1 min-w-[120px]">Üretim Modülleri</TabsTrigger>
                     <TabsTrigger value="pages" className="flex-1 min-w-[120px]">Sayfa Ayarları</TabsTrigger>
                     <TabsTrigger value="branding" className="flex-1 min-w-[120px]">Marka & Logo</TabsTrigger>
                     <TabsTrigger value="hero" className="flex-1 min-w-[120px]">Hero</TabsTrigger>
@@ -348,6 +349,37 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                 </div>
                             </div>
 
+                            {/* SERVICE DETAIL FOOTER EDITING */}
+                            <div className="bg-slate-800/50 p-6 rounded-xl border border-white/5 space-y-4 mb-8">
+                                <h3 className="font-bold text-lg text-white mb-4">Hizmet Detay Sayfası - Alt Kısım (Footer)</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Bölüm Başlığı</Label>
+                                        <Input
+                                            value={store.content.serviceDetailFooterTitle}
+                                            onChange={(e) => store.updateContent({ serviceDetailFooterTitle: e.target.value })}
+                                            placeholder="Örn: DİĞER HİZMETLER"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Bağlantı Metni</Label>
+                                        <Input
+                                            value={store.content.serviceDetailFooterLinkText}
+                                            onChange={(e) => store.updateContent({ serviceDetailFooterLinkText: e.target.value })}
+                                            placeholder="Örn: TÜMÜNÜ GÖR"
+                                        />
+                                    </div>
+                                    <div className="col-span-1 md:col-span-2 space-y-2">
+                                        <Label>Açıklama Metni</Label>
+                                        <Input
+                                            value={store.content.serviceDetailFooterDesc}
+                                            onChange={(e) => store.updateContent({ serviceDetailFooterDesc: e.target.value })}
+                                            placeholder="Örn: İlginizi çekebilecek..."
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="space-y-8">
                                 {(store.content.services || []).sort((a, b) => a.order - b.order).map((service, index) => (
                                     <div key={service.id} className="bg-slate-800/30 p-8 rounded-2xl border border-white/5 space-y-8 relative">
@@ -597,6 +629,125 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                         </CardContent>
                     </Card>
                 </TabsContent>
+
+                {/* OTHER SERVICES (Üretim Modülleri) */}
+                <TabsContent value="other-services">
+                    <Card className="bg-slate-900 border-white/10">
+                        <CardHeader>
+                            <CardTitle>Üretim Modülleri (Ek Hizmetler)</CardTitle>
+                            <CardDescription>Anasayfada yer alan "Dosya Teli", "Metal Etiket" gibi büyük üretim birimlerini yönetin.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-8">
+                            {/* SECTION HEADER */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8 border-b border-white/5">
+                                <div className="space-y-2">
+                                    <Label>Bölüm Ana Başlığı</Label>
+                                    <Input
+                                        value={store.content.servicesTitle}
+                                        onChange={(e) => store.updateContent({ servicesTitle: e.target.value })}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Bölüm Alt Başlığı</Label>
+                                    <Input
+                                        value={store.content.servicesSubtitle}
+                                        onChange={(e) => store.updateContent({ servicesSubtitle: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-12">
+                                {(store.content.serviceItems || []).map((service, index) => (
+                                    <div key={index} className="bg-slate-800/40 p-8 rounded-2xl border border-white/10 space-y-8 relative group">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 bg-orange-500/20 text-orange-500 rounded-lg flex items-center justify-center font-bold font-mono">
+                                                    0x0{index + 1}
+                                                </div>
+                                                <h4 className="text-xl font-bold text-white uppercase tracking-widest italic">{service.title || 'Yeni Modül'}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                            {/* MEDIA */}
+                                            <ImageUploader
+                                                label="Modül Görseli"
+                                                currentImage={service.image}
+                                                onImageUploaded={(url) => {
+                                                    const n = [...store.content.serviceItems];
+                                                    n[index].image = url;
+                                                    store.updateContent({ serviceItems: n });
+                                                }}
+                                                folder="production"
+                                            />
+
+                                            {/* CONTENT */}
+                                            <div className="md:col-span-2 space-y-4">
+                                                <div className="space-y-2">
+                                                    <Label>Başlık</Label>
+                                                    <Input value={service.title} onChange={(e) => {
+                                                        const n = [...store.content.serviceItems];
+                                                        n[index].title = e.target.value;
+                                                        store.updateContent({ serviceItems: n });
+                                                    }} />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label>Açıklama</Label>
+                                                    <Textarea rows={3} value={service.description} onChange={(e) => {
+                                                        const n = [...store.content.serviceItems];
+                                                        n[index].description = e.target.value;
+                                                        store.updateContent({ serviceItems: n });
+                                                    }} />
+                                                </div>
+
+                                                {/* FEATURES */}
+                                                <div className="space-y-3 pt-4">
+                                                    <Label className="text-sm font-bold text-slate-400">Özellik Etiketleri (Features)</Label>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {(service.features || []).map((f, fi) => (
+                                                            <div key={fi} className="flex items-center gap-1 bg-white/5 border border-white/10 px-2 rounded-md">
+                                                                <input
+                                                                    className="bg-transparent border-none text-xs text-white focus:ring-0 w-24"
+                                                                    value={f}
+                                                                    onChange={(e) => {
+                                                                        const n = [...store.content.serviceItems];
+                                                                        n[index].features[fi] = e.target.value;
+                                                                        store.updateContent({ serviceItems: n });
+                                                                    }}
+                                                                />
+                                                                <button
+                                                                    onClick={() => {
+                                                                        const n = [...store.content.serviceItems];
+                                                                        n[index].features.splice(fi, 1);
+                                                                        store.updateContent({ serviceItems: n });
+                                                                    }}
+                                                                    className="text-red-500 hover:text-red-400"
+                                                                >
+                                                                    <Trash2 className="w-3 h-3" />
+                                                                </button>
+                                                            </div>
+                                                        ))}
+                                                        <button
+                                                            className="text-xs bg-orange-500/20 text-orange-500 px-2 py-1 rounded-md hover:bg-orange-500/30 transition-all font-bold"
+                                                            onClick={() => {
+                                                                const n = [...store.content.serviceItems];
+                                                                n[index].features.push('Yeni Özellik');
+                                                                store.updateContent({ serviceItems: n });
+                                                            }}
+                                                        >
+                                                            + Ekle
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+
 
                 {/* PAGE SETTINGS */}
                 <TabsContent value="pages">
@@ -1280,6 +1431,57 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                                             <Label>CTA Buton Linki</Label>
                                                             <Input value={cat.ctaLink} onChange={(e) => store.cat_update(index, { ...cat, ctaLink: e.target.value })} />
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* MEKAN ANALİZİ / GALLERY SHOWCASE (YAŞAM ALANI, OFİS) */}
+                            <div className="space-y-6 pt-12 border-t border-white/5">
+                                <div className="flex justify-between items-center">
+                                    <h4 className="text-xl font-bold text-white uppercase tracking-widest italic">MEKAN ANALİZİ KARTLARI</h4>
+                                </div>
+                                <p className="text-sm text-slate-400">"YAŞAM ALANI" ve "OFİS & STÜDYO" gibi ikili büyük kartları yönetin.</p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {store.content.galleryShowcaseItems?.map((item, index) => (
+                                        <div key={item.id || index} className="bg-slate-800/60 p-6 rounded-2xl border border-white/10 space-y-6 relative group">
+                                            <div className="grid grid-cols-1 gap-6">
+                                                <ImageUploader
+                                                    label={`Kart Görseli`}
+                                                    currentImage={item.img}
+                                                    onImageUploaded={(url) => {
+                                                        const newItems = [...(store.content.galleryShowcaseItems || [])];
+                                                        newItems[index] = { ...newItems[index], img: url };
+                                                        store.updateContent({ galleryShowcaseItems: newItems });
+                                                    }}
+                                                    folder="gallery"
+                                                />
+                                                <div className="space-y-4">
+                                                    <div className="space-y-2">
+                                                        <Label>Kart Başlığı</Label>
+                                                        <Input
+                                                            value={item.title}
+                                                            onChange={(e) => {
+                                                                const newItems = [...(store.content.galleryShowcaseItems || [])];
+                                                                newItems[index] = { ...newItems[index], title: e.target.value };
+                                                                store.updateContent({ galleryShowcaseItems: newItems });
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <Label>Açıklama / Alt Başlık</Label>
+                                                        <Input
+                                                            value={item.desc}
+                                                            onChange={(e) => {
+                                                                const newItems = [...(store.content.galleryShowcaseItems || [])];
+                                                                newItems[index] = { ...newItems[index], desc: e.target.value };
+                                                                store.updateContent({ galleryShowcaseItems: newItems });
+                                                            }}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>

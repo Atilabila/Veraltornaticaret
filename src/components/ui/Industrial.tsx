@@ -112,8 +112,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ title, oneLiner, href, tag, image, price }) => (
     <Link href={href} className="group flex h-full flex-col card-brutal p-4">
-        <div className="flex justify-between items-start min-w-0 mb-3">
-            <SystemLabel text={tag || "CATALOG"} active />
+        <div className="flex justify-end items-start min-w-0 mb-3">
             <div className="opacity-0 group-hover:opacity-100 transition-opacity text-hazard-orange font-bold font-mono text-xs">
                 VIEW →
             </div>
@@ -139,8 +138,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ title, oneLiner, href,
 
             <div className="mt-auto pt-4 border-t-2 border-fog-gray flex justify-between items-end min-w-0">
                 <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-steel-gray uppercase opacity-50">ID</span>
-                    <span className="text-[11px] font-mono font-bold">#{title.slice(0, 4).toUpperCase()}</span>
                 </div>
                 {price && (
                     <div className="flex flex-col items-end">

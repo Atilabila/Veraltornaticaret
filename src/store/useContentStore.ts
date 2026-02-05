@@ -111,6 +111,13 @@ export interface SiteContent {
         category: string;
     }[];
 
+    galleryShowcaseItems: {
+        id: string;
+        title: string;
+        desc: string;
+        img: string;
+    }[];
+
     // ===== INSTAGRAM FEED =====
     instagramPosts: {
         id: string;
@@ -249,6 +256,11 @@ export interface SiteContent {
         order: number;
         isActive: boolean;
     }[];
+
+    // ===== SERVICE DETAIL PAGE FOOTER =====
+    serviceDetailFooterTitle: string; // "DİĞER HİZMETLER"
+    serviceDetailFooterDesc: string; // "İlginizi çekebilecek..."
+    serviceDetailFooterLinkText: string; // "TÜMÜNÜ GÖR"
 
     servicesPageHeader: {
         title: string;
@@ -584,6 +596,9 @@ export const defaultContent: SiteContent = {
     configuratorInfoText: "İSTEĞE BAĞLI ÖZEL ÖLÇÜLER MEVCUTTUR",
 
     // Services
+    serviceDetailFooterTitle: "DİĞER HİZMETLER",
+    serviceDetailFooterDesc: "İlginizi çekebilecek diğer endüstriyel çözümlerimiz.",
+    serviceDetailFooterLinkText: "TÜMÜNÜ GÖR",
     servicesTitle: "DİĞER OPERASYONLAR",
     servicesSubtitle: "GÖRSEL EKRAN BİRİMLERİNİN ÖTESİNDEKİ GENİŞLETİLMİŞ ÜRETİM KABİLİYETLERİ.",
     servicesExploreText: "Tüm Hizmetleri Gör",
@@ -713,6 +728,21 @@ export const defaultContent: SiteContent = {
             desc: "LAZER KESİM ŞERİTLER. KOROZYON DİRENCİ VE YÜKSEK OKUNABİLİRLİK.",
             image: "/images/showcase/metal-etiket.jpg",
             category: "ÜRETİM // 003"
+        }
+    ],
+
+    galleryShowcaseItems: [
+        {
+            id: "01",
+            title: "YAŞAM ALANI",
+            desc: "MODERN KONUT SERİSİ // NOBLE",
+            img: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=2574&auto=format&fit=crop"
+        },
+        {
+            id: "02",
+            title: "OFİS & STÜDYO",
+            desc: "PROFESYONEL ÇALIŞMA ALANLARI",
+            img: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2543&auto=format&fit=crop"
         }
     ],
 
@@ -1151,13 +1181,19 @@ export const useContentStore = create<ContentStore>()(
         }),
         {
             name: "site-content-storage",
-            version: 9,
+            version: 11,
             migrate: (persistedState: any, version: number) => {
                 const newState = { ...persistedState };
-                if (version < 8) {
+                if (version < 11) {
                     newState.content = {
                         ...defaultContent,
                         ...newState.content,
+                        serviceDetailFooterTitle: newState.content?.serviceDetailFooterTitle || defaultContent.serviceDetailFooterTitle,
+                        serviceDetailFooterDesc: newState.content?.serviceDetailFooterDesc || defaultContent.serviceDetailFooterDesc,
+                        serviceDetailFooterLinkText: newState.content?.serviceDetailFooterLinkText || defaultContent.serviceDetailFooterLinkText,
+                        galleryShowcaseItems: newState.content?.galleryShowcaseItems || defaultContent.galleryShowcaseItems,
+                        serviceItems: newState.content?.serviceItems || defaultContent.serviceItems,
+                        metalShowcaseTrustBadges: newState.content?.metalShowcaseTrustBadges || defaultContent.metalShowcaseTrustBadges,
                         headerConfig: {
                             ...defaultContent.headerConfig,
                             ...(newState.content?.headerConfig || {})
@@ -1166,24 +1202,6 @@ export const useContentStore = create<ContentStore>()(
                             ...defaultContent.quotePage,
                             ...(newState.content?.quotePage || {})
                         },
-                        globalGridConfig: newState.content?.globalGridConfig || defaultContent.globalGridConfig,
-                        services: newState.content?.services || defaultContent.services,
-                        servicesPageHeader: newState.content?.servicesPageHeader || defaultContent.servicesPageHeader,
-                        pageSettings: newState.content?.pageSettings || defaultContent.pageSettings,
-                        themeConfig: newState.content?.themeConfig || defaultContent.themeConfig,
-                        cartPage: {
-                            ...defaultContent.cartPage,
-                            ...(newState.content?.cartPage || {})
-                        },
-                        checkoutPage: {
-                            ...defaultContent.checkoutPage,
-                            ...(newState.content?.checkoutPage || {})
-                        },
-                    };
-                }
-                if (version < 9) {
-                    newState.content = {
-                        ...newState.content,
                         cartPage: {
                             ...defaultContent.cartPage,
                             ...(newState.content?.cartPage || {})

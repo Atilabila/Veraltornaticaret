@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, ShoppingCart, User, Menu, X, Hammer } from 'lucide-react';
@@ -16,12 +16,15 @@ export const Navigation = () => {
     const { content } = useContentStore();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobileViewport, setIsMobileViewport] = useState(false);
     const cartCount = useCartItemCount();
     const pathname = usePathname();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
     const setAdmin = useAdminStore((state) => state.setAdmin);
+    const touchStart = useRef<{ x: number; y: number } | null>(null);
+    const touchMove = useRef<{ x: number; y: number } | null>(null);
 
     useEffect(() => {
         let ticking = false;
@@ -35,6 +38,11 @@ export const Navigation = () => {
             }
         };
         window.addEventListener('scroll', handleScroll, { passive: true });
+        const handleResize = () => {
+            setIsMobileViewport(window.innerWidth < 768);
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize, { passive: true });
 
         const checkAuth = async () => {
             const supabase = createBrowserSupabaseClient();
@@ -54,7 +62,10 @@ export const Navigation = () => {
         };
         initSync();
 
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     const activeLinks = (content.menuItems || []).length > 0
@@ -101,6 +112,35 @@ export const Navigation = () => {
     const textColorClass = isTextWhite ? 'text-white' : 'text-[#0A0A0A]';
     const logoSrc = isTextWhite ? config.logoLight : config.logoDark;
     const borderColor = isTextWhite ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const enableFx = !isMobileViewport; // kill heavy filters on mobile to reduce jank
+    const blurValue = enableFx && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')
+        ? Math.min(config.blur || 12, 8)
+        : 0;
+
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        const touch = e.touches[0];
+        touchStart.current = { x: touch.clientX, y: touch.clientY };
+        touchMove.current = null;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (!touchStart.current) return;
+        const touch = e.touches[0];
+        touchMove.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStart.current && touchMove.current) {
+            const deltaX = touchMove.current.x - touchStart.current.x;
+            const deltaY = touchMove.current.y - touchStart.current.y;
+            const swipeThreshold = 70;
+            if (Math.abs(deltaX) > swipeThreshold || Math.abs(deltaY) > swipeThreshold) {
+                setIsMobileMenuOpen(false);
+            }
+        }
+        touchStart.current = null;
+        touchMove.current = null;
+    };
 
     return (
         <>
@@ -113,9 +153,15 @@ export const Navigation = () => {
                     backgroundColor:
                         (isScrolled || isTranslucentMode || effectiveMode === 'light') ? `rgba(10, 10, 10, ${headerBgOpacity})` :
                             (effectiveMode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'transparent'),
-                    backdropFilter: (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark') ? `blur(${Math.min(config.blur || 12, 8)}px)` : 'none',
+                    backdropFilter: blurValue > 0 ? `blur(${blurValue}px)` : 'none',
                     borderBottom: (config.showBorder && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')) ? `1px solid ${borderColor}` : 'none',
-                    boxShadow: isScrolled ? '0 10px 40px rgba(0,0,0,0.3)' : (config.shadow !== 'none' && (isTranslucentMode || effectiveMode !== 'auto') ? `0 4px 20px rgba(0,0,0,${config.shadow === 'sm' ? 0.1 : config.shadow === 'md' ? 0.2 : 0.3})` : 'none')
+                    boxShadow: enableFx
+                        ? (isScrolled
+                            ? '0 10px 40px rgba(0,0,0,0.3)'
+                            : (config.shadow !== 'none' && (isTranslucentMode || effectiveMode !== 'auto')
+                                ? `0 4px 20px rgba(0,0,0,${config.shadow === 'sm' ? 0.1 : config.shadow === 'md' ? 0.2 : 0.3})`
+                                : 'none'))
+                        : 'none'
                 }}
             >
                 {config.announcementActive && config.announcementText && (
@@ -126,7 +172,7 @@ export const Navigation = () => {
                     </div>
                 )}
 
-                <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
+                <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
                     <div className={`flex items-center justify-between transition-all duration-500 ${config.announcementActive ? (isScrolled ? 'py-2' : 'py-3') : (isScrolled ? 'py-3' : 'py-4 md:py-5')
                         }`}>
                         {/* Brand Logo */}
@@ -151,7 +197,7 @@ export const Navigation = () => {
                             </Link>
 
                             {/* Desktop Navigation */}
-                            <nav className="hidden lg:flex items-center gap-8">
+                            <nav className="hidden items-center gap-8">
                                 {activeLinks.map((link) => (
                                     <Link
                                         key={link.id || link.label}
@@ -168,7 +214,7 @@ export const Navigation = () => {
                         </div>
 
                         {/* Utils */}
-                        <div className="flex items-center gap-4 md:gap-8">
+                        <div className="flex items-center gap-3 sm:gap-4 md:gap-8">
                             {/* Control Buttons */}
                             <div className="flex items-center gap-2 md:gap-4">
                                 <button
@@ -180,7 +226,7 @@ export const Navigation = () => {
                                 <Link
                                     href="/sepet"
                                     aria-label="Sepet"
-                                    className={`relative group p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
+                                    className={`hidden sm:inline-flex relative group p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
                                 >
                                     <ShoppingCart className="w-5 h-5" />
                                     {cartCount > 0 && (
@@ -190,15 +236,20 @@ export const Navigation = () => {
                                     )}
                                 </Link>
                                 <button
-                                    className={`lg:hidden p-2 transition-all ${textColorClass}`}
+                                    className={`p-2 transition-all ${textColorClass}`}
                                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                                 >
                                     {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                                 </button>
                             </div>
 
-                            <Link href={config.ctaLink || "/teklif-al"} className={`hidden sm:flex items-center justify-center border border-[#D4AF37] text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500 ${isScrolled ? 'px-4 h-10' : 'px-6 md:px-8 h-12'
-                                }`}>
+                            <Link
+                                href={config.ctaLink || "/teklif-al"}
+                                className={`flex items-center justify-center border border-[#D4AF37] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500 leading-none ${isScrolled
+                                    ? 'px-3 h-10 sm:px-4 sm:h-10 md:px-6 md:h-12'
+                                    : 'px-3 h-10 sm:px-6 sm:h-12 md:px-8 md:h-12'
+                                    }`}
+                            >
                                 {config.ctaText || "TEKLİF AL"}
                             </Link>
                         </div>
@@ -294,27 +345,45 @@ export const Navigation = () => {
                         initial={{ opacity: 0, x: '100%' }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '100%' }}
-                        className="fixed inset-0 z-[100000] flex flex-col p-10 lg:hidden overflow-y-auto"
+                        className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 lg:hidden overflow-y-auto"
                         style={{ backgroundColor: '#000000' }}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        onTouchCancel={handleTouchEnd}
                     >
                         <div className="flex justify-between items-center mb-16 relative z-10">
-                            <span className="text-xl font-black text-white uppercase tracking-widest">MENU</span>
+                            <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
                             <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]">
                                 <X className="w-10 h-10" />
                             </button>
                         </div>
-                        <nav className="flex flex-col gap-8 relative z-10 pb-20">
+                        <nav className="flex flex-col gap-10 relative z-10 pb-24">
+                            <Link
+                                href="/"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="flex items-center justify-center h-16 rounded-md border border-[#D4AF37] bg-[#0f0f0f] text-[#D4AF37] font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
+                            >
+                                Ana Sayfaya Dön
+                            </Link>
                             {activeLinks.map((link) => (
                                 <Link
                                     key={link.id || link.label}
                                     href={link.url}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`text-3xl font-black uppercase tracking-tight transition-colors 
+                                    className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
                                     ${link.isPrimary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
                                 >
                                     {link.label}
                                 </Link>
                             ))}
+                            <Link
+                                href="/sepet"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="text-3xl font-black uppercase tracking-tight text-white hover:text-[#D4AF37] transition-colors"
+                            >
+                                Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
+                            </Link>
                             <div className="mt-8 pt-10 border-t border-[#D4AF37]/20">
                                 <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
                                     GİRİŞ YAP
