@@ -17,11 +17,11 @@ Logic: The site MUST bypass standard responsive breakpoints and force 1600px wid
 Logic: Standard desktop fonts (14px-16px) are unreadable when scaled down by 0.25x. All critical text must be bumped.
 
 - [ ] **Check `src/app/mobile-fixes.css`**:
-    - [ ] `h1` must be `~110px !important`.
-    - [ ] `header nav a` must be `~36px !important`.
-    - [ ] `footer` links must be `~36px !important`.
-    - [ ] `.product-grid h3` must be `~40px !important`.
-    - [ ] `.product-detail-page h1` must be `~80px !important`.
+    - [ ] `h1` must be `~90px !important`.
+    - [ ] `header nav a` must be `~32px !important`.
+    - [ ] `footer` links must be `~30px !important`.
+    - [ ] `.product-grid h3` must be `~36px !important`.
+    - [ ] `.product-detail-page h1` must be `~68px !important`.
 
 ## ⚡ 3. Performance & Rendering
 Logic: Forcing 1600px on mobile causes high GPU load. Optimization is mandatory.
