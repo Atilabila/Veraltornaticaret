@@ -37,7 +37,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
     }, [variant.size, product.price])
 
     return (
-        <div className="min-h-screen bg-background pb-20">
+        <div className="product-detail-page min-h-screen bg-background pb-20">
             {/* Breadcrumb / Nav */}
             <div className="container px-4 py-6">
                 <Link href="/urunler" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">

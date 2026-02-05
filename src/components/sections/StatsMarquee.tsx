@@ -17,7 +17,7 @@ export const StatsMarquee = () => {
 
     return (
         <DirectEdit tab="content">
-            <section className="py-2.5 bg-transparent border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
+            <section className="stats-marquee py-2.5 bg-transparent border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     @keyframes stats-scroll {

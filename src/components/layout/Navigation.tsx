@@ -24,8 +24,17 @@ export const Navigation = () => {
     const setAdmin = useAdminStore((state) => state.setAdmin);
 
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', handleScroll);
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setIsScrolled(window.scrollY > 20);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
         const checkAuth = async () => {
             const supabase = createBrowserSupabaseClient();
@@ -96,8 +105,11 @@ export const Navigation = () => {
     return (
         <>
             <header
-                className="fixed top-0 z-[100] w-full transition-all duration-700"
+                className="fixed top-0 z-[100] w-full transition-[background-color,backdrop-filter,border-bottom,box-shadow,transform] duration-500"
                 style={{
+                    transform: 'translateZ(0)',
+                    backfaceVisibility: 'hidden',
+                    willChange: 'background-color, backdrop-filter',
                     backgroundColor:
                         (isScrolled || isTranslucentMode || effectiveMode === 'light') ? `rgba(10, 10, 10, ${headerBgOpacity})` :
                             (effectiveMode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'transparent'),

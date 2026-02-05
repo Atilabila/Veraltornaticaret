@@ -14,12 +14,13 @@ export const usePerformanceDetection = () => {
         const handleMotionChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
         motionQuery.addEventListener("change", handleMotionChange);
 
-        // 2. Heuristic for "Slow" devices: Check hardwareConcurrency or Device Memory if available
+        // 2. Heuristic for "Slow" devices or Mobile (Mobile handles 1600px scaling with a perf hit)
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isSlowDevice =
-            (navigator as any).hardwareConcurrency && (navigator as any).hardwareConcurrency <= 4 ||
-            (navigator as any).deviceMemory && (navigator as any).deviceMemory <= 4;
+            isMobileDevice ||
+            ((navigator as any).hardwareConcurrency && (navigator as any).hardwareConcurrency <= 4) ||
+            ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 4);
 
-        // 3. Simple Frame Rate Check could be done, but let's stick to these for now
         if (isSlowDevice) {
             setIsLowPowerMode(true);
         }

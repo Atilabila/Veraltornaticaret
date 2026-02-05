@@ -30,7 +30,7 @@ export const ProcessSection = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-0 border border-[#0A0A0A]/5">
                         {steps.map((step, idx) => (
-                            <div key={idx} className="group relative p-12 bg-[#FDFBF7] border-r border-[#0A0A0A]/5 last:border-r-0 hover:bg-[#0A0A0A] transition-all duration-700">
+                            <div key={idx} className={`group relative p-12 bg-[#FDFBF7] border-r border-[#0A0A0A]/5 last:border-r-0 hover:bg-[#0A0A0A] transition-all duration-700 ${step.title === 'HASSAS İŞÇİLİK' ? 'hide-on-mobile-force' : ''}`}>
                                 <span className="text-xs font-black text-[#D4AF37] tracking-[0.3em] mb-8 block">
                                     {step.stepNumber}
                                 </span>

@@ -94,10 +94,9 @@ export const ProductGallery = () => {
                         {displayProducts.map((product, index) => (
                             <motion.div
                                 key={product.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ delay: index * 0.05, duration: 0.8 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: index * 0.03, duration: 0.5 }}
                                 className="group flex flex-col gap-8"
                             >
                                 {/* Image Wrapper: Sharp Museum Frame */}
@@ -112,10 +111,11 @@ export const ProductGallery = () => {
                                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
                                     {/* Label for Detail */}
-                                    <div className="absolute bottom-6 right-6 p-4 bg-white/90 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0 border border-[#D4AF37]/30">
+                                    <div className="absolute bottom-6 right-6 p-4 bg-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-[#D4AF37]/30">
                                         <Plus className="w-5 h-5 text-[#D4AF37]" />
                                     </div>
                                 </Link>
+
 
                                 {/* Info Section: High Readability */}
                                 <div className="flex flex-col gap-4">

@@ -45,7 +45,7 @@ export const InstagramMarquee = () => {
 
     return (
         <DirectEdit tab="instagram">
-            <section className="py-0 bg-[#0A0A0A] border-b border-[#D4AF37]/10 relative overflow-hidden">
+            <section className="instagram-marquee py-0 bg-[#0A0A0A] border-b border-[#D4AF37]/10 relative overflow-hidden">
                 {/* Header Strip */}
                 <div className="absolute top-0 left-0 z-20 bg-[#0A0A0A] px-4 py-1.5 border-r border-[#D4AF37]/10 flex items-center gap-3">
                     <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />

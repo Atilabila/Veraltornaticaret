@@ -17,13 +17,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const isCustom = !isRetail;
 
     return (
-        <div className="group relative flex flex-col h-full bg-slate-900/40 backdrop-blur-xl border border-white/5 transition-all duration-500 hover:border-[#D4AF37]/50 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_-15px_rgba(212,175,55,0.2)]">
+        <div className="group relative flex flex-col h-full bg-[#111827] border border-white/5 transition-all duration-300 hover:border-[#D4AF37]/50 shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.1)]" style={{ transform: 'translateZ(0)', willChange: 'transform, border-color' }}>
             {/* Header Metadata */}
             <div className="flex justify-between items-center p-4 border-b border-white/5 relative z-10">
-                <SystemLabel
-                    text={product.sku || `VERAL-${product.name.substring(0, 3).toUpperCase()}-${product.id.substring(0, 3).toUpperCase()}`}
-                    active={isRetail}
-                />
+
                 <div className="flex items-center gap-2">
                     <div className={`w-1.5 h-1.5 rounded-full ${isRetail ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.5)]'}`} />
                     <span className={`text-[9px] font-black font-mono uppercase tracking-widest ${isRetail ? 'text-white/40' : 'text-[#D4AF37]'}`}>
