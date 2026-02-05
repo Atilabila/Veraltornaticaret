@@ -1,81 +1,101 @@
 /* ===================================================== */
-/* UNIFIED SINGLE-PAGE HERO & WIDE LAYOUT (1600px)      */
+/* DESKTOP-ON-MOBILE FORCE (V3)                          */
 /* ===================================================== */
 
 @layer base {
+    html {
+        width: 1600px !important;
+        min-width: 1600px !important;
+        margin: 0 auto !important;
+        overflow-x: hidden !important;
+        background-color: #09090b;
+        contain: paint;
+    }
 
-    html,
     body {
         width: 1600px !important;
         min-width: 1600px !important;
         margin: 0 auto !important;
         overflow-x: hidden !important;
         background-color: #09090b;
+        font-size: 16px !important;
+        -webkit-text-size-adjust: 100% !important;
+        position: relative;
+        contain: layout;
     }
 }
 
-/* Ensure THE HERO SECTION is full width white and fits one screen */
-section:has(h1) {
+/* FIX HERO SECTION HEIGHT & WHITE SPACE */
+main.home-page section.hero-section {
     background-color: #ffffff !important;
     width: 1600px !important;
     min-width: 1600px !important;
+    /* Reset fixed-height and padding that caused the gaps */
     height: auto !important;
-    min-height: 600px !important;
-    /* Proper height for side-by-side */
-    padding-top: 120px !important;
-    /* Space for fixed header */
+    min-height: 0 !important;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
     display: block !important;
 }
 
-/* Force side-by-side in 1600px view for Hero */
-section:has(h1) .grid {
-    display: grid !important;
-    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
-    gap: 4rem !important;
-}
-
-section:has(h1) .col-span-12 {
-    /* Reset col-span to enable side-by-side */
-}
-
-/* Specific spans for the Hero content */
-section:has(h1) div[class*="md:col-span-7"] {
-    grid-column: span 7 / span 7 !important;
-}
-
-section:has(h1) div[class*="md:col-span-5"] {
-    grid-column: span 5 / span 5 !important;
-}
-
-/* Standard Container Locking */
+/* Ensure container fits the new width */
 .container {
     width: 1400px !important;
     max-width: 1400px !important;
     min-width: 1400px !important;
     margin: 0 auto !important;
-    padding-left: 60px !important;
-    padding-right: 60px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
 }
 
-/* Navigation Fixed on Top */
 header {
     width: 1600px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
 }
 
-/* Font size boost for massive desktop-on-mobile feel */
-@media (pointer: coarse),
-(max-width: 1599px) {
-    html {
-        font-size: 173% !important;
-        /* Global %173 boost */
-    }
+/* Force side-by-side grids at 1600px */
+.grid {
+    display: grid !important;
 }
 
-/* Sync background grid */
+main.home-page section.hero-section .grid {
+    grid-template-columns: repeat(12, 1fr) !important;
+    gap: 4rem !important;
+}
+
+main.home-page section.hero-section div[class*="md:col-span-7"],
+main.home-page section.hero-section div[class*="col-span-12"]:has(h1) {
+    grid-column: span 7 / span 7 !important;
+}
+
+main.home-page section.hero-section div[class*="md:col-span-5"] {
+    grid-column: span 5 / span 5 !important;
+}
+
+/* Catalog Grid */
+.product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 30px !important;
+    width: 100% !important;
+}
+
+h1 {
+    font-size: 4.5rem !important;
+    line-height: 1 !important;
+}
+
+h2 {
+    font-size: 3rem !important;
+}
+
 #global-performance-grid {
     width: 1600px !important;
+}
+
+.whatsapp-button {
+    scale: 1.5 !important;
 }
 
 * {

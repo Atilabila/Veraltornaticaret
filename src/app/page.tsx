@@ -20,7 +20,7 @@ import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white selection:bg-[#D4AF37] selection:text-white">
+    <main className="home-page min-h-screen bg-white selection:bg-[#D4AF37] selection:text-white">
       {/* GLOBAL_NAV */}
       <Navigation />
 

@@ -101,7 +101,7 @@ export const Navigation = () => {
                     backgroundColor:
                         (isScrolled || isTranslucentMode || effectiveMode === 'light') ? `rgba(10, 10, 10, ${headerBgOpacity})` :
                             (effectiveMode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'transparent'),
-                    backdropFilter: (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark') ? `blur(${config.blur || 12}px)` : 'none',
+                    backdropFilter: (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark') ? `blur(${Math.min(config.blur || 12, 8)}px)` : 'none',
                     borderBottom: (config.showBorder && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')) ? `1px solid ${borderColor}` : 'none',
                     boxShadow: isScrolled ? '0 10px 40px rgba(0,0,0,0.3)' : (config.shadow !== 'none' && (isTranslucentMode || effectiveMode !== 'auto') ? `0 4px 20px rgba(0,0,0,${config.shadow === 'sm' ? 0.1 : config.shadow === 'md' ? 0.2 : 0.3})` : 'none')
                 }}

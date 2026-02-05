@@ -18,25 +18,29 @@ export const StatsMarquee = () => {
     return (
         <DirectEdit tab="content">
             <section className="py-2.5 bg-transparent border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    @keyframes stats-scroll {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                    }
+                    .stats-inner {
+                        display: flex;
+                        items-center: center;
+                        gap: 64px;
+                        width: max-content;
+                        animation: stats-scroll 80s linear infinite reverse;
+                        will-change: transform;
+                    }
+                `}} />
                 <div className="flex overflow-hidden">
-                    <motion.div
-                        className="flex items-center gap-12 md:gap-16 whitespace-nowrap"
-                        animate={{
-                            x: ["-50%", "0%"] // Scrolling to the RIGHT
-                        }}
-                        transition={{
-                            duration: 80, // Much Slower
-                            ease: "linear",
-                            repeat: Infinity
-                        }}
-                        style={{ width: "fit-content" }}
-                    >
-                        {marqueeItems.map((item, idx) => {
+                    <div className="stats-inner">
+                        {marqueeItems.map((item: any, idx: number) => {
                             // Dynamically resolve Lucide icon
                             const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.Activity;
 
                             return (
-                                <div key={idx} className="flex items-center gap-4 group">
+                                <div key={idx} className="flex items-center gap-4 group" style={{ transform: 'translateZ(0)' }}>
                                     <IconComponent className="w-3.5 h-3.5 text-[#D4AF37]/40" />
 
                                     <div className="flex items-baseline gap-2">
@@ -53,7 +57,7 @@ export const StatsMarquee = () => {
                                 </div>
                             );
                         })}
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Soft Side Masks - Updated to transparent */}

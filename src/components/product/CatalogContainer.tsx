@@ -98,7 +98,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
                             <span className="text-[10px] font-black font-mono text-[#D4AF37] uppercase tracking-[0.2em]">{headerLabel}</span>
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black uppercase tracking-tighter text-white font-[Archivo_Black] italic leading-none max-w-5xl">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter text-white font-[Archivo_Black] italic leading-none max-w-5xl">
                             {headerTitle.split(" ").map((word, i) => (
                                 <span key={i} className={i % 2 !== 0 ? "metallic-shiny" : ""}>{word} </span>
                             ))}
@@ -171,7 +171,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({ products, ca
                 {/* PRODUCT GRID */}
                 <motion.div
                     layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                    className="product-grid grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8"
                 >
                     <AnimatePresence mode='popLayout'>
                         {filteredProducts.map((product) => (

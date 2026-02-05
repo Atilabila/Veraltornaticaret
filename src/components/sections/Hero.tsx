@@ -17,7 +17,7 @@ export const Hero = () => {
 
     return (
         <DirectEdit tab="hero">
-            <section className="relative min-h-[38vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center bg-white overflow-hidden py-10">
+            <section className="hero-section relative min-h-[38vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center bg-white overflow-hidden py-10">
                 <div className="container mx-auto px-6 lg:px-12 relative z-10">
                     <div className="grid grid-cols-12 gap-10 items-center">
                         {/* Left Column: Typography & CTAs */}

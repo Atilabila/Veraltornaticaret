@@ -10,10 +10,8 @@ import { GlobalGrid } from "@/components/layout/GlobalGrid";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 export const viewport: Viewport = {
-  // 1600px forces the browser to zoom out significantly, achieving that orderly, 
-  // distant desktop view the user desires for a premium mobile experience.
   width: 1600,
-  userScalable: false,
+  initialScale: 0.25, // Initial guess for 1600 on mobile, JS will override
 };
 
 export const metadata: Metadata = {
@@ -29,9 +27,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="tr">
       <head>
         <LocalBusinessSchema />
-        <meta name="viewport" content="width=1600" />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              function fixViewport() {
+                var width = 1600;
+                var scale = window.screen.width / width;
+                var content = 'width=' + width + ', initial-scale=' + scale + ', minimum-scale=' + scale + ', maximum-scale=' + scale + ', user-scalable=yes';
+                var meta = document.querySelector('meta[name="viewport"]');
+                if (!meta) {
+                  meta = document.createElement('meta');
+                  meta.name = 'viewport';
+                  document.head.appendChild(meta);
+                }
+                meta.content = content;
+              }
+              fixViewport();
+              window.addEventListener('resize', fixViewport);
+              window.addEventListener('orientationchange', fixViewport);
+            })();
+          `
+        }} />
       </head>
-      <body className="antialiased overflow-x-hidden">
+      <body className="antialiased">
         <AdminProvider>
           <ContentSyncProvider>
             <DynamicMetadata />

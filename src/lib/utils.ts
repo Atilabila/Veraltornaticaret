@@ -36,15 +36,26 @@ export function slugify(str: string) {
 }
 
 export function normalizeImagePath(path: string | undefined | null): string {
-    if (!path) return '/placeholder.png';
+    if (!path || path === "" || path === "null") return '/placeholder.png';
 
     // If it's an absolute URL or data URI, return as is
     if (path.startsWith('http') || path.startsWith('data:') || path.startsWith('blob:')) {
         return path;
     }
 
-    // Normalize path separators
+    // Auto-fix paths that are missing the /catalog prefix but start with known categories
     let normalized = path.replace(/\\/g, '/');
+
+    // Check both paths starting with and without /
+    const isCategoryPath = (p: string) => {
+        const cat = p.startsWith('/') ? p.substring(1) : p;
+        return cat.startsWith('cars/') || cat.startsWith('characters/') || cat.startsWith('ataturk/') || cat.startsWith('city/') || cat.startsWith('motors/');
+    };
+
+    if (isCategoryPath(normalized) && !normalized.includes('/catalog/')) {
+        const cleanPath = normalized.startsWith('/') ? normalized.substring(1) : normalized;
+        normalized = '/catalog/' + cleanPath;
+    }
 
     // If it's clearly a local public path (starts with /), don't over-normalize
     if (normalized.startsWith('/')) {

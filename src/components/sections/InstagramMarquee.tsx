@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { Instagram, Heart, ExternalLink } from "lucide-react";
+import { Instagram, Heart } from "lucide-react";
 import { getInstagramFeed, type InstagramPost } from "@/lib/actions/instagram.actions";
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import Image from "next/image";
 
 export const InstagramMarquee = () => {
     const [posts, setPosts] = useState<InstagramPost[]>([]);
@@ -18,7 +17,7 @@ export const InstagramMarquee = () => {
                 if (data && data.length > 0) {
                     setPosts(data);
                 } else {
-                    // Fallback to static if no data yet (Standard high-res Unsplash for demo)
+                    // Fallback to static if no data yet
                     setPosts([
                         { id: "1", image_url: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop", permalink: "", likes: 120, display_order: 1, is_active: true },
                         { id: "2", image_url: "https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=800&auto=format&fit=crop", permalink: "", likes: 450, display_order: 2, is_active: true },
@@ -39,8 +38,8 @@ export const InstagramMarquee = () => {
         fetchFeed();
     }, []);
 
-    // Create a duplicated list for seamless loop
-    const marqueePosts = [...posts, ...posts, ...posts];
+    // Duplicated list for seamless loop
+    const marqueePosts = [...posts, ...posts];
 
     if (!loading && posts.length === 0) return null;
 
@@ -55,20 +54,27 @@ export const InstagramMarquee = () => {
                     </span>
                 </div>
 
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    @keyframes marquee-scroll {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                    }
+                    .marquee-inner {
+                        display: flex;
+                        gap: 24px;
+                        width: max-content;
+                        animation: marquee-scroll 60s linear infinite;
+                        will-change: transform;
+                    }
+                    .marquee-inner:hover {
+                        animation-play-state: paused;
+                    }
+                `}} />
+
                 {/* Marquee Container */}
                 <div className="flex overflow-hidden select-none py-8 group">
-                    <motion.div
-                        className="flex gap-6 flex-nowrap"
-                        animate={{
-                            x: ["-33.333%", "0%"] // Scroll RIGHT
-                        }}
-                        transition={{
-                            duration: 60, // Slower
-                            ease: "linear",
-                            repeat: Infinity
-                        }}
-                        style={{ width: "fit-content" }}
-                    >
+                    <div className="marquee-inner">
                         {marqueePosts.map((post, idx) => (
                             <a
                                 key={`${post.id}-${idx}`}
@@ -76,6 +82,7 @@ export const InstagramMarquee = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="relative w-[220px] h-[220px] shrink-0 border border-white/5 hover:border-[#D4AF37]/50 transition-colors duration-500 overflow-hidden bg-white/5"
+                                style={{ transform: 'translateZ(0)' }}
                             >
                                 <Image
                                     src={post.image_url}
@@ -95,9 +102,10 @@ export const InstagramMarquee = () => {
                                 </div>
                             </a>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
         </DirectEdit>
     );
 };
+
