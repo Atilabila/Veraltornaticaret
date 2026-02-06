@@ -4,9 +4,14 @@ import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 
 export const CustomerReviews = () => {
     const { content } = useContentStore();
+    const { shouldReduceVisuals } = usePerformanceDetection();
+
+    if (shouldReduceVisuals) return null;
+
     const reviews = content.reviewItems || [];
 
     return (

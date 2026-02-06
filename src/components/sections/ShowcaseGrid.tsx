@@ -8,10 +8,15 @@ import { ArrowUpRight } from 'lucide-react';
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { TextInspector } from "@/components/admin/TextInspector";
+import { usePerformanceDetection } from '@/hooks/usePerformanceDetection';
 
 export const ShowcaseGrid = () => {
     const { content } = useContentStore();
+    const { shouldReduceVisuals } = usePerformanceDetection();
     const showcaseItems = content.metalShowcaseItems || [];
+
+    // Skip entire grid on low-power/mobile for maximum perf
+    if (shouldReduceVisuals) return null;
 
     return (
         <DirectEdit tab="showcase">
@@ -95,7 +100,9 @@ export const ShowcaseGrid = () => {
                                             src={item.coverImage || "/images/placeholder-category.jpg"}
                                             alt={item.title}
                                             fill
-                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                            sizes={shouldReduceVisuals ? "80vw" : "(max-width: 768px) 80vw, 33vw"}
+                                            quality={shouldReduceVisuals ? 55 : 75}
+                                            loading={shouldReduceVisuals ? "lazy" : "eager"}
                                             className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                                         />
 

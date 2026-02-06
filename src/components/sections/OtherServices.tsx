@@ -7,6 +7,7 @@ import { Wrench, Tag, Music, ArrowUpRight } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
 import { normalizeImagePath } from "@/lib/utils";
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 
 const icons = [
     <Wrench key="wrench" className="w-8 h-8" />,
@@ -16,6 +17,9 @@ const icons = [
 
 export const OtherServices = () => {
     const { content } = useContentStore();
+    const { shouldReduceVisuals } = usePerformanceDetection();
+
+    if (shouldReduceVisuals) return null;
 
     return (
         <DirectEdit tab="other-services">

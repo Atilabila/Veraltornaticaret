@@ -9,6 +9,7 @@ import { useProductStore } from "@/store/useProductStore";
 import { useCartStore } from "@/store/useCartStore";
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 
 export const ProductGallery = () => {
     const { content } = useContentStore();
@@ -16,6 +17,7 @@ export const ProductGallery = () => {
     const addItem = useCartStore((state) => state.addItem);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState(false);
+    const { shouldReduceVisuals } = usePerformanceDetection();
 
     useEffect(() => {
         fetchProducts();
@@ -39,8 +41,14 @@ export const ProductGallery = () => {
         ? products.filter((p) => p.category === selectedCategory && !p.is_showcase)
         : products.filter((p) => !p.is_showcase);
 
-    // Limit to 8 products as requested
-    const displayProducts = filteredProducts.slice(0, 8);
+    // Limit cards on mobile/low-power to trim network & layout cost
+    const displayLimit = (isMobile || shouldReduceVisuals) ? 4 : 8;
+    const displayProducts = filteredProducts.slice(0, displayLimit);
+
+    const imageQuality = (isMobile || shouldReduceVisuals) ? 45 : 75;
+    const imageSizes = (isMobile || shouldReduceVisuals)
+        ? "70vw"
+        : "(max-width: 1024px) 40vw, 20vw";
 
     if (loading) {
         return (
@@ -94,9 +102,9 @@ export const ProductGallery = () => {
                         {displayProducts.map((product, index) => (
                             <motion.div
                                 key={product.id}
-                                initial={{ opacity: 0 }}
+                                initial={shouldReduceVisuals ? false : { opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ delay: index * 0.03, duration: 0.5 }}
+                                transition={shouldReduceVisuals ? { duration: 0 } : { delay: index * 0.03, duration: 0.5 }}
                                 className="group flex flex-col gap-8"
                             >
                                 {/* Image Wrapper: Sharp Museum Frame */}
@@ -106,7 +114,9 @@ export const ProductGallery = () => {
                                         alt={product.name}
                                         fill
                                         className="object-contain p-4 transition-transform duration-1000 group-hover:scale-105"
-                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                        sizes={imageSizes}
+                                        quality={imageQuality}
+                                        loading={(isMobile || shouldReduceVisuals) ? "lazy" : "eager"}
                                     />
                                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 

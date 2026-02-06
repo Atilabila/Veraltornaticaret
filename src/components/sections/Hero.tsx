@@ -8,12 +8,14 @@ import { ArrowRight, ShieldCheck, Ruler, Factory, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContentStore } from "@/store/useContentStore";
 import * as LucideIcons from "lucide-react";
+import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { TextInspector } from "@/components/admin/TextInspector";
 
 export const Hero = () => {
     const { content } = useContentStore();
+    const { shouldReduceVisuals } = usePerformanceDetection();
 
     return (
         <DirectEdit tab="hero">
@@ -124,7 +126,8 @@ export const Hero = () => {
                                     alt="Industrial Metal Production"
                                     fill
                                     className="object-cover"
-                                    priority
+                                    priority={!shouldReduceVisuals}
+                                    quality={shouldReduceVisuals ? 60 : 80}
                                 />
                                 <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none" />
                                 <div className="absolute -bottom-6 -left-6 bg-white p-5 shadow-2xl border-l-8 border-black z-20">
