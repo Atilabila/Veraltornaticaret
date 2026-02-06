@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { normalizeImagePath } from '@/lib/utils';
 import { useAdminStore } from '@/store/useAdminStore';
 import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
+import { usePerformanceDetection } from '@/hooks/usePerformanceDetection';
 
 export const Navigation = () => {
     const { content } = useContentStore();
@@ -25,6 +26,7 @@ export const Navigation = () => {
     const setAdmin = useAdminStore((state) => state.setAdmin);
     const touchStart = useRef<{ x: number; y: number } | null>(null);
     const touchMove = useRef<{ x: number; y: number } | null>(null);
+    const { shouldReduceVisuals } = usePerformanceDetection();
 
     useEffect(() => {
         let ticking = false;
@@ -330,58 +332,109 @@ export const Navigation = () => {
             {/* Mobile Menu */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 lg:hidden overflow-y-auto"
-                        style={{ backgroundColor: '#000000' }}
-                        onTouchStart={handleTouchStart}
-                        onTouchMove={handleTouchMove}
-                        onTouchEnd={handleTouchEnd}
-                        onTouchCancel={handleTouchEnd}
-                    >
-                        <div className="flex justify-between items-center mb-16 relative z-10">
-                            <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
-                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]">
-                                <X className="w-10 h-10" />
-                            </button>
-                        </div>
-                        <nav className="flex flex-col gap-10 relative z-10 pb-24">
-                            <Link
-                                href="/"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="flex items-center justify-center h-16 rounded-md border border-[#D4AF37] bg-[#0f0f0f] text-[#D4AF37] font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
-                            >
-                                Ana Sayfaya Dön
-                            </Link>
-                            {activeLinks.map((link) => (
-                                <Link
-                                    key={link.id || link.label}
-                                    href={link.url}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
-                                    ${link.isPrimary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
-                                >
-                                    {link.label}
-                                </Link>
-                            ))}
-                            <Link
-                                href="/sepet"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="text-3xl font-black uppercase tracking-tight text-white hover:text-[#D4AF37] transition-colors"
-                            >
-                                Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
-                            </Link>
-                            <div className="mt-8 pt-10 border-t border-[#D4AF37]/20">
-                                <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
-                                    GİRİŞ YAP
-                                </Link>
+                    shouldReduceVisuals ? (
+                        <div
+                            className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 lg:hidden overflow-y-auto"
+                            style={{ backgroundColor: '#000000' }}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                            onTouchCancel={handleTouchEnd}
+                        >
+                            <div className="flex justify-between items-center mb-16 relative z-10">
+                                <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
+                                <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]">
+                                    <X className="w-10 h-10" />
+                                </button>
                             </div>
-                        </nav>
-                        {/* Pattern Overlay */}
-                        <div className="absolute inset-0 opacity-5 pointer-events-none grid-pattern-dark" />
-                    </motion.div>
+                            <nav className="flex flex-col gap-10 relative z-10 pb-24">
+                                <Link
+                                    href="/"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="flex items-center justify-center h-16 rounded-md border border-[#D4AF37] bg-[#0f0f0f] text-[#D4AF37] font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
+                                >
+                                    Ana Sayfaya Dön
+                                </Link>
+                                {activeLinks.map((link) => (
+                                    <Link
+                                        key={link.id || link.label}
+                                        href={link.url}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
+                                        ${link.isPrimary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                ))}
+                                <Link
+                                    href="/sepet"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-3xl font-black uppercase tracking-tight text-white hover:text-[#D4AF37] transition-colors"
+                                >
+                                    Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
+                                </Link>
+                                <div className="mt-8 pt-10 border-t border-[#D4AF37]/20">
+                                    <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
+                                        GİRİŞ YAP
+                                    </Link>
+                                </div>
+                            </nav>
+                            <div className="absolute inset-0 opacity-5 pointer-events-none grid-pattern-dark" />
+                        </div>
+                    ) : (
+                        <motion.div
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 lg:hidden overflow-y-auto"
+                            style={{ backgroundColor: '#000000' }}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                            onTouchCancel={handleTouchEnd}
+                        >
+                            <div className="flex justify-between items-center mb-16 relative z-10">
+                                <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
+                                <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]">
+                                    <X className="w-10 h-10" />
+                                </button>
+                            </div>
+                            <nav className="flex flex-col gap-10 relative z-10 pb-24">
+                                <Link
+                                    href="/"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="flex items-center justify-center h-16 rounded-md border border-[#D4AF37] bg-[#0f0f0f] text-[#D4AF37] font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
+                                >
+                                    Ana Sayfaya Dön
+                                </Link>
+                                {activeLinks.map((link) => (
+                                    <Link
+                                        key={link.id || link.label}
+                                        href={link.url}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
+                                        ${link.isPrimary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                ))}
+                                <Link
+                                    href="/sepet"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-3xl font-black uppercase tracking-tight text-white hover:text-[#D4AF37] transition-colors"
+                                >
+                                    Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
+                                </Link>
+                                <div className="mt-8 pt-10 border-t border-[#D4AF37]/20">
+                                    <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
+                                        GİRİŞ YAP
+                                    </Link>
+                                </div>
+                            </nav>
+                            {/* Pattern Overlay */}
+                            <div className="absolute inset-0 opacity-5 pointer-events-none grid-pattern-dark" />
+                        </motion.div>
+                    )
                 )}
             </AnimatePresence>
         </>

@@ -42,12 +42,12 @@ export const ProductGallery = () => {
         : products.filter((p) => !p.is_showcase);
 
     // Limit cards on mobile/low-power to trim network & layout cost
-    const displayLimit = (isMobile || shouldReduceVisuals) ? 4 : 8;
+    const displayLimit = (isMobile || shouldReduceVisuals) ? 3 : 8;
     const displayProducts = filteredProducts.slice(0, displayLimit);
 
-    const imageQuality = (isMobile || shouldReduceVisuals) ? 45 : 75;
+    const imageQuality = (isMobile || shouldReduceVisuals) ? 35 : 70;
     const imageSizes = (isMobile || shouldReduceVisuals)
-        ? "70vw"
+        ? "60vw"
         : "(max-width: 1024px) 40vw, 20vw";
 
     if (loading) {
@@ -117,6 +117,7 @@ export const ProductGallery = () => {
                                         sizes={imageSizes}
                                         quality={imageQuality}
                                         loading={(isMobile || shouldReduceVisuals) ? "lazy" : "eager"}
+                                        fetchPriority={(isMobile || shouldReduceVisuals) ? "auto" : (index === 0 ? "high" : "auto")}
                                     />
                                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 

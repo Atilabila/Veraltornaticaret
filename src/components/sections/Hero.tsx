@@ -126,8 +126,10 @@ export const Hero = () => {
                                     alt="Industrial Metal Production"
                                     fill
                                     className="object-cover"
-                                    priority={!shouldReduceVisuals}
-                                    quality={shouldReduceVisuals ? 60 : 80}
+                                    priority
+                                    fetchPriority="high"
+                                    sizes="100vw"
+                                    quality={shouldReduceVisuals ? 40 : 55}
                                 />
                                 <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none" />
                                 <div className="absolute -bottom-6 -left-6 bg-white p-5 shadow-2xl border-l-8 border-black z-20">
