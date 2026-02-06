@@ -21,8 +21,8 @@ import { MotionConfig } from 'framer-motion';
 import { usePerformanceDetection } from '@/hooks/usePerformanceDetection';
 
 export default function HomePage() {
-  const { shouldReduceVisuals } = usePerformanceDetection();
-  const disableHeavyVisuals = shouldReduceVisuals;
+  const { shouldReduceVisuals, isReady } = usePerformanceDetection();
+  const disableHeavyVisuals = !isReady || shouldReduceVisuals;
 
   return (
     <MotionConfig reducedMotion={shouldReduceVisuals ? "always" : "never"}>

@@ -19,7 +19,7 @@ export const Hero = () => {
 
     return (
         <DirectEdit tab="hero">
-            <section className="hero-section relative min-h-[38vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center bg-white overflow-hidden py-10">
+            <section className="hero-section relative min-h-[32vh] sm:min-h-[36vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center bg-white overflow-hidden pt-24 pb-8 sm:pt-28 sm:pb-10">
                 <div className="container mx-auto px-6 lg:px-12 relative z-10">
                     <div className="grid grid-cols-12 gap-10 items-center">
                         {/* Left Column: Typography & CTAs */}
@@ -42,7 +42,7 @@ export const Hero = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
-                                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.97] tracking-tighter uppercase text-black"
+                                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.97] tracking-tighter uppercase text-black"
                             >
                                 <TextInspector label="Hero-Headline">
                                     <span dangerouslySetInnerHTML={{ __html: content.heroTitle?.replace(/\n/g, '<br/>') || "METAL TABLO &<br/>TENEKELERDE<br/>YENİ NESİL<br/>DEKOR VE ÜRETİM" }} />

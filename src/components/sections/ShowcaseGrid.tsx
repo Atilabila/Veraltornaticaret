@@ -15,9 +15,6 @@ export const ShowcaseGrid = () => {
     const { shouldReduceVisuals } = usePerformanceDetection();
     const showcaseItems = content.metalShowcaseItems || [];
 
-    // Skip entire grid on low-power/mobile for maximum perf
-    if (shouldReduceVisuals) return null;
-
     return (
         <DirectEdit tab="showcase">
             <section id="features" className="py-12 lg:py-20 xl:py-24 bg-transparent border-b-8 border-black overflow-hidden relative bg-transparent">
@@ -100,9 +97,10 @@ export const ShowcaseGrid = () => {
                                             src={item.coverImage || "/images/placeholder-category.jpg"}
                                             alt={item.title}
                                             fill
-                                            sizes={shouldReduceVisuals ? "80vw" : "(max-width: 768px) 80vw, 33vw"}
-                                            quality={shouldReduceVisuals ? 55 : 75}
+                                            sizes={shouldReduceVisuals ? "60vw" : "(max-width: 768px) 70vw, 33vw"}
+                                            quality={shouldReduceVisuals ? 40 : 70}
                                             loading={shouldReduceVisuals ? "lazy" : "eager"}
+                                            fetchPriority={shouldReduceVisuals ? "auto" : (idx === 0 ? "high" : "auto")}
                                             className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                                         />
 

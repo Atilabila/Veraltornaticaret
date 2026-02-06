@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Base overflow guard for mobile fit */
+html {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 /* PROTOKOL / ARÅÄ°V ESTETÄ°ÄÄ°: yÃ¼ksek kontrast, net sÄ±nÄ±rlar */
 @theme {
   --radius-lg: var(--radius);
@@ -123,6 +129,8 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   /* Keyboard users: net focus */

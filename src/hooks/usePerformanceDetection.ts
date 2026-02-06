@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export const usePerformanceDetection = () => {
     const [isLowPowerMode, setIsLowPowerMode] = useState(false);
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+    const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
         // 1. Check for reduced motion preference (good proxy for performance needs)
@@ -25,6 +26,8 @@ export const usePerformanceDetection = () => {
             setIsLowPowerMode(true);
         }
 
+        setIsReady(true);
+
         return () => {
             motionQuery.removeEventListener("change", handleMotionChange);
         };
@@ -32,5 +35,5 @@ export const usePerformanceDetection = () => {
 
     const shouldReduceVisuals = isLowPowerMode || prefersReducedMotion;
 
-    return { isLowPowerMode, prefersReducedMotion, shouldReduceVisuals };
+    return { isLowPowerMode, prefersReducedMotion, shouldReduceVisuals, isReady };
 };

@@ -78,22 +78,24 @@ export const ProductGallery = () => {
                         </div>
 
                         {/* Category Filter */}
-                        <div className="flex gap-4 overflow-x-auto pb-6 no-scrollbar -mx-6 px-6 lg:mx-0 lg:px-0">
-                            {activeCategories.map((cat) => (
-                                <button
-                                    key={cat.id || "all"}
-                                    onClick={() => setSelectedCategory(cat.id)}
-                                    className={`
-                                        px-10 py-4 text-[10px] font-black tracking-[0.3em] uppercase transition-all whitespace-nowrap border
-                                        ${selectedCategory === cat.id
-                                            ? "bg-white text-black border-white shadow-2xl"
-                                            : "bg-transparent text-white/40 border-white/10 hover:border-[#D4AF37] hover:text-[#D4AF37]"
-                                        }
-                                    `}
-                                >
-                                    {cat.label}
-                                </button>
-                            ))}
+                        <div className="-mx-6 overflow-hidden lg:mx-0 lg:overflow-visible">
+                            <div className="flex gap-4 overflow-x-auto pb-6 no-scrollbar px-6 lg:px-0">
+                                {activeCategories.map((cat) => (
+                                    <button
+                                        key={cat.id || "all"}
+                                        onClick={() => setSelectedCategory(cat.id)}
+                                        className={`
+                                            px-10 py-4 text-[10px] font-black tracking-[0.3em] uppercase transition-all whitespace-nowrap border
+                                            ${selectedCategory === cat.id
+                                                ? "bg-white text-black border-white shadow-2xl"
+                                                : "bg-transparent text-white/40 border-white/10 hover:border-[#D4AF37] hover:text-[#D4AF37]"
+                                            }
+                                        `}
+                                    >
+                                        {cat.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
 

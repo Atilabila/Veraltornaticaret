@@ -136,11 +136,8 @@ export const useProductStore = create<ProductStore>()((set, get) => ({
                 const products = result.data.map(mapMetalProductToProduct);
                 set({ products, loading: false });
             } else {
-                // Fallback to old system if new one is empty or fails
-                console.warn('Switching to legacy product fetch due to empty metal_products or error');
-                const dbProducts = await ProductService.getAllProducts();
-                const products = dbProducts.map(mapDbToProduct);
-                set({ products, loading: false });
+                console.warn('Product fetch failed or empty; skipping legacy fallback to avoid heavy client payload');
+                set({ products: [], loading: false, error: 'Ürünler çekilemedi' });
             }
         } catch (error) {
             console.error('Fetch products failed:', error);
