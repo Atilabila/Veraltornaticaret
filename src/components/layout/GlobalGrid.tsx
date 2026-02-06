@@ -16,6 +16,11 @@ export const GlobalGrid = () => {
     const { content } = useContentStore();
     const { isDarkPage, gridOverride } = useThemeDetection();
     const { shouldReduceVisuals } = usePerformanceDetection();
+    const isFeatureFlagOn = process.env.NEXT_PUBLIC_ENABLE_GLOBAL_GRID === 'true';
+
+    // Temporary kill switch (default off). Set NEXT_PUBLIC_ENABLE_GLOBAL_GRID=true to re-enable.
+    if (!isFeatureFlagOn) return null;
+
     const config = content.globalGridConfig;
 
     const isGridEnabled = gridOverride === 'inherit' ? config?.enabled : gridOverride === 'on';
