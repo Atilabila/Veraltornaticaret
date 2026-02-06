@@ -198,18 +198,7 @@ export const Navigation = () => {
 
                             {/* Desktop Navigation */}
                             <nav className="hidden items-center gap-8">
-                                {activeLinks.map((link) => (
-                                    <Link
-                                        key={link.id || link.label}
-                                        href={link.url}
-                                        className={`text-xs font-black uppercase tracking-[0.2em] transition-all relative group
-                                        ${link.isPrimary ? 'text-[#D4AF37]' : (pathname === link.url ? 'text-[#D4AF37]' : `${textColorClass} hover:text-[#D4AF37]`)}
-                                        `}
-                                    >
-                                        {link.label}
-                                        {link.isPrimary && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />}
-                                    </Link>
-                                ))}
+                                {/* Desktop Navigation Links Removed */}
                             </nav>
                         </div>
 
@@ -226,7 +215,7 @@ export const Navigation = () => {
                                 <Link
                                     href="/sepet"
                                     aria-label="Sepet"
-                                    className={`hidden sm:inline-flex relative group p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
+                                    className={`relative group p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
                                 >
                                     <ShoppingCart className="w-5 h-5" />
                                     {cartCount > 0 && (
