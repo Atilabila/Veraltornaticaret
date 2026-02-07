@@ -26,7 +26,7 @@ export default function HomePage() {
 
   return (
     <MotionConfig reducedMotion={shouldReduceVisuals ? "always" : "never"}>
-      <main className="home-page min-h-screen bg-white selection:bg-[#D4AF37] selection:text-white">
+      <main className="home-page min-h-screen bg-white selection:bg-[#D4AF37] selection:text-white pb-24 lg:pb-0">
         {/* GLOBAL_NAV */}
         <Navigation />
 

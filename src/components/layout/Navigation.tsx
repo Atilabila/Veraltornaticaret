@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, ShoppingCart, User, Menu, X, Hammer } from 'lucide-react';
@@ -24,8 +24,6 @@ export const Navigation = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const setAdmin = useAdminStore((state) => state.setAdmin);
-    const touchStart = useRef<{ x: number; y: number } | null>(null);
-    const touchMove = useRef<{ x: number; y: number } | null>(null);
     const { shouldReduceVisuals } = usePerformanceDetection();
 
     useEffect(() => {
@@ -69,6 +67,26 @@ export const Navigation = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        };
+    }, [isMobileMenuOpen]);
+
 
     const activeLinks = (content.menuItems || []).length > 0
         ? (content.menuItems || []).filter(item => item.visible).sort((a, b) => a.order - b.order)
@@ -119,30 +137,7 @@ export const Navigation = () => {
         ? Math.min(config.blur || 12, 8)
         : 0;
 
-    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-        const touch = e.touches[0];
-        touchStart.current = { x: touch.clientX, y: touch.clientY };
-        touchMove.current = null;
-    };
 
-    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-        if (!touchStart.current) return;
-        const touch = e.touches[0];
-        touchMove.current = { x: touch.clientX, y: touch.clientY };
-    };
-
-    const handleTouchEnd = () => {
-        if (touchStart.current && touchMove.current) {
-            const deltaX = touchMove.current.x - touchStart.current.x;
-            const deltaY = touchMove.current.y - touchStart.current.y;
-            const swipeThreshold = 70;
-            if (Math.abs(deltaX) > swipeThreshold || Math.abs(deltaY) > swipeThreshold) {
-                setIsMobileMenuOpen(false);
-            }
-        }
-        touchStart.current = null;
-        touchMove.current = null;
-    };
 
     return (
         <>
@@ -177,9 +172,9 @@ export const Navigation = () => {
                 <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
                     <div className={`flex items-center justify-between transition-all duration-500 ${config.announcementActive ? (isScrolled ? 'py-2' : 'py-3') : (isScrolled ? 'py-3' : 'py-4 md:py-5')
                         }`}>
-                        {/* Brand Logo */}
-                        <div className="flex items-center gap-4 sm:gap-8 lg:gap-16">
-                            <Link href="/" className="flex items-center gap-3 group">
+                        {/* Brand Logo - Expanded width for better balance */}
+                        <div className="flex items-center gap-4 sm:gap-8 lg:gap-16 min-w-[200px] sm:min-w-[280px] lg:min-w-[320px]">
+                            <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
                                 <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-8 w-8 md:h-10 md:w-10' : 'h-10 w-10 md:h-12 md:w-12'
                                     }`}>
                                     <img
@@ -204,10 +199,10 @@ export const Navigation = () => {
                             </nav>
                         </div>
 
-                        {/* Utils */}
-                        <div className="flex items-center gap-3 sm:gap-4 md:gap-8">
-                            {/* Control Buttons */}
-                            <div className="flex items-center gap-2 md:gap-4">
+                        {/* Utils - Improved spacing and alignment */}
+                        <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
+                            {/* Control Buttons - Icon cluster with intentional spacing */}
+                            <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
                                 <button
                                     onClick={() => setIsSearchOpen(true)}
                                     className={`relative group p-2 transition-all ${textColorClass} hover:text-[#D4AF37]`}
@@ -334,10 +329,6 @@ export const Navigation = () => {
                 <div
                     className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 overflow-y-auto"
                     style={{ backgroundColor: '#000000' }}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    onTouchCancel={handleTouchEnd}
                 >
                     <div className="flex justify-between items-center mb-16 relative z-10">
                         <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>

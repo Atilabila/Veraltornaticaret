@@ -75,14 +75,15 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
             )}
             style={bgStyle}
         >
-            {/* Industrial Grid Pattern */}
+            {/* Industrial Grid Pattern - Hidden on mobile for performance */}
             <div className={cn(
-                "absolute inset-0 bg-grid-metal opacity-30 pointer-events-none"
+                "absolute inset-0 bg-grid-metal pointer-events-none",
+                "hidden lg:block lg:opacity-30"
             )} />
 
-            {/* Ambient Glow - Behind Product */}
+            {/* Ambient Glow - Behind Product - Reduced on mobile */}
             <motion.div
-                className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
+                className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none hidden lg:block"
                 style={{ backgroundColor: ambientGlow }}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -95,27 +96,16 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
                     {/* Left: Product Image with Ambient Glow */}
                     <motion.div
-                        initial={{ opacity: 0, x: -60, scale: 0.9 }}
-                        animate={isInView ? {
-                            opacity: 1,
-                            x: 0,
-                            scale: 1
-                        } : {
-                            opacity: 0,
-                            x: -60,
-                            scale: 0.9
-                        }}
-                        transition={{
-                            duration: 0.8,
-                            ease: [0.22, 1, 0.36, 1]
-                        }}
+                        initial={{ opacity: 0 }}
+                        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                        transition={{ duration: 0.4 }}
                         className="relative order-2 lg:order-1"
                     >
                         {/* SKU Badge - Industrial Tag */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0, rotate: -10 }}
-                            animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0, rotate: -10 }}
-                            transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                            transition={{ delay: 0.2, duration: 0.3 }}
                             className={cn(
                                 "absolute -top-4 -left-4 z-20",
                                 "px-4 py-2 flex items-center justify-center gap-2",
@@ -168,15 +158,15 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             <div className="absolute inset-0 bg-[#D4AF37]/5 opacity-0 group-hover/image:opacity-100 transition-opacity duration-500" />
                         </Link>
 
-                        {/* Decorative Corner Rivets */}
+                        {/* Decorative Corner Rivets - Hidden on mobile */}
                         {["-top-1 -right-1", "-bottom-1 -right-1", "-bottom-1 -left-1"].map((pos, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ scale: 0 }}
-                                animate={isInView ? { scale: 1 } : { scale: 0 }}
-                                transition={{ delay: 0.5 + i * 0.1 }}
+                                initial={{ opacity: 0 }}
+                                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                                transition={{ delay: 0.3, duration: 0.2 }}
                                 className={cn(
-                                    "absolute w-3 h-3 rounded-full",
+                                    "absolute w-3 h-3 rounded-full hidden lg:block",
                                     pos,
                                     "bg-gradient-to-br from-zinc-400 to-zinc-600",
                                     "shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"

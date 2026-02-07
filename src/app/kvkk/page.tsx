@@ -20,8 +20,13 @@ export default function KvkkPage() {
                         <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
                         <h2 className="text-2xl font-black text-white uppercase mb-6 relative z-10 italic tracking-tighter">1. Veri Sorumlusu</h2>
                         <p className="relative z-10">
-                            6698 sayılı Kişisel Verilerin Korunması Kanunu (“Kanun”) uyarınca, kişisel verileriniz; veri sorumlusu olarak <strong>VERAL Torna & Teneke Ticaret</strong> (“Şirket”) tarafından aşağıda açıklanan kapsamda işlenebilecektir.
+                            6698 sayılı Kişisel Verilerin Korunması Kanunu (“Kanun”) uyarınca, kişisel verileriniz; veri sorumlusu olarak <strong>[ŞİRKET UNVANI]</strong> (“Şirket”) tarafından aşağıda açıklanan kapsamda işlenebilecektir.
                         </p>
+                        <div className="mt-4 text-sm text-white/80 space-y-1 relative z-10">
+                            <p>Adres: [ŞİRKET ADRESİ]</p>
+                            <p>MERSİS / Vergi No: [MERSİS NO]</p>
+                            <p>İletişim: [E-POSTA] / [TELEFON]</p>
+                        </div>
                     </section>
 
                     <section className="space-y-6">

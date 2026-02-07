@@ -26,7 +26,7 @@ export default function SartlarPage() {
                             TARAFLAR VE KABUL
                         </h2>
                         <p>
-                            İşbu Kullanım Şartları ("Sözleşme"), <strong>VERAL Metal Works</strong> (Aşağıda "VERAL" veya "Şirket" olarak anılacaktır) tarafından işletilen web sitesi ve e-ticaret platformunun kullanımına ilişkin kuralları belirler. Siteye erişim sağlayan veya alışveriş yapan her kullanıcı, bu şartları okumuş, anlamış ve kabul etmiş sayılır.
+                            İşbu Kullanım Şartları ("Sözleşme"), <strong>[ŞİRKET UNVANI]</strong> (Aşağıda "Şirket" olarak anılacaktır) tarafından işletilen web sitesi ve e-ticaret platformunun kullanımına ilişkin kuralları belirler. Siteye erişim sağlayan veya alışveriş yapan her kullanıcı, bu şartları okumuş, anlamış ve kabul etmiş sayılır.
                         </p>
                     </section>
 
@@ -36,7 +36,7 @@ export default function SartlarPage() {
                             HİZMET KAPSAMI VE ÜRETİM
                         </h2>
                         <p>
-                            VERAL, endüstriyel metal posterler, teneke kutular ve fason metal üretim hizmetleri sunan bir imalat platformudur. Sitede sergilenen ürünler, stok durumuna veya özel sipariş üzerine üretim periyoduna tabidir. Şirket, ürün fiyatlarında, teknik özelliklerde ve stok bilgilerinde önceden haber vermeksizin değişiklik yapma hakkını saklı tutar.
+                            Şirket, metal posterler ve benzeri ürün/hizmetler sunan bir imalat platformudur. Sitede sergilenen ürünler, stok durumuna veya özel sipariş üzerine üretim periyoduna tabidir. Şirket, ürün fiyatlarında, teknik özelliklerde ve stok bilgilerinde önceden haber vermeksizin değişiklik yapma hakkını saklı tutar.
                         </p>
                     </section>
 
@@ -46,7 +46,7 @@ export default function SartlarPage() {
                             FİKRİ MÜLKİYET HAKLARI
                         </h2>
                         <p>
-                            Web sitesinde yer alan tüm tasarımlar, metinler, logolar, grafikler ve kullanılan özel üretim teknikleri VERAL mülkiyetindedir. Yazılı izin olmaksızın site içeriğinin kopyalanması, ticari amaçla kullanılması veya başka platformlarda paylaşılması durumunda hukuki süreç başlatılacaktır.
+                            Web sitesinde yer alan tüm tasarımlar, metinler, logolar, grafikler ve kullanılan özel üretim teknikleri [ŞİRKET UNVANI] mülkiyetindedir. Yazılı izin olmaksızın site içeriğinin kopyalanması, ticari amaçla kullanılması veya başka platformlarda paylaşılması durumunda hukuki süreç başlatılacaktır.
                         </p>
                     </section>
 
@@ -66,7 +66,7 @@ export default function SartlarPage() {
                             TESLİMAT VE SORUMLULUK
                         </h2>
                         <p>
-                            Ürünler, belirtilen hazırlık süreci sonunda anlaşmalı kargo firmalarına teslim edilir. Kargo esnasında oluşabilecek fiziksel hasarların tespiti için alıcının paketi kurye önünde açması ve hasar tespit tutanağı tutturması zorunludur. Aksi halde VERAL sorumluluk kabul etmez.
+                            Ürünler, belirtilen hazırlık süreci sonunda anlaşmalı kargo firmalarına teslim edilir. Kargo esnasında oluşabilecek fiziksel hasarların tespiti için alıcının paketi kurye önünde açması ve hasar tespit tutanağı tutturması zorunludur. Aksi halde [ŞİRKET UNVANI] sorumluluk kabul etmez.
                         </p>
                     </section>
 
@@ -76,7 +76,7 @@ export default function SartlarPage() {
                             UYUŞMAZLIKLARIN ÇÖZÜMÜ
                         </h2>
                         <p>
-                            Bu sözleşmeden doğacak ihtilaflarda İzmir Mahkemeleri ve İcra Daireleri yetkilidir. Kullanıcılar, her türlü soru ve talepleri için <strong>iletisim@veralmetal.com</strong> veya resmi iletişim numaralarımız üzerinden destek alabilirler.
+                            Bu sözleşmeden doğacak ihtilaflarda <strong>[ŞEHİR]</strong> Mahkemeleri ve İcra Daireleri yetkilidir. Kullanıcılar, her türlü soru ve talepleri için <strong>[DESTEK E-POSTA]</strong> veya resmi iletişim numaralarımız üzerinden destek alabilirler.
                         </p>
                     </section>
                 </div>

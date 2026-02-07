@@ -19,6 +19,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useContentStore } from "@/store/useContentStore";
 import { useCartStore } from "@/store/useCartStore";
 import { RecentlyViewed } from "./RecentlyViewed";
+import { MobileFilterDrawer } from "./MobileFilterDrawer";
+import { MobileActionBar } from "./MobileActionBar";
 
 interface CatalogContainerProps {
   products: MetalProduct[];
@@ -34,6 +36,14 @@ type Filters = {
   size?: string[];
   material?: string[];
   sort?: "new" | "price_asc" | "price_desc" | "featured";
+};
+
+type ProductGroup = {
+  id: string;
+  name: string;
+  slug: string;
+  anchor: string;
+  products: MetalProduct[];
 };
 
 export const CatalogContainer: React.FC<CatalogContainerProps> = ({
@@ -53,6 +63,9 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState<Filters>({ sort: "new" });
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string>("");
+  const sectionRefs = React.useRef<Map<string, HTMLElement>>(new Map());
 
   useEffect(() => {
     const cat = searchParams.get("cat") || searchParams.get("category");
@@ -196,6 +209,80 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
   (filters.size || []).forEach((t) => activeFilterChips.push(t));
   (filters.material || []).forEach((t) => activeFilterChips.push(t));
 
+  const makeAnchor = (value: string) =>
+    value.toLowerCase().replace(/[^a-z0-9-_]/g, "");
+
+  const groupedProducts = useMemo<ProductGroup[]>(() => {
+    if (filteredProducts.length === 0) return [];
+
+    // Explicit category order
+    const categoryOrder = ["Tel Ürünler", "Dosya Teli", "Metal Poster", "Magnet"];
+
+    const categoryById = new Map(categories.map((cat) => [cat.id, cat]));
+    const groups = new Map<string, ProductGroup>();
+
+    filteredProducts.forEach((product) => {
+      const rawCategory = product.category;
+      const categoryId = rawCategory?.id || product.category_id || "uncategorized";
+      const categoryMeta = categoryById.get(categoryId);
+      const name = categoryMeta?.name || rawCategory?.name || "Diğer";
+      const slug = categoryMeta?.slug || rawCategory?.slug || categoryId;
+      const anchor = makeAnchor(slug || categoryId);
+
+      if (!groups.has(categoryId)) {
+        groups.set(categoryId, { id: categoryId, name, slug, anchor, products: [] });
+      }
+      groups.get(categoryId)?.products.push(product);
+    });
+
+    const ordered: ProductGroup[] = [];
+    const groupsArray = Array.from(groups.values());
+
+    // First, add categories in the explicit order
+    categoryOrder.forEach((catName) => {
+      const group = groupsArray.find((g) => g.name === catName);
+      if (group) ordered.push(group);
+    });
+
+    // Then, add remaining categories alphabetically
+    const remaining = groupsArray
+      .filter((g) => !categoryOrder.includes(g.name))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    ordered.push(...remaining);
+
+    return ordered;
+  }, [filteredProducts, categories]);
+
+  // IntersectionObserver for category scrollspy
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            const categoryName = entry.target.getAttribute("data-category-name");
+            if (categoryName) {
+              setActiveCategory(categoryName);
+            }
+          }
+        });
+      },
+      {
+        threshold: [0, 0.5, 1],
+        rootMargin: "-96px 0px -50% 0px",
+      }
+    );
+
+    sectionRefs.current.forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [groupedProducts]);
+
+
   return (
     <section className="bg-zinc-950 min-h-screen">
       <div className="pt-32 pb-16 md:pt-48 md:pb-32 px-6 overflow-hidden border-b border-white/5 relative">
@@ -234,207 +321,237 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-screen-2xl px-4 md:px-6 lg:px-8 py-10 lg:py-12 lg:ml-6 lg:mr-auto">
-        <div className="grid lg:grid-cols-[300px_1fr] gap-8 xl:gap-10 items-start">
-          <aside className="order-1 space-y-4 lg:sticky lg:top-20 hidden lg:block">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
-              <div className="flex items-center gap-3">
-                <img src="/logo.svg" alt="Logo" className="h-10 w-10 object-contain" />
-                <div className="text-white font-black text-lg tracking-tight">
-                  {content.siteName || "VERAL"}
+      <div className="mx-auto w-full max-w-screen-2xl px-3 sm:px-4 md:px-6 py-8 sm:py-10 lg:py-12 pb-24 lg:pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 sm:gap-6 lg:gap-10 items-start">
+          {/* Desktop Sidebar - Hidden on mobile */}
+          <aside className="hidden lg:block order-1 sticky top-24 lg:top-20 self-start">
+            <div className="space-y-4 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
+                <div className="flex items-center gap-3">
+                  <img src="/logo.svg" alt="Logo" className="h-10 w-10 object-contain" />
+                  <div className="text-white font-black text-lg tracking-tight">
+                    {content.siteName || "VERAL"}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-white/80">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-[#D4AF37]" /> Hızlı kargo
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-[#D4AF37]" /> İade
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-[#D4AF37]" /> Güvenli ödeme
+                  </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-white/80">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" /> Hızlı kargo
-                </div>
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" /> İade
-                </div>
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" /> Güvenli ödeme
-                </div>
-              </div>
-            </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70">
-                  Sepet özeti
-                </span>
-                <ShoppingCart className="w-5 h-5 text-[#D4AF37]" />
-              </div>
-              <div className="text-2xl font-black text-white">
-                {cartTotal.toLocaleString("tr-TR")} TL
-              </div>
-              <div className="text-xs text-white/60 uppercase tracking-[0.2em]">
-                {shippingRemaining > 0
-                  ? `${shippingRemaining.toLocaleString(
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70">
+                    Sepet özeti
+                  </span>
+                  <ShoppingCart className="w-5 h-5 text-[#D4AF37]" />
+                </div>
+                <div className="text-2xl font-black text-white">
+                  {cartTotal.toLocaleString("tr-TR")} TL
+                </div>
+                <div className="text-xs text-white/60 uppercase tracking-[0.2em]">
+                  {shippingRemaining > 0
+                    ? `${shippingRemaining.toLocaleString(
                       "tr-TR"
                     )} TL daha ekle, ücretsiz kargo!`
-                  : "Ücretsiz kargo kazandın"}
+                    : "Ücretsiz kargo kazandın"}
+                </div>
+                <Link
+                  href="/sepet"
+                  className="inline-flex items-center justify-center w-full h-11 bg-[#D4AF37] text-black font-black uppercase tracking-[0.25em]"
+                >
+                  Sepete Git ({cartCount})
+                </Link>
               </div>
-              <Link
-                href="/sepet"
-                className="inline-flex items-center justify-center w-full h-11 bg-[#D4AF37] text-black font-black uppercase tracking-[0.25em]"
-              >
-                Sepete Git ({cartCount})
-              </Link>
-            </div>
 
-            <RecentlyViewed items={recentItems} />
+              <RecentlyViewed items={recentItems} />
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70">
-                  Kategoriler
-                </span>
-                <ChevronDown className="w-4 h-4 text-white/50" />
-              </div>
-              <div className="space-y-2">
-                <button
-                  onClick={() => setSelectedCategory("all")}
-                  className={`w-full text-left px-3 py-2 rounded-md border ${
-                    selectedCategory === "all"
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70">
+                    Kategoriler
+                  </span>
+                  <ChevronDown className="w-4 h-4 text-white/50" />
+                </div>
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setSelectedCategory("all")}
+                    className={`w-full text-left px-3 py-2 rounded-md border ${selectedCategory === "all"
                       ? "border-[#D4AF37] text-[#D4AF37]"
                       : "border-white/10 text-white/70"
-                  }`}
-                >
-                  Tüm ürünler
-                </button>
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className={`w-full text-left px-3 py-2 rounded-md border ${
-                      selectedCategory === cat.id
+                      }`}
+                  >
+                    Tüm ürünler
+                  </button>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`w-full text-left px-3 py-2 rounded-md border ${selectedCategory === cat.id
                         ? "border-[#D4AF37] text-[#D4AF37]"
                         : "border-white/10 text-white/70"
-                    }`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
+                        }`}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70">
+                    Filtreler
+                  </span>
+                  <Filter className="w-4 h-4 text-white/50" />
+                </div>
+                <div className="grid grid-cols-2 gap-3 text-white/80 text-sm font-bold uppercase tracking-tight">
+                  <label className="col-span-2 text-xs text-white/60">Fiyat Aralığı</label>
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    value={filters.priceMin ?? ""}
+                    onChange={(e) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        priceMin: e.target.value ? Number(e.target.value) : undefined,
+                      }))
+                    }
+                    className="bg-black/40 border border-white/10 rounded-md py-2 px-3 text-white text-sm"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    value={filters.priceMax ?? ""}
+                    onChange={(e) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        priceMax: e.target.value ? Number(e.target.value) : undefined,
+                      }))
+                    }
+                    className="bg-black/40 border border-white/10 rounded-md py-2 px-3 text-white text-sm"
+                  />
+                </div>
+                <label className="flex items-center gap-2 text-white/80 text-sm font-bold uppercase tracking-tight">
+                  <input
+                    type="checkbox"
+                    className="accent-[#D4AF37]"
+                    checked={!!filters.inStockOnly}
+                    onChange={(e) =>
+                      setFilters((prev) => ({ ...prev, inStockOnly: e.target.checked }))
+                    }
+                  />
+                  Stokta Olanlar
+                </label>
+
+                <div className="space-y-2">
+                  <p className="text-xs text-white/60 uppercase tracking-[0.25em]">Tema</p>
+                  {themeOptions.map((opt) => (
+                    <label key={opt} className="flex items-center gap-2 text-white/80 text-sm">
+                      <input
+                        type="checkbox"
+                        className="accent-[#D4AF37]"
+                        checked={filters.theme?.includes(opt) || false}
+                        onChange={() => toggleMulti("theme", opt)}
+                      />
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-xs text-white/60 uppercase tracking-[0.25em]">Boyut</p>
+                  {sizeOptions.map((opt) => (
+                    <label key={opt} className="flex items-center gap-2 text-white/80 text-sm">
+                      <input
+                        type="checkbox"
+                        className="accent-[#D4AF37]"
+                        checked={filters.size?.includes(opt) || false}
+                        onChange={() => toggleMulti("size", opt)}
+                      />
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-xs text-white/60 uppercase tracking-[0.25em]">Malzeme</p>
+                  {materialOptions.map((opt) => (
+                    <label key={opt} className="flex items-center gap-2 text-white/80 text-sm">
+                      <input
+                        type="checkbox"
+                        className="accent-[#D4AF37]"
+                        checked={filters.material?.includes(opt) || false}
+                        onChange={() => toggleMulti("material", opt)}
+                      />
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+
+                <button
+                  onClick={resetFilters}
+                  className="text-[11px] font-black uppercase tracking-[0.25em] text-white/60 hover:text-[#D4AF37]"
+                >
+                  Filtreleri sıfırla
+                </button>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
                 <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70">
-                  Filtreler
+                  Arama
                 </span>
-                <Filter className="w-4 h-4 text-white/50" />
-              </div>
-              <div className="grid grid-cols-2 gap-3 text-white/80 text-sm font-bold uppercase tracking-tight">
-                <label className="col-span-2 text-xs text-white/60">Fiyat Aralığı</label>
-                <input
-                  type="number"
-                  placeholder="Min"
-                  value={filters.priceMin ?? ""}
-                  onChange={(e) =>
-                    setFilters((prev) => ({
-                      ...prev,
-                      priceMin: e.target.value ? Number(e.target.value) : undefined,
-                    }))
-                  }
-                  className="bg-black/40 border border-white/10 rounded-md py-2 px-3 text-white text-sm"
-                />
-                <input
-                  type="number"
-                  placeholder="Max"
-                  value={filters.priceMax ?? ""}
-                  onChange={(e) =>
-                    setFilters((prev) => ({
-                      ...prev,
-                      priceMax: e.target.value ? Number(e.target.value) : undefined,
-                    }))
-                  }
-                  className="bg-black/40 border border-white/10 rounded-md py-2 px-3 text-white text-sm"
-                />
-              </div>
-              <label className="flex items-center gap-2 text-white/80 text-sm font-bold uppercase tracking-tight">
-                <input
-                  type="checkbox"
-                  className="accent-[#D4AF37]"
-                  checked={!!filters.inStockOnly}
-                  onChange={(e) =>
-                    setFilters((prev) => ({ ...prev, inStockOnly: e.target.checked }))
-                  }
-                />
-                Stokta Olanlar
-              </label>
-
-              <div className="space-y-2">
-                <p className="text-xs text-white/60 uppercase tracking-[0.25em]">Tema</p>
-                {themeOptions.map((opt) => (
-                  <label key={opt} className="flex items-center gap-2 text-white/80 text-sm">
-                    <input
-                      type="checkbox"
-                      className="accent-[#D4AF37]"
-                      checked={filters.theme?.includes(opt) || false}
-                      onChange={() => toggleMulti("theme", opt)}
-                    />
-                    {opt}
-                  </label>
-                ))}
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-xs text-white/60 uppercase tracking-[0.25em]">Boyut</p>
-                {sizeOptions.map((opt) => (
-                  <label key={opt} className="flex items-center gap-2 text-white/80 text-sm">
-                    <input
-                      type="checkbox"
-                      className="accent-[#D4AF37]"
-                      checked={filters.size?.includes(opt) || false}
-                      onChange={() => toggleMulti("size", opt)}
-                    />
-                    {opt}
-                  </label>
-                ))}
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-xs text-white/60 uppercase tracking-[0.25em]">Malzeme</p>
-                {materialOptions.map((opt) => (
-                  <label key={opt} className="flex items-center gap-2 text-white/80 text-sm">
-                    <input
-                      type="checkbox"
-                      className="accent-[#D4AF37]"
-                      checked={filters.material?.includes(opt) || false}
-                      onChange={() => toggleMulti("material", opt)}
-                    />
-                    {opt}
-                  </label>
-                ))}
-              </div>
-
-              <button
-                onClick={resetFilters}
-                className="text-[11px] font-black uppercase tracking-[0.25em] text-white/60 hover:text-[#D4AF37]"
-              >
-                Filtreleri sıfırla
-              </button>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
-              <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70">
-                Arama
-              </span>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]" />
-                <input
-                  type="text"
-                  placeholder="Ara..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-black/40 border border-white/10 rounded-md py-3 pl-10 pr-3 text-sm text-white placeholder:text-white/30 focus:border-[#D4AF37] outline-none"
-                />
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]" />
+                  <input
+                    type="text"
+                    placeholder="Ara..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-black/40 border border-white/10 rounded-md py-3 pl-10 pr-3 text-sm text-white placeholder:text-white/30 focus:border-[#D4AF37] outline-none"
+                  />
+                </div>
               </div>
             </div>
           </aside>
 
-          <div className="order-2 w-full">
+          <div className="order-2 w-full min-w-0">
+            {/* Mobile Category Chips - Only visible on mobile */}
+            <div className="lg:hidden mb-6 -mx-3 sm:-mx-4 md:-mx-6">
+              <div className="overflow-x-auto no-scrollbar px-3 sm:px-4 md:px-6">
+                <div className="flex items-center gap-2 pb-2">
+                  <button
+                    onClick={() => setSelectedCategory("all")}
+                    className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-full whitespace-nowrap transition-all border ${selectedCategory === "all"
+                      ? "bg-[#D4AF37] border-[#D4AF37] text-black"
+                      : "bg-white/5 border-white/10 text-white/70 hover:border-[#D4AF37]/50"
+                      }`}
+                  >
+                    Tümü
+                  </button>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-full whitespace-nowrap transition-all border ${selectedCategory === cat.id
+                        ? "bg-[#D4AF37] border-[#D4AF37] text-black"
+                        : "bg-white/5 border-white/10 text-white/70 hover:border-[#D4AF37]/50"
+                        }`}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <div className="mb-8 bg-[#0A0A0A] border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-[#D4AF37]" />
@@ -451,30 +568,29 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
               </div>
             </div>
 
-            <div className="sticky top-20 z-30 bg-zinc-950 border-y border-white/10 p-6 mb-10 flex flex-col xl:flex-row items-center gap-8 shadow-2xl shadow-black/50">
+            <div className="lg:sticky lg:top-20 z-30 bg-zinc-950 border-y border-white/10 p-6 mb-10 flex flex-col xl:flex-row items-center gap-8 shadow-2xl shadow-black/50">
               <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2 xl:pb-0 w-full xl:w-auto">
-                <button
+                <a
+                  href="#catalog-top"
                   onClick={() => setSelectedCategory("all")}
-                  className={`px-6 py-3 text-xs font-black uppercase tracking-[0.2em] rounded-sm transition-all whitespace-nowrap border-2 ${
-                    selectedCategory === "all"
-                      ? "bg-[#D4AF37] border-[#D4AF37] text-black"
-                      : "text-white/60 border-white/10 hover:border-[#D4AF37]/50 hover:text-white hover:bg-white/5"
-                  }`}
+                  className={`px-6 py-3 text-xs font-black uppercase tracking-[0.2em] rounded-sm transition-all whitespace-nowrap border-2 ${selectedCategory === "all"
+                    ? "bg-[#D4AF37] border-[#D4AF37] text-black"
+                    : "text-white/60 border-white/10 hover:border-[#D4AF37]/50 hover:text-white hover:bg-white/5"
+                    }`}
                 >
                   Tümü
-                </button>
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className={`px-6 py-3 text-xs font-black uppercase tracking-[0.2em] rounded-sm transition-all whitespace-nowrap border-2 ${
-                      selectedCategory === cat.id
-                        ? "bg-[#D4AF37] border-[#D4AF37] text-black"
-                        : "text-white/60 border-white/10 hover:border-[#D4AF37]/50 hover:text-white hover:bg-white/5"
-                    }`}
+                </a>
+                {groupedProducts.map((group) => (
+                  <a
+                    key={group.id}
+                    href={`#cat-${group.anchor}`}
+                    className={`px-6 py-3 text-xs font-black uppercase tracking-[0.2em] rounded-sm transition-all whitespace-nowrap border-2 ${selectedCategory === group.id
+                      ? "bg-[#D4AF37] border-[#D4AF37] text-black"
+                      : "text-white/60 border-white/10 hover:border-[#D4AF37]/50 hover:text-white hover:bg-white/5"
+                      }`}
                   >
-                    {cat.name}
-                  </button>
+                    {group.name}
+                  </a>
                 ))}
               </div>
 
@@ -532,23 +648,9 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
               )}
             </div>
 
-            <div className="product-grid grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-8">
-              <AnimatePresence mode="popLayout">
-                {filteredProducts.map((product) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.1 }}
-                  >
-                    <ProductCard product={product} variant="horizontal" />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
+            <div id="catalog-top" className="scroll-mt-32" />
 
-            {filteredProducts.length === 0 && (
+            {groupedProducts.length === 0 && (
               <div className="py-32 text-center border-2 border-dashed border-white/5 rounded-3xl">
                 <PackageOpen className="w-16 h-16 text-white/10 mx-auto mb-6" />
                 <h3 className="text-2xl font-black uppercase text-white mb-2 tracking-tighter">
@@ -565,9 +667,104 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                 </button>
               </div>
             )}
+
+            {groupedProducts.length > 0 && (
+              <div className="space-y-12">
+                {groupedProducts.map((group) => (
+                  <section
+                    key={group.id}
+                    id={`cat-${group.anchor}`}
+                    className="scroll-mt-32"
+                    ref={(el) => {
+                      if (el) {
+                        sectionRefs.current.set(group.id, el);
+                      } else {
+                        sectionRefs.current.delete(group.id);
+                      }
+                    }}
+                    data-category-name={group.name}
+                  >
+                    <div className="lg:sticky lg:top-24 xl:top-20 z-20 mb-4">
+                      <div className="inline-flex items-center gap-3 px-4 py-2 rounded-md border border-white/10 bg-white/5 text-white/70 text-sm font-black uppercase tracking-[0.3em]">
+                        {group.name}
+                      </div>
+                    </div>
+                    <div className="product-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+                      <AnimatePresence mode="popLayout">
+                        {group.products.map((product) => (
+                          <motion.div
+                            key={product.id}
+                            className="min-w-0"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.1 }}
+                          >
+                            <ProductCard product={product} variant="default" />
+                          </motion.div>
+                        ))}
+                      </AnimatePresence>
+                    </div>
+                  </section>
+                ))}
+              </div>
+            )}
           </div>
+        </div>
+      </div>
+
+      {/* Mobile Filter Drawer */}
+      <MobileFilterDrawer
+        isOpen={isMobileDrawerOpen}
+        onClose={() => setIsMobileDrawerOpen(false)}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        categories={categories}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        filters={filters}
+        setFilters={setFilters}
+        themeOptions={themeOptions}
+        sizeOptions={sizeOptions}
+        materialOptions={materialOptions}
+        toggleMulti={toggleMulti}
+        resetFilters={resetFilters}
+        recentItems={recentItems}
+        cartTotal={cartTotal}
+        cartCount={cartCount}
+        shippingRemaining={shippingRemaining}
+        siteName={content.siteName || "VERAL"}
+      />
+
+      {/* Mobile Action Bar */}
+      <MobileActionBar
+        onFilterClick={() => setIsMobileDrawerOpen(true)}
+        onSearchClick={() => {
+          setIsMobileDrawerOpen(true);
+          // Focus on search input after drawer opens
+          setTimeout(() => {
+            const searchInput = document.querySelector<HTMLInputElement>('input[placeholder="Ara..."]');
+            searchInput?.focus();
+          }, 100);
+        }}
+        cartCount={cartCount}
+      />
+
+      {/* Category Transition Overlay - Mobile only */}
+      <div
+        className={`fixed top-24 left-1/2 -translate-x-1/2 z-40 lg:hidden transition-all duration-300 ease-out ${activeCategory
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-1 pointer-events-none"
+          }`}
+      >
+        <div className="bg-black/25 backdrop-blur-sm ring-1 ring-white/10 rounded-2xl px-4 py-2">
+          <span className="text-zinc-200/70 font-extrabold tracking-[0.25em] uppercase text-sm">
+            {activeCategory}
+          </span>
         </div>
       </div>
     </section>
   );
 };
+
+

@@ -10,10 +10,12 @@ import { useOrderStore } from "@/store/useOrderStore";
 import { useContentStore } from "@/store/useContentStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
-import { processPayment, setDevPaymentSimulation } from "@/lib/payment";
+import { processPayment } from "@/lib/payment";
 import { sendOrderConfirmationEmail } from "@/lib/actions/email.actions";
 import * as LucideIcons from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
 
 const IconComponent = ({ name, className }: { name: string; className?: string }) => {
     const Icon = (LucideIcons as any)[name] || LucideIcons.HelpCircle;
@@ -71,7 +73,6 @@ export default function CheckoutPage() {
     const checkoutCMS = content.checkoutPage;
 
     const [formErrors, setFormErrors] = React.useState<Record<string, string>>({});
-    const [devMode, setDevMode] = React.useState<'success' | 'fail'>('success');
 
     // Redirect if cart is empty
     React.useEffect(() => {
@@ -154,7 +155,6 @@ export default function CheckoutPage() {
         checkout.setError(null);
 
         try {
-            setDevPaymentSimulation(devMode);
 
             const order = orderStore.createOrder({
                 items: cart.items,
@@ -226,365 +226,347 @@ export default function CheckoutPage() {
     const total = cart.getTotal() - checkout.couponDiscount;
 
     return (
-        <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-24">
-            <div className="container max-w-7xl mx-auto px-4">
-                <CartProgressBar step={2} />
+        <>
+            <Navigation />
+            <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-24">
+                <div className="container max-w-7xl mx-auto px-4">
+                    <CartProgressBar step={2} />
 
-                <div className="flex flex-col lg:flex-row justify-between items-start gap-4 mb-10">
-                    <div>
-                        <Link href="/sepet" className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black mb-4 transition-colors">
-                            <ArrowLeft className="w-3 h-3 mr-2" />
-                            SEPETE DÖN
-                        </Link>
-                        <h1 className="text-3xl font-black tracking-tighter uppercase mb-2">{checkoutCMS?.title || "ÖDEME PROTOKOLÜ"}</h1>
-                        <div className="flex items-center gap-3">
-                            <span className="px-2.5 py-1 bg-emerald-600 text-white text-[10px] font-bold rounded-md tracking-widest uppercase">
-                                SSL GÜVENLİ
-                            </span>
-                            <div className="h-1 w-1 rounded-full bg-zinc-300" />
-                            <span className="text-xs text-zinc-500 font-medium uppercase tracking-wider">VERİ ŞİFRELEME AKTİF</span>
+                    <div className="flex flex-col lg:flex-row justify-between items-start gap-4 mb-10">
+                        <div>
+                            <Link href="/sepet" className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black mb-4 transition-colors">
+                                <ArrowLeft className="w-3 h-3 mr-2" />
+                                SEPETE DÖN
+                            </Link>
+                            <h1 className="text-3xl font-black tracking-tighter uppercase mb-2 text-black">{checkoutCMS?.title || "ÖDEME PROTOKOLÜ"}</h1>
+                            <div className="flex items-center gap-3">
+                                <span className="px-2.5 py-1 bg-emerald-600 text-white text-[10px] font-bold rounded-md tracking-widest uppercase">
+                                    SSL GÜVENLİ
+                                </span>
+                                <div className="h-1 w-1 rounded-full bg-zinc-300" />
+                                <span className="text-xs text-zinc-500 font-medium uppercase tracking-wider">VERİ ŞİFRELEME AKTİF</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <form onSubmit={handleSubmit}>
-                    <div className="grid lg:grid-cols-12 gap-10">
-                        {/* Form Section */}
-                        <div className="lg:col-span-8 space-y-10">
-                            {/* Dev Mode Toggle */}
-                            {process.env.NODE_ENV === 'development' && (
-                                <div className="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl">
-                                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                                        <div className="text-center sm:text-left">
-                                            <p className="font-bold text-yellow-700 text-xs tracking-widest uppercase">🧪 GELİŞTİRİCİ SİMÜLASYONU</p>
-                                            <p className="text-[10px] text-yellow-600 uppercase font-medium mt-1">Ödeme Sonucu: {devMode === 'success' ? 'BAŞARILI' : 'BAŞARISIZ'}</p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="grid lg:grid-cols-12 gap-10">
+                            {/* Form Section */}
+                            <div className="lg:col-span-8 space-y-10">
+
+                                {/* Shipping Info */}
+                                <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
+                                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_20%,rgba(255,255,255,0.06),rgba(0,0,0,0.35)_55%,rgba(0,0,0,0.60)_100%)]" />
+                                    <div className="relative z-10">
+                                        <div className="flex items-center gap-4 mb-8">
+                                            {checkoutCMS?.showStepLabels && (
+                                                <span className="text-2xl font-semibold text-white/40 tracking-tighter">01</span>
+                                            )}
+                                            <h2 className="text-xl font-extrabold text-white uppercase tracking-tight">
+                                                {checkoutCMS?.stepLabels?.shipping || "TESLİMAT BİLGİLERİ"}
+                                            </h2>
                                         </div>
-                                        <div className="flex gap-2">
-                                            <Button
-                                                type="button"
-                                                size="sm"
-                                                variant={devMode === 'success' ? 'default' : 'outline'}
-                                                className="rounded-full text-[10px] h-8"
-                                                onClick={() => setDevMode('success')}
-                                            >
-                                                SUCCESS
-                                            </Button>
-                                            <Button
-                                                type="button"
-                                                size="sm"
-                                                variant={devMode === 'fail' ? 'destructive' : 'outline'}
-                                                className="rounded-full text-[10px] h-8"
-                                                onClick={() => setDevMode('fail')}
-                                            >
-                                                FAIL
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
 
-                            {/* Shipping Info */}
-                            <section className="bg-white border border-zinc-200/60 rounded-3xl p-8 shadow-sm">
-                                <div className="flex items-center gap-4 mb-8">
-                                    {checkoutCMS?.showStepLabels && (
-                                        <span className="text-2xl font-black text-zinc-100 tracking-tighter">01</span>
-                                    )}
-                                    <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">
-                                        {checkoutCMS?.stepLabels?.shipping || "TESLİMAT BİLGİLERİ"}
-                                    </h2>
-                                </div>
-
-                                <div className="grid sm:grid-cols-2 gap-6">
-                                    <div className="sm:col-span-2 space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">AD SOYAD *</label>
-                                        <input
-                                            name="fullName"
-                                            type="text"
-                                            value={checkout.shipping.fullName}
-                                            onChange={(e) => handleInputChange('fullName', e.target.value)}
-                                            className={`w-full h-14 px-5 border rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black transition-all ${formErrors.fullName ? 'border-red-500' : 'border-zinc-100 hover:border-zinc-200'}`}
-                                            placeholder="John Doe"
-                                        />
-                                        {formErrors.fullName && <p className="text-[10px] font-bold text-red-500 ml-1">{formErrors.fullName.toUpperCase()}</p>}
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">E-POSTA *</label>
-                                        <input
-                                            name="email"
-                                            type="email"
-                                            value={checkout.shipping.email}
-                                            onChange={(e) => handleInputChange('email', e.target.value)}
-                                            className={`w-full h-14 px-5 border rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black transition-all ${formErrors.email ? 'border-red-500' : 'border-zinc-100 hover:border-zinc-200'}`}
-                                            placeholder="john@example.com"
-                                        />
-                                        {formErrors.email && <p className="text-[10px] font-bold text-red-500 ml-1">{formErrors.email.toUpperCase()}</p>}
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">TELEFON *</label>
-                                        <input
-                                            name="phone"
-                                            type="tel"
-                                            value={checkout.shipping.phone}
-                                            onChange={(e) => handleInputChange('phone', e.target.value)}
-                                            className={`w-full h-14 px-5 border rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black transition-all ${formErrors.phone ? 'border-red-500' : 'border-zinc-100 hover:border-zinc-200'}`}
-                                            placeholder="05XX XXX XX XX"
-                                        />
-                                        {formErrors.phone && <p className="text-[10px] font-bold text-red-500 ml-1">{formErrors.phone.toUpperCase()}</p>}
-                                    </div>
-
-                                    <div className="sm:col-span-2 space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">ADRES *</label>
-                                        <textarea
-                                            name="address"
-                                            value={checkout.shipping.address}
-                                            onChange={(e) => handleInputChange('address', e.target.value)}
-                                            className={`w-full min-h-[120px] px-5 py-4 border rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black resize-none transition-all ${formErrors.address ? 'border-red-500' : 'border-zinc-100 hover:border-zinc-200'}`}
-                                            placeholder="Siparişinizin teslim edileceği açık adres..."
-                                        />
-                                        {formErrors.address && <p className="text-[10px] font-bold text-red-500 ml-1">{formErrors.address.toUpperCase()}</p>}
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">İL *</label>
-                                        <input
-                                            name="city"
-                                            type="text"
-                                            value={checkout.shipping.city}
-                                            onChange={(e) => handleInputChange('city', e.target.value)}
-                                            className={`w-full h-14 px-5 border rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black transition-all ${formErrors.city ? 'border-red-500' : 'border-zinc-100 hover:border-zinc-200'}`}
-                                            placeholder="İstanbul"
-                                        />
-                                        {formErrors.city && <p className="text-[10px] font-bold text-red-500 ml-1">{formErrors.city.toUpperCase()}</p>}
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">İLÇE *</label>
-                                        <input
-                                            name="district"
-                                            type="text"
-                                            value={checkout.shipping.district}
-                                            onChange={(e) => handleInputChange('district', e.target.value)}
-                                            className={`w-full h-14 px-5 border rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black transition-all ${formErrors.district ? 'border-red-500' : 'border-zinc-100 hover:border-zinc-200'}`}
-                                            placeholder="Kadıköy"
-                                        />
-                                        {formErrors.district && <p className="text-[10px] font-bold text-red-500 ml-1">{formErrors.district.toUpperCase()}</p>}
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">POSTA KODU</label>
-                                        <input
-                                            type="text"
-                                            value={checkout.shipping.postalCode}
-                                            onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                                            className="w-full h-14 px-5 border border-zinc-100 hover:border-zinc-200 rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black transition-all"
-                                            placeholder="34000"
-                                        />
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">SİPARİŞ NOTU</label>
-                                        <input
-                                            type="text"
-                                            value={checkout.shipping.notes}
-                                            onChange={(e) => handleInputChange('notes', e.target.value)}
-                                            className="w-full h-14 px-5 border border-zinc-100 hover:border-zinc-200 rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-black transition-all"
-                                            placeholder="Örn: Kapıya bırakın"
-                                        />
-                                    </div>
-                                </div>
-                            </section>
-
-                            {/* Billing Info */}
-                            <section className="bg-white border border-zinc-200/60 rounded-3xl p-8 shadow-sm">
-                                <div className="flex items-center gap-4 mb-8">
-                                    {checkoutCMS?.showStepLabels && (
-                                        <span className="text-2xl font-black text-zinc-100 tracking-tighter">02</span>
-                                    )}
-                                    <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tight">
-                                        {checkoutCMS?.stepLabels?.billing || "FATURA BİLGİLERİ"}
-                                    </h2>
-                                </div>
-
-                                <div className="flex gap-4 mb-8">
-                                    <button
-                                        type="button"
-                                        onClick={() => handleBillingTypeChange('individual')}
-                                        className={`flex-1 p-5 border rounded-2xl text-left transition-all relative overflow-hidden group ${checkout.billing.type === 'individual'
-                                            ? 'border-black bg-black text-white'
-                                            : 'border-zinc-100 bg-zinc-50 hover:border-zinc-200 text-zinc-400'
-                                            }`}
-                                    >
-                                        <p className="font-black text-xs uppercase tracking-widest">BİREYSEL</p>
-                                        <CheckCircle2 className={`absolute top-4 right-4 w-4 h-4 transition-opacity ${checkout.billing.type === 'individual' ? 'opacity-100' : 'opacity-0'}`} />
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => handleBillingTypeChange('company')}
-                                        className={`flex-1 p-5 border rounded-2xl text-left transition-all relative overflow-hidden group ${checkout.billing.type === 'company'
-                                            ? 'border-black bg-black text-white'
-                                            : 'border-zinc-100 bg-zinc-50 hover:border-zinc-200 text-zinc-400'
-                                            }`}
-                                    >
-                                        <p className="font-black text-xs uppercase tracking-widest">KURUMSAL</p>
-                                        <CheckCircle2 className={`absolute top-4 right-4 w-4 h-4 transition-opacity ${checkout.billing.type === 'company' ? 'opacity-100' : 'opacity-0'}`} />
-                                    </button>
-                                </div>
-
-                                <AnimatePresence mode="wait">
-                                    {checkout.billing.type === 'company' && (
-                                        <motion.div
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: 'auto' }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                            className="grid sm:grid-cols-2 gap-6"
-                                        >
+                                        <div className="grid sm:grid-cols-2 gap-6">
                                             <div className="sm:col-span-2 space-y-2">
-                                                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">ŞİRKET ÜNVANI</label>
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">AD SOYAD *</label>
                                                 <input
+                                                    name="fullName"
                                                     type="text"
-                                                    value={checkout.billing.companyName || ''}
-                                                    onChange={(e) => checkout.setBilling({ companyName: e.target.value })}
-                                                    className="w-full h-14 px-5 border border-zinc-100 rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium focus:outline-none focus:ring-2 focus:ring-black"
-                                                    placeholder="VERAL METAL A.Ş."
+                                                    value={checkout.shipping.fullName}
+                                                    onChange={(e) => handleInputChange('fullName', e.target.value)}
+                                                    className={`w-full rounded-2xl bg-black/20 border px-4 py-3 text-white placeholder:text-white/35 outline-none transition ${formErrors.fullName ? 'border-red-500/60 focus:border-red-500 focus:ring-2 focus:ring-red-500/25' : 'border-white/10 focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25'}`}
+                                                    placeholder="John Doe"
                                                 />
+                                                {formErrors.fullName && <p className="text-xs font-semibold text-red-400 ml-1">{formErrors.fullName.toUpperCase()}</p>}
                                             </div>
+
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">VERGİ DAİRESİ</label>
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">E-POSTA *</label>
                                                 <input
-                                                    type="text"
-                                                    value={checkout.billing.taxOffice || ''}
-                                                    onChange={(e) => checkout.setBilling({ taxOffice: e.target.value })}
-                                                    className="w-full h-14 px-5 border border-zinc-100 rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium focus:outline-none focus:ring-2 focus:ring-black"
-                                                    placeholder="Boğaziçi V.D."
+                                                    name="email"
+                                                    type="email"
+                                                    value={checkout.shipping.email}
+                                                    onChange={(e) => handleInputChange('email', e.target.value)}
+                                                    className={`w-full rounded-2xl bg-black/20 border px-4 py-3 text-white placeholder:text-white/35 outline-none transition ${formErrors.email ? 'border-red-500/60 focus:border-red-500 focus:ring-2 focus:ring-red-500/25' : 'border-white/10 focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25'}`}
+                                                    placeholder="john@example.com"
                                                 />
+                                                {formErrors.email && <p className="text-xs font-semibold text-red-400 ml-1">{formErrors.email.toUpperCase()}</p>}
                                             </div>
+
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">VERGİ NO / TC NO</label>
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">TELEFON *</label>
+                                                <input
+                                                    name="phone"
+                                                    type="tel"
+                                                    value={checkout.shipping.phone}
+                                                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                                                    className={`w-full rounded-2xl bg-black/20 border px-4 py-3 text-white placeholder:text-white/35 outline-none transition ${formErrors.phone ? 'border-red-500/60 focus:border-red-500 focus:ring-2 focus:ring-red-500/25' : 'border-white/10 focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25'}`}
+                                                    placeholder="05XX XXX XX XX"
+                                                />
+                                                {formErrors.phone && <p className="text-xs font-semibold text-red-400 ml-1">{formErrors.phone.toUpperCase()}</p>}
+                                            </div>
+
+                                            <div className="sm:col-span-2 space-y-2">
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">ADRES *</label>
+                                                <textarea
+                                                    name="address"
+                                                    value={checkout.shipping.address}
+                                                    onChange={(e) => handleInputChange('address', e.target.value)}
+                                                    className={`w-full min-h-[120px] rounded-2xl bg-black/20 border px-4 py-3 text-white placeholder:text-white/35 outline-none resize-none transition ${formErrors.address ? 'border-red-500/60 focus:border-red-500 focus:ring-2 focus:ring-red-500/25' : 'border-white/10 focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25'}`}
+                                                    placeholder="Siparişinizin teslim edileceği açık adres..."
+                                                />
+                                                {formErrors.address && <p className="text-xs font-semibold text-red-400 ml-1">{formErrors.address.toUpperCase()}</p>}
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">İL *</label>
+                                                <input
+                                                    name="city"
+                                                    type="text"
+                                                    value={checkout.shipping.city}
+                                                    onChange={(e) => handleInputChange('city', e.target.value)}
+                                                    className={`w-full rounded-2xl bg-black/20 border px-4 py-3 text-white placeholder:text-white/35 outline-none transition ${formErrors.city ? 'border-red-500/60 focus:border-red-500 focus:ring-2 focus:ring-red-500/25' : 'border-white/10 focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25'}`}
+                                                    placeholder="İstanbul"
+                                                />
+                                                {formErrors.city && <p className="text-xs font-semibold text-red-400 ml-1">{formErrors.city.toUpperCase()}</p>}
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">İLÇE *</label>
+                                                <input
+                                                    name="district"
+                                                    type="text"
+                                                    value={checkout.shipping.district}
+                                                    onChange={(e) => handleInputChange('district', e.target.value)}
+                                                    className={`w-full rounded-2xl bg-black/20 border px-4 py-3 text-white placeholder:text-white/35 outline-none transition ${formErrors.district ? 'border-red-500/60 focus:border-red-500 focus:ring-2 focus:ring-red-500/25' : 'border-white/10 focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25'}`}
+                                                    placeholder="Kadıköy"
+                                                />
+                                                {formErrors.district && <p className="text-xs font-semibold text-red-400 ml-1">{formErrors.district.toUpperCase()}</p>}
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">POSTA KODU</label>
                                                 <input
                                                     type="text"
-                                                    value={checkout.billing.taxNumber || ''}
-                                                    onChange={(e) => checkout.setBilling({ taxNumber: e.target.value })}
-                                                    className="w-full h-14 px-5 border border-zinc-100 rounded-2xl bg-zinc-50/50 text-zinc-900 font-medium focus:outline-none focus:ring-2 focus:ring-black"
-                                                    placeholder="000 000 0000"
+                                                    value={checkout.shipping.postalCode}
+                                                    onChange={(e) => handleInputChange('postalCode', e.target.value)}
+                                                    className="w-full rounded-2xl bg-black/20 border border-white/10 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25"
+                                                    placeholder="34000"
                                                 />
                                             </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </section>
-                        </div>
 
-                        {/* Order Summary (Sticky) */}
-                        <div className="lg:col-span-4">
-                            <div className="sticky top-32 space-y-6">
-                                <div className="bg-white border border-zinc-200 rounded-3xl p-8 shadow-sm">
-                                    <h2 className="text-sm font-black text-zinc-900 uppercase tracking-widest mb-6 pb-4 border-b border-zinc-50">SİPARİŞ ÖZETİ</h2>
-
-                                    {/* Items List */}
-                                    <div className="space-y-6 mb-8 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                        {cart.items.map((item) => (
-                                            <div key={item.id} className="flex gap-4 group">
-                                                <div className="w-16 h-16 flex-shrink-0 bg-zinc-50 rounded-xl overflow-hidden border border-zinc-100 flex items-center justify-center p-2">
-                                                    <img src={item.image} alt={item.name} className="w-full h-full object-contain mix-blend-multiply transition-transform group-hover:scale-110" />
-                                                </div>
-                                                <div className="flex-1 min-w-0 flex flex-col justify-center">
-                                                    <p className="font-bold text-xs truncate text-zinc-900 uppercase tracking-tight">{item.name}</p>
-                                                    <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">{item.size} × {item.quantity}</p>
-                                                    <p className="font-black text-xs text-zinc-900 mt-1">{formatPrice(item.price * item.quantity)}</p>
-                                                </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">SİPARİŞ NOTU</label>
+                                                <input
+                                                    type="text"
+                                                    value={checkout.shipping.notes}
+                                                    onChange={(e) => handleInputChange('notes', e.target.value)}
+                                                    className="w-full rounded-2xl bg-black/20 border border-white/10 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25"
+                                                    placeholder="Örn: Kapıya bırakın"
+                                                />
                                             </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="space-y-4 mb-8">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">ARA TOPLAM</span>
-                                            <span className="font-bold text-sm text-zinc-900">{formatPrice(subtotal)}</span>
                                         </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">KARGO</span>
-                                            {shipping === 0 ? (
-                                                <span className="text-emerald-600 font-black text-[10px] uppercase tracking-widest">ÜCRETSİZ</span>
-                                            ) : (
-                                                <span className="font-bold text-sm text-zinc-900">{formatPrice(shipping)}</span>
+                                    </div>
+                                </section>
+
+                                {/* Billing Info */}
+                                <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
+                                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_20%,rgba(255,255,255,0.06),rgba(0,0,0,0.35)_55%,rgba(0,0,0,0.60)_100%)]" />
+                                    <div className="relative z-10">
+                                        <div className="flex items-center gap-4 mb-8">
+                                            {checkoutCMS?.showStepLabels && (
+                                                <span className="text-2xl font-semibold text-white/40 tracking-tighter">02</span>
                                             )}
+                                            <h2 className="text-xl font-extrabold text-white uppercase tracking-tight">
+                                                {checkoutCMS?.stepLabels?.billing || "FATURA BİLGİLERİ"}
+                                            </h2>
                                         </div>
-                                        {checkout.couponDiscount > 0 && (
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">İNDİRİM</span>
-                                                <span className="font-bold text-sm text-emerald-600">-{formatPrice(checkout.couponDiscount)}</span>
-                                            </div>
-                                        )}
-                                        <div className="h-[1px] bg-zinc-100 my-2" />
-                                        <div className="flex justify-between items-center text-xl font-black italic">
-                                            <span className="text-zinc-900 tracking-tighter uppercase">TOPLAM</span>
-                                            <span className="text-zinc-900 tracking-tighter">{formatPrice(total)}</span>
+
+                                        <div className="flex gap-4 mb-8">
+                                            <button
+                                                type="button"
+                                                onClick={() => handleBillingTypeChange('individual')}
+                                                className={`flex-1 p-5 border rounded-2xl text-left transition-all relative overflow-hidden group ${checkout.billing.type === 'individual'
+                                                    ? 'border-[#d8b24c]/60 bg-[#d8b24c]/10 text-white'
+                                                    : 'border-white/10 bg-black/10 hover:border-white/20 text-white/50'
+                                                    }`}
+                                            >
+                                                <p className="font-black text-xs uppercase tracking-widest">BİREYSEL</p>
+                                                <CheckCircle2 className={`absolute top-4 right-4 w-4 h-4 text-[#d8b24c] transition-opacity ${checkout.billing.type === 'individual' ? 'opacity-100' : 'opacity-0'}`} />
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleBillingTypeChange('company')}
+                                                className={`flex-1 p-5 border rounded-2xl text-left transition-all relative overflow-hidden group ${checkout.billing.type === 'company'
+                                                    ? 'border-[#d8b24c]/60 bg-[#d8b24c]/10 text-white'
+                                                    : 'border-white/10 bg-black/10 hover:border-white/20 text-white/50'
+                                                    }`}
+                                            >
+                                                <p className="font-black text-xs uppercase tracking-widest">KURUMSAL</p>
+                                                <CheckCircle2 className={`absolute top-4 right-4 w-4 h-4 text-[#d8b24c] transition-opacity ${checkout.billing.type === 'company' ? 'opacity-100' : 'opacity-0'}`} />
+                                            </button>
                                         </div>
-                                    </div>
 
-                                    {checkout.error && (
-                                        <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-2xl">
-                                            <div className="flex gap-3">
-                                                <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0" />
-                                                <p className="text-[10px] font-bold text-red-600 uppercase tracking-wide leading-relaxed">{checkout.error}</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <Button
-                                        type="submit"
-                                        size="lg"
-                                        className="w-full bg-black hover:bg-zinc-800 text-white h-16 rounded-2xl flex items-center justify-center gap-3 group transition-all"
-                                        disabled={checkout.isProcessing}
-                                    >
-                                        {checkout.isProcessing ? (
-                                            <>
-                                                <Loader2 className="w-5 h-5 animate-spin" />
-                                                <span className="font-black tracking-widest uppercase text-xs">İŞLENİYOR...</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span className="font-black tracking-widest uppercase text-xs">{checkoutCMS?.completeButtonText || "SİPARİŞİ TAMAMLA"}</span>
-                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                                                    <ArrowRight className="w-4 h-4" />
-                                                </div>
-                                            </>
-                                        )}
-                                    </Button>
-
-                                    <div
-                                        className="mt-6 text-[10px] text-zinc-400 text-center font-medium leading-relaxed uppercase tracking-wider"
-                                        dangerouslySetInnerHTML={{ __html: checkoutCMS?.legalText || "Siparişi tamamlayarak <a href='/kosullar' class='underline'>Satış Sözleşmesi</a>'ni kabul etmiş olursunuz." }}
-                                    />
-
-                                    {/* Trust Blocks */}
-                                    <div className="mt-8 pt-8 border-t border-zinc-50 flex flex-wrap justify-center gap-6">
-                                        {checkoutCMS?.trustBlocks?.map((block: any, i: number) => (
-                                            <div key={i} className="flex flex-col items-center gap-2">
-                                                <div className="w-10 h-10 rounded-xl bg-zinc-50 flex items-center justify-center border border-zinc-100">
-                                                    <IconComponent name={block.icon} className="w-5 h-5 text-zinc-900" />
-                                                </div>
-                                                <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest text-center max-w-[80px] leading-tight">
-                                                    {block.title}
-                                                </span>
-                                            </div>
-                                        )) || (
-                                                <div className="flex flex-col items-center gap-2">
-                                                    <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center border border-emerald-100">
-                                                        <Lock className="w-4 h-4 text-emerald-600" />
+                                        <AnimatePresence mode="wait">
+                                            {checkout.billing.type === 'company' && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    className="grid sm:grid-cols-2 gap-6"
+                                                >
+                                                    <div className="sm:col-span-2 space-y-2">
+                                                        <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">ŞİRKET ÜNVANI</label>
+                                                        <input
+                                                            type="text"
+                                                            value={checkout.billing.companyName || ''}
+                                                            onChange={(e) => checkout.setBilling({ companyName: e.target.value })}
+                                                            className="w-full rounded-2xl bg-black/20 border border-white/10 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25"
+                                                            placeholder="VERAL METAL A.Ş."
+                                                        />
                                                     </div>
-                                                    <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest">GÜVENLİ ÖDEME</span>
+                                                    <div className="space-y-2">
+                                                        <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">VERGİ DAİRESİ</label>
+                                                        <input
+                                                            type="text"
+                                                            value={checkout.billing.taxOffice || ''}
+                                                            onChange={(e) => checkout.setBilling({ taxOffice: e.target.value })}
+                                                            className="w-full rounded-2xl bg-black/20 border border-white/10 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25"
+                                                            placeholder="Boğaziçi V.D."
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <label className="text-xs font-semibold uppercase tracking-wider text-white/80 ml-1">VERGİ NO / TC NO</label>
+                                                        <input
+                                                            type="text"
+                                                            value={checkout.billing.taxNumber || ''}
+                                                            onChange={(e) => checkout.setBilling({ taxNumber: e.target.value })}
+                                                            className="w-full rounded-2xl bg-black/20 border border-white/10 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#d8b24c]/40 focus:ring-2 focus:ring-[#d8b24c]/25"
+                                                            placeholder="000 000 0000"
+                                                        />
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </section>
+                            </div>
+
+                            {/* Order Summary (Sticky) */}
+                            <div className="lg:col-span-4">
+                                <div className="sticky top-32 space-y-6">
+                                    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
+                                        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_20%,rgba(255,255,255,0.06),rgba(0,0,0,0.35)_55%,rgba(0,0,0,0.60)_100%)]" />
+                                        <div className="relative z-10">
+                                            <h2 className="text-sm font-extrabold text-white uppercase tracking-widest mb-6 pb-4 border-b border-white/10">SİPARİŞ ÖZETİ</h2>
+
+                                            {/* Items List */}
+                                            <div className="space-y-6 mb-8 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                                {cart.items.map((item) => (
+                                                    <div key={item.id} className="flex gap-4 group">
+                                                        <div className="w-16 h-16 flex-shrink-0 bg-white/5 rounded-xl overflow-hidden border border-white/10 flex items-center justify-center p-2">
+                                                            <img src={item.image} alt={item.name} className="w-full h-full object-contain mix-blend-lighten transition-transform group-hover:scale-110" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                                                            <p className="font-bold text-xs truncate text-white uppercase tracking-tight">{item.name}</p>
+                                                            <p className="text-xs text-white/55 font-semibold uppercase tracking-wider">{item.size} × {item.quantity}</p>
+                                                            <p className="font-extrabold text-xs text-white mt-1">{formatPrice(item.price * item.quantity)}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <div className="space-y-4 mb-8">
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-xs font-semibold text-white/65 uppercase tracking-wider">ARA TOPLAM</span>
+                                                    <span className="font-semibold text-sm text-white">{formatPrice(subtotal)}</span>
+                                                </div>
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-xs font-semibold text-white/65 uppercase tracking-wider">KARGO</span>
+                                                    {shipping === 0 ? (
+                                                        <span className="text-emerald-400 font-black text-xs uppercase tracking-widest">ÜCRETSİZ</span>
+                                                    ) : (
+                                                        <span className="font-semibold text-sm text-white">{formatPrice(shipping)}</span>
+                                                    )}
+                                                </div>
+                                                {checkout.couponDiscount > 0 && (
+                                                    <div className="flex justify-between items-center">
+                                                        <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">İNDİRİM</span>
+                                                        <span className="font-semibold text-sm text-emerald-400">-{formatPrice(checkout.couponDiscount)}</span>
+                                                    </div>
+                                                )}
+                                                <div className="h-[1px] bg-white/10 my-2" />
+                                                <div className="flex justify-between items-center text-3xl font-extrabold">
+                                                    <span className="text-white tracking-tighter uppercase">TOPLAM</span>
+                                                    <span className="text-white tracking-tighter">{formatPrice(total)}</span>
+                                                </div>
+                                            </div>
+
+                                            {checkout.error && (
+                                                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-2xl">
+                                                    <div className="flex gap-3">
+                                                        <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                                                        <p className="text-xs font-semibold text-red-400 uppercase tracking-wide leading-relaxed">{checkout.error}</p>
+                                                    </div>
                                                 </div>
                                             )}
+
+                                            <Button
+                                                type="submit"
+                                                size="lg"
+                                                className="w-full rounded-2xl bg-[#d8b24c] text-black font-extrabold py-4 hover:brightness-105 active:brightness-95 transition flex items-center justify-center gap-3 group h-16"
+                                                disabled={checkout.isProcessing}
+                                            >
+                                                {checkout.isProcessing ? (
+                                                    <>
+                                                        <Loader2 className="w-5 h-5 animate-spin" />
+                                                        <span className="font-black tracking-widest uppercase text-xs">İŞLENİYOR...</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <span className="font-black tracking-widest uppercase text-xs">{checkoutCMS?.completeButtonText || "SİPARİŞİ TAMAMLA"}</span>
+                                                        <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                                                            <ArrowRight className="w-4 h-4" />
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </Button>
+
+                                            <div
+                                                className="mt-6 text-xs text-white/55 text-center font-medium leading-relaxed uppercase tracking-wider"
+                                                dangerouslySetInnerHTML={{ __html: checkoutCMS?.legalText || "Siparişi tamamlayarak <a href='/kosullar' class='underline'>Satış Sözleşmesi</a>'ni kabul etmiş olursunuz." }}
+                                            />
+
+                                            {/* Trust Blocks */}
+                                            <div className="mt-8 pt-8 border-t border-white/10 flex flex-wrap justify-center gap-6">
+                                                {checkoutCMS?.trustBlocks?.map((block: any, i: number) => (
+                                                    <div key={i} className="flex flex-col items-center gap-2">
+                                                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                                                            <IconComponent name={block.icon} className="w-5 h-5 text-white" />
+                                                        </div>
+                                                        <span className="text-[8px] font-black text-white/55 uppercase tracking-widest text-center max-w-[80px] leading-tight">
+                                                            {block.title}
+                                                        </span>
+                                                    </div>
+                                                )) || (
+                                                        <div className="flex flex-col items-center gap-2">
+                                                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/30">
+                                                                <Lock className="w-4 h-4 text-emerald-400" />
+                                                            </div>
+                                                            <span className="text-[8px] font-black text-white/55 uppercase tracking-widest">GÜVENLİ ÖDEME</span>
+                                                        </div>
+                                                    )}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </main>
+                    </form>
+                </div>
+            </main>
+            <Footer />
+        </>
     );
 }

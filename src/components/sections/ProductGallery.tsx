@@ -10,6 +10,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
+import { normalizeImagePath } from "@/lib/utils";
 
 export const ProductGallery = () => {
     const { content } = useContentStore();
@@ -101,7 +102,19 @@ export const ProductGallery = () => {
 
                     {/* Products Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-20">
-                        {displayProducts.map((product, index) => (
+                        {displayProducts.map((product, index) => {
+                            const rawImage = product.image;
+                            const hasImage = Boolean(rawImage && rawImage !== "null");
+                            const imageSrc = normalizeImagePath(rawImage);
+                            const safeImageSrc = encodeURI(imageSrc);
+                            const rawCategory = product.category ? String(product.category) : "";
+                            const cleanedCategory = rawCategory.replace("_PLAKA", "");
+                            const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+                                cleanedCategory
+                            );
+                            const showCategory = Boolean(cleanedCategory && !isUuid);
+
+                            return (
                             <motion.div
                                 key={product.id}
                                 initial={shouldReduceVisuals ? false : { opacity: 0 }}
@@ -110,17 +123,24 @@ export const ProductGallery = () => {
                                 className="group flex flex-col gap-8"
                             >
                                 {/* Image Wrapper: Sharp Museum Frame */}
-                                <Link href={`/urunler/${product.slug}`} className="block relative aspect-square overflow-hidden bg-[#f8f8f8] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] group-hover:shadow-[0_50px_100px_-20px_rgba(212,175,55,0.2)] transition-all duration-1000 border border-[#0A0A0A]/5">
-                                    <Image
-                                        src={product.image}
-                                        alt={product.name}
-                                        fill
-                                        className="object-contain p-4 transition-transform duration-1000 group-hover:scale-105"
-                                        sizes={imageSizes}
-                                        quality={imageQuality}
-                                        loading={(isMobile || shouldReduceVisuals) ? "lazy" : "eager"}
-                                        fetchPriority={(isMobile || shouldReduceVisuals) ? "auto" : (index === 0 ? "high" : "auto")}
-                                    />
+                                <Link href={`/urunler/${product.slug}`} className="block relative aspect-square overflow-hidden bg-[#0A0A0A] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.55)] group-hover:shadow-[0_50px_100px_-20px_rgba(212,175,55,0.2)] transition-all duration-1000 border border-white/10 ring-1 ring-white/5">
+                                    {hasImage ? (
+                                        <Image
+                                            src={safeImageSrc}
+                                            alt={product.name}
+                                            fill
+                                            className="object-contain p-4 transition-transform duration-1000 group-hover:scale-105"
+                                            sizes={imageSizes}
+                                            quality={imageQuality}
+                                            loading={(isMobile || shouldReduceVisuals) ? "lazy" : "eager"}
+                                            fetchPriority={(isMobile || shouldReduceVisuals) ? "auto" : (index === 0 ? "high" : "auto")}
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center text-xs font-black text-[#0A0A0A]/30 uppercase tracking-[0.3em]">
+                                            Görsel yok
+                                        </div>
+                                    )}
+                                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,rgba(255,255,255,0.04),rgba(0,0,0,0.35)_60%,rgba(0,0,0,0.7)_100%)]" />
                                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
                                     {/* Label for Detail */}
@@ -132,12 +152,14 @@ export const ProductGallery = () => {
 
                                 {/* Info Section: High Readability */}
                                 <div className="flex flex-col gap-4">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-6 h-[1px] bg-[#D4AF37]/40" />
-                                        <span className="text-[9px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">
-                                            {product.category?.replace("_PLAKA", "") || "COLLECTION"}
-                                        </span>
-                                    </div>
+                                    {showCategory && (
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-6 h-[1px] bg-[#D4AF37]/40" />
+                                            <span className="text-[9px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">
+                                                {cleanedCategory}
+                                            </span>
+                                        </div>
+                                    )}
                                     <Link href={`/urunler/${product.slug}`}>
                                         <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none italic group-hover:text-gold-metal transition-colors">
                                             {product.name}
@@ -167,7 +189,8 @@ export const ProductGallery = () => {
                                     </div>
                                 </div>
                             </motion.div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     {/* View All Button */}

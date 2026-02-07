@@ -116,6 +116,10 @@ export const Footer = () => {
                         </p>
                         <div className="flex flex-wrap justify-center gap-8">
                             {[
+                                { label: 'MESAFELİ SATIŞ', href: '/mesafeli-satis' },
+                                { label: 'ÖN BİLGİLENDİRME', href: '/on-bilgilendirme' },
+                                { label: 'İPTAL / İADE', href: '/iade-iptal' },
+                                { label: 'ÇEREZ POLİTİKASI', href: '/cerez' },
                                 { label: 'GİZLİLİK POLİTİKASI', href: '/gizlilik' },
                                 { label: 'KULLANIM ŞARTLARI', href: '/sartlar' },
                                 { label: 'KVKK AYDINLATMA', href: '/kvkk' }

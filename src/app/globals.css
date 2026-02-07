@@ -188,6 +188,15 @@ html {
   background-attachment: fixed;
 }
 
+/* Disable grid background on mobile for performance */
+@media (max-width: 767px) {
+  .bg-white, main.bg-white,
+  .bg-\[\#0A0A0A\], .bg-zinc-950, main.bg-\[\#0A0A0A\], main.bg-zinc-950 {
+    background-image: none !important;
+    background-attachment: initial;
+  }
+}
+
 /* Force desktop layout on mobile devices */
 html.force-desktop,
 html.force-desktop body {
