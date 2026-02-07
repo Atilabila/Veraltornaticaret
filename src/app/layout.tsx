@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AdminProvider } from "@/components/providers/AdminProvider";
 import { ContentSyncProvider } from "@/components/providers/ContentSyncProvider";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
@@ -36,9 +37,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <AdminProvider>
           <ContentSyncProvider>
-            <DynamicMetadata />
-            <GlobalGrid />
-            {children}
+            <AuthProvider>
+              <DynamicMetadata />
+              <GlobalGrid />
+              {children}
+            </AuthProvider>
           </ContentSyncProvider>
         </AdminProvider>
         <WhatsAppButton />

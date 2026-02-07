@@ -9,6 +9,8 @@ import { DirectEdit } from "@/components/admin/DirectEdit";
 export const Footer = () => {
     const { content } = useContentStore();
 
+    const instagramHandle = (content.footerInstagram || "").replace('@', '').trim();
+
     return (
         <DirectEdit tab="contact">
             <footer className="bg-[#0A0A0A] pt-40 pb-20 border-t border-[#D4AF37]/20 relative overflow-hidden">
@@ -45,14 +47,19 @@ export const Footer = () => {
                             {/* SOCIAL ICONS */}
                             <div className="flex gap-6">
                                 {[
-                                    { icon: Instagram, href: `https://instagram.com/${content.footerInstagram.replace('@', '')}` },
+                                    instagramHandle ? { icon: Instagram, href: `https://instagram.com/${instagramHandle}` } : null,
                                     { icon: Facebook, href: '#' },
                                     { icon: Twitter, href: '#' }
-                                ].map((social, i) => (
-                                    <Link key={i} href={social.href} target="_blank" className="w-12 h-12 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-500">
-                                        <social.icon size={20} />
-                                    </Link>
-                                ))}
+                                ]
+                                    .filter(Boolean)
+                                    .map((social, i) => {
+                                        const item = social as { icon: typeof Instagram; href: string };
+                                        return (
+                                            <Link key={i} href={item.href} target="_blank" className="w-12 h-12 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-500">
+                                                <item.icon size={20} />
+                                            </Link>
+                                        );
+                                    })}
                             </div>
                         </div>
 

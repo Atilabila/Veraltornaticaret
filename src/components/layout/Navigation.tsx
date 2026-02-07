@@ -12,6 +12,7 @@ import { normalizeImagePath } from '@/lib/utils';
 import { useAdminStore } from '@/store/useAdminStore';
 import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 import { usePerformanceDetection } from '@/hooks/usePerformanceDetection';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export const Navigation = () => {
     const { content } = useContentStore();
@@ -24,7 +25,9 @@ export const Navigation = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const setAdmin = useAdminStore((state) => state.setAdmin);
+    const isAdmin = useAdminStore((state) => state.isAdmin);
     const { shouldReduceVisuals } = usePerformanceDetection();
+    const user = useAuthStore((state) => state.user);
 
     useEffect(() => {
         let ticking = false;
@@ -45,6 +48,7 @@ export const Navigation = () => {
         window.addEventListener('resize', handleResize, { passive: true });
 
         const checkAuth = async () => {
+            if (isAdmin) return;
             const supabase = createBrowserSupabaseClient();
             const { data: { user } } = await supabase.auth.getUser();
             if (user) setAdmin(true);
@@ -54,6 +58,7 @@ export const Navigation = () => {
         // Start background sync service
         const initSync = async () => {
             try {
+                if (isAdmin) return;
                 const { startBackgroundSync } = await import('@/lib/sync/syncService');
                 startBackgroundSync();
             } catch (error) {
@@ -66,7 +71,7 @@ export const Navigation = () => {
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [isAdmin, setAdmin]);
 
     // Lock body scroll when mobile menu is open
     useEffect(() => {
@@ -97,11 +102,8 @@ export const Navigation = () => {
             { id: 'f4', label: 'Teklif Al', url: '/teklif-al', isPrimary: true },
         ]; // Fallback while loading or if empty
 
-    // Determine if current page is dark-themed (for Auto Contrast mode)
-    // Determine if current page is dark-themed (for Auto Contrast mode)
     const { isDarkPage, headerMode } = useThemeDetection();
 
-    // Header Config Logic
     const config = content.headerConfig || {
         logoLight: "/logo-white.svg",
         logoDark: "/logo.svg",
@@ -115,16 +117,11 @@ export const Navigation = () => {
         announcementActive: false
     };
 
-    // Effective Mode: Check override first, then global config
     const effectiveMode = headerMode !== 'inherit' ? headerMode : config.mode;
     const isTranslucentMode = effectiveMode === 'translucent';
 
-    // Calculate effective styles
     const headerBgOpacity = isScrolled ? 1 : (isTranslucentMode ? config.transparency / 100 : 0);
 
-    // Text Color Logic:
-    // If Mode is 'light' -> forced to White (for dark bg)
-    // If Mode is 'dark' -> forced to Black (for light bg)
     const isTextWhite =
         effectiveMode === 'light' ||
         (effectiveMode !== 'dark' && (isScrolled || isTranslucentMode || isDarkPage));
@@ -136,8 +133,6 @@ export const Navigation = () => {
     const blurValue = enableFx && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')
         ? Math.min(config.blur || 12, 8)
         : 0;
-
-
 
     return (
         <>
@@ -172,10 +167,9 @@ export const Navigation = () => {
                 <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
                     <div className={`flex items-center justify-between transition-all duration-500 ${config.announcementActive ? (isScrolled ? 'py-2' : 'py-3') : (isScrolled ? 'py-3' : 'py-4 md:py-5')
                         }`}>
-                        {/* Brand Logo - Expanded width for better balance */}
-                        <div className="flex items-center gap-4 sm:gap-8 lg:gap-16 min-w-[200px] sm:min-w-[280px] lg:min-w-[320px]">
-                            <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
-                                <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-8 w-8 md:h-10 md:w-10' : 'h-10 w-10 md:h-12 md:w-12'
+                        <div className="flex items-center gap-3 sm:gap-8 lg:gap-16 min-w-0 sm:min-w-[280px] lg:min-w-[320px]">
+                            <Link href="/" className="flex items-center gap-2 sm:gap-4 group">
+                                <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-7 w-7 md:h-10 md:w-10' : 'h-8 w-8 md:h-12 md:w-12'
                                     }`}>
                                     <img
                                         src={normalizeImagePath(logoSrc || "/veral-logo.webp")}
@@ -184,42 +178,44 @@ export const Navigation = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col">
-                                    <h2 className={`font-black uppercase tracking-[0.15em] text-[#D4AF37] transition-all duration-500 ${isScrolled ? 'text-base md:text-lg' : 'text-lg md:text-xl'
+                                    <h2 className={`font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] text-[#D4AF37] transition-all duration-500 ${isScrolled ? 'text-sm md:text-lg' : 'text-base md:text-xl'
                                         }`}>
                                         {content.siteName || "VERAL"}
                                     </h2>
-                                    <span className={`text-[7px] md:text-[8px] font-bold tracking-[0.3em] uppercase -mt-0.5 transition-all duration-500 ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
+                                    <span className={`text-[6px] md:text-[8px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase -mt-0.5 transition-all duration-500 ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
                                         } ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
                                 </div>
                             </Link>
-
-                            {/* Desktop Navigation */}
-                            <nav className="hidden items-center gap-8">
-                                {/* Desktop Navigation Links Removed */}
-                            </nav>
                         </div>
 
                         {/* Utils - Improved spacing and alignment */}
-                        <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
+                        <div className="flex items-center gap-1 sm:gap-6 md:gap-8">
                             {/* Control Buttons - Icon cluster with intentional spacing */}
-                            <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
+                            <div className="flex items-center gap-1 sm:gap-4 md:gap-5">
                                 <button
                                     onClick={() => setIsSearchOpen(true)}
-                                    className={`relative group p-2 transition-all ${textColorClass} hover:text-[#D4AF37]`}
+                                    className={`relative group p-1 sm:p-2 transition-all ${textColorClass} hover:text-[#D4AF37]`}
                                 >
-                                    <Search className="w-5 h-5" />
+                                    <Search className="w-4 h-4 sm:w-5 h-5" />
                                 </button>
                                 <Link
                                     href="/sepet"
                                     aria-label="Sepet"
-                                    className={`relative group p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
+                                    className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
                                 >
-                                    <ShoppingCart className="w-5 h-5" />
+                                    <ShoppingCart className="w-4 h-4 sm:w-5 h-5" />
                                     {cartCount > 0 && (
-                                        <span className="absolute top-0 right-0 w-4 h-4 bg-[#D4AF37] text-white text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
+                                        <span className="absolute top-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-[#D4AF37] text-white text-[8px] sm:text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
                                             {cartCount}
                                         </span>
                                     )}
+                                </Link>
+                                <Link
+                                    href="/hesabim"
+                                    aria-label="Hesabım"
+                                    className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
+                                >
+                                    <User className="w-4 h-4 sm:w-5 h-5" />
                                 </Link>
                                 <button
                                     className={`p-2 transition-all ${textColorClass}`}
@@ -243,9 +239,6 @@ export const Navigation = () => {
                 </div>
             </header>
 
-            {/* OVERLAYS MOVED OUTSIDE FOR STACKING CONTEXT FIX */}
-
-            {/* Search Overlay */}
             <AnimatePresence>
                 {isSearchOpen && (
                     <motion.div
@@ -255,7 +248,6 @@ export const Navigation = () => {
                         className="fixed inset-0 z-[100000] flex flex-col items-center justify-start pt-32 px-6 overflow-y-auto"
                         style={{ backgroundColor: '#000000' }}
                     >
-                        {/* Subtle Pattern */}
                         <div className="absolute inset-0 opacity-10 pointer-events-none grid-pattern-dark" />
 
                         <button
@@ -324,7 +316,6 @@ export const Navigation = () => {
                 )}
             </AnimatePresence>
 
-            {/* Mobile Menu */}
             {isMobileMenuOpen && (
                 <div
                     className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 overflow-y-auto"
@@ -364,7 +355,7 @@ export const Navigation = () => {
                         </Link>
                         <div className="mt-8 pt-10 border-t border-[#D4AF37]/20">
                             <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
-                                GİRİŞ YAP
+                                {user ? 'HESABIM' : 'GİRİŞ YAP'}
                             </Link>
                         </div>
                     </nav>

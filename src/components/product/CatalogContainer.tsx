@@ -325,7 +325,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 sm:gap-6 lg:gap-10 items-start">
           {/* Desktop Sidebar - Hidden on mobile */}
           <aside className="hidden lg:block order-1 sticky top-24 lg:top-20 self-start">
-            <div className="space-y-4 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1">
+            <div className="space-y-4 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
                 <div className="flex items-center gap-3">
                   <img src="/logo.svg" alt="Logo" className="h-10 w-10 object-contain" />
@@ -753,8 +753,8 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
       {/* Category Transition Overlay - Mobile only */}
       <div
         className={`fixed top-24 left-1/2 -translate-x-1/2 z-40 lg:hidden transition-all duration-300 ease-out ${activeCategory
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-1 pointer-events-none"
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-1 pointer-events-none"
           }`}
       >
         <div className="bg-black/25 backdrop-blur-sm ring-1 ring-white/10 rounded-2xl px-4 py-2">

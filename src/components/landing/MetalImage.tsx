@@ -7,6 +7,7 @@
 import * as React from "react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { Package } from "lucide-react"
 
 interface MetalImageProps {
     src: string
@@ -32,11 +33,12 @@ export const MetalImage: React.FC<MetalImageProps> = ({
     const [isHovered, setIsHovered] = React.useState(false)
     const [hasError, setHasError] = React.useState(false)
 
-    const isSvg = src?.endsWith('.svg')
+    const isExternal = src?.startsWith('http') || src?.includes('supabase.co') || src?.includes('storage/v1');
+    const isSvg = src?.endsWith('.svg') && !isExternal; // Only try to inject local SVGs
 
-    // Fetch and inject SVG for CSS interactions
+    // Fetch and inject SVG for CSS interactions (Local SVGs ONLY)
     React.useEffect(() => {
-        if (!isSvg || !src) {
+        if (!isSvg || !src || isExternal) {
             setIsLoaded(true)
             return
         }
@@ -47,7 +49,6 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                 return res.text()
             })
             .then(text => {
-                // Clean up SVG and add our classes
                 let svg = text
                     .replace(/width="[^"]*"/g, 'width="100%"')
                     .replace(/height="[^"]*"/g, 'height="100%"')
@@ -62,7 +63,7 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                 setHasError(true)
                 setIsLoaded(true)
             })
-    }, [src, isSvg])
+    }, [src, isSvg, isExternal])
 
     // Determine ambient glow color
     const ambientColor = glowColor || getGlowFromBackground(backgroundColor)
@@ -97,29 +98,13 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
             >
-                {!isLoaded ? (
-                    // Loading placeholder
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="w-16 h-16 border-4 border-zinc-700 border-t-zinc-400 rounded-full animate-spin" />
+                {!isLoaded && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/10">
+                        <div className="w-8 h-8 border-2 border-zinc-700 border-t-zinc-400 rounded-full animate-spin" />
                     </div>
-                ) : hasError && isSvg ? (
-                    // Error fallback - try as regular image
-                    <img
-                        src={src}
-                        alt={alt}
-                        className={cn(
-                            "w-full h-full object-contain",
-                            "drop-shadow-2xl transition-all duration-300",
-                            isHovered && "brightness-110"
-                        )}
-                        loading={priority ? "eager" : "lazy"}
-                        onError={(e) => {
-                            console.error('Image failed to load:', src)
-                            e.currentTarget.style.display = 'none'
-                        }}
-                    />
-                ) : isSvg && svgContent ? (
-                    // Injected SVG for CSS interactions
+                )}
+
+                {isSvg && svgContent ? (
                     <div
                         className={cn(
                             "w-full h-full transition-all duration-300",
@@ -130,34 +115,32 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                         dangerouslySetInnerHTML={{ __html: svgContent }}
                     />
                 ) : (
-                    // Regular image with Next.js optimization
                     <img
+                        key={src}
                         src={src}
                         alt={alt}
                         className={cn(
                             "w-full h-full object-contain",
                             "drop-shadow-2xl transition-all duration-300",
-                            isHovered && "brightness-110"
+                            isHovered && "brightness-110",
+                            !isLoaded && "opacity-0",
+                            hasError && "hidden"
                         )}
                         loading={priority ? "eager" : "lazy"}
                         onLoad={() => setIsLoaded(true)}
-                        onError={(e) => {
-                            console.error('Image failed to load:', src)
-                            setHasError(true)
-                            // Show placeholder icon instead
-                            e.currentTarget.style.display = 'none'
+                        onError={() => {
+                            console.error('Image load error:', src);
+                            setHasError(true);
+                            setIsLoaded(true);
                         }}
                     />
                 )}
 
-                {/* Show placeholder if image failed */}
                 {hasError && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/50">
-                        <div className="text-center">
-                            <svg className="w-16 h-16 mx-auto text-zinc-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <p className="text-xs text-zinc-500">Resim yüklenemedi</p>
+                    <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/50 rounded-sm">
+                        <div className="text-center p-4">
+                            <Package className="w-8 h-8 mx-auto text-zinc-600 mb-2" />
+                            <p className="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Görsel Seçilemedi</p>
                         </div>
                     </div>
                 )}

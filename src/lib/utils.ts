@@ -38,17 +38,22 @@ export function slugify(str: string) {
 export function normalizeImagePath(path: string | undefined | null): string {
     if (!path || path === "" || path === "null") return '/placeholder.png';
 
-    // If it's an absolute URL or data URI, return as is
-    if (path.startsWith('http') || path.startsWith('data:') || path.startsWith('blob:')) {
+    // If it's an absolute URL, data URI or already normalized, return as is
+    if (path.startsWith('http') || path.startsWith('data:') || path.startsWith('blob:') || path.startsWith('https://')) {
         return path;
+    }
+
+    // If it looks like a Supabase URL but missing the protocol (unlikely but safe)
+    if (path.includes('supabase.co') || path.includes('storage/v1')) {
+        return path.startsWith('//') ? 'https:' + path : path;
     }
 
     // Auto-fix paths that are missing the /catalog prefix but start with known categories
     let normalized = path.replace(/\\/g, '/');
 
-    // Check both paths starting with and without /
+    // For local assets, we can be more strict, but for storage/external we must preserve case
     const isCategoryPath = (p: string) => {
-        const cat = p.startsWith('/') ? p.substring(1) : p;
+        const cat = p.startsWith('/') ? p.substring(1).toLowerCase() : p.toLowerCase();
         return cat.startsWith('cars/') || cat.startsWith('characters/') || cat.startsWith('ataturk/') || cat.startsWith('city/') || cat.startsWith('motors/');
     };
 
@@ -57,24 +62,12 @@ export function normalizeImagePath(path: string | undefined | null): string {
         normalized = '/catalog/' + cleanPath;
     }
 
-    // If it's clearly a local public path (starts with /), don't over-normalize
+    // Ensure leading slash for relative paths
     if (normalized.startsWith('/')) {
         return normalized;
     }
 
-    // For other relative paths, ensure leading slash and replace invalid chars
-    // But be careful not to break the structure
-    return '/' + normalized.toLowerCase()
-        .replace(/[ğĞ]/g, 'g')
-        .replace(/[üÜ]/g, 'u')
-        .replace(/[şŞ]/g, 's')
-        .replace(/[ıİ]/g, 'i')
-        .replace(/[öÖ]/g, 'o')
-        .replace(/[çÇ]/g, 'c')
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9\/\.-]/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/-\./g, '.');
+    return '/' + normalized;
 }
 
 export function toWebp(url: string | undefined | null): string {

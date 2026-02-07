@@ -6,7 +6,7 @@ import { ArrowDown, Zap, FileText, Factory, Ruler, MapPin } from "lucide-react"
 import { useInView } from "@/hooks/useInView"
 import { FeatureItem } from "./FeatureItem"
 import { MetalImage } from "./MetalImage"
-import { cn, slugify } from "@/lib/utils"
+import { formatPrice, slugify, cn, normalizeImagePath } from "@/lib/utils"
 import Link from "next/link"
 import type { MetalProduct } from "@/lib/supabase/metal-products.types"
 
@@ -96,8 +96,8 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
                     {/* Left: Product Image with Ambient Glow */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                        initial={{ opacity: 1 }} // Start visible to avoid inView flakiness on mobile
+                        animate={isInView ? { opacity: 1 } : { opacity: 1 }} // Maintain visibility
                         transition={{ duration: 0.4 }}
                         className="relative order-2 lg:order-1"
                     >
@@ -141,11 +141,12 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         >
                             {product.image_url ? (
                                 <MetalImage
-                                    src={product.image_url}
+                                    src={normalizeImagePath(product.image_url)}
                                     alt={product.name}
                                     backgroundColor={product.background_color}
-                                    className="w-full h-full p-8 object-contain transition-transform duration-700 group-hover/image:scale-110"
+                                    className="w-full h-full p-2 md:p-8 object-contain transition-transform duration-700 group-hover/image:scale-110"
                                     showAmbientGlow={false}
+                                    priority={index < 2}
                                 />
                             ) : (
                                 <div className={cn(

@@ -533,10 +533,19 @@ export default function CheckoutPage() {
                                                 )}
                                             </Button>
 
-                                            <div
-                                                className="mt-6 text-xs text-white/55 text-center font-medium leading-relaxed uppercase tracking-wider"
-                                                dangerouslySetInnerHTML={{ __html: checkoutCMS?.legalText || "Siparişi tamamlayarak <a href='/kosullar' class='underline'>Satış Sözleşmesi</a>'ni kabul etmiş olursunuz." }}
-                                            />
+                                            <div className="mt-6 text-xs text-white/55 text-center font-medium leading-relaxed uppercase tracking-wider">
+                                                {checkoutCMS?.legalText?.trim() ? (
+                                                    <span>{checkoutCMS.legalText}</span>
+                                                ) : (
+                                                    <>
+                                                        <span>Siparişi tamamlayarak </span>
+                                                        <a href="/kosullar" className="underline">
+                                                            Satış Sözleşmesi
+                                                        </a>
+                                                        <span>&apos;ni kabul etmiş olursunuz.</span>
+                                                    </>
+                                                )}
+                                            </div>
 
                                             {/* Trust Blocks */}
                                             <div className="mt-8 pt-8 border-t border-white/10 flex flex-wrap justify-center gap-6">

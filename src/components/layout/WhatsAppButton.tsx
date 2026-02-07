@@ -7,8 +7,8 @@ export const WhatsAppButton = () => {
     const { content } = useContentStore();
 
     const handleClick = () => {
-        const phoneNumber = content.whatsappNumber || '905554443322';
-        const message = encodeURIComponent(content.whatsappMessage || 'Merhaba, ürünleriniz hakkında bilgi almak istiyorum.');
+        const phoneNumber = content.whatsappNumber || '905071651315';
+        const message = encodeURIComponent(content.whatsappMessage || 'Merhaba, hizmetleriniz hakkında detaylı bilgi almak istiyorum.');
         window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     };
 

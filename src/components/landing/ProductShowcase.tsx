@@ -222,7 +222,7 @@ const FooterCTA: React.FC = () => {
                     className="flex flex-col sm:flex-row gap-4 justify-center"
                 >
                     <a
-                        href="/hizmetler/ozel-uretim"
+                        href="/metal-urunler"
                         className={cn(
                             "inline-flex items-center justify-center gap-2 px-8 py-4",
                             "rounded-sm font-bold text-sm uppercase tracking-wider",

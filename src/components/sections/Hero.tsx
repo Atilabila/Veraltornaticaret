@@ -16,6 +16,10 @@ import { TextInspector } from "@/components/admin/TextInspector";
 export const Hero = () => {
     const { content } = useContentStore();
     const { shouldReduceVisuals } = usePerformanceDetection();
+    const safeTitle = (content.heroTitle || "METAL TABLO &\nTENEKELERDE\nYENİ NESİL\nDEKOR VE ÜRETİM")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n/g, "<br/>");
 
     return (
         <DirectEdit tab="hero">
@@ -45,7 +49,7 @@ export const Hero = () => {
                                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight sm:leading-[0.98] tracking-tight lg:tracking-tighter uppercase text-black break-words"
                             >
                                 <TextInspector label="Hero-Headline">
-                                    <span dangerouslySetInnerHTML={{ __html: content.heroTitle?.replace(/\n/g, '<br/>') || "METAL TABLO &<br/>TENEKELERDE<br/>YENİ NESİL<br/>DEKOR VE ÜRETİM" }} />
+                                    <span dangerouslySetInnerHTML={{ __html: safeTitle }} />
                                 </TextInspector>
                             </motion.h1>
 
@@ -119,19 +123,23 @@ export const Hero = () => {
                             transition={{ duration: 0.8, ease: "circOut" }}
                             className="col-span-12 lg:col-span-5 relative w-full min-w-0"
                         >
-                            <div className="relative aspect-[4/5] sm:aspect-[4/5] lg:aspect-[4/5] bg-gray-100/80 w-full shadow-2xl rounded-3xl overflow-hidden">
-                                <Image
-                                    src={content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop"}
-                                    alt="Industrial Metal Production"
-                                    fill
-                                    className="object-cover"
-                                    priority
-                                    fetchPriority="high"
-                                    sizes="(min-width:1280px) 560px, (min-width:1024px) 480px, (min-width:768px) 60vw, 94vw"
-                                    quality={shouldReduceVisuals ? 40 : 55}
-                                />
-                                <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none" />
-                            </div>
+                            <Link href="/urunler" className="group block">
+                                <div className="relative aspect-[4/5] sm:aspect-[4/5] lg:aspect-[4/5] bg-gray-100/80 w-full shadow-2xl rounded-3xl overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
+                                    <Image
+                                        src={content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop"}
+                                        alt="Industrial Metal Production"
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                        fetchPriority="high"
+                                        sizes="(min-width:1280px) 560px, (min-width:1024px) 480px, (min-width:768px) 60vw, 94vw"
+                                        quality={shouldReduceVisuals ? 40 : 55}
+                                    />
+                                    <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none" />
+                                    {/* Hover Overlay */}
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                                </div>
+                            </Link>
                             <div className="mt-6 lg:mt-0 lg:absolute lg:-bottom-6 lg:-left-6 bg-white p-5 shadow-2xl border-l-8 border-black z-20 w-full max-w-[260px]">
                                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Technical Specs</div>
                                 <div className="text-3xl font-black text-black">0.30<span className="text-[12px] align-top ml-1">mm</span></div>

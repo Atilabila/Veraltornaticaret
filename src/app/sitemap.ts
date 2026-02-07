@@ -68,6 +68,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.5,
         },
         {
+            url: `${baseUrl}/kosullar`,
+            lastModified: lastMod,
+            changeFrequency: 'yearly',
+            priority: 0.5,
+        },
+        {
             url: `${baseUrl}/gizlilik`,
             lastModified: lastMod,
             changeFrequency: 'yearly',
@@ -75,6 +81,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
         {
             url: `${baseUrl}/kvkk`,
+            lastModified: lastMod,
+            changeFrequency: 'yearly',
+            priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/mesafeli-satis`,
+            lastModified: lastMod,
+            changeFrequency: 'yearly',
+            priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/on-bilgilendirme`,
+            lastModified: lastMod,
+            changeFrequency: 'yearly',
+            priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/iade-iptal`,
+            lastModified: lastMod,
+            changeFrequency: 'yearly',
+            priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/cerez`,
             lastModified: lastMod,
             changeFrequency: 'yearly',
             priority: 0.5,

@@ -63,7 +63,7 @@ export const ProductGallery = () => {
 
     return (
         <DirectEdit tab="products">
-            <section id="products" className="py-16 lg:py-24 bg-transparent">
+            <section id="products" className="py-16 lg:py-24 bg-transparent hidden lg:block">
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
                     {/* Header Section */}
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
@@ -115,80 +115,80 @@ export const ProductGallery = () => {
                             const showCategory = Boolean(cleanedCategory && !isUuid);
 
                             return (
-                            <motion.div
-                                key={product.id}
-                                initial={shouldReduceVisuals ? false : { opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={shouldReduceVisuals ? { duration: 0 } : { delay: index * 0.03, duration: 0.5 }}
-                                className="group flex flex-col gap-8"
-                            >
-                                {/* Image Wrapper: Sharp Museum Frame */}
-                                <Link href={`/urunler/${product.slug}`} className="block relative aspect-square overflow-hidden bg-[#0A0A0A] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.55)] group-hover:shadow-[0_50px_100px_-20px_rgba(212,175,55,0.2)] transition-all duration-1000 border border-white/10 ring-1 ring-white/5">
-                                    {hasImage ? (
-                                        <Image
-                                            src={safeImageSrc}
-                                            alt={product.name}
-                                            fill
-                                            className="object-contain p-4 transition-transform duration-1000 group-hover:scale-105"
-                                            sizes={imageSizes}
-                                            quality={imageQuality}
-                                            loading={(isMobile || shouldReduceVisuals) ? "lazy" : "eager"}
-                                            fetchPriority={(isMobile || shouldReduceVisuals) ? "auto" : (index === 0 ? "high" : "auto")}
-                                        />
-                                    ) : (
-                                        <div className="absolute inset-0 flex items-center justify-center text-xs font-black text-[#0A0A0A]/30 uppercase tracking-[0.3em]">
-                                            Görsel yok
+                                <motion.div
+                                    key={product.id}
+                                    initial={shouldReduceVisuals ? false : { opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={shouldReduceVisuals ? { duration: 0 } : { delay: index * 0.03, duration: 0.5 }}
+                                    className="group flex flex-col gap-8"
+                                >
+                                    {/* Image Wrapper: Sharp Museum Frame */}
+                                    <Link href={`/urunler/${product.slug}`} className="block relative aspect-square overflow-hidden bg-[#0A0A0A] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.55)] group-hover:shadow-[0_50px_100px_-20px_rgba(212,175,55,0.2)] transition-all duration-1000 border border-white/10 ring-1 ring-white/5">
+                                        {hasImage ? (
+                                            <Image
+                                                src={safeImageSrc}
+                                                alt={product.name}
+                                                fill
+                                                className="object-contain p-4 transition-transform duration-1000 group-hover:scale-105"
+                                                sizes={imageSizes}
+                                                quality={imageQuality}
+                                                loading={(isMobile || shouldReduceVisuals) ? "lazy" : "eager"}
+                                                fetchPriority={(isMobile || shouldReduceVisuals) ? "auto" : (index === 0 ? "high" : "auto")}
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 flex items-center justify-center text-xs font-black text-[#0A0A0A]/30 uppercase tracking-[0.3em]">
+                                                Görsel yok
+                                            </div>
+                                        )}
+                                        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,rgba(255,255,255,0.04),rgba(0,0,0,0.35)_60%,rgba(0,0,0,0.7)_100%)]" />
+                                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+
+                                        {/* Label for Detail */}
+                                        <div className="absolute bottom-6 right-6 p-4 bg-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-[#D4AF37]/30">
+                                            <Plus className="w-5 h-5 text-[#D4AF37]" />
                                         </div>
-                                    )}
-                                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,rgba(255,255,255,0.04),rgba(0,0,0,0.35)_60%,rgba(0,0,0,0.7)_100%)]" />
-                                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-
-                                    {/* Label for Detail */}
-                                    <div className="absolute bottom-6 right-6 p-4 bg-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-[#D4AF37]/30">
-                                        <Plus className="w-5 h-5 text-[#D4AF37]" />
-                                    </div>
-                                </Link>
-
-
-                                {/* Info Section: High Readability */}
-                                <div className="flex flex-col gap-4">
-                                    {showCategory && (
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-6 h-[1px] bg-[#D4AF37]/40" />
-                                            <span className="text-[9px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">
-                                                {cleanedCategory}
-                                            </span>
-                                        </div>
-                                    )}
-                                    <Link href={`/urunler/${product.slug}`}>
-                                        <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none italic group-hover:text-gold-metal transition-colors">
-                                            {product.name}
-                                        </h3>
                                     </Link>
 
-                                    <div className="flex justify-between items-center sm:mt-2 pt-6 border-t border-[#0A0A0A]/5">
-                                        <p className="text-3xl font-black text-white italic tracking-tighter">{product.price} TL</p>
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                addItem({
-                                                    productId: product.id,
-                                                    name: product.name,
-                                                    slug: product.slug,
-                                                    price: product.price,
-                                                    image: product.image,
-                                                    size: '45x60', // Default size matching base price
-                                                    orientation: 'vertical' // Default orientation
-                                                });
-                                            }}
-                                            className="px-8 h-12 bg-[#0A0A0A] text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-[#D4AF37] transition-all duration-500"
-                                        >
-                                            SEPETE EKLE
-                                        </button>
+
+                                    {/* Info Section: High Readability */}
+                                    <div className="flex flex-col gap-4">
+                                        {showCategory && (
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-6 h-[1px] bg-[#D4AF37]/40" />
+                                                <span className="text-[9px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">
+                                                    {cleanedCategory}
+                                                </span>
+                                            </div>
+                                        )}
+                                        <Link href={`/urunler/${product.slug}`}>
+                                            <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none italic group-hover:text-gold-metal transition-colors">
+                                                {product.name}
+                                            </h3>
+                                        </Link>
+
+                                        <div className="flex justify-between items-center sm:mt-2 pt-6 border-t border-[#0A0A0A]/5">
+                                            <p className="text-3xl font-black text-white italic tracking-tighter">{product.price} TL</p>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    addItem({
+                                                        productId: product.id,
+                                                        name: product.name,
+                                                        slug: product.slug,
+                                                        price: product.price,
+                                                        image: product.image,
+                                                        size: '45x60', // Default size matching base price
+                                                        orientation: 'vertical' // Default orientation
+                                                    });
+                                                }}
+                                                className="px-8 h-12 bg-[#0A0A0A] text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-[#D4AF37] transition-all duration-500"
+                                            >
+                                                SEPETE EKLE
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
                             );
                         })}
                     </div>

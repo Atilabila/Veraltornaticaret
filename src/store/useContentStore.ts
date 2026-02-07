@@ -902,7 +902,7 @@ export const defaultContent: SiteContent = {
             seoTitle: "Özel Metal Üretim - VERAL",
             seoDescription: "Projenize özel metal üretim hizmetleri.",
             ctaLabel: "Teklif İste",
-            ctaLink: "/hizmetler/ozel-uretim",
+            ctaLink: "/metal-urunler",
             isFeatured: false,
             order: 5
         }
