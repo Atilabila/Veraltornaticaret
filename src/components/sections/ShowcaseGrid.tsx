@@ -88,7 +88,10 @@ export const ShowcaseGrid = () => {
                                 transition={{ delay: idx * 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                                 className="group"
                             >
-                                <Link href={item.ctaLink || `/urunler?category=${item.slug}`} className="block space-y-8">
+                                <Link
+                                    href={(item.slug === "ozel-uretim" || item.slug === "ozel") ? "/metal-urunler" : (item.ctaLink || `/urunler?category=${item.slug}`)}
+                                    className="block space-y-8"
+                                >
                                     <div className="relative aspect-[3/4] overflow-hidden bg-white shadow-2xl border border-white/10">
                                         {/* Subtle Image Vignette */}
                                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

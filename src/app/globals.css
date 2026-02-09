@@ -10,7 +10,7 @@ html {
   overflow-x: clip;
 }
 
-/* PROTOKOL / ARÅÄ°V ESTETÄ°ÄÄ°: yÃ¼ksek kontrast, net sÄ±nÄ±rlar */
+/* PROTOKOL / ARŞİV ESTETİĞİ: yüksek kontrast, net sınırlar */
 @theme {
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);

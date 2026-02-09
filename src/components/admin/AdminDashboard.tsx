@@ -453,7 +453,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
 };
 
 // Product Modal
-const ProductModal = ({ product, onSave, onClose, isLoading }: { product: any | null; onSave: (p: any) => void; onClose: () => void; isLoading: boolean }) => {
+const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption = false }: { product: any | null; onSave: (p: any) => void; onClose: () => void; isLoading: boolean; hideShowcaseOption?: boolean }) => {
     const [formData, setFormData] = useState({
         id: product?.id || "",
         name: product?.name || "",
@@ -504,7 +504,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: any | 
                     <h2 className="text-2xl font-bold">{product ? "Ürün Düzenle" : "Yeni Ürün Ekle"}</h2>
                     <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-lg"><X className="w-6 h-6" /></button>
                 </div>
-                <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="p-6 space-y-6">
+                <form onSubmit={(e) => { e.preventDefault(); e.stopPropagation(); try { onSave(formData); } catch (err) { console.error("Form submit error", err); } }} className="p-6 space-y-6">
                     <div className="grid grid-cols-2 gap-6">
                         <div className="col-span-2 md:col-span-1">
                             <Label className="mb-2 block">Ürün Adı</Label>
@@ -573,13 +573,15 @@ const ProductModal = ({ product, onSave, onClose, isLoading }: { product: any | 
                                 <span className="font-bold text-sm">Ürün Satışta / Aktif</span>
                             </label>
 
-                            <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-slate-500 transition-all">
-                                <div className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.is_showcase ? 'bg-[var(--color-brand-safety-orange)]' : 'bg-slate-700'}`}>
-                                    {formData.is_showcase && <Check className="w-4 h-4 text-black" />}
-                                </div>
-                                <input type="checkbox" className="hidden" checked={formData.is_showcase} onChange={(e) => setFormData({ ...formData, is_showcase: e.target.checked })} />
-                                <span className="font-bold text-sm">Showcase Sayfası (Öne Çıkar)</span>
-                            </label>
+                            {!hideShowcaseOption && (
+                                <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-slate-500 transition-all">
+                                    <div className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.is_showcase ? 'bg-[var(--color-brand-safety-orange)]' : 'bg-slate-700'}`}>
+                                        {formData.is_showcase && <Check className="w-4 h-4 text-black" />}
+                                    </div>
+                                    <input type="checkbox" className="hidden" checked={formData.is_showcase} onChange={(e) => setFormData({ ...formData, is_showcase: e.target.checked })} />
+                                    <span className="font-bold text-sm">Showcase Sayfası (Öne Çıkar)</span>
+                                </label>
+                            )}
                         </div>
 
                         <div className="col-span-2">
@@ -1824,6 +1826,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                         onSave={handleSaveProduct}
                         onClose={() => { setIsAddModalOpen(false); setEditingProduct(null); }}
                         isLoading={loading}
+                        hideShowcaseOption={true}
                     />
                 )}
             </AnimatePresence>

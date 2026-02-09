@@ -41,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
             isRetail ? "text-white/40" : "text-[#D4AF37]"
           }`}
         >
-          {isRetail ? `STOK: ${product.stock_quantity}` : "PROJE / TEKLÄ°F"}
+          {isRetail ? `STOK: ${product.stock_quantity}` : "PROJE / TEKLİF"}
         </span>
       </div>
     </div>
@@ -80,7 +80,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
 
       {isCustom && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-[#D4AF37] px-4 py-2 bg-black/80 backdrop-blur-sm transform rotate-[-12deg] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
-          <span className="text-[#D4AF37] font-black tracking-[0.2em] text-xs whitespace-nowrap">Ã–ZEL ÃœRETÄ°M</span>
+          <span className="text-[#D4AF37] font-black tracking-[0.2em] text-xs whitespace-nowrap">ÖZEL ÜRETİM</span>
         </div>
       )}
 
@@ -115,14 +115,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
 
       <p className="text-xs text-white/40 line-clamp-3 font-medium leading-relaxed font-mono pr-1 break-words">
         {product.description ||
-          "EndÃ¼striyel metal iÅŸleme standartlarÄ±nda, UV baskÄ± ve fÄ±rÄ±n boyalÄ± lazer kesim metal tablo. DayanÄ±klÄ± ve estetik."}
+          "Endüstriyel metal işleme standartlarında, UV baskı ve fırın boyalı lazer kesim metal tablo. Dayanıklı ve estetik."}
       </p>
 
       <div className={`mt-auto ${isHorizontal ? "pt-3" : "pt-6"} border-t border-white/5 flex items-end justify-between gap-4`}>
         <div className="flex flex-col">
           {isRetail ? (
             <>
-              <span className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-1">BÄ°RÄ°M FÄ°YAT</span>
+              <span className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-1">BİRİM FİYAT</span>
                 <span className={`font-black ${isHorizontal ? "text-xl" : "text-xl lg:text-2xl"} text-white tracking-tighter`}>
                   {formatPrice(product.price)}
                 </span>
@@ -131,7 +131,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
             <div className="flex flex-col">
               <span className="text-[9px] font-black text-[#D4AF37]/50 uppercase tracking-widest mb-1">DURUM</span>
               <span className="font-black text-sm text-[#D4AF37] tracking-widest uppercase border border-[#D4AF37]/30 px-2 py-1 bg-[#D4AF37]/10">
-                TEKLÄ°F ALINIZ
+                TEKLİF ALINIZ
               </span>
             </div>
           )}

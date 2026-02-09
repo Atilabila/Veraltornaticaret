@@ -95,18 +95,15 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
   );
 
   const sizeOptions = useMemo(
-    () =>
-      Array.from(
-        new Set(products.map((p) => p.specs?.dims).filter(Boolean))
-      ),
+    () => [], // Dimensions not available in MetalProduct type
     [products]
   );
 
   const materialOptions = useMemo(
     () =>
       Array.from(
-        new Set(products.map((p) => p.specs?.material).filter(Boolean))
-      ),
+        new Set(products.map((p) => p.material).filter(Boolean))
+      ) as string[],
     [products]
   );
 
@@ -148,13 +145,14 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
       );
     }
     if (filters.size && filters.size.length > 0) {
-      result = result.filter((p) =>
-        filters.size?.includes(p.specs?.dims || "")
-      );
+      // Dimensions check temporarily disabled
+      // result = result.filter((p) =>
+      //   filters.size?.includes(p.specs?.dims || "")
+      // );
     }
     if (filters.material && filters.material.length > 0) {
       result = result.filter((p) =>
-        filters.material?.includes(p.specs?.material || "")
+        filters.material?.includes(p.material || "")
       );
     }
 
@@ -324,8 +322,8 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
       <div className="mx-auto w-full max-w-screen-2xl px-3 sm:px-4 md:px-6 py-8 sm:py-10 lg:py-12 pb-24 lg:pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 sm:gap-6 lg:gap-10 items-start">
           {/* Desktop Sidebar - Hidden on mobile */}
-          <aside className="hidden lg:block order-1 sticky top-24 lg:top-20 self-start">
-            <div className="space-y-4 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+          <aside className="hidden lg:block order-1 sticky bottom-8 h-fit">
+            <div className="space-y-4">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-3">
                 <div className="flex items-center gap-3">
                   <img src="/logo.svg" alt="Logo" className="h-10 w-10 object-contain" />

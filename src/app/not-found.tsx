@@ -56,7 +56,7 @@ export default function NotFound() {
                         <Link href="/urunler" className="group">
                             <div className="px-8 py-4 border border-zinc-700 text-white font-bold uppercase tracking-wider text-sm hover:bg-zinc-900 transition-colors flex items-center justify-center gap-2">
                                 <Search className="w-4 h-4" />
-                                KataloÄŸa Bak
+                                Kataloğa Bak
                             </div>
                         </Link>
                     </div>
