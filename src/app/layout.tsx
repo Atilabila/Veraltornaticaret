@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "VERAL - Metal Sanat Eserleri",
   description: "Özel tasarım metal posterler ve sanat eserleri",
   robots: "index, follow",
+  verification: {
+    google: "mA7ESmS5CcTCWG7a5octdFFwX1_nZcURfbMvIn9inxc",
+  },
 };
 
 export const revalidate = 10;
