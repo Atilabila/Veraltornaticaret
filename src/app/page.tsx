@@ -6,17 +6,17 @@ import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { ShowcaseGrid } from '@/components/sections/ShowcaseGrid';
-import { ProductGallery } from '@/components/sections/ProductGallery';
-import { GalleryShowcase } from '@/components/sections/GalleryShowcase';
+import dynamic from 'next/dynamic';
 
-import { CustomerReviews } from '@/components/sections/CustomerReviews';
-import { InstagramFeed } from '@/components/sections/InstagramFeed';
-import { ProcessSection } from '@/components/sections/ProcessSection';
-import { InstagramMarquee } from '@/components/sections/InstagramMarquee';
-import { StatsMarquee } from '@/components/sections/StatsMarquee';
-import { OtherServices } from '@/components/sections/OtherServices';
-import { LocalContactSection } from '@/components/sections/LocalContactSection';
-import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
+const ProductGallery = dynamic(() => import('@/components/sections/ProductGallery').then(mod => mod.ProductGallery));
+const GalleryShowcase = dynamic(() => import('@/components/sections/GalleryShowcase').then(mod => mod.GalleryShowcase));
+const CustomerReviews = dynamic(() => import('@/components/sections/CustomerReviews').then(mod => mod.CustomerReviews));
+const ProcessSection = dynamic(() => import('@/components/sections/ProcessSection').then(mod => mod.ProcessSection));
+const InstagramMarquee = dynamic(() => import('@/components/sections/InstagramMarquee').then(mod => mod.InstagramMarquee));
+const StatsMarquee = dynamic(() => import('@/components/sections/StatsMarquee').then(mod => mod.StatsMarquee));
+const OtherServices = dynamic(() => import('@/components/sections/OtherServices').then(mod => mod.OtherServices));
+const LocalContactSection = dynamic(() => import('@/components/sections/LocalContactSection').then(mod => mod.LocalContactSection));
+const MobileStickyBar = dynamic(() => import('@/components/layout/MobileStickyBar').then(mod => mod.MobileStickyBar));
 import { MotionConfig } from 'framer-motion';
 import { usePerformanceDetection } from '@/hooks/usePerformanceDetection';
 

@@ -12,10 +12,6 @@ export const Footer = () => {
     const { content } = useContentStore();
     const footerLogoSrc = normalizeImagePath((content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/veral-logo.webp");
     const siteName = content.siteName || "VERAL";
-    const mapSrc = `https://maps.google.com/maps?q=${content.footerMapLat},${content.footerMapLng}&z=${content.footerMapZoom}&output=embed`;
-    const [shouldLoadMap, setShouldLoadMap] = React.useState(false);
-    const mapRef = React.useRef<HTMLDivElement | null>(null);
-
     const instagramHandle = (content.footerInstagram || "").replace('@', '').trim();
     const socialLinks = [
         instagramHandle ? { icon: Instagram, href: `https://instagram.com/${instagramHandle}`, label: "Instagram" } : null,
@@ -23,26 +19,7 @@ export const Footer = () => {
         { icon: Twitter, href: '#', label: "Twitter" }
     ].filter(Boolean) as { icon: typeof Instagram; href: string; label: string }[];
 
-    React.useEffect(() => {
-        const target = mapRef.current;
-        if (!target) return;
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setShouldLoadMap(true);
-                        observer.disconnect();
-                    }
-                });
-            },
-            { rootMargin: "200px" }
-        );
-
-        observer.observe(target);
-
-        return () => observer.disconnect();
-    }, []);
 
     return (
         <DirectEdit tab="contact">
@@ -127,26 +104,7 @@ export const Footer = () => {
 
                             <div className="pt-6 border-t border-white/5 flex flex-col gap-6">
                                 <h4 className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">KONUM // NAVİGASYON</h4>
-                                <div
-                                    ref={mapRef}
-                                    className="w-full h-48 rounded-sm overflow-hidden border border-[#D4AF37]/20 grayscale hover:grayscale-0 transition-all duration-700 relative"
-                                >
-                                    {shouldLoadMap ? (
-                                        <iframe
-                                            width="100%"
-                                            height="100%"
-                                            frameBorder="0"
-                                            scrolling="no"
-                                            marginHeight={0}
-                                            marginWidth={0}
-                                            loading="lazy"
-                                            title="VERAL Google Maps konumu"
-                                            src={mapSrc}
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] via-[#111] to-[#0a0a0a] animate-pulse" aria-label="Harita yükleniyor" />
-                                    )}
-                                </div>
+
                                 <a
                                     href={content.footerMapLink || `https://www.google.com/maps/dir/?api=1&destination=${content.footerMapLat},${content.footerMapLng}`}
                                     target="_blank"

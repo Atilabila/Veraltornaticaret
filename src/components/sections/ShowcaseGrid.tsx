@@ -18,14 +18,18 @@ export const ShowcaseGrid = () => {
     return (
         <DirectEdit tab="showcase">
             <section id="features" className="py-12 lg:py-20 xl:py-24 bg-transparent border-b-8 border-black overflow-hidden relative bg-transparent">
-                {/* Industrial Background Pattern */}
-                <div
-                    className="absolute inset-0 opacity-[0.03] pointer-events-none bg-repeat"
-                    style={{
-                        backgroundImage: `url(${content.metalShowcaseHeroImage || '/images/site-pattern.jpg'})`,
-                        backgroundSize: '400px'
-                    }}
-                />
+                {/* Industrial Background Pattern - Optimized */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none">
+                    <Image
+                        src={content.metalShowcaseHeroImage || '/images/site-pattern.jpg'}
+                        alt="Background Pattern"
+                        fill
+                        sizes="100vw"
+                        className="object-cover"
+                        quality={60}
+                        priority={false}
+                    />
+                </div>
 
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
