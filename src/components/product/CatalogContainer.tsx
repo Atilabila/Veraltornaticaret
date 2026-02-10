@@ -15,7 +15,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { MetalProduct, Category } from "@/lib/supabase/metal-products.types";
 import ProductCard from "./ProductCard";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import { useContentStore } from "@/store/useContentStore";
 import { useCartStore } from "@/store/useCartStore";
 import { RecentlyViewed } from "./RecentlyViewed";
@@ -690,7 +690,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                     <div className="product-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                       <AnimatePresence mode="popLayout">
                         {group.products.map((product) => (
-                          <motion.div
+                          <m.div
                             key={product.id}
                             className="min-w-0"
                             initial={{ opacity: 0 }}
@@ -699,7 +699,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                             transition={{ duration: 0.1 }}
                           >
                             <ProductCard product={product} variant="default" />
-                          </motion.div>
+                          </m.div>
                         ))}
                       </AnimatePresence>
                     </div>

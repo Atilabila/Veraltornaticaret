@@ -5,7 +5,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { m } from 'framer-motion'
 import { cn } from "@/lib/utils"
 import { Package } from "lucide-react"
 
@@ -79,7 +79,7 @@ export const MetalImage: React.FC<MetalImageProps> = ({
         >
             {/* Ambient Glow Layer */}
             {showAmbientGlow && (
-                <motion.div
+                <m.div
                     className="absolute inset-0 blur-3xl opacity-30 -z-10"
                     style={{ backgroundColor: ambientColor }}
                     animate={{
@@ -91,7 +91,7 @@ export const MetalImage: React.FC<MetalImageProps> = ({
             )}
 
             {/* Image Container */}
-            <motion.div
+            <m.div
                 className="relative w-full h-full"
                 animate={{
                     scale: isHovered ? 1.02 : 1
@@ -146,7 +146,7 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                 )}
 
                 {/* Metallic Shimmer Overlay on Hover */}
-                <motion.div
+                <m.div
                     className="absolute inset-0 pointer-events-none"
                     style={{
                         background: `linear-gradient(
@@ -162,7 +162,7 @@ export const MetalImage: React.FC<MetalImageProps> = ({
                     animate={{ x: isHovered ? "100%" : "-100%" }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
                 />
-            </motion.div>
+            </m.div>
         </div>
     )
 }

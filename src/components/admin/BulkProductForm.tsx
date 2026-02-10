@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from 'framer-motion'
 import { X, Plus, Trash2, Save, Upload, FileSpreadsheet, AlertCircle, RefreshCw } from "lucide-react"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -610,7 +610,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                         ) : (
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                 {driveFiles.map((file) => (
-                                    <motion.div
+                                    <m.div
                                         key={file.id}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
@@ -653,7 +653,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                                                 {file.name}
                                             </p>
                                         </div>
-                                    </motion.div>
+                                    </m.div>
                                 ))}
                             </div>
                         )}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ShieldCheck, Clock, Layers, RotateCcw, Truck } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export const TrustSection = () => {
     const safetySignals = [
@@ -30,7 +30,7 @@ export const TrustSection = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-0 border border-[#0A0A0A]/5">
                     {safetySignals.map((signal, idx) => (
-                        <motion.div
+                        <m.div
                             key={idx}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -50,7 +50,7 @@ export const TrustSection = () => {
                                     {signal.desc}
                                 </span>
                             </div>
-                        </motion.div>
+                        </m.div>
                     ))}
                 </div>
             </div>

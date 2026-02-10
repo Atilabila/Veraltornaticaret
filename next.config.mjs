@@ -9,7 +9,31 @@ export default {
     },
     compress: true,
     poweredByHeader: false,
-        images: {
+    webpack: (config, { isServer }) => {
+        if (!isServer && config.optimization?.splitChunks) {
+            const splitChunks = config.optimization.splitChunks;
+            config.optimization.splitChunks = {
+                ...splitChunks,
+                cacheGroups: {
+                    ...splitChunks.cacheGroups,
+                    framerMotion: {
+                        test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+                        name: "framer-motion",
+                        chunks: "all",
+                        priority: 30,
+                    },
+                    lucideReact: {
+                        test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+                        name: "lucide-react",
+                        chunks: "all",
+                        priority: 25,
+                    },
+                },
+            };
+        }
+        return config;
+    },
+    images: {
             remotePatterns: [
                 {
                     protocol: 'https',

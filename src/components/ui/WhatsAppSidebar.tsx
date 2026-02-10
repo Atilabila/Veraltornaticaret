@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X } from "lucide-react";
 import { useState } from "react";
 
@@ -17,7 +17,7 @@ export const WhatsAppSidebar = () => {
     return (
         <>
             {/* WhatsApp Floating Button */}
-            <motion.button
+            <m.button
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 1, type: "spring" }}
@@ -37,12 +37,12 @@ export const WhatsAppSidebar = () => {
                         1
                     </span>
                 )}
-            </motion.button>
+            </m.button>
 
             {/* WhatsApp Sidebar Panel */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.div
+                    <m.div
                         initial={{ x: 400, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: 400, opacity: 0 }}
@@ -85,7 +85,7 @@ export const WhatsAppSidebar = () => {
                                 <span>TEKNİK DESTEK</span>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
         </>

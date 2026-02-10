@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
 import { SystemLabel } from '@/components/ui/Industrial';
 import { Mail, Phone, MapPin, Instagram, Youtube, MessageSquare, ArrowUpRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export default function IletisimPage() {
     return (
@@ -36,7 +36,7 @@ export default function IletisimPage() {
                 <div className="grid lg:grid-cols-2 gap-20 items-center">
 
                     <div className="flex flex-col gap-10">
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6 }}
@@ -49,7 +49,7 @@ export default function IletisimPage() {
                             <p className="text-white/60 text-xl font-medium max-w-lg mt-8 leading-relaxed">
                                 Teknik destek, özel proje talepleri veya kurumsal iş birliği için operasyon merkezimizle iletişime geçin.
                             </p>
-                        </motion.div>
+                        </m.div>
 
                         <div className="grid gap-4">
                             {[
@@ -57,7 +57,7 @@ export default function IletisimPage() {
                                 { icon: Mail, label: "E-POSTA TERMİNALİ", value: "info@veralteneketicaret.com", href: "mailto:info@veralteneketicaret.com" },
                                 { icon: MapPin, label: "MERKEZ LOKASYON", value: "Alsancak, Konak, İzmir", href: "https://maps.google.com" },
                             ].map((item, idx) => (
-                                <motion.a
+                                <m.a
                                     key={idx}
                                     href={item.href}
                                     initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ export default function IletisimPage() {
                                         <span className="text-xl font-black text-white uppercase tracking-tighter italic">{item.value}</span>
                                     </div>
                                     <ArrowUpRight className="ml-auto w-6 h-6 text-white/20 group-hover:text-[#D4AF37] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                                </motion.a>
+                                </m.a>
                             ))}
                         </div>
 
@@ -90,7 +90,7 @@ export default function IletisimPage() {
                         </div>
                     </div>
 
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
@@ -129,7 +129,7 @@ export default function IletisimPage() {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Star, Quote, CheckCircle2 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Product } from '@/lib/products';
 
 export default function SpecsSection({ product }: { product: Product }) {
@@ -66,7 +66,7 @@ export default function SpecsSection({ product }: { product: Product }) {
             {/* Testimonial Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                 {reviews.map((rev, i) => (
-                    <motion.div
+                    <m.div
                         key={i}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ export default function SpecsSection({ product }: { product: Product }) {
                             <CheckCircle2 className="w-3 h-3 text-white" />
                             <span className="text-[10px] font-black text-white uppercase tracking-widest">DOĞRULANMIŞ ALICI</span>
                         </div>
-                    </motion.div>
+                    </m.div>
                 ))}
             </div>
 

@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import { Star, Quote } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
@@ -40,7 +40,7 @@ export const CustomerReviews = () => {
 
                     <div className="grid md:grid-cols-2 gap-10">
                         {reviews.map((review, index) => (
-                            <motion.div
+                            <m.div
                                 key={review.id || index}
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
@@ -78,7 +78,7 @@ export const CustomerReviews = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         ))}
                     </div>
 

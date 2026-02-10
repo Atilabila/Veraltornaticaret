@@ -9,6 +9,7 @@ import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { Space_Grotesk, Syne } from "next/font/google";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -45,19 +46,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr" className={`${spaceGrotesk.variable} ${syne.variable}`}>
       <head>
-        <link rel="preconnect" href="https://wswlhtglwpyragymrdhl.supabase.co" />
+        <link rel="preconnect" href="https://wswlhtglwpyragymrdhl.supabase.co" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://wswlhtglwpyragymrdhl.supabase.co" />
         <LocalBusinessSchema />
       </head>
       <body className="antialiased">
-        <AdminProvider>
-          <ContentSyncProvider>
-            <AuthProvider>
-              <DynamicMetadata />
-              <GlobalGrid />
-              {children}
-            </AuthProvider>
-          </ContentSyncProvider>
-        </AdminProvider>
+        <MotionProvider>
+          <AdminProvider>
+            <ContentSyncProvider>
+              <AuthProvider>
+                <DynamicMetadata />
+                <GlobalGrid />
+                {children}
+              </AuthProvider>
+            </ContentSyncProvider>
+          </AdminProvider>
+        </MotionProvider>
         <WhatsAppButton />
         <Toaster />
       </body>

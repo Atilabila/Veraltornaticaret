@@ -5,7 +5,7 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react"
 import { useCartStore } from "@/store/useCollectionStore"
 import { cn, formatPrice } from "@/lib/utils"
@@ -36,7 +36,7 @@ export const CollectionSidebar: React.FC = () => {
             {isOpen && (
                 <>
                     {/* Backdrop */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -45,7 +45,7 @@ export const CollectionSidebar: React.FC = () => {
                     />
 
                     {/* Sidebar */}
-                    <motion.aside
+                    <m.aside
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
@@ -90,7 +90,7 @@ export const CollectionSidebar: React.FC = () => {
                             ) : (
                                 <AnimatePresence mode="popLayout">
                                     {items.map((item) => (
-                                        <motion.div
+                                        <m.div
                                             key={item.product.id}
                                             layout
                                             initial={{ opacity: 0, x: 20 }}
@@ -164,7 +164,7 @@ export const CollectionSidebar: React.FC = () => {
                                                     </p>
                                                 )}
                                             </div>
-                                        </motion.div>
+                                        </m.div>
                                     ))}
                                 </AnimatePresence>
                             )}
@@ -211,7 +211,7 @@ export const CollectionSidebar: React.FC = () => {
                                 </div>
                             </footer>
                         )}
-                    </motion.aside>
+                    </m.aside>
                 </>
             )}
         </AnimatePresence>
@@ -226,7 +226,7 @@ export const CollectionButton: React.FC = () => {
     const count = totalItems()
 
     return (
-        <motion.button
+        <m.button
             onClick={openCart}
             className={cn(
                 "fixed bottom-6 right-6 z-40",
@@ -243,7 +243,7 @@ export const CollectionButton: React.FC = () => {
             <ShoppingBag className="w-6 h-6 text-zinc-300" />
 
             {count > 0 && (
-                <motion.span
+                <m.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     className={cn(
@@ -255,9 +255,9 @@ export const CollectionButton: React.FC = () => {
                     )}
                 >
                     {count}
-                </motion.span>
+                </m.span>
             )}
-        </motion.button>
+        </m.button>
     )
 }
 

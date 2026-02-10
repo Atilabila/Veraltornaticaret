@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { m } from 'framer-motion'
 import { ArrowDown, Zap, FileText, Factory, Ruler, MapPin } from "lucide-react"
 import { useInView } from "@/hooks/useInView"
 import { FeatureItem } from "./FeatureItem"
@@ -82,7 +82,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
             )} />
 
             {/* Ambient Glow - Behind Product - Reduced on mobile */}
-            <motion.div
+            <m.div
                 className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none hidden lg:block"
                 style={{ backgroundColor: ambientGlow }}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -95,14 +95,14 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
                     {/* Left: Product Image with Ambient Glow */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 1 }} // Start visible to avoid inView flakiness on mobile
                         animate={isInView ? { opacity: 1 } : { opacity: 1 }} // Maintain visibility
                         transition={{ duration: 0.4 }}
                         className="relative order-2 lg:order-1"
                     >
                         {/* SKU Badge - Industrial Tag */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0 }}
                             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                             transition={{ delay: 0.2, duration: 0.3 }}
@@ -121,7 +121,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         >
                             <Factory className="w-3 h-3 text-orange-500" />
                             {product.sku || `PRD-${String(index + 1).padStart(3, "0")}`}
-                        </motion.div>
+                        </m.div>
 
                         {/* Image Container - Metal Frame */}
                         <Link
@@ -161,7 +161,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
                         {/* Decorative Corner Rivets - Hidden on mobile */}
                         {["-top-1 -right-1", "-bottom-1 -right-1", "-bottom-1 -left-1"].map((pos, i) => (
-                            <motion.div
+                            <m.div
                                 key={i}
                                 initial={{ opacity: 0 }}
                                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -174,12 +174,12 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 )}
                             />
                         ))}
-                    </motion.div>
+                    </m.div>
 
                     {/* Right: Product Info */}
                     <div className="order-1 lg:order-2 space-y-8">
                         {/* Category Badge - Industrial Tag */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: -20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
                             transition={{ duration: 0.5 }}
@@ -205,10 +205,10 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 <MapPin className="w-3 h-3" />
                                 İZMİR / ALSANCAK
                             </span>
-                        </motion.div>
+                        </m.div>
 
                         {/* Product Name - Display Font */}
-                        <motion.h2
+                        <m.h2
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ delay: 0.1, duration: 0.6 }}
@@ -223,11 +223,11 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             >
                                 {product.name}
                             </Link>
-                        </motion.h2>
+                        </m.h2>
 
                         {/* Description */}
                         {product.description && (
-                            <motion.p
+                            <m.p
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                                 transition={{ delay: 0.2, duration: 0.6 }}
@@ -237,7 +237,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 )}
                             >
                                 {product.description}
-                            </motion.p>
+                            </m.p>
                         )}
 
                         {/* Features - Grid Layout for Specs */}
@@ -265,7 +265,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         )}
 
                         {/* B2B CTA - WhatsApp Button */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                             transition={{ delay: 0.5, duration: 0.6 }}
@@ -292,7 +292,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                     Teklif ve Bilgi Alın
                                 </span>
                             </a>
-                        </motion.div>
+                        </m.div>
 
                         <p className={cn(
                             "text-xs font-mono opacity-50",
@@ -306,13 +306,13 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
             {/* Scroll Indicator */}
             {!isLast && (
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ delay: 1.2, duration: 0.5 }}
                     className="absolute bottom-8 left-1/2 -translate-x-1/2"
                 >
-                    <motion.div
+                    <m.div
                         onClick={handleScrollDown}
                         animate={{ y: [0, 8, 0] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -325,8 +325,8 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             "w-5 h-5",
                             isDark ? "text-zinc-500" : "text-zinc-600"
                         )} />
-                    </motion.div>
-                </motion.div>
+                    </m.div>
+                </m.div>
             )}
 
             {/* Bottom Gradient Fade */}

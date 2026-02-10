@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import {
     LayoutDashboard, Package, FileText, Settings, LogOut, Plus,
     Pencil, Trash2, Save, X, Search, ChevronDown, ChevronUp,
@@ -83,7 +83,7 @@ export const AdminDashboard = () => {
             {/* Notification */}
             <AnimatePresence>
                 {notification && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: -50 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -50 }}
@@ -92,7 +92,7 @@ export const AdminDashboard = () => {
                     >
                         {notification.type === "success" ? <Check className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
                         <span className="font-bold">{notification.message}</span>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
 
@@ -375,7 +375,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
 
                             <AnimatePresence>
                                 {expandedCategories.includes(category.id) && (
-                                    <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
+                                    <m.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
                                         <div className="p-5 pt-0 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                             {categoryProducts.map((product: Product) => (
                                                 <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-safety-orange)] transition-all">
@@ -411,7 +411,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                                             ))}
                                             {categoryProducts.length === 0 && <p className="text-slate-500 col-span-full py-8 text-center">Bu kategoride ürün yok.</p>}
                                         </div>
-                                    </motion.div>
+                                    </m.div>
                                 )}
                             </AnimatePresence>
                         </div>
@@ -498,8 +498,8 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
     };
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
-            <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} exit={{ scale: 0.95 }} className="bg-slate-900 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
+            <m.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} exit={{ scale: 0.95 }} className="bg-slate-900 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between p-6 border-b border-slate-800">
                     <h2 className="text-2xl font-bold">{product ? "Ürün Düzenle" : "Yeni Ürün Ekle"}</h2>
                     <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-lg"><X className="w-6 h-6" /></button>
@@ -657,8 +657,8 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                         </button>
                     </div>
                 </form>
-            </motion.div>
-        </motion.div>
+            </m.div>
+        </m.div>
     );
 };
 
@@ -739,7 +739,7 @@ const CategoriesTab = ({ showNotification }: { showNotification: (type: "success
             <AnimatePresence>
                 {isAddModalOpen && (
                     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setIsAddModalOpen(false)}>
-                        <motion.div
+                        <m.div
                             initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
@@ -775,7 +775,7 @@ const CategoriesTab = ({ showNotification }: { showNotification: (type: "success
                                     </button>
                                 </div>
                             </form>
-                        </motion.div>
+                        </m.div>
                     </div>
                 )}
             </AnimatePresence>

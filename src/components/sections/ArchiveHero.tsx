@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import { useContentStore } from '@/store/useContentStore';
 import { normalizeImagePath } from '@/lib/utils';
@@ -15,7 +15,7 @@ export const ArchiveHero = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
 
                     {/* LEFT CONTENT: NOBLE TYPOGRAPHY */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -65,10 +65,10 @@ export const ArchiveHero = () => {
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </m.div>
 
                     {/* RIGHT VISUAL: MUSEUM MOCKUP */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1.2, delay: 0.3 }}
@@ -95,7 +95,7 @@ export const ArchiveHero = () => {
                                 <div className="w-12 h-[1px] bg-[#0A0A0A]" />
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
                 </div>
             </div>

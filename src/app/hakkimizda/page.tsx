@@ -5,8 +5,8 @@ import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { SystemLabel } from '@/components/ui/Industrial';
 import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
-import { motion } from 'framer-motion';
-import * as LucideIcons from 'lucide-react';
+import { m } from 'framer-motion';
+import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
 
 import { useContentStore } from '@/store/useContentStore';
 
@@ -80,7 +80,7 @@ Bugün 3. kuşağın yönetiminde, geleneksel torna işleme tekniklerini, son te
                                     stats.map((stat, idx) => (
                                         <div key={idx} className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-                                            <LucideIcons.CheckCircle2 className="text-[#D4AF37] mb-6 relative z-10" size={40} />
+                                            <DynamicLucideIcon name="check-circle-2" className="text-[#D4AF37] mb-6 relative z-10" size={40} />
                                             <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">{stat.label}</h4>
                                             <p className="text-4xl text-white font-black relative z-10 tracking-tighter">{stat.value}</p>
                                         </div>
@@ -89,13 +89,13 @@ Bugün 3. kuşağın yönetiminde, geleneksel torna işleme tekniklerini, son te
                                     <>
                                         <div className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-                                            <LucideIcons.ShieldCheck className="text-[#D4AF37] mb-6 relative z-10" size={40} />
+                                            <DynamicLucideIcon name="shield-check" className="text-[#D4AF37] mb-6 relative z-10" size={40} />
                                             <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">Kalite Protokolü</h4>
                                             <p className="text-sm text-white/50 relative z-10 font-medium uppercase tracking-wider leading-relaxed">Her birim, atölyemizden çıkmadan önce manuel ve dijital kontrol süreçlerinden geçer.</p>
                                         </div>
                                         <div className="p-10 bg-white/5 border border-white/10 relative overflow-hidden group">
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-                                            <LucideIcons.History className="text-[#D4AF37] mb-6 relative z-10" size={40} />
+                                            <DynamicLucideIcon name="history" className="text-[#D4AF37] mb-6 relative z-10" size={40} />
                                             <h4 className="font-black text-white uppercase mb-3 relative z-10 text-xl tracking-tighter italic">Süreklilik</h4>
                                             <p className="text-sm text-white/50 relative z-10 font-medium uppercase tracking-wider leading-relaxed">40 yılı aşkın süredir aynı lokasyonda, aynı disiplinle hizmet vermeye devam ediyoruz.</p>
                                         </div>
@@ -122,10 +122,12 @@ Bugün 3. kuşağın yönetiminde, geleneksel torna işleme tekniklerini, son te
                             <div key={idx} className="p-12 border-r border-black/10 last:border-r-0 hover:bg-black/5 transition-all duration-500 group relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
                                 <span className="text-6xl font-black text-[#D4AF37]/40 block mb-8 tracking-tighter group-hover:text-[#D4AF37] transition-colors">{item.year}</span>
-                                {(() => {
-                                    const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.HelpCircle;
-                                    return <IconComponent className="mb-8 text-black/20 group-hover:text-[#D4AF37] transition-all duration-500" size={32} />;
-                                })()}
+                                <DynamicLucideIcon
+                                    name={item.icon}
+                                    fallbackName="help-circle"
+                                    className="mb-8 text-black/20 group-hover:text-[#D4AF37] transition-all duration-500"
+                                    size={32}
+                                />
                                 <h3 className="font-black uppercase text-xl mb-4 text-black tracking-tighter italic">{item.title}</h3>
                                 <p className="text-black/40 text-sm font-medium uppercase tracking-wider leading-relaxed group-hover:text-black/60 transition-colors">{item.desc}</p>
                             </div>

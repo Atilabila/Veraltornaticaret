@@ -4,7 +4,7 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from 'framer-motion'
 import { Check, Palette } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -114,7 +114,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
             {/* Dropdown */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
@@ -222,7 +222,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
                                 ))}
                             </div>
                         )}
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
         </div>

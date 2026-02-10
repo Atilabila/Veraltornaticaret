@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { m } from 'framer-motion'
 import {
     Plus, Trash2, Save, X, GripVertical,
     Link as LinkIcon, Upload, Sparkles
@@ -373,7 +373,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         ) : (
                             <div className="space-y-3">
                                 {formData.features.map((feature, index) => (
-                                    <motion.div
+                                    <m.div
                                         key={index}
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
@@ -413,7 +413,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </button>
-                                    </motion.div>
+                                    </m.div>
                                 ))}
                             </div>
                         )}

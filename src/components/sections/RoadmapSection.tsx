@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import { CheckCircle2, Circle, Clock, Zap, Target, Rocket, ArrowRight, Layers } from "lucide-react";
 
 const roadmapItems = [
@@ -64,13 +64,13 @@ export const RoadmapSection = () => {
             <div className="container-brutal relative z-20">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
                     <div className="space-y-4">
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             className="inline-flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-4 py-1 font-mono font-black text-sm uppercase"
                         >
                             <Zap className="w-4 h-4" /> SİSTEM EVRİMİ v4.5
-                        </motion.div>
+                        </m.div>
                         <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-[Archivo Black] leading-none uppercase tracking-tighter">
                             FLASH <span className="text-outline-white">YOL HARİTASI</span>
                         </h2>
@@ -116,7 +116,7 @@ export const RoadmapSection = () => {
 
 const RoadmapCard = ({ phase, index }: { phase: typeof roadmapItems[0], index: number }) => {
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
@@ -152,7 +152,7 @@ const RoadmapCard = ({ phase, index }: { phase: typeof roadmapItems[0], index: n
                 </span>
                 <ArrowRight className="w-5 h-5 text-white/20 group-hover:translate-x-2 group-hover:text-white transition-all" />
             </div>
-        </motion.div>
+        </m.div>
     );
 };
 

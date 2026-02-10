@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import * as LucideIcons from 'lucide-react';
 import { ArrowUpRight } from 'lucide-react';
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
 
 export const LocalContactSection = () => {
     const { content } = useContentStore();
@@ -36,12 +36,15 @@ export const LocalContactSection = () => {
                         {/* Contact Grid */}
                         <div className="lg:col-span-12 xl:col-span-7 grid sm:grid-cols-2 gap-4">
                             {contactItems.map((item, i) => {
-                                const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.HelpCircle;
-
                                 return (
                                     <div key={i} className="bg-[#FDFBF7] p-12 flex flex-col gap-10 border border-[#0A0A0A]/5 hover:bg-[#0A0A0A] group transition-all duration-700">
                                         <div className={`w-14 h-14 border border-[#D4AF37]/30 flex items-center justify-center ${item.color || 'text-[#D4AF37]'} group-hover:bg-[#D4AF37] group-hover:text-white transition-all`}>
-                                            <IconComponent size={28} strokeWidth={1.5} />
+                                            <DynamicLucideIcon
+                                                name={item.icon}
+                                                fallbackName="help-circle"
+                                                size={28}
+                                                strokeWidth={1.5}
+                                            />
                                         </div>
                                         <div className="space-y-3">
                                             <h3 className="font-black text-[#0A0A0A] group-hover:text-white uppercase text-2xl tracking-tighter italic leading-none transition-colors">

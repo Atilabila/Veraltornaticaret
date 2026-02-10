@@ -9,7 +9,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { useContentStore } from "@/store/useContentStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 
 const statusConfig: Record<OrderStatus, { icon: any; color: string; label: string; description: string; bgColor: string; borderColor: string; iconBg: string }> = {
     created: { icon: Clock, color: "text-yellow-600", label: "Oluşturuldu", description: "Siparişiniz sisteme kaydedildi.", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", iconBg: "bg-yellow-100" },
@@ -112,7 +112,7 @@ export default function OrderConfirmationPage() {
         <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-24">
             <div className="container max-w-4xl mx-auto px-4">
                 {/* Status Banner */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className={`mb-10 p-10 rounded-[2.5rem] text-center border overflow-hidden relative ${status.bgColor} ${status.borderColor}`}
@@ -131,7 +131,7 @@ export default function OrderConfirmationPage() {
                     <p className={`text-sm font-medium uppercase tracking-wider relative z-10 ${isSuccess ? 'text-zinc-600' : 'text-red-600'}`}>
                         {isSuccess ? (checkoutCMS?.successMessage || status.description) : status.description}
                     </p>
-                </motion.div>
+                </m.div>
 
                 {/* Order Meta */}
                 <div className="grid md:grid-cols-3 gap-6 mb-8">

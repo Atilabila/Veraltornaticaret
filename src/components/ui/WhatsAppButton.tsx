@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import { MessageCircle } from "lucide-react";
 
 interface WhatsAppButtonProps {
@@ -19,7 +19,7 @@ export const WhatsAppButton = ({
     };
 
     return (
-        <motion.button
+        <m.button
             onClick={handleClick}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -33,6 +33,6 @@ export const WhatsAppButton = ({
 
             {/* Pulse Animation */}
             <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30" />
-        </motion.button>
+        </m.button>
     );
 };

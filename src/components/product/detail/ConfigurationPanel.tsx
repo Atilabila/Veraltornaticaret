@@ -6,7 +6,7 @@ import { useCartStore } from '@/store/useCartStore';
 import { Check, ShoppingCart, ShieldCheck, Truck, RotateCcw, CreditCard, Settings } from 'lucide-react';
 import { Product } from '@/lib/products';
 import { CartTerminal } from '@/components/checkout/CartTerminal';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 export default function ConfigurationPanel({ product }: { product: Product }) {
     const { size: selectedSize, setSize, customImage } = useConfiguratorStore();
@@ -135,14 +135,14 @@ export default function ConfigurationPanel({ product }: { product: Product }) {
                 >
                     <AnimatePresence mode="wait">
                         {isAdded ? (
-                            <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="flex items-center justify-center gap-4">
+                            <m.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="flex items-center justify-center gap-4">
                                 SEPETE EKLENDİ <Check size={24} />
-                            </motion.span>
+                            </m.span>
                         ) : (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center gap-4">
+                            <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center gap-4">
                                 <ShoppingCart size={20} />
                                 <span>SEPETE EKLE</span>
-                            </motion.div>
+                            </m.div>
                         )}
                     </AnimatePresence>
                 </button>

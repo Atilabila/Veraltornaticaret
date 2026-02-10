@@ -3,7 +3,7 @@ import { Footer } from '@/components/layout/Footer';
 import Link from 'next/link';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { ContentService } from '@/lib/supabase/content.service';
-import * as LucideIcons from "lucide-react";
+import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
 
 export default async function HizmetlerPage() {
     const data = await ContentService.getContent();
@@ -42,7 +42,6 @@ export default async function HizmetlerPage() {
                 <div className="container mx-auto max-w-[1200px] relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {services.map((service: any) => {
-                            const Icon = (LucideIcons as any)[service.icon] || LucideIcons.Settings;
                             return (
                                 <Link
                                     key={service.id}
@@ -52,7 +51,11 @@ export default async function HizmetlerPage() {
                                     <div className="relative z-10 flex flex-col h-full">
                                         <div className="flex items-start justify-between mb-12">
                                             <div className="w-16 h-16 bg-white flex items-center justify-center border border-black/5 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
-                                                <Icon className="w-8 h-8 text-black" />
+                                                <DynamicLucideIcon
+                                                    name={service.icon}
+                                                    fallbackName="settings"
+                                                    className="w-8 h-8 text-black"
+                                                />
                                             </div>
                                             <div className="bg-[var(--color-brand-safety-orange)] text-black px-3 py-1 font-mono font-black text-[10px] uppercase tracking-widest">
                                                 Hizmet Kodu: #{service.id}

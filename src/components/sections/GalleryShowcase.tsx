@@ -2,8 +2,9 @@
 
 import React from 'react';
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
 
@@ -16,10 +17,13 @@ export const GalleryShowcase = () => {
                 {/* Background Image from CMS */}
                 {content.metalShowcaseHeroImage && (
                     <div className="absolute inset-0 z-0 pointer-events-none">
-                        <img
+                        <Image
                             src={content.metalShowcaseHeroImage}
                             alt="Showcase Background"
-                            className="w-full h-full object-cover opacity-10 grayscale"
+                            fill
+                            className="object-cover opacity-10 grayscale"
+                            quality={50} // Lower quality for background
+                            sizes="100vw"
                         />
                         <div className="absolute inset-0 bg-white/80" />
                     </div>
@@ -43,7 +47,7 @@ export const GalleryShowcase = () => {
                     {/* Grid */}
                     <div className="grid md:grid-cols-2 gap-10">
                         {(content.galleryShowcaseItems || []).map((sc, idx) => (
-                            <motion.div
+                            <m.div
                                 key={sc.id}
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
@@ -51,10 +55,13 @@ export const GalleryShowcase = () => {
                                 transition={{ duration: 1, delay: idx * 0.2 }}
                                 className="group relative overflow-hidden bg-[#0A0A0A] aspect-[16/10] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)]"
                             >
-                                <img
+                                <Image
                                     src={sc.img}
                                     alt={sc.title}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                                    fill
+                                    className="object-cover transition-transform duration-[2000ms] group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    quality={65}
                                 />
                                 {/* Gold Border Overlay on Hover */}
                                 <div className="absolute inset-0 border border-[#D4AF37]/0 group-hover:border-[#D4AF37]/40 transition-all duration-700 pointer-events-none" />
@@ -78,7 +85,7 @@ export const GalleryShowcase = () => {
                                         </Link>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         ))}
                     </div>
                 </div>

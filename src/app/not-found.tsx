@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowLeft, Search, Hammer } from 'lucide-react'
 
 export default function NotFound() {
@@ -16,7 +16,7 @@ export default function NotFound() {
             <div className="container mx-auto px-4 relative z-10 flex flex-col items-center text-center">
 
                 {/* 404 Industrial Glitch Text */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, type: "spring" }}
@@ -28,10 +28,10 @@ export default function NotFound() {
                     <div className="absolute -top-4 -right-12 md:right-0 rotate-12 bg-primary text-black font-bold px-4 py-1 text-sm uppercase tracking-wider transform">
                         Hata Raporu #X92
                     </div>
-                </motion.div>
+                </m.div>
 
                 {/* Message */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
@@ -65,7 +65,7 @@ export default function NotFound() {
                         <Hammer className="w-3 h-3" />
                         <span>Veral Metal Works &copy; System Diagnostics</span>
                     </div>
-                </motion.div>
+                </m.div>
             </div>
         </main>
     )

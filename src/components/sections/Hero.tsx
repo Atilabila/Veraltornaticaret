@@ -3,13 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Ruler, Factory, Package } from "lucide-react";
+import { m } from 'framer-motion';
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContentStore } from "@/store/useContentStore";
-import * as LucideIcons from "lucide-react";
 import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 import { normalizeImagePath } from "@/lib/utils";
+import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
 
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { TextInspector } from "@/components/admin/TextInspector";
@@ -30,7 +30,7 @@ export const Hero = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                         {/* Left Column: Typography & CTAs */}
                         <div className="col-span-12 lg:col-span-7 flex flex-col gap-6 min-w-0">
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
@@ -42,9 +42,9 @@ export const Hero = () => {
                                         {content.heroSubtitle || "Yerli üretim metal tablolar, teneke ürünler ve özel baskı çözümleri"}
                                     </span>
                                 </TextInspector>
-                            </motion.div>
+                            </m.div>
 
-                            <motion.h1
+                            <m.h1
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
@@ -53,9 +53,9 @@ export const Hero = () => {
                                 <TextInspector label="Hero-Headline">
                                     <span dangerouslySetInnerHTML={{ __html: safeTitle }} />
                                 </TextInspector>
-                            </motion.h1>
+                            </m.h1>
 
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -66,9 +66,9 @@ export const Hero = () => {
                                         {content.heroTagline || "UV BASKI YENİ NESİL TENEKE PLAKALAR"}
                                     </p>
                                 </TextInspector>
-                            </motion.div>
+                            </m.div>
 
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -97,9 +97,9 @@ export const Hero = () => {
                                         {content.heroButton2Text || "KATALOG"}
                                     </Link>
                                 </Button>
-                            </motion.div>
+                            </m.div>
 
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
@@ -115,11 +115,11 @@ export const Hero = () => {
                                         <TrustItem iconName="ShieldCheck" text="Premium Kalite" />
                                     </>
                                 )}
-                            </motion.div>
+                            </m.div>
                         </div>
 
                         {/* Right Column: Visual */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, ease: "circOut" }}
@@ -147,7 +147,7 @@ export const Hero = () => {
                                 <div className="text-3xl font-black text-black">0.30<span className="text-[12px] align-top ml-1">mm</span></div>
                                 <div className="text-[13px] font-bold text-gray-800 mt-1">Industrial Grade Steel</div>
                             </div>
-                        </motion.div>
+                        </m.div>
                     </div>
                 </div>
             </section>
@@ -157,16 +157,17 @@ export const Hero = () => {
 
 
 
-const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => {
-    const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.ShieldCheck;
-    return (
-        <div className="rounded-2xl border border-black/10 bg-white/70 backdrop-blur-sm p-5 md:p-6 flex flex-col items-start gap-3 hover:border-[#d8b24c]/30 transition-all duration-300">
-            <div className="p-3 bg-black/5 rounded-lg">
-                <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-black/80" />
-            </div>
-            <span className="text-sm font-bold uppercase tracking-wide leading-tight text-gray-800">
-                {text}
-            </span>
+const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => (
+    <div className="rounded-2xl border border-black/10 bg-white/70 backdrop-blur-sm p-5 md:p-6 flex flex-col items-start gap-3 hover:border-[#d8b24c]/30 transition-all duration-300">
+        <div className="p-3 bg-black/5 rounded-lg">
+            <DynamicLucideIcon
+                name={iconName}
+                fallbackName="shield-check"
+                className="w-8 h-8 md:w-10 md:h-10 text-black/80"
+            />
         </div>
-    );
-};
+        <span className="text-sm font-bold uppercase tracking-wide leading-tight text-gray-800">
+            {text}
+        </span>
+    </div>
+);

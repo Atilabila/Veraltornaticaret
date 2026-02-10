@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import { useCartStore } from "@/store/useCartStore";
 import Image from "next/image";
 import { Check, ChevronLeft, ChevronRight, Sliders, Box, HardDrive } from "lucide-react";
@@ -83,10 +83,10 @@ export const ProductConfigurator = () => {
                             style={{ aspectRatio: orientation === 'portrait' ? `1 / ${1 / selectedSize.ratio}` : `${1 / selectedSize.ratio} / 1` }}
                         >
                             <AnimatePresence mode="wait">
-                                <motion.div key={`${product.id}-${orientation}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full">
+                                <m.div key={`${product.id}-${orientation}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full">
                                     <img src={product.image} alt="" className="w-full h-full object-cover" />
                                     <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10" />
-                                </motion.div>
+                                </m.div>
                             </AnimatePresence>
 
                             <button onClick={prevProduct} className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-[#D4AF37] transition-all"><ChevronLeft /></button>

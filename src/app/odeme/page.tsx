@@ -12,15 +12,14 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import { processPayment } from "@/lib/payment";
 import { sendOrderConfirmationEmail } from "@/lib/actions/email.actions";
-import * as LucideIcons from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
+import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
 
-const IconComponent = ({ name, className }: { name: string; className?: string }) => {
-    const Icon = (LucideIcons as any)[name] || LucideIcons.HelpCircle;
-    return <Icon className={className} />;
-};
+const IconComponent = ({ name, className }: { name: string; className?: string }) => (
+    <DynamicLucideIcon name={name} fallbackName="help-circle" className={className} />
+);
 
 const CartProgressBar = ({ step }: { step: number }) => {
     const steps = [
@@ -410,7 +409,7 @@ export default function CheckoutPage() {
 
                                         <AnimatePresence mode="wait">
                                             {checkout.billing.type === 'company' && (
-                                                <motion.div
+                                                <m.div
                                                     initial={{ opacity: 0, height: 0 }}
                                                     animate={{ opacity: 1, height: 'auto' }}
                                                     exit={{ opacity: 0, height: 0 }}
@@ -446,7 +445,7 @@ export default function CheckoutPage() {
                                                             placeholder="000 000 0000"
                                                         />
                                                     </div>
-                                                </motion.div>
+                                                </m.div>
                                             )}
                                         </AnimatePresence>
                                     </div>

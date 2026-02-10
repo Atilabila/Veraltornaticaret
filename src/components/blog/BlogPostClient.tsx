@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, ChevronRight, Terminal, ChevronLeft, ArrowRight, Activity } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { User, Package, LogOut, Mail, Lock, ArrowRight, ShieldCheck, Clock, CreditCard } from 'lucide-react';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
@@ -90,7 +90,7 @@ export default function HesabimPage() {
             <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
                 <AnimatePresence mode="wait">
                     {!user ? (
-                        <motion.div
+                        <m.div
                             key="auth-view"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -173,9 +173,9 @@ export default function HesabimPage() {
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </m.div>
                     ) : (
-                        <motion.div
+                        <m.div
                             key="profile-view"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -289,7 +289,7 @@ export default function HesabimPage() {
                                     </div>
                                 )}
                             </div>
-                        </motion.div>
+                        </m.div>
                     )}
                 </AnimatePresence>
             </div>

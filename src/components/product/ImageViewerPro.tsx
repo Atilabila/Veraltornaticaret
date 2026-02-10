@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ZoomIn, ZoomOut, Move, Maximize2, RotateCcw, Smartphone, Monitor } from 'lucide-react';
 import { SystemLabel } from '@/components/ui/Industrial';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 interface ImageViewerProProps {
     images: string[];

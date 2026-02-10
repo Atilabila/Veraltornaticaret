@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import * as LucideIcons from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
 
 export const StatsMarquee = () => {
     const { content } = useContentStore();
@@ -35,13 +34,13 @@ export const StatsMarquee = () => {
                 `}} />
                 <div className="flex overflow-hidden">
                     <div className="stats-inner">
-                        {marqueeItems.map((item: any, idx: number) => {
-                            // Dynamically resolve Lucide icon
-                            const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.Activity;
-
-                            return (
-                                <div key={idx} className="flex items-center gap-4 group" style={{ transform: 'translateZ(0)' }}>
-                                    <IconComponent className="w-3.5 h-3.5 text-[#D4AF37]/40" />
+                        {marqueeItems.map((item: any, idx: number) => (
+                            <div key={idx} className="flex items-center gap-4 group" style={{ transform: 'translateZ(0)' }}>
+                                <DynamicLucideIcon
+                                    name={item.icon}
+                                    fallbackName="activity"
+                                    className="w-3.5 h-3.5 text-[#D4AF37]/40"
+                                />
 
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-sm md:text-base font-black text-white/70 tracking-tight uppercase">
@@ -54,9 +53,8 @@ export const StatsMarquee = () => {
 
                                     {/* Minimal Separator */}
                                     <div className="ml-4 w-1 h-1 rounded-full bg-white/5" />
-                                </div>
-                            );
-                        })}
+                            </div>
+                        ))}
                     </div>
                 </div>
 

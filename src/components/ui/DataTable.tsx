@@ -4,7 +4,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { m } from 'framer-motion'
 import { ChevronDown, ChevronUp, Search, MoreHorizontal } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -182,7 +182,7 @@ function DataTable<T extends { id?: string }>({
                             ) : (
                                 // Data rows
                                 sortedData.map((row, rowIndex) => (
-                                    <motion.tr
+                                    <m.tr
                                         key={row.id || rowIndex}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -208,7 +208,7 @@ function DataTable<T extends { id?: string }>({
                                                 {actions(row)}
                                             </td>
                                         )}
-                                    </motion.tr>
+                                    </m.tr>
                                 ))
                             )}
                         </tbody>

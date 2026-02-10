@@ -5,7 +5,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { m } from 'framer-motion'
 import Link from "next/link"
 import {
     ArrowLeft, ShoppingBag, Share2, Heart,
@@ -82,7 +82,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
                         {/* Left: Product Image */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: -40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6 }}
@@ -140,10 +140,10 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                     </div>
                                 )}
                             </div>
-                        </motion.div>
+                        </m.div>
 
                         {/* Right: Product Info */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: 40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
@@ -170,7 +170,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                     </span>
                                 </div>
 
-                                <motion.button
+                                <m.button
                                     onClick={handleAddToCollection}
                                     disabled={inCart}
                                     className={cn(
@@ -195,7 +195,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                             {isAdded ? "Eklendi!" : "Koleksiyona Ekle"}
                                         </>
                                     )}
-                                </motion.button>
+                                </m.button>
                             </div>
 
                             {/* Features */}
@@ -206,7 +206,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                     </h3>
                                     <div className="space-y-3">
                                         {sortedFeatures.map((feature, index) => (
-                                            <motion.div
+                                            <m.div
                                                 key={feature.id}
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
@@ -229,7 +229,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                                     )}
                                                 </div>
                                                 <span className="text-zinc-300">{feature.feature_text}</span>
-                                            </motion.div>
+                                            </m.div>
                                         ))}
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                     </div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </m.div>
                     </div>
                 </div>
             </div>

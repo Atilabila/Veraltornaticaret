@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
@@ -34,7 +34,7 @@ export const ShowcaseGrid = () => {
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px] relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
                         <div className="flex flex-col gap-6">
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
@@ -46,8 +46,8 @@ export const ShowcaseGrid = () => {
                                         METAL SHOWCASE
                                     </span>
                                 </TextInspector>
-                            </motion.div>
-                            <motion.h2
+                            </m.div>
+                            <m.h2
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -63,10 +63,10 @@ export const ShowcaseGrid = () => {
                                         ))}
                                     </span>
                                 </TextInspector>
-                            </motion.h2>
+                            </m.h2>
                         </div>
 
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -79,12 +79,12 @@ export const ShowcaseGrid = () => {
                                 <ArrowUpRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
                                 <div className="absolute inset-0 bg-[#D4AF37] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
                             </Link>
-                        </motion.div>
+                        </m.div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {(content.productCategories || []).slice(0, 3).map((item, idx) => (
-                            <motion.div
+                            <m.div
                                 key={item.id || idx}
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ export const ShowcaseGrid = () => {
                                         </div>
                                     </div>
                                 </Link>
-                            </motion.div>
+                            </m.div>
                         ))}
                     </div>
                 </div>

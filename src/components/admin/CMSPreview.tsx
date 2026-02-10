@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Eye, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import Image from "next/image";
 
 interface CMSPreviewProps {
@@ -51,14 +51,14 @@ export const CMSPreview = ({
             {/* Preview Modal */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-4 sm:p-8"
                         onClick={() => setIsOpen(false)}
                     >
-                        <motion.div
+                        <m.div
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
@@ -115,8 +115,8 @@ export const CMSPreview = ({
                                     Kapat
                                 </button>
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </m.div>
+                    </m.div>
                 )}
             </AnimatePresence>
         </>

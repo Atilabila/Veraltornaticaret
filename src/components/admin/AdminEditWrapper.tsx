@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from 'framer-motion'
 import { Pencil } from "lucide-react"
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser"
 import { User } from "@supabase/supabase-js"
@@ -48,7 +48,7 @@ export const AdminEditWrapper: React.FC<AdminEditWrapperProps> = ({
 
             <AnimatePresence>
                 {isHovered && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
@@ -61,7 +61,7 @@ export const AdminEditWrapper: React.FC<AdminEditWrapperProps> = ({
                             <Pencil className="w-4 h-4" />
                             <span className="text-sm">{label}</span>
                         </Link>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
 

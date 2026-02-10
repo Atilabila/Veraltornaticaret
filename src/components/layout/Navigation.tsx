@@ -8,7 +8,7 @@ import { Search, ShoppingCart, User, Menu, X, Hammer } from 'lucide-react';
 import { useCartItemCount } from '@/store/useCartStore';
 import { useContentStore } from '@/store/useContentStore';
 import { useThemeDetection } from '@/hooks/useThemeDetection';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { normalizeImagePath } from '@/lib/utils';
 import { useAdminStore } from '@/store/useAdminStore';
 import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
@@ -248,7 +248,7 @@ export const Navigation = () => {
 
             <AnimatePresence>
                 {isSearchOpen && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -320,7 +320,7 @@ export const Navigation = () => {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
 

@@ -6,7 +6,7 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from 'framer-motion'
 import {
     Package, Tags, Plus, Pencil, Trash2, Eye, EyeOff,
     LayoutDashboard, LogOut, Search, MoreHorizontal,
@@ -56,7 +56,7 @@ export const MetalProductsAdmin: React.FC = () => {
             {/* Notification Toast */}
             <AnimatePresence>
                 {notification && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: -50, x: "-50%" }}
                         animate={{ opacity: 1, y: 0, x: "-50%" }}
                         exit={{ opacity: 0, y: -50 }}
@@ -67,7 +67,7 @@ export const MetalProductsAdmin: React.FC = () => {
                         )}
                     >
                         {notification.message}
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
 

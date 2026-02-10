@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import Image from "next/image";
 import Link from "next/link";
 import { Wrench, Tag, Music, ArrowUpRight } from "lucide-react";

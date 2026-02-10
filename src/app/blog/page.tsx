@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Calendar, Clock, Tag, ChevronLeft, Search, Instagram, Phone, Mail, FileText, Database, Activity } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";

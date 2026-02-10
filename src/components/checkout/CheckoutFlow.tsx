@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import { useCartStore } from "@/store/useCartStore";
 import { CreditCard, Truck, User, ChevronLeft, CheckCircle2, Terminal, Activity, ArrowRight } from "lucide-react";
-import confetti from "canvas-confetti";
 import Link from "next/link";
 import { useAuthStore } from "@/store/useAuthStore";
 import { toast } from "@/components/ui/use-toast";
@@ -74,6 +73,7 @@ export const CheckoutFlow = () => {
             await OrderService.createOrder(orderData, orderItems);
 
             // 3. Success Feedback
+            const { default: confetti } = await import("canvas-confetti");
             confetti({
                 particleCount: 150,
                 spread: 70,
@@ -122,7 +122,7 @@ export const CheckoutFlow = () => {
 
             <AnimatePresence mode="wait">
                 {step === 1 && (
-                    <motion.div
+                    <m.div
                         key="step1"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -156,11 +156,11 @@ export const CheckoutFlow = () => {
                                 KARGO BİLGİLERİNE GEÇ <ArrowRight className="w-6 h-6" />
                             </button>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {step === 2 && (
-                    <motion.div
+                    <m.div
                         key="step2"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -200,11 +200,11 @@ export const CheckoutFlow = () => {
                                 ÖDEME ADIMINA GEÇ <ArrowRight className="w-6 h-6" />
                             </button>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {step === 3 && (
-                    <motion.div
+                    <m.div
                         key="step3"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -265,11 +265,11 @@ export const CheckoutFlow = () => {
                                 {isSaving ? 'İŞLENİYOR...' : 'ŞİMDİ ÖDE'} <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform" />
                             </button>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {step === 4 && (
-                    <motion.div
+                    <m.div
                         key="success"
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -304,7 +304,7 @@ export const CheckoutFlow = () => {
                                 ANA SAYFAYA DÖN <ArrowRight className="w-6 h-6" />
                             </Link>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
         </div >

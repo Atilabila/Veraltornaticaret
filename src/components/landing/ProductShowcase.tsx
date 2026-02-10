@@ -5,7 +5,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { m } from 'framer-motion'
 import { ArrowDown, Zap, Shield, Award, HelpCircle } from "lucide-react"
 import { ProductSection } from "./ProductSection"
 import { cn } from "@/lib/utils"
@@ -109,7 +109,7 @@ const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
             {/* Content */}
             <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
                 {/* Industrial Badge */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -120,10 +120,10 @@ const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                     <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
                         {productCount} Üretim Modeli Aktif
                     </span>
-                </motion.div>
+                </m.div>
 
                 {/* Title - Reduced Size */}
-                <motion.h2
+                <m.h2
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -139,10 +139,10 @@ const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                     <span className="text-zinc-600 block md:inline mt-2 md:mt-0">
                         {content.metalShowcaseTitle?.split(" ").slice(2).join(" ") || "Atelier"}
                     </span>
-                </motion.h2>
+                </m.h2>
 
                 {/* Subtitle - Reduced Size */}
-                <motion.p
+                <m.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -150,10 +150,10 @@ const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                     className="text-base text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed"
                 >
                     {content.metalShowcaseSubtitle || "İzmir Alsancak üretim tesisimizde, endüstriyel kalitede seri üretim hizmetleri sunuyoruz."}
-                </motion.p>
+                </m.p>
 
                 {/* Trust Badges - Smaller Gap */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -174,7 +174,7 @@ const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                             </div>
                         )
                     })}
-                </motion.div>
+                </m.div>
             </div>
         </section>
     )
@@ -192,7 +192,7 @@ const FooterCTA: React.FC = () => {
 
             {/* Content */}
             <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-                <motion.h2
+                <m.h2
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -202,9 +202,9 @@ const FooterCTA: React.FC = () => {
                     <span className="text-white">Projeniz İçin</span>
                     <br />
                     <span className="shimmer-gold">Özel Çözümler</span>
-                </motion.h2>
+                </m.h2>
 
-                <motion.p
+                <m.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -212,9 +212,9 @@ const FooterCTA: React.FC = () => {
                     className="text-lg text-zinc-500 mb-10"
                 >
                     İzmir üretim tesisimiz, kurumsal ve özel projeleriniz için hizmetinizdedir.
-                </motion.p>
+                </m.p>
 
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -248,7 +248,7 @@ const FooterCTA: React.FC = () => {
                     >
                         İletişime Geç
                     </a>
-                </motion.div>
+                </m.div>
             </div>
         </section>
     )

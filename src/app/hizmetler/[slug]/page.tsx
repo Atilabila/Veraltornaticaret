@@ -4,10 +4,10 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { ContentService } from '@/lib/supabase/content.service';
 import { normalizeImagePath } from '@/lib/utils';
-import * as LucideIcons from "lucide-react";
 import { ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
+import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -41,8 +41,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         .filter((s: any) => s.slug !== slug && s.isActive)
         .slice(0, 3);
 
-    const Icon = (LucideIcons as any)[service.icon] || LucideIcons.Settings;
-
     return (
         <>
             <Navigation />
@@ -65,7 +63,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                             <div className="max-w-4xl">
                                 <div className="flex items-center gap-4 mb-6">
                                     <div className="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center">
-                                        <Icon className="w-6 h-6 text-[var(--color-brand-safety-orange)]" />
+                                        <DynamicLucideIcon
+                                            name={service.icon}
+                                            fallbackName="settings"
+                                            className="w-6 h-6 text-[var(--color-brand-safety-orange)]"
+                                        />
                                     </div>
                                     <div className="bg-[var(--color-brand-safety-orange)] text-black px-4 py-1 font-mono font-black text-[10px] uppercase tracking-widest">
                                         INDUSTRIAL SERVICE
@@ -149,7 +151,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {otherServices.map((other: any) => {
-                                            const OtherIcon = (LucideIcons as any)[other.icon] || LucideIcons.Settings;
                                             return (
                                                 <Link
                                                     key={other.id}
@@ -166,7 +167,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                                         />
                                                         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
                                                         <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-lg shadow-sm">
-                                                            <OtherIcon className="w-5 h-5 text-black" />
+                                                            <DynamicLucideIcon
+                                                                name={other.icon}
+                                                                fallbackName="settings"
+                                                                className="w-5 h-5 text-black"
+                                                            />
                                                         </div>
                                                     </div>
 
@@ -197,7 +202,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 <div className="bg-black text-white p-10 border-l-8 border-[var(--color-brand-safety-orange)] relative overflow-hidden group">
                                     <div className="relative z-10">
                                         <h3 className="text-xs font-black uppercase tracking-[0.3em] text-white/40 mb-8 flex items-center gap-2">
-                                            <LucideIcons.Cpu className="w-4 h-4" /> TEKNİK PARAMETRELER
+                                            <DynamicLucideIcon name="cpu" className="w-4 h-4" /> TEKNİK PARAMETRELER
                                         </h3>
                                         <div className="space-y-6">
                                             {service.features?.map((feat: any, i: number) => (
@@ -208,7 +213,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                             ))}
                                         </div>
                                     </div>
-                                    <LucideIcons.Zap className="absolute top-[-20px] right-[-20px] w-40 h-40 text-white/[0.03] group-hover:text-white/[0.05] transition-colors" />
+                                    <DynamicLucideIcon name="zap" className="absolute top-[-20px] right-[-20px] w-40 h-40 text-white/[0.03] group-hover:text-white/[0.05] transition-colors" />
                                 </div>
 
                                 {/* SLA / Guarantee */}
@@ -234,7 +239,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         {service.ctaLabel} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
                                     </Link>
                                     <div className="absolute top-0 right-0 p-4">
-                                        <LucideIcons.MessageSquare className="w-12 h-12 text-black/10" />
+                                        <DynamicLucideIcon name="message-square" className="w-12 h-12 text-black/10" />
                                     </div>
                                 </div>
                             </div>

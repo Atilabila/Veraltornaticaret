@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import { Plus, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -115,7 +115,7 @@ export const ProductGallery = () => {
                             const showCategory = Boolean(cleanedCategory && !isUuid);
 
                             return (
-                                <motion.div
+                                <m.div
                                     key={product.id}
                                     initial={shouldReduceVisuals ? false : { opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -188,7 +188,7 @@ export const ProductGallery = () => {
                                             </button>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </m.div>
                             );
                         })}
                     </div>

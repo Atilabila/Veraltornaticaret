@@ -4,7 +4,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { X, ShoppingCart, Trash2, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 
 interface CartTerminalProps {
     isOpen: boolean;
@@ -19,7 +19,7 @@ export const CartTerminal = ({ isOpen, onClose }: CartTerminalProps) => {
             {isOpen && (
                 <div className="fixed inset-0 z-[200] flex justify-end no-transition">
                     {/* Backdrop */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -28,7 +28,7 @@ export const CartTerminal = ({ isOpen, onClose }: CartTerminalProps) => {
                     />
 
                     {/* Sidebar */}
-                    <motion.div
+                    <m.div
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
@@ -109,7 +109,7 @@ export const CartTerminal = ({ isOpen, onClose }: CartTerminalProps) => {
                                 </p>
                             </div>
                         )}
-                    </motion.div>
+                    </m.div>
                 </div>
             )}
         </AnimatePresence>

@@ -5,10 +5,10 @@
 "use client"
 
 import * as React from "react"
-import { motion, useAnimation } from "framer-motion"
-import * as LucideIcons from "lucide-react"
+import { m, useAnimation } from 'framer-motion'
 import { cn } from "@/lib/utils"
 import type { ProductFeature } from "@/lib/supabase/metal-products.types"
+import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon"
 
 interface FeatureItemProps {
     feature: ProductFeature
@@ -17,20 +17,12 @@ interface FeatureItemProps {
     variant?: "light" | "dark"
 }
 
-// Map of icon names to components
-const getIcon = (iconName: string | null) => {
-    if (!iconName) return LucideIcons.Sparkles
-    const Icon = (LucideIcons as any)[iconName]
-    return Icon || LucideIcons.Sparkles
-}
-
 export const FeatureItem: React.FC<FeatureItemProps> = ({
     feature,
     index,
     isInView,
     variant = "dark"
 }) => {
-    const Icon = getIcon(feature.feature_icon)
     const controls = useAnimation()
     const [hasImpacted, setHasImpacted] = React.useState(false)
 
@@ -54,7 +46,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     }, [isInView, hasImpacted, delay, controls])
 
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, y: -40, scale: 0.95 }}
             animate={isInView ? {
                 opacity: 1,
@@ -71,7 +63,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
                 ease: [0.22, 1, 0.36, 1] // Custom easing - heavy drop
             }}
         >
-            <motion.div
+            <m.div
                 animate={controls}
                 className={cn(
                     "flex items-center gap-4 px-5 py-4",
@@ -87,7 +79,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
                 )}
             >
                 {/* Icon Container - Laser Cut Style */}
-                <motion.div
+                <m.div
                     initial={{ rotate: -45, scale: 0 }}
                     animate={isInView ? { rotate: 0, scale: 1 } : { rotate: -45, scale: 0 }}
                     transition={{ delay: delay + 0.1, duration: 0.4, type: "spring", stiffness: 200 }}
@@ -103,11 +95,15 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
                         "shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.3)]"
                     )}
                 >
-                    <Icon className="w-5 h-5" />
-                </motion.div>
+                    <DynamicLucideIcon
+                        name={feature.feature_icon}
+                        fallbackName="sparkles"
+                        className="w-5 h-5"
+                    />
+                </m.div>
 
                 {/* Feature Text */}
-                <motion.span
+                <m.span
                     initial={{ opacity: 0, x: -10 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                     transition={{ delay: delay + 0.2, duration: 0.4 }}
@@ -117,10 +113,10 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
                     )}
                 >
                     {feature.feature_text}
-                </motion.span>
+                </m.span>
 
                 {/* Decorative Line - Brushed Metal Effect */}
-                <motion.div
+                <m.div
                     initial={{ scaleX: 0 }}
                     animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
                     transition={{ delay: delay + 0.3, duration: 0.5 }}
@@ -133,7 +129,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
                 />
 
                 {/* Metal Rivet Decoration */}
-                <motion.div
+                <m.div
                     initial={{ scale: 0 }}
                     animate={isInView ? { scale: 1 } : { scale: 0 }}
                     transition={{ delay: delay + 0.4, duration: 0.3 }}
@@ -144,8 +140,8 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
                             : "bg-gradient-to-br from-zinc-500 to-zinc-700 shadow-inner"
                     )}
                 />
-            </motion.div>
-        </motion.div>
+            </m.div>
+        </m.div>
     )
 }
 

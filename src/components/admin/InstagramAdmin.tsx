@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from 'framer-motion'
 import { Plus, Trash2, GripVertical, CheckCircle2, Instagram, Heart, Upload, Loader2, Link as LinkIcon, FileImage, AlertCircle } from "lucide-react"
 import { ImageUploader } from "@/components/admin/ImageUploader"
 import { Input } from "@/components/ui/input"
@@ -226,7 +226,7 @@ export const InstagramAdmin = () => {
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {posts.map((post, index) => (
-                        <motion.div
+                        <m.div
                             key={post.id}
                             layout
                             initial={{ opacity: 0, scale: 0.9 }}
@@ -273,7 +273,7 @@ export const InstagramAdmin = () => {
                             <div className="absolute top-2 left-2 px-2 py-0.5 bg-black/50 backdrop-blur rounded text-[10px] font-mono text-white/70">
                                 #{index + 1}
                             </div>
-                        </motion.div>
+                        </m.div>
                     ))}
 
                     {/* Quick Add Button */}

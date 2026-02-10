@@ -7,17 +7,16 @@ import { useCartStore, useCartItemCount } from "@/store/useCartStore";
 import { useContentStore } from "@/store/useContentStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
-import * as LucideIcons from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from 'framer-motion';
 import { getProducts } from "@/lib/actions/metal-products.actions";
 import { MetalProduct } from "@/lib/supabase/metal-products.types";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
+import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
 
-const IconComponent = ({ name, className }: { name: string; className?: string }) => {
-    const Icon = (LucideIcons as any)[name] || LucideIcons.HelpCircle;
-    return <Icon className={className} />;
-};
+const IconComponent = ({ name, className }: { name: string; className?: string }) => (
+    <DynamicLucideIcon name={name} fallbackName="help-circle" className={className} />
+);
 
 const CartProgressBar = ({ step }: { step: number }) => {
     const steps = [
@@ -155,7 +154,7 @@ export default function CartPage() {
             <>
                 <Navigation />
                 <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-16 flex items-center justify-center">
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         className="text-center bg-white p-16 rounded-[3rem] border border-zinc-100 shadow-xl max-w-xl w-full mx-4"
@@ -172,7 +171,7 @@ export default function CartPage() {
                                 {cartCMS?.continueShoppingText || "ALIŞVERİŞE DEVAM ET"}
                             </Button>
                         </Link>
-                    </motion.div>
+                    </m.div>
                 </main>
                 <Footer />
             </>
@@ -214,7 +213,7 @@ export default function CartPage() {
                         <div className="lg:col-span-8 space-y-6">
                             <AnimatePresence mode="popLayout">
                                 {items.map((item) => (
-                                    <motion.div
+                                    <m.div
                                         layout
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -274,7 +273,7 @@ export default function CartPage() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </motion.div>
+                                    </m.div>
                                 ))}
                             </AnimatePresence>
 
@@ -285,7 +284,7 @@ export default function CartPage() {
                                     <div className="flex items-center justify-between mb-6">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/10">
-                                                {isFreeShipping ? <CheckCircle2 className="w-6 h-6 text-emerald-400" /> : <LucideIcons.Zap className="w-6 h-6 text-yellow-400" />}
+                                                {isFreeShipping ? <CheckCircle2 className="w-6 h-6 text-emerald-400" /> : <DynamicLucideIcon name="zap" className="w-6 h-6 text-yellow-400" />}
                                             </div>
                                             <div>
                                                 <h3 className="text-lg font-black tracking-tight uppercase">
@@ -301,7 +300,7 @@ export default function CartPage() {
                                     {cartCMS?.showProgressBar && (
                                         <div className="space-y-3">
                                             <div className="h-2 bg-white/10 rounded-full overflow-hidden border border-white/5">
-                                                <motion.div
+                                                <m.div
                                                     initial={{ width: 0 }}
                                                     animate={{ width: `${progress}%` }}
                                                     className={`h-full transition-all duration-1000 ${isFreeShipping ? "bg-emerald-500" : "bg-white"}`}

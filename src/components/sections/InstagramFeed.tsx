@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
+import { m } from 'framer-motion';
 import Image from "next/image";
 import { Instagram, ExternalLink, Heart } from "lucide-react";
 
@@ -31,7 +31,7 @@ export const InstagramFeed = () => {
 
                 <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
                     {instagramPosts.map((post, index) => (
-                        <motion.a
+                        <m.a
                             key={post.id}
                             href="https://instagram.com/metalposterpro"
                             target="_blank"
@@ -52,7 +52,7 @@ export const InstagramFeed = () => {
                                 <Heart className="w-6 h-6 text-[#D4AF37] mb-2" />
                                 <span className="text-white text-lg font-black italic tracking-tighter">{post.likes}</span>
                             </div>
-                        </motion.a>
+                        </m.a>
                     ))}
                 </div>
 

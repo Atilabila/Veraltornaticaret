@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import {
     User, Building2, Mail, Phone,
     Settings, MessageSquare, Layers,
@@ -159,7 +159,7 @@ export const QuoteForm = () => {
 
     if (isSuccess) {
         return (
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-zinc-900/50 border border-emerald-500/20 p-12 rounded-3xl text-center space-y-8"
@@ -183,7 +183,7 @@ export const QuoteForm = () => {
                 >
                     ANA SAYFAYA DÖN
                 </Button>
-            </motion.div>
+            </m.div>
         );
     }
 
@@ -207,7 +207,7 @@ export const QuoteForm = () => {
                 <div className="p-8 lg:p-12">
                     <AnimatePresence mode="wait">
                         {step === 1 && (
-                            <motion.div
+                            <m.div
                                 key="step1"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -272,11 +272,11 @@ export const QuoteForm = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         )}
 
                         {step === 2 && (
-                            <motion.div
+                            <m.div
                                 key="step2"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -345,11 +345,11 @@ export const QuoteForm = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         )}
 
                         {step === 3 && (
-                            <motion.div
+                            <m.div
                                 key="step3"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -403,7 +403,7 @@ export const QuoteForm = () => {
                                         ))}
                                     </div>
                                 )}
-                            </motion.div>
+                            </m.div>
                         )}
                     </AnimatePresence>
 
@@ -453,7 +453,7 @@ export const QuoteForm = () => {
                                 block.icon === 'CheckCircle' ? CheckCircle : ShieldCheck;
 
                         return (
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: i * 0.1 }}
@@ -465,7 +465,7 @@ export const QuoteForm = () => {
                                 </div>
                                 <h4 className="text-lg font-black text-white uppercase italic tracking-tighter mb-2">{block.title}</h4>
                                 <p className="text-zinc-500 text-sm leading-relaxed">{block.description}</p>
-                            </motion.div>
+                            </m.div>
                         );
                     })}
                 </div>

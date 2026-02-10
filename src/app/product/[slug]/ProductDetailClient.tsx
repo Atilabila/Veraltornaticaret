@@ -5,7 +5,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { m } from 'framer-motion'
 import Link from "next/link"
 import {
     ArrowLeft, ShoppingBag, Share2, Heart,
@@ -101,7 +101,7 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
                         {/* Left: Product Image */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: -40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6 }}
@@ -159,10 +159,10 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                     </div>
                                 )}
                             </div>
-                        </motion.div>
+                        </m.div>
 
                         {/* Right: Product Info */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: 40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
@@ -203,7 +203,7 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                     </div>
 
                                     <div className="flex flex-col sm:flex-row gap-4">
-                                        <motion.button
+                                        <m.button
                                             onClick={() => handleAddToCart()}
                                             disabled={inCart || isAdding}
                                             className={cn(
@@ -227,9 +227,9 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                                     {isAdding ? "..." : "Sepete Ekle"}
                                                 </>
                                             )}
-                                        </motion.button>
+                                        </m.button>
 
-                                        <motion.button
+                                        <m.button
                                             onClick={() => handleAddToCart(true)}
                                             disabled={isAdding}
                                             className={cn(
@@ -244,7 +244,7 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                         >
                                             <Zap className="w-5 h-5 fill-current" />
                                             Hemen Al
-                                        </motion.button>
+                                        </m.button>
                                     </div>
 
                                     <div className="flex items-center gap-2 text-xs text-zinc-500 justify-center">
@@ -348,7 +348,7 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                     </TabsContent>
                                 </Tabs>
                             </div>
-                        </motion.div>
+                        </m.div>
                     </div>
                 </div>
             </div>
