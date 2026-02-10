@@ -44,9 +44,9 @@ export const LocalContactSection = () => {
                                             <IconComponent size={28} strokeWidth={1.5} />
                                         </div>
                                         <div className="space-y-3">
-                                            <h4 className="font-black text-[#0A0A0A] group-hover:text-white uppercase text-2xl tracking-tighter italic leading-none transition-colors">
+                                            <h3 className="font-black text-[#0A0A0A] group-hover:text-white uppercase text-2xl tracking-tighter italic leading-none transition-colors">
                                                 {item.title}
-                                            </h4>
+                                            </h3>
                                             <p className="text-xs font-black text-[#D4AF37] uppercase tracking-[0.2em]">
                                                 {item.desc}
                                             </p>

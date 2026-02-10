@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useContentStore } from "@/store/useContentStore";
 import * as LucideIcons from "lucide-react";
 import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
+import { normalizeImagePath } from "@/lib/utils";
 
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { TextInspector } from "@/components/admin/TextInspector";
@@ -16,6 +17,7 @@ import { TextInspector } from "@/components/admin/TextInspector";
 export const Hero = () => {
     const { content } = useContentStore();
     const { shouldReduceVisuals } = usePerformanceDetection();
+    const heroImage = normalizeImagePath(content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop");
     const safeTitle = (content.heroTitle || "METAL TABLO &\nTENEKELERDE\nYENİ NESİL\nDEKOR VE ÜRETİM")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -23,6 +25,7 @@ export const Hero = () => {
 
     return (
         <DirectEdit tab="hero">
+            <HeroImagePreload src={heroImage} />
             <section className="hero-section relative min-h-[32vh] sm:min-h-[36vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center bg-white overflow-hidden pt-24 pb-20 sm:pt-28 sm:pb-16">
                 <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-12 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
@@ -126,7 +129,7 @@ export const Hero = () => {
                             <Link href="/urunler" className="group block">
                                 <div className="relative aspect-[4/5] sm:aspect-[4/5] lg:aspect-[4/5] bg-gray-100/80 w-full shadow-2xl rounded-3xl overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
                                     <Image
-                                        src={content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop"}
+                                        src={heroImage}
                                         alt="Industrial Metal Production"
                                         fill
                                         className="object-cover"
@@ -151,6 +154,27 @@ export const Hero = () => {
             </section>
         </DirectEdit>
     );
+};
+
+const HeroImagePreload = ({ src }: { src: string }) => {
+    React.useEffect(() => {
+        if (!src) return;
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = src;
+        link.fetchPriority = "high";
+        link.crossOrigin = "anonymous";
+        document.head.appendChild(link);
+
+        return () => {
+            if (link.parentNode) {
+                link.parentNode.removeChild(link);
+            }
+        };
+    }, [src]);
+
+    return null;
 };
 
 const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => {

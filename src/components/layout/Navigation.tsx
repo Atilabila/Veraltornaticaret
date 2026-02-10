@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, ShoppingCart, User, Menu, X, Hammer } from 'lucide-react';
 import { useCartItemCount } from '@/store/useCartStore';
@@ -127,7 +128,7 @@ export const Navigation = () => {
         (effectiveMode !== 'dark' && (isScrolled || isTranslucentMode || isDarkPage));
 
     const textColorClass = isTextWhite ? 'text-white' : 'text-[#0A0A0A]';
-    const logoSrc = isTextWhite ? config.logoLight : config.logoDark;
+    const logoSrc = normalizeImagePath((isTextWhite ? config.logoLight : config.logoDark) || "/veral-logo.webp");
     const borderColor = isTextWhite ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
     const enableFx = !isMobileViewport; // kill heavy filters on mobile to reduce jank
     const blurValue = enableFx && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')
@@ -171,10 +172,14 @@ export const Navigation = () => {
                             <Link href="/" className="flex items-center gap-2 sm:gap-4 group">
                                 <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-7 w-7 md:h-10 md:w-10' : 'h-8 w-8 md:h-12 md:w-12'
                                     }`}>
-                                    <img
-                                        src={normalizeImagePath(logoSrc || "/veral-logo.webp")}
+                                    <Image
+                                        src={logoSrc}
                                         alt={content.siteName || "VERAL"}
-                                        className="h-full w-full object-contain transition-all duration-500"
+                                        fill
+                                        sizes="(max-width: 768px) 56px, 80px"
+                                        className="object-contain transition-all duration-500"
+                                        priority
+                                        quality={70}
                                     />
                                 </div>
                                 <div className="flex flex-col">
@@ -194,6 +199,7 @@ export const Navigation = () => {
                             <div className="flex items-center gap-1 sm:gap-4 md:gap-5">
                                 <button
                                     onClick={() => setIsSearchOpen(true)}
+                                    aria-label="Arama aç"
                                     className={`relative group p-1 sm:p-2 transition-all ${textColorClass} hover:text-[#D4AF37]`}
                                 >
                                     <Search className="w-4 h-4 sm:w-5 h-5" />
@@ -219,6 +225,7 @@ export const Navigation = () => {
                                 </Link>
                                 <button
                                     className={`p-2 transition-all ${textColorClass}`}
+                                    aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
                                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                                 >
                                     {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -252,6 +259,7 @@ export const Navigation = () => {
 
                         <button
                             onClick={() => setIsSearchOpen(false)}
+                            aria-label="Aramayı kapat"
                             className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors z-[100001]"
                         >
                             <X className="w-12 h-12" />

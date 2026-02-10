@@ -4,8 +4,6 @@
    ===================================================== */
 
 /* Typography: Space Grotesk - Architectural & Industrial */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap');
-
 @import "tailwindcss";
 
 /* =====================================================
@@ -13,8 +11,8 @@
    ===================================================== */
 @theme {
     /* Typography */
-    --font-sans: 'Space Grotesk', system-ui, sans-serif;
-    --font-display: 'Syne', sans-serif;
+    --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+    --font-display: var(--font-syne), sans-serif;
 
     /* Core Palette - Dark Industrial */
     --color-metal-950: #0a0a0b;
@@ -78,7 +76,7 @@ html {
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: var(--font-sans);
+    font-family: var(--font-sans, 'Space Grotesk', system-ui, sans-serif);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;

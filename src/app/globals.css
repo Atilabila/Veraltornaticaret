@@ -179,3 +179,10 @@ html.force-desktop body {
 html.force-desktop body {
   overflow-x: auto;
 }
+
+/* Improve gold text contrast on light backgrounds */
+.text-\[\#D4AF37\],
+.text-\[\#d4af37\],
+.text-\[\#d8b24c\] {
+  color: #b8860b;
+}

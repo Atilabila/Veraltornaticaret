@@ -51,5 +51,12 @@
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.21.0",
     "typescript": "^5"
-  }
+  },
+  "browserslist": [
+    "last 3 Chrome versions",
+    "last 3 Edge versions",
+    "last 2 Safari versions",
+    "not IE 11",
+    "not OperaMini all"
+  ]
 }

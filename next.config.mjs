@@ -9,11 +9,11 @@ export default {
     },
     compress: true,
     poweredByHeader: false,
-    images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: 'images.unsplash.com',
+        images: {
+            remotePatterns: [
+                {
+                    protocol: 'https',
+                    hostname: 'images.unsplash.com',
                 port: '',
                 pathname: '/**',
             },
@@ -49,7 +49,7 @@ export default {
             },
         ],
         formats: ['image/avif', 'image/webp'],
-        minimumCacheTTL: 60,
+        minimumCacheTTL: 31536000,
         dangerouslyAllowSVG: true,
     },
 }

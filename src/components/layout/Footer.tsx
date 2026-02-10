@@ -2,14 +2,47 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Instagram, Facebook, Twitter, ArrowUpRight } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
 import { DirectEdit } from "@/components/admin/DirectEdit";
+import { normalizeImagePath } from '@/lib/utils';
 
 export const Footer = () => {
     const { content } = useContentStore();
+    const footerLogoSrc = normalizeImagePath((content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/veral-logo.webp");
+    const siteName = content.siteName || "VERAL";
+    const mapSrc = `https://maps.google.com/maps?q=${content.footerMapLat},${content.footerMapLng}&z=${content.footerMapZoom}&output=embed`;
+    const [shouldLoadMap, setShouldLoadMap] = React.useState(false);
+    const mapRef = React.useRef<HTMLDivElement | null>(null);
 
     const instagramHandle = (content.footerInstagram || "").replace('@', '').trim();
+    const socialLinks = [
+        instagramHandle ? { icon: Instagram, href: `https://instagram.com/${instagramHandle}`, label: "Instagram" } : null,
+        { icon: Facebook, href: '#', label: "Facebook" },
+        { icon: Twitter, href: '#', label: "Twitter" }
+    ].filter(Boolean) as { icon: typeof Instagram; href: string; label: string }[];
+
+    React.useEffect(() => {
+        const target = mapRef.current;
+        if (!target) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setShouldLoadMap(true);
+                        observer.disconnect();
+                    }
+                });
+            },
+            { rootMargin: "200px" }
+        );
+
+        observer.observe(target);
+
+        return () => observer.disconnect();
+    }, []);
 
     return (
         <DirectEdit tab="contact">
@@ -23,16 +56,20 @@ export const Footer = () => {
                         {/* LEFT: LOGO & ABOUT */}
                         <div className="lg:col-span-12 xl:col-span-4 flex flex-col gap-10">
                             <Link href="/" className="flex items-center gap-4 group">
-                                <div className="h-16 w-16 transition-all duration-500 flex-shrink-0">
-                                    <img
-                                        src={(content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/veral-logo.webp"}
-                                        alt={content.siteName || "VERAL"}
-                                        className="h-full w-full object-contain invert brightness-100 mix-blend-screen"
+                                <div className="h-16 w-16 transition-all duration-500 flex-shrink-0 relative">
+                                    <Image
+                                        src={footerLogoSrc}
+                                        alt={siteName}
+                                        fill
+                                        sizes="64px"
+                                        className="object-contain invert brightness-100 mix-blend-screen"
+                                        priority
+                                        quality={70}
                                     />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-2xl font-black text-[#D4AF37] tracking-[0.15em] uppercase">
-                                        {content.siteName || "VERAL"}
+                                        {siteName}
                                     </span>
                                     <span className="text-[9px] font-bold text-white/80 tracking-[0.3em] uppercase">Torna & Teneke Ticaret</span>
                                 </div>
@@ -46,20 +83,17 @@ export const Footer = () => {
                             </div>
                             {/* SOCIAL ICONS */}
                             <div className="flex gap-6">
-                                {[
-                                    instagramHandle ? { icon: Instagram, href: `https://instagram.com/${instagramHandle}` } : null,
-                                    { icon: Facebook, href: '#' },
-                                    { icon: Twitter, href: '#' }
-                                ]
-                                    .filter(Boolean)
-                                    .map((social, i) => {
-                                        const item = social as { icon: typeof Instagram; href: string };
-                                        return (
-                                            <Link key={i} href={item.href} target="_blank" className="w-12 h-12 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-500">
-                                                <item.icon size={20} />
-                                            </Link>
-                                        );
-                                    })}
+                                {socialLinks.map((item, i) => (
+                                    <Link
+                                        key={i}
+                                        href={item.href}
+                                        target="_blank"
+                                        aria-label={`${item.label} sayfamız`}
+                                        className="w-12 h-12 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-500"
+                                    >
+                                        <item.icon size={20} />
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
@@ -93,16 +127,25 @@ export const Footer = () => {
 
                             <div className="pt-6 border-t border-white/5 flex flex-col gap-6">
                                 <h4 className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">KONUM // NAVİGASYON</h4>
-                                <div className="w-full h-48 rounded-sm overflow-hidden border border-[#D4AF37]/20 grayscale hover:grayscale-0 transition-all duration-700">
-                                    <iframe
-                                        width="100%"
-                                        height="100%"
-                                        frameBorder="0"
-                                        scrolling="no"
-                                        marginHeight={0}
-                                        marginWidth={0}
-                                        src={`https://maps.google.com/maps?q=${content.footerMapLat},${content.footerMapLng}&z=${content.footerMapZoom}&output=embed`}
-                                    />
+                                <div
+                                    ref={mapRef}
+                                    className="w-full h-48 rounded-sm overflow-hidden border border-[#D4AF37]/20 grayscale hover:grayscale-0 transition-all duration-700 relative"
+                                >
+                                    {shouldLoadMap ? (
+                                        <iframe
+                                            width="100%"
+                                            height="100%"
+                                            frameBorder="0"
+                                            scrolling="no"
+                                            marginHeight={0}
+                                            marginWidth={0}
+                                            loading="lazy"
+                                            title="VERAL Google Maps konumu"
+                                            src={mapSrc}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] via-[#111] to-[#0a0a0a] animate-pulse" aria-label="Harita yükleniyor" />
+                                    )}
                                 </div>
                                 <a
                                     href={content.footerMapLink || `https://www.google.com/maps/dir/?api=1&destination=${content.footerMapLat},${content.footerMapLng}`}

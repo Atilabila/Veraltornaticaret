@@ -8,6 +8,19 @@ import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { Space_Grotesk, Syne } from "next/font/google";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
+});
+
+const syne = Syne({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-syne",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -30,11 +43,9 @@ export const revalidate = 10;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr">
+    <html lang="tr" className={`${spaceGrotesk.variable} ${syne.variable}`}>
       <head>
         <link rel="preconnect" href="https://wswlhtglwpyragymrdhl.supabase.co" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <LocalBusinessSchema />
       </head>
       <body className="antialiased">
