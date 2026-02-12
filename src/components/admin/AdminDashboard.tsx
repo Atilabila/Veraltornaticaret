@@ -143,6 +143,12 @@ export const AdminDashboard = () => {
                         active={activeTab === "products"}
                         onClick={() => setActiveTab("products")}
                     />
+                    <a href="/admin/urunler" className="w-full block">
+                        <SidebarItem
+                            icon={<FolderPlus className="w-5 h-5" />}
+                            label="Toplu Urun Girisi"
+                        />
+                    </a>
                     <SidebarItem
                         icon={<Star className="w-5 h-5" />}
                         label="Metal Showcase Ürünleri"
@@ -1833,3 +1839,4 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
         </div>
     );
 };
+

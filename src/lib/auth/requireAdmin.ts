@@ -20,6 +20,11 @@ type RequireAdminResult = {
  * @returns Admin user info (userId, email)
  */
 export async function requireAdmin(): Promise<RequireAdminResult> {
+    // Test-only bypass for Playwright E2E runs.
+    if (process.env.E2E_ADMIN_BYPASS === "1") {
+        return { userId: "e2e-admin", email: "e2e@local.test" };
+    }
+
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
     const cookieStore = await cookies();
