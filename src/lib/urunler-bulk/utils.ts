@@ -14,10 +14,14 @@ export function normalizeProductName(name: string): string {
 
 /**
  * Parses TRY price strings.
- * Supports: 350, 350.50, 350,50, ₺350,50
+ * Supports: 350, 350.50, 350,50, ₺350,50, TL 350,50
  */
 export function parsePriceTRY(input: string): PriceParseTRYResult {
-    const raw = input.replace(/₺/g, "").replace(/\s+/g, "");
+    const raw = input
+        .replace(/\u20BA/g, "") // TRY currency symbol
+        .replace(/\u00E2\u201A\u00BA/g, "") // mojibake for TRY symbol
+        .replace(/tl/gi, "")
+        .replace(/\s+/g, "");
     if (!raw) return { ok: false, code: "INVALID_PRICE_FORMAT" };
     if (raw.startsWith("-")) return { ok: false, code: "INVALID_PRICE_RANGE" };
     if (/[^0-9.,]/.test(raw)) return { ok: false, code: "INVALID_PRICE_FORMAT" };

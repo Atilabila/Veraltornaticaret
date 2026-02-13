@@ -22,6 +22,11 @@
 # production
 /build
 
+# python/pyinstaller
+/.venv-exe
+/dist
+*.spec
+
 # misc
 .DS_Store
 *.pem
