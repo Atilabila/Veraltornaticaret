@@ -77,7 +77,7 @@ export const Hero = () => {
                                 <Button
                                     asChild
                                     size="lg"
-                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none bg-black hover:bg-gray-800 transition-all duration-300 w-full sm:w-auto justify-center"
+                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none bg-black hover:bg-gray-800 transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                                 >
                                     <Link href={content.heroButton1Url || "/urunler"}>
                                         <span className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export const Hero = () => {
                                     asChild
                                     variant="outline"
                                     size="lg"
-                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-all duration-300 w-full sm:w-auto justify-center"
+                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                                 >
                                     <Link href={content.heroButton2Url || "/urunler"}>
                                         {content.heroButton2Text || "KATALOG"}
@@ -137,16 +137,24 @@ export const Hero = () => {
                                         sizes="(min-width:1280px) 560px, (min-width:1024px) 480px, (min-width:768px) 60vw, 94vw"
                                         quality={shouldReduceVisuals ? 40 : 55}
                                     />
-                                    <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none" />
+                                    <m.div
+                                        initial={{ opacity: 0, scale: 1.1 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 1, duration: 1 }}
+                                        className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none"
+                                    />
                                     {/* Hover Overlay */}
                                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
                                 </div>
                             </Link>
-                            <div className="mt-6 lg:mt-0 lg:absolute lg:-bottom-6 lg:-left-6 bg-white p-5 shadow-2xl border-l-8 border-black z-20 w-full max-w-[260px]">
+                            <m.div
+                                whileHover={{ x: 10, y: -10 }}
+                                className="mt-6 lg:mt-0 lg:absolute lg:-bottom-6 lg:-left-6 bg-white p-5 shadow-2xl border-l-8 border-black z-20 w-full max-w-[260px] cursor-pointer transition-shadow hover:shadow-black/20"
+                            >
                                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Technical Specs</div>
                                 <div className="text-3xl font-black text-black">0.30<span className="text-[12px] align-top ml-1">mm</span></div>
                                 <div className="text-[13px] font-bold text-gray-800 mt-1">Industrial Grade Steel</div>
-                            </div>
+                            </m.div>
                         </m.div>
                     </div>
                 </div>

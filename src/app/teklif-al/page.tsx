@@ -7,11 +7,19 @@ import { ContentService } from '@/lib/supabase/content.service';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 
-import { defaultContent } from '@/store/useContentStore';
+const fallbackQuotePage = {
+    title: "Teklif Formu",
+    subtitle: "Projeniz İçin Teknik Analiz ve Fiyatlandırma",
+    description:
+        "İzmir merkezli atölyemizde endüstriyel metal tasarımı, CNC kesim ve özel üretim projeleriniz için teknik değerlendirme ve teklif sunuyoruz.",
+    seoTitle: "Teklif Al | Özel Metal Üretim ve Tasarım - VERAL Metal Works",
+    seoDescription:
+        "Endüstriyel metal projeleriniz, CNC kesim ve özel tasarım talepleriniz için hemen teklif alın.",
+} as const;
 
 export async function generateMetadata(): Promise<Metadata> {
     const dbContent = await ContentService.getContent();
-    const config = dbContent?.quotePage || defaultContent.quotePage;
+    const config = dbContent?.quotePage || fallbackQuotePage;
 
     return {
         title: config.seoTitle || "Teklif Al | VERAL Metal Works",
@@ -21,14 +29,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function QuotePage() {
     const dbContent = await ContentService.getContent();
-    // Merge DB content with defaults for hydration safety
-    const content = { ...defaultContent, ...dbContent };
-    const config = content.quotePage;
+    // Client store already starts with defaults; passing DB content is enough for hydration.
+    const config = dbContent?.quotePage || fallbackQuotePage;
 
     if (!config) return null;
 
     return (
-        <ContentProvider initialContent={content}>
+        <ContentProvider initialContent={dbContent || undefined}>
             <main className="relative min-h-screen bg-[#0A0A0A] overflow-hidden pt-32 pb-24">
                 <Navigation />
                 {/* Global Background Systems */}

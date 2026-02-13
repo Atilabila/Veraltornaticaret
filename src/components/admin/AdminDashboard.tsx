@@ -282,7 +282,8 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                 background_color: product.background_color || "#0A0A0A",
                 stock_quantity: product.stock_quantity || 0,
                 is_showcase: product.is_showcase || false,
-                features: product.features || []
+                features: product.features || [],
+                variants: product.variants || []
             };
 
             if (product.id) {
@@ -480,7 +481,10 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
             { feature_text: "1.5mm Alüminyum Gövde", display_order: 1 },
             { feature_text: "Yüksek Çözünürlüklü UV Baskı", display_order: 2 },
             { feature_text: "Endüstriyel Koruma Katmanı", display_order: 3 }
-        ]
+        ],
+        variants: Array.isArray(product?.variants)
+            ? product.variants
+            : (product ? [] : [{ size_label: "30x45 cm", price_modifier: 0, stock_quantity: 100 }])
     });
 
     const addFeature = () => {
@@ -501,6 +505,26 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
         const newFeatures = [...formData.features];
         newFeatures[index].feature_text = text;
         setFormData({ ...formData, features: newFeatures });
+    };
+
+    const addVariant = () => {
+        setFormData({
+            ...formData,
+            variants: [...(formData.variants || []), { size_label: "", price_modifier: 0, stock_quantity: 0 }]
+        });
+    };
+
+    const removeVariant = (index: number) => {
+        setFormData({
+            ...formData,
+            variants: (formData.variants || []).filter((_: any, i: number) => i !== index)
+        });
+    };
+
+    const updateVariant = (index: number, patch: Partial<{ size_label: string; price_modifier: number; stock_quantity: number }>) => {
+        const next = [...(formData.variants || [])];
+        next[index] = { ...next[index], ...patch };
+        setFormData({ ...formData, variants: next });
     };
 
     return (
@@ -612,6 +636,89 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                         </button>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+
+                        <div className="col-span-2 border-t border-white/5 pt-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <Label className="text-[var(--color-brand-safety-orange)] font-black tracking-widest text-[10px] uppercase italic">VARYANTLAR (BOYUT / EK FİYAT / STOK)</Label>
+                                <button
+                                    type="button"
+                                    onClick={addVariant}
+                                    className="text-[10px] font-black uppercase text-black bg-white border-2 border-black px-3 py-2 rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                                >
+                                    + VARYANT EKLE
+                                </button>
+                            </div>
+
+                            <div className="bg-white border-2 border-black rounded-none p-4 space-y-3 text-black">
+                                <div className="grid grid-cols-12 gap-2 text-[10px] font-black uppercase tracking-widest text-black/70">
+                                    <div className="col-span-6">Boyut</div>
+                                    <div className="col-span-3">Ek Fiyat (₺)</div>
+                                    <div className="col-span-2">Stok</div>
+                                    <div className="col-span-1 text-right">Sil</div>
+                                </div>
+
+                                {(formData.variants || []).length === 0 && (
+                                    <div className="border-2 border-black/10 rounded-none p-4 text-[10px] font-black uppercase tracking-widest text-black/60">
+                                        Henüz varyant yok. “Varyant ekle” ile boyut ve fiyat tanımlayın.
+                                    </div>
+                                )}
+
+                                {(formData.variants || []).map((variant: any, idx: number) => {
+                                    const base = Number(formData.price || 0);
+                                    const mod = Number(variant.price_modifier || 0);
+                                    const computed = base + mod;
+
+                                    return (
+                                        <div key={idx} className="grid grid-cols-12 gap-2 items-start">
+                                            <div className="col-span-12 md:col-span-6 space-y-1">
+                                                <input
+                                                    type="text"
+                                                    value={variant.size_label || ""}
+                                                    onChange={(e) => updateVariant(idx, { size_label: e.target.value })}
+                                                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm text-black focus:outline-none"
+                                                    placeholder="Örn: 30x45 cm"
+                                                />
+                                                <div className="text-[10px] font-black uppercase tracking-widest text-black/60">
+                                                    Görünen fiyat: {Number.isFinite(computed) ? computed.toLocaleString('tr-TR') : base.toLocaleString('tr-TR')} ₺
+                                                </div>
+                                            </div>
+
+                                            <div className="col-span-6 md:col-span-3">
+                                                <input
+                                                    type="number"
+                                                    step="0.01"
+                                                    value={Number(variant.price_modifier || 0)}
+                                                    onChange={(e) => updateVariant(idx, { price_modifier: Number(e.target.value) })}
+                                                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm text-black focus:outline-none"
+                                                    placeholder="0"
+                                                />
+                                            </div>
+
+                                            <div className="col-span-5 md:col-span-2">
+                                                <input
+                                                    type="number"
+                                                    value={Number(variant.stock_quantity || 0)}
+                                                    onChange={(e) => updateVariant(idx, { stock_quantity: Number(e.target.value) })}
+                                                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm text-black focus:outline-none"
+                                                    placeholder="0"
+                                                />
+                                            </div>
+
+                                            <div className="col-span-1 flex justify-end">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeVariant(idx)}
+                                                    className="h-10 w-10 flex items-center justify-center border-2 border-black rounded-none bg-white hover:bg-black hover:text-white transition-colors"
+                                                    aria-label="Varyantı sil"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
 
@@ -1652,7 +1759,8 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                 background_color: product.background_color || "#0A0A0A",
                 stock_quantity: product.stock_quantity || 0,
                 is_showcase: true, // Force showcase for this tab
-                features: product.features || []
+                features: product.features || [],
+                variants: product.variants || []
             };
 
             if (product.id) {

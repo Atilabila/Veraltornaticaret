@@ -169,28 +169,33 @@ export const Navigation = () => {
                     <div className={`flex items-center justify-between transition-all duration-500 ${config.announcementActive ? (isScrolled ? 'py-2' : 'py-3') : (isScrolled ? 'py-3' : 'py-4 md:py-5')
                         }`}>
                         <div className="flex items-center gap-3 sm:gap-8 lg:gap-16 min-w-0 sm:min-w-[280px] lg:min-w-[320px]">
-                            <Link href="/" className="flex items-center gap-2 sm:gap-4 group">
-                                <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-7 w-7 md:h-10 md:w-10' : 'h-8 w-8 md:h-12 md:w-12'
-                                    }`}>
-                                    <Image
-                                        src={logoSrc}
-                                        alt={content.siteName || "VERAL"}
-                                        fill
-                                        sizes="(max-width: 768px) 56px, 80px"
-                                        className="object-contain transition-all duration-500"
-                                        priority
-                                        quality={70}
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <h2 className={`font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] text-[#D4AF37] transition-all duration-500 ${isScrolled ? 'text-sm md:text-lg' : 'text-base md:text-xl'
+                            <m.div
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <Link href="/" className="flex items-center gap-2 sm:gap-4 group">
+                                    <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-7 w-7 md:h-10 md:w-10' : 'h-8 w-8 md:h-12 md:w-12'
                                         }`}>
-                                        {content.siteName || "VERAL"}
-                                    </h2>
-                                    <span className={`text-[6px] md:text-[8px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase -mt-0.5 transition-all duration-500 ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
-                                        } ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
-                                </div>
-                            </Link>
+                                        <Image
+                                            src={logoSrc}
+                                            alt={content.siteName || "VERAL"}
+                                            fill
+                                            sizes="(max-width: 768px) 56px, 80px"
+                                            className="object-contain transition-all duration-500"
+                                            priority
+                                            quality={70}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <h2 className={`font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] text-[#D4AF37] transition-all duration-500 ${isScrolled ? 'text-sm md:text-lg' : 'text-base md:text-xl'
+                                            }`}>
+                                            {content.siteName || "VERAL"}
+                                        </h2>
+                                        <span className={`text-[6px] md:text-[8px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase -mt-0.5 transition-all duration-500 ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
+                                            } ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
+                                    </div>
+                                </Link>
+                            </m.div>
                         </div>
 
                         {/* Utils - Improved spacing and alignment */}
@@ -232,15 +237,20 @@ export const Navigation = () => {
                                 </button>
                             </div>
 
-                            <Link
-                                href={config.ctaLink || "/teklif-al"}
-                                className={`hidden sm:flex items-center justify-center border border-[#D4AF37] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500 leading-none ${isScrolled
-                                    ? 'px-3 h-10 sm:px-4 sm:h-10 md:px-6 md:h-12'
-                                    : 'px-3 h-10 sm:px-6 sm:h-12 md:px-8 md:h-12'
-                                    }`}
+                            <m.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                {config.ctaText || "TEKLİF AL"}
-                            </Link>
+                                <Link
+                                    href={config.ctaLink || "/teklif-al"}
+                                    className={`hidden sm:flex items-center justify-center border border-[#D4AF37] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500 leading-none ${isScrolled
+                                        ? 'px-3 h-10 sm:px-4 sm:h-10 md:px-6 md:h-12'
+                                        : 'px-3 h-10 sm:px-6 sm:h-12 md:px-8 md:h-12'
+                                        }`}
+                                >
+                                    {config.ctaText || "TEKLİF AL"}
+                                </Link>
+                            </m.div>
                         </div>
                     </div>
                 </div>
@@ -324,52 +334,81 @@ export const Navigation = () => {
                 )}
             </AnimatePresence>
 
-            {isMobileMenuOpen && (
-                <div
-                    className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 overflow-y-auto"
-                    style={{ backgroundColor: '#000000' }}
-                >
-                    <div className="flex justify-between items-center mb-16 relative z-10">
-                        <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
-                        <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]" aria-label="Menüyü kapat">
-                            <X className="w-10 h-10" />
-                        </button>
-                    </div>
-                    <nav className="flex flex-col gap-10 relative z-10 pb-24">
-                        <Link
-                            href="/"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="flex items-center justify-center h-16 rounded-md border border-[#D4AF37] bg-[#0f0f0f] text-[#D4AF37] font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
-                        >
-                            Ana Sayfaya Dön
-                        </Link>
-                        {activeLinks.map((link) => (
-                            <Link
-                                key={link.id || link.label}
-                                href={link.url}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
-                                ${link.isPrimary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
-                        <Link
-                            href="/sepet"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="text-3xl font-black uppercase tracking-tight text-white hover:text-[#D4AF37] transition-colors"
-                        >
-                            Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
-                        </Link>
-                        <div className="mt-8 pt-10 border-t border-[#D4AF37]/20">
-                            <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
-                                {user ? 'HESABIM' : 'GİRİŞ YAP'}
-                            </Link>
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <m.div
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+                        className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 overflow-y-auto"
+                        style={{ backgroundColor: '#000000' }}
+                    >
+                        <div className="flex justify-between items-center mb-16 relative z-10">
+                            <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
+                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]" aria-label="Menüyü kapat">
+                                <X className="w-10 h-10" />
+                            </button>
                         </div>
-                    </nav>
-                    <div className="absolute inset-0 opacity-5 pointer-events-none grid-pattern-dark" />
-                </div>
-            )}
+                        <nav className="flex flex-col gap-10 relative z-10 pb-24">
+                            <m.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 }}
+                            >
+                                <Link
+                                    href="/"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="flex items-center justify-center h-16 rounded-md border border-[#D4AF37] bg-[#0f0f0f] text-[#D4AF37] font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
+                                >
+                                    Ana Sayfaya Dön
+                                </Link>
+                            </m.div>
+                            {activeLinks.map((link, idx) => (
+                                <m.div
+                                    key={link.id || link.label}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.2 + idx * 0.05 }}
+                                >
+                                    <Link
+                                        href={link.url}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
+                                        ${link.isPrimary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </m.div>
+                            ))}
+                            <m.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.3 }}
+                            >
+                                <Link
+                                    href="/sepet"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-3xl font-black uppercase tracking-tight text-white hover:text-[#D4AF37] transition-colors"
+                                >
+                                    Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
+                                </Link>
+                            </m.div>
+                            <m.div
+                                className="mt-8 pt-10 border-t border-[#D4AF37]/20"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.4 }}
+                            >
+                                <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
+                                    {user ? 'HESABIM' : 'GİRİŞ YAP'}
+                                </Link>
+                            </m.div>
+                        </nav>
+                        <div className="absolute inset-0 opacity-5 pointer-events-none grid-pattern-dark" />
+                    </m.div>
+                )}
+            </AnimatePresence>
         </>
     );
 };

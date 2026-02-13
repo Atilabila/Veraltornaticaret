@@ -10,8 +10,7 @@ import { useOrderStore } from "@/store/useOrderStore";
 import { useContentStore } from "@/store/useContentStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
-import { processPayment } from "@/lib/payment";
-import { sendOrderConfirmationEmail } from "@/lib/actions/email.actions";
+import { buildWhatsAppOrderMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { m, AnimatePresence } from 'framer-motion';
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
@@ -25,7 +24,7 @@ const CartProgressBar = ({ step }: { step: number }) => {
     const steps = [
         { id: 1, label: "Sepet" },
         { id: 2, label: "Adres" },
-        { id: 3, label: "Ödeme" },
+        { id: 3, label: "WhatsApp" },
         { id: 4, label: "Tamamlandı" }
     ];
 
@@ -110,7 +109,7 @@ export default function CheckoutPage() {
                         <div className="w-20 h-20 mx-auto rounded-2xl bg-red-50 flex items-center justify-center border border-red-100">
                             <AlertTriangle className="w-10 h-10 text-red-600" />
                         </div>
-                        <h1 className="text-2xl font-black uppercase tracking-tight text-red-600">Ödeme İşlemi Engellenmiştir</h1>
+                        <h1 className="text-2xl font-black uppercase tracking-tight text-red-600">Sipariş İşlemi Engellenmiştir</h1>
                         <p className="text-zinc-500 max-w-md mx-auto text-sm">
                             Sepetinizde geçersiz fiyatlı ürün(ler) bulunmaktadır. Lütfen bu ürünleri kaldırın veya müşteri hizmetleri ile iletişime geçin.
                         </p>
@@ -163,55 +162,44 @@ export default function CheckoutPage() {
                 shippingCost: cart.getShippingCost(),
                 discount: checkout.couponDiscount,
                 total: cart.getTotal() - checkout.couponDiscount,
+                paymentMethod: 'whatsapp',
+                status: 'payment_pending',
             });
 
-            orderStore.updateOrderStatus(order.id, 'payment_pending');
-
-            const paymentResult = await processPayment(
-                order.id,
-                order.orderNumber,
-                order.total,
-                {
-                    name: checkout.shipping.fullName,
-                    email: checkout.shipping.email,
-                    phone: checkout.shipping.phone,
-                    address: checkout.shipping.address,
-                    city: checkout.shipping.city,
-                },
-                cart.items.map(item => ({
-                    id: item.id,
-                    name: item.name,
-                    price: item.price,
-                    quantity: item.quantity
-                }))
-            );
-
-            if (paymentResult.success) {
-                orderStore.updateOrderStatus(order.id, 'paid', paymentResult.paymentId);
-
-                await sendOrderConfirmationEmail({
-                    to: checkout.shipping.email,
-                    orderNumber: order.orderNumber,
-                    customerName: checkout.shipping.fullName,
-                    items: cart.items.map(item => ({
-                        id: item.id,
-                        name: item.name,
-                        price: item.price,
-                        quantity: item.quantity,
-                        image: item.image
-                    })),
-                    total: cart.getTotal() - checkout.couponDiscount,
-                    address: `${checkout.shipping.address} ${checkout.shipping.district}/${checkout.shipping.city}`,
-                    date: new Date().toLocaleDateString('tr-TR')
-                }).catch(err => console.error('Email sending failed:', err));
-
-                cart.clearCart();
-                checkout.reset();
-                router.push(`/siparis/${order.id}`);
-            } else {
+            const whatsappNumber = content.whatsappNumber;
+            if (!String(whatsappNumber || '').trim()) {
+                checkout.setError('WhatsApp hattı tanımlı değil. Lütfen yönetim panelinden WhatsApp numarasını ekleyin.');
                 orderStore.updateOrderStatus(order.id, 'failed');
-                checkout.setError(paymentResult.error || 'Ödeme işlemi başarısız oldu.');
+                return;
             }
+
+            const message = buildWhatsAppOrderMessage({
+                orderNumber: order.orderNumber,
+                shipping: {
+                    fullName: order.shipping.fullName,
+                    email: order.shipping.email,
+                    phone: order.shipping.phone,
+                    address: order.shipping.address,
+                    city: order.shipping.city,
+                    district: order.shipping.district,
+                    postalCode: order.shipping.postalCode,
+                    notes: order.shipping.notes,
+                },
+                items: order.items.map((it) => ({
+                    name: it.name,
+                    size: it.size,
+                    quantity: it.quantity,
+                    unitPrice: it.price,
+                })),
+                total: order.total,
+            });
+
+            const whatsappUrl = buildWhatsAppUrl({ phoneNumber: whatsappNumber, message });
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+            cart.clearCart();
+            checkout.reset();
+            router.push(`/siparis/${order.id}`);
         } catch (error) {
             console.error('[CHECKOUT] Error:', error);
             checkout.setError('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
@@ -524,7 +512,7 @@ export default function CheckoutPage() {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <span className="font-black tracking-widest uppercase text-xs">{checkoutCMS?.completeButtonText || "SİPARİŞİ TAMAMLA"}</span>
+                                                        <span className="font-black tracking-widest uppercase text-xs">{checkoutCMS?.completeButtonText || "WHATSAPP'TA TAMAMLA"}</span>
                                                         <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                                             <ArrowRight className="w-4 h-4" />
                                                         </div>

@@ -542,9 +542,9 @@ export const defaultContent: SiteContent = {
 
 
     // Hero
-    heroTitle: "İZMİR'İN METAL ÜRETİM MERKEZİ",
-    heroSubtitle: "TAKVİM TENEKESİ, DOSYA TELİ VE METAL POSTER İMALATINDA 40 YILLIK TECRÜBE.",
-    heroTagline: "ENDÜSTRİYEL METAL ÇÖZÜMLERİ. TAKVİM TENEKESİNDEN ÖZEL METAL POSTERLERE.",
+    heroTitle: "METALİN DİJİTAL\nDÖNÜŞÜMÜ",
+    heroSubtitle: "Veral standartlarında 0.30mm endüstriyel çelik, yüksek çözünürlüklü UV baskı.",
+    heroTagline: "0.30MM ÇELİK // YÜKSEK ÇÖZÜNÜRLÜK // UV AKTARIM",
     heroPrice: "199 TL",
     heroImage: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
     heroImages: [
@@ -552,10 +552,10 @@ export const defaultContent: SiteContent = {
         "https://images.unsplash.com/photo-1524169358666-79f22c79745d?q=80&w=2670&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=2680&auto=format&fit=crop"
     ],
-    heroButton1Text: "KOLEKSİYONU GÖR",
-    heroButton1Url: "/urunler",
-    heroButton2Text: "KATALOG",
-    heroButton2Url: "/katalog.pdf",
+    heroButton1Text: "ÜRETİM HATTINI KEŞFET",
+    heroButton1Url: "/#process",
+    heroButton2Text: "KATALOĞA GİT",
+    heroButton2Url: "/urunler",
     heroStats: [
         { value: "24-48s", label: "TESLİMAT" },
         { value: "1.5mm", label: "ÇELİK" },
@@ -969,11 +969,11 @@ export const defaultContent: SiteContent = {
         emptyTitle: "SEPETİNİZ BOŞ",
         emptyDescription: "HENÜZ SEPETE ÜRÜN EKLEMEDİNİZ. KOLEKSİYONUMUZU KEŞFEDİN.",
         continueShoppingText: "ALIŞVERİŞE DEVAM ET",
-        checkoutButtonText: "ÖDEMEYE GEÇ",
+        checkoutButtonText: "WHATSAPP İLE SATIN AL",
         shippingIncentiveText: "₺{amount} DAHA EKLEYİN, ÜCRETSİZ KARGO KAZANIN!",
         freeShippingThreshold: 500,
         advantageBlocks: [
-            { icon: "ShieldCheck", text: "GÜVENLİ ÖDEME (SSL)" },
+            { icon: "ShieldCheck", text: "GÜVENLİ BAĞLANTI (SSL)" },
             { icon: "RotateCcw", text: "14 GÜN İADE GARANTİSİ" },
             { icon: "Factory", text: "YERLİ ÜRETİM" },
             { icon: "Zap", text: "HIZLI KARGO" }
@@ -984,22 +984,22 @@ export const defaultContent: SiteContent = {
 
     // Checkout Page Defaults
     checkoutPage: {
-        title: "ÖDEME PROTOKOLÜ",
+        title: "SİPARİŞ PROTOKOLÜ",
         showStepLabels: true,
         stepLabels: {
             shipping: "01 TESLİMAT BİLGİLERİ",
             billing: "02 FATURA BİLGİLERİ",
-            payment: "03 ÖDEME"
+            payment: "03 WHATSAPP"
         },
         trustBlocks: [
-            { icon: "Lock", title: "SSL GÜVENLİ ÖDEME" },
+            { icon: "Lock", title: "SSL GÜVENLİ" },
             { icon: "CheckCircle", title: "KVKK UYUMLU" },
-            { icon: "CreditCard", title: "IYZICO ALTYAPISI" }
+            { icon: "MessageCircle", title: "WHATSAPP ONAYI" }
         ],
         legalText: "Siparişi tamamlayarak <a href='/sartlar' class='underline'>Satış Sözleşmesi</a>'ni kabul etmiş olursunuz.",
-        successTitle: "SİPARİŞİNİZ ALINDI",
-        successMessage: "SİPARİŞİNİZ BAŞARIYLA OLUŞTURULDU. DETAYLAR E-POSTA ADRESİNİZE GÖNDERİLDİ.",
-        completeButtonText: "SİPARİŞİ TAMAMLA"
+        successTitle: "TALEBİNİZ ALINDI",
+        successMessage: "Sipariş talebiniz kaydedildi. WhatsApp üzerinden mesajı göndererek süreci tamamlayın.",
+        completeButtonText: "WHATSAPP'TA TAMAMLA"
     }
 };
 

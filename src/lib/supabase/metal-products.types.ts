@@ -140,6 +140,35 @@ export interface MetalProductsDatabase {
                     created_at?: string
                 }
             }
+            product_variants: {
+                Row: {
+                    id: string
+                    product_id: string
+                    size_label: string
+                    price_modifier: number
+                    stock_quantity: number
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    product_id: string
+                    size_label: string
+                    price_modifier?: number
+                    stock_quantity?: number
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    product_id?: string
+                    size_label?: string
+                    price_modifier?: number
+                    stock_quantity?: number
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
         }
         Views: {
             [_ in never]: never
@@ -191,6 +220,7 @@ export interface MetalProduct {
     // Joined data
     category?: Category | null
     features?: ProductFeature[]
+    variants?: ProductVariant[]
 }
 
 export interface ProductFeature {
@@ -200,6 +230,16 @@ export interface ProductFeature {
     feature_icon: string | null
     display_order: number
     created_at: string
+}
+
+export interface ProductVariant {
+    id?: string
+    product_id?: string
+    size_label: string
+    price_modifier: number
+    stock_quantity: number
+    created_at?: string
+    updated_at?: string
 }
 
 // =====================================================
@@ -223,6 +263,7 @@ export interface ProductFormData {
     installation?: string
     origin?: string
     features: FeatureFormData[]
+    variants?: VariantFormData[]
 }
 
 export interface FeatureFormData {
@@ -230,6 +271,13 @@ export interface FeatureFormData {
     feature_text: string
     feature_icon?: string
     display_order: number
+}
+
+export interface VariantFormData {
+    id?: string
+    size_label: string
+    price_modifier: number
+    stock_quantity: number
 }
 
 export interface CategoryFormData {

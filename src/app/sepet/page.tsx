@@ -22,7 +22,7 @@ const CartProgressBar = ({ step }: { step: number }) => {
     const steps = [
         { id: 1, label: "Sepet" },
         { id: 2, label: "Adres" },
-        { id: 3, label: "Ödeme" },
+        { id: 3, label: "WhatsApp" },
         { id: 4, label: "Tamamlandı" }
     ];
 

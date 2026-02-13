@@ -21,6 +21,13 @@ export interface Product {
     background_color?: string;
     category_id?: string;
     features?: any[];
+    variants?: Array<{
+        id?: string;
+        product_id?: string;
+        size_label: string;
+        price_modifier: number;
+        stock_quantity: number;
+    }>;
 }
 
 export const PRODUCTS_DATA: Record<string, Product> = {

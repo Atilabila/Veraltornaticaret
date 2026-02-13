@@ -100,6 +100,13 @@ const mapMetalProductToProduct = (mp: MetalProduct): Product => {
         story: mp.description || '',
         category: mp.category?.id || mp.category_id || 'GENEL',
         features: mp.features || [],
+        variants: (mp.variants || []).map((v: any) => ({
+            id: v.id,
+            product_id: v.product_id,
+            size_label: v.size_label,
+            price_modifier: Number(v.price_modifier || 0),
+            stock_quantity: Number(v.stock_quantity || 0),
+        })),
         specs,
         seo: {
             title: mp.name,

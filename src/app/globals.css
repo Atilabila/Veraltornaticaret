@@ -43,6 +43,14 @@ html {
 
 @layer base {
   :root {
+    /* Runtime-loaded fonts (Google Fonts link in layout head). */
+    --font-space-grotesk: "Space Grotesk";
+    --font-syne: "Syne";
+    --font-ibm-plex-mono: "IBM Plex Mono";
+
+    --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+
     --background: 0 0% 98%;
     --foreground: 240 10% 3.9%;
 
@@ -131,6 +139,11 @@ html {
     @apply bg-background text-foreground antialiased;
     max-width: 100%;
     overflow-x: clip;
+  }
+
+  /* Force brand mono for "technical" UI bits */
+  .font-mono {
+    font-family: var(--font-mono);
   }
 
   /* Keyboard users: net focus */

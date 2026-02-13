@@ -106,13 +106,20 @@ export async function deleteCategory(id: string): Promise<ApiResponse<null>> {
 export async function getProducts(isShowcase?: boolean): Promise<ApiResponse<MetalProduct[]>> {
     console.log(`[ACTION] getProducts called with isShowcase:`, isShowcase);
     try {
-        let query = (supabaseAdmin as any)
-            .from('metal_products')
-            .select(`
-                *,
-                category:categories(*),
-                features:product_features(*)
-            `);
+        const selectWithVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*),
+            variants:product_variants(*)
+        `;
+
+        const selectWithoutVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*)
+        `;
+
+        let query = (supabaseAdmin as any).from('metal_products').select(selectWithVariants);
 
         if (isShowcase === true) {
             query = query.eq('is_showcase', true);
@@ -121,7 +128,21 @@ export async function getProducts(isShowcase?: boolean): Promise<ApiResponse<Met
             query = query.or('is_showcase.eq.false,is_showcase.is.null');
         }
 
-        const { data, error } = await query.order('created_at', { ascending: false });
+        let { data, error } = await query.order('created_at', { ascending: false });
+
+        // Backward-compat: if the variants table/relationship isn't present yet, retry without it.
+        if (error && String(error.message || '').includes('product_variants')) {
+            const fallbackQuery = (supabaseAdmin as any).from('metal_products').select(selectWithoutVariants);
+            const fallback = await (isShowcase === true
+                ? fallbackQuery.eq('is_showcase', true)
+                : isShowcase === false
+                    ? fallbackQuery.or('is_showcase.eq.false,is_showcase.is.null')
+                    : fallbackQuery
+            ).order('created_at', { ascending: false });
+
+            data = fallback.data;
+            error = fallback.error;
+        }
 
         if (error) {
             console.error('[ACTION] getProducts error:', error);
@@ -138,15 +159,33 @@ export async function getProducts(isShowcase?: boolean): Promise<ApiResponse<Met
 
 export async function getProductById(id: string): Promise<ApiResponse<MetalProduct>> {
     try {
-        const { data, error } = await (supabase as any)
+        const selectWithVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*),
+            variants:product_variants(*)
+        `;
+        const selectWithoutVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*)
+        `;
+
+        let { data, error } = await (supabase as any)
             .from('metal_products')
-            .select(`
-                *,
-                category:categories(*),
-                features:product_features(*)
-            `)
+            .select(selectWithVariants)
             .eq('id', id)
-            .single()
+            .single();
+
+        if (error && String(error.message || '').includes('product_variants')) {
+            const fallback = await (supabase as any)
+                .from('metal_products')
+                .select(selectWithoutVariants)
+                .eq('id', id)
+                .single();
+            data = fallback.data;
+            error = fallback.error;
+        }
 
         if (error) throw error
 
@@ -159,16 +198,35 @@ export async function getProductById(id: string): Promise<ApiResponse<MetalProdu
 
 export async function getProductBySlug(slug: string): Promise<ApiResponse<MetalProduct>> {
     try {
-        const { data, error } = await (supabase as any)
+        const selectWithVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*),
+            variants:product_variants(*)
+        `;
+        const selectWithoutVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*)
+        `;
+
+        let { data, error } = await (supabase as any)
             .from('metal_products')
-            .select(`
-                *,
-                category:categories(*),
-                features:product_features(*)
-            `)
+            .select(selectWithVariants)
             .eq('slug', slug)
             .eq('is_active', true)
-            .single()
+            .single();
+
+        if (error && String(error.message || '').includes('product_variants')) {
+            const fallback = await (supabase as any)
+                .from('metal_products')
+                .select(selectWithoutVariants)
+                .eq('slug', slug)
+                .eq('is_active', true)
+                .single();
+            data = fallback.data;
+            error = fallback.error;
+        }
 
         if (error) throw error
 
@@ -189,7 +247,7 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '')
 
-        const { features, ...rest } = formData as any;
+        const { features, variants, ...rest } = formData as any;
 
         // Strip non-insertable or analytical fields
         const allowedColumns = [
@@ -246,16 +304,56 @@ export async function createProduct(formData: ProductFormData): Promise<ApiRespo
             }
         }
 
+        // Insert variants if any
+        if (variants && variants.length > 0) {
+            const variantsWithProductId = variants
+                .filter((v: any) => String(v?.size_label || '').trim())
+                .map((v: any) => ({
+                    product_id: product.id,
+                    size_label: String(v.size_label).trim(),
+                    price_modifier: Number(v.price_modifier || 0),
+                    stock_quantity: Number(v.stock_quantity || 0),
+                }));
+
+            if (variantsWithProductId.length > 0) {
+                const { error: variantsError } = await (supabaseAdmin as any)
+                    .from('product_variants')
+                    .insert(variantsWithProductId);
+
+                if (variantsError) {
+                    console.error('[DATABASE ERROR] Variant insertion failed:', variantsError);
+                }
+            }
+        }
+
         // Fetch the complete product with relations
-        const { data: fullProduct, error: fetchError } = await (supabaseAdmin as any)
+        const selectWithVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*),
+            variants:product_variants(*)
+        `;
+        const selectWithoutVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*)
+        `;
+
+        let { data: fullProduct, error: fetchError } = await (supabaseAdmin as any)
             .from('metal_products')
-            .select(`
-                *,
-                category:categories(*),
-                features:product_features(*)
-            `)
+            .select(selectWithVariants)
             .eq('id', product.id)
-            .single()
+            .single();
+
+        if (fetchError && String(fetchError.message || '').includes('product_variants')) {
+            const fallback = await (supabaseAdmin as any)
+                .from('metal_products')
+                .select(selectWithoutVariants)
+                .eq('id', product.id)
+                .single();
+            fullProduct = fallback.data;
+            fetchError = fallback.error;
+        }
 
         if (fetchError) {
             console.error('[DATABASE ERROR] Fetching created product failed:', fetchError);
@@ -274,7 +372,7 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
         console.log(`[ACTION] updateProduct called for ID: ${id}`, formData);
 
         // Update product
-        const { features, ...rest } = formData as any;
+        const { features, variants, ...rest } = formData as any;
 
         // Strip non-updatable or analytical fields that might exist in the object
         // but not in the database schema.
@@ -343,16 +441,81 @@ export async function updateProduct(id: string, formData: Partial<ProductFormDat
             }
         }
 
+        // Handle variants update if provided
+        if (variants !== undefined) {
+            const variantsWithProductId = (variants || [])
+                .filter((v: any) => String(v?.size_label || '').trim())
+                .map((v: any) => ({
+                    product_id: id,
+                    size_label: String(v.size_label).trim(),
+                    price_modifier: Number(v.price_modifier || 0),
+                    stock_quantity: Number(v.stock_quantity || 0),
+                }));
+
+            const keepLabels = Array.from(new Set(variantsWithProductId.map((v: any) => v.size_label)));
+
+            if (variantsWithProductId.length > 0) {
+                // Upsert (idempotent) so IDs stay stable if the row already exists.
+                const { error: upsertVariantsError } = await (supabaseAdmin as any)
+                    .from('product_variants')
+                    .upsert(variantsWithProductId, { onConflict: 'product_id,size_label' });
+
+                if (upsertVariantsError) {
+                    console.error('[DATABASE ERROR] Variant upsert failed:', upsertVariantsError);
+                }
+            }
+
+            // Remove variants that were deleted in the UI
+            if (keepLabels.length === 0) {
+                const { error: deleteAllError } = await (supabaseAdmin as any)
+                    .from('product_variants')
+                    .delete()
+                    .eq('product_id', id);
+                if (deleteAllError) {
+                    console.warn('[DATABASE WARNING] Variant deletion failed:', deleteAllError);
+                }
+            } else {
+                const inList = `(${keepLabels.map((s: string) => `"${s.replace(/"/g, '\\"')}"`).join(',')})`;
+                const { error: deleteMissingError } = await (supabaseAdmin as any)
+                    .from('product_variants')
+                    .delete()
+                    .eq('product_id', id)
+                    .not('size_label', 'in', inList);
+
+                if (deleteMissingError) {
+                    console.warn('[DATABASE WARNING] Variant pruning failed:', deleteMissingError);
+                }
+            }
+        }
+
         // Fetch updated product
-        const { data: updatedProduct, error: fetchError } = await (supabaseAdmin as any)
+        const selectWithVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*),
+            variants:product_variants(*)
+        `;
+        const selectWithoutVariants = `
+            *,
+            category:categories(*),
+            features:product_features(*)
+        `;
+
+        let { data: updatedProduct, error: fetchError } = await (supabaseAdmin as any)
             .from('metal_products')
-            .select(`
-                *,
-                category:categories(*),
-                features:product_features(*)
-            `)
+            .select(selectWithVariants)
             .eq('id', id)
             .single();
+
+        if (fetchError && String(fetchError.message || '').includes('product_variants')) {
+            const fallback = await (supabaseAdmin as any)
+                .from('metal_products')
+                .select(selectWithoutVariants)
+                .eq('id', id)
+                .single();
+            updatedProduct = fallback.data;
+            fetchError = fallback.error;
+        }
 
         if (fetchError) {
             console.error('[DATABASE ERROR] Fetching updated product failed:', fetchError);

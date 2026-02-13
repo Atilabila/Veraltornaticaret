@@ -27,7 +27,8 @@ import type {
     MetalProduct,
     Category,
     ProductFormData,
-    FeatureFormData
+    FeatureFormData,
+    VariantFormData
 } from "@/lib/supabase/metal-products.types"
 
 // =====================================================
@@ -83,7 +84,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         is_active: true,
         is_showcase: false,
         stock_quantity: 0,
-        features: []
+        features: [],
+        variants: []
     })
 
     const [errors, setErrors] = React.useState<Record<string, string>>({})
@@ -107,6 +109,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     feature_text: f.feature_text,
                     feature_icon: f.feature_icon || "",
                     display_order: f.display_order
+                })) || [],
+                variants: product.variants?.map(v => ({
+                    id: v.id,
+                    size_label: v.size_label,
+                    price_modifier: Number(v.price_modifier || 0),
+                    stock_quantity: Number(v.stock_quantity || 0),
                 })) || []
             })
         } else {
@@ -122,7 +130,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 is_active: true,
                 is_showcase: false,
                 stock_quantity: 0,
-                features: []
+                features: [],
+                variants: []
             })
         }
         setErrors({})
@@ -186,6 +195,35 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         }))
     }
 
+    // Add new variant row
+    const addVariant = () => {
+        setFormData(prev => ({
+            ...prev,
+            variants: [
+                ...(prev.variants || []),
+                { size_label: "", price_modifier: 0, stock_quantity: 0 },
+            ]
+        }))
+    }
+
+    // Update variant
+    const updateVariant = (index: number, updates: Partial<VariantFormData>) => {
+        setFormData(prev => ({
+            ...prev,
+            variants: (prev.variants || []).map((v, i) =>
+                i === index ? { ...v, ...updates } : v
+            )
+        }))
+    }
+
+    // Remove variant
+    const removeVariant = (index: number) => {
+        setFormData(prev => ({
+            ...prev,
+            variants: (prev.variants || []).filter((_, i) => i !== index)
+        }))
+    }
+
     // Validate form
     const validate = (): boolean => {
         const newErrors: Record<string, string> = {}
@@ -201,6 +239,34 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         }
         if (!formData.category_id) {
             newErrors.category_id = "Lütfen bir kategori seçin"
+        }
+
+        // Variant sanity checks (duplicates, negatives)
+        const normalizedVariants = (formData.variants || [])
+            .map((v) => ({
+                ...v,
+                size_label: String(v.size_label || "").trim(),
+                price_modifier: Number(v.price_modifier || 0),
+                stock_quantity: Number(v.stock_quantity || 0),
+            }))
+            .filter((v) => v.size_label.length > 0);
+
+        const seen = new Set<string>();
+        for (const v of normalizedVariants) {
+            const key = v.size_label.toLowerCase();
+            if (seen.has(key)) {
+                newErrors.variants = "Aynı boyut etiketi birden fazla girilemez"
+                break
+            }
+            seen.add(key)
+            if (v.price_modifier < 0) {
+                newErrors.variants = "Varyant ek fiyatı negatif olamaz"
+                break
+            }
+            if (v.stock_quantity < 0) {
+                newErrors.variants = "Varyant stok adedi negatif olamaz"
+                break
+            }
         }
 
         setErrors(newErrors)
@@ -347,11 +413,95 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         </div>
                     </div>
 
-                    {/* Features Section */}
+                    {/* Variants Section */}
                     <div className="space-y-4 pt-4 border-t border-slate-800">
                         <div className="flex items-center justify-between">
                             <h3 className="text-lg font-bold flex items-center gap-2">
                                 <span className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-500">3</span>
+                                Varyantlar (Boyut / Ek Fiyat / Stok)
+                            </h3>
+                            <button
+                                type="button"
+                                onClick={addVariant}
+                                className="flex items-center gap-2 px-4 py-2 border-2 border-near-black bg-paper-white text-near-black rounded-none text-xs font-black uppercase tracking-wider transition-transform active:translate-x-1 active:translate-y-1 shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+                            >
+                                <Plus className="w-4 h-4" />
+                                Varyant Ekle
+                            </button>
+                        </div>
+
+                        {errors.variants && <span className="text-xs text-red-500">{errors.variants}</span>}
+
+                        {(formData.variants || []).length === 0 ? (
+                            <div className="text-center py-8 text-near-black/60 border-2 border-near-black bg-paper-white rounded-none">
+                                <Sparkles className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                                <p>Henüz varyant eklenmedi</p>
+                                <p className="text-sm">Örn: "30x45 cm", +0 TL, 100 stok</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                {(formData.variants || []).map((variant, index) => (
+                                    <m.div
+                                        key={variant.id || index}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        className="grid grid-cols-12 gap-3 bg-paper-white border-2 border-near-black rounded-none p-4 shadow-brutal-sm"
+                                    >
+                                        <div className="col-span-12 md:col-span-5 space-y-2">
+                                            <Label className="text-[10px] text-near-black/70 font-mono font-black uppercase tracking-wider">Boyut Etiketi</Label>
+                                            <Input
+                                                value={variant.size_label}
+                                                onChange={(e) => updateVariant(index, { size_label: e.target.value })}
+                                                placeholder="30x45 cm"
+                                                className="bg-paper-white border-2 border-near-black rounded-none"
+                                            />
+                                        </div>
+
+                                        <div className="col-span-6 md:col-span-3 space-y-2">
+                                            <Label className="text-[10px] text-near-black/70 font-mono font-black uppercase tracking-wider">Ek Fiyat (₺)</Label>
+                                            <Input
+                                                type="number"
+                                                value={Number(variant.price_modifier || 0)}
+                                                onChange={(e) => updateVariant(index, { price_modifier: parseFloat(e.target.value) || 0 })}
+                                                className="bg-paper-white border-2 border-near-black rounded-none"
+                                            />
+                                        </div>
+
+                                        <div className="col-span-6 md:col-span-3 space-y-2">
+                                            <Label className="text-[10px] text-near-black/70 font-mono font-black uppercase tracking-wider">Stok</Label>
+                                            <Input
+                                                type="number"
+                                                value={Number(variant.stock_quantity || 0)}
+                                                onChange={(e) => updateVariant(index, { stock_quantity: parseInt(e.target.value) || 0 })}
+                                                className="bg-paper-white border-2 border-near-black rounded-none"
+                                            />
+                                        </div>
+
+                                        <div className="col-span-12 md:col-span-1 flex items-end justify-end">
+                                            <button
+                                                type="button"
+                                                onClick={() => removeVariant(index)}
+                                                className="h-11 w-11 flex items-center justify-center border-2 border-near-black bg-paper-white text-red-600 hover:bg-near-black hover:text-paper-white rounded-none transition-colors"
+                                                aria-label="Varyantı sil"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
+
+                                        <div className="col-span-12 font-mono text-[10px] font-black uppercase tracking-wider text-near-black/60">
+                                            BASE {Number(formData.price || 0).toLocaleString("tr-TR")} ₺ + MOD {Number(variant.price_modifier || 0).toLocaleString("tr-TR")} ₺
+                                        </div>
+                                    </m.div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Features Section */}
+                    <div className="space-y-4 pt-4 border-t border-slate-800">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-lg font-bold flex items-center gap-2">
+                                <span className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-500">4</span>
                                 Ürün Özellikleri
                             </h3>
                             <button

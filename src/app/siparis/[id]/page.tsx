@@ -3,17 +3,18 @@
 import React from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { CheckCircle, XCircle, Clock, Package, Truck, MapPin, Mail, Phone, ArrowRight, Printer, Copy, Check, CheckCircle2 } from "lucide-react";
+import { CheckCircle, XCircle, Clock, Package, Truck, MapPin, Mail, Phone, ArrowRight, Printer, Copy, Check, CheckCircle2, MessageCircle } from "lucide-react";
 import { useOrderStore, getOrderFromStorage, Order, OrderStatus } from "@/store/useOrderStore";
 import { useCartStore } from "@/store/useCartStore";
 import { useContentStore } from "@/store/useContentStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
+import { buildWhatsAppOrderMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { m } from 'framer-motion';
 
 const statusConfig: Record<OrderStatus, { icon: any; color: string; label: string; description: string; bgColor: string; borderColor: string; iconBg: string }> = {
     created: { icon: Clock, color: "text-yellow-600", label: "Oluşturuldu", description: "Siparişiniz sisteme kaydedildi.", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", iconBg: "bg-yellow-100" },
-    payment_pending: { icon: Clock, color: "text-amber-600", label: "Ödeme Bekleniyor", description: "Ödeme işlemi doğrulanıyor.", bgColor: "bg-amber-50", borderColor: "border-amber-100", iconBg: "bg-amber-100" },
+    payment_pending: { icon: Clock, color: "text-amber-600", label: "WhatsApp Onayı Bekleniyor", description: "WhatsApp üzerinden mesajı göndererek siparişi tamamlayın.", bgColor: "bg-amber-50", borderColor: "border-amber-100", iconBg: "bg-amber-100" },
     paid: { icon: CheckCircle2, color: "text-emerald-600", label: "Ödeme Alındı", description: "Siparişiniz onaylandı, paketleme aşamasına geçiliyor.", bgColor: "bg-emerald-50", borderColor: "border-emerald-100", iconBg: "bg-emerald-100" },
     failed: { icon: XCircle, color: "text-red-600", label: "Başarısız", description: "Ödeme işlemi sırasında bir hata oluştu.", bgColor: "bg-red-50", borderColor: "border-red-100", iconBg: "bg-red-100" },
     shipped: { icon: Truck, color: "text-blue-600", label: "Kargoya Verildi", description: "Siparişiniz paketlendi ve kuryeye teslim edildi.", bgColor: "bg-blue-50", borderColor: "border-blue-100", iconBg: "bg-blue-100" },
@@ -106,7 +107,35 @@ export default function OrderConfirmationPage() {
 
     const status = statusConfig[order.status];
     const StatusIcon = status.icon;
-    const isSuccess = order.status === 'paid' || order.status === 'shipped' || order.status === 'delivered';
+    const isError = order.status === 'failed' || order.status === 'cancelled';
+    const isEarly = order.status === 'created' || order.status === 'payment_pending';
+
+    const whatsappNumber = content.whatsappNumber;
+    const whatsappUrl = String(whatsappNumber || '').trim()
+        ? buildWhatsAppUrl({
+            phoneNumber: whatsappNumber,
+            message: buildWhatsAppOrderMessage({
+                orderNumber: order.orderNumber,
+                shipping: {
+                    fullName: order.shipping.fullName,
+                    email: order.shipping.email,
+                    phone: order.shipping.phone,
+                    address: order.shipping.address,
+                    city: order.shipping.city,
+                    district: order.shipping.district,
+                    postalCode: order.shipping.postalCode,
+                    notes: order.shipping.notes,
+                },
+                items: order.items.map((it) => ({
+                    name: it.name,
+                    size: it.size,
+                    quantity: it.quantity,
+                    unitPrice: it.price,
+                })),
+                total: order.total,
+            }),
+        })
+        : null;
 
     return (
         <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-24">
@@ -124,12 +153,12 @@ export default function OrderConfirmationPage() {
                         <StatusIcon className={`w-12 h-12 ${status.color}`} />
                     </div>
 
-                    <h1 className={`text-4xl font-black mb-3 tracking-tighter uppercase relative z-10 ${isSuccess ? 'text-zinc-900' : 'text-red-700'}`}>
-                        {isSuccess ? (checkoutCMS?.successTitle || 'SİPARİŞ ALINDI') : 'ÖDEME HATASI'}
+                    <h1 className={`text-4xl font-black mb-3 tracking-tighter uppercase relative z-10 ${isError ? 'text-red-700' : 'text-zinc-900'}`}>
+                        {isError ? 'İŞLEM HATASI' : (isEarly ? (checkoutCMS?.successTitle || 'TALEBİNİZ ALINDI') : status.label)}
                     </h1>
 
-                    <p className={`text-sm font-medium uppercase tracking-wider relative z-10 ${isSuccess ? 'text-zinc-600' : 'text-red-600'}`}>
-                        {isSuccess ? (checkoutCMS?.successMessage || status.description) : status.description}
+                    <p className={`text-sm font-medium uppercase tracking-wider relative z-10 ${isError ? 'text-red-600' : 'text-zinc-600'}`}>
+                        {isError ? status.description : (isEarly ? (checkoutCMS?.successMessage || status.description) : status.description)}
                     </p>
                 </m.div>
 
@@ -163,7 +192,7 @@ export default function OrderConfirmationPage() {
                         <div className="mt-8 pt-8 border-t border-zinc-50 text-[10px] font-black text-zinc-400 uppercase tracking-widest flex items-center justify-between">
                             <span>Kayıt Tarihi: {new Date(order.createdAt).toLocaleString('tr-TR')}</span>
                             <span className="flex items-center gap-2">
-                                <div className={`w-2 h-2 rounded-full ${isSuccess ? 'bg-emerald-500' : 'bg-red-500'} animate-pulse`} />
+                                <div className={`w-2 h-2 rounded-full ${isError ? 'bg-red-500' : 'bg-emerald-500'} animate-pulse`} />
                                 {status.label}
                             </span>
                         </div>
@@ -171,10 +200,22 @@ export default function OrderConfirmationPage() {
 
                     <div className="bg-white border border-zinc-200/60 rounded-3xl p-8 shadow-sm flex flex-col justify-center items-center text-center">
                         <div className="w-12 h-12 rounded-2xl bg-zinc-50 flex items-center justify-center border border-zinc-100 mb-4">
-                            <Clock className="w-6 h-6 text-zinc-400" />
+                            <MessageCircle className="w-6 h-6 text-zinc-900" />
                         </div>
-                        <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">E-POSTA DOĞRULAMASI</p>
-                        <p className="text-xs font-bold text-zinc-900 uppercase">GÖNDERİLDİ</p>
+                        <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-3">WHATSAPP</p>
+                        {whatsappUrl ? (
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => window.open(whatsappUrl, '_blank', 'noopener,noreferrer')}
+                                className="rounded-xl border-zinc-100 text-[10px] font-bold tracking-widest uppercase h-10 gap-2 hover:bg-zinc-50"
+                            >
+                                <MessageCircle className="w-4 h-4" />
+                                MESAJI GÖNDER
+                            </Button>
+                        ) : (
+                            <p className="text-xs font-bold text-zinc-900 uppercase">HAT TANIMLI DEĞİL</p>
+                        )}
                     </div>
                 </div>
 

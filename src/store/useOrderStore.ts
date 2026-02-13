@@ -59,6 +59,8 @@ interface OrderState {
         shippingCost: number;
         discount: number;
         total: number;
+        paymentMethod?: string;
+        status?: OrderStatus;
     }) => Order;
 
     updateOrderStatus: (orderId: string, status: OrderStatus, paymentId?: string) => void;
@@ -108,7 +110,7 @@ export const useOrderStore = create<OrderState>((set, get) => ({
         const order: Order = {
             id: generateOrderId(),
             orderNumber: generateOrderNumber(),
-            status: 'created',
+            status: data.status ?? 'created',
             items: data.items.map(item => ({
                 productId: item.productId,
                 slug: item.slug,
@@ -125,6 +127,7 @@ export const useOrderStore = create<OrderState>((set, get) => ({
             shippingCost: data.shippingCost,
             discount: data.discount,
             total: data.total,
+            paymentMethod: data.paymentMethod,
             createdAt: now,
             updatedAt: now,
         };

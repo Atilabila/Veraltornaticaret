@@ -42,7 +42,7 @@ export const LocalBusinessSchema = () => {
         },
         "priceRange": "₺₺",
         "currenciesAccepted": "TRY",
-        "paymentAccepted": "Credit Card, Cash, Bank Transfer",
+        "paymentAccepted": "WhatsApp, Bank Transfer, Cash",
         "areaServed": {
             "@type": "Country",
             "name": "Türkiye"
