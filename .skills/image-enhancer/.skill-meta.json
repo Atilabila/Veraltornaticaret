@@ -1,6 +1,7 @@
 {
-  "source": "registry",
+  "source": "manual",
+  "identifier": "ComposioHQ/awesome-claude-skills/image-enhancer",
   "name": "image-enhancer",
-  "installedAt": "2026-02-12T15:00:21.099Z",
-  "updatedAt": "2026-02-12T15:00:21.099Z"
+  "installedAt": "2026-02-13T23:17:30.141Z",
+  "updatedAt": "2026-02-13T23:17:30.141Z"
 }

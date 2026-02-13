@@ -1,0 +1,183 @@
+version: 1
+language: tr
+mode: one_question_per_turn
+title: "E-ticaret Marketplace Gem - Questionnaire"
+description: >
+  Proje başlamadan önce Definition-of-Ready (DoR) için gerekli tüm belirsizlikleri
+  sırayla kapatır. Her turda tek soru sorulur.
+
+sections:
+  - id: goal
+    title: "Hedef ve Başarı Kriteri"
+    questions:
+      - id: goal.primary_kpi
+        ask: "Bu işin 1 numaralı hedef KPI’ı ne? (örn: satın alma dönüşümü, teklif formu doldurma, sepet add-to-cart, AOV)"
+        why: "UI/CTA kurgusunu (satın al vs teklif al) doğru seçmek için."
+        answer_type: enum
+        options: ["purchase_conversion", "quote_requests", "add_to_cart", "aov_increase", "other"]
+        required: true
+
+      - id: goal.primary_pages
+        ask: "Bu proje kapsamında dönüşüm odaklı değişiklik yapılacak sayfalar hangileri? (çoklu seç)"
+        why: "Workflow adımlarını (listing/detail/checkout) doğru sıralamak için."
+        answer_type: multi_enum
+        options: ["urunler_listing", "urun_detay", "cart", "checkout", "homepage", "admin_panels", "other"]
+        required: true
+
+  - id: catalog_model
+    title: "Ürün Modeli ve Katalog Mantığı"
+    questions:
+      - id: catalog.product_type_rule
+        ask: "Hangi ürünler 'direkt satın alınır', hangileri 'teklif alınır'? Kural ne? (örn: fiyat=0 ise teklif, kategori bazlı teklif, stok yoksa teklif)"
+        why: "₺0,00 gibi satın almayı öldüren durumları 'Teklif Al' moduna çevirmek için."
+        answer_type: free_text
+        required: true
+
+      - id: catalog.stock_source
+        ask: "Stok bilgisi hangi alandan geliyor? (metal_products.stock_quantity mi, variants mı, yoksa her zaman 0 default mu?)"
+        why: "Kartlarda 'Stokta var/yok' ve quick-add davranışı için."
+        answer_type: free_text
+        required: true
+
+      - id: catalog.variants_enabled
+        ask: "Ürün varyantları (örn ölçü 30x45) satış akışında zorunlu mu, opsiyonel mi?"
+        why: "Listing quick-add ve detail 'Hemen Al' akışında varyant seçimi gerekip gerekmediğini belirlemek için."
+        answer_type: enum
+        options: ["required", "optional", "no_variants"]
+        required: true
+
+      - id: catalog.price_format
+        ask: "Fiyatlar DB’de nasıl tutuluyor? (decimal, integer cents, numeric, text?)"
+        why: "Formatlama, sıralama ve hesap hatalarını önlemek için."
+        answer_type: free_text
+        required: true
+
+  - id: marketplace_ux
+    title: "Marketplace UX Kararları"
+    questions:
+      - id: ux.listing_primary_cta
+        ask: "/urunler kartlarında birincil CTA ne olsun? (Sepete Ekle / Hemen Al / Teklif Al / İncele)"
+        why: "Pazaryeri hissi için kart CTA hiyerarşisi kritik."
+        answer_type: enum
+        options: ["add_to_cart", "buy_now", "request_quote", "view_details"]
+        required: true
+
+      - id: ux.listing_quick_add
+        ask: "Listing’de 'Sepete Ekle' (quick add) istiyor musun? Varyant gerekiyorsa nasıl davranmalı? (modal mı, default varyant mı, detay sayfaya mı atsın?)"
+        why: "Sürtünmeyi azaltıp add-to-cart’ı artırmak için."
+        answer_type: free_text
+        required: true
+
+      - id: ux.sort_default
+        ask: "Default sıralama ne olmalı? (stokta olanlar önce, yeni ürün, çok satan, fiyat)"
+        why: "Marketplaces like list ordering impacts conversion."
+        answer_type: enum
+        options: ["in_stock_first", "newest", "bestselling", "price_low_to_high", "price_high_to_low", "manual"]
+        required: true
+
+      - id: ux.filters
+        ask: "Liste filtreleri neler olacak? (kategori, fiyat aralığı, stokta olanlar, ölçü/variant, renk vb.)"
+        why: "Pazaryeri beklentisi: filtre + sort."
+        answer_type: free_text
+        required: true
+
+      - id: ux.trust_bar
+        ask: "Trust bar metinleri neler? (kargo süresi, iade, garanti, güvenli ödeme) Bu bilgiler nereden geliyor?"
+        why: "Detail sayfada karar anını güçlendirmek için."
+        answer_type: free_text
+        required: true
+
+      - id: ux.wholesale_message
+        ask: "‘Toptan/özel fiyat’ mesajını detail’de nasıl konumlandıracağız? (ikincil accordion/link mi, CTA yakınında mı?)"
+        why: "Satın al CTA’sını gölgelememesi için."
+        answer_type: enum
+        options: ["secondary_accordion", "secondary_link", "near_cta_small", "remove_from_detail"]
+        required: true
+
+  - id: offer_order_flows
+    title: "Mevcut Teklif / Sipariş Akışları (Admin var dedin)"
+    questions:
+      - id: flows.offer_entrypoint
+        ask: "Teklif akışı şu an nasıl başlıyor? (hangi API route / server action / db table) Dosya yolunu biliyorsan yaz."
+        why: "Yeni sistem yazmadan mevcut akışa bağlanmak için."
+        answer_type: free_text
+        required: true
+
+      - id: flows.order_entrypoint
+        ask: "Sipariş akışı/checkout şu an nasıl işliyor? (cart store → order intent → ödeme) Dosya yolu/aksiyon adı?"
+        why: "Buy Now / Sepete Ekle butonlarını doğru yere bağlamak için."
+        answer_type: free_text
+        required: true
+
+      - id: flows.offer_fields
+        ask: "Teklif isteğinde zorunlu alanlar neler? (ad, telefon, email, adet, not vs.)"
+        why: "Teklif formu UI ve payload doğruluğu için."
+        answer_type: free_text
+        required: true
+
+      - id: flows.order_fields
+        ask: "Sipariş oluştururken zorunlu alanlar neler? (adres, telefon, kargo seçimi, ödeme yöntemi vs.)"
+        why: "Buy Now akışında eksik alan yüzünden drop olmaması için."
+        answer_type: free_text
+        required: true
+
+  - id: seo_perf
+    title: "SEO / Performans"
+    questions:
+      - id: seo.listing_indexable
+        ask: "/urunler ve /urunler/[slug] indexlenecek mi? Canonical, meta, schema (Product) beklentisi var mı?"
+        why: "Marketplaces SEO ile büyür; meta/structured data kararını baştan koymak için."
+        answer_type: free_text
+        required: true
+
+      - id: perf.image_strategy
+        ask: "Ürün görselleri nerede host ediliyor (cdn, supabase storage)? WebP/AVIF var mı? Next Image kullanımı?"
+        why: "Listing performansı ve CLS için."
+        answer_type: free_text
+        required: true
+
+  - id: security
+    title: "Güvenlik / Yetkilendirme"
+    questions:
+      - id: security.auth_model
+        ask: "Public taraf (urunler) için auth yok, admin için requireAdmin var: Admin kim? (Supabase auth role, email allowlist, claim?)"
+        why: "API route’larda admin enforcement doğru olsun diye."
+        answer_type: free_text
+        required: true
+
+      - id: security.secrets_policy
+        ask: "Secret yönetimi kuralı: service_role sadece server, client’a asla. Mevcut env’ler nerede yönetiliyor? (Vercel env, .env.local)"
+        why: "Key sızıntısını tekrar yaşatmamak için."
+        answer_type: free_text
+        required: true
+
+  - id: design_system
+    title: "Figma / Design System"
+    questions:
+      - id: design.figma_available
+        ask: "Figma dosyası var mı? Varsa link ve hangi frame’ler export edilecek? (listing, product detail, components)"
+        why: "Gem’in Figma export adımını devreye sokmak için."
+        answer_type: free_text
+        required: false
+
+      - id: design.component_library
+        ask: "UI component library nedir? (shadcn, custom, tailwind-only) Repo içinde hangi pattern var?"
+        why: "Yeni UI eklerken tasarım tutarlılığı için."
+        answer_type: free_text
+        required: true
+
+  - id: rollout
+    title: "Yayınlama / Risk"
+    questions:
+      - id: rollout.ab_test
+        ask: "Değişiklikleri A/B test ile mi yayınlayacağız, yoksa direkt replace mi? (feature flag var mı?)"
+        why: "Risk yönetimi ve ölçümleme için."
+        answer_type: enum
+        options: ["direct_release", "feature_flag", "ab_test"]
+        required: true
+
+      - id: rollout.analytics
+        ask: "Analitik var mı? (GA4, PostHog vb.) Hangi event’leri takip edelim? (view_item, add_to_cart, begin_checkout, quote_request)"
+        why: "Marketplaces conversion iyileştirmesi ölçülmezse kör kalır."
+        answer_type: free_text
+        required: false

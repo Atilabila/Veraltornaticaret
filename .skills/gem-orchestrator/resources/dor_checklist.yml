@@ -1,0 +1,144 @@
+version: 1
+title: "Definition of Ready (DoR) Checklist - Marketplace Gem"
+description: >
+  Bu checklist tamamlanmadan Gem workflow üretmez. Her madde questionnaire cevaplarından
+  doğrulanabilir olmalı.
+
+gates:
+  - id: gate.core
+    title: "Çekirdek Hazırlık"
+    pass_condition: "all_required_items_completed"
+    items:
+      - id: dor.goal_kpi_defined
+        required: true
+        verify_from_answers: ["goal.primary_kpi"]
+        criteria: "Birincil KPI seçilmiş olmalı."
+        fail_message: "KPI net değil: purchase/quote/add_to_cart/aov vb. seçilmedi."
+
+      - id: dor.pages_scoped
+        required: true
+        verify_from_answers: ["goal.primary_pages"]
+        criteria: "Hedef sayfalar listelenmiş olmalı."
+        fail_message: "Kapsam sayfaları seçilmedi."
+
+      - id: dor.buy_vs_offer_rule
+        required: true
+        verify_from_answers: ["catalog.product_type_rule"]
+        criteria: "Satın al vs Teklif al kuralı yazılı olmalı."
+        fail_message: "Teklif/satın al ayrımı kuralı eksik."
+
+  - id: gate.data
+    title: "Veri Modeli ve Alanlar"
+    pass_condition: "all_required_items_completed"
+    items:
+      - id: dor.price_storage_known
+        required: true
+        verify_from_answers: ["catalog.price_format"]
+        criteria: "Fiyatın DB formatı biliniyor olmalı (numeric/cents/decimal/text)."
+        fail_message: "DB fiyat formatı belirsiz."
+
+      - id: dor.stock_source_known
+        required: true
+        verify_from_answers: ["catalog.stock_source"]
+        criteria: "Stok kaynağı net olmalı (product/variant/none)."
+        fail_message: "Stok nereden okunacak bilinmiyor."
+
+      - id: dor.variants_decision
+        required: true
+        verify_from_answers: ["catalog.variants_enabled"]
+        criteria: "Varyantların zorunlu/opsiyonel/yok kararı alınmış olmalı."
+        fail_message: "Varyant kararı eksik."
+
+  - id: gate.flows
+    title: "Mevcut Akışlara Bağlanma"
+    pass_condition: "all_required_items_completed"
+    items:
+      - id: dor.offer_flow_mapped
+        required: true
+        verify_from_answers: ["flows.offer_entrypoint"]
+        criteria: "Teklif oluşturma entrypoint’i (route/action/db) tarif edilmiş olmalı."
+        fail_message: "Teklif akışı nereden tetiklenecek bilinmiyor."
+
+      - id: dor.order_flow_mapped
+        required: true
+        verify_from_answers: ["flows.order_entrypoint"]
+        criteria: "Sipariş/checkout entrypoint’i (cart→order→payment) tarif edilmiş olmalı."
+        fail_message: "Sipariş akışı nereden tetiklenecek bilinmiyor."
+
+      - id: dor_offer_fields_known
+        required: true
+        verify_from_answers: ["flows.offer_fields"]
+        criteria: "Teklif formunun zorunlu alanları yazılmış olmalı."
+        fail_message: "Teklif alanları belirsiz."
+
+      - id: dor_order_fields_known
+        required: true
+        verify_from_answers: ["flows.order_fields"]
+        criteria: "Sipariş için zorunlu alanlar yazılmış olmalı."
+        fail_message: "Sipariş alanları belirsiz."
+
+  - id: gate.ux
+    title: "UX Kararları"
+    pass_condition: "all_required_items_completed"
+    items:
+      - id: dor.listing_primary_cta
+        required: true
+        verify_from_answers: ["ux.listing_primary_cta"]
+        criteria: "Listing birincil CTA seçilmiş olmalı."
+        fail_message: "Listing CTA kararı yok."
+
+      - id: dor.quick_add_decision
+        required: true
+        verify_from_answers: ["ux.listing_quick_add"]
+        criteria: "Quick add davranışı tanımlanmış olmalı."
+        fail_message: "Quick add stratejisi belirsiz."
+
+      - id: dor.default_sort
+        required: true
+        verify_from_answers: ["ux.sort_default"]
+        criteria: "Default sort seçilmiş olmalı."
+        fail_message: "Default sıralama seçilmedi."
+
+      - id: dor.wholesale_message_placement
+        required: true
+        verify_from_answers: ["ux.wholesale_message"]
+        criteria: "Toptan mesajının konumu kararlaştırılmış olmalı."
+        fail_message: "Toptan mesajı CTA’yı gölgeliyor olabilir; karar eksik."
+
+      - id: dor.trust_copy
+        required: true
+        verify_from_answers: ["ux.trust_bar"]
+        criteria: "Trust bar metinleri/ kaynakları tanımlanmış olmalı."
+        fail_message: "Trust bar içeriği belirsiz."
+
+  - id: gate.security
+    title: "Güvenlik"
+    pass_condition: "all_required_items_completed"
+    items:
+      - id: dor.admin_auth_model
+        required: true
+        verify_from_answers: ["security.auth_model"]
+        criteria: "Admin kimliği/rol modeli açıklanmış olmalı."
+        fail_message: "Admin auth modeli belirsiz."
+
+      - id: dor.secrets_policy
+        required: true
+        verify_from_answers: ["security.secrets_policy"]
+        criteria: "Secret yönetimi kuralı yazılı olmalı; service_role client'a gitmez."
+        fail_message: "Secret politikası eksik."
+
+  - id: gate.design_optional
+    title: "Tasarım (Opsiyonel)"
+    pass_condition: "optional_items_may_be_empty"
+    items:
+      - id: dor.design_system_known
+        required: true
+        verify_from_answers: ["design.component_library"]
+        criteria: "Component library/pattern tanımlı olmalı."
+        fail_message: "UI pattern belirsiz."
+
+      - id: dor.figma_link_optional
+        required: false
+        verify_from_answers: ["design.figma_available"]
+        criteria: "Figma varsa link ve export frame’leri tanımlı olmalı."
+        fail_message: "Figma yoksa sorun değil; varsa link gerekir."

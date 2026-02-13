@@ -1,6 +1,7 @@
 {
-  "source": "registry",
+  "source": "manual",
+  "identifier": "anthropics/skills/algorithmic-art",
   "name": "algorithmic-art",
-  "installedAt": "2026-02-12T14:59:31.247Z",
-  "updatedAt": "2026-02-12T14:59:31.247Z"
+  "installedAt": "2026-02-13T23:17:30.141Z",
+  "updatedAt": "2026-02-13T23:17:30.141Z"
 }

@@ -1,29 +1,52 @@
+/*
+  Safe row-count helper.
+
+  Usage:
+    node check_counts.js
+
+  Requires env vars in .env.local (or process env):
+    - SUPABASE_URL (preferred) or NEXT_PUBLIC_SUPABASE_URL
+    - SUPABASE_SERVICE_ROLE_KEY
+*/
 
 const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config({ path: '.env.local' });
 
-const supabaseUrl = "https://wswlhtglwpyragymrdhl.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indzd2xodGdsd3B5cmFneW1yZGhsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODk5NDQxMCwiZXhwIjoyMDg0NTcwNDEwfQ.WJLsvM-E7XuJpGRbuWVv5VVF860hbIVzkxI1Bfg-3ao";
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-async function checkCounts() {
-    const { data, error } = await supabase
-        .from('metal_products')
-        .select('is_showcase, is_active');
-
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    const stats = {
-        total: data.length,
-        showcase: data.filter(p => p.is_showcase === true).length,
-        inventory: data.filter(p => p.is_showcase === false || p.is_showcase === null).length,
-        active_showcase: data.filter(p => p.is_showcase === true && p.is_active === true).length
-    };
-
-    console.log('Product Stats:', stats);
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.error('Missing Supabase environment variables.');
+  console.error('Expected SUPABASE_URL (or NEXT_PUBLIC_SUPABASE_URL) and SUPABASE_SERVICE_ROLE_KEY.');
+  process.exit(1);
 }
 
-checkCounts();
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+async function countTable(table) {
+  const { count, error } = await supabase
+    .from(table)
+    .select('*', { count: 'exact', head: true });
+
+  if (error) return { ok: false, reason: error.message || String(error) };
+  return { ok: true, count: count ?? 0 };
+}
+
+async function main() {
+  const tables = ['metal_products', 'product_variants'];
+
+  for (const table of tables) {
+    const res = await countTable(table);
+    if (res.ok) {
+      console.log(table + ': ' + res.count);
+    } else {
+      console.log(table + ': ERR -> ' + res.reason);
+    }
+  }
+}
+
+main().catch((err) => {
+  console.error('Fatal:', err);
+  process.exit(1);
+});
+

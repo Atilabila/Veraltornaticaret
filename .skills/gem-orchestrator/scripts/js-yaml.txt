@@ -1,0 +1,2 @@
+cd C:\Users\ati\.gemini\antigravity\scratch\metal-poster-pro
+npm i js-yaml

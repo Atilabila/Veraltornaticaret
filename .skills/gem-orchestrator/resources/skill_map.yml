@@ -1,0 +1,116 @@
+version: 2
+title: "Gem Orchestrator Skill Router - Multi Source"
+require_dor_pass_before_workflow: true
+stop_on_critical_security_issue: true
+
+pipelines:
+  - id: pipeline.marketplace_web_cro
+    title: "Web Marketplace CRO Upgrade (Listing + Detail)"
+    when:
+      any:
+        - equals: { question: "goal.primary_pages", contains: "urunler_listing" }
+        - equals: { question: "goal.primary_pages", contains: "urun_detay" }
+
+    steps:
+      # 0) Interrogation / DoR
+      - skill: "skillcreatorai/Ai-Agent-Skills/ask-questions-if-underspecified"
+        id: "q.intake"
+        purpose: "Tek tek soru sor, DoR tamamlanmadan ilerleme."
+        outputs: ["answers_json"]
+
+      - skill: "skillcreatorai/Ai-Agent-Skills/best-practices"
+        id: "q.risk_scan"
+        purpose: "CRO + güvenlik + performans risklerini cevaplara göre çıkar."
+        outputs: ["risk_register"]
+
+      # 1) Design guidance + brand alignment
+      - skill: "vercel/skills/web-design-guidelines"
+        id: "plan.web_guidelines"
+        purpose: "Marketplace UI heuristics: CTA hiyerarşisi, layout, trust, mobile sticky."
+        outputs: ["ui_principles"]
+
+      - skill: "anthropics/skills/brand-guidelines"
+        id: "plan.brand_fit"
+        purpose: "Mevcut marka tonuna uygun CTA/metin/stil yönergesi."
+        outputs: ["brand_tokens", "copy_rules"]
+
+      - skill: "ComposioHQ/awesome-claude-skills/theme-factory"
+        id: "plan.theme"
+        purpose: "Listing+detail için tema/komponent yaklaşımı (kart, badge, sticky bar)."
+        outputs: ["theme_spec"]
+
+      - skill: "anthropics/skills/canvas-design"
+        id: "plan.wireframe"
+        purpose: "Wireframe: /urunler kart + toolbar + /urunler/[slug] sticky CTA."
+        outputs: ["wireframe_notes"]
+
+      # 2) Implementation (repo kod)
+      - skill: "wshobson/agents/javascript-typescript"
+        id: "impl.shared_utils"
+        purpose: "CTA state helpers (buy/offer/out_of_stock), fiyat formatı, stock helper."
+        outputs: ["git_diff"]
+
+      - skill: "anthropics/skills/frontend-design"
+        id: "impl.ui_listing"
+        purpose: "/urunler: quick add, teklif CTA, stok badge, sort/filter."
+        outputs: ["git_diff"]
+
+      - skill: "anthropics/skills/frontend-design"
+        id: "impl.ui_detail"
+        purpose: "/urunler/[slug]: mobile sticky CTA, trust bar, toptan mesaj secondary."
+        outputs: ["git_diff"]
+
+      - skill: "wshobson/agents/code-refactoring"
+        id: "impl.refactor_cta"
+        purpose: "CTA logic tek kaynak (hook/component), tekrarları azalt."
+        outputs: ["git_diff"]
+
+      # 3) QA + review
+      - skill: "anthropics/skills/webapp-testing"
+        id: "qa.e2e"
+        purpose: "E2E: listing add-to-cart, offer CTA, detail sticky CTA."
+        outputs: ["git_diff"]
+
+      - skill: "skillcreatorai/Ai-Agent-Skills/qa-regression"
+        id: "qa.regression"
+        purpose: "Regression checklist + kritik akış smoke planı."
+        outputs: ["qa_checklist"]
+
+      - skill: "anthropics/claude-code/code-review"
+        id: "qa.review"
+        purpose: "Güvenlik, perf, a11y, edge-case taraması."
+        outputs: ["punchlist", "git_diff"]
+
+      # 4) Release
+      - skill: "ComposioHQ/awesome-claude-skills/changelog-generator"
+        id: "release.changelog"
+        purpose: "CHANGELOG güncelle."
+        outputs: ["git_diff"]
+
+      - skill: "vercel/skills/vercel-deploy"
+        id: "release.deploy"
+        purpose: "Vercel deploy + environment sanity checks."
+        outputs: ["deploy_steps"]
+
+      - skill: "skillcreatorai/Ai-Agent-Skills/jira-issues"
+        id: "release.jira"
+        purpose: "Jira issue/epic/task metinlerini oluştur."
+        outputs: ["jira_payloads"]
+
+  - id: pipeline.skills_authoring_mcp
+    title: "Build/Extend Gem Itself (Skill Authoring + MCP)"
+    when:
+      any:
+        - contains_text: { question: "design.figma_available", text: "figma" }
+        - contains_text: { question: "design.figma_available", text: "http" }
+
+    steps:
+      - skill: "anthropics/skills/mcp-builder"
+        id: "mcp.setup"
+        purpose: "Figma/araç entegrasyonu için MCP config planı."
+        outputs: ["mcp_plan"]
+
+      - skill: "anthropics/skills/skill-creator"
+        id: "skill.create"
+        purpose: "gem-orchestrator skill paketini oluştur (SKILL.md + resources + scripts)."
+        outputs: ["git_diff"]

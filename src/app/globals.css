@@ -16,6 +16,14 @@ html {
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
+  /* Brutalist palette tokens (used across admin + shop UI) */
+  --color-paper-white: #fdfbf7;
+  --color-near-black: #0a0a0a;
+  --color-fog-gray: #ecebe7;
+  --color-steel-gray: #7a7a7a;
+  --color-hazard-orange: #ff4d00;
+  --color-acid-green: #b7ff2a;
+
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -172,6 +180,28 @@ html {
     color: #fff;
     position: relative;
     display: inline-block;
+  }
+}
+
+@layer utilities {
+  .shadow-brutal {
+    box-shadow: 10px 10px 0 0 var(--color-near-black);
+  }
+
+  .shadow-brutal-sm {
+    box-shadow: 5px 5px 0 0 var(--color-near-black);
+  }
+
+  .card-brutal {
+    border: 2px solid var(--color-near-black);
+    border-radius: 0;
+    background: var(--color-paper-white);
+  }
+
+  .btn-hazard {
+    border: 2px solid var(--color-near-black);
+    border-radius: 0;
+    background: var(--color-paper-white);
   }
 }
 
