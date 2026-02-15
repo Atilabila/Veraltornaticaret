@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS products (
     updated_at TIMESTAMPTZ DEFAULT NOW(),
     is_active BOOLEAN DEFAULT TRUE,
     stock_quantity INTEGER DEFAULT 0 CHECK (stock_quantity >= 0),
-    view_count INTEGER DEFAULT 0v
+    view_count INTEGER DEFAULT 0
 );
 
 -- Create index for faster queries

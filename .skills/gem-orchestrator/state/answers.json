@@ -1,0 +1,48 @@
+{
+  "goal": {
+    "primary_kpi": "quote_requests",
+    "primary_pages": [
+      "urunler_listing",
+      "urun_detay",
+      "cart",
+      "admin_panels",
+      "metal_showcase"
+    ]
+  },
+  "catalog": {
+    "product_type_rule": "Admin panelde urun eklerken/duzenlerken admin tercihiyle belirlenir: urun kartinda ya fiyat+satinal (direkt e-ticaret) ya da teklif butonu gorunur. Hepsi urunler sayfasinda listelenir.",
+    "stock_source": "Stok DB’de iki seviyede: ana stok metal_products.stock_quantity. Varyantli urunlerde varyant stogu product_variants.stock_quantity (size_label bazli). UI’da genel/varsayilan stok metal_products.stock_quantity; varyant seciminde ilgili varyant stogu dikkate alinmali.",
+    "variants_enabled": "optional",
+    "price_format": "metal_products.price DECIMAL(10,2) (decimal/numeric)"
+  },
+  "ux": {
+    "listing_primary_cta": "view_details",
+    "listing_quick_add": "Evet quick add olsun. Varyant secimi listingde yapilmasin; varyantli urunde quick add tiklaninca urun detay sayfasina yonlendirsin (varyantlar urun detayda gosterilir).",
+    "sort_default": "in_stock_first",
+    "filters": "Kategori, fiyat araligi, stokta olanlar. Ayrica siralama secenekleri: ucuzdan pahaliya ve pahalidan ucuza.",
+    "trust_bar": "Trust bar metinleri admin panelden editlenebilir olmali (su an hardcoded). Kaynak: admin panel uzerinden yonetilen DB icerigi (ornegin site_content tablosu ya da benzeri). Metinler: kargo suresi, iade, garanti, guvenli odeme.",
+    "wholesale_message": "secondary_link"
+  },
+  "flows": {
+    "offer_entrypoint": "UI: src/components/contact/QuoteForm.tsx. Submit: server action src/lib/actions/quotes.actions.ts -> submitQuote(). DB: public.quotes (+ attachments public.quote_attachments). Dosya yukleme: src/actions/admin.ts -> uploadSiteAsset() (Supabase Storage bucket 'urunler', path assets/quotes/*).",
+    "order_entrypoint": "Cart: src/store/useCartStore.ts. Checkout page: src/app/odeme/page.tsx -> orderStore.createOrder() (src/store/useOrderStore.ts) -> WhatsApp odeme/iletisim (src/lib/whatsapp.ts) -> background sync: src/lib/sync/syncService.ts syncOrderToSupabase() upsert public.orders + insert public.order_items. (Alternatif/legacy: src/components/checkout/CheckoutFlow.tsx -> OrderService.createOrder (src/lib/supabase/orders.service.ts) ile direkt DB insert).",
+    "offer_fields": "Zorunlu alanlar (QuoteForm + submitQuote): fullName, email, phone, serviceType, description. Opsiyonel: company, quantity (estimated_quantity), materialType, files (quote_attachments).",
+    "order_fields": "Mevcut /odeme akisinda (src/store/useCheckoutStore.ts validateShipping): zorunlu shipping alanlari fullName, email, phone, address, city, district. Sepette: item’lar (productId/slug/name/size/orientation/price/quantity) zorunlu. Odeme yontemi su an WhatsApp (paymentMethod: 'whatsapp'); siparis DB sync’de orders: order_number, customer_name/email/phone, shipping_address(JSON), subtotal/shipping_cost/total, payment_method/payment_status, status."
+  },
+  "seo": {
+    "listing_indexable": "Evet: /urunler ve /urunler/[slug] indexlenebilir. Canonical self. Meta/title/description urun verisinden. /urunler/[slug] icin Product schema (json-ld), /urunler icin ItemList/Collection schema (opsiyonel)."
+  },
+  "perf": {
+    "image_strategy": "Host: Supabase Storage (public URL supabase domain) + bazi harici kaynaklar (unsplash, ibb/imgur, google). Next Image kullaniliyor (ornegin src/components/product/ProductCard.tsx). next.config.mjs images.formats: AVIF+WebP."
+  },
+  "security": {
+    "auth_model": "Admin guard: src/lib/auth/requireAdmin.ts. Supabase session gerekli. Primary: user.app_metadata.role === 'admin'. Fallback: public.admins whitelist tablosunda email + is_active=true.",
+    "secrets_policy": "Service role key sadece server tarafinda (createAdminSupabaseClient: src/lib/supabase/admin.ts -> SUPABASE_SERVICE_ROLE_KEY). Client tarafinda yalniz NEXT_PUBLIC_SUPABASE_URL ve NEXT_PUBLIC_SUPABASE_ANON_KEY kullanilir. Lokal: .env.local, deploy: Vercel Environment Variables (onerilen)."
+  },
+  "design": {
+    "component_library": "Tailwind CSS + shadcn/ui (Radix UI) bileşenleri + custom components (src/components/ui/*, src/components/product/*)."
+  },
+  "rollout": {
+    "ab_test": "direct_release"
+  }
+}
