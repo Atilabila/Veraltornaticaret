@@ -9,21 +9,6 @@ export default {
     },
     compress: true,
     poweredByHeader: false,
-    async redirects() {
-        return [
-            {
-                source: '/:path((?!_next).*)',
-                has: [
-                    {
-                        type: 'host',
-                        value: 'www.veralteneketicaret.com',
-                    },
-                ],
-                destination: 'https://veralteneketicaret.com/:path*',
-                permanent: true,
-            },
-        ];
-    },
     webpack: (config, { isServer }) => {
         if (!isServer && config.optimization?.splitChunks) {
             const splitChunks = config.optimization.splitChunks;
@@ -92,4 +77,3 @@ export default {
         dangerouslyAllowSVG: true,
     },
 };
-
