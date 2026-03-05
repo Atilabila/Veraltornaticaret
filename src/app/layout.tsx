@@ -22,6 +22,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://veralteneketicaret.com"),
   title: "VERAL - Dosya Teli, Takvim Tenekesi ve Metal Poster İmalatı",
   description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
   keywords: ["dosya teli", "toptan dosya teli", "dosya teli üretimi", "dosya teli imalatı", "takvim tenekesi", "metal poster", "mıknatıslı magnet", "tef zili izmir"],
