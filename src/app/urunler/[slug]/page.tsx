@@ -72,7 +72,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         }
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralmetal.com';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
     const absoluteProductUrl = `${baseUrl}/urunler/${product.slug}`;
 
     return (

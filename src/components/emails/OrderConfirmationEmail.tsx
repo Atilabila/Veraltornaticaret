@@ -169,7 +169,7 @@ export const OrderConfirmationEmail: React.FC<Readonly<EmailTemplateProps>> = ({
                 </div>
 
                 <div style={{ textAlign: "center" }}>
-                    <a href={`https://metalposter.pro/siparis-sorgula`} style={styles.button}>
+                    <a href={`https://veralteneketicaret.com/siparis-sorgula`} style={styles.button}>
                         Siparişimi Takip Et
                     </a>
                 </div>

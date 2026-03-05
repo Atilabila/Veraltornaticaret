@@ -19,7 +19,7 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({ product }) => {
     const getAbsoluteUrl = (path: string) => {
         if (!path) return '';
         if (path.startsWith('http')) return path;
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralmetal.com';
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
         return `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
     };
 
