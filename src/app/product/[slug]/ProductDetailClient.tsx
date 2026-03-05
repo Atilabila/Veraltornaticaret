@@ -303,7 +303,7 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                                 <div className="space-y-4 font-mono text-base lg:text-lg">
                                                     <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
                                                         <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Malzeme:</span>
-                                                        <span className="font-bold text-zinc-900">{product.material || "1.5mm DKP Çelik"}</span>
+                                                        <span className="font-bold text-zinc-900">{product.material || "1.5mm DKP Sac"}</span>
                                                     </div>
                                                     <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
                                                         <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Boya:</span>

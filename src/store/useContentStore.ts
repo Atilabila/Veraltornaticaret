@@ -489,13 +489,13 @@ export const defaultContent: SiteContent = {
             slug: 'tef-zili',
             title: 'Tef Zili Üretimi',
             shortDescription: 'Profesyonel tef zili imalatı. Akustik kalibrasyon ve özel metal alaşım.',
-            fullDescription: 'Müzik aleti üreticileri için yüksek akustik performanslı tef zili üretimi. Pirinç ve çelik alaşım seçenekleriyle, altı köşe ve yuvarlak formlarda seri imalat.',
+            fullDescription: 'Müzik aleti üreticileri için yüksek akustik performanslı tef zili üretimi. Pirinç ve metal alaşım seçenekleriyle, altı köşe ve yuvarlak formlarda seri imalat.',
             icon: 'Music',
             image: '',
             seoTitle: 'Tef Zili İmalatı İzmir | VERAL Metal',
-            seoDescription: 'Müzik aletleri için profesyonel tef zili üretimi. Pirinç ve çelik yüzey seçenekleriyle en iyi akustik performans.',
+            seoDescription: 'Müzik aletleri için profesyonel tef zili üretimi. Pirinç ve metal yüzey seçenekleriyle en iyi akustik performans.',
             features: [
-                { key: 'Malzeme', value: 'Pirinç / Paslanmaz Çelik' },
+                { key: 'Malzeme', value: 'Pirinç / Paslanmaz Metal' },
                 { key: 'Akustik', value: 'Kalibre Edilmiş Ses' }
             ],
             applicationAreas: ['Enstrüman Üreticileri', 'Darbuka Atölyeleri', 'Müzik Marketler'],
@@ -555,8 +555,8 @@ export const defaultContent: SiteContent = {
 
     // Hero
     heroTitle: "METALİN DİJİTAL\nDÖNÜŞÜMÜ",
-    heroSubtitle: "Veral standartlarında 0.30mm endüstriyel çelik, yüksek çözünürlüklü UV baskı.",
-    heroTagline: "0.30MM ÇELİK // YÜKSEK ÇÖZÜNÜRLÜK // UV AKTARIM",
+    heroSubtitle: "Veral standartlarında 0.30mm endüstriyel teneke, yüksek çözünürlüklü UV baskı.",
+    heroTagline: "0.30MM TENEKE // YÜKSEK ÇÖZÜNÜRLÜK // UV AKTARIM",
     heroPrice: "199 TL",
     heroImage: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
     heroImages: [
@@ -570,7 +570,7 @@ export const defaultContent: SiteContent = {
     heroButton2Url: "/urunler",
     heroStats: [
         { value: "24-48s", label: "TESLİMAT" },
-        { value: "1.5mm", label: "ÇELİK" },
+        { value: "1.5mm", label: "METAL" },
         { value: "4K UV", label: "BASKI" }
     ],
 
@@ -634,7 +634,7 @@ export const defaultContent: SiteContent = {
             title: "TEF ZİLİ & METAL AKSESUAR",
             description: "PROFESYONEL TEF ZİLİ İMALATI VE ÖZEL METAL AKSESUAR ÇÖZÜMLERİ. AKUSTİK KALİTE.",
             image: "/images/production/tef.jpg",
-            features: ["ALTI KÖŞE ZİL", "PİRİNÇ / ÇELİK", "ÖZEL KAPLAMA"],
+            features: ["ALTI KÖŞE ZİL", "PİRİNÇ / METAL", "ÖZEL KAPLAMA"],
             exploreUrl: "/hizmetler/tef-zili"
         }
     ],
@@ -725,7 +725,7 @@ export const defaultContent: SiteContent = {
     metalShowcaseItems: [
         {
             title: "DOSYA TELİ",
-            desc: "ENDÜSTRİYEL SINIF ÇELİK TEL. YÜKSEK GERİLİM DİRENCİ VE HASSAS BÜKÜM.",
+            desc: "ENDÜSTRİYEL SINIF SAC TEL. YÜKSEK GERİLİM DİRENCİ VE HASSAS BÜKÜM.",
             image: "/images/showcase/dosya-teli.jpg",
             category: "ÜRETİM // 001"
         },
@@ -807,7 +807,7 @@ export const defaultContent: SiteContent = {
     processItems: [
         { stepNumber: "ETAP/01", title: "TASARIM SEÇİMİ", desc: "KOLEKSİYONDAN SEÇİN. KARARINIZI NETLEŞTİRİN." },
         { stepNumber: "ETAP/02", title: "DİJİTAL HAZIRLIK", desc: "4K UV BASKI İÇİN PİKSEL KONTROLÜ VE RENK AYARI." },
-        { stepNumber: "ETAP/03", title: "METALE AKTARIM", desc: "1.5MM ÇELİK ÜZERİNE YÜKSEK ÇÖZÜNÜRLÜKLÜ BASKI." },
+        { stepNumber: "ETAP/03", title: "METALE AKTARIM", desc: "1.5MM SAC ÜZERİNE YÜKSEK ÇÖZÜNÜRLÜKLÜ BASKI." },
         { stepNumber: "ETAP/04", title: "KORUYUCU AMBALAJ", desc: "MANYETİK APARAT VE DARBE EMİCİ ÖZEL KUTULAMA." },
         { stepNumber: "ETAP/05", title: "LOJİSTİK ÇIKIŞ", desc: "MAKSİMUM 48 SAAT İÇİNDE KARGOYA TESLİM." }
     ],
@@ -851,7 +851,7 @@ export const defaultContent: SiteContent = {
             id: "cat_4",
             title: "Dosya Teli",
             slug: "dosya-teli",
-            description: "Endüstriyel sınıf, yüksek dayanımlı çelik dosya telleri ve mekanizmaları.",
+            description: "Endüstriyel sınıf, yüksek dayanımlı metal dosya telleri ve mekanizmaları.",
             coverImage: "/images/showcase/dosya-teli.webp",
             icon: "FileText",
             seoTitle: "Dosya Teli Üretimi ve Toptan Satış | VERAL",
@@ -947,7 +947,7 @@ export const defaultContent: SiteContent = {
         quantityLabel: "Tahmini Adet",
         quantityPlaceholder: "Örn: 50 adet veya 1.000 metre",
         materialLabel: "Malzeme Türü",
-        materialPlaceholder: "Örn: Alüminyum, Paslanmaz Çelik vb. (Opsiyonel)",
+        materialPlaceholder: "Örn: Alüminyum, Paslanmaz Metal vb. (Opsiyonel)",
 
         fileLabel: "Teknik Çizim / Görsel",
         fileDescription: "PDF, JPG, PNG veya DXF formatında teknik çizimlerinizi yükleyebilirsiniz.",

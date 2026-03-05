@@ -110,7 +110,7 @@ Metal poster ve magnet sistemlerimiz, dekorasyonda hem kaliteyi hem de esnekliğ
         content: `
 ## Giriş: Metalin Yüzeyine Hikaye Yazmak
 
-Bir fabrika sahasında yürüyorsunuz. Etrafınızda çelik raflar, alüminyum paneller ve paslanmaz çelik kaplamalar. Her biri sessiz, anonim—ta ki üzerlerine **endüstriyel metal baskı** uygulanana kadar.
+Bir fabrika sahasında yürüyorsunuz. Etrafınızda metal raflar, alüminyum paneller ve paslanmaz metal kaplamalar. Her biri sessiz, anonim—ta ki üzerlerine **endüstriyel metal baskı** uygulanana kadar.
 
 Metal baskı, yalnızca bir logo veya uyarı işareti yerleştirmek değildir. **Hammaddeyi konuşturmak, soğuk yüzeylere kimlik kazandırmak ve dayanıklılığı estetikle buluşturmaktır.** Veral Ticaret olarak, torna ve teneke işçiliğinde onlarca yıllık deneyimimizi, modern UV ve serigrafi baskı teknolojileriyle birleştiriyoruz.
 

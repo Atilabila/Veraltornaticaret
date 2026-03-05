@@ -24,7 +24,7 @@ export const SERVICES: Service[] = [
         fullDescription: 'CNC torna tezgahlarımızda yüksek hassasiyetli metal parça üretimi yapıyoruz. Prototipten seri üretime kadar tüm aşamalarda hizmet veriyoruz.',
         technicalNotes: [
             'Tolerans: ±0.01mm',
-            'Malzeme: Alüminyum, Paslanmaz, Pirinç, Çelik',
+            'Malzeme: Alüminyum, Paslanmaz, Pirinç, Teneke',
             'Çap aralığı: Ø2mm - Ø200mm',
             'Uzunluk: Max 500mm'
         ],

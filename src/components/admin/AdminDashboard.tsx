@@ -481,7 +481,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
         stock_quantity: product?.stock_quantity || 0,
         is_showcase: product?.is_showcase || false,
         background_color: product?.background_color || "#0A0A0A",
-        material: product?.material || "1.5mm DKP Çelik",
+        material: product?.material || "1.5mm DKP Sac",
         paint: product?.paint || "Elektrostatik Toz",
         installation: product?.installation || "Hazır Askı Sistemi",
         origin: product?.origin || "Yerli Üretim (İzmir)",
@@ -637,7 +637,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                             value={feature.feature_text}
                                             onChange={(e) => updateFeature(idx, e.target.value)}
                                             className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-sm focus:outline-none"
-                                            placeholder="Örn: 1.5mm Alüminyum Gövde"
+                                            placeholder="Kalaylı Metal Tel"
                                         />
                                         <button type="button" onClick={() => removeFeature(idx)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg">
                                             <Trash2 className="w-4 h-4" />
@@ -876,7 +876,7 @@ const CategoriesTab = ({ showNotification }: { showNotification: (type: "success
                                         value={newCategory.name}
                                         onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
                                         className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
-                                        placeholder="Örn: Mutfak Gereçleri"
+                                        placeholder="galvanizli-metal-tel"
                                         required
                                     />
                                 </div>

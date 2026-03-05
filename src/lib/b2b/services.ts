@@ -8,7 +8,7 @@ export const SERVICES: Service[] = [
         slug: 'torna-cnc-isleme',
         title: 'Torna & CNC İşleme',
         shortDescription: 'Hassas toleranslı metal parça imalatı. CNC torna ve freze ile prototip ve seri üretim.',
-        technicalDescription: 'CNC torna ve freze tezgahlarımızla, çelik, alüminyum, pirinç ve paslanmaz çelik malzemelerden hassas parça imalatı yapıyoruz. Prototipten seri üretime kadar tüm aşamalarda hizmet veriyoruz.',
+        technicalDescription: 'CNC torna ve freze tezgahlarımızla, sac, alüminyum, pirinç ve paslanmaz metal malzemelerden hassas parça imalatı yapıyoruz. Prototipten seri üretime kadar tüm aşamalarda hizmet veriyoruz.',
         useCases: [
             'Makine parçası imalatı',
             'Prototip üretim',
@@ -17,7 +17,7 @@ export const SERVICES: Service[] = [
         ],
         technicalNotes: {
             tolerances: '±0.01mm hassasiyet',
-            materials: 'Çelik, Alüminyum, Pirinç, Paslanmaz Çelik',
+            materials: 'Metal, Alüminyum, Pirinç, Paslanmaz',
             quantities: 'Tek parçadan seri üretime'
         },
         icon: '⚙️'
@@ -71,7 +71,7 @@ export const SERVICES: Service[] = [
             'QR kodlu takip etiketleri'
         ],
         technicalNotes: {
-            materials: 'Alüminyum, Paslanmaz Çelik, Pirinç',
+            materials: 'Alüminyum, Paslanmaz Metal, Pirinç',
             quantities: 'Tek adetten binlerce adete'
         },
         icon: '🏷️'

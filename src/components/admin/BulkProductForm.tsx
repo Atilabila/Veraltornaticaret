@@ -50,11 +50,11 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
 }) => {
     // State
     const [rows, setRows] = React.useState<BulkRow[]>([
-        { id: "1", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
-        { id: "2", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
-        { id: "3", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
-        { id: "4", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
-        { id: "5", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }
+        { id: "1", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Sac", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "2", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Sac", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "3", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Sac", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "4", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Sac", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" },
+        { id: "5", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Sac", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }
     ])
     const [selectedCategoryId, setSelectedCategoryId] = React.useState<string>("")
     const [pasteMode, setPasteMode] = React.useState(false)
@@ -83,7 +83,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                     slug: slugify(nameWithoutExt),
                     file: file,
                     previewUrl: URL.createObjectURL(file),
-                    material: "1.5mm DKP Çelik",
+                    material: "1.5mm DKP Sac",
                     paint: "Elektrostatik Toz",
                     installation: "Hazır Askı Sistemi",
                     origin: "Yerli Üretim (İzmir)"
@@ -104,7 +104,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
     const addRow = () => {
         setRows(prev => [
             ...prev,
-            { id: Math.random().toString(36).substr(2, 9), name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }
+            { id: Math.random().toString(36).substr(2, 9), name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Sac", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }
         ])
     }
 
@@ -112,7 +112,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
     const removeRow = (id: string) => {
         if (rows.length === 1) {
             // Don't remove last row, just clear it
-            setRows([{ id: "1", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Çelik", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }])
+            setRows([{ id: "1", name: "", description: "", price: "", stock: "", slug: "", material: "1.5mm DKP Sac", paint: "Elektrostatik Toz", installation: "Hazır Askı Sistemi", origin: "Yerli Üretim (İzmir)" }])
             return
         }
         setRows(prev => prev.filter(r => r.id !== id))
@@ -177,7 +177,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                 price: price || 0,
                 stock: stock || 0,
                 slug: slugify(name),
-                material: "1.5mm DKP Çelik",
+                material: "1.5mm DKP Sac",
                 paint: "Elektrostatik Toz",
                 installation: "Hazır Askı Sistemi",
                 origin: "Yerli Üretim (İzmir)"
@@ -235,7 +235,7 @@ export const BulkProductForm: React.FC<BulkProductFormProps> = ({
                 price: 0,
                 stock: 0,
                 slug: slugify(nameWithoutExt),
-                material: "1.5mm DKP Çelik",
+                material: "1.5mm DKP Sac",
                 paint: "Elektrostatik Toz",
                 installation: "Hazır Askı Sistemi",
                 origin: "Yerli Üretim (İzmir)"

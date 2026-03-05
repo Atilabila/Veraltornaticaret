@@ -312,7 +312,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 <Input
                                     value={formData.name}
                                     onChange={(e) => handleNameChange(e.target.value)}
-                                    placeholder="Galvanizli Çelik Tel"
+                                    placeholder="Kalaylı Teneke"
                                     className={errors.name ? "border-red-500" : ""}
                                 />
                                 {errors.name && <span className="text-xs text-red-500">{errors.name}</span>}
@@ -323,7 +323,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 <Input
                                     value={formData.slug}
                                     onChange={(e) => updateField("slug", e.target.value)}
-                                    placeholder="galvanizli-celik-tel"
+                                    placeholder="kalayli-teneke"
                                 />
                                 <span className="text-xs text-muted-foreground">Otomatik oluşturulur</span>
                             </div>
