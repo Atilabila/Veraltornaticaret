@@ -37,19 +37,25 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     const { slug } = await params;
     const dbData = await ContentService.getContent();
     let data = dbData as any;
-    let service = data?.services?.find((s: any) => s.slug === slug);
+    // Merge DB services with defaults
+    const dbServices = data?.services || [];
+    const dbSlugs = new Set(dbServices.map((s: any) => s.slug));
+    const defaultsNotInDb = defaultContent.services.filter(s => !dbSlugs.has(s.slug));
+    const allServices = [...dbServices, ...defaultsNotInDb];
+
+    let service = allServices.find((s: any) => s.slug === slug);
 
     if (!service) {
-        service = defaultContent.services?.find((s: any) => s.slug === slug);
-        data = defaultContent;
-    }
-
-    if (!service || !service.isActive) {
         notFound();
     }
 
-    const otherServices = (data?.services || [])
-        .filter((s: any) => s.slug !== slug && s.isActive)
+    if (!service.isActive) {
+        notFound();
+    }
+
+    const otherServices = allServices
+        .filter((s: any) => s.slug !== slug && s.isActive !== false)
+        .sort((a: any, b: any) => a.order - b.order)
         .slice(0, 3);
 
     return (
@@ -57,10 +63,26 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <Navigation />
             <div className="min-h-screen bg-white">
                 {/* Dynamic Hero Section */}
-                <section className="bg-black text-white pt-28 pb-10 px-6 relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-10 pointer-events-none">
-                        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-                    </div>
+                <section className="bg-black text-white pt-28 pb-10 px-6 relative overflow-hidden min-h-[400px] flex items-end">
+                    {/* Background Image from CMS */}
+                    {service.image ? (
+                        <div className="absolute inset-0 z-0">
+                            <Image
+                                src={normalizeImagePath(service.image)}
+                                alt={service.title}
+                                fill
+                                className="object-cover scale-110 animate-[heroZoom_20s_ease-in-out_infinite_alternate]"
+                                sizes="100vw"
+                                priority
+                            />
+                            {/* Dark Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40" />
+                        </div>
+                    ) : (
+                        <div className="absolute inset-0 opacity-10 pointer-events-none">
+                            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+                        </div>
+                    )}
 
                     <div className="container mx-auto max-w-[1200px] relative z-10">
                         <Link
@@ -73,7 +95,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
                             <div className="max-w-4xl">
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center">
+                                    <div className="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm">
                                         <DynamicLucideIcon
                                             name={service.icon}
                                             fallbackName="settings"
@@ -84,10 +106,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         INDUSTRIAL SERVICE
                                     </div>
                                 </div>
-                                <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-4">
+                                <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-4 drop-shadow-lg">
                                     {service.title}
                                 </h1>
-                                <p className="text-lg md:text-xl text-white/60 font-medium leading-relaxed max-w-2xl">
+                                <p className="text-lg md:text-xl text-white/70 font-medium leading-relaxed max-w-2xl drop-shadow-md">
                                     {service.shortDescription}
                                 </p>
                             </div>

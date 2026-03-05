@@ -9,12 +9,21 @@ import { defaultContent } from '@/store/useContentStore';
 
 export default async function HizmetlerPage() {
     const data = await ContentService.getContent();
-    let servicesRaw = data?.services || [];
-    if (!servicesRaw.find((s: any) => s.slug === 'dosya-teli')) {
-        servicesRaw = defaultContent.services;
-    }
-    const services = servicesRaw.filter((s: any) => s.isActive !== false).sort((a: any, b: any) => a.order - b.order);
-    const header = data?.servicesPageHeader || { title: 'Endüstriyel Hizmetlerimiz', subtitle: 'Metal işleme ve tasarımda 20 yıllık tecrübe ile kurumsal çözümler.' };
+
+    // Merge services: DB data takes priority, but always include defaults not found in DB
+    const dbServices = data?.services || [];
+    const dbSlugs = new Set(dbServices.map((s: any) => s.slug));
+    const defaultsNotInDb = defaultContent.services.filter(s => !dbSlugs.has(s.slug));
+    const mergedServices = [...dbServices, ...defaultsNotInDb];
+
+    // Filter giyotin-kesim if it was a test service (not in defaults and has no fullDescription)
+    const services = mergedServices
+        .filter((s: any) => s.isActive !== false)
+        .sort((a: any, b: any) => a.order - b.order);
+    const header = {
+        ...{ title: 'Endüstriyel Hizmetlerimiz', subtitle: 'Teneke ve Torna sektöründe 44 yıllık tecrübemizi yansıtıyoruz.', badge: 'VERAL — METAL İŞLEME & ÜRETİM MERKEZİ', intro: '', ctaTitle: 'PROJENİZ İÇİN TEKNİK\nTEKLİF ALMAK İSTER MİSİNİZ?', ctaDescription: 'Teknik çizimleriniz ekibimiz tarafından incelenir ve 24 saat içinde detaylandırılmış fiyatlandırma tarafınıza iletilir.', ctaButtonText: 'TEKLİF İSTE', ctaButtonLink: '/teklif-al' },
+        ...(data?.servicesPageHeader || {})
+    };
 
     return (
         <main className="min-h-screen bg-white">
@@ -29,7 +38,7 @@ export default async function HizmetlerPage() {
 
                 <div className="container mx-auto max-w-[1200px] relative z-10">
                     <div className="inline-block bg-[var(--color-brand-safety-orange)] text-black px-4 py-1 font-mono font-black text-xs uppercase mb-8">
-                        VERAL — METAL İŞLEME & ÜRETİM MERKEZİ
+                        {header.badge}
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
                         {header.title}
@@ -101,18 +110,18 @@ export default async function HizmetlerPage() {
             <section className="bg-[var(--color-brand-safety-orange)] py-20 px-6 relative overflow-hidden">
                 <div className="container mx-auto max-w-[1200px] relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="max-w-2xl">
-                        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none mb-4 text-black">
-                            PROJENİZ İÇİN TEKNİK<br />TEKLİF ALMAK İSTER MİSİNİZ?
+                        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none mb-4 text-black whitespace-pre-line">
+                            {header.ctaTitle}
                         </h2>
                         <p className="text-lg text-black font-medium opacity-80">
-                            Teknik çizimleriniz ekibimiz tarafından incelenir ve 24 saat içinde detaylandırılmış fiyatlandırma tarafınıza iletilir.
+                            {header.ctaDescription}
                         </p>
                     </div>
                     <Link
-                        href="/teklif-al"
+                        href={header.ctaButtonLink}
                         className="bg-black text-white px-12 py-5 font-black text-lg uppercase tracking-widest hover:bg-slate-900 transition-all flex items-center gap-4 group shrink-0"
                     >
-                        TEKLİF İSTE <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+                        {header.ctaButtonText} <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
                     </Link>
                 </div>
             </section>

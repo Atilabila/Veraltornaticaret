@@ -242,3 +242,24 @@ html.force-desktop body {
 .border-gold-industrial {
   border-color: var(--color-industrial-gold);
 }
+
+@keyframes heroZoom {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.footer-readable-text {
+  font-size: 1.125rem;
+  /* 18px */
+  line-height: 1.75;
+}
+
+.footer-readable-link {
+  font-size: 1.05rem;
+  /* ~17px */
+}

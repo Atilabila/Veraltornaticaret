@@ -265,6 +265,12 @@ export interface SiteContent {
     servicesPageHeader: {
         title: string;
         subtitle: string;
+        badge: string;
+        intro: string;
+        ctaTitle: string;
+        ctaDescription: string;
+        ctaButtonText: string;
+        ctaButtonLink: string;
     };
 
     // ===== PAGE LEVEL TOKENS (OVERRIDES) =====
@@ -524,7 +530,13 @@ export const defaultContent: SiteContent = {
 
     servicesPageHeader: {
         title: 'Endüstriyel Hizmetlerimiz',
-        subtitle: 'Metal işleme ve tasarımda 20 yıllık tecrübe ile kurumsal çözümler.'
+        subtitle: 'Teneke ve Torna sektöründe 44 yıllık tecrübemizi yansıtıyoruz.',
+        badge: 'VERAL — METAL İŞLEME & ÜRETİM MERKEZİ',
+        intro: 'Metal işleme ve tasarımda 20 yıllık tecrübe ile kurumsal çözümler.',
+        ctaTitle: 'PROJENİZ İÇİN TEKNİK\nTEKLİF ALMAK İSTER MİSİNİZ?',
+        ctaDescription: 'Teknik çizimleriniz ekibimiz tarafından incelenir ve 24 saat içinde detaylandırılmış fiyatlandırma tarafınıza iletilir.',
+        ctaButtonText: 'TEKLİF İSTE',
+        ctaButtonLink: '/teklif-al',
     },
 
     // Page Settings Defaults (Common paths)
@@ -537,7 +549,7 @@ export const defaultContent: SiteContent = {
 
     // Theme Fallback (Keep for backward compatibility)
     themeConfig: {
-        darkPaths: ['/urunler', '/metal-urunler', '/teklif-al', '/siparis-sorgula', '/product', '/metal-tablolar']
+        darkPaths: ['/urunler', '/teklif-al', '/siparis-sorgula', '/product', '/metal-tablolar']
     },
 
 
@@ -901,7 +913,7 @@ export const defaultContent: SiteContent = {
             seoTitle: "Özel Metal Üretim - VERAL",
             seoDescription: "Projenize özel metal üretim hizmetleri.",
             ctaLabel: "Teklif İste",
-            ctaLink: "/metal-urunler",
+            ctaLink: "/teklif-al",
             isFeatured: false,
             order: 5
         }

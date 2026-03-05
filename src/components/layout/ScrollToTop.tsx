@@ -29,7 +29,7 @@ export function ScrollToTop() {
 
     return (
         <div
-            className={`fixed bottom-6 right-6 z-[9999] transition-all duration-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+            className={`fixed bottom-[180px] md:bottom-12 right-6 z-[9999] transition-all duration-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
                 }`}
         >
             <button

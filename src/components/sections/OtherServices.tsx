@@ -43,7 +43,7 @@ export const OtherServices = () => {
                         {content.serviceItems.map((service, index) => (
                             <Link
                                 key={index}
-                                href={service.exploreUrl || "/metal-urunler"}
+                                href={service.exploreUrl || "/urunler"}
                                 className="flex flex-col border-b-8 md:border-b-0 md:border-r-8 last:border-b-0 md:last:border-r-0 border-zinc-800 bg-zinc-900/50 group hover:bg-zinc-800 transition-none"
                             >
                                 {/* VISUAL_ARRAY */}
@@ -90,7 +90,7 @@ export const OtherServices = () => {
                     {content.servicesExploreText && (
                         <div className="flex justify-center mt-16">
                             <Link
-                                href="/metal-urunler"
+                                href="/urunler"
                                 className="group relative inline-flex items-center gap-6 px-16 py-8 bg-[#D4AF37] text-black font-[Archivo Black] text-3xl uppercase transition-all shadow-[6px_6px_0px_0px_rgba(216,178,76,0.6)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 active:translate-x-0 active:translate-y-0"
                             >
                                 {content.servicesExploreText}

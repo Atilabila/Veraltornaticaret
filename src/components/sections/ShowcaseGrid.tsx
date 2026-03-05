@@ -72,7 +72,7 @@ export const ShowcaseGrid = () => {
                             viewport={{ once: true }}
                         >
                             <Link
-                                href="/metal-urunler"
+                                href="/urunler"
                                 className="group flex items-center gap-6 px-12 py-6 bg-[#D4AF37] text-black font-black text-xs uppercase tracking-[0.3em] hover:bg-[#c2a03e] transition-all duration-300 relative overflow-hidden shadow-[4px_4px_0px_0px_rgba(216,178,76,0.6)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                             >
                                 <span className="relative z-10">TÜMÜNÜ GÖR</span>
@@ -92,7 +92,7 @@ export const ShowcaseGrid = () => {
                                 className="group"
                             >
                                 <Link
-                                    href={(item.slug === "ozel-uretim" || item.slug === "ozel") ? "/metal-urunler" : (item.ctaLink || `/urunler?category=${item.slug}`)}
+                                    href={(item.slug === "ozel-uretim" || item.slug === "ozel") ? "/teklif-al" : (item.ctaLink || `/urunler?category=${item.slug}`)}
                                     className="block space-y-8"
                                 >
                                     <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 shadow-2xl border border-zinc-800">

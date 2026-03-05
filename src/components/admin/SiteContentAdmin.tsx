@@ -332,20 +332,77 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                         </CardHeader>
                         <CardContent className="space-y-12">
                             {/* SERVICES PAGE HEADER */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8 border-b border-white/5">
-                                <div className="space-y-2">
-                                    <Label>Hizmetler Liste Başlığı (H1)</Label>
-                                    <Input
-                                        value={store.content.servicesPageHeader?.title || ''}
-                                        onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, title: e.target.value } })}
-                                    />
+                            <div className="space-y-6 pb-8 border-b border-white/5">
+                                <h3 className="font-bold text-lg text-white mb-4">Hizmetler Sayfası Hero Alanı</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Sayfa Başlığı (H1)</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.title || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, title: e.target.value } })}
+                                            placeholder="Endüstriyel Hizmetlerimiz"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Alt Başlık</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.subtitle || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, subtitle: e.target.value } })}
+                                            placeholder="Teneke ve Torna sektöründe..."
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Badge Metni (Hero üstü etiketi)</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.badge || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, badge: e.target.value } })}
+                                            placeholder="VERAL — METAL İŞLEME & ÜRETİM MERKEZİ"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Açıklama Paragrafı</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.intro || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, intro: e.target.value } })}
+                                            placeholder="Metal işleme ve tasarımda..."
+                                        />
+                                    </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label>Hizmetler Liste Alt Başlığı</Label>
-                                    <Input
-                                        value={store.content.servicesPageHeader?.subtitle || ''}
-                                        onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, subtitle: e.target.value } })}
-                                    />
+
+                                <h3 className="font-bold text-lg text-white mt-8 mb-4">Hizmetler Sayfası Alt CTA Bölümü</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2 col-span-2">
+                                        <Label>CTA Başlığı</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.ctaTitle || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, ctaTitle: e.target.value } })}
+                                            placeholder="PROJENİZ İÇİN TEKNİK TEKLİF ALMAK İSTER MİSİNİZ?"
+                                        />
+                                    </div>
+                                    <div className="space-y-2 col-span-2">
+                                        <Label>CTA Açıklama</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.ctaDescription || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, ctaDescription: e.target.value } })}
+                                            placeholder="Teknik çizimleriniz ekibimiz tarafından..."
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>CTA Buton Metni</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.ctaButtonText || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, ctaButtonText: e.target.value } })}
+                                            placeholder="TEKLİF İSTE"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>CTA Buton Linki</Label>
+                                        <Input
+                                            value={store.content.servicesPageHeader?.ctaButtonLink || ''}
+                                            onChange={(e) => store.updateContent({ servicesPageHeader: { ...store.content.servicesPageHeader, ctaButtonLink: e.target.value } })}
+                                            placeholder="/teklif-al"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
