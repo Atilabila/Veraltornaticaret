@@ -16,7 +16,7 @@ export const StatsMarquee = () => {
 
     return (
         <DirectEdit tab="content">
-            <section className="stats-marquee py-2.5 bg-transparent border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
+            <section className="stats-marquee py-4 bg-transparent border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     @keyframes stats-scroll {
@@ -39,20 +39,20 @@ export const StatsMarquee = () => {
                                 <DynamicLucideIcon
                                     name={item.icon}
                                     fallbackName="activity"
-                                    className="w-3.5 h-3.5 text-[#D4AF37]/40"
+                                    className="w-5 h-5 text-[#D4AF37]/50"
                                 />
 
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-sm md:text-base font-black text-white/70 tracking-tight uppercase">
-                                            {item.value}
-                                        </span>
-                                        <span className="text-[8px] md:text-[9px] font-bold text-[#D4AF37]/30 tracking-[0.2em] uppercase">
-                                            {item.label}
-                                        </span>
-                                    </div>
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-base md:text-lg font-black text-white/80 tracking-tight uppercase">
+                                        {item.value}
+                                    </span>
+                                    <span className="text-[11px] md:text-xs font-bold text-[#D4AF37]/50 tracking-[0.2em] uppercase">
+                                        {item.label}
+                                    </span>
+                                </div>
 
-                                    {/* Minimal Separator */}
-                                    <div className="ml-4 w-1 h-1 rounded-full bg-white/5" />
+                                {/* Minimal Separator */}
+                                <div className="ml-4 w-1 h-1 rounded-full bg-white/5" />
                             </div>
                         ))}
                     </div>

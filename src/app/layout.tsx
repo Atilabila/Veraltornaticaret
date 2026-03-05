@@ -12,6 +12,7 @@ import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </MotionProvider>
         <WhatsAppButton />
         <ScrollToTop />
+        <AnalyticsProvider><span /></AnalyticsProvider>
         <Toaster />
       </body>
     </html>

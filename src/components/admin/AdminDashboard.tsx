@@ -6,7 +6,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import {
     LayoutDashboard, Package, FileText, Settings, LogOut, Plus,
     Pencil, Trash2, Save, X, Search, ChevronDown, ChevronUp,
-    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye, ShieldCheck, Instagram, Upload, Globe, Mail, Star
+    Check, AlertCircle, Image as ImageIcon, Home, Info, MessageSquare, ShoppingCart, Activity, Tags, FolderPlus, Eye, ShieldCheck, Instagram, Upload, Globe, Mail, Star, BarChart3
 } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
@@ -32,6 +32,7 @@ import {
 import { Label } from "@/components/ui/label";
 
 import { useAdminStore } from "@/store/useAdminStore";
+import { AnalyticsTab } from "./AnalyticsTab";
 
 export const AdminDashboard = () => {
     const searchParams = useSearchParams();
@@ -179,6 +180,12 @@ export const AdminDashboard = () => {
                         active={activeTab === "logs"}
                         onClick={() => setActiveTab("logs")}
                     />
+                    <SidebarItem
+                        icon={<BarChart3 className="w-5 h-5" />}
+                        label="İstatistikler"
+                        active={activeTab === "analytics"}
+                        onClick={() => setActiveTab("analytics")}
+                    />
                 </nav>
 
                 <div className="mt-auto space-y-2 border-t border-white/5 pt-6">
@@ -207,6 +214,7 @@ export const AdminDashboard = () => {
                 {activeTab === "orders" && <OrdersTab showNotification={showNotification} />}
                 {activeTab === "quotes" && <QuotesTab showNotification={showNotification} />}
                 {activeTab === "logs" && <AuditLogsTab />}
+                {activeTab === "analytics" && <AnalyticsTab />}
 
                 {/* Preview Demo - Remove this after testing */}
                 {activeTab === "content" && subTab === "global" && (

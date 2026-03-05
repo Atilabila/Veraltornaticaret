@@ -165,10 +165,10 @@ const HeroSection: React.FC<{ productCount: number }> = ({ productCount }) => {
                         return (
                             <div
                                 key={i}
-                                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-zinc-900/30 border border-zinc-800/50"
+                                className="flex items-center gap-3 px-5 py-3 rounded-sm bg-zinc-900/30 border border-zinc-800/50"
                             >
-                                <BadgeIcon className="w-3 h-3 text-zinc-600" />
-                                <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+                                <BadgeIcon className="w-5 h-5 text-zinc-400" />
+                                <span className="text-sm font-bold uppercase tracking-wider text-zinc-300">
                                     {item.text}
                                 </span>
                             </div>
