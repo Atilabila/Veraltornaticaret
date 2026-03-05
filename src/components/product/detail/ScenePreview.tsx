@@ -48,105 +48,7 @@ export default function ScenePreview({ product }: { product: Product }) {
 
                 {/* HUD - Sol üst */}
                 <div className="absolute top-6 left-6 z-40 space-y-2">
-                    <label className="cursor-pointer group block">
-                        <div className="bg-black text-white px-4 py-3 font-mono text-[10px] font-bold border-2 border-white flex items-center gap-3 shadow-lg hover:bg-[#D4AF37] hover:text-black transition-all">
-                            <Home className="w-4 h-4" />
-                            <span>KENDİ ODANIN FOTOSUNU YÜKLE</span>
-                        </div>
-                        <input type="file" className="hidden" accept="image/*" onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) {
-                                const url = URL.createObjectURL(file);
-                                setCustomRoomImage(url);
-                            }
-                        }} />
-                    </label>
-
-                    <div className="bg-white/90 backdrop-blur-md border border-black p-2 font-mono text-[8px] font-black uppercase text-black italic">
-                        ÖNERİLEN ODA FOTOSU: 4000x3000 PX
-                    </div>
-
-                    {customRoomImage && (
-                        <button
-                            onClick={() => setCustomRoomImage(null)}
-                            className="bg-red-600 text-white px-3 py-1 text-[8px] font-black uppercase border border-white/20"
-                        >
-                            VARSAYILAN ODAYA DÖN
-                        </button>
-                    )}
-
-                    <div className="mt-4 space-y-2">
-                        <button
-                            onClick={() => setShowCalibrator(!showCalibrator)}
-                            className={`w-full px-4 py-3 font-mono text-[10px] font-bold border-2 flex items-center gap-3 shadow-lg transition-all ${showCalibrator
-                                    ? 'bg-[#D4AF37] text-black border-black'
-                                    : 'bg-black text-white border-white hover:bg-[#D4AF37] hover:text-black'
-                                }`}
-                        >
-                            <Ruler className="w-4 h-4" />
-                            <span>{showCalibrator ? 'KALİBRASYONU TAMAMLA' : 'ÖLÇEK KALİBRASYONU'}</span>
-                        </button>
-
-                        {showCalibrator && (
-                            <div className="bg-black/90 backdrop-blur-md border-2 border-[#D4AF37] p-5 space-y-4 animate-in fade-in slide-in-from-left-4 w-72 shadow-2xl">
-                                <div>
-                                    <label className="block text-[#D4AF37] text-[10px] font-black font-mono uppercase mb-2">
-                                        [A-B] REFERANS GENİŞLİK (CM)
-                                    </label>
-                                    <div className="flex gap-2">
-                                        <input
-                                            type="number"
-                                            value={currentCalib.refCm}
-                                            onChange={(e) => updateCalibration(activeTemplateId, { refCm: Number(e.target.value) })}
-                                            className="bg-white text-black font-bold font-mono px-3 py-2 w-full outline-none focus:ring-2 focus:ring-[#D4AF37]"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-[#3498db] text-[10px] font-black font-mono uppercase mb-2">
-                                        [C-D] REFERANS YÜKSEKLİK (CM)
-                                    </label>
-                                    <div className="flex gap-2">
-                                        <input
-                                            type="number"
-                                            value={currentCalib.refHeightCm}
-                                            onChange={(e) => updateCalibration(activeTemplateId, { refHeightCm: Number(e.target.value) })}
-                                            className="bg-white text-black font-bold font-mono px-3 py-2 w-full outline-none focus:ring-2 focus:ring-[#3498db]"
-                                        />
-                                    </div>
-                                </div>
-
-                                <button
-                                    onClick={() => setShowCalibrator(false)}
-                                    className="w-full bg-[#D4AF37] text-black py-3 font-mono text-xs font-black flex items-center justify-center gap-2 hover:bg-white transition-colors border border-black shadow-lg"
-                                >
-                                    <Check className="w-5 h-5" />
-                                    <span>KALİBRASYONU UYGULA</span>
-                                </button>
-
-                                <p className="text-white/60 text-[8px] font-mono leading-tight bg-white/5 p-2 rounded">
-                                    * A-B (Altın) çizgisi genişliği, C-D (Mavi) çizgisi yüksekliği temsil eder.
-                                </p>
-                            </div>
-                        )}
-                    </div>
-
-                    {!showCalibrator && (
-                        <label className="cursor-pointer group block">
-                            <div className="bg-black text-white px-4 py-3 font-mono text-[10px] font-bold border-2 border-white flex items-center gap-3 shadow-lg hover:bg-[#D4AF37] hover:text-black transition-all">
-                                <Plus className="w-4 h-4" />
-                                <span>KENDİ GÖRSELİNİ YÜKLE</span>
-                            </div>
-                            <input type="file" className="hidden" accept="image/*" onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                    const url = URL.createObjectURL(file);
-                                    useConfiguratorStore.getState().setCustomImage(url);
-                                }
-                            }} />
-                        </label>
-                    )}
+                    {/* HUD - Removed complex customization controls for simplicity */}
 
                     {!showCalibrator && (
                         <div className="mt-4 bg-black/60 backdrop-blur-md border border-[#D4AF37] p-3 w-64 shadow-2xl">
@@ -217,17 +119,7 @@ export default function ScenePreview({ product }: { product: Product }) {
                             <Image src={img} alt="" fill className="object-cover" />
                         </button>
                     ))}
-                    <label className="flex-shrink-0 w-24 h-24 border-2 border-dashed border-[#0A0A0A]/20 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 transition-all text-[#0A0A0A]/40 hover:text-[#D4AF37]">
-                        <Plus className="w-6 h-6" />
-                        <span className="text-[9px] font-black uppercase">Farklı Art</span>
-                        <input type="file" className="hidden" accept="image/*" onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) {
-                                const url = URL.createObjectURL(file);
-                                useConfiguratorStore.getState().setCustomImage(url);
-                            }
-                        }} />
-                    </label>
+                    {/* Images list - removed custom art upload button */}
                 </div>
             </div>
 

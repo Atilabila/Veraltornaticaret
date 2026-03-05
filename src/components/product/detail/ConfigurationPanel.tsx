@@ -12,7 +12,6 @@ export default function ConfigurationPanel({ product }: { product: Product }) {
     const { size: selectedSize, setSize, customImage } = useConfiguratorStore();
     const addItem = useCartStore((state) => state.addItem);
     const [isAdded, setIsAdded] = useState(false);
-    const [isCartOpen, setIsCartOpen] = useState(false);
 
     const totalPrice = product.price + selectedSize.priceAdd;
 
@@ -23,21 +22,21 @@ export default function ConfigurationPanel({ product }: { product: Product }) {
 
     const handleAddToCart = () => {
         addItem({
-            id: product.id + "_" + selectedSize.id + "_smartfit",
+            productId: product.id,
+            slug: product.slug,
             name: customImage ? "ÖZEL TASARIM METAL POSTER" : product.name,
             size: getDisplaySize(selectedSize) + " (SMART-FIT)",
             price: totalPrice,
             image: customImage || product.image,
+            orientation: 'vertical'
         });
 
         setIsAdded(true);
-        setIsCartOpen(true);
         setTimeout(() => setIsAdded(false), 2000);
     };
 
     return (
         <div className="space-y-8">
-            <CartTerminal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
             {/* PRODUCT HEADER */}
             <div>

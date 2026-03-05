@@ -17,7 +17,7 @@ export const ShowcaseGrid = () => {
 
     return (
         <DirectEdit tab="showcase">
-            <section id="features" className="py-12 lg:py-20 xl:py-24 bg-transparent border-b-8 border-black overflow-hidden relative bg-transparent">
+            <section id="features" className="py-12 lg:py-20 xl:py-24 overflow-hidden relative">
                 {/* Industrial Background Pattern - Optimized */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none">
                     <Image
@@ -73,11 +73,10 @@ export const ShowcaseGrid = () => {
                         >
                             <Link
                                 href="/metal-urunler"
-                                className="group flex items-center gap-6 px-12 py-6 bg-white text-black font-black text-xs uppercase tracking-[0.3em] hover:bg-[#D4AF37] hover:text-white transition-all duration-700 relative overflow-hidden"
+                                className="group flex items-center gap-6 px-12 py-6 bg-[#D4AF37] text-black font-black text-xs uppercase tracking-[0.3em] hover:bg-[#c2a03e] transition-all duration-300 relative overflow-hidden shadow-[4px_4px_0px_0px_rgba(216,178,76,0.6)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                             >
                                 <span className="relative z-10">TÜMÜNÜ GÖR</span>
                                 <ArrowUpRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
-                                <div className="absolute inset-0 bg-[#D4AF37] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
                             </Link>
                         </m.div>
                     </div>
@@ -96,7 +95,7 @@ export const ShowcaseGrid = () => {
                                     href={(item.slug === "ozel-uretim" || item.slug === "ozel") ? "/metal-urunler" : (item.ctaLink || `/urunler?category=${item.slug}`)}
                                     className="block space-y-8"
                                 >
-                                    <div className="relative aspect-[3/4] overflow-hidden bg-white shadow-2xl border border-white/10">
+                                    <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 shadow-2xl border border-zinc-800">
                                         {/* Subtle Image Vignette */}
                                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
@@ -115,7 +114,7 @@ export const ShowcaseGrid = () => {
                                         <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none z-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
 
                                         {/* Category Tag - More Industrial */}
-                                        <div className="absolute top-8 left-8 bg-black text-white px-5 py-2.5 font-sans text-[10px] font-black tracking-[0.2em] uppercase z-20">
+                                        <div className="absolute top-8 left-8 bg-zinc-800 text-zinc-300 px-5 py-2.5 font-sans text-[10px] font-black tracking-[0.2em] uppercase z-20">
                                             {item.slug?.replace(/-/g, ' ')}
                                         </div>
 

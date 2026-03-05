@@ -67,13 +67,13 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
                 animate={controls}
                 className={cn(
                     "flex items-center gap-4 px-5 py-4",
-                    "transition-all duration-300",
+                    "transition-all duration-300 backdrop-blur-md",
                     // Sharp industrial edges
                     "rounded-sm",
                     // Metal surface effect
                     isDark
-                        ? "bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20"
-                        : "bg-black/5 border border-black/10 hover:bg-black/10 hover:border-black/20",
+                        ? "bg-white/5 border border-white/10 hover:bg-white/15 hover:border-white/30"
+                        : "bg-black/5 border border-black/10 hover:bg-black/15 hover:border-black/30",
                     // Embossed shadow
                     "shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
                 )}

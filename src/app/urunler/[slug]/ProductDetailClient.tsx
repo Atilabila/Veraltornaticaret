@@ -37,27 +37,29 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
     }, [variant.size, product.price])
 
     return (
-        <div className="product-detail-page min-h-screen bg-background pb-20">
+        <div className="product-detail-page min-h-screen bg-[#FAFAFA] pb-20 font-syne">
             {/* Breadcrumb / Nav */}
-            <div className="container px-4 py-6">
-                <Link href="/urunler" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Kataloğa Dön
+            <div className="container px-4 py-8">
+                <Link href="/urunler" className="inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 font-black uppercase tracking-[0.2em] font-mono transition-colors">
+                    <ArrowLeft className="w-5 h-5 mr-2" /> Kataloğa Dön
                 </Link>
             </div>
 
             <div className="container px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
                 {/* Visuals - Now interactive */}
                 <div className="space-y-4">
-                    {product.image_url ? (
-                        <ImageViewer
-                            src={product.image_url}
-                            alt={product.name}
-                            aspectRatio={variant.orientation === 'horizontal' ? "aspect-[3/2]" : "aspect-[2/3]"}
-                        />
-                    ) : (
-                        <div className="aspect-[2/3] bg-muted/20 rounded-2xl animate-pulse" />
-                    )}
-                    <p className="text-center text-xs text-muted-foreground">
+                    <div className="border-2 border-zinc-900 bg-white shadow-[8px_8px_0_0_#18181b] p-2">
+                        {product.image_url ? (
+                            <ImageViewer
+                                src={product.image_url}
+                                alt={product.name}
+                                aspectRatio={variant.orientation === 'horizontal' ? "aspect-[3/2]" : "aspect-[2/3]"}
+                            />
+                        ) : (
+                            <div className="aspect-[2/3] bg-zinc-100 animate-pulse border-2 border-dashed border-zinc-300" />
+                        )}
+                    </div>
+                    <p className="text-center text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold mt-4">
                         Görsele tıklayarak yakınlaştırabilirsiniz
                     </p>
                 </div>
@@ -65,43 +67,49 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                 {/* Details */}
                 <div className="space-y-8">
                     <div>
-                        <div className="flex items-center gap-3 mb-4">
-                            <Badge variant="outline" className="uppercase tracking-widest text-[10px]">
+                        <div className="flex items-center gap-3 mb-6">
+                            <span className="px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] font-mono bg-industrial-gold border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b]">
                                 {product.category?.name || "Kategorisiz"}
-                            </Badge>
+                            </span>
                             {product.stock_quantity > 0 ? (
-                                <Badge variant="default" className="bg-green-500/10 text-green-500 hover:bg-green-500/20 border-green-500/20">
+                                <span className="px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] font-mono bg-emerald-400 border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b] flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-white border-2 border-zinc-900 animate-pulse" />
                                     Stokta Var
-                                </Badge>
+                                </span>
                             ) : (
-                                <Badge variant="secondary">Tükendi</Badge>
+                                <span className="px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] font-mono bg-zinc-200 border-2 border-zinc-900 text-zinc-500 shadow-[2px_2px_0_0_#18181b]">
+                                    Tükendi
+                                </span>
                             )}
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase italic text-zinc-900 mb-6 tracking-tighter leading-[0.9]">
                             {product.name}
                         </h1>
-                        <p className="text-3xl font-mono text-primary font-bold">
-                            {formatPrice(price)}
-                        </p>
+                        <div className="inline-block px-6 py-4 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b] mb-4">
+                            <span className="text-[10px] font-black uppercase font-mono tracking-[0.3em] text-zinc-400 block mb-1">Fiyat</span>
+                            <p className="text-3xl font-black text-zinc-900 italic tracking-tighter">
+                                {formatPrice(price)}
+                            </p>
+                        </div>
                     </div>
 
                     {/* Interactive Variants */}
                     <ProductVariants onChange={setVariant} />
 
                     {/* Static Desc */}
-                    <div className="prose prose-zinc dark:prose-invert max-w-none text-muted-foreground">
+                    <div className="text-base text-zinc-600 leading-relaxed font-mono font-medium border-l-4 border-industrial-gold pl-4">
                         <p>{product.description}</p>
                     </div>
 
                     {/* Features List */}
                     {product.features && product.features.length > 0 && (
-                        <div className="grid grid-cols-2 gap-4 py-6 border-y border-border/50">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 border-y-2 border-zinc-200">
                             {product.features.map(f => (
-                                <div key={f.id} className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary">
-                                        <Check className="w-5 h-5" />
+                                <div key={f.id} className="flex items-center gap-4 px-4 py-3 bg-white border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b]">
+                                    <div className="w-8 h-8 flex items-center justify-center shrink-0 border-r-2 border-zinc-900 pr-3 mr-1">
+                                        <Check className="w-5 h-5 text-industrial-gold" />
                                     </div>
-                                    <span className="font-medium">{f.feature_text}</span>
+                                    <span className="font-bold text-sm text-zinc-800">{f.feature_text}</span>
                                 </div>
                             ))}
                         </div>
@@ -111,39 +119,37 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     <div className="flex flex-col gap-4">
                         {/* Price & Stock Validation Warning */}
                         {(!price || price <= 0) && (
-                            <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
-                                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0" />
-                                <p className="text-sm text-destructive">Bu ürün şu an satışa kapalıdır. Lütfen iletişime geçin.</p>
+                            <div className="flex items-center gap-4 p-4 bg-red-50 border-2 border-red-500 shadow-[4px_4px_0_0_#ef4444]">
+                                <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                                <p className="text-sm font-bold text-red-700 font-mono">Bu ürün şu an satışa kapalıdır. Lütfen iletişime geçin.</p>
                             </div>
                         )}
 
                         {product.stock_quantity <= 0 && (
-                            <div className="flex items-center gap-3 p-4 bg-muted border border-border rounded-lg">
-                                <AlertTriangle className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-                                <p className="text-sm text-muted-foreground">Bu ürün şu an stokta bulunmamaktadır.</p>
+                            <div className="flex items-center gap-4 p-4 bg-zinc-100 border-2 border-zinc-400 shadow-[4px_4px_0_0_#a1a1aa]">
+                                <AlertTriangle className="w-6 h-6 text-zinc-500 flex-shrink-0" />
+                                <p className="text-sm font-bold text-zinc-600 font-mono">Bu ürün şu an stokta bulunmamaktadır.</p>
                             </div>
                         )}
 
                         {cartError && (
-                            <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
-                                <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0" />
-                                <p className="text-sm text-destructive">{cartError}</p>
+                            <div className="flex items-center gap-4 p-4 bg-red-50 border-2 border-red-500 shadow-[4px_4px_0_0_#ef4444]">
+                                <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                                <p className="text-sm font-bold text-red-700 font-mono">{cartError}</p>
                             </div>
                         )}
 
                         {addedToCart && (
-                            <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                                <p className="text-sm text-green-700 dark:text-green-400">Ürün sepete eklendi!</p>
-                                <Link href="/sepet" className="ml-auto text-sm font-medium text-green-700 dark:text-green-400 underline">
+                            <div className="flex items-center gap-4 p-4 bg-emerald-50 border-2 border-emerald-500 shadow-[4px_4px_0_0_#10b981]">
+                                <Check className="w-6 h-6 text-emerald-600 flex-shrink-0" />
+                                <p className="text-sm font-bold text-emerald-800 font-mono">Ürün sepete eklendi!</p>
+                                <Link href="/sepet" className="ml-auto text-sm font-black text-emerald-700 uppercase underline tracking-wider font-mono hover:text-emerald-900 transition-colors">
                                     Sepete Git
                                 </Link>
                             </div>
                         )}
 
-                        <Button
-                            size="lg"
-                            className="w-full text-lg h-14 uppercase tracking-wider font-bold gap-3"
+                        <button
                             disabled={!price || price <= 0 || product.stock_quantity <= 0}
                             onClick={() => {
                                 setCartError(null)
@@ -163,15 +169,13 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                                     setCartError(result.error || 'Ürün sepete eklenemedi')
                                 }
                             }}
+                            className="w-full h-16 flex items-center justify-center gap-3 bg-industrial-gold border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px] transition-all disabled:opacity-50 disabled:pointer-events-none"
                         >
-                            <ShoppingCart className="w-5 h-5" />
+                            <ShoppingCart className="w-6 h-6" />
                             Sepete Ekle ({variant.size} - {variant.orientation === 'vertical' ? 'Dikey' : 'Yatay'})
-                        </Button>
+                        </button>
 
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            className="w-full h-12"
+                        <button
                             disabled={!price || price <= 0 || product.stock_quantity <= 0}
                             onClick={() => {
                                 const result = addItem({
@@ -189,11 +193,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                                     setCartError(result.error || 'Ürün sepete eklenemedi')
                                 }
                             }}
+                            className="w-full h-14 flex items-center justify-center gap-3 bg-white border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] transition-all disabled:opacity-50 disabled:pointer-events-none"
                         >
                             Hemen Satın Al
-                        </Button>
+                        </button>
 
-                        <p className="text-xs text-center text-muted-foreground">
+                        <p className="text-[10px] text-center text-zinc-500 font-bold uppercase tracking-widest font-mono mt-2">
                             Kurumsal alım ve toplu siparişler için iletişime geçin.
                         </p>
                     </div>

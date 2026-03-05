@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { m } from 'framer-motion'
-import { ArrowDown, Zap, FileText, Factory, Ruler, MapPin } from "lucide-react"
+import { ArrowDown, Zap, FileText, Factory, Ruler, MapPin, ArrowRight } from "lucide-react"
 import { useInView } from "@/hooks/useInView"
 import { FeatureItem } from "./FeatureItem"
 import { MetalImage } from "./MetalImage"
@@ -47,7 +47,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
     const { ref, isInView } = useInView({ threshold: 0.15, triggerOnce: true })
 
     const isDark = isDarkBackground(product.background_color)
-    const sortedFeatures = product.features?.sort((a, b) => a.display_order - b.display_order) || []
+    const sortedFeatures = (product.features?.sort((a, b) => a.display_order - b.display_order) || []).slice(0, 4)
     const ambientGlow = getAmbientGlow(product.background_color)
 
     // Background style
@@ -110,7 +110,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 "absolute -top-4 -left-4 z-20",
                                 "px-4 py-2 flex items-center justify-center gap-2",
                                 // Sharp industrial style
-                                "rounded-sm border-l-4 border-l-orange-500",
+                                "rounded-sm border-l-4 border-l-industrial-gold",
                                 "font-mono text-xs font-bold tracking-widest uppercase",
                                 // Metal surface
                                 isDark
@@ -119,7 +119,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 "shadow-xl"
                             )}
                         >
-                            <Factory className="w-3 h-3 text-orange-500" />
+                            <Factory className="w-3 h-3 text-industrial-gold" />
                             {product.sku || `PRD-${String(index + 1).padStart(3, "0")}`}
                         </m.div>
 
@@ -136,7 +136,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                     ? "bg-white/5 border border-white/10"
                                     : "bg-black/5 border border-black/10",
                                 "shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)]",
-                                "transition-all duration-500 hover:border-[#D4AF37]/50"
+                                "transition-all duration-500 hover:border-industrial-gold/50"
                             )}
                         >
                             {product.image_url ? (
@@ -156,7 +156,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             )}
 
                             {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-[#D4AF37]/5 opacity-0 group-hover/image:opacity-100 transition-opacity duration-500" />
+                            <div className="absolute inset-0 bg-industrial-gold/5 opacity-0 group-hover/image:opacity-100 transition-opacity duration-500" />
                         </Link>
 
                         {/* Decorative Corner Rivets - Hidden on mobile */}
@@ -190,8 +190,8 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 "text-[10px] font-black uppercase tracking-[0.2em]",
                                 "rounded-sm",
                                 isDark
-                                    ? "bg-orange-500/10 text-orange-500 border border-orange-500/20"
-                                    : "bg-orange-600/10 text-orange-600 border border-orange-600/20"
+                                    ? "bg-industrial-gold/10 text-industrial-gold border border-industrial-gold/20"
+                                    : "bg-industrial-gold-muted/10 text-industrial-gold-muted border border-industrial-gold-muted/20"
                             )}>
                                 <Zap className="w-3 h-3" />
                                 SERİ ÜRETİM
@@ -217,7 +217,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                 href={`/urunler/${product.slug || slugify(product.name)}`}
                                 className={cn(
                                     "text-4xl md:text-5xl lg:text-6xl font-bold leading-none block",
-                                    "font-['Syne',sans-serif] tracking-tight hover:text-[#D4AF37] transition-colors duration-300",
+                                    "font-['Syne',sans-serif] tracking-tight hover:text-industrial-gold transition-colors duration-300",
                                     isDark ? "text-white" : "text-zinc-900"
                                 )}
                             >
@@ -271,27 +271,24 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                             transition={{ delay: 0.5, duration: 0.6 }}
                             className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6"
                         >
-                            <a
-                                href={`https://wa.me/905071651315?text=Merhaba, ${encodeURIComponent(product.name)} modeli için üretim teklifi almak istiyorum.`}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <Link
+                                href={`/urunler/${product.slug || slugify(product.name)}`}
                                 className={cn(
-                                    "flex items-center gap-4 px-8 py-5",
+                                    "flex items-center gap-4 px-10 py-5",
                                     "font-black text-sm uppercase tracking-wider",
                                     "rounded-sm transition-all duration-300 w-full sm:w-auto",
                                     isDark
-                                        ? "bg-[#D4AF37] text-zinc-900 hover:bg-[#F4CF57]"
+                                        ? "bg-industrial-gold text-zinc-900 hover:bg-industrial-gold/90"
                                         : "bg-zinc-900 text-white hover:bg-zinc-800",
-                                    "shadow-[0_4px_20px_-4px_rgba(212,175,55,0.3)]",
-                                    "hover:shadow-[0_8px_30px_-4px_rgba(212,175,55,0.4)]",
-                                    "hover:-translate-y-1 relative overflow-hidden group"
+                                    "shadow-[0_4px_20px_-4px_rgba(212,175,55,0.2)] hover:translate-x-1",
+                                    "relative overflow-hidden group"
                                 )}
                             >
                                 <span className="relative z-10 flex items-center gap-3">
-                                    <FileText className="w-5 h-5" />
-                                    Teklif ve Bilgi Alın
+                                    Ürünü İncele
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </span>
-                            </a>
+                            </Link>
                         </m.div>
 
                         <p className={cn(

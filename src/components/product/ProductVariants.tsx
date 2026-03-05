@@ -25,51 +25,52 @@ export const ProductVariants: React.FC<ProductVariantsProps> = ({ onChange }) =>
         <div className="space-y-6">
             {/* Orientation */}
             <div className="space-y-3">
-                <span className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Yön</span>
-                <div className="flex gap-3">
+                <span className="text-sm font-black text-zinc-800 uppercase tracking-[0.2em] font-mono">Yön</span>
+                <div className="flex gap-4">
                     <button
                         onClick={() => setOrientation('vertical')}
                         className={cn(
-                            "flex-1 p-4 border rounded-lg flex flex-col items-center gap-2 transition-all",
+                            "flex-1 p-4 border-2 rounded-none flex flex-col items-center gap-2 transition-all shadow-[4px_4px_0_0_#18181b]",
                             orientation === 'vertical'
-                                ? "border-primary bg-primary/5 ring-1 ring-primary"
-                                : "border-border hover:border-primary/50"
+                                ? "border-zinc-900 bg-industrial-gold shadow-[1px_1px_0_0_#18181b] translate-x-[3px] translate-y-[3px]"
+                                : "border-zinc-900 bg-white hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px]"
                         )}
                     >
-                        <div className="w-6 h-8 border-2 border-current rounded-sm" />
-                        <span className="text-xs font-bold">Dikey</span>
+                        <div className="w-6 h-8 border-2 border-zinc-900 rounded-none bg-zinc-50" />
+                        <span className="text-[10px] font-black uppercase tracking-widest font-mono text-zinc-900">Dikey</span>
                     </button>
                     <button
                         onClick={() => setOrientation('horizontal')}
                         className={cn(
-                            "flex-1 p-4 border rounded-lg flex flex-col items-center gap-2 transition-all",
+                            "flex-1 p-4 border-2 rounded-none flex flex-col items-center gap-2 transition-all shadow-[4px_4px_0_0_#18181b]",
                             orientation === 'horizontal'
-                                ? "border-primary bg-primary/5 ring-1 ring-primary"
-                                : "border-border hover:border-primary/50"
+                                ? "border-zinc-900 bg-industrial-gold shadow-[1px_1px_0_0_#18181b] translate-x-[3px] translate-y-[3px]"
+                                : "border-zinc-900 bg-white hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px]"
                         )}
                     >
-                        <div className="w-8 h-6 border-2 border-current rounded-sm" />
-                        <span className="text-xs font-bold">Yatay</span>
+                        <div className="w-8 h-6 border-2 border-zinc-900 rounded-none bg-zinc-50" />
+                        <span className="text-[10px] font-black uppercase tracking-widest font-mono text-zinc-900">Yatay</span>
                     </button>
                 </div>
             </div>
 
             {/* Size */}
             <div className="space-y-3">
-                <span className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Boyut (cm)</span>
-                <div className="grid grid-cols-2 gap-3">
+                <span className="text-sm font-black text-zinc-800 uppercase tracking-[0.2em] font-mono">Boyut (cm)</span>
+                <div className="grid grid-cols-2 gap-4">
                     {['30x45', '45x60', '50x70', '70x100'].map((s) => (
-                        <Button
+                        <button
                             key={s}
-                            variant="outline"
                             onClick={() => setSize(s as VariantState['size'])}
                             className={cn(
-                                "h-12 border-2",
-                                size === s ? "border-primary bg-primary/5 text-primary" : "border-border"
+                                "flex items-center justify-center h-12 border-2 rounded-none font-black text-sm uppercase tracking-widest font-mono transition-all shadow-[4px_4px_0_0_#18181b]",
+                                size === s
+                                    ? "border-zinc-900 bg-industrial-gold text-zinc-900 shadow-[1px_1px_0_0_#18181b] translate-x-[3px] translate-y-[3px]"
+                                    : "border-zinc-900 bg-white text-zinc-700 hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px]"
                             )}
                         >
                             {s}
-                        </Button>
+                        </button>
                     ))}
                 </div>
             </div>

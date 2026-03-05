@@ -13,21 +13,21 @@ export const LocalContactSection = () => {
 
     return (
         <DirectEdit tab="contact">
-            <section id="contact" className="py-16 lg:py-24 bg-transparent">
+            <section id="contact" className="py-16 lg:py-24 bg-zinc-950 text-zinc-300">
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
 
                     <div className="flex flex-col gap-4 mb-16">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                            <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">DİREKT HAT</span>
+                            <span className="text-sm font-black text-zinc-400 tracking-[0.3em] uppercase">DİREKT HAT</span>
                         </div>
-                        <h2 className="text-5xl lg:text-7xl font-bold text-black tracking-tighter uppercase leading-none italic">
+                        <h2 className="text-5xl lg:text-7xl font-bold text-white tracking-tighter uppercase leading-none italic">
                             {content.contactTitle}{" "}
                             <span className="italic font-bold text-gold-gradient">
                                 {content.contactSubtitle}
                             </span>
                         </h2>
-                        <p className="text-black/60 text-lg font-medium max-w-lg">
+                        <p className="text-zinc-400 text-lg font-medium max-w-lg">
                             {content.contactDescription}
                         </p>
                     </div>
@@ -37,7 +37,7 @@ export const LocalContactSection = () => {
                         <div className="lg:col-span-12 xl:col-span-7 grid sm:grid-cols-2 gap-4">
                             {contactItems.map((item, i) => {
                                 return (
-                                    <div key={i} className="bg-[#FDFBF7] p-12 flex flex-col gap-10 border border-[#0A0A0A]/5 hover:bg-[#0A0A0A] group transition-all duration-700">
+                                    <div key={i} className="bg-zinc-900/50 p-12 flex flex-col gap-10 border border-zinc-800 hover:bg-zinc-800 group transition-all duration-700">
                                         <div className={`w-14 h-14 border border-[#D4AF37]/30 flex items-center justify-center ${item.color || 'text-[#D4AF37]'} group-hover:bg-[#D4AF37] group-hover:text-white transition-all`}>
                                             <DynamicLucideIcon
                                                 name={item.icon}
@@ -47,7 +47,7 @@ export const LocalContactSection = () => {
                                             />
                                         </div>
                                         <div className="space-y-3">
-                                            <h3 className="font-black text-[#0A0A0A] group-hover:text-white uppercase text-2xl tracking-tighter italic leading-none transition-colors">
+                                            <h3 className="font-black text-white group-hover:text-[#D4AF37] uppercase text-2xl tracking-tighter italic leading-none transition-colors">
                                                 {item.title}
                                             </h3>
                                             <p className="text-xs font-black text-[#D4AF37] uppercase tracking-[0.2em]">
@@ -73,10 +73,10 @@ export const LocalContactSection = () => {
                             </div>
 
                             <div className="relative z-10 flex flex-col sm:flex-row gap-4 pt-10 mt-auto">
-                                <Link href="/siparis-sorgula" className="h-16 px-12 bg-[#D4AF37] text-black font-black text-xs tracking-[0.3em] uppercase hover:bg-white transition-all flex items-center justify-center gap-3">
+                                <Link href="/siparis-sorgula" className="h-16 px-12 bg-[#D4AF37] text-black font-black text-xs tracking-[0.3em] uppercase hover:bg-[#c2a03e] transition-all flex items-center justify-center gap-3 shadow-[4px_4px_0px_0px_rgba(216,178,76,0.6)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
                                     SİPARİŞ TAKİBİ <ArrowUpRight size={16} />
                                 </Link>
-                                <a href={`https://wa.me/${content.whatsappNumber}`} className="h-16 px-12 border border-white/20 text-white font-black text-xs tracking-[0.3em] uppercase hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all flex items-center justify-center">
+                                <a href={`https://wa.me/${content.whatsappNumber}`} className="h-16 px-12 border border-zinc-700 text-white font-black text-xs tracking-[0.3em] uppercase hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
                                     WHATSAPP
                                 </a>
                             </div>

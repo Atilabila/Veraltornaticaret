@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, ShoppingCart, User, Menu, X, Hammer } from 'lucide-react';
-import { useCartItemCount } from '@/store/useCartStore';
+import { useCartItemCount, useCartStore } from '@/store/useCartStore';
 import { useContentStore } from '@/store/useContentStore';
 import { useThemeDetection } from '@/hooks/useThemeDetection';
 import { m, AnimatePresence } from 'framer-motion';
@@ -21,6 +21,7 @@ export const Navigation = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobileViewport, setIsMobileViewport] = useState(false);
     const cartCount = useCartItemCount();
+    const setCartOpen = useCartStore((state) => state.setCartOpen);
     const pathname = usePathname();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -95,11 +96,10 @@ export const Navigation = () => {
 
 
     const activeLinks = (content.menuItems || []).length > 0
-        ? (content.menuItems || []).filter(item => item.visible).sort((a, b) => a.order - b.order)
+        ? (content.menuItems || []).filter(item => item.visible && item.url !== '/metal-urunler').sort((a, b) => a.order - b.order)
         : [
             { id: 'f1', label: 'Katalog', url: '/urunler', isPrimary: false },
             { id: 'f2', label: 'Hakkımızda', url: '/hakkimizda', isPrimary: false },
-            { id: 'f3', label: 'Hizmetler', url: '/metal-urunler', isPrimary: false },
             { id: 'f4', label: 'Teklif Al', url: '/teklif-al', isPrimary: true },
         ]; // Fallback while loading or if empty
 
@@ -187,7 +187,7 @@ export const Navigation = () => {
                                         />
                                     </div>
                                     <div className="flex flex-col">
-                                        <h2 className={`font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] text-[#D4AF37] transition-all duration-500 ${isScrolled ? 'text-sm md:text-lg' : 'text-base md:text-xl'
+                                        <h2 className={`font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] text-industrial-gold transition-all duration-500 ${isScrolled ? 'text-sm md:text-lg' : 'text-base md:text-xl'
                                             }`}>
                                             {content.siteName || "VERAL"}
                                         </h2>
@@ -205,26 +205,26 @@ export const Navigation = () => {
                                 <button
                                     onClick={() => setIsSearchOpen(true)}
                                     aria-label="Arama aç"
-                                    className={`relative group p-1 sm:p-2 transition-all ${textColorClass} hover:text-[#D4AF37]`}
+                                    className={`relative group p-1 sm:p-2 transition-all ${textColorClass} hover:text-industrial-gold`}
                                 >
                                     <Search className="w-4 h-4 sm:w-5 h-5" />
                                 </button>
-                                <Link
-                                    href="/sepet"
+                                <button
+                                    onClick={() => setCartOpen(true)}
                                     aria-label="Sepet"
-                                    className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
+                                    className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-industrial-gold`}
                                 >
                                     <ShoppingCart className="w-4 h-4 sm:w-5 h-5" />
                                     {cartCount > 0 && (
-                                        <span className="absolute top-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-[#D4AF37] text-white text-[8px] sm:text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
+                                        <span className="absolute top-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-industrial-gold text-black text-[8px] sm:text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
                                             {cartCount}
                                         </span>
                                     )}
-                                </Link>
+                                </button>
                                 <Link
                                     href="/hesabim"
                                     aria-label="Hesabım"
-                                    className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-[#D4AF37]`}
+                                    className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-industrial-gold`}
                                 >
                                     <User className="w-4 h-4 sm:w-5 h-5" />
                                 </Link>
@@ -243,7 +243,7 @@ export const Navigation = () => {
                             >
                                 <Link
                                     href={config.ctaLink || "/teklif-al"}
-                                    className={`hidden sm:flex items-center justify-center border border-[#D4AF37] text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all duration-500 leading-none ${isScrolled
+                                    className={`hidden sm:flex items-center justify-center border border-industrial-gold text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-industrial-gold hover:bg-industrial-gold hover:text-black transition-all duration-500 leading-none ${isScrolled
                                         ? 'px-3 h-10 sm:px-4 sm:h-10 md:px-6 md:h-12'
                                         : 'px-3 h-10 sm:px-6 sm:h-12 md:px-8 md:h-12'
                                         }`}
@@ -262,74 +262,87 @@ export const Navigation = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100000] flex flex-col items-center justify-start pt-32 px-6 overflow-y-auto"
-                        style={{ backgroundColor: '#000000' }}
+                        className="fixed inset-0 z-[100000] flex items-start justify-center pt-[10vh] px-6"
                     >
-                        <div className="absolute inset-0 opacity-10 pointer-events-none grid-pattern-dark" />
-
-                        <button
+                        {/* Backdrop with Blur */}
+                        <div
+                            className="absolute inset-0 bg-black/60 backdrop-blur-xl"
                             onClick={() => setIsSearchOpen(false)}
-                            aria-label="Aramayı kapat"
-                            className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors z-[100001]"
+                        />
+
+                        {/* Search Card */}
+                        <m.div
+                            initial={{ y: -50, opacity: 0, scale: 0.95 }}
+                            animate={{ y: 0, opacity: 1, scale: 1 }}
+                            exit={{ y: -50, opacity: 0, scale: 0.95 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="w-full max-w-2xl bg-zinc-900 border border-white/10 p-8 md:p-12 shadow-2xl relative z-10"
                         >
-                            <X className="w-12 h-12" />
-                        </button>
-
-                        <div className="w-full max-w-4xl space-y-12 relative z-[100001] pb-20">
-                            <div className="space-y-4">
-                                <span className="text-[10px] font-black text-[#D4AF37] tracking-[0.5em] uppercase">NE ARIYORSUNUZ?</span>
-                                <div className="relative">
-                                    <input
-                                        autoFocus
-                                        type="text"
-                                        placeholder="MODEL, STİL VEYA ÜRÜN ADI..."
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter' && searchQuery.trim()) {
-                                                window.location.href = `/urunler?search=${encodeURIComponent(searchQuery)}`;
-                                            }
-                                        }}
-                                        className="w-full bg-[#1A1A1A] border-b-4 border-[#D4AF37] py-8 px-6 text-4xl md:text-7xl font-black text-white focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-white/10 uppercase italic"
-                                    />
-                                    <Search className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 text-[#D4AF37]" />
+                            <div className="flex flex-col gap-8">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[10px] font-black text-gold-metal tracking-[0.5em] uppercase">Akıllı Arama</span>
+                                    <button
+                                        onClick={() => setIsSearchOpen(false)}
+                                        className="text-zinc-500 hover:text-white transition-colors"
+                                    >
+                                        <X className="w-6 h-6" />
+                                    </button>
                                 </div>
-                                <p className="text-white/30 font-mono text-xs uppercase tracking-widest mt-4">Aramak için ENTER tuşuna basın</p>
-                            </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-white/5">
-                                <div>
-                                    <h4 className="text-[#D4AF37] font-black text-[10px] tracking-widest mb-6 uppercase">HIZLI KATALOG</h4>
-                                    <div className="flex flex-col gap-4">
-                                        {['Tüm Ürünler', 'En Yeniler', 'Çok Satanlar'].map(item => (
-                                            <Link
-                                                key={item}
-                                                href="/urunler"
-                                                onClick={() => setIsSearchOpen(false)}
-                                                className="text-white/60 hover:text-white font-bold text-lg"
-                                            >
-                                                {item}
-                                            </Link>
-                                        ))}
+                                <div className="space-y-4">
+                                    <div className="relative">
+                                        <input
+                                            autoFocus
+                                            type="text"
+                                            placeholder="MODEL, STİL VEYA ÜRÜN ADI..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter' && searchQuery.trim()) {
+                                                    window.location.href = `/urunler?search=${encodeURIComponent(searchQuery)}`;
+                                                }
+                                            }}
+                                            className="w-full bg-white/5 border border-white/10 py-6 px-8 text-2xl md:text-3xl font-black text-white focus:outline-none focus:border-industrial-gold/50 transition-all placeholder:text-white/10 uppercase italic"
+                                        />
+                                        <Search className="absolute right-6 top-1/2 -translate-y-1/2 w-8 h-8 text-industrial-gold/50" />
+                                    </div>
+                                    <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest text-center">Aramak için ENTER tuşuna basın</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-white/5">
+                                    <div>
+                                        <h4 className="text-industrial-gold font-black text-[10px] tracking-widest mb-6 uppercase">HIZLI KATALOG</h4>
+                                        <div className="flex flex-col gap-4">
+                                            {['Tüm Ürünler', 'En Yeniler', 'Çok Satanlar'].map(item => (
+                                                <Link
+                                                    key={item}
+                                                    href="/urunler"
+                                                    onClick={() => setIsSearchOpen(false)}
+                                                    className="text-white/60 hover:text-industrial-gold font-bold text-lg"
+                                                >
+                                                    {item}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-industrial-gold font-black text-[10px] tracking-widest mb-6 uppercase">HIZMETLERIMIZ</h4>
+                                        <div className="flex flex-col gap-4">
+                                            {['Özel Tasarım', 'Metal Kesim', 'Boya Atölyesi'].map(item => (
+                                                <Link
+                                                    key={item}
+                                                    href="/teklif-al"
+                                                    onClick={() => setIsSearchOpen(false)}
+                                                    className="text-white/60 hover:text-industrial-gold font-bold text-lg"
+                                                >
+                                                    {item}
+                                                </Link>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h4 className="text-[#D4AF37] font-black text-[10px] tracking-widest mb-6 uppercase">HIZMETLERIMIZ</h4>
-                                    <div className="flex flex-col gap-4">
-                                        {['Özel Tasarım', 'Metal Kesim', 'Boya Atölyesi'].map(item => (
-                                            <Link
-                                                key={item}
-                                                href="/hizmetler"
-                                                onClick={() => setIsSearchOpen(false)}
-                                                className="text-white/60 hover:text-white font-bold text-lg"
-                                            >
-                                                {item}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
                             </div>
-                        </div>
+                        </m.div>
                     </m.div>
                 )}
             </AnimatePresence>
@@ -346,7 +359,7 @@ export const Navigation = () => {
                     >
                         <div className="flex justify-between items-center mb-16 relative z-10">
                             <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
-                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#D4AF37]" aria-label="Menüyü kapat">
+                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-industrial-gold" aria-label="Menüyü kapat">
                                 <X className="w-10 h-10" />
                             </button>
                         </div>
@@ -359,7 +372,7 @@ export const Navigation = () => {
                                 <Link
                                     href="/"
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="flex items-center justify-center h-16 rounded-md border border-[#D4AF37] bg-[#0f0f0f] text-[#D4AF37] font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
+                                    className="flex items-center justify-center h-16 rounded-md border border-industrial-gold bg-[#0f0f0f] text-industrial-gold font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
                                 >
                                     Ana Sayfaya Dön
                                 </Link>
@@ -375,7 +388,7 @@ export const Navigation = () => {
                                         href={link.url}
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
-                                        ${link.isPrimary ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
+                                        ${link.isPrimary ? 'text-industrial-gold' : 'text-white hover:text-industrial-gold'}`}
                                     >
                                         {link.label}
                                     </Link>
@@ -386,21 +399,23 @@ export const Navigation = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.3 }}
                             >
-                                <Link
-                                    href="/sepet"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-3xl font-black uppercase tracking-tight text-white hover:text-[#D4AF37] transition-colors"
+                                <button
+                                    onClick={() => {
+                                        setIsMobileMenuOpen(false);
+                                        setCartOpen(true);
+                                    }}
+                                    className="text-left text-3xl font-black uppercase tracking-tight text-white hover:text-industrial-gold transition-colors"
                                 >
                                     Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
-                                </Link>
+                                </button>
                             </m.div>
                             <m.div
-                                className="mt-8 pt-10 border-t border-[#D4AF37]/20"
+                                className="mt-8 pt-10 border-t border-industrial-gold/20"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.4 }}
                             >
-                                <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
+                                <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-industrial-gold text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
                                     {user ? 'HESABIM' : 'GİRİŞ YAP'}
                                 </Link>
                             </m.div>

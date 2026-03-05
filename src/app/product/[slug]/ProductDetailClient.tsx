@@ -72,24 +72,24 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
     const sortedFeatures = product.features?.sort((a, b) => a.display_order - b.display_order) || []
 
     return (
-        <main className="min-h-screen bg-zinc-950">
+        <main className="min-h-screen bg-[#FAFAFA] font-syne">
             {/* Navigation Bar */}
-            <nav className="fixed top-0 left-0 right-0 z-40 bg-zinc-950/90 backdrop-blur-lg border-b border-zinc-800">
+            <nav className="fixed top-0 left-0 right-0 z-40 bg-[#FAFAFA]/90 backdrop-blur-lg border-b-2 border-zinc-900 shadow-[0_4px_0_0_#18181b]">
                 <div className="container mx-auto px-6 py-4 flex items-center justify-between">
                     <Link
                         href="/urunler"
-                        className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+                        className="flex items-center gap-2 text-zinc-600 hover:text-zinc-900 font-black uppercase tracking-[0.2em] font-mono transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
-                        <span className="text-sm font-medium">Kataloğa Dön</span>
+                        <span className="text-sm">Kataloğa Dön</span>
                     </Link>
 
-                    <div className="flex items-center gap-2">
-                        <button className="p-2 rounded-sm hover:bg-zinc-800 transition-colors">
-                            <Heart className="w-5 h-5 text-zinc-400" />
+                    <div className="flex items-center gap-3">
+                        <button className="p-2 border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b] bg-white hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                            <Heart className="w-5 h-5 text-zinc-900" />
                         </button>
-                        <button className="p-2 rounded-sm hover:bg-zinc-800 transition-colors">
-                            <Share2 className="w-5 h-5 text-zinc-400" />
+                        <button className="p-2 border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b] bg-white hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+                            <Share2 className="w-5 h-5 text-zinc-900" />
                         </button>
                     </div>
                 </div>
@@ -109,37 +109,30 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                         >
                             <div
                                 className={cn(
-                                    "aspect-square rounded-sm overflow-hidden",
-                                    "border border-zinc-800",
-                                    "flex items-center justify-center",
-                                    "relative"
+                                    "aspect-square overflow-hidden",
+                                    "border-2 border-zinc-900 bg-white",
+                                    "flex items-center justify-center p-2",
+                                    "relative shadow-[12px_12px_0_0_#18181b]"
                                 )}
-                                style={{ backgroundColor: product.background_color }}
                             >
-                                {/* Ambient Glow */}
-                                <div
-                                    className="absolute inset-0 blur-3xl opacity-30"
-                                    style={{ backgroundColor: product.background_color }}
-                                />
-
                                 {product.image_url ? (
                                     <MetalImage
                                         src={product.image_url}
                                         alt={product.name}
-                                        backgroundColor={product.background_color}
-                                        className="w-full h-full p-12"
+                                        backgroundColor={"transparent"}
+                                        className="w-full h-full p-8"
                                         priority
                                     />
                                 ) : (
-                                    <div className="w-32 h-32 rounded-sm bg-zinc-800" />
+                                    <div className="w-32 h-32 rounded-sm bg-zinc-100 border-2 border-dashed border-zinc-300" />
                                 )}
 
                                 {/* Category Badge */}
                                 <div className="absolute top-4 left-4">
                                     <span className={cn(
                                         "inline-flex items-center gap-2 px-3 py-1.5",
-                                        "text-xs font-bold uppercase tracking-wider",
-                                        "rounded-sm bg-black/50 backdrop-blur-sm text-white/80"
+                                        "text-xs lg:text-sm font-black uppercase tracking-[0.2em] font-mono",
+                                        "bg-industrial-gold border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b]"
                                     )}>
                                         {product.category?.name}
                                     </span>
@@ -149,11 +142,11 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                 {isRetail && (
                                     <div className="absolute top-4 right-4">
                                         <span className={cn(
-                                            "inline-flex items-center gap-1 px-2 py-1",
-                                            "text-xs font-medium",
-                                            "rounded-sm bg-emerald-500/20 text-emerald-400"
+                                            "inline-flex items-center gap-2 px-3 py-1.5",
+                                            "text-xs lg:text-sm font-black uppercase tracking-[0.2em] font-mono",
+                                            "bg-emerald-400 border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b]"
                                         )}>
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                            <span className="w-2 h-2 rounded-full bg-white border-2 border-zinc-900 animate-pulse" />
                                             Stokta
                                         </span>
                                     </div>
@@ -170,21 +163,21 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                         >
                             {/* Title & SKU */}
                             <div>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <span className="text-xs lg:text-sm font-black font-mono text-zinc-500 uppercase tracking-widest bg-zinc-200 border-2 border-zinc-900 px-3 py-2 shadow-[2px_2px_0_0_#18181b]">
                                         SKU: {product.sku || product.id.slice(0, 8)}
                                     </span>
                                     {product.is_showcase && (
-                                        <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-bold uppercase">
+                                        <span className="px-3 py-2 font-mono border-2 border-zinc-900 bg-amber-400 text-zinc-900 text-xs lg:text-sm font-black uppercase tracking-widest shadow-[2px_2px_0_0_#18181b]">
                                             Vitrin Ürünü
                                         </span>
                                     )}
                                 </div>
-                                <h1 className="font-['Syne',sans-serif] text-4xl md:text-5xl font-bold text-white mb-4">
+                                <h1 className="font-syne text-5xl md:text-6xl lg:text-7xl font-black uppercase italic text-zinc-900 mb-6 tracking-tighter leading-[0.9]">
                                     {product.name}
                                 </h1>
                                 {product.description && (
-                                    <p className="text-lg text-zinc-400 leading-relaxed">
+                                    <p className="text-lg lg:text-xl text-zinc-700 leading-relaxed font-mono font-medium border-l-4 border-industrial-gold pl-5 py-2">
                                         {product.description}
                                     </p>
                                 )}
@@ -192,12 +185,12 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
 
                             {/* Price & CTA */}
                             {isRetail ? (
-                                <div className="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 space-y-6">
+                                <div className="p-8 bg-white border-2 border-zinc-900 space-y-8 shadow-[8px_8px_0_0_#18181b]">
                                     <div className="flex items-baseline gap-4">
-                                        <span className="text-4xl font-bold text-white">
+                                        <span className="text-5xl font-black text-zinc-900 italic tracking-tighter">
                                             {formatPrice(product.price)}
                                         </span>
-                                        <span className="text-sm text-zinc-500 font-medium bg-zinc-800 px-2 py-1 rounded">
+                                        <span className="text-xs lg:text-sm font-black font-mono text-zinc-500 uppercase tracking-widest bg-zinc-100 border-2 border-zinc-900 px-3 py-1.5 shadow-[2px_2px_0_0_#18181b]">
                                             KDV Dahil
                                         </span>
                                     </div>
@@ -207,23 +200,22 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                             onClick={() => handleAddToCart()}
                                             disabled={inCart || isAdding}
                                             className={cn(
-                                                "flex-1 flex items-center justify-center gap-3 px-8 py-4",
-                                                "rounded-lg font-bold text-sm uppercase tracking-wider",
-                                                "transition-all duration-300",
+                                                "flex-1 flex items-center justify-center gap-3 px-8 py-5",
+                                                "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
+                                                "transition-all duration-300 border-2 border-zinc-900",
                                                 inCart
-                                                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                                                    : "bg-zinc-800 text-zinc-100 border border-zinc-700 hover:bg-zinc-700",
+                                                    ? "bg-emerald-400 text-zinc-900 shadow-[4px_4px_0_0_#10b981]"
+                                                    : "bg-white text-zinc-900 shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]",
                                             )}
-                                            whileTap={{ scale: 0.98 }}
                                         >
                                             {inCart ? (
                                                 <>
-                                                    <Check className="w-5 h-5" />
+                                                    <Check className="w-6 h-6" />
                                                     Sepette
                                                 </>
                                             ) : (
                                                 <>
-                                                    <ShoppingBag className="w-5 h-5" />
+                                                    <ShoppingBag className="w-6 h-6" />
                                                     {isAdding ? "..." : "Sepete Ekle"}
                                                 </>
                                             )}
@@ -233,32 +225,30 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                             onClick={() => handleAddToCart(true)}
                                             disabled={isAdding}
                                             className={cn(
-                                                "flex-1 flex items-center justify-center gap-3 px-10 py-4",
-                                                "rounded-lg font-bold text-sm uppercase tracking-wider",
-                                                "transition-all duration-300",
-                                                "bg-[var(--color-brand-safety-orange)] text-white",
-                                                "hover:bg-orange-600",
-                                                "shadow-lg shadow-orange-500/20"
+                                                "flex-1 flex items-center justify-center gap-3 px-10 py-5",
+                                                "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
+                                                "transition-all duration-300 border-2 border-zinc-900",
+                                                "bg-industrial-gold text-zinc-900",
+                                                "shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]"
                                             )}
-                                            whileTap={{ scale: 0.98 }}
                                         >
-                                            <Zap className="w-5 h-5 fill-current" />
+                                            <Zap className="w-6 h-6 fill-current" />
                                             Hemen Al
                                         </m.button>
                                     </div>
 
-                                    <div className="flex items-center gap-2 text-xs text-zinc-500 justify-center">
-                                        <Shield className="w-3 h-3" />
-                                        <span>Güvenli Ödeme &SSL Koruması</span>
+                                    <div className="flex items-center gap-3 text-xs lg:text-sm font-black font-mono text-zinc-500 uppercase tracking-widest justify-center">
+                                        <Shield className="w-5 h-5 text-industrial-gold" />
+                                        <span>Güvenli Ödeme & SSL Koruması</span>
                                     </div>
                                 </div>
                             ) : (
-                                <div className="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 space-y-4">
-                                    <div className="flex items-center gap-3 text-amber-500 mb-2">
-                                        <Info className="w-5 h-5" />
-                                        <span className="font-bold uppercase tracking-wider">Özel Üretim / Proje Ürünü</span>
+                                <div className="p-8 bg-white border-2 border-zinc-900 space-y-6 shadow-[8px_8px_0_0_#18181b]">
+                                    <div className="flex items-center gap-3 text-industrial-gold mb-2">
+                                        <Info className="w-6 h-6" />
+                                        <span className="font-black font-mono uppercase tracking-[0.2em] text-zinc-900">Özel Üretim / Proje Ürünü</span>
                                     </div>
-                                    <p className="text-zinc-400 text-sm">
+                                    <p className="text-zinc-700 font-mono text-base lg:text-lg leading-relaxed border-l-4 border-industrial-gold pl-5 py-2">
                                         Bu ürün stoktan satışa kapalıdır. Projeleriniz için özel üretim olarak talep edebilirsiniz.
                                     </p>
                                     <a
@@ -266,12 +256,13 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className={cn(
-                                            "flex items-center justify-center gap-3 px-8 py-4 w-full",
-                                            "rounded-lg font-bold text-sm uppercase tracking-wider",
-                                            "bg-white text-black hover:bg-zinc-200 transition-colors"
+                                            "flex items-center justify-center gap-3 px-8 py-5 w-full",
+                                            "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
+                                            "bg-industrial-gold border-2 border-zinc-900 text-zinc-900 transition-all",
+                                            "shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]"
                                         )}
                                     >
-                                        <FileText className="w-5 h-5" />
+                                        <FileText className="w-6 h-6" />
                                         Fiyat Teklifi İste
                                     </a>
                                 </div>
@@ -280,70 +271,73 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
                             {/* Detailed Info Tabs */}
                             <div className="pt-8">
                                 <Tabs defaultValue="features" className="w-full">
-                                    <TabsList className="w-full grid grid-cols-3 bg-zinc-900 border border-zinc-800 rounded-lg p-1">
-                                        <TabsTrigger value="features" className="data-[state=active]:bg-zinc-800">Özellikler</TabsTrigger>
-                                        <TabsTrigger value="shipping" className="data-[state=active]:bg-zinc-800">Teslimat</TabsTrigger>
-                                        <TabsTrigger value="warranty" className="data-[state=active]:bg-zinc-800">Garanti</TabsTrigger>
+                                    <TabsList className="w-full grid grid-cols-3 bg-zinc-100 border-2 border-zinc-900 rounded-none p-0 h-auto shadow-[4px_4px_0_0_#18181b]">
+                                        <TabsTrigger value="features" className="font-black text-sm lg:text-base font-mono uppercase tracking-[0.1em] rounded-none py-5 data-[state=active]:bg-industrial-gold data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 data-[state=active]:shadow-none text-zinc-500 hover:text-zinc-900">Özellikler</TabsTrigger>
+                                        <TabsTrigger value="shipping" className="font-black text-sm lg:text-base font-mono uppercase tracking-[0.1em] rounded-none py-5 border-l-2 border-zinc-900 data-[state=active]:bg-industrial-gold data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 data-[state=active]:shadow-none text-zinc-500 hover:text-zinc-900">Teslimat</TabsTrigger>
+                                        <TabsTrigger value="warranty" className="font-black text-sm lg:text-base font-mono uppercase tracking-[0.1em] rounded-none py-5 border-l-2 border-zinc-900 data-[state=active]:bg-industrial-gold data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 data-[state=active]:shadow-none text-zinc-500 hover:text-zinc-900">Garanti</TabsTrigger>
                                     </TabsList>
 
-                                    <TabsContent value="features" className="mt-6 space-y-4">
-                                        <div className="grid grid-cols-1 gap-3">
+                                    <TabsContent value="features" className="mt-8 space-y-4">
+                                        <div className="grid grid-cols-1 gap-4">
                                             {sortedFeatures.map((feature, index) => (
-                                                <div key={index} className="flex gap-4 p-4 rounded-lg bg-zinc-900/30 border border-zinc-800/50">
-                                                    <div className="mt-1">
+                                                <div key={index} className="flex gap-4 p-5 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b]">
+                                                    <div className="mt-1 border-r-2 border-zinc-900 pr-4 mr-1">
                                                         {feature.feature_icon && FEATURE_ICONS[feature.feature_icon] ? (
-                                                            React.createElement(FEATURE_ICONS[feature.feature_icon], { className: "w-5 h-5 text-zinc-500" })
-                                                        ) : <Zap className="w-5 h-5 text-zinc-500" />}
+                                                            React.createElement(FEATURE_ICONS[feature.feature_icon], { className: "w-6 h-6 text-industrial-gold" })
+                                                        ) : <Zap className="w-6 h-6 text-industrial-gold" />}
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-bold text-zinc-300 text-sm mb-1">{product.category?.name || "Özellik"}</h4>
-                                                        <p className="text-zinc-400 text-sm">{feature.feature_text}</p>
+                                                        <h4 className="font-black font-mono tracking-widest uppercase text-zinc-900 text-xs lg:text-sm mb-2">{product.category?.name || "Özellik"}</h4>
+                                                        <p className="text-zinc-700 font-medium text-base lg:text-lg border-l-2 border-zinc-300 pl-4">{feature.feature_text}</p>
                                                     </div>
                                                 </div>
                                             ))}
                                             {/* Default Specs if none */}
                                             {sortedFeatures.length === 0 && (
-                                                <div className="text-zinc-500 text-sm italic p-4">Bu ürün için ek teknik özellik girilmemiştir.</div>
+                                                <div className="text-zinc-500 text-sm font-mono border-l-4 border-zinc-300 pl-4 py-2 bg-zinc-100 italic">Bu ürün için ek teknik özellik girilmemiştir.</div>
                                             )}
 
-                                            {/* Common Specs */}
-                                            <div className="grid grid-cols-2 gap-3 mt-4">
-                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
-                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Malzeme</span>
-                                                    <span className="text-sm text-zinc-300">{product.material || "1.5mm DKP Çelik"}</span>
-                                                </div>
-                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
-                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Boya</span>
-                                                    <span className="text-sm text-zinc-300">{product.paint || "Elektrostatik Toz"}</span>
-                                                </div>
-                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
-                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Montaj</span>
-                                                    <span className="text-sm text-zinc-300">{product.installation || "Hazır Askı Sistemi"}</span>
-                                                </div>
-                                                <div className="p-3 bg-zinc-900/50 rounded border border-zinc-800">
-                                                    <span className="block text-[10px] uppercase text-zinc-500 font-bold mb-1">Menşei</span>
-                                                    <span className="text-sm text-zinc-300">{product.origin || "Yerli Üretim (İzmir)"}</span>
+                                            {/* Common Specs - Refined Display */}
+                                            <div className="mt-6 border-t-4 border-zinc-900 pt-6">
+                                                <h4 className="font-syne font-black italic uppercase text-2xl lg:text-3xl text-zinc-900 mb-6 underline decoration-industrial-gold decoration-4 underline-offset-4">Teknik Detaylar</h4>
+                                                <div className="space-y-4 font-mono text-base lg:text-lg">
+                                                    <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
+                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Malzeme:</span>
+                                                        <span className="font-bold text-zinc-900">{product.material || "1.5mm DKP Çelik"}</span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
+                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Boya:</span>
+                                                        <span className="font-bold text-zinc-900">{product.paint || "Elektrostatik Toz"}</span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
+                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Montaj:</span>
+                                                        <span className="font-bold text-zinc-900">{product.installation || "Hazır Askı Sistemi"}</span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center pb-2">
+                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Menşei:</span>
+                                                        <span className="font-bold text-zinc-900">{product.origin || "Yerli Üretim (İzmir)"}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </TabsContent>
 
-                                    <TabsContent value="shipping" className="mt-6">
-                                        <div className="space-y-4 text-zinc-400 text-sm leading-relaxed p-4 bg-zinc-900/30 rounded-lg border border-zinc-800">
-                                            <p><strong className="text-white">Standart Teslimat:</strong> Siparişiniz, onaylandıktan sonraki 2-4 iş günü içerisinde kargoya teslim edilir.</p>
-                                            <p><strong className="text-white">Özenli Paketleme:</strong> Tüm metal posterlerimiz, darbelere dayanıklı özel kutularda ve koruyucu strafor destekli olarak gönderilir.</p>
-                                            <p className="text-xs text-zinc-500">*Resmi tatiller ve kampanya dönemlerinde teslimat sürelerinde değişiklik olabilir.</p>
+                                    <TabsContent value="shipping" className="mt-8">
+                                        <div className="space-y-6 text-zinc-700 text-base lg:text-lg font-medium font-mono p-8 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b]">
+                                            <p className="border-l-4 border-industrial-gold pl-5 py-1"><strong className="text-zinc-900 uppercase tracking-wider text-sm lg:text-base block mb-2">Standart Teslimat:</strong> Siparişiniz, onaylandıktan sonraki 2-4 iş günü içerisinde kargoya teslim edilir.</p>
+                                            <p className="border-l-4 border-industrial-gold pl-5 py-1"><strong className="text-zinc-900 uppercase tracking-wider text-sm lg:text-base block mb-2">Özenli Paketleme:</strong> Tüm metal posterlerimiz, darbelere dayanıklı özel kutularda ve koruyucu strafor destekli olarak gönderilir.</p>
+                                            <p className="text-xs lg:text-sm text-zinc-500 uppercase font-black tracking-widest mt-8 bg-zinc-100 p-4 border-2 border-dashed border-zinc-300">*Resmi tatiller ve kampanya dönemlerinde teslimat sürelerinde değişiklik olabilir.</p>
                                         </div>
                                     </TabsContent>
 
-                                    <TabsContent value="warranty" className="mt-6">
-                                        <div className="space-y-4 text-zinc-400 text-sm leading-relaxed p-4 bg-zinc-900/30 rounded-lg border border-zinc-800">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <Shield className="w-6 h-6 text-emerald-500" />
-                                                <span className="text-white font-bold">10 Yıl Solmazlık Garantisi</span>
+                                    <TabsContent value="warranty" className="mt-8">
+                                        <div className="space-y-6 text-zinc-700 text-base lg:text-lg font-medium font-mono p-8 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b]">
+                                            <div className="flex items-center gap-4 mb-8 border-b-2 border-zinc-100 pb-6">
+                                                <Shield className="w-10 h-10 text-industrial-gold" />
+                                                <span className="text-zinc-900 font-syne font-black italic uppercase text-2xl lg:text-3xl">10 Yıl Solmazlık Garantisi</span>
                                             </div>
-                                            <p>VERAL Metal Works ürünleri, en yüksek kalitede malzemeler ve boya teknolojisi kullanılarak üretilir. İç mekan kullanımında solmaya, paslanmaya ve deformasyona karşı 10 yıl garanti sunuyoruz.</p>
-                                            <p>İade ve değişim işlemleriniz için 14 gün içerisinde müşteri hizmetlerimizle iletişime geçebilirsiniz.</p>
+                                            <p className="border-l-4 border-industrial-gold pl-5 py-2">VERAL Metal Works ürünleri, en yüksek kalitede malzemeler ve boya teknolojisi kullanılarak üretilir. İç mekan kullanımında solmaya, paslanmaya ve deformasyona karşı 10 yıl garanti sunuyoruz.</p>
+                                            <p className="border-l-4 border-industrial-gold pl-5 py-2">İade ve değişim işlemleriniz için 14 gün içerisinde müşteri hizmetlerimizle iletişime geçebilirsiniz.</p>
                                         </div>
                                     </TabsContent>
                                 </Tabs>
@@ -355,67 +349,65 @@ export default function ProductDetailClient({ product, relatedProducts = [] }: P
 
             {/* Related Products Section */}
             {relatedProducts && relatedProducts.length > 0 && (
-                <section className="py-24 border-t border-zinc-900">
+                <section className="py-24 border-t-4 border-zinc-900 bg-white">
                     <div className="container mx-auto px-6">
-                        <div className="flex items-center justify-between mb-12">
-                            <h2 className="text-2xl font-bold font-['Syne',sans-serif] text-white">
+                        <div className="flex items-center justify-between mb-16 border-b-2 border-zinc-900 pb-4">
+                            <h2 className="text-4xl md:text-5xl font-black font-syne uppercase italic text-zinc-900 tracking-tighter">
                                 Benzer Ürünler
                             </h2>
                             <Link
                                 href="/urunler"
-                                className="text-sm text-zinc-500 hover:text-white transition-colors flex items-center gap-2"
+                                className="text-sm font-black text-zinc-500 uppercase tracking-widest hover:text-industrial-gold transition-colors flex items-center gap-2 font-mono"
                             >
-                                Tümünü Gör <ArrowLeft className="w-4 h-4 rotate-180" />
+                                Tümünü Gör <ArrowLeft className="w-5 h-5 rotate-180" />
                             </Link>
                         </div>
 
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                             {relatedProducts.map((relProduct) => (
                                 <Link
                                     key={relProduct.id}
                                     href={`/urunler/${relProduct.slug}`}
-                                    className="group block"
+                                    className="group block border-2 border-zinc-900 bg-[#FAFAFA] shadow-[8px_8px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[6px] hover:translate-y-[6px] transition-all p-3"
                                 >
                                     <div
-                                        className="aspect-square rounded-sm overflow-hidden mb-4 relative"
-                                        style={{ backgroundColor: relProduct.background_color }}
+                                        className="aspect-square border-2 border-zinc-900 overflow-hidden mb-4 relative bg-white"
                                     >
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-
                                         {relProduct.image_url ? (
                                             <MetalImage
                                                 src={relProduct.image_url}
                                                 alt={relProduct.name}
-                                                backgroundColor={relProduct.background_color}
-                                                className="w-full h-full p-8 transition-transform duration-500 group-hover:scale-110"
+                                                backgroundColor="transparent"
+                                                className="w-full h-full p-8 transition-transform duration-500 group-hover:scale-105"
                                             />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-zinc-700">
+                                            <div className="w-full h-full flex items-center justify-center bg-zinc-100 text-zinc-400">
                                                 <Zap className="w-8 h-8" />
                                             </div>
                                         )}
 
                                         {relProduct.price > 0 && (
-                                            <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-white">
+                                            <div className="absolute top-0 right-0 border-l-2 border-b-2 border-zinc-900 bg-industrial-gold px-4 py-2 text-xs lg:text-sm font-black font-mono text-zinc-900">
                                                 {formatPrice(relProduct.price)}
                                             </div>
                                         )}
                                     </div>
 
-                                    <h3 className="text-white font-bold truncate group-hover:text-amber-500 transition-colors">
-                                        {relProduct.name}
-                                    </h3>
-                                    <p className="text-sm text-zinc-500 truncate">
-                                        {relProduct.category?.name || "Metal Tablo"}
-                                    </p>
+                                    <div className="px-1 pb-3 pt-2">
+                                        <h3 className="text-zinc-900 font-syne font-black uppercase text-xl lg:text-2xl truncate group-hover:text-industrial-gold transition-colors">
+                                            {relProduct.name}
+                                        </h3>
+                                        <p className="text-xs lg:text-sm uppercase font-black tracking-widest text-zinc-500 font-mono mt-2 truncate">
+                                            {relProduct.category?.name || "Metal Tablo"}
+                                        </p>
+                                    </div>
                                 </Link>
                             ))}
                         </div>
                     </div>
                 </section>
-            )
-            }
+            )}
 
-        </main >
+        </main>
     )
 }

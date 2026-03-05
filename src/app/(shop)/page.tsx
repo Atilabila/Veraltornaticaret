@@ -31,9 +31,6 @@ const CustomerReviews = dynamic(() =>
 const OtherServices = dynamic(() =>
     import("@/components/sections/OtherServices").then((mod) => mod.OtherServices)
 );
-const LocalContactSection = dynamic(() =>
-    import("@/components/sections/LocalContactSection").then((mod) => mod.LocalContactSection)
-);
 
 export default function ShopHomePage() {
     const { shouldReduceVisuals, isReady } = usePerformanceDetection();
@@ -85,10 +82,8 @@ export default function ShopHomePage() {
                     <OtherServices />
                 </section>
 
-                {/* CONTACT_TERMINAL - WHITE */}
-                <section className="bg-white text-black relative">
-                    <LocalContactSection />
-                </section>
+                {/* CONTACT_TERMINAL - REMOVED AS REQUESTED */}
+
 
                 {/* GLOBAL_FOOTER - BLACK */}
                 <Footer />

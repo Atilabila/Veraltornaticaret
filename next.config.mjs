@@ -71,6 +71,12 @@ export default {
                 port: "",
                 pathname: "/**",
             },
+            {
+                protocol: "https",
+                hostname: "www.etias.com.tr",
+                port: "",
+                pathname: "/**",
+            },
         ],
         formats: ["image/avif", "image/webp"],
         minimumCacheTTL: 31536000,

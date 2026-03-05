@@ -10,6 +10,8 @@ import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -48,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LocalBusinessSchema />
         <KnowledgeBaseSchema />
       </head>
-      <body className="antialiased">
+      <body className="antialiased bg-zinc-950 text-zinc-300">
         <MotionProvider>
           <AdminProvider>
             <ContentSyncProvider>
@@ -56,13 +58,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <DynamicMetadata />
                 <GlobalGrid />
                 {children}
+                <CartDrawer />
               </AuthProvider>
             </ContentSyncProvider>
           </AdminProvider>
         </MotionProvider>
         <WhatsAppButton />
+        <ScrollToTop />
         <Toaster />
       </body>
     </html>
+
   );
 }

@@ -53,24 +53,24 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     const inCart = hasItem(product.id)
 
     return (
-        <main className="min-h-screen bg-zinc-950">
+        <main className="min-h-screen bg-[#FAFAFA] font-syne">
             {/* Navigation Bar */}
-            <nav className="fixed top-0 left-0 right-0 z-40 glass-nav">
+            <nav className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b-2 border-zinc-900">
                 <div className="container mx-auto px-6 py-4 flex items-center justify-between">
                     <Link
                         href="/urunler"
-                        className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+                        className="flex items-center gap-2 text-zinc-600 hover:text-zinc-900 transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
-                        <span className="text-sm font-medium">Kataloga Dön</span>
+                        <span className="text-sm font-black uppercase tracking-[0.2em] font-mono">Kataloga Dön</span>
                     </Link>
 
-                    <div className="flex items-center gap-2">
-                        <button className="p-2 rounded-sm hover:bg-zinc-800 transition-colors">
-                            <Heart className="w-5 h-5 text-zinc-400" />
+                    <div className="flex items-center gap-3">
+                        <button className="p-2 border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b] hover:shadow-[0_0_0_0_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] bg-white transition-all">
+                            <Heart className="w-5 h-5 text-zinc-900" />
                         </button>
-                        <button className="p-2 rounded-sm hover:bg-zinc-800 transition-colors">
-                            <Share2 className="w-5 h-5 text-zinc-400" />
+                        <button className="p-2 border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b] hover:shadow-[0_0_0_0_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] bg-white transition-all">
+                            <Share2 className="w-5 h-5 text-zinc-900" />
                         </button>
                     </div>
                 </div>
@@ -90,37 +90,32 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                         >
                             <div
                                 className={cn(
-                                    "aspect-square rounded-sm overflow-hidden",
-                                    "border border-zinc-800",
+                                    "aspect-square rounded-none overflow-hidden",
+                                    "border-2 border-zinc-900 bg-white",
                                     "flex items-center justify-center",
-                                    "relative"
+                                    "relative shadow-[8px_8px_0_0_#18181b]"
                                 )}
-                                style={{ backgroundColor: product.background_color }}
                             >
-                                {/* Ambient Glow */}
-                                <div
-                                    className="absolute inset-0 blur-3xl opacity-30"
-                                    style={{ backgroundColor: product.background_color }}
-                                />
+                                {/* Ambient Glow overlay removed for pure white brutalist style */}
 
                                 {product.image_url ? (
                                     <MetalImage
                                         src={product.image_url}
                                         alt={product.name}
-                                        backgroundColor={product.background_color}
-                                        className="w-full h-full p-12"
+                                        backgroundColor="transparent"
+                                        className="w-full h-full p-12 mix-blend-multiply"
                                         priority
                                     />
                                 ) : (
-                                    <div className="w-32 h-32 rounded-sm bg-zinc-800" />
+                                    <div className="w-32 h-32 bg-zinc-100 border-2 border-dashed border-zinc-300" />
                                 )}
 
                                 {/* Category Badge */}
                                 <div className="absolute top-4 left-4">
                                     <span className={cn(
                                         "inline-flex items-center gap-2 px-3 py-1.5",
-                                        "text-xs font-bold uppercase tracking-wider",
-                                        "rounded-sm bg-black/50 backdrop-blur-sm text-white/80"
+                                        "text-xs font-black uppercase tracking-[0.2em] font-mono",
+                                        "bg-industrial-gold border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b]"
                                     )}>
                                         {product.category?.name}
                                     </span>
@@ -130,11 +125,11 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                 {product.stock_quantity > 0 && (
                                     <div className="absolute top-4 right-4">
                                         <span className={cn(
-                                            "inline-flex items-center gap-1 px-2 py-1",
-                                            "text-xs font-medium",
-                                            "rounded-sm bg-emerald-500/20 text-emerald-400"
+                                            "inline-flex items-center gap-2 px-3 py-1.5",
+                                            "text-xs font-black uppercase tracking-[0.2em] font-mono",
+                                            "bg-emerald-400 border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b]"
                                         )}>
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                            <span className="w-2 h-2 rounded-full bg-white border-2 border-zinc-900 animate-pulse" />
                                             Stokta
                                         </span>
                                     </div>
@@ -151,12 +146,12 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                         >
                             {/* Title */}
                             <div>
-                                <h1 className="font-['Syne',sans-serif] text-4xl md:text-5xl font-bold text-white mb-4">
+                                <h1 className="font-syne text-4xl md:text-5xl lg:text-6xl font-black uppercase italic text-zinc-900 mb-6 tracking-tighter leading-[0.9]">
                                     {product.name}
                                 </h1>
 
                                 {product.description && (
-                                    <p className="text-lg text-zinc-400 leading-relaxed">
+                                    <p className="text-base text-zinc-600 leading-relaxed font-mono font-medium border-l-4 border-industrial-gold pl-4">
                                         {product.description}
                                     </p>
                                 )}
@@ -164,8 +159,9 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
                             {/* Price & CTA */}
                             <div className="flex flex-wrap items-center gap-6">
-                                <div className="px-6 py-4 rounded-sm bg-zinc-900 border border-zinc-800">
-                                    <span className="text-3xl font-bold text-white">
+                                <div className="px-6 py-4 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b]">
+                                    <span className="text-[10px] font-black uppercase font-mono tracking-[0.3em] text-zinc-400 block mb-1">Birim Fiyat</span>
+                                    <span className="text-3xl font-black text-zinc-900 italic tracking-tighter">
                                         {formatPrice(product.price)}
                                     </span>
                                 </div>
@@ -174,25 +170,24 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                     onClick={handleAddToCollection}
                                     disabled={inCart}
                                     className={cn(
-                                        "flex items-center gap-3 px-8 py-4",
-                                        "rounded-sm font-bold text-sm uppercase tracking-wider",
-                                        "transition-all duration-300",
+                                        "flex-1 flex items-center justify-center gap-3 px-8 py-5",
+                                        "rounded-none font-black text-sm uppercase tracking-[0.2em] font-mono",
+                                        "transition-all duration-200 border-2 border-zinc-900",
                                         inCart
-                                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                                            : "bg-gradient-to-r from-zinc-200 to-zinc-300 text-zinc-900 hover:from-zinc-100 hover:to-zinc-200",
-                                        "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)]"
+                                            ? "bg-emerald-400 text-zinc-900 shadow-[1px_1px_0_0_#18181b] translate-x-[3px] translate-y-[3px]"
+                                            : "bg-industrial-gold text-zinc-900 shadow-[6px_6px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[5px] hover:translate-y-[5px]"
                                     )}
                                     whileTap={{ scale: 0.98 }}
                                 >
                                     {inCart ? (
                                         <>
                                             <Check className="w-5 h-5" />
-                                            Koleksiyonda
+                                            KOLEKSİYONDA
                                         </>
                                     ) : (
                                         <>
                                             <ShoppingBag className="w-5 h-5" />
-                                            {isAdded ? "Eklendi!" : "Koleksiyona Ekle"}
+                                            {isAdded ? "EKLENDİ!" : "SEPETE EKLE"}
                                         </>
                                     )}
                                 </m.button>
@@ -200,8 +195,8 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
                             {/* Features */}
                             {sortedFeatures.length > 0 && (
-                                <div className="pt-6 border-t border-zinc-800">
-                                    <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-500 mb-4">
+                                <div className="pt-6 border-t-2 border-zinc-200">
+                                    <h3 className="text-sm font-black uppercase tracking-[0.2em] font-mono text-zinc-800 mb-4">
                                         Özellikler
                                     </h3>
                                     <div className="space-y-3">
@@ -213,22 +208,21 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                                 transition={{ delay: 0.2 + index * 0.1 }}
                                                 className={cn(
                                                     "flex items-center gap-4 px-4 py-3",
-                                                    "rounded-sm bg-zinc-900/50 border border-zinc-800"
+                                                    "bg-white border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b] hover:shadow-[0_0_0_0_#18181b] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
                                                 )}
                                             >
                                                 <div className={cn(
-                                                    "w-10 h-10 rounded-sm flex items-center justify-center shrink-0",
-                                                    "bg-gradient-to-br from-zinc-700 to-zinc-800"
+                                                    "w-10 h-10 flex items-center justify-center shrink-0 border-r-2 border-zinc-900 pr-4 mr-2"
                                                 )}>
                                                     {feature.feature_icon && FEATURE_ICONS[feature.feature_icon] ? (
                                                         React.createElement(FEATURE_ICONS[feature.feature_icon], {
-                                                            className: "w-5 h-5 text-zinc-300"
+                                                            className: "w-5 h-5 text-industrial-gold"
                                                         })
                                                     ) : (
-                                                        <Zap className="w-5 h-5 text-zinc-300" />
+                                                        <Zap className="w-5 h-5 text-industrial-gold" />
                                                     )}
                                                 </div>
-                                                <span className="text-zinc-300">{feature.feature_text}</span>
+                                                <span className="text-zinc-800 font-bold text-sm">{feature.feature_text}</span>
                                             </m.div>
                                         ))}
                                     </div>
@@ -247,13 +241,13 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                         key={i}
                                         className={cn(
                                             "flex items-center gap-3 px-4 py-3",
-                                            "rounded-sm bg-zinc-900/30 border border-zinc-800/50"
+                                            "bg-zinc-50 border-2 border-zinc-900 shadow-[3px_3px_0_0_#18181b]"
                                         )}
                                     >
-                                        <item.icon className="w-5 h-5 text-zinc-500 shrink-0" />
+                                        <item.icon className="w-5 h-5 text-industrial-gold shrink-0 border-r-2 border-zinc-900 pr-2 mr-1 w-8" />
                                         <div>
-                                            <p className="text-sm font-medium text-zinc-300">{item.text}</p>
-                                            <p className="text-xs text-zinc-500">{item.sub}</p>
+                                            <p className="text-sm font-black text-zinc-800 uppercase tracking-tight">{item.text}</p>
+                                            <p className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest">{item.sub}</p>
                                         </div>
                                     </div>
                                 ))}

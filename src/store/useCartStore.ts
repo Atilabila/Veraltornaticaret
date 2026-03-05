@@ -22,6 +22,8 @@ export interface CartItem {
 export interface CartState {
   items: CartItem[];
   isHydrated: boolean;
+  isCartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
 
   // Actions
   addItem: (item: Omit<CartItem, 'quantity' | 'id'>) => { success: boolean; error?: string };
@@ -69,6 +71,9 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
       isHydrated: false,
+      isCartOpen: false,
+
+      setCartOpen: (open) => set({ isCartOpen: open }),
 
       addItem: (item) => {
         const validation = validateProduct(item);
@@ -80,18 +85,18 @@ export const useCartStore = create<CartState>()(
         const existingItem = get().items.find(i => i.id === cartItemId);
 
         if (existingItem) {
-          // Update quantity if same variant exists
           set((state) => ({
             items: state.items.map(i =>
               i.id === cartItemId
                 ? { ...i, quantity: i.quantity + 1 }
                 : i
             ),
+            isCartOpen: true, // Auto open on add
           }));
         } else {
-          // Add new item
           set((state) => ({
             items: [...state.items, { ...item, id: cartItemId, quantity: 1 }],
+            isCartOpen: true, // Auto open on add
           }));
         }
 

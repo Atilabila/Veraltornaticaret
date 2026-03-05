@@ -80,7 +80,6 @@ export const Footer = () => {
                             <ul className="flex flex-col gap-6">
                                 {[
                                     { label: 'Koleksiyon', href: '/urunler' },
-                                    { label: 'Hizmetler', href: '/metal-urunler' },
                                     { label: 'Hakkımızda', href: '/hakkimizda' },
                                     { label: 'İletişim', href: '/iletisim' }
                                 ].map((item) => (

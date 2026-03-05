@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "image_path": "C:/Users/ati/.gemini/antigravity/scratch/metal-poster-pro/public/catalog/motors/motors-20.webp",
+  "layer_count": 1,
+  "auto_depth_range_mm": [
+    0.2,
+    1.0
+  ],
+  "layers": [
+    {
+      "index": 1,
+      "name": "Figur_01",
+      "safe_name": "Figur_01",
+      "depth_mm": 0.6,
+      "target_mm": 100.0,
+      "png": "Figur_01.png",
+      "mask_png": "Figur_01_mask.png",
+      "svg": "Figur_01.svg",
+      "svg_path": "C:/Users/ati/.gemini/antigravity/scratch/metal-poster-pro/public/catalog/motors\\Figur_01.svg"
+    }
+  ]
+}

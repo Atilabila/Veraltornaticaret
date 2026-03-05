@@ -69,28 +69,28 @@ export const BlueprintShowcase = () => {
     }
 
     return (
-        <section id="blueprint-showcase" className="py-16 lg:py-24 bg-white text-black">
+        <section id="blueprint-showcase" className="py-16 lg:py-24">
             <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-12">
                     <div className="space-y-4">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-[2px] bg-black" />
-                            <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-black/70">
+                            <div className="w-12 h-[2px] bg-[#D4AF37]" />
+                            <div className="font-mono text-sm font-black uppercase tracking-[0.35em] text-zinc-600">
                                 METAL VİTRİNİ
                             </div>
                         </div>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95]">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-zinc-900">
                             Teknik <span className="italic">Katalog</span>
                         </h2>
-                        <p className="text-sm md:text-base font-semibold uppercase tracking-wider text-black/60 max-w-2xl">
+                        <p className="text-base md:text-lg font-semibold uppercase tracking-wider text-zinc-700 max-w-2xl">
                             Her kart, bir üretim dosyası gibi okunur: referans, malzeme, stok ve ek fiyat varyantları.
                         </p>
                     </div>
 
-                    <div className="border-2 border-black p-3 lg:p-4 w-full lg:w-auto">
+                    <div className="border-2 border-zinc-800 p-3 lg:p-4 w-full lg:w-auto">
                         <div className="flex items-center gap-3 mb-3">
-                            <Filter className="w-4 h-4" />
-                            <span className="font-mono text-[10px] font-black uppercase tracking-[0.35em]">
+                            <Filter className="w-5 h-5 text-zinc-600" />
+                            <span className="font-mono text-sm font-black uppercase tracking-[0.35em] text-zinc-600">
                                 FİLTRE
                             </span>
                         </div>
@@ -100,12 +100,12 @@ export const BlueprintShowcase = () => {
                                     key={f.id}
                                     onClick={() => setActiveFilter(f.id)}
                                     className={[
-                                        "px-4 py-3 border-2 border-black rounded-none",
-                                        "font-mono text-[10px] font-black uppercase tracking-[0.25em]",
+                                        "px-4 py-3 border-2 border-zinc-700 rounded-none",
+                                        "font-mono text-xs font-black uppercase tracking-[0.25em]",
                                         "transition-transform active:translate-x-1 active:translate-y-1",
                                         activeFilter === f.id
-                                            ? "bg-black text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                                            : "bg-white text-black hover:bg-black hover:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1",
+                                            ? "bg-[#D4AF37] text-black shadow-[4px_4px_0px_0px_rgba(216,178,76,0.6)]"
+                                            : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1",
                                     ].join(" ")}
                                 >
                                     <span className="inline-flex items-center gap-2">
@@ -141,32 +141,32 @@ export const BlueprintShowcase = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
                                     transition={{ duration: 0.35, delay: Math.min(idx, 6) * 0.04 }}
-                                    className="group relative border-2 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+                                    className="group relative border-2 border-zinc-800 bg-zinc-900 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.5)]"
                                 >
                                     {/* Header strip */}
-                                    <div className="border-b-2 border-black px-5 py-4 flex items-center justify-between gap-4">
+                                    <div className="border-b-2 border-zinc-800 px-5 py-4 flex items-center justify-between gap-4">
                                         <div className="min-w-0">
-                                            <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-black/60">
-                                                {sku} <span className="text-black/25">|</span> {String(catLabel).toUpperCase()}
+                                            <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-zinc-500">
+                                                {sku} <span className="text-zinc-600">|</span> {String(catLabel).toUpperCase()}
                                             </div>
-                                            <div className="mt-1 text-xl font-black uppercase tracking-tight leading-tight line-clamp-2">
+                                            <div className="mt-1 text-xl font-black uppercase tracking-tight leading-tight line-clamp-2 text-white">
                                                 {product.name}
                                             </div>
                                         </div>
 
                                         <Link
                                             href={`/urunler/${product.slug}`}
-                                            className="h-10 w-10 border-2 border-black flex items-center justify-center bg-white group-hover:bg-black group-hover:text-white transition-colors"
+                                            className="h-10 w-10 border-2 border-zinc-700 flex items-center justify-center bg-zinc-800 group-hover:bg-[#D4AF37] group-hover:text-black transition-colors"
                                             aria-label="Ürünü aç"
                                         >
-                                            <ArrowUpRight className="w-5 h-5" />
+                                            <ArrowUpRight className="w-5 h-5 text-zinc-300 group-hover:text-black" />
                                         </Link>
                                     </div>
 
                                     {/* Blueprint media */}
-                                    <div className="relative aspect-[16/11] overflow-hidden border-b-2 border-black">
-                                        <div className="absolute inset-0 [background-image:radial-gradient(rgba(0,0,0,0.10)_1px,transparent_1px)] [background-size:16px_16px] opacity-60" />
-                                        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(0,0,0,0.06)_50%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                    <div className="relative aspect-[16/11] overflow-hidden border-b-2 border-zinc-800">
+                                        <div className="absolute inset-0 [background-image:radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:16px_16px] opacity-60" />
+                                        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                                         {hasImage ? (
                                             <Image
@@ -179,32 +179,32 @@ export const BlueprintShowcase = () => {
                                             />
                                         ) : (
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-black/50">
+                                                <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-zinc-500">
                                                     GÖRSEL/YOK
                                                 </div>
                                             </div>
                                         )}
 
                                         {/* Corner marks */}
-                                        <div className="pointer-events-none absolute inset-3 border border-black/30" />
+                                        <div className="pointer-events-none absolute inset-3 border border-zinc-700" />
                                     </div>
 
                                     {/* Tech rows */}
                                     <div className="px-5 py-5 space-y-4">
                                         <div className="grid grid-cols-2 gap-3">
-                                            <div className="border-2 border-black p-3">
-                                                <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-black/60">
+                                            <div className="border-2 border-zinc-800 p-3">
+                                                <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-zinc-500">
                                                     BAZ/FİYAT
                                                 </div>
-                                                <div className="mt-1 text-lg font-black">
+                                                <div className="mt-1 text-lg font-black text-white">
                                                     {Number(product.price || 0).toLocaleString("tr-TR")} ₺
                                                 </div>
                                             </div>
-                                            <div className="border-2 border-black p-3">
-                                                <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-black/60">
+                                            <div className="border-2 border-zinc-800 p-3">
+                                                <div className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-zinc-500">
                                                     STOK
                                                 </div>
-                                                <div className="mt-1 text-lg font-black">
+                                                <div className="mt-1 text-lg font-black text-white">
                                                     {Number(product.stock_quantity || 0)}
                                                 </div>
                                             </div>
@@ -224,17 +224,17 @@ export const BlueprintShowcase = () => {
                                                         orientation: "vertical",
                                                     });
                                                 }}
-                                                className="flex-1 h-12 border-2 border-black bg-black text-white font-mono text-[10px] font-black uppercase tracking-[0.35em] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                                                className="flex-1 h-12 border-2 border-[#D4AF37] bg-[#D4AF37] text-black font-mono text-[10px] font-black uppercase tracking-[0.35em] shadow-[4px_4px_0px_0px_rgba(216,178,76,0.6)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
                                             >
                                                 SEPETE EKLE
                                             </button>
 
                                             <Link
                                                 href={`/urunler/${product.slug}`}
-                                                className="h-12 w-12 border-2 border-black bg-white flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                                                className="h-12 w-12 border-2 border-zinc-700 bg-zinc-800 flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
                                                 aria-label="Detay"
                                             >
-                                                <Plus className="w-5 h-5" />
+                                                <Plus className="w-5 h-5 text-zinc-300" />
                                             </Link>
                                         </div>
                                     </div>
@@ -247,7 +247,7 @@ export const BlueprintShowcase = () => {
                 <div className="mt-12 flex justify-center">
                     <Link
                         href="/urunler"
-                        className="inline-flex items-center justify-center gap-3 border-2 border-black bg-white text-black px-8 h-14 font-mono text-[10px] font-black uppercase tracking-[0.35em] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                        className="inline-flex items-center justify-center gap-3 border-2 border-[#D4AF37] bg-[#D4AF37] text-black px-8 h-14 font-mono text-xs font-black uppercase tracking-[0.35em] shadow-[6px_6px_0px_0px_rgba(216,178,76,0.6)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
                     >
                         <span>KOLEKSİYONU AÇ</span>
                         <ArrowUpRight className="w-4 h-4" />

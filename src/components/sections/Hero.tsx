@@ -25,7 +25,7 @@ export const Hero = () => {
 
     return (
         <DirectEdit tab="hero">
-            <section className="hero-section relative min-h-[32vh] sm:min-h-[36vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center bg-white overflow-hidden pt-24 pb-20 sm:pt-28 sm:pb-16">
+            <section className="hero-section relative min-h-[32vh] sm:min-h-[36vh] lg:min-h-[48vh] xl:min-h-[52vh] flex items-center overflow-hidden pt-24 pb-20 sm:pt-28 sm:pb-16">
                 <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-12 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                         {/* Left Column: Typography & CTAs */}
@@ -36,19 +36,20 @@ export const Hero = () => {
                                 transition={{ duration: 0.5 }}
                                 className="flex items-center gap-3"
                             >
-                                <span className="h-[2px] w-8 bg-black/80" />
+                                <span className="h-[3px] w-12 bg-industrial-gold" />
                                 <TextInspector label="Hero-Eyebrow">
-                                    <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/70">
+                                    <span className="text-sm md:text-base font-black tracking-[0.2em] uppercase text-zinc-200">
                                         {content.heroSubtitle || "Yerli üretim metal tablolar, teneke ürünler ve özel baskı çözümleri"}
                                     </span>
                                 </TextInspector>
                             </m.div>
 
                             <m.h1
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.1 }}
-                                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight sm:leading-[0.98] tracking-tight lg:tracking-tighter uppercase text-black break-words"
+                                transition={{ duration: 0.7, delay: 0.1 }}
+                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic"
+                                style={{ textShadow: '0 0 30px rgba(212,175,55,0.35), 0 0 60px rgba(212,175,55,0.15)' }}
                             >
                                 <TextInspector label="Hero-Headline">
                                     <span dangerouslySetInnerHTML={{ __html: safeTitle }} />
@@ -59,13 +60,24 @@ export const Hero = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
-                                className="border-l-4 border-[#d8b24c] pl-4 py-0.5"
+                                className="space-y-4"
                             >
-                                <TextInspector label="Hero-Tagline">
-                                    <p className="text-[#d8b24c] font-semibold tracking-[0.25em] uppercase text-sm md:text-base leading-relaxed">
-                                        {content.heroTagline || "UV BASKI YENİ NESİL TENEKE PLAKALAR"}
-                                    </p>
-                                </TextInspector>
+                                <div className="border-l-4 border-industrial-gold pl-5 py-1">
+                                    <TextInspector label="Hero-Tagline">
+                                        <p className="text-industrial-gold font-black tracking-[0.2em] uppercase text-base md:text-lg leading-relaxed">
+                                            {content.heroTagline || "UV BASKI YENİ NESİL TENEKE PLAKALAR. Sınırsız Tasarım, Üretim"}
+                                        </p>
+                                    </TextInspector>
+                                </div>
+                                <m.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.6, delay: 0.4 }}
+                                    className="text-zinc-900 font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1"
+                                    style={{ textShadow: '0 0 20px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.25)' }}
+                                >
+                                    Dosya Teli — Takvim Tenekesi — Teneke Tef Zil — Retro Teneke Poster — UV Baskılı Özel İmalat Ürünler
+                                </m.p>
                             </m.div>
 
                             <m.div
@@ -77,11 +89,11 @@ export const Hero = () => {
                                 <Button
                                     asChild
                                     size="lg"
-                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none bg-black hover:bg-gray-800 transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none bg-industrial-gold hover:bg-industrial-gold-muted transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(212,175,55,0.4)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 text-black"
                                 >
                                     <Link href={content.heroButton1Url || "/urunler"}>
                                         <span className="flex items-center gap-3">
-                                            {content.heroButton1Text || "Koleksiyonu Keşfet"}
+                                            {content.heroButton1Text || "Ürünü İncele"}
                                             <ArrowRight className="w-5 h-5" />
                                         </span>
                                     </Link>
@@ -91,7 +103,7 @@ export const Hero = () => {
                                     asChild
                                     variant="outline"
                                     size="lg"
-                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none border-2 border-industrial-gold/40 bg-transparent text-industrial-gold hover:bg-industrial-gold hover:text-black transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(212,175,55,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                                 >
                                     <Link href={content.heroButton2Url || "/urunler"}>
                                         {content.heroButton2Text || "KATALOG"}
@@ -103,9 +115,9 @@ export const Hero = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
-                                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-6 pt-6 border-t border-black/10"
+                                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-6 pt-6 border-t border-white/5"
                             >
-                                {(content.metalShowcaseTrustBadges || []).map((badge, index) => (
+                                {(content.metalShowcaseTrustBadges || []).slice(0, 4).map((badge, index) => (
                                     <TrustItem key={index} iconName={badge.icon} text={badge.text} />
                                 ))}
                                 {(!content.metalShowcaseTrustBadges || content.metalShowcaseTrustBadges.length === 0) && (
@@ -113,6 +125,7 @@ export const Hero = () => {
                                         <TrustItem iconName="Zap" text="Hızlı Üretim" />
                                         <TrustItem iconName="Award" text="+44 Yıl Deneyim" />
                                         <TrustItem iconName="ShieldCheck" text="Premium Kalite" />
+                                        <TrustItem iconName="Clock" text="7/24 Destek" />
                                     </>
                                 )}
                             </m.div>
@@ -149,11 +162,11 @@ export const Hero = () => {
                             </Link>
                             <m.div
                                 whileHover={{ x: 10, y: -10 }}
-                                className="mt-6 lg:mt-0 lg:absolute lg:-bottom-6 lg:-left-6 bg-white p-5 shadow-2xl border-l-8 border-black z-20 w-full max-w-[260px] cursor-pointer transition-shadow hover:shadow-black/20"
+                                className="mt-6 lg:mt-0 lg:absolute lg:-bottom-6 lg:-left-6 bg-zinc-900 p-6 shadow-[0_0_40px_rgba(212,175,55,0.15)] border-l-8 border-industrial-gold z-20 w-full max-w-[280px] cursor-pointer transition-shadow hover:shadow-[0_0_60px_rgba(212,175,55,0.25)]"
                             >
-                                <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Technical Specs</div>
-                                <div className="text-3xl font-black text-black">0.30<span className="text-[12px] align-top ml-1">mm</span></div>
-                                <div className="text-[13px] font-bold text-gray-800 mt-1">Industrial Grade Steel</div>
+                                <div className="text-xs font-black uppercase tracking-widest text-zinc-300 mb-2">Technical Specs</div>
+                                <div className="text-4xl font-black text-white font-syne italic">0.30<span className="text-sm align-top ml-1">mm</span></div>
+                                <div className="text-sm font-bold text-zinc-200 mt-2">Industrial Grade Steel</div>
                             </m.div>
                         </m.div>
                     </div>
@@ -166,15 +179,15 @@ export const Hero = () => {
 
 
 const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => (
-    <div className="rounded-2xl border border-black/10 bg-white/70 backdrop-blur-sm p-5 md:p-6 flex flex-col items-start gap-3 hover:border-[#d8b24c]/30 transition-all duration-300">
-        <div className="p-3 bg-black/5 rounded-lg">
+    <div className="rounded-2xl border border-zinc-700 bg-zinc-800/70 backdrop-blur-sm p-5 md:p-6 flex flex-col items-start gap-3 hover:border-industrial-gold/50 transition-all duration-300 group/trust">
+        <div className="p-3 bg-zinc-700 rounded-lg group-hover/trust:bg-industrial-gold/20 transition-colors">
             <DynamicLucideIcon
                 name={iconName}
                 fallbackName="shield-check"
-                className="w-8 h-8 md:w-10 md:h-10 text-black/80"
+                className="w-8 h-8 md:w-10 md:h-10 text-industrial-gold"
             />
         </div>
-        <span className="text-sm font-bold uppercase tracking-wide leading-tight text-gray-800">
+        <span className="text-sm md:text-base font-black uppercase tracking-wide leading-tight text-zinc-100">
             {text}
         </span>
     </div>

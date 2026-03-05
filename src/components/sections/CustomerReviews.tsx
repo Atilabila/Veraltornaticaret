@@ -16,13 +16,13 @@ export const CustomerReviews = () => {
 
     return (
         <DirectEdit tab="reviews">
-            <section id="reviews" className="py-16 lg:py-24 bg-transparent">
+            <section id="reviews" className="py-16 lg:py-24">
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
 
                     <div className="flex flex-col gap-4 mb-16 text-center items-center">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                            <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">KULLANICI DENEYİMİ</span>
+                            <span className="text-sm font-black text-zinc-400 tracking-[0.3em] uppercase">KULLANICI DENEYİMİ</span>
                         </div>
                         <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
                             {content.reviewsTitle}{" "}
@@ -46,7 +46,7 @@ export const CustomerReviews = () => {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1, duration: 0.8 }}
-                                className="bg-[#FDFBF7] p-12 lg:p-16 relative border border-[#0A0A0A]/5 group hover:border-[#D4AF37]/30 transition-all duration-700"
+                                className="bg-zinc-900/50 p-12 lg:p-16 relative border border-zinc-800 group hover:border-[#D4AF37]/30 transition-all duration-700"
                             >
                                 <Quote className="absolute top-12 right-12 w-16 h-16 text-[#D4AF37]/10 group-hover:text-[#D4AF37]/20 transition-all" />
 
@@ -56,25 +56,25 @@ export const CustomerReviews = () => {
                                     ))}
                                 </div>
 
-                                <p className="text-2xl lg:text-3xl font-black text-black uppercase tracking-tighter leading-tight italic mb-12">
+                                <p className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter leading-tight italic mb-12">
                                     "{review.text}"
                                 </p>
 
-                                <div className="flex items-center justify-between pt-10 border-t border-[#0A0A0A]/10 mt-auto">
+                                <div className="flex items-center justify-between pt-10 border-t border-zinc-800 mt-auto">
                                     <div className="flex items-center gap-6">
-                                        <div className="w-14 h-14 border border-[#D4AF37] flex items-center justify-center font-black text-[#D4AF37] text-xl italic bg-white">
+                                        <div className="w-14 h-14 border border-[#D4AF37] flex items-center justify-center font-black text-[#D4AF37] text-xl italic bg-zinc-800">
                                             {review.name.charAt(0)}
                                         </div>
                                         <div>
-                                            <div className="text-lg font-black text-black uppercase tracking-tighter leading-none mb-2">{review.name}</div>
+                                            <div className="text-lg font-black text-white uppercase tracking-tighter leading-none mb-2">{review.name}</div>
                                             <div className="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">{review.city} // {review.date}</div>
                                         </div>
                                     </div>
 
                                     <div className="hidden sm:flex items-center gap-4 border-l border-[#D4AF37]/20 pl-6">
                                         <div className="text-right">
-                                            <span className="text-[10px] font-black text-black/30 uppercase block mb-1">ESER</span>
-                                            <span className="text-[10px] font-black text-black uppercase tracking-widest">{review.product}</span>
+                                            <span className="text-[10px] font-black text-zinc-500 uppercase block mb-1">ESER</span>
+                                            <span className="text-[10px] font-black text-white uppercase tracking-widest">{review.product}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -83,10 +83,10 @@ export const CustomerReviews = () => {
                     </div>
 
                     {/* Shared Stats Bar */}
-                    <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-0 border border-[#0A0A0A]/5">
+                    <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-0 border border-zinc-800">
                         {(content.statsItems || []).slice(0, 3).map((stat, i) => (
-                            <div key={i} className="bg-white p-12 text-center border-r border-[#0A0A0A]/5 last:border-r-0">
-                                <div className="text-5xl lg:text-6xl font-black text-black italic tracking-tighter mb-4">{stat.value}</div>
+                            <div key={i} className="bg-zinc-900/50 p-12 text-center border-r border-zinc-800 last:border-r-0">
+                                <div className="text-5xl lg:text-6xl font-black text-white italic tracking-tighter mb-4">{stat.value}</div>
                                 <div className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">{stat.label}</div>
                             </div>
                         ))}
