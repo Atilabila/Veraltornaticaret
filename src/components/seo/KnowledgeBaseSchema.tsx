@@ -7,26 +7,26 @@ export const KnowledgeBaseSchema = () => {
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Dosya teli nedir ve nerede kullanılır?",
+                "name": "Toptan dosya teli nerede üretilir ve fiyatları nasıldır?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Dosya teli, arşivleme ve dosyalama işlemlerinde kağıtların bir arada tutulmasını sağlayan metal mekanizmadır. VERAL olarak endüstriyel standartlarda, dayanıklı ve esnek dosya telleri üretiyoruz."
+                    "text": "VERAL Torna olarak İzmir Alsancak tesisimizde toptan dosya teli üretimi yapmaktayız. Arşiv ve kırtasiye sektörü için paslanmaz, yüksek esneklikte dosya telleri imal ediyoruz. Direkt üreticiden en uygun dosya teli fiyatları için WhatsApp üzerinden teklif alabilirsiniz."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Metal posterlerin özellikleri nelerdir?",
+                "name": "Takvim tenekesi imalatı boyutları ve üretim kapasiteniz nedir?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Metal posterlerimiz 1.5mm yüksek kalite alüminyum veya teneke plaka üzerine UV dijital baskı teknolojisi ile üretilir. Sudan etkilenmez, solma yapmaz ve mıknatıslı montaj sistemi ile duvara zarar vermeden asılabilir."
+                    "text": "Takvim tenekesi imalatı alanında Türkiye'nin önde gelen üreticileriyiz. Standart duvar ve gemici takvimleri için istenilen her ölçü ve renkte takvim tenekesi üretiyoruz. Matbaalar ve ajanslar için günlük 50.000 adet kapasite ile toptan takvim tenekesi üretiyoruz."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Tef zili ve takvim tenekesi imalatı yapıyor musunuz?",
+                "name": "UV baskılı teneke posterler nasıl üretilir ve solma yapar mı?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Evet, VERAL Torna olarak 40 yılı aşkın süredir profesyonel tef zili ve takvimler için üst-alt teneke çıta imalatı yapmaktayız. İzmir Alsancak'taki tesisimizde seri üretim kapasitemiz mevcuttur."
+                    "text": "UV baskılı teneke posterler, yüksek kaliteli alüminyum ve metal plakalar üzerine 4K çözünürlüklü CMYK+W endüstriyel baskı makineleri kullanılarak üretilir. Ürettiğimiz UV baskılı teneke posterler güneş ışığında solma yapmaz, suya dayanıklıdır ve ömür boyu kalıcı renk garantisine sahiptir."
                 }
             }
         ]
@@ -35,25 +35,25 @@ export const KnowledgeBaseSchema = () => {
     const productKnowledgeSchema = {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": "VERAL Endüstriyel Ürün Kataloğu",
+        "name": "VERAL Metal Endüstriyel Üretim - Dosya Teli ve Takvim Tenekesi",
         "itemListElement": [
             {
                 "@type": "ListItem",
                 "position": 1,
-                "name": "Dosya Teli (Mekanimzalı)",
-                "description": "Ofis ve arşivleme için yüksek dayanımlı metal dosya teli."
+                "name": "Toptan Dosya Teli İmalatı",
+                "description": "Kırtasiye, ofis ve arşivleme firmaları için toptan metal dosya teli üretimi."
             },
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Takvim Tenekesi",
-                "description": "Mali yıl ve özel takvimler için metal çıta ve askı sistemleri."
+                "name": "Takvim Tenekesi Üreticisi",
+                "description": "Matbaalar için seri üretim, özel ebat takvim tenekesi (takvim çıtası) imalatı."
             },
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "Tef Zili",
-                "description": "Profesyonel vuruşlu çalgılar için pirinç ve metal alaşımlı ziller."
+                "name": "UV Baskılı Teneke Posterler",
+                "description": "Duvar dekorasyonu alanında çizilmez, solmaz UV baskılı teneke metal posterler."
             }
         ]
     };

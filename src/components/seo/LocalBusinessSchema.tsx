@@ -4,13 +4,13 @@ export const LocalBusinessSchema = () => {
     const schema = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "VERAL Torna & Teneke Ticaret - İzmir Metal Poster & İmalat",
+        "name": "VERAL Torna & Teneke Ticaret - İzmir Metal Poster, Dosya Teli & Takvim Tenekesi İmalatı",
         "alternateName": "Veral Teneke",
         "image": [
             "https://www.veralteneketicaret.com/veral-logo.webp",
             "https://www.veralteneketicaret.com/og-image.jpg"
         ],
-        "description": "İzmir Alsancak merkezli VERAL Torna, takvim tenekesi, dosya teli, metal poster, mıknatıslı magnet ve tef zili üretimi yapmaktadır. 40 yılı aşkın tecrübe ile Türkiye geneli metal imalat çözümleri.",
+        "description": "VERAL Torna & Teneke Ticaret, Türkiye'nin lider toptan dosya teli üreticisi ve takvim tenekesi imalatçısıdır. İzmir Alsancak merkezli tesisimizde ayrıca UV baskılı teneke posterler, mıknatıslı magnet ve tef zili üretimi yapmaktayız. 40 yılı aşkın tecrübe ile en uygun fiyatlı toptan metal imalat çözümleri sunuyoruz.",
         "url": "https://www.veralteneketicaret.com",
         "telephone": "+905071651315",
         "email": "info@metalposter.pro",
@@ -52,7 +52,7 @@ export const LocalBusinessSchema = () => {
             "https://www.instagram.com/veralticaret",
             "https://www.facebook.com/veral"
         ],
-        "keywords": "takvim tenekesi, dosya teli, metal poster, mıknatıslı magnet, tef zili, izmir metal imalat, metal baskı izmir"
+        "keywords": "toptan dosya teli, takvim tenekesi, dosya teli üreticisi, takvim tenekesi imalatı, uv baskılı teneke posterler, metal poster imalatı, tef zili izmir, mıknatıslı magnet toptan, izmir takvim tenekesi yapanlar, ucuz dosya teli fiyatları"
     };
 
     return (

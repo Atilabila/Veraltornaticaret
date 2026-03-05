@@ -116,8 +116,15 @@ export const Footer = () => {
                         </div>
                     </div>
 
+                    {/* GOOGLE SEO DOMINANCE BLOCK */}
+                    <div className="pt-20 pb-8 border-t border-[#D4AF37]/5 mt-10">
+                        <p className="text-[10px] sm:text-xs text-white/30 leading-relaxed font-mono tracking-wide text-justify">
+                            <strong className="text-white/40">VERAL Metal İmalat Sanayi:</strong> İzmir Alsancak merkezli tesisimizde Türkiye'nin en büyük kapasiteli <span className="text-[#D4AF37]/40">toptan dosya teli</span> üretimi ve <span className="text-[#D4AF37]/40">takvim tenekesi imalatı</span> süreçlerini yönetmekteyiz. Kırtasiye, matbaa ve basın yayın kuruluşları için paslanmaz, esnek yapıya sahip <span className="text-white/40">dosya teli</span> ve istenilen özel ebatlarda <span className="text-white/40">takvim tenekesi çıtaları</span> seri üretim standartlarında sunulmaktadır. Ayrıca, ev ve ofis dekorasyonunda fark yaratan, dijital 4K çözünürlüklü ve çizilmeye dirençli <span className="text-[#D4AF37]/40">UV baskılı teneke posterler</span> ile özel üretim metal pano çalışmalarımızla sınırları zorluyoruz. Sadece uygun fiyatlı <span className="text-white/40">takvim tenekesi</span> arayışında olan matbaalar değil, tasarımını ömür boyu kalıcı hale getirmek için <span className="text-white/40">uv baskılı teneke poster</span> siparişi vermek isteyen kurumsal markalar da VERAL üretim gücüne güvenmektedir. Diğer uzmanlık alanlarımız kapsamında müzik endüstrisi için akustik toleranslı kalibre edilmiş tef zili üretimi ve kişiye/kuruma özel tasarımlı, mıknatıslı yapısıyla kolay montaj edilebilen teneke magnet ve metal poster imalatımız hız kesmeden sürmektedir. Stoktan hızlı gönderimli <span className="text-white/40">dosya teli</span>, yüksek termin kapasitesine sahip ucuz ve toptan <span className="text-white/40">takvim tenekesi</span> ve yüksek standart <span className="text-white/40">UV baskılı teneke posterler</span> için endüstriyel metal çözüm ortağınız olmaktan gurur duyuyoruz.
+                        </p>
+                    </div>
+
                     {/* BOTTOM BAR */}
-                    <div className="pt-12 border-t border-[#D4AF37]/10 flex flex-col md:flex-row justify-between items-center gap-10">
+                    <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-10">
                         <p className="text-xs font-bold text-white/40 tracking-[0.1em] uppercase">
                             © 2024 {content.footerCompanyName} - TÜM HAKLARI SAKLIDIR.
                         </p>
