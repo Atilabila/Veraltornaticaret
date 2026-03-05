@@ -850,20 +850,6 @@ export const defaultContent: SiteContent = {
             order: 1
         },
         {
-            id: "cat_5",
-            title: "Takvim Tenekesi",
-            slug: "takvim-tenekesi",
-            description: "Matbaalar ve ajanslar için seri üretim, özel ölçü ve renklerde takvim tenekeleri.",
-            coverImage: "/images/showcase/takvim-tenekesi.webp",
-            icon: "Calendar",
-            seoTitle: "Takvim Tenekesi İmalatı İzmir | VERAL",
-            seoDescription: "Toptan takvim tenekesi üretimi. Yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.",
-            ctaLabel: "Detayları Gör",
-            ctaLink: "/hizmetler/takvim-tenekesi",
-            isFeatured: true,
-            order: 2
-        },
-        {
             id: "cat_1",
             title: "Metal Tablolar",
             slug: "metal-tablolar",
@@ -874,6 +860,20 @@ export const defaultContent: SiteContent = {
             seoDescription: "En şık metal tablo modellerini keşfedin.",
             ctaLabel: "Tabloları İncele",
             ctaLink: "/urunler?cat=metal-tablolar",
+            isFeatured: true,
+            order: 2
+        },
+        {
+            id: "cat_5",
+            title: "Takvim Tenekesi",
+            slug: "takvim-tenekesi",
+            description: "Matbaalar ve ajanslar için seri üretim, özel ölçü ve renklerde takvim tenekeleri.",
+            coverImage: "/images/showcase/takvim-tenekesi.webp",
+            icon: "Calendar",
+            seoTitle: "Takvim Tenekesi İmalatı İzmir | VERAL",
+            seoDescription: "Toptan takvim tenekesi üretimi. Yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.",
+            ctaLabel: "Detayları Gör",
+            ctaLink: "/hizmetler/takvim-tenekesi",
             isFeatured: true,
             order: 3
         },

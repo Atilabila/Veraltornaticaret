@@ -16,8 +16,8 @@ export const DynamicMetadata = () => {
             content.pageSettings?.find(p => p.path !== '/' && pathname?.startsWith(p.path));
 
         // Default Title / Description
-        const defaultTitle = `${content.siteName || 'VERAL'} | İzmir Metal Poster, Takvim Tenekesi & İmalat`;
-        const defaultDesc = `VERAL Metal İzmir - Takvim tenekesi, dosya teli, metal poster, mıknatıslı magnet ve tef zili imalatı. Alsancak merkezli endüstriyel metal ve özel tasarım çözümleri.`;
+        const defaultTitle = `${content.siteName || 'VERAL'} | Dosya Teli İmalatı, Takvim Tenekesi ve Metal Posterler`;
+        const defaultDesc = `VERAL Metal İzmir - Toptan dosya teli üretimi, takvim tenekesi, metal poster, mıknatıslı magnet ve tef zili imalatı. Yüksek kaliteli endüstriyel metal çözümleri.`;
 
         // Effective Title / Description
         const title = pageConfig?.seoTitle || defaultTitle;

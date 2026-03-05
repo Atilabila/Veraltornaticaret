@@ -49,6 +49,11 @@ export default function ShopHomePage() {
 
                 {/* SYSTEM_STATUS_STRIP - BLACK */}
                 <section className="bg-[#0A0A0A] text-white relative z-0">
+                    <OtherServices />
+                </section>
+
+                {/* SHOWCASE_GRID - BLACK */}
+                <section className="bg-[#0A0A0A] text-white relative z-0">
                     <ShowcaseGrid />
                 </section>
 
@@ -77,10 +82,7 @@ export default function ShopHomePage() {
                     <CustomerReviews />
                 </section>
 
-                {/* SERVICES_MODULE - BLACK */}
-                <section className="bg-[#0A0A0A] text-white relative">
-                    <OtherServices />
-                </section>
+                {/* SERVICES_MODULE MOVED UP */}
 
                 {/* CONTACT_TERMINAL - REMOVED AS REQUESTED */}
 
