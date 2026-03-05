@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
+import { defaultContent } from '@/store/useContentStore';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -16,7 +17,11 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
     const content = await ContentService.getContent();
-    const service = content?.services?.find((s: any) => s.slug === slug);
+    let service = content?.services?.find((s: any) => s.slug === slug);
+
+    if (!service) {
+        service = defaultContent.services?.find((s: any) => s.slug === slug);
+    }
 
     if (!service) {
         return { title: 'Hizmet Bulunamadı' };
@@ -30,8 +35,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ServiceDetailPage({ params }: PageProps) {
     const { slug } = await params;
-    const data = await ContentService.getContent();
-    const service = data?.services?.find((s: any) => s.slug === slug);
+    const dbData = await ContentService.getContent();
+    let data = dbData as any;
+    let service = data?.services?.find((s: any) => s.slug === slug);
+
+    if (!service) {
+        service = defaultContent.services?.find((s: any) => s.slug === slug);
+        data = defaultContent;
+    }
 
     if (!service || !service.isActive) {
         notFound();

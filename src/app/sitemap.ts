@@ -15,7 +15,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const products = productsRes.success && productsRes.data ? productsRes.data : []
     const categories = categoriesRes.success && categoriesRes.data ? categoriesRes.data : []
-    const services = siteContent?.services || []
+    let servicesRaw = siteContent?.services || []
+
+    if (!servicesRaw.find((s: any) => s.slug === 'dosya-teli')) {
+        const { defaultContent } = await import('@/store/useContentStore')
+        servicesRaw = defaultContent.services;
+    }
+
+    const services = servicesRaw;
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [

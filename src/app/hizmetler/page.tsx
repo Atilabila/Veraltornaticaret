@@ -5,9 +5,15 @@ import { ArrowRight, ChevronRight } from 'lucide-react';
 import { ContentService } from '@/lib/supabase/content.service';
 import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
 
+import { defaultContent } from '@/store/useContentStore';
+
 export default async function HizmetlerPage() {
     const data = await ContentService.getContent();
-    const services = (data?.services || []).filter((s: any) => s.isActive !== false).sort((a: any, b: any) => a.order - b.order);
+    let servicesRaw = data?.services || [];
+    if (!servicesRaw.find((s: any) => s.slug === 'dosya-teli')) {
+        servicesRaw = defaultContent.services;
+    }
+    const services = servicesRaw.filter((s: any) => s.isActive !== false).sort((a: any, b: any) => a.order - b.order);
     const header = data?.servicesPageHeader || { title: 'Endüstriyel Hizmetlerimiz', subtitle: 'Metal işleme ve tasarımda 20 yıllık tecrübe ile kurumsal çözümler.' };
 
     return (
