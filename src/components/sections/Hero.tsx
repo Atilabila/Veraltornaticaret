@@ -48,8 +48,7 @@ export const Hero = () => {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.7, delay: 0.1 }}
-                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic"
-                                style={{ textShadow: '0 0 30px rgba(212,175,55,0.35), 0 0 60px rgba(212,175,55,0.15)' }}
+                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic drop-shadow-2xl"
                             >
                                 <TextInspector label="Hero-Headline">
                                     <span dangerouslySetInnerHTML={{ __html: safeTitle }} />
@@ -73,8 +72,7 @@ export const Hero = () => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.6, delay: 0.4 }}
-                                    className="text-zinc-900 font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1"
-                                    style={{ textShadow: '0 0 20px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.25)' }}
+                                    className="text-zinc-900 font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1 drop-shadow-lg"
                                 >
                                     Dosya Teli — Takvim Tenekesi — Teneke Tef Zil — Retro Teneke Poster — UV Baskılı Özel İmalat Ürünler
                                 </m.p>

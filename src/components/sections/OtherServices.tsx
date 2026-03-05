@@ -17,9 +17,6 @@ const icons = [
 
 export const OtherServices = () => {
     const { content } = useContentStore();
-    const { shouldReduceVisuals } = usePerformanceDetection();
-
-    if (shouldReduceVisuals) return null;
 
     return (
         <DirectEdit tab="other-services">
