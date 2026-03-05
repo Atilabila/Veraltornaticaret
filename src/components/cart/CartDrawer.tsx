@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { X, ShoppingBag, Trash2, Plus, Minus, ArrowRight, Truck } from "lucide-react";
 import { useCartStore } from "@/store/useCartStore";
+import { useContentStore } from "@/store/useContentStore";
 import { formatPrice, cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,6 +21,7 @@ export const CartDrawer = () => {
         getTotal,
         isHydrated
     } = useCartStore();
+    const { content } = useContentStore();
 
     // Close on escape key
     useEffect(() => {
@@ -46,6 +48,27 @@ export const CartDrawer = () => {
     const FREE_SHIPPING_THRESHOLD = 500;
     const progress = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
     const diff = FREE_SHIPPING_THRESHOLD - subtotal;
+
+    const handleWhatsAppCheckout = () => {
+        if (items.length === 0) return;
+
+        let message = "Merhaba, sepetimdeki ürünleri WhatsApp üzerinden sipariş vermek istiyorum:\n\n";
+        items.forEach((item, index) => {
+            message += `${index + 1}. ${item.name} (${item.size} - ${item.orientation === 'vertical' ? 'DİKEY' : 'YATAY'})\n`;
+            message += `   Adet: ${item.quantity} | Ara Tutar: ${formatPrice(item.price * item.quantity)}\n`;
+        });
+
+        message += `\n---SİPARİŞ ÖZETİ---\n`;
+        message += `Ara Toplam: ${formatPrice(subtotal)}\n`;
+        message += `Kargo Ücreti: ${shipping === 0 ? "ÜCRETSIZ" : formatPrice(shipping)}\n`;
+        message += `*GENEL TOPLAM: ${formatPrice(total)}*\n\n`;
+        message += "Sipariş işlemleri için yardımcı olabilir misiniz?";
+
+        const encodedMessage = encodeURIComponent(message);
+        const wpUrl = `https://wa.me/${content.whatsappNumber}?text=${encodedMessage}`;
+
+        window.open(wpUrl, '_blank');
+    };
 
     if (!isHydrated) return null;
 
@@ -197,12 +220,12 @@ export const CartDrawer = () => {
                                     </div>
                                 </div>
 
-                                <Link href="/sepet" onClick={() => setCartOpen(false)}>
-                                    <button className="w-full h-16 bg-industrial-gold text-black font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-industrial-gold/90 transition-all group shadow-[0_4px_20px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.3)]">
-                                        ÖDEME ADIMINA GEÇ
-                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                    </button>
-                                </Link>
+                                <button
+                                    onClick={handleWhatsAppCheckout}
+                                    className="w-full h-16 bg-industrial-gold text-black font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-industrial-gold/90 transition-all group shadow-[0_4px_20px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.3)]">
+                                    WHATSAPP İLE SİPARİŞİ TAMAMLA
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </button>
 
                                 <p className="text-[9px] text-center text-zinc-500 font-bold uppercase tracking-widest">
                                     GÜVENLİ ÖDEME // 256-BIT SSL ŞİFRELEME
