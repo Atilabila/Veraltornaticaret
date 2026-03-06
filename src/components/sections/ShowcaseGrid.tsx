@@ -103,10 +103,9 @@ export const ShowcaseGrid = () => {
                                             src={item.coverImage || "/images/placeholder-category.jpg"}
                                             alt={item.title}
                                             fill
-                                            sizes={shouldReduceVisuals ? "60vw" : "(max-width: 768px) 70vw, 33vw"}
-                                            quality={shouldReduceVisuals ? 40 : 70}
-                                            loading={shouldReduceVisuals ? "lazy" : "eager"}
-                                            fetchPriority={shouldReduceVisuals ? "auto" : (idx === 0 ? "high" : "auto")}
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                            quality={40}
+                                            loading="lazy"
                                             className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                                         />
 

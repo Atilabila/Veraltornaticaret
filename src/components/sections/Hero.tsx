@@ -61,7 +61,7 @@ export const Hero = () => {
                             >
                                 <div className="border-l-4 border-industrial-gold pl-5 py-1">
                                     <TextInspector label="Hero-Tagline">
-                                        <p className="text-industrial-gold font-black tracking-[0.2em] uppercase text-base md:text-lg leading-relaxed">
+                                        <p className="text-industrial-gold font-black tracking-[0.2em] uppercase text-lg md:text-xl leading-relaxed">
                                             {content.heroTagline || "UV BASKI YENİ NESİL TENEKE PLAKALAR. Sınırsız Tasarım, Üretim"}
                                         </p>
                                     </TextInspector>
@@ -70,7 +70,7 @@ export const Hero = () => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.6, delay: 0.4 }}
-                                    className="text-zinc-900 font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1 drop-shadow-lg"
+                                    className="text-industrial-gold/90 font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1 drop-shadow-lg"
                                 >
                                     Dosya Teli — Takvim Tenekesi — Teneke Tef Zil — Retro Teneke Poster — UV Baskılı Özel İmalat Ürünler
                                 </m.p>
@@ -128,9 +128,8 @@ export const Hero = () => {
                         </div>
 
                         {/* Right Column: Visual */}
-                        <m.div
-                            className="col-span-12 lg:col-span-5 relative w-full min-w-0 animate-fade-in-scale"
-                            style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
+                        <div
+                            className="col-span-12 lg:col-span-5 relative w-full min-w-0"
                         >
                             <Link href="/urunler" className="group block">
                                 <div className="relative aspect-[4/5] sm:aspect-[4/5] lg:aspect-[4/5] bg-gray-100/80 w-full shadow-2xl rounded-3xl overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
@@ -162,7 +161,7 @@ export const Hero = () => {
                                 <div className="text-4xl font-black text-white font-syne italic">0.30<span className="text-sm align-top ml-1">mm</span></div>
                                 <div className="text-sm font-bold text-zinc-200 mt-2">Industrial Grade Steel</div>
                             </m.div>
-                        </m.div>
+                        </div>
                     </div>
                 </div>
             </section>

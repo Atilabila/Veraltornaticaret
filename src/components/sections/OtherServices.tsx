@@ -52,6 +52,7 @@ export const OtherServices = () => {
                                         src={normalizeImagePath(service.image)}
                                         alt={service.title}
                                         fill
+                                        quality={50}
                                         className="object-cover transition-none group-hover:scale-105"
                                         sizes="(max-width: 768px) 100vw, 33vw"
                                     />
