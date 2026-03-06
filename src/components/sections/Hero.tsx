@@ -45,10 +45,8 @@ export const Hero = () => {
                             </m.div>
 
                             <m.h1
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.7, delay: 0.1 }}
-                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic drop-shadow-2xl"
+                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic drop-shadow-2xl animate-fade-in-up"
+                                style={{ animationDelay: '0.1s' }}
                             >
                                 <TextInspector label="Hero-Headline">
                                     <span dangerouslySetInnerHTML={{ __html: safeTitle }} />
@@ -131,10 +129,8 @@ export const Hero = () => {
 
                         {/* Right Column: Visual */}
                         <m.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, ease: "circOut" }}
-                            className="col-span-12 lg:col-span-5 relative w-full min-w-0"
+                            className="col-span-12 lg:col-span-5 relative w-full min-w-0 animate-fade-in-scale"
+                            style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
                         >
                             <Link href="/urunler" className="group block">
                                 <div className="relative aspect-[4/5] sm:aspect-[4/5] lg:aspect-[4/5] bg-gray-100/80 w-full shadow-2xl rounded-3xl overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
@@ -146,7 +142,7 @@ export const Hero = () => {
                                         priority
                                         fetchPriority="high"
                                         sizes="(min-width:1280px) 560px, (min-width:1024px) 480px, (min-width:768px) 60vw, 94vw"
-                                        quality={shouldReduceVisuals ? 40 : 55}
+                                        quality={55}
                                     />
                                     <m.div
                                         initial={{ opacity: 0, scale: 1.1 }}

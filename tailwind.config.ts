@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import tailwindAnimate from "tailwindcss-animate";
 
 export default {
-    darkMode: ["class"],
+    darkMode: "class",
     content: [
         "./src/app/**/*.{ts,tsx}",
         "./src/components/**/*.{ts,tsx}",
@@ -50,6 +50,20 @@ export default {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)"
+            },
+            keyframes: {
+                "fade-in-up": {
+                    "0%": { opacity: "0", transform: "translateY(30px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" }
+                },
+                "fade-in-scale": {
+                    "0%": { opacity: "0", transform: "scale(0.95)" },
+                    "100%": { opacity: "1", transform: "scale(1)" }
+                }
+            },
+            animation: {
+                "fade-in-up": "fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+                "fade-in-scale": "fade-in-scale 0.8s ease-out forwards"
             }
         }
     },

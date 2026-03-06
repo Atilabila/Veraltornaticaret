@@ -1,43 +1,26 @@
-"use client";
-
 import React from "react";
 import "@/app/metal-art.css";
-import { MotionConfig } from "framer-motion";
-import dynamic from "next/dynamic";
-
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 
 import { Hero } from "@/components/sections/Hero";
 import { ShowcaseGrid } from "@/components/sections/ShowcaseGrid";
-import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
+import { ProcessSection } from "@/components/sections/ProcessSection";
+import { BlueprintShowcase } from "@/components/sections/BlueprintShowcase";
+import { CustomerReviews } from "@/components/sections/CustomerReviews";
+import { OtherServices } from "@/components/sections/OtherServices";
+import { LiveFeedSection } from "@/components/sections/LiveFeedSection";
 
-const ProcessSection = dynamic(() =>
-    import("@/components/sections/ProcessSection").then((mod) => mod.ProcessSection)
-);
-const BlueprintShowcase = dynamic(() =>
-    import("@/components/sections/BlueprintShowcase").then((mod) => mod.BlueprintShowcase)
-);
-const InstagramMarquee = dynamic(() =>
-    import("@/components/sections/InstagramMarquee").then((mod) => mod.InstagramMarquee)
-);
-const StatsMarquee = dynamic(() =>
-    import("@/components/sections/StatsMarquee").then((mod) => mod.StatsMarquee)
-);
-const CustomerReviews = dynamic(() =>
-    import("@/components/sections/CustomerReviews").then((mod) => mod.CustomerReviews)
-);
-const OtherServices = dynamic(() =>
-    import("@/components/sections/OtherServices").then((mod) => mod.OtherServices)
-);
+export const metadata = {
+    title: "Metal Tablo ve Endüstriyel Dekor | Veral Teneke Ticaret",
+    description: "Özel üretim UV baskılı metal tablolar, endüstriyel teneke plakalar ve kalaylı teneke levhalar. Yeni nesil teneke tasarımı.",
+};
 
 export default function ShopHomePage() {
-    const { shouldReduceVisuals, isReady } = usePerformanceDetection();
-    const disableHeavyVisuals = !isReady || shouldReduceVisuals;
-
     return (
-        <MotionConfig reducedMotion={shouldReduceVisuals ? "always" : "never"}>
+        <MotionProvider>
             <main className="home-page min-h-screen bg-white selection:bg-[#D4AF37] selection:text-white pb-24 lg:pb-0">
                 {/* GLOBAL_NAV */}
                 <Navigation />
@@ -57,15 +40,8 @@ export default function ShopHomePage() {
                     <ShowcaseGrid />
                 </section>
 
-                {/* LIVE_FEED - BLACK (skip on low-power/mobile) */}
-                {!disableHeavyVisuals && (
-                    <section className="bg-[#0A0A0A] text-white relative">
-                        <InstagramMarquee />
-                        <div className="hide-on-mobile-force">
-                            <StatsMarquee />
-                        </div>
-                    </section>
-                )}
+                {/* LIVE_FEED - BLACK (client-side only rendering based on device performance) */}
+                <LiveFeedSection />
 
                 {/* PRODUCTION_FLOW - WHITE */}
                 <section className="bg-white text-black relative z-0">
@@ -82,18 +58,12 @@ export default function ShopHomePage() {
                     <CustomerReviews />
                 </section>
 
-                {/* SERVICES_MODULE MOVED UP */}
-
-                {/* CONTACT_TERMINAL - REMOVED AS REQUESTED */}
-
-
                 {/* GLOBAL_FOOTER - BLACK */}
                 <Footer />
 
                 {/* INTERACTION_LAYER */}
                 <MobileStickyBar />
             </main>
-        </MotionConfig>
+        </MotionProvider>
     );
 }
-

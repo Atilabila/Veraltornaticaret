@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { AdminProvider } from "@/components/providers/AdminProvider";
 import { ContentSyncProvider } from "@/components/providers/ContentSyncProvider";
 import { AuthProvider } from "@/components/auth/AuthProvider";
@@ -8,12 +7,29 @@ import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { KnowledgeBaseSchema } from "@/components/seo/KnowledgeBaseSchema";
 import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { MotionProvider } from "@/components/motion/MotionProvider";
-import { CartDrawer } from "@/components/cart/CartDrawer";
-import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
-import { CookieConsent } from "@/components/layout/CookieConsent";
+import dynamic from "next/dynamic";
+
+const WhatsAppButton = dynamic(() =>
+  import("@/components/layout/WhatsAppButton").then((mod) => mod.WhatsAppButton)
+);
+
+const CookieConsent = dynamic(() =>
+  import("@/components/layout/CookieConsent").then((mod) => mod.CookieConsent)
+);
+
+const CartDrawer = dynamic(() =>
+  import("@/components/cart/CartDrawer").then((mod) => mod.CartDrawer)
+);
+
+const ScrollToTop = dynamic(() =>
+  import("@/components/layout/ScrollToTop").then((mod) => mod.ScrollToTop)
+);
+
+const Toaster = dynamic(() =>
+  import("@/components/ui/toaster").then((mod) => mod.Toaster)
+);
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -40,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr">
       <head>
-        <link rel="preconnect" href="https://wswlhtglwpyragymrdhl.supabase.co" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://wswlhtglwpyragymrdhl.supabase.co" />
         <link rel="dns-prefetch" href="https://wswlhtglwpyragymrdhl.supabase.co" />
 
         {/* Runtime Google Fonts (avoids build-time fetch in restricted networks). */}
@@ -74,6 +90,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Toaster />
       </body>
     </html>
-
   );
 }
