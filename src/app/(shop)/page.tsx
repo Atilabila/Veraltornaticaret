@@ -12,7 +12,7 @@ const ProcessSection = dynamic(() => import("@/components/sections/ProcessSectio
 const BlueprintShowcase = dynamic(() => import("@/components/sections/BlueprintShowcase").then(mod => mod.BlueprintShowcase));
 const CustomerReviews = dynamic(() => import("@/components/sections/CustomerReviews").then(mod => mod.CustomerReviews));
 const OtherServices = dynamic(() => import("@/components/sections/OtherServices").then(mod => mod.OtherServices));
-const LiveFeedSection = dynamic(() => import("@/components/sections/LiveFeedSection").then(mod => mod.LiveFeedSection), { ssr: false });
+const LiveFeedSection = dynamic(() => import("@/components/sections/LiveFeedSection").then(mod => mod.LiveFeedSection));
 
 export const metadata = {
     title: "Metal Tablo ve Endüstriyel Dekor | Veral Teneke Ticaret",
