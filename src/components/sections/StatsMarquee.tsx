@@ -39,14 +39,14 @@ export const StatsMarquee = () => {
                                 <DynamicLucideIcon
                                     name={item.icon}
                                     fallbackName="activity"
-                                    className="w-5 h-5 text-[#D4AF37]/50"
+                                    className="w-5 h-5 text-[#D4AF37]/80"
                                 />
 
                                 <div className="flex items-baseline gap-2">
                                     <span className="text-base md:text-lg font-black text-white/80 tracking-tight uppercase">
                                         {item.value}
                                     </span>
-                                    <span className="text-[11px] md:text-xs font-bold text-[#D4AF37]/50 tracking-[0.2em] uppercase">
+                                    <span className="text-[11px] md:text-xs font-bold text-[#D4AF37]/80 tracking-[0.2em] uppercase">
                                         {item.label}
                                     </span>
                                 </div>
