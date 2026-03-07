@@ -8,7 +8,7 @@ export const CookieConsent = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const consent = localStorage.getItem('cookie-consent');
+        const consent = localStorage.getItem('veral_cookie_consent') || localStorage.getItem('cookie-consent');
         if (!consent) {
             const timer = setTimeout(() => setIsVisible(true), 2000);
             return () => clearTimeout(timer);
@@ -16,12 +16,12 @@ export const CookieConsent = () => {
     }, []);
 
     const handleAccept = () => {
-        localStorage.setItem('cookie-consent', 'accepted');
+        localStorage.setItem('veral_cookie_consent', 'accepted');
         setIsVisible(false);
     };
 
     const handleDecline = () => {
-        localStorage.setItem('cookie-consent', 'declined');
+        localStorage.setItem('veral_cookie_consent', 'declined');
         setIsVisible(false);
     };
 

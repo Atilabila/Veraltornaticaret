@@ -66,9 +66,9 @@ export const OtherServices = () => {
 
                                 {/* DATA_FIELDS */}
                                 <div className="p-8 flex flex-col flex-grow">
-                                    <div className="text-base font-black font-mono text-zinc-500 mb-2">MODÜL ID: 0x0{index + 1}</div>
+                                    <div className="text-base font-black font-mono text-zinc-400 mb-2">MODÜL ID: 0x0{index + 1}</div>
                                     <h3 className="text-2xl font-[Archivo Black] mb-4 uppercase leading-tight text-white group-hover:text-[var(--color-brand-safety-orange)]">{service.title}</h3>
-                                    <p className="font-mono text-lg font-bold text-zinc-400 mb-8 leading-relaxed">
+                                    <p className="font-mono text-lg font-bold text-zinc-300 mb-8 leading-relaxed">
                                         {service.description}
                                     </p>
 

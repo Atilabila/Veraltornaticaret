@@ -5,12 +5,14 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
 
 import { Hero } from "@/components/sections/Hero";
-import { ShowcaseGrid } from "@/components/sections/ShowcaseGrid";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { BlueprintShowcase } from "@/components/sections/BlueprintShowcase";
-import { CustomerReviews } from "@/components/sections/CustomerReviews";
-import { OtherServices } from "@/components/sections/OtherServices";
-import { LiveFeedSection } from "@/components/sections/LiveFeedSection";
+import dynamic from "next/dynamic";
+
+const ShowcaseGrid = dynamic(() => import("@/components/sections/ShowcaseGrid").then(mod => mod.ShowcaseGrid));
+const ProcessSection = dynamic(() => import("@/components/sections/ProcessSection").then(mod => mod.ProcessSection));
+const BlueprintShowcase = dynamic(() => import("@/components/sections/BlueprintShowcase").then(mod => mod.BlueprintShowcase));
+const CustomerReviews = dynamic(() => import("@/components/sections/CustomerReviews").then(mod => mod.CustomerReviews));
+const OtherServices = dynamic(() => import("@/components/sections/OtherServices").then(mod => mod.OtherServices));
+const LiveFeedSection = dynamic(() => import("@/components/sections/LiveFeedSection").then(mod => mod.LiveFeedSection), { ssr: false });
 
 export const metadata = {
     title: "Metal Tablo ve Endüstriyel Dekor | Veral Teneke Ticaret",

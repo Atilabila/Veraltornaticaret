@@ -15,7 +15,7 @@ function getSessionId(): string {
 
 function hasAnalyticsConsent(): boolean {
     if (typeof window === "undefined") return false;
-    return localStorage.getItem("veral_cookie_consent") === "accepted";
+    return localStorage.getItem("veral_cookie_consent") === "accepted" || localStorage.getItem("cookie-consent") === "accepted";
 }
 
 export function useAnalytics() {
@@ -28,7 +28,7 @@ export function useAnalytics() {
         lastPath.current = pathname;
 
         const timer = setTimeout(() => {
-            fetch("/api/analytics", {
+            fetch("/api/visit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

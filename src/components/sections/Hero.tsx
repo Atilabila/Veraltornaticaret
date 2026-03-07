@@ -38,14 +38,14 @@ export const Hero = () => {
                             >
                                 <span className="h-[3px] w-12 bg-industrial-gold" />
                                 <TextInspector label="Hero-Eyebrow">
-                                    <span className="text-sm md:text-base font-black tracking-[0.2em] uppercase text-zinc-200">
+                                    <span className="text-sm md:text-base font-black tracking-[0.2em] uppercase text-zinc-600">
                                         {content.heroSubtitle || "Yerli üretim metal tablolar, teneke ürünler ve özel baskı çözümleri"}
                                     </span>
                                 </TextInspector>
                             </m.div>
 
                             <m.h1
-                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic drop-shadow-2xl animate-fade-in-up"
+                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic drop-shadow-md animate-fade-in-up"
                                 style={{ animationDelay: '0.1s' }}
                             >
                                 <TextInspector label="Hero-Headline">
@@ -61,7 +61,7 @@ export const Hero = () => {
                             >
                                 <div className="border-l-4 border-industrial-gold pl-5 py-1">
                                     <TextInspector label="Hero-Tagline">
-                                        <p className="text-industrial-gold font-black tracking-[0.2em] uppercase text-lg md:text-xl leading-relaxed">
+                                        <p className="text-[#C49A2B] font-black tracking-[0.2em] uppercase text-lg md:text-xl leading-relaxed">
                                             {content.heroTagline || "UV BASKI YENİ NESİL TENEKE PLAKALAR. Sınırsız Tasarım, Üretim"}
                                         </p>
                                     </TextInspector>
@@ -70,7 +70,7 @@ export const Hero = () => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.6, delay: 0.4 }}
-                                    className="text-industrial-gold/90 font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1 drop-shadow-lg"
+                                    className="text-[#B38C27] font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1"
                                 >
                                     Dosya Teli — Takvim Tenekesi — Teneke Tef Zil — Retro Teneke Poster — UV Baskılı Özel İmalat Ürünler
                                 </m.p>
