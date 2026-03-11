@@ -17,6 +17,9 @@ const LiveFeedSection = dynamic(() => import("@/components/sections/LiveFeedSect
 export const metadata = {
     title: "Metal Tablo ve Endüstriyel Dekor | Veral Teneke Ticaret",
     description: "Özel üretim UV baskılı metal tablolar, endüstriyel teneke plakalar ve kalaylı teneke levhalar. Yeni nesil teneke tasarımı.",
+    alternates: {
+        canonical: "/",
+    },
 };
 
 export default function ShopHomePage() {

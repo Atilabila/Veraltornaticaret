@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useContentStore } from '@/store/useContentStore'
 
 export const DynamicMetadata = () => {
     const pathname = usePathname()
+    const searchParams = useSearchParams()
     const { content } = useContentStore()
 
     useEffect(() => {
@@ -25,6 +26,29 @@ export const DynamicMetadata = () => {
 
         // Update Document Title
         document.title = title;
+
+        // Update Canonical
+        let canonicalLink = document.querySelector('link[rel="canonical"]');
+        if (!canonicalLink) {
+            canonicalLink = document.createElement('link');
+            canonicalLink.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonicalLink);
+        }
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
+        
+        // Normalize path: if /product/... translate to /urunler/...
+        let normalizedPath = pathname || '/';
+        if (normalizedPath.startsWith('/product/')) {
+            normalizedPath = normalizedPath.replace('/product/', '/urunler/');
+        }
+
+        // Include search params only for valid category filters (as seen in sitemap)
+        const categoryId = searchParams.get('cat') || searchParams.get('category');
+        const finalUrl = categoryId 
+            ? `${baseUrl}${normalizedPath}?cat=${categoryId}`
+            : `${baseUrl}${normalizedPath}`;
+
+        canonicalLink.setAttribute('href', finalUrl);
 
         // Update Meta Meta Description
         let metaDesc = document.querySelector('meta[name="description"]');

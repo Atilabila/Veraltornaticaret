@@ -8,6 +8,9 @@ import { CatalogContainer } from "@/components/product/CatalogContainer"
 export const metadata: Metadata = {
     title: "Katalog | VERAL Metal Works",
     description: "Endüstriyel metal tablo ve dekorasyon koleksiyonu.",
+    alternates: {
+        canonical: "/urunler",
+    },
 };
 
 export const revalidate = 0; // Disable cache for debugging or set to 60

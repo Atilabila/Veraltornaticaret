@@ -2,7 +2,7 @@ import "@/app/metal-art.css"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getProductBySlug, getProducts, getRelatedProducts } from "@/lib/actions/metal-products.actions"
-import ProductDetailClient from "@/app/product/[slug]/ProductDetailClient"
+import { ProductDetail } from "@/components/product/ProductDetail"
 import { ProductSchema } from "@/components/seo/ProductSchema"
 
 interface PageProps {
@@ -38,6 +38,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
         title: `${product.name} | VERAL Metal Works`,
         description: product.description || `${product.name} - Premium endüstriyel metal tasarım.`,
+        alternates: {
+            canonical: `/urunler/${product.slug}`,
+        },
         openGraph: {
             title: product.name,
             description: product.description || undefined,
@@ -86,8 +89,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 availability: product.stock_quantity > 0 ? "InStock" : "OutOfStock",
                 url: absoluteProductUrl
             }} />
-            {/* Reuse the premium ProductDetailClient from the other route */}
-            <ProductDetailClient product={product} relatedProducts={relatedProducts} />
+            {/* Reuse the premium ProductDetail from the consolidated component */}
+            <ProductDetail product={product} relatedProducts={relatedProducts} />
         </>
     )
 }

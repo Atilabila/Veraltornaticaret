@@ -24,7 +24,12 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({ product }) => {
     };
 
     const absoluteImageUrl = getAbsoluteUrl(product.image);
-    const absoluteProductUrl = product.url || (typeof window !== 'undefined' ? window.location.href : '');
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
+    let currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+    if (currentPath.startsWith('/product/')) {
+        currentPath = currentPath.replace('/product/', '/urunler/');
+    }
+    const absoluteProductUrl = product.url || (typeof window !== 'undefined' ? `${baseUrl}${currentPath}` : '');
 
     const schema = {
         "@context": "https://schema.org",

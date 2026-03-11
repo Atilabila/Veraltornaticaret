@@ -61,4 +61,13 @@ export default {
         minimumCacheTTL: 31536000,
         dangerouslyAllowSVG: true,
     },
+    async redirects() {
+        return [
+            {
+                source: '/product/:slug',
+                destination: '/urunler/:slug',
+                permanent: true,
+            },
+        ]
+    },
 };
