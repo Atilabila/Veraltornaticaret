@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AdminProvider } from "@/components/providers/AdminProvider";
@@ -78,7 +79,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AdminProvider>
             <ContentSyncProvider>
               <AuthProvider>
-                <DynamicMetadata />
+                  <Suspense fallback={null}>
+                    <DynamicMetadata />
+                  </Suspense>
                 <GlobalGrid />
                 {children}
                 <CartDrawer />
