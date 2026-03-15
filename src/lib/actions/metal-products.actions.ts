@@ -104,7 +104,6 @@ export async function deleteCategory(id: string): Promise<ApiResponse<null>> {
 // =====================================================
 
 export async function getProducts(isShowcase?: boolean): Promise<ApiResponse<MetalProduct[]>> {
-    console.log(`[ACTION] getProducts called with isShowcase:`, isShowcase);
     try {
         const selectWithVariants = `
             *,
@@ -149,7 +148,42 @@ export async function getProducts(isShowcase?: boolean): Promise<ApiResponse<Met
             throw error;
         }
 
-        console.log(`[ACTION] getProducts returned ${data?.length || 0} items`);
+        // #region agent log
+        try {
+            const sample =
+                (data || []).slice(0, 10).map((p: any) => ({
+                    id: p.id,
+                    name: p.name,
+                    image_url: p.image_url,
+                    is_showcase: p.is_showcase,
+                    created_at: p.created_at,
+                })) || [];
+
+            await fetch('http://127.0.0.1:7836/ingest/e08a7e5f-ecc5-4237-afbc-db18999045de', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Debug-Session-Id': '800186',
+                },
+                body: JSON.stringify({
+                    sessionId: '800186',
+                    runId: 'pre-fix',
+                    hypothesisId: 'H1',
+                    location: 'src/lib/actions/metal-products.actions.ts:106',
+                    message: 'getProducts result sample',
+                    data: {
+                        isShowcase,
+                        total: data?.length || 0,
+                        sample,
+                    },
+                    timestamp: Date.now(),
+                }),
+            });
+        } catch {
+            // ignore logging failures
+        }
+        // #endregion
+
         return { data: data as MetalProduct[], error: null, success: true }
     } catch (err) {
         console.error('[ACTION] Error fetching products:', err)
