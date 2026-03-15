@@ -534,6 +534,45 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                                     }}
                                                     folder="services"
                                                 />
+                                                <div className="space-y-3 pt-2">
+                                                    <Label>Ek Görseller (Galeri)</Label>
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {(service.images || []).map((img: string, gi: number) => (
+                                                            <div key={gi} className="relative w-24 h-24 rounded-lg overflow-hidden border border-white/10">
+                                                                <img
+                                                                    src={img}
+                                                                    alt={`Gallery ${gi + 1}`}
+                                                                    className="w-full h-full object-cover"
+                                                                />
+                                                                <button
+                                                                    type="button"
+                                                                    className="absolute -top-2 -right-2 bg-black/70 rounded-full p-1 hover:bg-red-600 transition-colors"
+                                                                    onClick={() => {
+                                                                        const n = [...store.content.services];
+                                                                        const images = [...(n[index].images || [])];
+                                                                        images.splice(gi, 1);
+                                                                        n[index].images = images;
+                                                                        store.updateContent({ services: n });
+                                                                    }}
+                                                                >
+                                                                    <Trash2 className="w-3 h-3 text-white" />
+                                                                </button>
+                                                            </div>
+                                                        ))}
+                                                        <ImageUploader
+                                                            label="Yeni Görsel Ekle"
+                                                            currentImage={''}
+                                                            onImageUploaded={(url) => {
+                                                                const n = [...store.content.services];
+                                                                const images = [...(n[index].images || [])];
+                                                                images.push(url);
+                                                                n[index].images = images;
+                                                                store.updateContent({ services: n });
+                                                            }}
+                                                            folder="services"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 

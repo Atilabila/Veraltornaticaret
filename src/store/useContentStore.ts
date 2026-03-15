@@ -246,6 +246,7 @@ export interface SiteContent {
         fullDescription: string;
         icon: string;
         image: string;
+        images?: string[]; // Additional gallery images
         seoTitle: string;
         seoDescription: string;
         features: { key: string; value: string }[]; // Technical specs
@@ -450,6 +451,7 @@ export const defaultContent: SiteContent = {
             fullDescription: '40 yılı aşkın tecrübemizle, takvim yayıncıları ve matbaalar için yüksek kaliteli takvim tenekesi üretimi yapıyoruz. Farklı renk ve ölçü seçenekleriyle seri imalat kapasitemizle hizmetinizdeyiz.',
             icon: 'Calendar',
             image: '',
+            images: [],
             seoTitle: 'Takvim Tenekesi İmalatı İzmir | VERAL Teneke',
             seoDescription: 'Toptan takvim tenekesi üretimi. İzmir Alsancak merkezli atölyemizde yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.',
             features: [
@@ -471,6 +473,7 @@ export const defaultContent: SiteContent = {
             fullDescription: 'Arşivleme sistemleri ve dosya üreticileri için standart ve özel boylarda dosya teli üretimi yapıyoruz. Paslanmaz yapı ve yüksek esneklik dayanımı.',
             icon: 'FileText',
             image: '',
+            images: [],
             seoTitle: 'Dosya Teli İmalatı ve Toptan Satış | VERAL',
             seoDescription: 'İzmir dosya teli üreticisi. Kırtasiye ve arşiv sistemleri için yüksek kaliteli, dayanıklı metal dosya telleri.',
             features: [
@@ -492,6 +495,7 @@ export const defaultContent: SiteContent = {
             fullDescription: 'Müzik aleti üreticileri için yüksek akustik performanslı tef zili üretimi. Pirinç ve metal alaşım seçenekleriyle, altı köşe ve yuvarlak formlarda seri imalat.',
             icon: 'Music',
             image: '',
+            images: [],
             seoTitle: 'Tef Zili İmalatı İzmir | VERAL Metal',
             seoDescription: 'Müzik aletleri için profesyonel tef zili üretimi. Pirinç ve metal yüzey seçenekleriyle en iyi akustik performans.',
             features: [
@@ -513,6 +517,7 @@ export const defaultContent: SiteContent = {
             fullDescription: 'Kişiye özel veya seri üretim mıknatıslı magnetler. 4K UV baskı teknolojisi ile metal yüzeylere kalıcı, solmayan görseller aktarıyoruz. Hem dekoratif hem kurumsal çözümler.',
             icon: 'Zap',
             image: '',
+            images: [],
             seoTitle: 'Metal Poster & Magnet Üretimi İzmir | VERAL',
             seoDescription: 'Özel tasarım metal posterler ve mıknatıslı magnet imalatı. UV baskı kalitesiyle İzmir dekorasyon çözümleri.',
             features: [

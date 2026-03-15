@@ -167,6 +167,30 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                     <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-[var(--color-brand-safety-orange)] rounded-full blur-[100px] opacity-20" />
                                 </div>
 
+                                {/* Gallery Images */}
+                                {service.images && service.images.length > 0 && (
+                                    <div className="space-y-4">
+                                        <h3 className="text-2xl font-black uppercase tracking-tight text-slate-900">
+                                            Üretimden Görseller
+                                        </h3>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                            {service.images.map((img: string, idx: number) => (
+                                                <div
+                                                    key={idx}
+                                                    className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50"
+                                                >
+                                                    <Image
+                                                        src={normalizeImagePath(img)}
+                                                        alt={`${service.title} görsel ${idx + 1}`}
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 {/* OTHER SERVICES (RELOCATED) */}
                                 <div className="space-y-8 pt-12 border-t border-slate-200">
                                     <div className="flex items-end justify-between gap-4">
