@@ -33,8 +33,6 @@ type Filters = {
   priceMax?: number;
   inStockOnly?: boolean;
   theme?: string[];
-  size?: string[];
-  material?: string[];
   sort?: "new" | "price_asc" | "price_desc" | "featured";
 };
 
@@ -110,13 +108,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
     [products]
   );
 
-  const materialOptions = useMemo(
-    () =>
-      Array.from(
-        new Set(products.map((p) => p.material).filter(Boolean))
-      ) as string[],
-    [products]
-  );
+  const materialOptions: string[] = [];
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -216,7 +208,6 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
   if (filters.inStockOnly) activeFilterChips.push("Stokta var");
   (filters.theme || []).forEach((t) => activeFilterChips.push(t));
   (filters.size || []).forEach((t) => activeFilterChips.push(t));
-  (filters.material || []).forEach((t) => activeFilterChips.push(t));
 
   const makeAnchor = (value: string) =>
     value.toLowerCase().replace(/[^a-z0-9-_]/g, "");

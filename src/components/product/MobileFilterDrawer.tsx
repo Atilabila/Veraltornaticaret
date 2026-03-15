@@ -267,23 +267,7 @@ export const MobileFilterDrawer: React.FC<MobileFilterDrawerProps> = ({
                             </div>
                         )}
 
-                        {/* Material */}
-                        {materialOptions.length > 0 && (
-                            <div className="space-y-2">
-                                <p className="text-xs text-white/60 uppercase tracking-[0.25em]">Malzeme</p>
-                                {materialOptions.map((opt) => (
-                                    <label key={opt} className="flex items-center gap-2 text-white/80 text-sm">
-                                        <input
-                                            type="checkbox"
-                                            className="accent-[#D4AF37]"
-                                            checked={filters.material?.includes(opt) || false}
-                                            onChange={() => toggleMulti("material", opt)}
-                                        />
-                                        {opt}
-                                    </label>
-                                ))}
-                            </div>
-                        )}
+                        {/* Material filter intentionally removed */}
 
                         <button
                             onClick={() => {

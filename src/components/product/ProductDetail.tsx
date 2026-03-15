@@ -71,39 +71,6 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ product, relatedPr
 
     const sortedFeatures = product.features?.sort((a, b) => a.display_order - b.display_order) || []
 
-    // #region agent log
-    try {
-        fetch('http://127.0.0.1:7836/ingest/e08a7e5f-ecc5-4237-afbc-db18999045de', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Debug-Session-Id': '800186',
-            },
-            body: JSON.stringify({
-                sessionId: '800186',
-                runId: 'pre-fix',
-                hypothesisId: 'H2',
-                location: 'src/components/product/ProductDetail.tsx:72',
-                message: 'ProductDetail feature & technical fields',
-                data: {
-                    id: product.id,
-                    name: product.name,
-                    featuresCount: sortedFeatures.length,
-                    material: product.material,
-                    paint: product.paint,
-                    installation: product.installation,
-                    origin: product.origin,
-                },
-                timestamp: Date.now(),
-            }),
-        }).catch(() => {
-            // ignore logging failures
-        });
-    } catch {
-        // ignore logging failures
-    }
-    // #endregion
-
     return (
         <main className="min-h-screen bg-[#FAFAFA] font-syne">
             {/* Navigation Bar */}

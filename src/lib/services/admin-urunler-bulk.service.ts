@@ -230,36 +230,6 @@ export async function insertBulkAdminUrunler(
 
     for (let i = 0; i < payload.rows.length; i++) {
         const prepared = toPreparedRow(payload.rows[i], i + 1);
-
-        // #region agent log
-        try {
-            await fetch('http://127.0.0.1:7836/ingest/e08a7e5f-ecc5-4237-afbc-db18999045de', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Debug-Session-Id': '800186',
-                },
-                body: JSON.stringify({
-                    sessionId: '800186',
-                    runId: 'pre-fix',
-                    hypothesisId: 'H1',
-                    location: 'src/lib/services/admin-urunler-bulk.service.ts:232',
-                    message: 'Prepared bulk row before insert',
-                    data: {
-                        rowIndex: prepared.rowIndex,
-                        name: prepared.name,
-                        imageUrl: prepared.imageUrl,
-                        descriptionLength: prepared.description.length,
-                        features: prepared.features,
-                    },
-                    timestamp: Date.now(),
-                }),
-            });
-        } catch {
-            // ignore logging failures
-        }
-        // #endregion
-
         if (isFullyEmptyRow(prepared)) continue;
 
         const errors: BulkRowErrorCode[] = [];

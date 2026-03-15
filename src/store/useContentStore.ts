@@ -1164,11 +1164,11 @@ export const useContentStore = create<ContentStore>()(
                 const data = await ContentService.getContent();
                 if (data) {
                     set((state) => {
-                        // Merge services: DB data takes priority, but preserve defaults not in DB
-                        let mergedServices = state.content.services;
+                        // Merge services: DB data takes priority, but always keep defaults
+                        let mergedServices = defaultContent.services;
                         if (data.services) {
                             const dbSlugs = new Set(data.services.map((s: any) => s.slug));
-                            const defaultsNotInDb = state.content.services.filter(
+                            const defaultsNotInDb = defaultContent.services.filter(
                                 (s) => !dbSlugs.has(s.slug)
                             );
                             mergedServices = [...data.services, ...defaultsNotInDb] as any;
