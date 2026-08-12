@@ -571,8 +571,8 @@ export const defaultContent: SiteContent = {
         "https://images.unsplash.com/photo-1524169358666-79f22c79745d?q=80&w=2670&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=2680&auto=format&fit=crop"
     ],
-    heroButton1Text: "ÜRETİM HATTINI KEŞFET",
-    heroButton1Url: "/#process",
+    heroButton1Text: "Teklif Al",
+    heroButton1Url: "/teklif-al",
     heroButton2Text: "KATALOĞA GİT",
     heroButton2Url: "/urunler",
     heroProductLine: "Ölçü netleşir, termin konuşulur, sevkiyat planlanır.",
