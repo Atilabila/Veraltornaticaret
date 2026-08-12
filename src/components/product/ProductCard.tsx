@@ -1,12 +1,20 @@
-// Product Card Component - Supports default (vertical) and horizontal variants
+﻿// Product Card Component - Supports default (vertical) and horizontal variants
 "use client";
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Box, FileText, ShoppingCart } from "lucide-react";
+import { Box, FileText, MessageCircle, Phone, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/useCartStore";
+import { useContentStore } from "@/store/useContentStore";
 import { MetalProduct } from "@/lib/supabase/metal-products.types";
 import { formatPrice, normalizeImagePath } from "@/lib/utils";
+import { CART_ENABLED } from "@/lib/commerce";
+import {
+  toTelHref,
+  buildProductWhatsAppUrl,
+  resolveFooterPhone,
+  resolveWhatsappNumber,
+} from "@/lib/contact";
 
 interface ProductCardProps {
   product: MetalProduct;
@@ -14,6 +22,13 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" }) => {
+  const { content } = useContentStore();
+  const tel = toTelHref(resolveFooterPhone(content.footerPhone));
+  const wa = buildProductWhatsAppUrl({
+    whatsappNumber: resolveWhatsappNumber(content.whatsappNumber),
+    productName: product.name,
+    baseMessage: content.whatsappMessage,
+  });
   const isRetail = product.price > 0 && product.stock_quantity > 0;
   const isCustom = !isRetail;
   const isHorizontal = variant === "horizontal";
@@ -47,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
         <div
           className={`w-1.5 h-1.5 rounded-full ${isRetail
             ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.3)]"
-            : "bg-industrial-gold shadow-[0_0_8px_rgba(212,175,55,0.4)]"
+            : "bg-industrial-gold shadow-[0_0_8px_rgba(15, 98, 254,0.35)]"
             }`}
         />
         <span
@@ -146,13 +161,36 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
         </div>
 
         {isRetail ? (
-          <button
-            onClick={handleAddToCart}
-            className={`cursor-pointer relative z-20 flex items-center justify-center w-12 h-12 border-2 transition-all duration-300 group/btn rounded-none border-zinc-900 shadow-[3px_3px_0_0_#18181b] hover:shadow-[0_0_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] bg-zinc-50 text-zinc-900 hover:bg-industrial-gold`}
-            title="Sepete Ekle"
-          >
-            <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
-          </button>
+          CART_ENABLED ? (
+            <button
+              onClick={handleAddToCart}
+              className={`cursor-pointer relative z-20 flex items-center justify-center w-12 h-12 border-2 transition-all duration-300 group/btn rounded-none border-zinc-900 shadow-[3px_3px_0_0_#18181b] hover:shadow-[0_0_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] bg-zinc-50 text-zinc-900 hover:bg-industrial-gold`}
+              title="Sepete Ekle"
+            >
+              <ShoppingCart className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
+            </button>
+          ) : (
+            <div className="relative z-20 flex items-center gap-2">
+              <a
+                href={tel}
+                onClick={(e) => e.stopPropagation()}
+                aria-label="Ara"
+                className="cursor-pointer flex items-center justify-center w-10 h-10 border-2 transition-all duration-300 rounded-none border-zinc-900 shadow-[3px_3px_0_0_#18181b] hover:shadow-[0_0_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] bg-zinc-50 text-zinc-900 hover:bg-industrial-gold"
+              >
+                <Phone className="w-4 h-4" />
+              </a>
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                aria-label="WhatsApp"
+                className="cursor-pointer flex items-center justify-center w-10 h-10 border-2 transition-all duration-300 rounded-none border-zinc-900 shadow-[3px_3px_0_0_#18181b] hover:shadow-[0_0_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] bg-zinc-50 text-zinc-900 hover:bg-industrial-gold"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
+            </div>
+          )
         ) : (
           <Link
             href={`/urunler/${product.slug}`}

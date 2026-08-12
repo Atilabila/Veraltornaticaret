@@ -4,19 +4,28 @@ import { useState, useEffect } from "react";
 import { m, AnimatePresence } from 'framer-motion';
 import { useCartStore } from "@/store/useCartStore";
 import Image from "next/image";
-import { Check, ChevronLeft, ChevronRight, Sliders, Box, HardDrive } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Sliders, Box, HardDrive, Phone, MessageCircle } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
 import { CartTerminal } from "@/components/checkout/CartTerminal";
+import { useContentStore } from "@/store/useContentStore";
+import { CART_ENABLED } from "@/lib/commerce";
+import {
+    toTelHref,
+    buildProductWhatsAppUrl,
+    resolveFooterPhone,
+    resolveWhatsappNumber,
+} from "@/lib/contact";
 
 const sizes = [
-    { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "MİNİ TASARIM", ratio: 0.5 },
-    { id: "m", name: "30x45 CM", priceAdd: 200, desc: "STANDART GALERİ", ratio: 0.67 },
-    { id: "l", name: "45x60 CM", priceAdd: 500, desc: "GENİŞ SERGİLEYİCİ", ratio: 0.75 },
-    { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKSİMUM ETKİ", ratio: 0.67 },
+    { id: "xs", name: "10x20 CM", priceAdd: -100, desc: "M�N� TASARIM", ratio: 0.5 },
+    { id: "m", name: "30x45 CM", priceAdd: 200, desc: "STANDART GALER�", ratio: 0.67 },
+    { id: "l", name: "45x60 CM", priceAdd: 500, desc: "GEN�� SERG�LEY�C�", ratio: 0.75 },
+    { id: "xl", name: "60x90 CM", priceAdd: 1000, desc: "MAKS�MUM ETK�", ratio: 0.67 },
 ];
 
 export const ProductConfigurator = () => {
     const { products, fetchProducts } = useProductStore();
+    const { content } = useContentStore();
     const [selectedProductIndex, setSelectedProductIndex] = useState(0);
     const [selectedSize, setSelectedSize] = useState(sizes[1]);
     const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
@@ -36,13 +45,14 @@ export const ProductConfigurator = () => {
     const totalPrice = product.price + selectedSize.priceAdd;
 
     const handleAddToCart = () => {
+        if (!CART_ENABLED) return;
         addItem({
             productId: product.id,
             name: product.name,
             slug: product.slug,
             size: (orientation === 'landscape'
                 ? `${selectedSize.name.split('x')[1].split(' ')[0]}x${selectedSize.name.split('x')[0]} CM`
-                : selectedSize.name) + ` (${orientation === 'portrait' ? 'DİKEY' : 'YATAY'})`,
+                : selectedSize.name) + ` (${orientation === 'portrait' ? 'D�KEY' : 'YATAY'})`,
             price: totalPrice,
             image: product.image,
             orientation: orientation === 'portrait' ? 'vertical' : 'horizontal',
@@ -51,6 +61,13 @@ export const ProductConfigurator = () => {
         setIsCartOpen(true);
         setTimeout(() => setAdded(false), 2000);
     };
+
+    const tel = toTelHref(resolveFooterPhone(content.footerPhone));
+    const wa = buildProductWhatsAppUrl({
+        whatsappNumber: resolveWhatsappNumber(content.whatsappNumber),
+        productName: product.name,
+        baseMessage: content.whatsappMessage,
+    });
 
     const nextProduct = () => setSelectedProductIndex((prev) => (prev + 1) % products.length);
     const prevProduct = () => setSelectedProductIndex((prev) => (prev - 1 + products.length) % products.length);
@@ -62,20 +79,20 @@ export const ProductConfigurator = () => {
             <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
                 <div className="flex flex-col gap-4 mb-16">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Konfigüratör</span>
+                        <div className="w-12 h-[1px] bg-[var(--color-brand-accent)]" />
+                        <span className="text-sm font-black text-[var(--color-brand-accent)] tracking-[0.3em] uppercase">Konfig�rat�r</span>
                     </div>
                     <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                        Kendi <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Sanatını Tasarla</span>
+                        Kendi <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">Sanat�n� Tasarla</span>
                     </h2>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-[#0A0A0A]/5 shadow-2xl overflow-hidden bg-white">
                     {/* LEFT: VISUAL PREVIEW */}
                     <div className="lg:col-span-12 xl:col-span-7 bg-[#0A0A0A]/95 backdrop-blur-sm p-10 lg:p-20 relative flex flex-col items-center justify-center">
-                        <div className="absolute top-10 left-10 flex items-center gap-4 text-[#D4AF37] opacity-60">
+                        <div className="absolute top-10 left-10 flex items-center gap-4 text-[var(--color-brand-accent)] opacity-60">
                             <Box className="w-4 h-4" />
-                            <span className="text-xs font-black tracking-[0.3em] uppercase">Canlı Önizleme</span>
+                            <span className="text-xs font-black tracking-[0.3em] uppercase">Canl� �nizleme</span>
                         </div>
 
                         <div
@@ -89,14 +106,14 @@ export const ProductConfigurator = () => {
                                 </m.div>
                             </AnimatePresence>
 
-                            <button onClick={prevProduct} className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-[#D4AF37] transition-all"><ChevronLeft /></button>
-                            <button onClick={nextProduct} className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-[#D4AF37] transition-all"><ChevronRight /></button>
+                            <button onClick={prevProduct} className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-[var(--color-brand-accent)] transition-all"><ChevronLeft /></button>
+                            <button onClick={nextProduct} className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-[var(--color-brand-accent)] transition-all"><ChevronRight /></button>
                         </div>
 
                         {/* Thumbnail Selector */}
                         <div className="mt-16 flex gap-4 overflow-x-auto pb-6 w-full no-scrollbar border-t border-white/5 pt-10">
                             {products.map((p, idx) => (
-                                <button key={p.id} onClick={() => setSelectedProductIndex(idx)} className={`group relative w-20 h-24 shrink-0 overflow-hidden border transition-all ${selectedProductIndex === idx ? 'border-[#D4AF37]' : 'border-white/10 opacity-40 hover:opacity-100'}`}>
+                                <button key={p.id} onClick={() => setSelectedProductIndex(idx)} className={`group relative w-20 h-24 shrink-0 overflow-hidden border transition-all ${selectedProductIndex === idx ? 'border-[var(--color-brand-accent)]' : 'border-white/10 opacity-40 hover:opacity-100'}`}>
                                     <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
                                 </button>
                             ))}
@@ -107,11 +124,11 @@ export const ProductConfigurator = () => {
                     <div className="lg:col-span-12 xl:col-span-5 p-10 lg:p-16 bg-[#FDFBF7]">
                         <div className="mb-12">
                             <h3 className="text-4xl font-black text-[#0A0A0A] uppercase tracking-tighter mb-4 italic">{product.name}</h3>
-                            <p className="text-[#0A0A0A]/60 text-lg font-medium leading-relaxed mb-10 border-l border-[#D4AF37] pl-6">{product.description}</p>
+                            <p className="text-[#0A0A0A]/60 text-lg font-medium leading-relaxed mb-10 border-l border-[var(--color-brand-accent)] pl-6">{product.description}</p>
 
                             <div className="flex items-end gap-4">
                                 <div className="bg-[#0A0A0A] text-white p-8">
-                                    <span className="text-[10px] font-black text-[#D4AF37] tracking-[0.3em] uppercase block mb-2">TOPLAM TUTAR</span>
+                                    <span className="text-[10px] font-black text-[var(--color-brand-accent)] tracking-[0.3em] uppercase block mb-2">TOPLAM TUTAR</span>
                                     <span className="text-5xl font-black italic">{totalPrice} TL</span>
                                 </div>
                             </div>
@@ -121,12 +138,12 @@ export const ProductConfigurator = () => {
                             {/* ORIENTATION */}
                             <div>
                                 <h4 className="flex items-center gap-3 text-xs font-black uppercase text-[#0A0A0A] mb-6 tracking-widest">
-                                    <Sliders className="w-4 h-4 text-[#D4AF37]" /> Yönelim
+                                    <Sliders className="w-4 h-4 text-[var(--color-brand-accent)]" /> Y�nelim
                                 </h4>
                                 <div className="flex gap-4">
                                     {['portrait', 'landscape'].map((o) => (
-                                        <button key={o} onClick={() => setOrientation(o as any)} className={`flex-1 h-14 text-[10px] font-black uppercase tracking-[0.3em] border transition-all ${orientation === o ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-transparent text-[#0A0A0A] border-[#0A0A0A]/10 hover:border-[#D4AF37]'}`}>
-                                            {o === 'portrait' ? 'DİKEY' : 'YATAY'}
+                                        <button key={o} onClick={() => setOrientation(o as any)} className={`flex-1 h-14 text-[10px] font-black uppercase tracking-[0.3em] border transition-all ${orientation === o ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-transparent text-[#0A0A0A] border-[#0A0A0A]/10 hover:border-[var(--color-brand-accent)]'}`}>
+                                            {o === 'portrait' ? 'D�KEY' : 'YATAY'}
                                         </button>
                                     ))}
                                 </div>
@@ -135,25 +152,36 @@ export const ProductConfigurator = () => {
                             {/* SIZE GRID */}
                             <div>
                                 <h4 className="flex items-center gap-3 text-xs font-black uppercase text-[#0A0A0A] mb-6 tracking-widest">
-                                    <HardDrive className="w-4 h-4 text-[#D4AF37]" /> Boyut Seçimi
+                                    <HardDrive className="w-4 h-4 text-[var(--color-brand-accent)]" /> Boyut Se�imi
                                 </h4>
                                 <div className="grid grid-cols-2 gap-4">
                                     {sizes.map((size) => (
-                                        <button key={size.id} onClick={() => setSelectedSize(size)} className={`p-6 text-left border transition-all ${selectedSize.id === size.id ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-transparent text-[#0A0A0A] border-[#0A0A0A]/10 hover:border-[#D4AF37]'}`}>
+                                        <button key={size.id} onClick={() => setSelectedSize(size)} className={`p-6 text-left border transition-all ${selectedSize.id === size.id ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-transparent text-[#0A0A0A] border-[#0A0A0A]/10 hover:border-[var(--color-brand-accent)]'}`}>
                                             <div className="flex justify-between items-center mb-1">
                                                 <span className="font-black text-sm tracking-widest">{orientation === 'landscape' ? `${size.name.split('x')[1].split(' ')[0]}x${size.name.split('x')[0]} CM` : size.name}</span>
-                                                {selectedSize.id === size.id && <Check className="w-4 h-4 text-[#D4AF37]" />}
+                                                {selectedSize.id === size.id && <Check className="w-4 h-4 text-[var(--color-brand-accent)]" />}
                                             </div>
-                                            <span className="text-[9px] font-bold text-[#D4AF37] uppercase tracking-widest">{size.desc}</span>
+                                            <span className="text-[9px] font-bold text-[var(--color-brand-accent)] uppercase tracking-widest">{size.desc}</span>
                                             <div className="mt-2 text-lg font-black">{size.priceAdd >= 0 ? `+${size.priceAdd}` : size.priceAdd} TL</div>
                                         </button>
                                     ))}
                                 </div>
                             </div>
 
-                            <button onClick={handleAddToCart} className={`w-full h-20 text-[12px] font-black uppercase tracking-[0.5em] transition-all duration-500 ${added ? 'bg-green-600 text-white' : 'bg-[#0A0A0A] text-white hover:bg-[#D4AF37]'}`}>
-                                {added ? 'SEPETE EKLENDİ' : 'KOLEKSİYONA EKLE'}
-                            </button>
+                            {CART_ENABLED ? (
+                                <button onClick={handleAddToCart} className={`w-full h-20 text-[12px] font-black uppercase tracking-[0.5em] transition-all duration-500 ${added ? 'bg-green-600 text-white' : 'bg-[#0A0A0A] text-white hover:bg-[var(--color-brand-accent)]'}`}>
+                                    {added ? 'SEPETE EKLENDİ' : 'KOLEKSİYONA EKLE'}
+                                </button>
+                            ) : (
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <a href={tel} className="flex-1 h-20 flex items-center justify-center gap-3 text-[12px] font-black uppercase tracking-[0.3em] bg-[#0A0A0A] text-white hover:bg-[var(--color-brand-accent)] transition-all duration-500">
+                                        <Phone className="w-5 h-5" /> ARA
+                                    </a>
+                                    <a href={wa} target="_blank" rel="noopener noreferrer" className="flex-1 h-20 flex items-center justify-center gap-3 text-[12px] font-black uppercase tracking-[0.3em] border-2 border-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white transition-all duration-500">
+                                        <MessageCircle className="w-5 h-5" /> WHATSAPP
+                                    </a>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

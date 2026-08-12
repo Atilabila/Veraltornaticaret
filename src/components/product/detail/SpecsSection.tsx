@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { Star, Quote, CheckCircle2 } from 'lucide-react';

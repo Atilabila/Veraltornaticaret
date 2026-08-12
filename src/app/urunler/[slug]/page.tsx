@@ -1,4 +1,3 @@
-import "@/app/metal-art.css"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getProductBySlug, getProducts, getRelatedProducts } from "@/lib/actions/metal-products.actions"

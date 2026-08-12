@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { m } from 'framer-motion';
-import { Plus, ArrowRight } from "lucide-react";
+import { Plus, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductStore } from "@/store/useProductStore";
@@ -11,11 +11,19 @@ import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 import { normalizeImagePath } from "@/lib/utils";
+import { CART_ENABLED } from "@/lib/commerce";
+import {
+    toTelHref,
+    buildProductWhatsAppUrl,
+    resolveFooterPhone,
+    resolveWhatsappNumber,
+} from "@/lib/contact";
 
 export const ProductGallery = () => {
     const { content } = useContentStore();
     const { products, categories: allCategories, loading, fetchProducts, fetchCategories } = useProductStore();
     const addItem = useCartStore((state) => state.addItem);
+    const tel = toTelHref(resolveFooterPhone(content.footerPhone));
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState(false);
     const { shouldReduceVisuals } = usePerformanceDetection();
@@ -32,7 +40,7 @@ export const ProductGallery = () => {
 
     // Only show categories that HAVE products (excluding showcase-only products)
     const activeCategories = [
-        { id: null, label: "TÜM KOLEKSİYON" },
+        { id: null, label: "T�M KOLEKS�YON" },
         ...allCategories
             .filter(cat => products.some(p => (p.category === cat.id || p.category_id === cat.id) && !p.is_showcase))
             .map(cat => ({ id: cat.id, label: cat.name }))
@@ -55,7 +63,7 @@ export const ProductGallery = () => {
         return (
             <section id="products" className="py-24 bg-[#FDFBF7]">
                 <div className="container mx-auto px-6 text-center">
-                    <div className="inline-block animate-pulse font-black text-2xl text-[#0A0A0A]/20 tracking-widest">YÜKLENİYOR // NOBLE COLLECTION</div>
+                    <div className="inline-block animate-pulse font-black text-2xl text-[#0A0A0A]/20 tracking-widest">Y�KLEN�YOR // NOBLE COLLECTION</div>
                 </div>
             </section>
         );
@@ -69,13 +77,13 @@ export const ProductGallery = () => {
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
                         <div className="flex flex-col gap-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                                <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">Seçkin Katalog</span>
+                                <div className="w-12 h-[1px] bg-[var(--color-brand-accent)]" />
+                                <span className="text-sm font-black text-[var(--color-brand-accent)] tracking-[0.3em] uppercase">Se�kin Katalog</span>
                             </div>
                             <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
                                 Trend <span className="text-gold-metal normal-case tracking-normal">Eserler</span>
                             </h2>
-                            <p className="text-white/50 text-lg font-medium max-w-lg">Sadece metal değil; her biri titizlikle tasarlanmış bir sanat parçası.</p>
+                            <p className="text-white/50 text-lg font-medium max-w-lg">Sadece metal de�il; her biri titizlikle tasarlanm�� bir sanat par�as�.</p>
                         </div>
 
                         {/* Category Filter */}
@@ -89,7 +97,7 @@ export const ProductGallery = () => {
                                             px-10 py-4 text-[10px] font-black tracking-[0.3em] uppercase transition-all whitespace-nowrap border
                                             ${selectedCategory === cat.id
                                                 ? "bg-white text-black border-white shadow-2xl"
-                                                : "bg-transparent text-white/40 border-white/10 hover:border-[#D4AF37] hover:text-[#D4AF37]"
+                                                : "bg-transparent text-white/40 border-white/10 hover:border-[var(--color-brand-accent)] hover:text-[var(--color-brand-accent)]"
                                             }
                                         `}
                                     >
@@ -123,7 +131,7 @@ export const ProductGallery = () => {
                                     className="group flex flex-col gap-8"
                                 >
                                     {/* Image Wrapper: Sharp Museum Frame */}
-                                    <Link href={`/urunler/${product.slug}`} className="block relative aspect-square overflow-hidden bg-[#0A0A0A] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.55)] group-hover:shadow-[0_50px_100px_-20px_rgba(212,175,55,0.2)] transition-all duration-1000 border border-white/10 ring-1 ring-white/5">
+                                    <Link href={`/urunler/${product.slug}`} className="block relative aspect-square overflow-hidden bg-[#0A0A0A] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.55)] group-hover:shadow-[0_50px_100px_-20px_rgba(15, 98, 254,0.35)] transition-all duration-1000 border border-white/10 ring-1 ring-white/5">
                                         {hasImage ? (
                                             <Image
                                                 src={safeImageSrc}
@@ -137,15 +145,15 @@ export const ProductGallery = () => {
                                             />
                                         ) : (
                                             <div className="absolute inset-0 flex items-center justify-center text-xs font-black text-[#0A0A0A]/30 uppercase tracking-[0.3em]">
-                                                Görsel yok
+                                                G�rsel yok
                                             </div>
                                         )}
                                         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,rgba(255,255,255,0.04),rgba(0,0,0,0.35)_60%,rgba(0,0,0,0.7)_100%)]" />
                                         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
                                         {/* Label for Detail */}
-                                        <div className="absolute bottom-6 right-6 p-4 bg-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-[#D4AF37]/30">
-                                            <Plus className="w-5 h-5 text-[#D4AF37]" />
+                                        <div className="absolute bottom-6 right-6 p-4 bg-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-[var(--color-brand-accent)]/30">
+                                            <Plus className="w-5 h-5 text-[var(--color-brand-accent)]" />
                                         </div>
                                     </Link>
 
@@ -154,8 +162,8 @@ export const ProductGallery = () => {
                                     <div className="flex flex-col gap-4">
                                         {showCategory && (
                                             <div className="flex items-center gap-3">
-                                                <div className="w-6 h-[1px] bg-[#D4AF37]/40" />
-                                                <span className="text-[9px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">
+                                                <div className="w-6 h-[1px] bg-[var(--color-brand-accent)]/40" />
+                                                <span className="text-[9px] font-black text-[var(--color-brand-accent)] tracking-[0.4em] uppercase">
                                                     {cleanedCategory}
                                                 </span>
                                             </div>
@@ -168,24 +176,51 @@ export const ProductGallery = () => {
 
                                         <div className="flex justify-between items-center sm:mt-2 pt-6 border-t border-[#0A0A0A]/5">
                                             <p className="text-3xl font-black text-white italic tracking-tighter">{product.price} TL</p>
-                                            <button
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                    addItem({
-                                                        productId: product.id,
-                                                        name: product.name,
-                                                        slug: product.slug,
-                                                        price: product.price,
-                                                        image: product.image,
-                                                        size: '45x60', // Default size matching base price
-                                                        orientation: 'vertical' // Default orientation
-                                                    });
-                                                }}
-                                                className="px-8 h-12 bg-[#0A0A0A] text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-[#D4AF37] transition-all duration-500"
-                                            >
-                                                SEPETE EKLE
-                                            </button>
+                                            {CART_ENABLED ? (
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        addItem({
+                                                            productId: product.id,
+                                                            name: product.name,
+                                                            slug: product.slug,
+                                                            price: product.price,
+                                                            image: product.image,
+                                                            size: '45x60',
+                                                            orientation: 'vertical'
+                                                        });
+                                                    }}
+                                                    className="px-8 h-12 bg-[#0A0A0A] text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-[var(--color-brand-accent)] transition-all duration-500"
+                                                >
+                                                    SEPETE EKLE
+                                                </button>
+                                            ) : (
+                                                <div className="flex items-center gap-2">
+                                                    <a
+                                                        href={tel}
+                                                        onClick={(e) => e.stopPropagation()}
+                                                        aria-label="Ara"
+                                                        className="px-4 h-12 flex items-center justify-center bg-[#0A0A0A] text-white hover:bg-[var(--color-brand-accent)] transition-all duration-500"
+                                                    >
+                                                        <Phone className="w-4 h-4" />
+                                                    </a>
+                                                    <a
+                                                        href={buildProductWhatsAppUrl({
+                                                            whatsappNumber: resolveWhatsappNumber(content.whatsappNumber),
+                                                            productName: product.name,
+                                                            baseMessage: content.whatsappMessage,
+                                                        })}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                        aria-label="WhatsApp"
+                                                        className="px-4 h-12 flex items-center justify-center bg-[#0A0A0A] text-white hover:bg-[var(--color-brand-accent)] transition-all duration-500"
+                                                    >
+                                                        <MessageCircle className="w-4 h-4" />
+                                                    </a>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </m.div>
@@ -200,7 +235,7 @@ export const ProductGallery = () => {
                             className="inline-flex items-center justify-center gap-8 px-16 h-20 bg-transparent border border-white/20 text-white font-black tracking-[0.5em] transition-all hover:bg-white hover:text-black group relative overflow-hidden"
                         >
                             <span className="relative z-10 uppercase text-xs">
-                                {content.productsExploreText || "TÜMÜNÜ İNCELE"}
+                                {content.productsExploreText || "T�M�N� �NCELE"}
                             </span>
                             <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-2 transition-transform" />
                         </Link>

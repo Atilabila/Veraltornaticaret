@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -51,9 +51,9 @@ export default function ScenePreview({ product }: { product: Product }) {
                     {/* HUD - Removed complex customization controls for simplicity */}
 
                     {!showCalibrator && (
-                        <div className="mt-4 bg-black/60 backdrop-blur-md border border-[#D4AF37] p-3 w-64 shadow-2xl">
-                            <div className="flex items-center gap-2 text-[#D4AF37] text-[9px] font-mono font-black uppercase">
-                                <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
+                        <div className="mt-4 bg-black/60 backdrop-blur-md border border-[var(--color-brand-accent)] p-3 w-64 shadow-2xl">
+                            <div className="flex items-center gap-2 text-[var(--color-brand-accent)] text-[9px] font-mono font-black uppercase">
+                                <div className="w-2 h-2 bg-[var(--color-brand-accent)] rounded-full animate-pulse" />
                                 <span>SMART-FIT AKTİF</span>
                             </div>
                             <p className="text-white/50 text-[8px] font-mono mt-1 leading-tight">
@@ -94,7 +94,7 @@ export default function ScenePreview({ product }: { product: Product }) {
                     </button>
                     <button
                         onClick={reset}
-                        className="w-10 h-10 bg-black text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black flex items-center justify-center border border-black shadow-sm transition-colors rounded-full"
+                        className="w-10 h-10 bg-black text-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)] hover:text-black flex items-center justify-center border border-black shadow-sm transition-colors rounded-full"
                     >
                         <RefreshCcw className="w-4 h-4" />
                     </button>
@@ -114,7 +114,7 @@ export default function ScenePreview({ product }: { product: Product }) {
                         <button
                             key={i}
                             onClick={() => setActiveImageIndex(i)}
-                            className={`relative flex-shrink-0 w-24 h-24 overflow-hidden border transition-all ${activeImageIndex === i ? 'border-[#D4AF37] shadow-xl' : 'border-[#0A0A0A]/10 opacity-60 hover:opacity-100'}`}
+                            className={`relative flex-shrink-0 w-24 h-24 overflow-hidden border transition-all ${activeImageIndex === i ? 'border-[var(--color-brand-accent)] shadow-xl' : 'border-[#0A0A0A]/10 opacity-60 hover:opacity-100'}`}
                         >
                             <Image src={img} alt="" fill className="object-cover" />
                         </button>
@@ -128,7 +128,7 @@ export default function ScenePreview({ product }: { product: Product }) {
                     <span className="uppercase tracking-tighter">100 YIL SOLMAMA GARANTİSİ</span>
                 </div>
                 <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">
-                    <Truck className="w-5 h-5 text-[#D4AF37]" />
+                    <Truck className="w-5 h-5 text-[var(--color-brand-accent)]" />
                     <span className="uppercase tracking-tighter">HIZLI LOJİSTİK AĞI</span>
                 </div>
                 <div className="flex flex-col items-center gap-2 bg-white p-4 border-2 border-dashed border-black/20">

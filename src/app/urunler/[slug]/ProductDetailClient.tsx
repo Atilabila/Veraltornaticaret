@@ -2,16 +2,23 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { ArrowLeft, Check, ShoppingCart, AlertTriangle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { ArrowLeft, Check, AlertTriangle, Phone, MessageCircle, FileText } from "lucide-react"
 import { formatPrice } from "@/lib/utils"
 import { MetalProduct } from "@/lib/supabase/metal-products.types"
 import { ImageViewer } from "@/components/product/ImageViewer"
 import { ProductVariants, VariantState } from "@/components/product/ProductVariants"
 import { ProductInfoBlocks, ProductFAQ } from "@/components/product/ProductInfo"
+import { useContentStore } from "@/store/useContentStore"
+import { CART_ENABLED } from "@/lib/commerce"
+import {
+    toTelHref,
+    buildProductWhatsAppUrl,
+    resolveFooterPhone,
+    resolveWhatsappNumber,
+} from "@/lib/contact"
 import { useCartStore } from "@/store/useCartStore"
+import { useRouter } from "next/navigation"
+import { ShoppingCart } from "lucide-react"
 
 interface ProductDetailClientProps {
     product: MetalProduct
@@ -19,13 +26,20 @@ interface ProductDetailClientProps {
 
 export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product }) => {
     const router = useRouter()
+    const { content } = useContentStore()
     const addItem = useCartStore((state) => state.addItem)
     const [variant, setVariant] = React.useState<VariantState>({ size: '45x60', orientation: 'vertical' })
     const [price, setPrice] = React.useState(product.price)
     const [addedToCart, setAddedToCart] = React.useState(false)
     const [cartError, setCartError] = React.useState<string | null>(null)
 
-    // Simulate price change based on size
+    const tel = toTelHref(resolveFooterPhone(content.footerPhone))
+    const wa = buildProductWhatsAppUrl({
+        whatsappNumber: resolveWhatsappNumber(content.whatsappNumber),
+        productName: product.name,
+        baseMessage: content.whatsappMessage,
+    })
+
     React.useEffect(() => {
         const multipliers: Record<string, number> = {
             '30x45': 0.8,
@@ -36,9 +50,10 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
         setPrice(product.price * multipliers[variant.size])
     }, [variant.size, product.price])
 
+    const canPurchase = price > 0 && product.stock_quantity > 0
+
     return (
         <div className="product-detail-page min-h-screen bg-[#FAFAFA] pb-20 font-syne">
-            {/* Breadcrumb / Nav */}
             <div className="container px-4 py-8">
                 <Link href="/urunler" className="inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 font-black uppercase tracking-[0.2em] font-mono transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" /> Kataloğa Dön
@@ -46,7 +61,6 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             </div>
 
             <div className="container px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-                {/* Visuals - Now interactive */}
                 <div className="space-y-4">
                     <div className="border-2 border-zinc-900 bg-white shadow-[8px_8px_0_0_#18181b] p-2">
                         {product.image_url ? (
@@ -64,7 +78,6 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     </p>
                 </div>
 
-                {/* Details */}
                 <div className="space-y-8">
                     <div>
                         <div className="flex items-center gap-3 mb-6">
@@ -93,15 +106,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         </div>
                     </div>
 
-                    {/* Interactive Variants */}
                     <ProductVariants onChange={setVariant} />
 
-                    {/* Static Desc */}
                     <div className="text-base text-zinc-600 leading-relaxed font-mono font-medium border-l-4 border-industrial-gold pl-4">
                         <p>{product.description}</p>
                     </div>
 
-                    {/* Features List */}
                     {product.features && product.features.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 border-y-2 border-zinc-200">
                             {product.features.map(f => (
@@ -115,9 +125,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         </div>
                     )}
 
-                    {/* Actions */}
                     <div className="flex flex-col gap-4">
-                        {/* Price & Stock Validation Warning */}
                         {(!price || price <= 0) && (
                             <div className="flex items-center gap-4 p-4 bg-red-50 border-2 border-red-500 shadow-[4px_4px_0_0_#ef4444]">
                                 <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0" />
@@ -132,14 +140,14 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                             </div>
                         )}
 
-                        {cartError && (
+                        {CART_ENABLED && cartError && (
                             <div className="flex items-center gap-4 p-4 bg-red-50 border-2 border-red-500 shadow-[4px_4px_0_0_#ef4444]">
                                 <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0" />
                                 <p className="text-sm font-bold text-red-700 font-mono">{cartError}</p>
                             </div>
                         )}
 
-                        {addedToCart && (
+                        {CART_ENABLED && addedToCart && (
                             <div className="flex items-center gap-4 p-4 bg-emerald-50 border-2 border-emerald-500 shadow-[4px_4px_0_0_#10b981]">
                                 <Check className="w-6 h-6 text-emerald-600 flex-shrink-0" />
                                 <p className="text-sm font-bold text-emerald-800 font-mono">Ürün sepete eklendi!</p>
@@ -149,66 +157,92 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                             </div>
                         )}
 
-                        <button
-                            disabled={!price || price <= 0 || product.stock_quantity <= 0}
-                            onClick={() => {
-                                setCartError(null)
-                                const result = addItem({
-                                    productId: product.id,
-                                    name: product.name,
-                                    slug: product.slug,
-                                    size: variant.size,
-                                    orientation: variant.orientation,
-                                    price: price,
-                                    image: product.image_url || '/products/arabalar-plaka/3000x1500.webp',
-                                })
-                                if (result.success) {
-                                    setAddedToCart(true)
-                                    setTimeout(() => setAddedToCart(false), 3000)
-                                } else {
-                                    setCartError(result.error || 'Ürün sepete eklenemedi')
-                                }
-                            }}
-                            className="w-full h-16 flex items-center justify-center gap-3 bg-industrial-gold border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px] transition-all disabled:opacity-50 disabled:pointer-events-none"
-                        >
-                            <ShoppingCart className="w-6 h-6" />
-                            Sepete Ekle ({variant.size} - {variant.orientation === 'vertical' ? 'Dikey' : 'Yatay'})
-                        </button>
+                        {CART_ENABLED ? (
+                            <>
+                                <button
+                                    disabled={!canPurchase}
+                                    onClick={() => {
+                                        setCartError(null)
+                                        const result = addItem({
+                                            productId: product.id,
+                                            name: product.name,
+                                            slug: product.slug,
+                                            size: variant.size,
+                                            orientation: variant.orientation,
+                                            price: price,
+                                            image: product.image_url || '/products/arabalar-plaka/3000x1500.webp',
+                                        })
+                                        if (result.success) {
+                                            setAddedToCart(true)
+                                            setTimeout(() => setAddedToCart(false), 3000)
+                                        } else {
+                                            setCartError(result.error || 'Ürün sepete eklenemedi')
+                                        }
+                                    }}
+                                    className="w-full h-16 flex items-center justify-center gap-3 bg-industrial-gold border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px] transition-all disabled:opacity-50 disabled:pointer-events-none"
+                                >
+                                    <ShoppingCart className="w-6 h-6" />
+                                    Sepete Ekle ({variant.size} - {variant.orientation === 'vertical' ? 'Dikey' : 'Yatay'})
+                                </button>
 
-                        <button
-                            disabled={!price || price <= 0 || product.stock_quantity <= 0}
-                            onClick={() => {
-                                const result = addItem({
-                                    productId: product.id,
-                                    name: product.name,
-                                    slug: product.slug,
-                                    size: variant.size,
-                                    orientation: variant.orientation,
-                                    price: price,
-                                    image: product.image_url || '/products/arabalar-plaka/3000x1500.webp',
-                                })
-                                if (result.success) {
-                                    router.push('/odeme')
-                                } else {
-                                    setCartError(result.error || 'Ürün sepete eklenemedi')
-                                }
-                            }}
-                            className="w-full h-14 flex items-center justify-center gap-3 bg-white border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] transition-all disabled:opacity-50 disabled:pointer-events-none"
-                        >
-                            Hemen Satın Al
-                        </button>
+                                <button
+                                    disabled={!canPurchase}
+                                    onClick={() => {
+                                        const result = addItem({
+                                            productId: product.id,
+                                            name: product.name,
+                                            slug: product.slug,
+                                            size: variant.size,
+                                            orientation: variant.orientation,
+                                            price: price,
+                                            image: product.image_url || '/products/arabalar-plaka/3000x1500.webp',
+                                        })
+                                        if (result.success) {
+                                            router.push('/odeme')
+                                        } else {
+                                            setCartError(result.error || 'Ürün sepete eklenemedi')
+                                        }
+                                    }}
+                                    className="w-full h-14 flex items-center justify-center gap-3 bg-white border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] transition-all disabled:opacity-50 disabled:pointer-events-none"
+                                >
+                                    Hemen Satın Al
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <a
+                                    href={tel}
+                                    className="w-full h-16 flex items-center justify-center gap-3 bg-industrial-gold border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px] transition-all"
+                                >
+                                    <Phone className="w-6 h-6" />
+                                    Ara
+                                </a>
+                                <a
+                                    href={wa}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-full h-14 flex items-center justify-center gap-3 bg-white border-2 border-zinc-900 text-zinc-900 text-sm font-black uppercase tracking-[0.2em] font-mono shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] transition-all"
+                                >
+                                    <MessageCircle className="w-6 h-6" />
+                                    WhatsApp
+                                </a>
+                                <Link
+                                    href="/teklif-al"
+                                    className="w-full h-12 flex items-center justify-center gap-3 border-2 border-zinc-900 text-zinc-700 text-sm font-black uppercase tracking-[0.2em] font-mono hover:bg-zinc-50 transition-all"
+                                >
+                                    <FileText className="w-5 h-5" />
+                                    Teklif Al
+                                </Link>
+                            </>
+                        )}
 
                         <p className="text-[10px] text-center text-zinc-500 font-bold uppercase tracking-widest font-mono mt-2">
                             Kurumsal alım ve toplu siparişler için iletişime geçin.
                         </p>
                     </div>
 
-                    {/* Blocks */}
                     <ProductInfoBlocks />
-
-                    {/* FAQ */}
                     <ProductFAQ />
-
                 </div>
             </div>
         </div>

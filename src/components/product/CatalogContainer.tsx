@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useMemo, useEffect } from "react";
 import {
@@ -18,6 +18,7 @@ import ProductCard from "./ProductCard";
 import { m, AnimatePresence } from 'framer-motion';
 import { useContentStore } from "@/store/useContentStore";
 import { useCartStore } from "@/store/useCartStore";
+import { CART_ENABLED } from "@/lib/commerce";
 import { RecentlyViewed } from "./RecentlyViewed";
 import { MobileFilterDrawer } from "./MobileFilterDrawer";
 import { MobileActionBar } from "./MobileActionBar";
@@ -287,44 +288,33 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
 
 
   return (
-    <section className="bg-zinc-50 min-h-screen selection:bg-industrial-gold/30 selection:text-zinc-900">
-      <div className="pt-32 pb-16 md:pt-48 md:pb-32 px-6 overflow-hidden border-b border-zinc-200 relative bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.05),transparent_50%)]">
+    <section className="bg-[#f4f4f4] min-h-screen selection:bg-[var(--color-brand-accent)]/20 selection:text-[#161616]">
+      <div id="catalog-top" className="pt-28 pb-12 lg:pt-32 lg:pb-16 px-6 border-b border-[#c6c6c6] relative bg-white">
         {headerBg && (
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-10 pointer-events-none mix-blend-multiply grayscale"
+            className="absolute inset-0 bg-cover bg-center opacity-5 pointer-events-none grayscale"
             style={{ backgroundImage: `url(${headerBg})` }}
           />
         )}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-industrial-gold/5 to-transparent opacity-40" />
-          <div className="absolute top-[-4rem] right-[-4rem] sm:right-[-2rem] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] bg-industrial-gold/10 blur-[120px] rounded-full" />
-        </div>
 
-        <div className="mx-auto w-full max-w-screen-2xl px-4 md:px-6 lg:px-8">
-          <div className="flex flex-col gap-6 max-w-4xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-none border border-industrial-gold/20 bg-industrial-gold/5 w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-industrial-gold shadow-[0_0_8px_rgba(212,175,55,0.4)] animate-pulse" />
-              <span className="text-[9px] font-black font-mono text-industrial-gold uppercase tracking-[0.3em]">
-                {headerLabel}
-              </span>
-            </div>
+        <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12">
+          <div className="flex flex-col gap-4 max-w-3xl relative z-10">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--color-brand-accent)]">
+              {headerLabel}
+            </span>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black uppercase tracking-tighter text-zinc-900 font-syne italic leading-[0.85] max-w-5xl">
-              {headerTitle.split(" ").map((word, i) => (
-                <span key={i} className={i % 2 !== 0 ? "text-industrial-gold" : ""}>
-                  {word}{" "}
-                </span>
-              ))}
+            <h1 className="text-4xl md:text-5xl font-bold text-[#161616] leading-tight">
+              {headerTitle}
             </h1>
 
-            <p className="text-lg md:text-xl text-zinc-500 max-w-xl font-medium leading-relaxed italic uppercase tracking-widest border-l-2 border-industrial-gold/30 pl-6">
+            <p className="text-lg text-[#525252] max-w-2xl leading-relaxed">
               {headerSubtitle}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-screen-2xl px-3 sm:px-4 md:px-6 py-8 sm:py-10 lg:py-12 pb-24 lg:pb-12">
+      <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12 py-8 sm:py-10 lg:py-12 pb-24 lg:pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 sm:gap-6 lg:gap-10 items-start">
           {/* Desktop Sidebar - Hidden on mobile */}
           <aside
@@ -354,6 +344,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                 </div>
               </div>
 
+              {CART_ENABLED && (
               <div className="rounded-none border-t-4 border-t-industrial-gold border border-zinc-200 bg-white p-6 space-y-4 shadow-lg shadow-zinc-200/50">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500">
@@ -376,6 +367,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                   ÖDEMEYE GİT ({cartCount})
                 </Link>
               </div>
+              )}
 
               <RecentlyViewed items={recentItems} />
 
@@ -523,8 +515,8 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                   <button
                     onClick={() => setSelectedCategory("all")}
                     className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-full whitespace-nowrap transition-all border ${selectedCategory === "all"
-                      ? "bg-[#D4AF37] border-[#D4AF37] text-black"
-                      : "bg-white/5 border-white/10 text-white/70 hover:border-[#D4AF37]/50"
+                      ? "bg-[var(--color-brand-accent)] border-[var(--color-brand-accent)] text-black"
+                      : "bg-white/5 border-white/10 text-white/70 hover:border-[var(--color-brand-accent)]/50"
                       }`}
                   >
                     Tümü
@@ -533,9 +525,9 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                     <button
                       key={cat.id}
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`px-4 py-2 text-xs font-black uppercase tracking-wider rounded-full whitespace-nowrap transition-all border ${selectedCategory === cat.id
-                        ? "bg-[#D4AF37] border-[#D4AF37] text-black"
-                        : "bg-white/5 border-white/10 text-white/70 hover:border-[#D4AF37]/50"
+                      className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider whitespace-nowrap transition-all border ${selectedCategory === cat.id
+                        ? "bg-[var(--color-brand-accent)] border-[var(--color-brand-accent)] text-white"
+                        : "bg-white border-[#c6c6c6] text-[#525252] hover:border-[var(--color-brand-accent)]"
                         }`}
                     >
                       {cat.name}
@@ -566,9 +558,9 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                 <a
                   href="#catalog-top"
                   onClick={() => setSelectedCategory("all")}
-                  className={`px-5 py-2.5 text-xs font-black uppercase tracking-[0.2em] rounded-none transition-all duration-200 whitespace-nowrap border-2 ${selectedCategory === "all"
-                    ? "bg-industrial-gold text-zinc-900 border-zinc-900 shadow-[1px_1px_0_0_#18181b] translate-x-[3px] translate-y-[3px]"
-                    : "bg-white text-zinc-900 border-zinc-900 shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px]"
+                  className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all whitespace-nowrap border ${selectedCategory === "all"
+                    ? "bg-[var(--color-brand-accent)] text-white border-[var(--color-brand-accent)]"
+                    : "bg-white text-[#161616] border-[#c6c6c6] hover:border-[var(--color-brand-accent)]"
                     }`}
                 >
                   Tümü
@@ -577,9 +569,9 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                   <a
                     key={group.id}
                     href={`#cat-${group.anchor}`}
-                    className={`px-5 py-2.5 text-xs font-black uppercase tracking-[0.2em] rounded-none transition-all duration-200 whitespace-nowrap border-2 ${selectedCategory === group.id
-                      ? "bg-industrial-gold text-zinc-900 border-zinc-900 shadow-[1px_1px_0_0_#18181b] translate-x-[3px] translate-y-[3px]"
-                      : "bg-white text-zinc-900 border-zinc-900 shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px]"
+                    className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all whitespace-nowrap border ${selectedCategory === group.id
+                      ? "bg-[var(--color-brand-accent)] text-white border-[var(--color-brand-accent)]"
+                      : "bg-white text-[#161616] border-[#c6c6c6] hover:border-[var(--color-brand-accent)]"
                       }`}
                   >
                     {group.name}

@@ -10,7 +10,10 @@ import { useContentStore } from "@/store/useContentStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import { buildWhatsAppOrderMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
+import { CART_ENABLED } from "@/lib/commerce";
 import { m } from 'framer-motion';
+import { PageShell } from "@/components/layout/PageShell";
+import { PageContainer } from "@/components/layout/PageContainer";
 
 const statusConfig: Record<OrderStatus, { icon: any; color: string; label: string; description: string; bgColor: string; borderColor: string; iconBg: string }> = {
     created: { icon: Clock, color: "text-yellow-600", label: "Oluşturuldu", description: "Siparişiniz sisteme kaydedildi.", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", iconBg: "bg-yellow-100" },
@@ -69,8 +72,8 @@ export default function OrderConfirmationPage() {
 
     if (loading) {
         return (
-            <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-16">
-                <div className="container max-w-4xl mx-auto px-4">
+            <PageShell variant="muted">
+                <PageContainer className="max-w-4xl">
                     <div className="animate-pulse space-y-8">
                         <div className="h-40 bg-zinc-200 rounded-3xl" />
                         <div className="h-20 bg-zinc-200 rounded-3xl" />
@@ -79,16 +82,16 @@ export default function OrderConfirmationPage() {
                             <div className="h-40 bg-zinc-200 rounded-3xl" />
                         </div>
                     </div>
-                </div>
-            </main>
+                </PageContainer>
+            </PageShell>
         );
     }
 
     if (!order) {
         return (
-            <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-16">
-                <div className="container max-w-4xl mx-auto px-4">
-                    <div className="text-center py-24 space-y-6 bg-white rounded-3xl border border-zinc-200 shadow-sm">
+            <PageShell variant="muted">
+                <PageContainer className="max-w-4xl">
+                    <div className="text-center py-16 space-y-6 bg-white border border-[#c6c6c6]">
                         <div className="w-20 h-20 mx-auto rounded-3xl bg-zinc-50 flex items-center justify-center border border-zinc-100">
                             <Package className="w-10 h-10 text-zinc-300" />
                         </div>
@@ -97,11 +100,11 @@ export default function OrderConfirmationPage() {
                             Bu sipariş numarasına ait bir kayıt sisteme henüz düşmemiş olabilir veya bağlantınız kesilmiş olabilir.
                         </p>
                         <Link href="/">
-                            <Button className="rounded-full px-10 h-12 bg-black hover:bg-zinc-800 text-xs font-bold tracking-widest uppercase">Ana Sayfaya Dön</Button>
+                            <Button className="rounded-none px-10 h-12 bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white">Ana sayfaya dön</Button>
                         </Link>
                     </div>
-                </div>
-            </main>
+                </PageContainer>
+            </PageShell>
         );
     }
 
@@ -138,8 +141,8 @@ export default function OrderConfirmationPage() {
         : null;
 
     return (
-        <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-24">
-            <div className="container max-w-4xl mx-auto px-4">
+        <PageShell variant="muted">
+            <PageContainer className="max-w-4xl">
                 {/* Status Banner */}
                 <m.div
                     initial={{ opacity: 0, y: 20 }}
@@ -183,10 +186,12 @@ export default function OrderConfirmationPage() {
                                     <Printer className="w-4 h-4" />
                                     BELGEYİ YAZDIR
                                 </Button>
+                                {CART_ENABLED && (
                                 <Button variant="outline" size="sm" onClick={handleReorder} className="rounded-xl border-zinc-100 text-[10px] font-bold tracking-widest uppercase h-10 gap-2 hover:bg-zinc-50">
                                     <ArrowRight className="w-4 h-4" />
                                     AYNISINI AL
                                 </Button>
+                                )}
                             </div>
                         </div>
                         <div className="mt-8 pt-8 border-t border-zinc-50 text-[10px] font-black text-zinc-400 uppercase tracking-widest flex items-center justify-between">
@@ -316,9 +321,9 @@ export default function OrderConfirmationPage() {
                                 </div>
                             )}
                         </div>
-                        <div className="bg-zinc-900 rounded-3xl p-8 flex flex-col justify-center items-center text-center text-white">
-                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.3em] mb-2">TOPLAM ÖDENEN</p>
-                            <p className="text-4xl font-black tracking-tighter">{formatPrice(order.total)}</p>
+                        <div className="bg-[var(--color-brand-accent)] p-8 flex flex-col justify-center items-center text-center text-white">
+                            <p className="text-xs font-mono font-semibold uppercase tracking-wider text-white/80 mb-2">Toplam</p>
+                            <p className="text-4xl font-bold tracking-tight">{formatPrice(order.total)}</p>
                         </div>
                     </div>
                 </div>
@@ -351,7 +356,7 @@ export default function OrderConfirmationPage() {
                         </a>
                     </p>
                 </div>
-            </div>
-        </main>
+            </PageContainer>
+        </PageShell>
     );
 }
