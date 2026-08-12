@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -7,7 +7,6 @@ import { m } from 'framer-motion';
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContentStore } from "@/store/useContentStore";
-import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 import { normalizeImagePath } from "@/lib/utils";
 
 import { DirectEdit } from "@/components/admin/DirectEdit";
@@ -15,7 +14,6 @@ import { TextInspector } from "@/components/admin/TextInspector";
 
 export const Hero = () => {
     const { content } = useContentStore();
-    const { shouldReduceVisuals } = usePerformanceDetection();
     const heroImage = normalizeImagePath(content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop");
     const safeTitle = (content.heroTitle || "DOSYA TELİ\nSERİ İMALAT")
         .replace(/</g, "&lt;")
