@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ContentService } from "@/lib/supabase/content.service";
 import { upsertAdminContent } from "@/actions/admin";
@@ -407,6 +407,7 @@ interface ContentStore {
     // Supabase Sync Methods
     fetchContent: () => Promise<void>;
     saveToSupabase: () => Promise<boolean>;
+    resetToManufacturingDefaults: () => Promise<boolean>;
 
     // Typography Actions
     updateTypography: (id: string, styles: any) => void;
@@ -535,12 +536,12 @@ export const defaultContent: SiteContent = {
     ],
 
     servicesPageHeader: {
-        title: 'Endüstriyel Hizmetlerimiz',
-        subtitle: 'Teneke ve Torna sektöründe 44 yıllık tecrübemizi yansıtıyoruz.',
-        badge: 'VERAL — METAL İŞLEME & ÜRETİM MERKEZİ',
-        intro: 'Metal işleme ve tasarımda 20 yıllık tecrübe ile kurumsal çözümler.',
-        ctaTitle: 'PROJENİZ İÇİN TEKNİK\nTEKLİF ALMAK İSTER MİSİNİZ?',
-        ctaDescription: 'Teknik çizimleriniz ekibimiz tarafından incelenir ve 24 saat içinde detaylandırılmış fiyatlandırma tarafınıza iletilir.',
+        title: 'Üretim Hizmetlerimiz',
+        subtitle: 'Dosya teli, takvim tenekesi, tef zili ve metal poster — ölçüye göre.',
+        badge: 'Üretim hizmetleri',
+        intro: 'Seri imalat hatlarımızda ölçü ve miktar netleşir, termin konuşulur.',
+        ctaTitle: 'Toptan sipariş için teklif alın',
+        ctaDescription: 'Ölçü ve miktar bilgileriniz incelenir; 24 saat içinde fiyatlandırma iletilir.',
         ctaButtonText: 'TEKLİF İSTE',
         ctaButtonLink: '/teklif-al',
     },
@@ -1195,6 +1196,22 @@ export const useContentStore = create<ContentStore>()(
             saveToSupabase: async () => {
                 const { content } = get();
                 const result = await upsertAdminContent(content);
+                return result.success;
+            },
+
+            resetToManufacturingDefaults: async () => {
+                const { content } = get();
+                const savedHeroImage = content.heroImage;
+                const updatedContent = {
+                    ...content,
+                    heroSubtitle: defaultContent.heroSubtitle,
+                    heroProductLine: defaultContent.heroProductLine,
+                    servicesPageHeader: defaultContent.servicesPageHeader,
+                    metalShowcaseTrustBadges: defaultContent.metalShowcaseTrustBadges,
+                    heroImage: savedHeroImage,
+                };
+                set({ content: updatedContent });
+                const result = await upsertAdminContent(updatedContent);
                 return result.success;
             },
 
