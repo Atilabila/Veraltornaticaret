@@ -1,7 +1,8 @@
-﻿import { Suspense } from "react"
+import { Suspense } from "react"
 import { Metadata } from "next"
 import { getProducts, getCategories } from "@/lib/actions/metal-products.actions"
-import { PageShell } from "@/components/layout/PageShell"
+import { Navigation } from "@/components/layout/Navigation"
+import { Footer } from "@/components/layout/Footer"
 import { CatalogContainer } from "@/components/product/CatalogContainer"
 
 export const metadata: Metadata = {
@@ -26,14 +27,18 @@ export default async function ProductsPage() {
     ])
 
     return (
-        <PageShell variant="light" padded={false}>
-            <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center text-[#161616]">Yükleniyor...</div>}>
+        <main className="min-h-screen bg-white">
+            <Navigation />
+
+            <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-black">Yükleniyor...</div>}>
                 <CatalogContainer
                     products={products || []}
                     showcaseProducts={showcase || []}
                     categories={categories || []}
                 />
             </Suspense>
-        </PageShell>
+
+            <Footer />
+        </main>
     )
 }

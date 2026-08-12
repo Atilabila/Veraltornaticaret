@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { ArrowLeft, Check, AlertTriangle, Phone, MessageCircle, FileText } from "lucide-react"
 import { formatPrice } from "@/lib/utils"
 import { MetalProduct } from "@/lib/supabase/metal-products.types"
@@ -17,7 +18,6 @@ import {
     resolveWhatsappNumber,
 } from "@/lib/contact"
 import { useCartStore } from "@/store/useCartStore"
-import { useRouter } from "next/navigation"
 import { ShoppingCart } from "lucide-react"
 
 interface ProductDetailClientProps {
@@ -54,6 +54,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
     return (
         <div className="product-detail-page min-h-screen bg-[#FAFAFA] pb-20 font-syne">
+            {/* Breadcrumb / Nav */}
             <div className="container px-4 py-8">
                 <Link href="/urunler" className="inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 font-black uppercase tracking-[0.2em] font-mono transition-colors">
                     <ArrowLeft className="w-5 h-5 mr-2" /> Kataloğa Dön
@@ -61,6 +62,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             </div>
 
             <div className="container px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+                {/* Visuals - Now interactive */}
                 <div className="space-y-4">
                     <div className="border-2 border-zinc-900 bg-white shadow-[8px_8px_0_0_#18181b] p-2">
                         {product.image_url ? (
@@ -78,6 +80,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     </p>
                 </div>
 
+                {/* Details */}
                 <div className="space-y-8">
                     <div>
                         <div className="flex items-center gap-3 mb-6">
@@ -106,12 +109,15 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         </div>
                     </div>
 
+                    {/* Interactive Variants */}
                     <ProductVariants onChange={setVariant} />
 
+                    {/* Static Desc */}
                     <div className="text-base text-zinc-600 leading-relaxed font-mono font-medium border-l-4 border-industrial-gold pl-4">
                         <p>{product.description}</p>
                     </div>
 
+                    {/* Features List */}
                     {product.features && product.features.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 border-y-2 border-zinc-200">
                             {product.features.map(f => (
@@ -125,7 +131,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         </div>
                     )}
 
+                    {/* Actions */}
                     <div className="flex flex-col gap-4">
+                        {/* Price & Stock Validation Warning */}
                         {(!price || price <= 0) && (
                             <div className="flex items-center gap-4 p-4 bg-red-50 border-2 border-red-500 shadow-[4px_4px_0_0_#ef4444]">
                                 <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0" />
@@ -241,8 +249,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         </p>
                     </div>
 
+                    {/* Blocks */}
                     <ProductInfoBlocks />
+
+                    {/* FAQ */}
                     <ProductFAQ />
+
                 </div>
             </div>
         </div>

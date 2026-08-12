@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { MetalProduct } from "@/lib/supabase/metal-products.types"
 import ProductCard from "./ProductCard"

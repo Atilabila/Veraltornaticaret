@@ -12,8 +12,6 @@ import { formatPrice } from "@/lib/utils";
 import { buildWhatsAppOrderMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { CART_ENABLED } from "@/lib/commerce";
 import { m } from 'framer-motion';
-import { PageShell } from "@/components/layout/PageShell";
-import { PageContainer } from "@/components/layout/PageContainer";
 
 const statusConfig: Record<OrderStatus, { icon: any; color: string; label: string; description: string; bgColor: string; borderColor: string; iconBg: string }> = {
     created: { icon: Clock, color: "text-yellow-600", label: "Oluşturuldu", description: "Siparişiniz sisteme kaydedildi.", bgColor: "bg-yellow-50", borderColor: "border-yellow-100", iconBg: "bg-yellow-100" },
@@ -72,8 +70,8 @@ export default function OrderConfirmationPage() {
 
     if (loading) {
         return (
-            <PageShell variant="muted">
-                <PageContainer className="max-w-4xl">
+            <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-16">
+                <div className="container max-w-4xl mx-auto px-4">
                     <div className="animate-pulse space-y-8">
                         <div className="h-40 bg-zinc-200 rounded-3xl" />
                         <div className="h-20 bg-zinc-200 rounded-3xl" />
@@ -82,16 +80,16 @@ export default function OrderConfirmationPage() {
                             <div className="h-40 bg-zinc-200 rounded-3xl" />
                         </div>
                     </div>
-                </PageContainer>
-            </PageShell>
+                </div>
+            </main>
         );
     }
 
     if (!order) {
         return (
-            <PageShell variant="muted">
-                <PageContainer className="max-w-4xl">
-                    <div className="text-center py-16 space-y-6 bg-white border border-[#c6c6c6]">
+            <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-16">
+                <div className="container max-w-4xl mx-auto px-4">
+                    <div className="text-center py-24 space-y-6 bg-white rounded-3xl border border-zinc-200 shadow-sm">
                         <div className="w-20 h-20 mx-auto rounded-3xl bg-zinc-50 flex items-center justify-center border border-zinc-100">
                             <Package className="w-10 h-10 text-zinc-300" />
                         </div>
@@ -100,11 +98,11 @@ export default function OrderConfirmationPage() {
                             Bu sipariş numarasına ait bir kayıt sisteme henüz düşmemiş olabilir veya bağlantınız kesilmiş olabilir.
                         </p>
                         <Link href="/">
-                            <Button className="rounded-none px-10 h-12 bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white">Ana sayfaya dön</Button>
+                            <Button className="rounded-full px-10 h-12 bg-black hover:bg-zinc-800 text-xs font-bold tracking-widest uppercase">Ana Sayfaya Dön</Button>
                         </Link>
                     </div>
-                </PageContainer>
-            </PageShell>
+                </div>
+            </main>
         );
     }
 
@@ -141,8 +139,8 @@ export default function OrderConfirmationPage() {
         : null;
 
     return (
-        <PageShell variant="muted">
-            <PageContainer className="max-w-4xl">
+        <main className="min-h-screen bg-[#f8f8f8] pt-32 pb-24">
+            <div className="container max-w-4xl mx-auto px-4">
                 {/* Status Banner */}
                 <m.div
                     initial={{ opacity: 0, y: 20 }}
@@ -321,9 +319,9 @@ export default function OrderConfirmationPage() {
                                 </div>
                             )}
                         </div>
-                        <div className="bg-[var(--color-brand-accent)] p-8 flex flex-col justify-center items-center text-center text-white">
-                            <p className="text-xs font-mono font-semibold uppercase tracking-wider text-white/80 mb-2">Toplam</p>
-                            <p className="text-4xl font-bold tracking-tight">{formatPrice(order.total)}</p>
+                        <div className="bg-zinc-900 rounded-3xl p-8 flex flex-col justify-center items-center text-center text-white">
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.3em] mb-2">TOPLAM ÖDENEN</p>
+                            <p className="text-4xl font-black tracking-tighter">{formatPrice(order.total)}</p>
                         </div>
                     </div>
                 </div>
@@ -356,7 +354,7 @@ export default function OrderConfirmationPage() {
                         </a>
                     </p>
                 </div>
-            </PageContainer>
-        </PageShell>
+            </div>
+        </main>
     );
 }

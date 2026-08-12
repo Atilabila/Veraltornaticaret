@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ZoomIn, ZoomOut, Move, Maximize2, RotateCcw, Smartphone, Monitor } from 'lucide-react';

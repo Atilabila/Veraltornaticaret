@@ -1,4 +1,4 @@
-﻿import { ShieldCheck, Truck, RotateCcw, Box } from "lucide-react"
+import { ShieldCheck, Truck, RotateCcw, Box } from "lucide-react"
 
 export const ProductInfoBlocks = () => {
     return (

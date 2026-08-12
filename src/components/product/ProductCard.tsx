@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
         <div
           className={`w-1.5 h-1.5 rounded-full ${isRetail
             ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.3)]"
-            : "bg-industrial-gold shadow-[0_0_8px_rgba(15, 98, 254,0.35)]"
+            : "bg-industrial-gold shadow-[0_0_8px_rgba(212,175,55,0.4)]"
             }`}
         />
         <span
