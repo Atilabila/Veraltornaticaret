@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { useContentStore } from "@/store/useContentStore";
 import { usePerformanceDetection } from "@/hooks/usePerformanceDetection";
 import { normalizeImagePath } from "@/lib/utils";
-import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
 
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { TextInspector } from "@/components/admin/TextInspector";
@@ -18,7 +17,7 @@ export const Hero = () => {
     const { content } = useContentStore();
     const { shouldReduceVisuals } = usePerformanceDetection();
     const heroImage = normalizeImagePath(content.heroImage || "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1587&auto=format&fit=crop");
-    const safeTitle = (content.heroTitle || "METAL TABLO &\nTENEKELERDE\nYENİ NESİL\nDEKOR VE ÜRETİM")
+    const safeTitle = (content.heroTitle || "DOSYA TELİ\nSERİ İMALAT")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/\n/g, "<br/>");
@@ -38,14 +37,14 @@ export const Hero = () => {
                             >
                                 <span className="h-[3px] w-12 bg-industrial-gold" />
                                 <TextInspector label="Hero-Eyebrow">
-                                    <span className="text-sm md:text-base font-black tracking-[0.2em] uppercase text-zinc-600">
-                                        {content.heroSubtitle || "Yerli üretim metal tablolar, teneke ürünler ve özel baskı çözümleri"}
+                                    <span className="text-sm md:text-base font-black tracking-[0.2em] uppercase text-[#525252]">
+                                        {content.heroSubtitle || "İzmir — toptan dosya teli ve metal imalat"}
                                     </span>
                                 </TextInspector>
                             </m.div>
 
                             <m.h1
-                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.92] tracking-tighter uppercase text-zinc-900 break-words font-syne italic drop-shadow-md animate-fade-in-up"
+                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[0.95] tracking-tight uppercase text-[#161616] break-words animate-fade-in-up"
                                 style={{ animationDelay: '0.1s' }}
                             >
                                 <TextInspector label="Hero-Headline">
@@ -57,85 +56,67 @@ export const Hero = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
-                                className="space-y-4"
+                                className="space-y-3 max-w-2xl"
                             >
-                                <div className="border-l-4 border-industrial-gold pl-5 py-1">
-                                    <TextInspector label="Hero-Tagline">
-                                        <p className="text-[#C49A2B] font-black tracking-[0.2em] uppercase text-lg md:text-xl leading-relaxed">
-                                            {content.heroTagline || "UV BASKI YENİ NESİL TENEKE PLAKALAR. Sınırsız Tasarım, Üretim"}
-                                        </p>
-                                    </TextInspector>
-                                </div>
-                                <m.p
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.6, delay: 0.4 }}
-                                    className="text-[#B38C27] font-black tracking-[0.12em] uppercase text-sm md:text-base leading-relaxed pl-1"
-                                >
-                                    Dosya Teli — Takvim Tenekesi — Teneke Tef Zil — Retro Teneke Poster — UV Baskılı Özel İmalat Ürünler
-                                </m.p>
+                                <TextInspector label="Hero-Tagline">
+                                    <p className="text-[#525252] text-base md:text-lg leading-relaxed">
+                                        {content.heroProductLine || "Ölçü netleşir, termin konuşulur, sevkiyat planlanır."}
+                                    </p>
+                                </TextInspector>
                             </m.div>
 
                             <m.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.3 }}
-                                className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 w-full"
+                                className="flex flex-col sm:flex-row sm:items-center gap-4 pt-2 w-full"
                             >
                                 <Button
                                     asChild
                                     size="lg"
-                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none bg-industrial-gold hover:bg-industrial-gold-muted transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(212,175,55,0.4)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 text-black"
+                                    className="h-12 px-8 text-sm font-bold tracking-wide rounded-none bg-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent-muted)] transition-colors w-full sm:w-auto justify-center text-white"
                                 >
-                                    <Link href={content.heroButton1Url || "/urunler"}>
-                                        <span className="flex items-center gap-3">
-                                            {content.heroButton1Text || "Ürünü İncele"}
-                                            <ArrowRight className="w-5 h-5" />
+                                    <Link href={content.heroButton1Url || "/teklif-al"}>
+                                        <span className="flex items-center gap-2">
+                                            {content.heroButton1Text || "Teklif Al"}
+                                            <ArrowRight className="w-4 h-4" />
                                         </span>
                                     </Link>
                                 </Button>
-
-                                <Button
-                                    asChild
-                                    variant="outline"
-                                    size="lg"
-                                    className="h-14 px-8 sm:px-10 text-[13px] sm:text-[14px] font-black tracking-[0.18em] sm:tracking-[0.24em] uppercase rounded-none border-2 border-industrial-gold/40 bg-transparent text-industrial-gold hover:bg-industrial-gold hover:text-black transition-all duration-300 w-full sm:w-auto justify-center shadow-[4px_4px_0px_0px_rgba(212,175,55,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+                                <Link
+                                    href="/#hizmetler"
+                                    className="text-sm font-semibold text-[#525252] hover:text-[var(--color-brand-accent)] transition-colors underline-offset-4 hover:underline"
                                 >
-                                    <Link href={content.heroButton2Url || "/urunler"}>
-                                        {content.heroButton2Text || "KATALOG"}
-                                    </Link>
-                                </Button>
+                                    Üretim hatlarını incele
+                                </Link>
                             </m.div>
 
-                            <m.div
+                            {(content.metalShowcaseTrustBadges || []).length > 0 && (
+                            <m.ul
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
-                                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-6 pt-6 border-t border-white/5"
+                                className="flex flex-wrap gap-x-6 gap-y-2 mt-4 pt-6 border-t border-[#c6c6c6] text-sm text-[#525252] list-none"
                             >
-                                {(content.metalShowcaseTrustBadges || []).slice(0, 4).map((badge, index) => (
-                                    <TrustItem key={index} iconName={badge.icon} text={badge.text} />
+                                {(content.metalShowcaseTrustBadges || []).slice(0, 3).map((badge, index) => (
+                                    <li key={index} className="flex items-center gap-2">
+                                        <span className="text-[var(--color-brand-accent)]">·</span>
+                                        {badge.text}
+                                    </li>
                                 ))}
-                                {(!content.metalShowcaseTrustBadges || content.metalShowcaseTrustBadges.length === 0) && (
-                                    <>
-                                        <TrustItem iconName="Zap" text="Hızlı Üretim" />
-                                        <TrustItem iconName="Award" text="+44 Yıl Deneyim" />
-                                        <TrustItem iconName="ShieldCheck" text="Premium Kalite" />
-                                        <TrustItem iconName="Clock" text="7/24 Destek" />
-                                    </>
-                                )}
-                            </m.div>
+                            </m.ul>
+                            )}
                         </div>
 
                         {/* Right Column: Visual */}
                         <div
                             className="col-span-12 lg:col-span-5 relative w-full min-w-0"
                         >
-                            <Link href="/urunler" className="group block">
-                                <div className="relative aspect-[4/5] sm:aspect-[4/5] lg:aspect-[4/5] bg-gray-100/80 w-full shadow-2xl rounded-3xl overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
+                            <Link href="/hizmetler/dosya-teli" className="block">
+                                <div className="relative aspect-[4/5] bg-[#f4f4f4] w-full border border-[#c6c6c6] overflow-hidden">
                                     <Image
                                         src={heroImage}
-                                        alt="Industrial Metal Production"
+                                        alt="Toptan dosya teli seri imalatı"
                                         fill
                                         className="object-cover"
                                         priority
@@ -143,23 +124,15 @@ export const Hero = () => {
                                         sizes="(min-width:1280px) 560px, (min-width:1024px) 480px, (min-width:768px) 60vw, 94vw"
                                         quality={55}
                                     />
-                                    <m.div
-                                        initial={{ opacity: 0, scale: 1.1 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 1, duration: 1 }}
-                                        className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none"
-                                    />
-                                    {/* Hover Overlay */}
-                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
                                 </div>
                             </Link>
                             <m.div
-                                whileHover={{ x: 10, y: -10 }}
-                                className="mt-6 lg:mt-0 lg:absolute lg:-bottom-6 lg:-left-6 bg-zinc-900 p-6 shadow-[0_0_40px_rgba(212,175,55,0.15)] border-l-8 border-industrial-gold z-20 w-full max-w-[280px] cursor-pointer transition-shadow hover:shadow-[0_0_60px_rgba(212,175,55,0.25)]"
+                                whileHover={{ x: 4, y: -4 }}
+                                className="mt-6 lg:mt-0 lg:absolute lg:-bottom-4 lg:-left-4 bg-white p-5 border border-[#c6c6c6] border-l-4 border-l-[var(--color-brand-accent)] z-20 w-full max-w-[260px]"
                             >
-                                <div className="text-xs font-black uppercase tracking-widest text-zinc-300 mb-2">Technical Specs</div>
-                                <div className="text-4xl font-black text-white font-syne italic">0.30<span className="text-sm align-top ml-1">mm</span></div>
-                                <div className="text-sm font-bold text-zinc-200 mt-2">Industrial Grade Steel</div>
+                                <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#525252] mb-1">Toptan MOQ</div>
+                                <div className="text-3xl font-black text-[#161616]">Seri İmalat</div>
+                                <div className="text-sm text-[#525252] mt-1">Özel ölçü dosya teli</div>
                             </m.div>
                         </div>
                     </div>
@@ -168,20 +141,3 @@ export const Hero = () => {
         </DirectEdit>
     );
 };
-
-
-
-const TrustItem = ({ iconName, text }: { iconName: string, text: string }) => (
-    <div className="rounded-2xl border border-zinc-700 bg-zinc-800/70 backdrop-blur-sm p-5 md:p-6 flex flex-col items-start gap-3 hover:border-industrial-gold/50 transition-all duration-300 group/trust">
-        <div className="p-3 bg-zinc-700 rounded-lg group-hover/trust:bg-industrial-gold/20 transition-colors">
-            <DynamicLucideIcon
-                name={iconName}
-                fallbackName="shield-check"
-                className="w-8 h-8 md:w-10 md:h-10 text-industrial-gold"
-            />
-        </div>
-        <span className="text-sm md:text-base font-black uppercase tracking-wide leading-tight text-zinc-100">
-            {text}
-        </span>
-    </div>
-);

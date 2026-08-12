@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ContentService } from "@/lib/supabase/content.service";
 import { upsertAdminContent } from "@/actions/admin";
@@ -21,6 +21,7 @@ export interface SiteContent {
     heroButton1Url: string;
     heroButton2Text: string;
     heroButton2Url: string;
+    heroProductLine: string;
     heroStats: { value: string; label: string }[];
 
     // ===== FEATURES SECTION =====
@@ -406,6 +407,7 @@ interface ContentStore {
     // Supabase Sync Methods
     fetchContent: () => Promise<void>;
     saveToSupabase: () => Promise<boolean>;
+    resetToManufacturingDefaults: () => Promise<boolean>;
 
     // Typography Actions
     updateTypography: (id: string, styles: any) => void;
@@ -444,6 +446,28 @@ export const defaultContent: SiteContent = {
     // Services Defaults
     services: [
         {
+            id: '2',
+            slug: 'dosya-teli',
+            title: 'Dosya Teli Üretimi',
+            shortDescription: 'Endüstriyel sınıf dayanıklı dosya teli imalatı. Toptan ve perakende.',
+            fullDescription: 'Arşivleme sistemleri ve dosya üreticileri için standart ve özel boylarda dosya teli üretimi yapıyoruz. Paslanmaz yapı ve yüksek esneklik dayanımı.',
+            icon: 'FileText',
+            image: '',
+            images: [],
+            seoTitle: 'Dosya Teli İmalatı ve Toptan Satış | VERAL',
+            seoDescription: 'İzmir dosya teli üreticisi. Kırtasiye ve arşiv sistemleri için yüksek kaliteli, dayanıklı metal dosya telleri.',
+            features: [
+                { key: 'Dayanıklılık', value: 'Paslanmaz Kaplama' },
+                { key: 'Ölçü', value: 'Standart ve Özel Boy' }
+            ],
+            applicationAreas: ['Kırtasiye Sektörü', 'Arşiv Merkezleri', 'Dosya İmalatçıları'],
+            slaText: 'Stoktan Teslimat',
+            ctaTitle: 'Toplu Alım İçin Teklif Alın',
+            ctaLabel: 'Teklif Al',
+            order: 1,
+            isActive: true
+        },
+        {
             id: '1',
             slug: 'takvim-tenekesi',
             title: 'Takvim Tenekesi İmalatı',
@@ -462,28 +486,6 @@ export const defaultContent: SiteContent = {
             slaText: 'Hızlı Termin Süresi',
             ctaTitle: 'Toptan Sipariş İçin Teklif Alın',
             ctaLabel: 'Teklif Al',
-            order: 1,
-            isActive: true
-        },
-        {
-            id: '2',
-            slug: 'dosya-teli',
-            title: 'Dosya Teli Üretimi',
-            shortDescription: 'Endüstriyel sınıf dayanıklı dosya teli imalatı. Toptan ve perakende.',
-            fullDescription: 'Arşivleme sistemleri ve dosya üreticileri için standart ve özel boylarda dosya teli üretimi yapıyoruz. Paslanmaz yapı ve yüksek esneklik dayanımı.',
-            icon: 'FileText',
-            image: '',
-            images: [],
-            seoTitle: 'Dosya Teli İmalatı ve Toptan Satış | VERAL',
-            seoDescription: 'İzmir dosya teli üreticisi. Kırtasiye ve arşiv sistemleri için yüksek kaliteli, dayanıklı metal dosya telleri.',
-            features: [
-                { key: 'Dayanıklılık', value: 'Paslanmaz Kaplama' },
-                { key: 'Ölçü', value: 'Standart ve Özel Boy' }
-            ],
-            applicationAreas: ['Kırtasiye Sektörü', 'Arşiv Merkezleri', 'Dosya İmalatçıları'],
-            slaText: 'Stoktan Teslimat',
-            ctaTitle: 'Toplu Alım İçin Bize Ulaşın',
-            ctaLabel: 'İletişime Geç',
             order: 2,
             isActive: true
         },
@@ -504,8 +506,8 @@ export const defaultContent: SiteContent = {
             ],
             applicationAreas: ['Enstrüman Üreticileri', 'Darbuka Atölyeleri', 'Müzik Marketler'],
             slaText: 'Yüksek Parlaklık Garantisi',
-            ctaTitle: 'Özel Öretim Talebi Oluşturun',
-            ctaLabel: 'Detay Al',
+            ctaTitle: 'Özel Üretim Talebi Oluşturun',
+            ctaLabel: 'Teklif Al',
             order: 3,
             isActive: true
         },
@@ -526,57 +528,64 @@ export const defaultContent: SiteContent = {
             ],
             applicationAreas: ['Ev Dekorasyonu', 'Promosyon', 'Hediyelik Eşya'],
             slaText: 'Ömür Boyu Renk Garantisi',
-            ctaTitle: 'Kendi Tasarımını Bastır',
-            ctaLabel: 'Şimdi Oluştur',
+            ctaTitle: 'Özel Üretim İçin Teklif Alın',
+            ctaLabel: 'Teklif Al',
             order: 4,
             isActive: true
         }
     ],
 
     servicesPageHeader: {
-        title: 'Endüstriyel Hizmetlerimiz',
-        subtitle: 'Teneke ve Torna sektöründe 44 yıllık tecrübemizi yansıtıyoruz.',
-        badge: 'VERAL — METAL İŞLEME & ÜRETİM MERKEZİ',
-        intro: 'Metal işleme ve tasarımda 20 yıllık tecrübe ile kurumsal çözümler.',
-        ctaTitle: 'PROJENİZ İÇİN TEKNİK\nTEKLİF ALMAK İSTER MİSİNİZ?',
-        ctaDescription: 'Teknik çizimleriniz ekibimiz tarafından incelenir ve 24 saat içinde detaylandırılmış fiyatlandırma tarafınıza iletilir.',
+        title: 'Üretim Hizmetlerimiz',
+        subtitle: 'Dosya teli ve takvim tenekesi seri imalatında 40+ yıllık tecrübe.',
+        badge: 'VERAL — DOSYA TELİ & METAL İMALAT',
+        intro: 'İmalatçıdan halka: toptan dosya teli, takvim tenekesi ve endüstriyel metal hatları.',
+        ctaTitle: 'TOPTAN SİPARİŞ İÇİN\nTEKLİF ALMAK İSTER MİSİNİZ?',
+        ctaDescription: 'Ölçü ve miktar bilgileriniz ekibimiz tarafından incelenir; 24 saat içinde toptan fiyatlandırma iletilir.',
         ctaButtonText: 'TEKLİF İSTE',
         ctaButtonLink: '/teklif-al',
     },
 
     // Page Settings Defaults (Common paths)
     pageSettings: [
-        { path: '/', theme: 'dark', headerModeOverride: 'inherit', gridOverride: 'inherit' },
-        { path: '/urunler', theme: 'dark', headerModeOverride: 'inherit', gridOverride: 'inherit' },
-        { path: '/teklif-al', theme: 'dark', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/urunler', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/teklif-al', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
         { path: '/hakkimizda', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/hizmetler', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/iletisim', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/siparis-sorgula', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/odeme', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/hesabim', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
+        { path: '/sss', theme: 'light', headerModeOverride: 'inherit', gridOverride: 'inherit' },
     ],
 
     // Theme Fallback (Keep for backward compatibility)
     themeConfig: {
-        darkPaths: ['/urunler', '/teklif-al', '/siparis-sorgula', '/product', '/metal-tablolar']
+        darkPaths: ['/product', '/metal-tablolar']
     },
 
 
     // Hero
-    heroTitle: "METALİN DİJİTAL\nDÖNÜŞÜMÜ",
-    heroSubtitle: "Veral standartlarında 0.30mm endüstriyel teneke, yüksek çözünürlüklü UV baskı.",
-    heroTagline: "0.30MM TENEKE // YÜKSEK ÇÖZÜNÜRLÜK // UV AKTARIM",
-    heroPrice: "199 TL",
-    heroImage: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
+    heroTitle: "ÖZEL & SERİ\nDOSYA TELİ",
+    heroSubtitle: "İzmir — toptan dosya teli ve metal imalat",
+    heroTagline: "ÖZEL ÖLÇÜ // SERİ İMALAT // 24 SAAT TEKLİF",
+    heroPrice: "",
+    heroImage: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1600&auto=format&fit=crop",
     heroImages: [
         "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2574&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1524169358666-79f22c79745d?q=80&w=2670&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=2680&auto=format&fit=crop"
     ],
-    heroButton1Text: "ÜRETİM HATTINI KEŞFET",
-    heroButton1Url: "/#process",
-    heroButton2Text: "KATALOĞA GİT",
-    heroButton2Url: "/urunler",
+    heroButton1Text: "TEKLİF AL",
+    heroButton1Url: "/teklif-al",
+    heroButton2Text: "HİZMETLER",
+    heroButton2Url: "/hizmetler",
+    heroProductLine: "Ölçü netleşir, termin konuşulur, sevkiyat planlanır.",
     heroStats: [
-        { value: "24-48s", label: "TESLİMAT" },
-        { value: "1.5mm", label: "METAL" },
-        { value: "4K UV", label: "BASKI" }
+        { value: "MOQ", label: "TOPTAN" },
+        { value: "Seri", label: "İMALAT" },
+        { value: "24s", label: "TEKLİF" }
     ],
 
     // Features
@@ -616,30 +625,30 @@ export const defaultContent: SiteContent = {
     serviceDetailFooterTitle: "DİĞER HİZMETLER",
     serviceDetailFooterDesc: "İlginizi çekebilecek diğer endüstriyel çözümlerimiz.",
     serviceDetailFooterLinkText: "TÜMÜNÜ GÖR",
-    servicesTitle: "DİĞER OPERASYONLAR",
-    servicesSubtitle: "GÖRSEL EKRAN BİRİMLERİNİN ÖTESİNDEKİ GENİŞLETİLMİŞ ÜRETİM KABİLİYETLERİ.",
+    servicesTitle: "ÜRETİM HATLARI",
+    servicesSubtitle: "DOSYA TELİNDEN TAKVİM TENEKESİNE — İMALATÇIDAN HALKA SERİ ÜRETİM.",
     servicesExploreText: "Tüm Hizmetleri Gör",
     servicesExploreUrl: "/hizmetler",
     serviceItems: [
         {
-            title: "TAKVİM TENEKESİ & DOSYA TELİ",
-            description: "SERİ TAKVİM TENEKESİ VE DOSYA TELİ İMALATI. İZMİR MERKEZLİ TÜRKİYE GENELİ SEVKİYAT.",
-            image: "/images/production/teneke.jpg",
+            title: "DOSYA TELİ ÜRETİMİ",
+            description: "SERİ TOPTAN DOSYA TELİ İMALATI. İZMİR MERKEZLİ TÜRKİYE GENELİ SEVKİYAT.",
+            image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop",
+            features: ["PASLANMAZ", "ÖZEL ÖLÇÜ", "TOPLU ÜRETİM"],
+            exploreUrl: "/hizmetler/dosya-teli"
+        },
+        {
+            title: "TAKVİM TENEKESİ",
+            description: "MATBAA VE YAYINEVLERİ İÇİN SERİ TAKVİM TENEKESİ İMALATI. YÜKSEK KAPASİTE.",
+            image: "https://images.unsplash.com/photo-1507842217343-583bb7270fae?q=80&w=800&auto=format&fit=crop",
             features: ["HASSAS KESİM", "KOROZYON DİRENÇLİ", "TOPLU ÜRETİM"],
             exploreUrl: "/hizmetler/takvim-tenekesi"
         },
         {
-            title: "METAL POSTER & MAGNET",
-            description: "4K UV BASKILI METAL POSTERLER VE MIKNATISLI MAGNET ÜRETİMİ. ÖMÜR BOYU DAYANIKLI RENKLER.",
-            image: "/images/production/poster.jpg",
-            features: ["UV BASKI", "MIKNATISLI SİSTEM", "KİŞİYE ÖZEL"],
-            exploreUrl: "/urunler"
-        },
-        {
-            title: "TEF ZİLİ & METAL AKSESUAR",
-            description: "PROFESYONEL TEF ZİLİ İMALATI VE ÖZEL METAL AKSESUAR ÇÖZÜMLERİ. AKUSTİK KALİTE.",
-            image: "/images/production/tef.jpg",
-            features: ["ALTI KÖŞE ZİL", "PİRİNÇ / METAL", "ÖZEL KAPLAMA"],
+            title: "TEF ZİLİ İMALATI",
+            description: "MÜZİK ALETLERİ VE SERİ ÜRETİM İÇİN TEF ZİLİ İMALATI. ÖZEL ALAŞIM VE KAPLAMA.",
+            image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=800&auto=format&fit=crop",
+            features: ["AKUSTİK KALİTE", "SERİ ÜRETİM", "ÖZEL KAPLAMA"],
             exploreUrl: "/hizmetler/tef-zili"
         }
     ],
@@ -656,7 +665,7 @@ export const defaultContent: SiteContent = {
     footerCompanyName: "VERAL TORNA & TENEKE // TİCARET",
     footerAddress: "1512 Sk. No: 42/1\nAlsancak/İzmir\nTÜRKİYE BÖLGESİ",
     footerPhone: "+90 507 165 13 15",
-    footerEmail: "LOG@VERAL.COM",
+    footerEmail: "info@veralteneketicaret.com",
     footerInstagram: "@VERALTICARET",
     footerMapLat: "38.4357",
     footerMapLng: "27.1495",
@@ -665,7 +674,7 @@ export const defaultContent: SiteContent = {
 
     // WhatsApp
     whatsappNumber: "905071651315",
-    whatsappMessage: "Merhaba, ürünleriniz hakkında bilgi almak istiyorum.",
+    whatsappMessage: "Merhaba, toptan dosya teli / imalat teklifi almak istiyorum.",
 
     // About Page
     aboutTitle: "1983'ten Beri Darağaç'tayız",
@@ -708,8 +717,8 @@ export const defaultContent: SiteContent = {
 
     // Products Page
     productsPageTitle: "ÜRÜN KATALOĞU",
-    productsPageSubtitle: "TÜM METAL POSTER KOLEKSİYONUMUZU KEŞFEDİN",
-    productsPageIntroLabel: "Sistem: Katalog Çıktısı",
+    productsPageSubtitle: "DOSYA TELİ, TAKVİM TENEKESİ VE METAL ÜRETİM HATLARI",
+    productsPageIntroLabel: "Sistem: İmalat Kataloğu",
     productsPageBackgroundImage: "", // Default empty to use CSS gradient/fallback
     productsExploreText: "Tüm Ürünleri Gör",
     productsExploreUrl: "/urunler",
@@ -719,13 +728,13 @@ export const defaultContent: SiteContent = {
     blogPageSubtitle: "EN SON GELİŞMELER VE MAKALELER",
 
     // Metal Showcase
-    metalShowcaseTitle: "Metal Art Atelier",
-    metalShowcaseSubtitle: "Endüstriyel kalite. Sanatsal tasarım. Tel, etiket ve mıknatıs çözümlerinde güvenilir partneriniz.",
+    metalShowcaseTitle: "Üretim Hatları",
+    metalShowcaseSubtitle: "Dosya teli, takvim tenekesi ve metal aksesuar — imalatçıdan halka.",
     metalShowcaseHeroImage: "",
     metalShowcaseTrustBadges: [
-        { icon: "Zap", text: "Hızlı Üretim" },
-        { icon: "Shield", text: "10 Yıl Garanti" },
-        { icon: "Award", text: "Premium Kalite" }
+        { icon: "Factory", text: "Seri İmalat" },
+        { icon: "Clock", text: "24s Teklif" },
+        { icon: "PackageCheck", text: "Toptan MOQ" },
     ],
     metalShowcaseItems: [
         {
@@ -767,54 +776,54 @@ export const defaultContent: SiteContent = {
     instagramPosts: [],
 
     // Dynamic Home Sections
-    heroTagline1: "KAĞIT POSTERLERİ UNUTUN.",
-    heroTagline2: "BÜKÜLMEZ, SOLMAZ VE ŞIK",
-    heroTagline3: "METAL TABLOLARLA TANIŞIN",
+    heroTagline1: "İMALATÇIDAN HALKA.",
+    heroTagline2: "SERİ TOPTAN DOSYA TELİ",
+    heroTagline3: "VE ENDÜSTRİYEL METAL ÜRETİM",
     heroCustomerCount: "5000+",
 
     statsItems: [
-        { label: "BAŞARILI TESLİMAT", value: "2500+", icon: "ShieldCheck" },
-        { label: "GENEL SKOR", value: "4.9 / 5", icon: "Star" },
-        { label: "MEMNUNİYET ORANI", value: "%99", icon: "Users" },
-        { label: "ÜRETİM PROTOKOLÜ", value: "ISO-9001", icon: "Factory" },
-        { label: "HASSAS İŞÇİLİK", value: "YÜKSEK KALİTE", icon: "Target" },
+        { label: "TOPLAM SEVKİYAT", value: "2500+", icon: "ShieldCheck" },
+        { label: "TEKLİF DÖNÜŞ", value: "24 SAAT", icon: "Clock" },
+        { label: "GÜNLÜK KAPASİTE", value: "50K+", icon: "Factory" },
+        { label: "SEKTÖR DENEYİMİ", value: "40+ YIL", icon: "Award" },
+        { label: "HASSAS TOLERANS", value: "±0.01mm", icon: "Target" },
     ],
 
-    reviewsTitle: "GERÇEK",
-    reviewsSubtitle: "GÖRÜŞLER",
-    reviewsRatingLabel: "4.9 / 5 Müşteri Memnuniyeti",
+    reviewsTitle: "İŞ ORTAĞI",
+    reviewsSubtitle: "REFERANSLAR",
+    reviewsRatingLabel: "Toptan imalat — matbaa & kırtasiye",
     reviewItems: [
         {
             id: "1",
-            name: "Ahmet Yılmaz",
-            city: "İstanbul",
+            name: "Mehmet Demir",
+            city: "İzmir",
             rating: 5,
-            text: "METALE AKTARILAN DETAYLAR KUSURSUZ. PLAKA SERTLEĞİ VE YÜZEY KALİTESİ BEKLENTİMİN ÜZERİNDE.",
-            product: "Borusan Contemporary",
+            text: "DOSYA TELİ SİPARİŞLERİMİZDE ÖLÇÜ VE TERMİN TUTARLI. STOKTAN SEVKİYAT İŞİMİZİ KOLAYLAŞTIRDI.",
+            product: "Dosya Teli — Toptan",
             image: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=200",
             date: "2 hafta önce"
         },
         {
             id: "2",
-            name: "Zeynep Kaya",
+            name: "Ayşe Kara",
             city: "Ankara",
             rating: 5,
-            text: "DİKKAT ÇEKİCİ BİR DERİNLİK VAR. DİJİTAL BASKI NETLİĞİ VE RENK DOĞRULUĞU ŞAŞIRTICI.",
-            product: "Klasik Porsche",
+            text: "TAKVİM TENEKESİ SERİ İMALAT KAPASİTESİ VE FİYAT ŞEFFAFLIĞI BEKLENTİMİZİN ÜZERİNDE.",
+            product: "Takvim Tenekesi — Matbaa",
             image: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=200",
             date: "1 ay önce"
         }
     ],
 
-    processTitle: "HASSAS",
-    processSubtitle: "İŞÇİLİK",
-    processDescription: "HAMMADDEDEN DUVARINIZA: KUSURSUZ DÖNÜŞÜM.",
+    processTitle: "SERİ",
+    processSubtitle: "İMALAT",
+    processDescription: "HAMMADDEDEN SEVKİYATA: TOPTAN ÜRETİM AKIŞI.",
     processItems: [
-        { stepNumber: "ETAP/01", title: "TASARIM SEÇİMİ", desc: "KOLEKSİYONDAN SEÇİN. KARARINIZI NETLEŞTİRİN." },
-        { stepNumber: "ETAP/02", title: "DİJİTAL HAZIRLIK", desc: "4K UV BASKI İÇİN PİKSEL KONTROLÜ VE RENK AYARI." },
-        { stepNumber: "ETAP/03", title: "METALE AKTARIM", desc: "1.5MM SAC ÜZERİNE YÜKSEK ÇÖZÜNÜRLÜKLÜ BASKI." },
-        { stepNumber: "ETAP/04", title: "KORUYUCU AMBALAJ", desc: "MANYETİK APARAT VE DARBE EMİCİ ÖZEL KUTULAMA." },
-        { stepNumber: "ETAP/05", title: "LOJİSTİK ÇIKIŞ", desc: "MAKSİMUM 48 SAAT İÇİNDE KARGOYA TESLİM." }
+        { stepNumber: "ETAP/01", title: "TALEP & ÖLÇÜ", desc: "MOQ, ÖLÇÜ VE MALZEME SPEKLERİNİ NETLEŞTİRİN." },
+        { stepNumber: "ETAP/02", title: "TEKLİF", desc: "24 SAAT İÇİNDE TOPTAN FİYAT VE TERMİN." },
+        { stepNumber: "ETAP/03", title: "SERİ ÜRETİM", desc: "DOSYA TELİ / TAKVİM TENEKESİ HATTINDA İMALAT." },
+        { stepNumber: "ETAP/04", title: "KALİTE KONTROL", desc: "PARTİ BAZLI ÖLÇÜ VE YÜZEY KONTROLÜ." },
+        { stepNumber: "ETAP/05", title: "SEVKİYAT", desc: "TÜRKİYE GENELİ STOKTAN VEYA TERMİNLİ ÇIKIŞ." }
     ],
 
     contactTitle: "BİZE",
@@ -823,8 +832,8 @@ export const defaultContent: SiteContent = {
     contactItems: [
         { icon: "PackageCheck", title: "İADE", desc: "14 GÜN KOŞULSUZ İADE POLİTİKASI" },
         { icon: "Phone", title: "TELEFON", desc: "+90 507 165 13 15" },
-        { icon: "Mail", title: "E-POSTA", desc: "support@metalposter.co" },
-        { icon: "MessageCircle", title: "WHATSAPP", desc: "ANLIK OPERASYON HATTI", color: "text-[#D4AF37]" }
+        { icon: "Mail", title: "E-POSTA", desc: "info@veralteneketicaret.com" },
+        { icon: "MessageCircle", title: "WHATSAPP", desc: "ANLIK OPERASYON HATTI", color: "text-[var(--color-brand-accent)]" }
     ],
     inquiryTitle: "Özel Sipariş Sorgulama",
     inquiryDescription: "Mevcut siparişlerinizle ilgili durum takibi yapabilir veya kurumsal projeleriniz için özel teklif isteyebilirsiniz.",
@@ -842,12 +851,12 @@ export const defaultContent: SiteContent = {
 
     // Navigation Defaults
     menuItems: [
-        { id: "nav_1", key: "catalog", label: "Katalog", url: "/urunler", type: "dynamic_catalog", visible: true, order: 1 },
-        { id: "nav_2", key: "about", label: "Hakkımızda", url: "/hakkimizda", type: "link", visible: true, order: 2 },
-        { id: "nav_4", key: "services", label: "Hizmetler", url: "/hizmetler", type: "link", visible: true, order: 4 },
+        { id: "nav_4", key: "services", label: "Hizmetler", url: "/hizmetler", type: "link", visible: true, order: 1 },
+        { id: "nav_6", key: "quote", label: "Teklif Al", url: "/teklif-al", type: "link", isPrimary: true, visible: true, order: 2 },
+        { id: "nav_1", key: "catalog", label: "Katalog", url: "/urunler", type: "dynamic_catalog", visible: true, order: 3 },
+        { id: "nav_2", key: "about", label: "Hakkımızda", url: "/hakkimizda", type: "link", visible: true, order: 4 },
         { id: "nav_blog", key: "blog", label: "Raporlar & Blog", url: "/blog", type: "link", visible: true, order: 5 },
-        { id: "nav_5", key: "order_tracking", label: "Sipariş Sorgula", url: "/siparis-sorgula", type: "link", visible: true, order: 6 },
-        { id: "nav_6", key: "quote", label: "Teklif Al", url: "/teklif-al", type: "link", isPrimary: true, visible: true, order: 7 }
+        { id: "nav_5", key: "order_tracking", label: "Sipariş Sorgula", url: "/siparis-sorgula", type: "link", visible: true, order: 6 }
     ],
 
     // Product Categories Defaults
@@ -926,12 +935,12 @@ export const defaultContent: SiteContent = {
 
     // Quote Page Defaults
     quotePage: {
-        title: "Teklif Formu",
-        subtitle: "Projeniz İçin Teknik Analiz ve Fiyatlandırma",
-        description: "İzmir merkezli atölyemizde endüstriyel metal tasarımı, CNC kesim ve özel üretim projeleriniz için 24 saat içinde teknik değerlendirme ve teklif sunuyoruz.",
+        title: "Toptan Teklif Formu",
+        subtitle: "Dosya Teli & İmalat İçin Fiyatlandırma",
+        description: "İmalatçıdan halka: toptan dosya teli, takvim tenekesi ve seri metal imalat için 24 saat içinde teklif sunuyoruz.",
         headerMode: "dark",
-        seoTitle: "Teklif Al | Özel Metal Üretim ve Tasarım - VERAL Metal Works",
-        seoDescription: "Endüstriyel metal projeleriniz, CNC kesim ve özel tasarım talepleriniz için hemen teklif alın. İzmir'in öncü metal atölyesi.",
+        seoTitle: "Teklif Al | Toptan Dosya Teli ve İmalat - VERAL",
+        seoDescription: "Toptan dosya teli, takvim tenekesi ve endüstriyel metal imalat teklifi. İzmir üreticiden doğrudan fiyat.",
 
         contactSectionTitle: "İletişim Bilgileri",
         projectSectionTitle: "Proje Detayları",
@@ -970,12 +979,11 @@ export const defaultContent: SiteContent = {
         ],
 
         serviceOptions: [
-            "Lazer Kesim & Büküm",
-            "Endüstriyel Metal Etiketler",
-            "Özel Tasarım Metal Tablolar",
-            "Seri Üretim Teneke Kutu/Levha",
-            "Mimari Metal Detaylar",
-            "Diğer / Özel Proje"
+            "Dosya Teli Üretimi",
+            "Takvim Tenekesi İmalatı",
+            "Tef Zili Üretimi",
+            "Mıknatıslı Magnet & Metal Poster",
+            "Diğer İmalat / Özel Proje"
         ]
     },
 
@@ -1018,6 +1026,68 @@ export const defaultContent: SiteContent = {
         completeButtonText: "WHATSAPP'TA TAMAMLA"
     }
 };
+
+/** Manufacturing pivot fields — code defaults always win over Supabase/localStorage poster-era content */
+export function applyManufacturingContentMerge(
+    prev: Partial<SiteContent> = {},
+    dbData: Partial<SiteContent> = {}
+): SiteContent {
+    const base = { ...defaultContent, ...prev, ...dbData };
+    return {
+        ...base,
+        heroTitle: defaultContent.heroTitle,
+        heroSubtitle: defaultContent.heroSubtitle,
+        heroTagline: defaultContent.heroTagline,
+        heroProductLine: defaultContent.heroProductLine,
+        heroImage: defaultContent.heroImage,
+        heroButton1Text: defaultContent.heroButton1Text,
+        heroButton1Url: defaultContent.heroButton1Url,
+        heroButton2Text: defaultContent.heroButton2Text,
+        heroButton2Url: defaultContent.heroButton2Url,
+        heroStats: defaultContent.heroStats,
+        menuItems: defaultContent.menuItems,
+        serviceItems: defaultContent.serviceItems,
+        services: dbData.services?.length
+            ? base.services
+            : defaultContent.services,
+        servicesTitle: defaultContent.servicesTitle,
+        servicesSubtitle: defaultContent.servicesSubtitle,
+        servicesPageHeader: defaultContent.servicesPageHeader,
+        processTitle: defaultContent.processTitle,
+        processSubtitle: defaultContent.processSubtitle,
+        processDescription: defaultContent.processDescription,
+        processItems: defaultContent.processItems,
+        reviewItems: defaultContent.reviewItems,
+        reviewsTitle: defaultContent.reviewsTitle,
+        reviewsSubtitle: defaultContent.reviewsSubtitle,
+        reviewsRatingLabel: defaultContent.reviewsRatingLabel,
+        metalShowcaseTitle: defaultContent.metalShowcaseTitle,
+        metalShowcaseSubtitle: defaultContent.metalShowcaseSubtitle,
+        metalShowcaseItems: defaultContent.metalShowcaseItems,
+        metalShowcaseTrustBadges: defaultContent.metalShowcaseTrustBadges,
+        statsItems: defaultContent.statsItems,
+        productsPageSubtitle: defaultContent.productsPageSubtitle,
+        footerEmail: defaultContent.footerEmail,
+        whatsappMessage: defaultContent.whatsappMessage,
+        contactItems: defaultContent.contactItems,
+        quotePage: {
+            ...defaultContent.quotePage,
+            ...(base.quotePage || {}),
+            title: defaultContent.quotePage.title,
+            subtitle: defaultContent.quotePage.subtitle,
+            description: defaultContent.quotePage.description,
+            serviceOptions: defaultContent.quotePage.serviceOptions,
+        },
+        headerConfig: {
+            ...defaultContent.headerConfig,
+            ...(base.headerConfig || {}),
+            ctaText: defaultContent.headerConfig.ctaText,
+            ctaLink: defaultContent.headerConfig.ctaLink,
+        },
+        themeConfig: defaultContent.themeConfig,
+        pageSettings: defaultContent.pageSettings,
+    };
+}
 
 export const useContentStore = create<ContentStore>()(
     persist(
@@ -1169,22 +1239,20 @@ export const useContentStore = create<ContentStore>()(
                 const data = await ContentService.getContent();
                 if (data) {
                     set((state) => {
-                        // Merge services: DB data takes priority, but always keep defaults
                         let mergedServices = defaultContent.services;
                         if (data.services) {
-                            const dbSlugs = new Set(data.services.map((s: any) => s.slug));
+                            const dbSlugs = new Set(data.services.map((s: { slug: string }) => s.slug));
                             const defaultsNotInDb = defaultContent.services.filter(
                                 (s) => !dbSlugs.has(s.slug)
                             );
-                            mergedServices = [...data.services, ...defaultsNotInDb] as any;
+                            mergedServices = [...data.services, ...defaultsNotInDb] as typeof defaultContent.services;
                         }
 
                         return {
-                            content: {
-                                ...state.content,
+                            content: applyManufacturingContentMerge(state.content, {
                                 ...data,
                                 services: mergedServices,
-                            }
+                            }),
                         };
                     });
                 }
@@ -1193,6 +1261,12 @@ export const useContentStore = create<ContentStore>()(
             saveToSupabase: async () => {
                 const { content } = get();
                 const result = await upsertAdminContent(content);
+                return result.success;
+            },
+
+            resetToManufacturingDefaults: async () => {
+                set({ content: { ...defaultContent } });
+                const result = await upsertAdminContent(defaultContent);
                 return result.success;
             },
 
@@ -1213,7 +1287,7 @@ export const useContentStore = create<ContentStore>()(
         }),
         {
             name: "site-content-storage",
-            version: 11,
+            version: 18,
             migrate: (persistedState: any, version: number) => {
                 const newState = { ...persistedState };
                 if (version < 11) {
@@ -1243,6 +1317,24 @@ export const useContentStore = create<ContentStore>()(
                             ...(newState.content?.checkoutPage || {})
                         },
                     };
+                }
+                if (version < 13) {
+                    newState.content = applyManufacturingContentMerge(newState.content || {});
+                }
+                if (version < 14) {
+                    newState.content = applyManufacturingContentMerge(newState.content || {});
+                }
+                if (version < 15) {
+                    newState.content = applyManufacturingContentMerge(newState.content || {});
+                }
+                if (version < 16) {
+                    newState.content = applyManufacturingContentMerge(newState.content || {});
+                }
+                if (version < 17) {
+                    newState.content = applyManufacturingContentMerge(newState.content || {});
+                }
+                if (version < 18) {
+                    newState.content = applyManufacturingContentMerge(newState.content || {});
                 }
                 return newState;
             },
