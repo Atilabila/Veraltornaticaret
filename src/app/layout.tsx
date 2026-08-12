@@ -1,4 +1,4 @@
-﻿import { Suspense } from "react";
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AdminProvider } from "@/components/providers/AdminProvider";
@@ -43,9 +43,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://veralteneketicaret.com"),
-  title: "VERAL - Toptan Dosya Teli İmalatı, Takvim Tenekesi ve Metal Poster",
-  description: "İmalatçıdan halka: İzmir merkezli toptan dosya teli üretimi, takvim tenekesi imalatı ve UV baskılı metal poster.",
-  keywords: ["dosya teli", "toptan dosya teli", "dosya teli üretimi", "dosya teli imalatı", "takvim tenekesi", "seri imalat", "metal poster", "mıknatıslı magnet", "tef zili izmir"],
+  title: "VERAL - Dosya Teli, Takvim Tenekesi ve Metal Poster İmalatı",
+  description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
+  keywords: ["dosya teli", "toptan dosya teli", "dosya teli üretimi", "dosya teli imalatı", "takvim tenekesi", "metal poster", "mıknatıslı magnet", "tef zili izmir"],
   robots: "index, follow",
   verification: {
     google: "mA7ESmS5CcTCWG7a5octdFFwX1_nZcURfbMvIn9inxc",
@@ -66,13 +66,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap&subset=latin,latin-ext"
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+          media="print"
+          // @ts-ignore
+          onLoad="this.media='all'"
         />
 
         <LocalBusinessSchema />
         <KnowledgeBaseSchema />
       </head>
-      <body className="antialiased bg-[#f4f4f4] text-[#161616]">
+      <body className="antialiased bg-zinc-950 text-zinc-300">
         <MotionProvider>
           <AdminProvider>
             <ContentSyncProvider>
