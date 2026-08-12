@@ -14,6 +14,7 @@ import { useAdminStore } from '@/store/useAdminStore';
 import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 import { usePerformanceDetection } from '@/hooks/usePerformanceDetection';
 import { useAuthStore } from '@/store/useAuthStore';
+import { CART_ENABLED } from '@/lib/commerce';
 
 export const Navigation = () => {
     const { content } = useContentStore();
@@ -98,9 +99,10 @@ export const Navigation = () => {
     const activeLinks = (content.menuItems || []).length > 0
         ? (content.menuItems || []).filter(item => item.visible && item.url !== '/metal-urunler').sort((a, b) => a.order - b.order)
         : [
-            { id: 'f1', label: 'Katalog', url: '/urunler', isPrimary: false },
-            { id: 'f2', label: 'Hakkımızda', url: '/hakkimizda', isPrimary: false },
-            { id: 'f4', label: 'Teklif Al', url: '/teklif-al', isPrimary: true },
+            { id: 'f1', label: 'Hizmetler', url: '/hizmetler', isPrimary: false },
+            { id: 'f2', label: 'Teklif Al', url: '/teklif-al', isPrimary: true },
+            { id: 'f3', label: 'Katalog', url: '/urunler', isPrimary: false },
+            { id: 'f4', label: 'Hakkımızda', url: '/hakkimizda', isPrimary: false },
         ]; // Fallback while loading or if empty
 
     const { isDarkPage, headerMode } = useThemeDetection();
@@ -123,13 +125,11 @@ export const Navigation = () => {
 
     const headerBgOpacity = isScrolled ? 1 : (isTranslucentMode ? config.transparency / 100 : 0);
 
-    const isTextWhite =
-        effectiveMode === 'light' ||
-        (effectiveMode !== 'dark' && (isScrolled || isTranslucentMode || isDarkPage));
+    const isTextWhite = isDarkPage;
 
-    const textColorClass = isTextWhite ? 'text-white' : 'text-[#0A0A0A]';
-    const logoSrc = normalizeImagePath((isTextWhite ? config.logoLight : config.logoDark) || "/veral-logo.webp");
-    const borderColor = isTextWhite ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    const textColorClass = isTextWhite ? 'text-white' : 'text-[#161616]';
+    const logoSrc = normalizeImagePath((isTextWhite ? config.logoLight : config.logoDark) || "/logo.svg");
+    const borderColor = isTextWhite ? 'rgba(255,255,255,0.1)' : 'rgba(198,198,198,0.8)';
     const enableFx = !isMobileViewport; // kill heavy filters on mobile to reduce jank
     const blurValue = enableFx && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')
         ? Math.min(config.blur || 12, 8)
@@ -144,8 +144,9 @@ export const Navigation = () => {
                     backfaceVisibility: 'hidden',
                     willChange: 'background-color, backdrop-filter',
                     backgroundColor:
-                        (isScrolled || isTranslucentMode || effectiveMode === 'light') ? `rgba(10, 10, 10, ${headerBgOpacity})` :
-                            (effectiveMode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'transparent'),
+                        (isScrolled || isTranslucentMode || effectiveMode === 'light')
+                            ? (isDarkPage ? `rgba(10, 10, 10, ${headerBgOpacity})` : `rgba(255, 255, 255, ${Math.max(headerBgOpacity, 0.92)})`)
+                            : (effectiveMode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'transparent'),
                     backdropFilter: blurValue > 0 ? `blur(${blurValue}px)` : 'none',
                     borderBottom: (config.showBorder && (isScrolled || isTranslucentMode || effectiveMode === 'light' || effectiveMode === 'dark')) ? `1px solid ${borderColor}` : 'none',
                     boxShadow: enableFx
@@ -158,7 +159,7 @@ export const Navigation = () => {
                 }}
             >
                 {config.announcementActive && config.announcementText && (
-                    <div className="bg-[#D4AF37] text-black text-[10px] font-bold py-1 text-center tracking-widest uppercase">
+                    <div className="bg-[var(--color-brand-accent)] text-white text-[10px] font-bold py-1 text-center tracking-widest uppercase">
                         <Link href={config.announcementLink || '#'}>
                             {config.announcementText}
                         </Link>
@@ -192,7 +193,7 @@ export const Navigation = () => {
                                             {content.siteName || "VERAL"}
                                         </h2>
                                         <span className={`text-[6px] md:text-[8px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase -mt-0.5 transition-all duration-500 ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
-                                            } ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ti̇caret</span>
+                                            } ${isTextWhite ? 'text-white/80' : 'text-black/60'}`}>Torna & Teneke Ticaret</span>
                                     </div>
                                 </Link>
                             </m.div>
@@ -209,18 +210,20 @@ export const Navigation = () => {
                                 >
                                     <Search className="w-4 h-4 sm:w-5 h-5" />
                                 </button>
-                                <button
-                                    onClick={() => setCartOpen(true)}
-                                    aria-label="Sepet"
-                                    className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-industrial-gold`}
-                                >
-                                    <ShoppingCart className="w-4 h-4 sm:w-5 h-5" />
-                                    {cartCount > 0 && (
-                                        <span className="absolute top-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-industrial-gold text-black text-[8px] sm:text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
-                                            {cartCount}
-                                        </span>
-                                    )}
-                                </button>
+                                {CART_ENABLED && (
+                                    <button
+                                        onClick={() => setCartOpen(true)}
+                                        aria-label="Sepet"
+                                        className={`relative group p-1 sm:p-2 transition-all cursor-pointer z-50 ${textColorClass} hover:text-industrial-gold`}
+                                    >
+                                        <ShoppingCart className="w-4 h-4 sm:w-5 h-5" />
+                                        {cartCount > 0 && (
+                                            <span className="absolute top-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-industrial-gold text-black text-[8px] sm:text-[9px] font-black flex items-center justify-center rounded-full pointer-events-none">
+                                                {cartCount}
+                                            </span>
+                                        )}
+                                    </button>
+                                )}
                                 <Link
                                     href="/hesabim"
                                     aria-label="Hesabım"
@@ -243,7 +246,7 @@ export const Navigation = () => {
                             >
                                 <Link
                                     href={config.ctaLink || "/teklif-al"}
-                                    className={`hidden sm:flex items-center justify-center border border-industrial-gold text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-industrial-gold hover:bg-industrial-gold hover:text-black transition-all duration-500 leading-none ${isScrolled
+                                    className={`hidden md:flex items-center justify-center border border-[var(--color-brand-accent)] text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)] hover:text-white transition-colors leading-none ${isScrolled
                                         ? 'px-3 h-10 sm:px-4 sm:h-10 md:px-6 md:h-12'
                                         : 'px-3 h-10 sm:px-6 sm:h-12 md:px-8 md:h-12'
                                         }`}
@@ -294,7 +297,7 @@ export const Navigation = () => {
                                         <input
                                             autoFocus
                                             type="text"
-                                            placeholder="MODEL, STİL VEYA ÜRÜN ADI..."
+                                            placeholder="Hizmet, ürün veya kategori ara..."
                                             value={searchQuery}
                                             onChange={(e) => setSearchQuery(e.target.value)}
                                             onKeyDown={(e) => {
@@ -313,7 +316,7 @@ export const Navigation = () => {
                                     <div>
                                         <h4 className="text-industrial-gold font-black text-[10px] tracking-widest mb-6 uppercase">HIZLI KATALOG</h4>
                                         <div className="flex flex-col gap-4">
-                                            {['Tüm Ürünler', 'En Yeniler', 'Çok Satanlar'].map(item => (
+                                            {['Dosya Teli', 'Takvim Tenekesi', 'Tüm Ürünler'].map(item => (
                                                 <Link
                                                     key={item}
                                                     href="/urunler"
@@ -328,7 +331,7 @@ export const Navigation = () => {
                                     <div>
                                         <h4 className="text-industrial-gold font-black text-[10px] tracking-widest mb-6 uppercase">HIZMETLERIMIZ</h4>
                                         <div className="flex flex-col gap-4">
-                                            {['Özel Tasarım', 'Metal Kesim', 'Boya Atölyesi'].map(item => (
+                                            {['Özel Ölçü Dosya Teli', 'Seri İmalat', 'Teklif Al'].map(item => (
                                                 <Link
                                                     key={item}
                                                     href="/teklif-al"
@@ -355,10 +358,10 @@ export const Navigation = () => {
                         exit={{ opacity: 0, x: '100%' }}
                         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
                         className="fixed inset-0 z-[100000] flex flex-col p-8 sm:p-10 overflow-y-auto"
-                        style={{ backgroundColor: '#000000' }}
+                        style={{ backgroundColor: '#f4f4f4' }}
                     >
                         <div className="flex justify-between items-center mb-16 relative z-10">
-                            <span className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest">MENU</span>
+                            <span className="text-2xl sm:text-3xl font-black text-[#161616] uppercase tracking-widest">MENÜ</span>
                             <button onClick={() => setIsMobileMenuOpen(false)} className="text-industrial-gold" aria-label="Menüyü kapat">
                                 <X className="w-10 h-10" />
                             </button>
@@ -372,7 +375,7 @@ export const Navigation = () => {
                                 <Link
                                     href="/"
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="flex items-center justify-center h-16 rounded-md border border-industrial-gold bg-[#0f0f0f] text-industrial-gold font-black uppercase tracking-widest text-xl sm:text-2xl shadow-[0_12px_36px_-12px_rgba(212,175,55,0.25)]"
+                                    className="flex items-center justify-center h-16 rounded-md border border-[var(--color-brand-accent)] bg-white text-[var(--color-brand-accent)] font-black uppercase tracking-widest text-xl sm:text-2xl"
                                 >
                                     Ana Sayfaya Dön
                                 </Link>
@@ -388,34 +391,36 @@ export const Navigation = () => {
                                         href={link.url}
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className={`text-4xl sm:text-5xl font-black uppercase tracking-tight transition-colors 
-                                        ${link.isPrimary ? 'text-industrial-gold' : 'text-white hover:text-industrial-gold'}`}
+                                        ${link.isPrimary ? 'text-[var(--color-brand-accent)]' : 'text-[#161616] hover:text-[var(--color-brand-accent)]'}`}
                                     >
                                         {link.label}
                                     </Link>
                                 </m.div>
                             ))}
-                            <m.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.3 }}
-                            >
-                                <button
-                                    onClick={() => {
-                                        setIsMobileMenuOpen(false);
-                                        setCartOpen(true);
-                                    }}
-                                    className="text-left text-3xl font-black uppercase tracking-tight text-white hover:text-industrial-gold transition-colors"
+                            {CART_ENABLED && (
+                                <m.div
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.3 }}
                                 >
-                                    Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
-                                </button>
-                            </m.div>
+                                    <button
+                                        onClick={() => {
+                                            setIsMobileMenuOpen(false);
+                                            setCartOpen(true);
+                                        }}
+                                        className="text-left text-3xl font-black uppercase tracking-tight text-[#525252] hover:text-[var(--color-brand-accent)] transition-colors"
+                                    >
+                                        Sepetim {cartCount > 0 ? `(${cartCount})` : ''}
+                                    </button>
+                                </m.div>
+                            )}
                             <m.div
                                 className="mt-8 pt-10 border-t border-industrial-gold/20"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.4 }}
                             >
-                                <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-industrial-gold text-black font-black uppercase tracking-widest text-lg shadow-[0_10px_30px_-10px_rgba(212,175,55,0.3)]">
+                                <Link href="/hesabim" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center w-full h-20 bg-[var(--color-brand-accent)] text-white font-black uppercase tracking-widest text-lg">
                                     {user ? 'HESABIM' : 'GİRİŞ YAP'}
                                 </Link>
                             </m.div>
