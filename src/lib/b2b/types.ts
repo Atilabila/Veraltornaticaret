@@ -1,4 +1,4 @@
-// MP-07: B2B Types (Isolated from B2C)
+﻿// MP-07: B2B Types (Isolated from B2C)
 
 export interface Service {
     id: string;

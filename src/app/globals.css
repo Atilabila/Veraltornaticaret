@@ -21,10 +21,15 @@ html {
   --color-near-black: #0a0a0a;
   --color-fog-gray: #ecebe7;
   --color-steel-gray: #7a7a7a;
-  --color-hazard-orange: #ff4d00;
+  --color-hazard-orange: #0f62fe;
   --color-acid-green: #b7ff2a;
-  --color-industrial-gold: #D4AF37;
-  --color-industrial-gold-muted: #B8860B;
+  /* Primary B2B accent — IBM Carbon blue (replaces aggressive orange-on-black) */
+  --color-brand-accent: #0f62fe;
+  --color-brand-accent-muted: #0043ce;
+  --color-brand-safety-orange: #0f62fe;
+  /* Deprecated aliases */
+  --color-industrial-gold: #0f62fe;
+  --color-industrial-gold-muted: #0043ce;
 
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
@@ -54,8 +59,8 @@ html {
 @layer base {
   :root {
     /* Runtime-loaded fonts (Google Fonts link in layout head). */
-    --font-space-grotesk: "Space Grotesk";
-    --font-syne: "Syne";
+    --font-space-grotesk: "IBM Plex Sans";
+    --font-syne: "IBM Plex Sans";
     --font-ibm-plex-mono: "IBM Plex Mono";
 
     --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
@@ -89,12 +94,12 @@ html {
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --industrial-gold: 45 64% 52%;
-    /* #D4AF37 */
-    --industrial-gold-muted: 45 64% 36%;
-    /* #B8860B */
+    --industrial-gold: 217 91% 53%;
+    /* #0f62fe — IBM blue accent */
+    --industrial-gold-muted: 217 91% 40%;
+    /* #0043ce */
 
-    --radius: 0.75rem;
+    --radius: 0;
   }
 
   .dark {
@@ -208,16 +213,18 @@ html {
   .btn-hazard {
     border: 2px solid var(--color-near-black);
     border-radius: 0;
-    background: var(--color-paper-white);
+    background: var(--color-brand-accent);
+    color: #000;
   }
 }
 
-/* Gold Metallic Gradient - Readable on White */
-.text-gold-metal {
-  background: linear-gradient(135deg, #B8860B 0%, #DAA520 25%, #FFD700 50%, #DAA520 75%, #B8860B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Brand accent (was gold metallic) */
+.text-gold-metal,
+.text-brand-accent,
+.text-gold-gradient {
+  color: var(--color-brand-accent);
+  background: none;
+  -webkit-text-fill-color: unset;
   font-weight: 900;
 }
 
@@ -230,17 +237,16 @@ html.force-desktop body {
   overflow-x: auto;
 }
 
-/* Improve gold text contrast on light backgrounds */
 .text-gold-industrial {
-  color: var(--color-industrial-gold);
+  color: var(--color-brand-accent);
 }
 
 .bg-gold-industrial {
-  background-color: var(--color-industrial-gold);
+  background-color: var(--color-brand-accent);
 }
 
 .border-gold-industrial {
-  border-color: var(--color-industrial-gold);
+  border-color: var(--color-brand-accent);
 }
 
 @keyframes heroZoom {
@@ -262,4 +268,10 @@ html.force-desktop body {
 .footer-readable-link {
   font-size: 1.05rem;
   /* ~17px */
+}
+
+@layer utilities {
+  .page-container {
+    @apply mx-auto w-full max-w-[1400px] px-6 lg:px-12;
+  }
 }

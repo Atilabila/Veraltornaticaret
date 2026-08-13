@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import { useContentStore } from "@/store/useContentStore"
@@ -45,20 +45,24 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
 
     return (
         <div className="space-y-6 pb-20">
-            <div className="flex justify-between items-center bg-slate-900/50 p-6 rounded-2xl border border-white/5 sticky top-0 z-10 backdrop-blur-md">
+            <div className="flex justify-between items-center bg-white p-6 border border-[#c6c6c6] sticky top-0 z-10">
                 <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-                        Site İçerik Yönetimi
+                    <h2 className="text-2xl font-bold text-[#161616]">
+                        Site içerik yönetimi
                     </h2>
                     <p className="text-slate-400">
                         Sitenin tüm metin ve görsellerini buradan dinamik olarak yönetin.
+                        <span className="block mt-2 text-xs text-[var(--color-brand-accent)] font-mono uppercase tracking-wider">
+                            Canlıda eski metin görünüyorsa: İmalat Default → kaydet → tarayıcıda hard refresh (Ctrl+Shift+R).
+                        </span>
                     </p>
                 </div>
 
+                <div className="flex items-center gap-3">
                 <button
                     onClick={handleSave}
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-3 bg-[var(--color-brand-safety-orange)] hover:bg-orange-600 text-white rounded-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/20"
+                    className="flex items-center gap-2 px-6 py-3 bg-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent-muted)] text-white  font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
                 >
                     {loading ? (
                         <Loader2 className="w-5 h-5 animate-spin" />
@@ -67,6 +71,27 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                     )}
                     {loading ? "Kaydediliyor..." : saveSuccess ? "Kaydedildi!" : "Değişiklikleri Kaydet"}
                 </button>
+                <button
+                    onClick={async () => {
+                        if (!confirm("Hero, menü, hizmetler ve yorumlar imalat default’larına sıfırlanıp Supabase’e yazılacak. Devam?")) return;
+                        setLoading(true);
+                        try {
+                            const ok = await store.resetToManufacturingDefaults();
+                            if (ok) {
+                                setSaveSuccess(true);
+                                setTimeout(() => setSaveSuccess(false), 3000);
+                            }
+                        } finally {
+                            setLoading(false);
+                        }
+                    }}
+                    disabled={loading}
+                    className="flex items-center gap-2 px-4 py-3 border border-[var(--color-brand-accent)] text-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)] hover:text-black  font-bold transition-all disabled:opacity-50 text-sm uppercase tracking-wider"
+                >
+                    <Zap className="w-4 h-4" />
+                    İmalat Default
+                </button>
+                </div>
             </div>
 
             <Tabs defaultValue={defaultTab} className="w-full space-y-6">
@@ -462,7 +487,7 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                                     <input
                                                         type="checkbox"
                                                         id={`active-${service.id}`}
-                                                        className="w-5 h-5 accent-[var(--color-brand-safety-orange)]"
+                                                        className="w-5 h-5 accent-[var(--color-brand-accent)]"
                                                         checked={service.isActive ?? true}
                                                         onChange={(e) => {
                                                             const n = [...store.content.services];
@@ -1051,7 +1076,11 @@ export const SiteContentAdmin = ({ defaultTab = "global" }: { defaultTab?: strin
                                                 />
                                             </div>
                                         </div>
-                                        <Input value={store.content.heroTagline} onChange={(e) => store.updateContent({ heroTagline: e.target.value })} placeholder="VERAL" />
+                                        <Input value={store.content.heroTagline} onChange={(e) => store.updateContent({ heroTagline: e.target.value })} placeholder="TOPTAN ÜRETİM // STOKTAN SEVKİYAT" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Ürün Hattı Şeridi</Label>
+                                        <Input value={store.content.heroProductLine || ""} onChange={(e) => store.updateContent({ heroProductLine: e.target.value })} placeholder="Dosya Teli — Takvim Tenekesi — Tef Zili — Metal Poster" />
                                     </div>
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">

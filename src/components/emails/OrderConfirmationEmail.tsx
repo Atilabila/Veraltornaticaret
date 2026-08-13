@@ -37,7 +37,7 @@ export const OrderConfirmationEmail: React.FC<Readonly<EmailTemplateProps>> = ({
             textAlign: "center" as const,
         },
         logo: {
-            color: "#D4AF37", // Gold color
+            color: "#ff4d00", // Gold color
             fontSize: "24px",
             fontWeight: "bold",
             textTransform: "uppercase" as const,

@@ -1,80 +1,96 @@
-// MP-07: Static Service Definitions (LOCKED)
+﻿// B2B manufacturing services — aligned with CMS /hizmetler slugs
 
 import { Service } from './types';
 
 export const SERVICES: Service[] = [
     {
-        id: 'torna-cnc',
-        slug: 'torna-cnc-isleme',
-        title: 'Torna & CNC İşleme',
-        shortDescription: 'Hassas toleranslı metal parça imalatı. CNC torna ve freze ile prototip ve seri üretim.',
-        technicalDescription: 'CNC torna ve freze tezgahlarımızla, sac, alüminyum, pirinç ve paslanmaz metal malzemelerden hassas parça imalatı yapıyoruz. Prototipten seri üretime kadar tüm aşamalarda hizmet veriyoruz.',
+        id: 'dosya-teli',
+        slug: 'dosya-teli',
+        title: 'Dosya Teli Üretimi',
+        shortDescription: 'Endüstriyel sınıf dayanıklı dosya teli imalatı. Toptan ve perakende.',
+        technicalDescription: 'Arşivleme sistemleri ve dosya üreticileri için standart ve özel boylarda dosya teli üretimi yapıyoruz. Paslanmaz yapı ve yüksek esneklik dayanımı.',
         useCases: [
-            'Makine parçası imalatı',
-            'Prototip üretim',
-            'Özel tasarım bileşenler',
-            'Yedek parça imalatı'
+            'Kırtasiye toptan sipariş',
+            'Arşiv merkezi tedarik',
+            'Dosya imalatçıları',
+            'Özel ölçü seri üretim'
         ],
         technicalNotes: {
-            tolerances: '±0.01mm hassasiyet',
-            materials: 'Metal, Alüminyum, Pirinç, Paslanmaz',
-            quantities: 'Tek parçadan seri üretime'
+            materials: 'Paslanmaz kaplama, standart ve özel boy',
+            quantities: 'MOQ — stoktan veya terminli'
+        },
+        icon: '📎'
+    },
+    {
+        id: 'takvim-tenekesi',
+        slug: 'takvim-tenekesi',
+        title: 'Takvim Tenekesi İmalatı',
+        shortDescription: 'İzmir merkezli seri takvim tenekesi üretimi. Özel ölçü ve yüksek kapasite.',
+        technicalDescription: '40 yılı aşkın tecrübemizle, takvim yayıncıları ve matbaalar için yüksek kaliteli takvim tenekesi üretimi yapıyoruz.',
+        useCases: [
+            'Matbaa seri sipariş',
+            'Ajans / yayınevi',
+            'Özel ebat tenekesi',
+            'Türkiye geneli sevkiyat'
+        ],
+        technicalNotes: {
+            materials: '0.22 - 0.30mm teneke',
+            quantities: 'Günlük 50.000+ adet kapasite'
+        },
+        icon: '📅'
+    },
+    {
+        id: 'tef-zili',
+        slug: 'tef-zili',
+        title: 'Tef Zili Üretimi',
+        shortDescription: 'Profesyonel tef zili imalatı. Akustik kalibrasyon ve özel metal alaşım.',
+        technicalDescription: 'Müzik aleti üreticileri için yüksek akustik performanslı tef zili üretimi. Pirinç ve metal alaşım seçenekleriyle seri imalat.',
+        useCases: [
+            'Enstrüman üreticileri',
+            'Darbuka atölyeleri',
+            'Müzik market toptan',
+            'Özel kaplama talepleri'
+        ],
+        technicalNotes: {
+            materials: 'Pirinç / paslanmaz metal',
+            quantities: 'Seri ve özel üretim'
+        },
+        icon: '🔔'
+    },
+    {
+        id: 'miknatisli-magnet',
+        slug: 'miknatisli-magnet',
+        title: 'Mıknatıslı Magnet & Metal Poster',
+        shortDescription: 'UV baskılı dekoratif metal posterler ve mıknatıslı magnetler — üçüncü hat.',
+        technicalDescription: 'Kişiye özel veya seri üretim mıknatıslı magnetler ve UV baskılı metal posterler. Kurumsal promosyon ve dekorasyon.',
+        useCases: [
+            'Kurumsal promosyon',
+            'Ev / ofis dekorasyonu',
+            'Hediyelik seri üretim',
+            'Özel tasarım UV baskı'
+        ],
+        technicalNotes: {
+            materials: 'Metal levha, manyetik sistem',
+            quantities: 'Küçük adet — teklif bazlı'
+        },
+        icon: '🧲'
+    },
+    {
+        id: 'diger-imalat',
+        slug: 'diger-imalat',
+        title: 'Diğer İmalat / Özel Proje',
+        shortDescription: 'Listede olmayan metal ve teneke imalat talepleri için serbest proje alanı.',
+        technicalDescription: 'Özel ölçü, malzeme ve termin gerektiren metal / teneke imalat projeleriniz için teknik inceleme ve teklif sunuyoruz.',
+        useCases: [
+            'Özel metal parça',
+            'Teneke kutu / levha',
+            'Seri imalat dışı proje',
+            'Kurumsal özel üretim'
+        ],
+        technicalNotes: {
+            quantities: 'Proje bazlı'
         },
         icon: '⚙️'
-    },
-    {
-        id: 'ozel-metal',
-        slug: 'ozel-metal-uretim',
-        title: 'Özel Metal Üretim',
-        shortDescription: 'Teknik çizime göre özel metal parça ve yapı imalatı. Kaynak, büküm, kesim işlemleri.',
-        technicalDescription: 'Teknik çizimlerinize göre özel metal yapılar, kasalar, muhafazalar ve endüstriyel parçalar üretiyoruz. Lazer kesim, CNC büküm ve profesyonel kaynak işlemleri ile projelerinizi hayata geçiriyoruz.',
-        useCases: [
-            'Endüstriyel kasalar',
-            'Metal muhafazalar',
-            'Özel konstrüksiyon',
-            'Makine gövdeleri'
-        ],
-        technicalNotes: {
-            materials: 'Sac, profil, boru - tüm metal türleri',
-            quantities: 'Prototip ve seri üretim'
-        },
-        icon: '🔧'
-    },
-    {
-        id: 'seri-imalat',
-        slug: 'seri-imalat',
-        title: 'Seri İmalat',
-        shortDescription: 'Yüksek hacimli metal parça üretimi. Tekrar eden siparişler için optimize edilmiş süreç.',
-        technicalDescription: 'Seri üretim için optimize edilmiş süreçlerimizle, tutarlı kalitede yüksek hacimli metal parça imalatı yapıyoruz. CNC otomasyon ve kalite kontrol sistemlerimiz ile hatasız üretim garantisi.',
-        useCases: [
-            'Toplu parça siparişleri',
-            'OEM üretim',
-            'Stok parça imalatı',
-            'Düzenli tedarik'
-        ],
-        technicalNotes: {
-            quantities: 'Minimum 100 adet',
-            tolerances: 'Seri üretimde tutarlı tolerans'
-        },
-        icon: '🏭'
-    },
-    {
-        id: 'metal-etiket',
-        slug: 'metal-etiket-endustriyel',
-        title: 'Metal Etiket & Endüstriyel Etiketleme',
-        shortDescription: 'Dayanıklı metal etiket, seri numarası plakası ve endüstriyel işaretleme çözümleri.',
-        technicalDescription: 'Lazer kazıma, baskı ve kabartma teknikleri ile kalıcı metal etiketler üretiyoruz. Makine plakaları, seri numarası etiketleri, uyarı levhaları ve kurumsal metal tabelalar.',
-        useCases: [
-            'Makine seri numarası plakaları',
-            'Uyarı ve güvenlik levhaları',
-            'Kurumsal metal tabelalar',
-            'QR kodlu takip etiketleri'
-        ],
-        technicalNotes: {
-            materials: 'Alüminyum, Paslanmaz Metal, Pirinç',
-            quantities: 'Tek adetten binlerce adete'
-        },
-        icon: '🏷️'
     }
 ];
 

@@ -1,1 +1,1 @@
-export { default } from "../sartlar/page";
+﻿export { default } from "../sartlar/page";

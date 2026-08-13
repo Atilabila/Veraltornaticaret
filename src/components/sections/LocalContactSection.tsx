@@ -18,8 +18,8 @@ export const LocalContactSection = () => {
 
                     <div className="flex flex-col gap-4 mb-16">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                            <span className="text-sm font-black text-zinc-400 tracking-[0.3em] uppercase">DİREKT HAT</span>
+                            <div className="w-12 h-[1px] bg-[var(--color-brand-accent)]" />
+                            <span className="text-sm font-black text-zinc-400 tracking-[0.3em] uppercase">D�REKT HAT</span>
                         </div>
                         <h2 className="text-5xl lg:text-7xl font-bold text-white tracking-tighter uppercase leading-none italic">
                             {content.contactTitle}{" "}
@@ -38,7 +38,7 @@ export const LocalContactSection = () => {
                             {contactItems.map((item, i) => {
                                 return (
                                     <div key={i} className="bg-zinc-900/50 p-12 flex flex-col gap-10 border border-zinc-800 hover:bg-zinc-800 group transition-all duration-700">
-                                        <div className={`w-14 h-14 border border-[#D4AF37]/30 flex items-center justify-center ${item.color || 'text-[#D4AF37]'} group-hover:bg-[#D4AF37] group-hover:text-white transition-all`}>
+                                        <div className={`w-14 h-14 border border-[var(--color-brand-accent)]/30 flex items-center justify-center ${item.color || 'text-[var(--color-brand-accent)]'} group-hover:bg-[var(--color-brand-accent)] group-hover:text-white transition-all`}>
                                             <DynamicLucideIcon
                                                 name={item.icon}
                                                 fallbackName="help-circle"
@@ -47,10 +47,10 @@ export const LocalContactSection = () => {
                                             />
                                         </div>
                                         <div className="space-y-3">
-                                            <h3 className="font-black text-white group-hover:text-[#D4AF37] uppercase text-2xl tracking-tighter italic leading-none transition-colors">
+                                            <h3 className="font-black text-white group-hover:text-[var(--color-brand-accent)] uppercase text-2xl tracking-tighter italic leading-none transition-colors">
                                                 {item.title}
                                             </h3>
-                                            <p className="text-xs font-black text-[#D4AF37] uppercase tracking-[0.2em]">
+                                            <p className="text-xs font-black text-[var(--color-brand-accent)] uppercase tracking-[0.2em]">
                                                 {item.desc}
                                             </p>
                                         </div>
@@ -61,7 +61,7 @@ export const LocalContactSection = () => {
 
                         {/* Inquiry Card */}
                         <div className="lg:col-span-12 xl:col-span-5 bg-[#0A0A0A] p-12 lg:p-16 text-white flex flex-col gap-10 relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/5 rounded-full -mr-32 -mt-32 group-hover:scale-150 transition-transform duration-1000 ease-out" />
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-accent)]/5 rounded-full -mr-32 -mt-32 group-hover:scale-150 transition-transform duration-1000 ease-out" />
 
                             <div className="relative z-10 space-y-6">
                                 <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter italic leading-none text-white">
@@ -73,10 +73,10 @@ export const LocalContactSection = () => {
                             </div>
 
                             <div className="relative z-10 flex flex-col sm:flex-row gap-4 pt-10 mt-auto">
-                                <Link href="/siparis-sorgula" className="h-16 px-12 bg-[#D4AF37] text-black font-black text-xs tracking-[0.3em] uppercase hover:bg-[#c2a03e] transition-all flex items-center justify-center gap-3 shadow-[4px_4px_0px_0px_rgba(216,178,76,0.6)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
-                                    SİPARİŞ TAKİBİ <ArrowUpRight size={16} />
+                                <Link href="/siparis-sorgula" className="h-16 px-12 bg-[var(--color-brand-accent)] text-black font-black text-xs tracking-[0.3em] uppercase hover:bg-[#cc3d00] transition-all flex items-center justify-center gap-3 shadow-[4px_4px_0px_0px_rgba(15, 98, 254,0.45)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
+                                    S�PAR�� TAK�B� <ArrowUpRight size={16} />
                                 </Link>
-                                <a href={`https://wa.me/${content.whatsappNumber}`} className="h-16 px-12 border border-zinc-700 text-white font-black text-xs tracking-[0.3em] uppercase hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
+                                <a href={`https://wa.me/${content.whatsappNumber}`} className="h-16 px-12 border border-zinc-700 text-white font-black text-xs tracking-[0.3em] uppercase hover:bg-[var(--color-brand-accent)] hover:text-black hover:border-[var(--color-brand-accent)] transition-all flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
                                     WHATSAPP
                                 </a>
                             </div>

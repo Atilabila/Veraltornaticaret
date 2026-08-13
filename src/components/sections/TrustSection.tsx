@@ -6,11 +6,11 @@ import { m } from 'framer-motion';
 
 export const TrustSection = () => {
     const safetySignals = [
-        { icon: ShieldCheck, title: "GÜVENLİ ÖDEME", desc: "256-BIT SSL KORUMASI" },
-        { icon: Clock, title: "HIZLI TESLİMAT", desc: "24-48 SAATTE KARGO" },
-        { icon: Layers, title: "METAL KALİTESİ", desc: "1.5MM PREMIUM ÇELİK" },
-        { icon: RotateCcw, title: "KOLAY İADE", desc: "14 GÜN DEĞİŞİM HAKKI" },
-        { icon: Truck, title: "ÜCRETSİZ KARGO", desc: "750 TL ÜZERİ SİPARİŞ" }
+        { icon: ShieldCheck, title: "G�VENL� �DEME", desc: "256-BIT SSL KORUMASI" },
+        { icon: Clock, title: "HIZLI TESL�MAT", desc: "24-48 SAATTE KARGO" },
+        { icon: Layers, title: "METAL KAL�TES�", desc: "1.5MM PREMIUM �EL�K" },
+        { icon: RotateCcw, title: "KOLAY �ADE", desc: "14 G�N DE����M HAKKI" },
+        { icon: Truck, title: "�CRETS�Z KARGO", desc: "750 TL �ZER� S�PAR��" }
     ];
 
     return (
@@ -18,9 +18,9 @@ export const TrustSection = () => {
             <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
                 <div className="flex flex-col gap-4 mb-12">
                     <div className="flex items-center gap-4">
-                        <div className="w-10 h-[1px] bg-[#D4AF37]/30" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">
-                            GÜVENCE PROTOKOLLERİ
+                        <div className="w-10 h-[1px] bg-[var(--color-brand-accent)]/30" />
+                        <span className="text-sm font-black text-[var(--color-brand-accent)] tracking-[0.3em] uppercase">
+                            G�VENCE PROTOKOLLER�
                         </span>
                     </div>
                     <h2 className="text-5xl md:text-7xl font-black text-[#0A0A0A] uppercase tracking-tighter leading-none italic">
@@ -38,7 +38,7 @@ export const TrustSection = () => {
                             transition={{ delay: idx * 0.1, duration: 0.8 }}
                             className="group relative p-12 bg-white border-r border-[#0A0A0A]/5 last:border-r-0 hover:bg-[#0A0A0A] transition-all duration-700"
                         >
-                            <div className="w-14 h-14 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-white transition-all duration-500 mb-10">
+                            <div className="w-14 h-14 border border-[var(--color-brand-accent)]/30 flex items-center justify-center text-[var(--color-brand-accent)] group-hover:bg-[var(--color-brand-accent)] group-hover:text-white transition-all duration-500 mb-10">
                                 <signal.icon size={28} strokeWidth={1.5} />
                             </div>
 
@@ -46,7 +46,7 @@ export const TrustSection = () => {
                                 <span className="font-black text-[#0A0A0A] group-hover:text-white uppercase tracking-tighter text-xl leading-none transition-colors">
                                     {signal.title}
                                 </span>
-                                <span className="text-xs font-black text-[#D4AF37] uppercase tracking-[0.15em] leading-relaxed">
+                                <span className="text-xs font-black text-[var(--color-brand-accent)] uppercase tracking-[0.15em] leading-relaxed">
                                     {signal.desc}
                                 </span>
                             </div>

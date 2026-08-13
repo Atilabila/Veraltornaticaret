@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { m, AnimatePresence } from 'framer-motion';
@@ -126,7 +126,7 @@ export default function BlogPage() {
                                     placeholder="İÇERİK ARAMASINI BAŞLAT..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full bg-white font-mono font-black text-xl pl-20 pr-6 py-8 focus:outline-none focus:bg-[#FFD700] transition-none"
+                                    className="w-full bg-white font-mono font-black text-xl pl-20 pr-6 py-8 focus:outline-none focus:bg-[var(--color-brand-accent)] transition-none"
                                 />
                                 <div className="absolute right-6 top-1/2 -translate-y-1/2 font-mono text-xs font-black opacity-30">
                                     [ ARAMAK İÇİN ENTER'A BASIN ]
@@ -236,7 +236,7 @@ export default function BlogPage() {
                             {filteredPosts.map((post, index) => (
                                 <article
                                     key={post.id}
-                                    className="border-4 border-black bg-white shadow-brutal transition-none group hover:bg-[#FFD700]"
+                                    className="border-4 border-black bg-white shadow-brutal transition-none group hover:bg-[var(--color-brand-accent)]"
                                 >
                                     <div className="aspect-[16/10] relative transition-none border-b-4 border-black">
                                         <Image

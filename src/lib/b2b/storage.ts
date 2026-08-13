@@ -1,4 +1,4 @@
-// MP-07: localStorage Utilities for B2B Quotes
+﻿// MP-07: localStorage Utilities for B2B Quotes
 
 import { QuoteRequest, QuoteDraft } from './types';
 

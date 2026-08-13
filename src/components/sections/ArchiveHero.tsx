@@ -23,8 +23,8 @@ export const ArchiveHero = () => {
                     >
                         <div className="flex flex-col gap-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-16 h-[1px] bg-[#D4AF37]" />
-                                <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">
+                                <div className="w-16 h-[1px] bg-[var(--color-brand-accent)]" />
+                                <span className="text-sm font-black text-[var(--color-brand-accent)] tracking-[0.3em] uppercase">
                                     {content.heroTagline}
                                 </span>
                             </div>
@@ -44,10 +44,10 @@ export const ArchiveHero = () => {
                         <div className="flex flex-col sm:flex-row gap-6 pt-4">
                             <Link
                                 href={content.heroButton1Url || "/urunler"}
-                                className="h-20 px-12 bg-[#0A0A0A] text-white text-[12px] font-black uppercase tracking-[0.4em] hover:bg-[#D4AF37] transition-all duration-700 shadow-2xl relative overflow-hidden group flex items-center justify-center"
+                                className="h-20 px-12 bg-[#0A0A0A] text-white text-[12px] font-black uppercase tracking-[0.4em] hover:bg-[var(--color-brand-accent)] transition-all duration-700 shadow-2xl relative overflow-hidden group flex items-center justify-center"
                             >
                                 <span className="relative z-10">{content.heroButton1Text}</span>
-                                <div className="absolute inset-0 bg-[#D4AF37] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+                                <div className="absolute inset-0 bg-[var(--color-brand-accent)] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
                             </Link>
                             <Link
                                 href={content.heroButton2Url || "/urunler"}
@@ -57,11 +57,11 @@ export const ArchiveHero = () => {
                             </Link>
                         </div>
 
-                        <div className="flex items-center gap-12 lg:gap-20 pt-10 border-t border-[#D4AF37]/20">
+                        <div className="flex items-center gap-12 lg:gap-20 pt-10 border-t border-[var(--color-brand-accent)]/20">
                             {(content.heroStats || []).map((stat, i) => (
                                 <div key={i} className="flex flex-col gap-2">
                                     <span className="text-3xl font-black text-[#0A0A0A] italic">{stat.value}</span>
-                                    <span className="text-xs font-black text-[#D4AF37] tracking-[0.2em] uppercase">{stat.label}</span>
+                                    <span className="text-xs font-black text-[var(--color-brand-accent)] tracking-[0.2em] uppercase">{stat.label}</span>
                                 </div>
                             ))}
                         </div>
@@ -76,13 +76,13 @@ export const ArchiveHero = () => {
                     >
                         <div className="relative aspect-[3/4] w-full max-w-[500px] mx-auto group">
                             {/* Decorative Gold Frame (Outer) */}
-                            <div className="absolute -inset-8 border-[1px] border-[#D4AF37]/20 transition-all duration-1000 group-hover:scale-105" />
+                            <div className="absolute -inset-8 border-[1px] border-[var(--color-brand-accent)]/20 transition-all duration-1000 group-hover:scale-105" />
 
                             {/* Main Product Frame */}
-                            <div className="w-full h-full bg-white relative z-10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-[10px] border-white group-hover:shadow-[0_80px_150px_-30px_rgba(212,175,55,0.2)] transition-all duration-1000">
+                            <div className="w-full h-full bg-white relative z-10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-[10px] border-white group-hover:shadow-[0_80px_150px_-30px_rgba(15, 98, 254,0.35)] transition-all duration-1000">
                                 <img
                                     src={normalizeImagePath(content.heroImage)}
-                                    alt="Lüks Metal Tablo"
+                                    alt="L�ks Metal Tablo"
                                     className="w-full h-full object-cover"
                                 />
                                 {/* Gloss effect overlay */}

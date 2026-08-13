@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { usePathname } from "next/navigation"
 import { useContentStore } from "@/store/useContentStore"
@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 export const useThemeDetection = () => {
     const pathname = usePathname()
     const { content } = useContentStore()
-    const [isDarkPage, setIsDarkPage] = useState(true)
+    const [isDarkPage, setIsDarkPage] = useState(false)
     const [headerMode, setHeaderMode] = useState<'inherit' | 'auto' | 'translucent'>('inherit');
     const [gridOverride, setGridOverride] = useState<'inherit' | 'on' | 'off'>('inherit');
 
@@ -35,14 +35,14 @@ export const useThemeDetection = () => {
 
         // 2. Fallback to Legacy Theme Config (darkPaths)
         if (content.themeConfig) {
-            const darkPaths = content.themeConfig.darkPaths || ['/', '/metal-tablolar', '/urunler', '/teklif-al'];
+            const darkPaths = content.themeConfig.darkPaths || ['/teklif-al', '/siparis-sorgula'];
             const isDark = darkPaths.some(path => {
                 if (!path) return false;
                 const cleanPath = path.trim();
                 if (cleanPath === '/' && pathname === '/') return true;
                 if (cleanPath !== '/' && pathname?.startsWith(cleanPath)) return true;
                 return false;
-            }) || pathname === '/';
+            }) ;
 
             setIsDarkPage(isDark);
             setHeaderMode('inherit');

@@ -1,4 +1,4 @@
-// MP-07: Reference Number Generator
+﻿// MP-07: Reference Number Generator
 
 /**
  * Generates unique quote reference number

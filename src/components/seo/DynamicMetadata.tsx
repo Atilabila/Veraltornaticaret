@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -17,8 +17,8 @@ export const DynamicMetadata = () => {
             content.pageSettings?.find(p => p.path !== '/' && pathname?.startsWith(p.path));
 
         // Default Title / Description
-        const defaultTitle = `${content.siteName || 'VERAL'} | Dosya Teli İmalatı, Takvim Tenekesi ve Metal Posterler`;
-        const defaultDesc = `VERAL Metal İzmir - Toptan dosya teli üretimi, takvim tenekesi, metal poster, mıknatıslı magnet ve tef zili imalatı. Yüksek kaliteli endüstriyel metal çözümleri.`;
+        const defaultTitle = `${content.siteName || 'VERAL'} | Toptan Dosya Teli İmalatı, Takvim Tenekesi ve Metal Poster`;
+        const defaultDesc = `VERAL — İmalatçıdan halka. Toptan dosya teli üretimi, takvim tenekesi imalatı; metal poster üçüncü hat. İzmir merkezli endüstriyel metal çözümler.`;
 
         // Effective Title / Description
         const title = pageConfig?.seoTitle || defaultTitle;

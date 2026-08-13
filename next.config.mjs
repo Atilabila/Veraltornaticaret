@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 import path from "path";
+import { fileURLToPath } from "url";
 
-const projectRoot = path.resolve("C:/Users/ati/.gemini/antigravity/scratch/metal-poster-pro");
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
+    // Force tracing to this repo so a parent lockfile cannot steal the root.
+    outputFileTracingRoot: projectRoot,
     typescript: {
         ignoreBuildErrors: true,
     },

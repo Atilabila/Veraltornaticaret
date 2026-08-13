@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Eye, X } from "lucide-react";
@@ -35,7 +35,7 @@ export const CMSPreview = ({
             <button
                 type="button"
                 onClick={() => setIsOpen(true)}
-                className="group relative inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium text-slate-400 hover:text-[var(--color-brand-safety-orange)] transition-colors rounded-lg hover:bg-slate-800/50"
+                className="group relative inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium text-slate-400 hover:text-[var(--color-brand-accent)] transition-colors rounded-lg hover:bg-slate-800/50"
                 title={`${label} önizlemesi`}
             >
                 <Eye className="w-3.5 h-3.5" />
@@ -69,7 +69,7 @@ export const CMSPreview = ({
                             <div className="flex items-center justify-between p-6 border-b border-white/10 bg-gradient-to-r from-slate-900 to-slate-800">
                                 <div>
                                     <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                        <Eye className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
+                                        <Eye className="w-5 h-5 text-[var(--color-brand-accent)]" />
                                         {label}
                                     </h3>
                                     {description && (
@@ -110,7 +110,7 @@ export const CMSPreview = ({
                                 </p>
                                 <button
                                     onClick={() => setIsOpen(false)}
-                                    className="px-4 py-2 bg-[var(--color-brand-safety-orange)] hover:bg-orange-600 text-white rounded-lg font-medium text-sm transition-colors"
+                                    className="px-4 py-2 bg-[var(--color-brand-accent)] hover:bg-orange-600 text-white rounded-lg font-medium text-sm transition-colors"
                                 >
                                     Kapat
                                 </button>
@@ -134,7 +134,7 @@ export const CMSInlinePreview = ({
         <div className="group relative inline-block">
             <button
                 type="button"
-                className="p-1 text-slate-500 hover:text-[var(--color-brand-safety-orange)] transition-colors"
+                className="p-1 text-slate-500 hover:text-[var(--color-brand-accent)] transition-colors"
             >
                 <Eye className="w-4 h-4" />
             </button>

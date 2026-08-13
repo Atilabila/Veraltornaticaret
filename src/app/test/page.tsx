@@ -1,4 +1,4 @@
-export default function TestPage() {
+﻿export default function TestPage() {
     return (
         <div style={{ padding: '2rem', fontFamily: 'system-ui' }}>
             <h1>✅ Server Çalışıyor!</h1>

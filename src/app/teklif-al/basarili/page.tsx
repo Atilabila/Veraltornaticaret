@@ -1,11 +1,16 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { CheckCircle, MessageSquare, Phone, ArrowRight } from 'lucide-react';
+import { PageShell } from '@/components/layout/PageShell';
+import { PageContainer } from '@/components/layout/PageContainer';
+import { useContentStore } from '@/store/useContentStore';
 
 function TeklifBasariliContent() {
     const searchParams = useSearchParams();
+    const { content } = useContentStore();
     const [uploadStatus, setUploadStatus] = useState<'ok' | 'fail' | null>(null);
     const [referenceNumber, setReferenceNumber] = useState<string>('');
 
@@ -17,113 +22,81 @@ function TeklifBasariliContent() {
         else if (upload === 'fail') setUploadStatus('fail');
     }, [searchParams]);
 
+    const phone = (content.footerPhone || '+905071651315').replace(/\s/g, '');
+    const whatsapp = content.whatsappNumber || '905071651315';
+
     return (
-        <div className="max-w-2xl w-full">
-            {/* Success Icon */}
-            <div className="text-center mb-8">
-                <div className="inline-block bg-green-500 text-white w-20 h-20 rounded-full flex items-center justify-center mb-6">
-                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
+        <PageContainer className="max-w-2xl">
+            <div className="text-center mb-10">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 mb-6">
+                    <CheckCircle className="w-8 h-8" />
                 </div>
-                <h1 className="font-[Archivo_Black] text-4xl uppercase mb-4">
-                    {uploadStatus === 'fail' ? 'TALEP ALINDI (EKSİK)' : 'TALEBİNİZ ALINDI!'}
+                <h1 className="text-3xl md:text-4xl font-bold text-[#161616] mb-3">
+                    {uploadStatus === 'fail' ? 'Talep alındı (eksik dosya)' : 'Talebiniz alındı'}
                 </h1>
-                <p className="font-mono text-lg text-black/80">
+                <p className="text-lg text-[#525252]">
                     {uploadStatus === 'fail'
                         ? 'Teklif talebiniz kaydedildi ancak dosya yüklenirken bir hata oluştu.'
-                        : 'Teklif talebiniz başarıyla kaydedildi.'}
+                        : 'Teklif talebiniz başarıyla kaydedildi. Ekibimiz en geç 24 saat içinde dönüş yapacaktır.'}
                 </p>
             </div>
 
-            {/* Upload Error Alert */}
             {uploadStatus === 'fail' && (
-                <div className="bg-red-50 border-4 border-red-500 p-6 mb-8 font-mono">
-                    <p className="font-bold text-red-700 uppercase mb-2">⚠️ DOSYA YÜKLEME HATASI</p>
-                    <p className="text-sm text-red-600">
-                        Teknik çiziminiz sisteme yüklenemedi. Lütfen çiziminizi WhatsApp üzerinden referans numaranızla birlikte gönderin.
-                    </p>
+                <div className="bg-red-50 border border-red-200 p-5 mb-6 text-sm text-red-700">
+                    Teknik çiziminiz yüklenemedi. Lütfen dosyayı WhatsApp üzerinden referans numaranızla birlikte gönderin.
                 </div>
             )}
 
-            {/* Reference Number */}
             {referenceNumber && (
-                <div className="bg-[var(--color-brand-safety-orange)] border-4 border-black p-6 mb-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-                    <div className="text-center">
-                        <p className="font-mono text-sm uppercase mb-2">REFERANS NUMARANIZ</p>
-                        <p className="font-[Archivo_Black] text-3xl tracking-wider">
-                            {referenceNumber}
-                        </p>
-                        <p className="font-mono text-xs mt-2">
-                            Bizimle iletişime geçerken bu numarayı kullanın.
-                        </p>
-                    </div>
+                <div className="bg-[var(--color-brand-accent)]/10 border border-[var(--color-brand-accent)] p-6 mb-6 text-center">
+                    <p className="text-xs font-mono font-semibold uppercase tracking-wider text-[#525252] mb-2">Referans numaranız</p>
+                    <p className="text-2xl font-bold text-[var(--color-brand-accent)] font-mono">{referenceNumber}</p>
+                    <p className="text-xs text-[#525252] mt-2">İletişimde bu numarayı kullanın.</p>
                 </div>
             )}
 
-            {/* Next Steps - MP-07 LOCKED COPY */}
-            <div className="border-4 border-black p-8 mb-8">
-                <h2 className="font-[Archivo_Black] text-2xl uppercase mb-4">
-                    SONRAKI ADIMLAR
-                </h2>
-                <p className="font-mono text-black/80 leading-relaxed">
-                    Talebiniz alındı. Teknik ekibimiz en geç 24 saat içinde sizinle iletişime geçecektir.
+            <div className="bg-white border border-[#c6c6c6] p-6 mb-6">
+                <h2 className="text-lg font-bold text-[#161616] mb-2">Sonraki adımlar</h2>
+                <p className="text-[#525252] text-sm leading-relaxed">
+                    Teknik ekibimiz talebinizi inceleyecek; ölçü, miktar ve teslimat bilgilerinize göre toptan fiyatlandırma paylaşacaktır.
                 </p>
             </div>
 
-            {/* Contact Options */}
-            <div className="bg-black text-white p-6 mb-8">
-                <h3 className="font-[Archivo_Black] text-xl uppercase mb-4">
-                    HEMEN İLETİŞİME GEÇİN
-                </h3>
-                <p className="font-mono text-sm mb-4 text-white/80">
-                    Acil durumlar için doğrudan bize ulaşabilirsiniz:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a
-                        href={`https://wa.me/90XXXXXXXXXX?text=${encodeURIComponent(`Merhaba, ${referenceNumber} numaralı teklifim hakkında bilgi almak istiyorum.`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="border-2 border-white p-4 hover:bg-white hover:text-black transition-colors text-center"
-                    >
-                        <div className="font-mono font-bold">📱 WhatsApp</div>
-                        <div className="font-mono text-sm mt-1">Teklif Hakkında Sor</div>
-                    </a>
-                    <a
-                        href="tel:+90XXXXXXXXXX"
-                        className="border-2 border-white p-4 hover:bg-white hover:text-black transition-colors text-center"
-                    >
-                        <div className="font-mono font-bold">📞 Telefon</div>
-                        <div className="font-mono text-sm mt-1">Hemen Ara</div>
-                    </a>
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                <a
+                    href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(`Merhaba, ${referenceNumber} numaralı teklif talebim hakkında bilgi almak istiyorum.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 h-12 border border-[#c6c6c6] bg-white hover:border-[var(--color-brand-accent)] text-sm font-semibold transition-colors"
+                >
+                    <MessageSquare className="w-4 h-4" /> WhatsApp
+                </a>
+                <a
+                    href={`tel:${phone}`}
+                    className="flex items-center justify-center gap-2 h-12 border border-[#c6c6c6] bg-white hover:border-[var(--color-brand-accent)] text-sm font-semibold transition-colors"
+                >
+                    <Phone className="w-4 h-4" /> Telefon
+                </a>
             </div>
 
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                    href="/hizmetler"
-                    className="flex-1 text-center bg-white border-4 border-black py-3 font-mono font-bold uppercase hover:bg-black hover:text-white transition-colors"
-                >
-                    ← HİZMETLER
+            <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/#hizmetler" className="flex-1 text-center h-12 flex items-center justify-center border border-[#c6c6c6] text-sm font-semibold hover:border-[var(--color-brand-accent)] transition-colors">
+                    Hizmetler
                 </Link>
-                <Link
-                    href="/"
-                    className="flex-1 text-center bg-[var(--color-brand-safety-orange)] border-4 border-black py-3 font-mono font-bold uppercase shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
-                >
-                    ANA SAYFA →
+                <Link href="/" className="flex-1 text-center h-12 flex items-center justify-center gap-2 bg-[var(--color-brand-accent)] text-white text-sm font-semibold hover:bg-[#0043ce] transition-colors">
+                    Ana sayfa <ArrowRight className="w-4 h-4" />
                 </Link>
             </div>
-        </div>
+        </PageContainer>
     );
 }
 
 export default function TeklifBasariliPage() {
     return (
-        <div className="min-h-screen bg-white flex items-center justify-center px-4 py-20">
-            <Suspense fallback={<div className="font-mono text-xl">Yükleniyor...</div>}>
+        <PageShell variant="muted">
+            <Suspense fallback={<div className="text-center text-[#525252] py-12">Yükleniyor...</div>}>
                 <TeklifBasariliContent />
             </Suspense>
-        </div>
+        </PageShell>
     );
 }

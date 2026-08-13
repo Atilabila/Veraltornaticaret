@@ -1,4 +1,4 @@
-import { requireAdmin } from '@/lib/auth/requireAdmin';
+﻿import { requireAdmin } from '@/lib/auth/requireAdmin';
 import { redirect } from 'next/navigation';
 import '../admin-theme.css';
 
@@ -15,7 +15,7 @@ export default async function AdminLayout({
     }
 
     return (
-        <div className="min-h-screen bg-slate-100">
+        <div className="min-h-screen bg-[#f4f4f4]">
             {children}
         </div>
     );

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 // MP-07: File Upload Component (Metadata Only)
 

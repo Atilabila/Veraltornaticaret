@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { useContentStore } from "@/store/useContentStore";
@@ -16,7 +16,7 @@ export const StatsMarquee = () => {
 
     return (
         <DirectEdit tab="content">
-            <section className="stats-marquee py-4 bg-transparent border-b border-[#D4AF37]/5 relative overflow-hidden select-none cursor-pointer">
+            <section className="stats-marquee py-4 bg-transparent relative overflow-hidden select-none">
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     @keyframes stats-scroll {
@@ -39,20 +39,19 @@ export const StatsMarquee = () => {
                                 <DynamicLucideIcon
                                     name={item.icon}
                                     fallbackName="activity"
-                                    className="w-5 h-5 text-[#D4AF37]/80"
+                                    className="w-5 h-5 text-[var(--color-brand-accent)]"
                                 />
 
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-base md:text-lg font-black text-white/80 tracking-tight uppercase">
+                                    <span className="text-sm md:text-base font-bold text-[#161616] tracking-tight">
                                         {item.value}
                                     </span>
-                                    <span className="text-[11px] md:text-xs font-bold text-[#D4AF37]/80 tracking-[0.2em] uppercase">
+                                    <span className="text-xs font-medium text-[#525252] uppercase tracking-wide">
                                         {item.label}
                                     </span>
                                 </div>
 
-                                {/* Minimal Separator */}
-                                <div className="ml-4 w-1 h-1 rounded-full bg-white/5" />
+                                <div className="ml-4 w-1 h-1 rounded-full bg-[#c6c6c6]" />
                             </div>
                         ))}
                     </div>

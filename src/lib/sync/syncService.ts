@@ -1,4 +1,4 @@
-// MP-08: Hybrid Sync Service
+﻿// MP-08: Hybrid Sync Service
 // Handles localStorage → Supabase synchronization with fallback
 
 import { supabase } from '@/lib/supabase/client';

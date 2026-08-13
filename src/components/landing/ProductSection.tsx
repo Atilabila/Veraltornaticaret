@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import { m } from 'framer-motion'
@@ -33,7 +33,7 @@ const isDarkBackground = (color: string): boolean => {
 
 // Get ambient glow color
 const getAmbientGlow = (bg: string): string => {
-    if (bg.includes("f0f4f8") || bg.includes("ffffff")) return "rgba(212, 175, 55, 0.4)"
+    if (bg.includes("f0f4f8") || bg.includes("ffffff")) return "rgba(15, 98, 254,0.35)"
     if (bg.includes("1a1a2e") || bg.includes("16213e")) return "rgba(59, 130, 246, 0.3)"
     if (bg.includes("533483")) return "rgba(139, 92, 246, 0.3)"
     return "rgba(161, 161, 170, 0.2)"
@@ -280,7 +280,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                                     isDark
                                         ? "bg-industrial-gold text-zinc-900 hover:bg-industrial-gold/90"
                                         : "bg-zinc-900 text-white hover:bg-zinc-800",
-                                    "shadow-[0_4px_20px_-4px_rgba(212,175,55,0.2)] hover:translate-x-1",
+                                    "shadow-[0_4px_20px_-4px_rgba(15, 98, 254,0.35)] hover:translate-x-1",
                                     "relative overflow-hidden group"
                                 )}
                             >

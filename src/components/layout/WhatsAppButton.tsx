@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { MessageCircle } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
@@ -15,7 +15,7 @@ export const WhatsAppButton = () => {
     return (
         <button
             onClick={handleClick}
-            className="fixed bottom-[104px] md:bottom-[88px] right-6 z-50 w-16 h-16 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group whatsapp-button-perf"
+            className="fixed bottom-[88px] md:bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-105 group whatsapp-button-perf"
             aria-label="WhatsApp ile iletişime geç"
             style={{ transform: 'translateZ(0)' }}
         >

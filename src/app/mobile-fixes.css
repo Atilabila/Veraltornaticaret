@@ -1,4 +1,4 @@
-/* ===================================================== */
+﻿/* ===================================================== */
 /* DESKTOP-ON-MOBILE FORCE (V3)                          */
 /* ===================================================== */
 
@@ -436,11 +436,11 @@ section#other-services a.px-16.py-8 {
     height: 120px !important;
 }
 
-section#other-services div.bg-\[\#FFD700\] div {
+section#other-services div.bg-\[\var(--color-brand-accent)\] div {
     font-size: 38px !important;
 }
 
-section#other-services div.bg-\[\#FFD700\] a {
+section#other-services div.bg-\[\var(--color-brand-accent)\] a {
     font-size: 30px !important;
     padding: 25px 50px !important;
     height: auto !important;

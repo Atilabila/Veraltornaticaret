@@ -1,4 +1,4 @@
-export type PriceParseTRYResult =
+﻿export type PriceParseTRYResult =
     | { ok: true; value: number }
     | { ok: false; code: "INVALID_PRICE_FORMAT" | "INVALID_PRICE_RANGE" };
 

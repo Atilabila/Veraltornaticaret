@@ -33,14 +33,14 @@ export const GalleryShowcase = () => {
                     {/* Header Section */}
                     <div className="flex flex-col gap-4 mb-16">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                            <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">MEKAN ANALİZİ</span>
+                            <div className="w-12 h-[1px] bg-[var(--color-brand-accent)]" />
+                            <span className="text-sm font-black text-[var(--color-brand-accent)] tracking-[0.3em] uppercase">MEKAN ANAL�Z�</span>
                         </div>
                         <h2 className="text-4xl lg:text-5xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                            {content.metalShowcaseTitle || "ESTETİK VE MEKAN"}
+                            {content.metalShowcaseTitle || "ESTET�K VE MEKAN"}
                         </h2>
                         <p className="text-[#0A0A0A]/50 text-lg font-medium max-w-lg">
-                            {content.metalShowcaseSubtitle || "IŞIK VE FORMUN DEKORASYONLA UYUMUNU GÖRÜN."}
+                            {content.metalShowcaseSubtitle || "I�IK VE FORMUN DEKORASYONLA UYUMUNU G�R�N."}
                         </p>
                     </div>
 
@@ -64,13 +64,13 @@ export const GalleryShowcase = () => {
                                     quality={65}
                                 />
                                 {/* Gold Border Overlay on Hover */}
-                                <div className="absolute inset-0 border border-[#D4AF37]/0 group-hover:border-[#D4AF37]/40 transition-all duration-700 pointer-events-none" />
+                                <div className="absolute inset-0 border border-[var(--color-brand-accent)]/0 group-hover:border-[var(--color-brand-accent)]/40 transition-all duration-700 pointer-events-none" />
 
                                 {/* Overlay Gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/20 to-transparent opacity-80" />
 
                                 <div className="relative z-10 p-10 h-full flex flex-col justify-end">
-                                    <span className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase mb-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
+                                    <span className="text-[10px] font-black text-[var(--color-brand-accent)] tracking-[0.4em] uppercase mb-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
                                         {sc.desc}
                                     </span>
                                     <div className="flex justify-between items-end">
@@ -79,7 +79,7 @@ export const GalleryShowcase = () => {
                                         </h3>
                                         <Link
                                             href="/urunler"
-                                            className="w-16 h-16 bg-[#D4AF37] text-black flex items-center justify-center hover:bg-white transition-all duration-500 shadow-2xl"
+                                            className="w-16 h-16 bg-[var(--color-brand-accent)] text-black flex items-center justify-center hover:bg-white transition-all duration-500 shadow-2xl"
                                         >
                                             <ArrowRight className="w-6 h-6" />
                                         </Link>

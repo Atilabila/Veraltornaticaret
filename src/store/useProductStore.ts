@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+﻿import { create } from 'zustand';
 import { ProductService } from '@/lib/supabase/products.service';
 import type { Database } from '@/lib/supabase/database.types';
 import { Product } from '@/lib/products';

@@ -1,4 +1,4 @@
-import { Home, Warehouse, Car, Frame, Bed, Coffee, Briefcase } from "lucide-react";
+﻿import { Home, Warehouse, Car, Frame, Bed, Coffee, Briefcase } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export type Template = {

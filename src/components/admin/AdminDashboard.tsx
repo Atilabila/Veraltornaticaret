@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
@@ -80,7 +80,7 @@ export const AdminDashboard = () => {
     }, []);
 
     return (
-        <div className="admin-panel flex min-h-screen bg-gradient-to-br from-[#F5F1E8] via-[#EDE7DC] to-[#E8DFD0] text-slate-900 font-sans">
+        <div className="admin-panel flex min-h-screen bg-[#f4f4f4] text-[#161616] font-sans">
             {/* Notification */}
             <AnimatePresence>
                 {notification && (
@@ -88,7 +88,7 @@ export const AdminDashboard = () => {
                         initial={{ opacity: 0, y: -50 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -50 }}
-                        className={`fixed top-6 right-6 z-50 px-6 py-4 rounded-xl flex items-center gap-3 shadow-2xl ${notification.type === "success" ? "bg-green-500" : "bg-red-500"
+                        className={`fixed top-6 right-6 z-50 px-6 py-4 flex items-center gap-3 border border-[#c6c6c6] text-white ${notification.type === "success" ? "bg-emerald-600" : "bg-red-600"
                             }`}
                     >
                         {notification.type === "success" ? <Check className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
@@ -98,13 +98,13 @@ export const AdminDashboard = () => {
             </AnimatePresence>
 
             {/* Sidebar */}
-            <aside className="w-72 border-r border-slate-300/50 p-6 flex flex-col gap-8 bg-white/60 backdrop-blur-sm shrink-0 shadow-lg">
+            <aside className="w-72 border-r border-[#c6c6c6] p-6 flex flex-col gap-8 bg-white shrink-0">
                 <div className="flex items-center gap-3 px-2">
-                    <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-safety-orange)] text-white flex items-center justify-center font-bold text-2xl shadow-lg">V</div>
+                    <div className="w-12 h-12 bg-[var(--color-brand-accent)] text-white flex items-center justify-center font-bold text-xl">V</div>
                     <div>
-                        <span className="font-bold text-xl tracking-tight text-slate-900">Veral</span>
-                        <span className="text-slate-600 text-xl">Panel</span>
-                        <p className="text-xs text-slate-500">Yönetim Sistemi</p>
+                        <span className="font-bold text-lg tracking-tight text-[#161616]">Veral</span>
+                        <span className="text-[#525252] text-lg"> Panel</span>
+                        <p className="text-xs text-[#525252]">Yönetim sistemi</p>
                     </div>
                 </div>
 
@@ -188,11 +188,11 @@ export const AdminDashboard = () => {
                     />
                 </nav>
 
-                <div className="mt-auto space-y-2 border-t border-white/5 pt-6">
+                <div className="mt-auto space-y-2 border-t border-[#c6c6c6] pt-6">
                     {user && (
-                        <div className="px-4 py-3 mb-2 bg-white/5 rounded-xl border border-white/5">
-                            <p className="text-[10px] text-slate-500 uppercase font-black mb-1">OTURUM AÇIK</p>
-                            <p className="text-xs font-mono font-bold truncate text-[var(--color-brand-safety-orange)]">{user.email}</p>
+                        <div className="px-4 py-3 mb-2 bg-[#f4f4f4] border border-[#c6c6c6]">
+                            <p className="text-[10px] text-[#525252] font-mono font-semibold uppercase mb-1">Oturum açık</p>
+                            <p className="text-xs font-mono font-semibold truncate text-[var(--color-brand-accent)]">{user.email}</p>
                         </div>
                     )}
                     <a href="/" target="_blank" className="w-full block">
@@ -330,13 +330,13 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                 <div className="flex gap-4">
                     <button
                         onClick={() => setIsBulkAddModalOpen(true)}
-                        className="flex items-center gap-2 bg-slate-800 text-white px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
+                        className="flex items-center gap-2 bg-slate-800 text-white px-8 py-4 border border-[#c6c6c6] font-semibold transition-colors font-black uppercase tracking-tighter"
                     >
                         <FolderPlus className="w-5 h-5" /> Toplu Ürün Ekle (5+)
                     </button>
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
+                        className="flex items-center gap-2 bg-[var(--color-brand-accent)] text-white px-8 py-4 border border-[#c6c6c6] font-semibold transition-colors font-black uppercase tracking-tighter"
                     >
                         <Plus className="w-5 h-5" /> Yeni Ürün Ekle
                     </button>
@@ -351,13 +351,13 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                         placeholder="Ürün ara..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)]"
                     />
                 </div>
                 <select
                     value={selectedCategory || ""}
                     onChange={(e) => setSelectedCategory(e.target.value || null)}
-                    className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-w-[200px]"
+                    className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)] min-w-[200px]"
                 >
                     <option value="">Tüm Kategoriler</option>
                     {categories.map((cat: Category) => (
@@ -393,11 +393,11 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                                     <m.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
                                         <div className="p-5 pt-0 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                             {categoryProducts.map((product: Product) => (
-                                                <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-safety-orange)] transition-all">
+                                                <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-accent)] transition-all">
                                                     <div className="relative aspect-square bg-slate-900">
                                                         <img src={normalizeImagePath(product.image)} alt={product.name} className="w-full h-full object-cover" />
                                                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                                                            <button onClick={() => setEditingProduct(product)} className="p-3 bg-[var(--color-brand-safety-orange)] rounded-xl hover:bg-[var(--color-brand-safety-orange)]/80">
+                                                            <button onClick={() => setEditingProduct(product)} className="p-3 bg-[var(--color-brand-accent)] rounded-xl hover:bg-[var(--color-brand-accent)]/80">
                                                                 <Pencil className="w-5 h-5" />
                                                             </button>
                                                             <button onClick={() => handleDeleteProduct(product.id)} className="p-3 bg-red-500 rounded-xl hover:bg-red-600">
@@ -412,7 +412,7 @@ const ProductsTab = ({ showNotification }: { showNotification: (type: "success" 
                                                         </div>
                                                         <div className="flex justify-between items-center mt-1">
                                                             <div className="flex flex-col">
-                                                                <p className="text-[var(--color-brand-safety-orange)] font-bold">₺{product.price}</p>
+                                                                <p className="text-[var(--color-brand-accent)] font-bold">₺{product.price}</p>
                                                                 <p className={`text-[10px] font-bold ${Number(product.stock_quantity) > 0 ? 'text-green-500' : 'text-red-500'}`}>
                                                                     {product.stock_quantity ?? 0} ADET
                                                                 </p>
@@ -546,7 +546,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                     <div className="grid grid-cols-2 gap-6">
                         <div className="col-span-2 md:col-span-1">
                             <Label className="mb-2 block">Ürün Adı</Label>
-                            <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]" required />
+                            <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)]" required />
                         </div>
                         <div className="col-span-2 md:col-span-1">
                             <Label className="mb-2 block">SKU (Stok Kodu)</Label>
@@ -554,7 +554,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                 type="text"
                                 value={formData.sku}
                                 onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
-                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)]"
                                 placeholder="Örn: VRL-101"
                             />
                         </div>
@@ -564,19 +564,19 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                             <textarea
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[100px]"
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)] min-h-[100px]"
                                 required
                             />
                         </div>
 
                         <div className="col-span-2 md:col-span-1">
                             <Label className="mb-2 block">Fiyat (₺)</Label>
-                            <input type="number" value={formData.price} onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]" required />
+                            <input type="number" value={formData.price} onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)]" required />
                         </div>
 
                         <div className="col-span-2 md:col-span-1">
                             <Label className="mb-2 block">Stok Miktarı</Label>
-                            <input type="number" value={formData.stock_quantity} onChange={(e) => setFormData({ ...formData, stock_quantity: Number(e.target.value) })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]" required />
+                            <input type="number" value={formData.stock_quantity} onChange={(e) => setFormData({ ...formData, stock_quantity: Number(e.target.value) })} className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)]" required />
                         </div>
 
                         <div className="col-span-2 md:col-span-1">
@@ -584,7 +584,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                             <select
                                 value={formData.category}
                                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)]"
                                 required
                             >
                                 <option value="">Kategori Seçin</option>
@@ -613,7 +613,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
 
                             {!hideShowcaseOption && (
                                 <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-slate-500 transition-all">
-                                    <div className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.is_showcase ? 'bg-[var(--color-brand-safety-orange)]' : 'bg-slate-700'}`}>
+                                    <div className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.is_showcase ? 'bg-[var(--color-brand-accent)]' : 'bg-slate-700'}`}>
                                         {formData.is_showcase && <Check className="w-4 h-4 text-black" />}
                                     </div>
                                     <input type="checkbox" className="hidden" checked={formData.is_showcase} onChange={(e) => setFormData({ ...formData, is_showcase: e.target.checked })} />
@@ -625,7 +625,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                         <div className="col-span-2">
                             <div className="flex items-center justify-between mb-4">
                                 <Label>Teknik Özellikler / Detaylar</Label>
-                                <button type="button" onClick={addFeature} className="text-[10px] font-black uppercase text-[var(--color-brand-safety-orange)] border border-[var(--color-brand-safety-orange)]/30 px-2 py-1 hover:bg-[var(--color-brand-safety-orange)] hover:text-white transition-all">
+                                <button type="button" onClick={addFeature} className="text-[10px] font-black uppercase text-[var(--color-brand-accent)] border border-[var(--color-brand-accent)]/30 px-2 py-1 hover:bg-[var(--color-brand-accent)] hover:text-white transition-all">
                                     + ÖZELLİK EKLE
                                 </button>
                             </div>
@@ -649,17 +649,17 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
 
                         <div className="col-span-2 border-t border-white/5 pt-6">
                             <div className="flex items-center justify-between mb-4">
-                                <Label className="text-[var(--color-brand-safety-orange)] font-black tracking-widest text-[10px] uppercase italic">VARYANTLAR (BOYUT / EK FİYAT / STOK)</Label>
+                                <Label className="text-[var(--color-brand-accent)] font-black tracking-widest text-[10px] uppercase italic">VARYANTLAR (BOYUT / EK FİYAT / STOK)</Label>
                                 <button
                                     type="button"
                                     onClick={addVariant}
-                                    className="text-[10px] font-black uppercase text-black bg-white border-2 border-black px-3 py-2 rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                                    className="text-[10px] font-black uppercase text-black bg-white border border-[#c6c6c6] px-3 py-2  transition-colors"
                                 >
                                     + VARYANT EKLE
                                 </button>
                             </div>
 
-                            <div className="bg-white border-2 border-black rounded-none p-4 space-y-3 text-black">
+                            <div className="bg-white border border-[#c6c6c6] p-4 space-y-3 text-black">
                                 <div className="grid grid-cols-12 gap-2 text-[10px] font-black uppercase tracking-widest text-black/70">
                                     <div className="col-span-6">Boyut</div>
                                     <div className="col-span-3">Ek Fiyat (₺)</div>
@@ -668,7 +668,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                 </div>
 
                                 {(formData.variants || []).length === 0 && (
-                                    <div className="border-2 border-black/10 rounded-none p-4 text-[10px] font-black uppercase tracking-widest text-black/60">
+                                    <div className="border border-[#e0e0e0] p-4 text-[10px] font-black uppercase tracking-widest text-black/60">
                                         Henüz varyant yok. “Varyant ekle” ile boyut ve fiyat tanımlayın.
                                     </div>
                                 )}
@@ -685,7 +685,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                                     type="text"
                                                     value={variant.size_label || ""}
                                                     onChange={(e) => updateVariant(idx, { size_label: e.target.value })}
-                                                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm text-black focus:outline-none"
+                                                    className="w-full bg-white border border-[#c6c6c6] px-3 py-2 text-sm text-black focus:outline-none"
                                                     placeholder="Örn: 30x45 cm"
                                                 />
                                                 <div className="text-[10px] font-black uppercase tracking-widest text-black/60">
@@ -699,7 +699,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                                     step="0.01"
                                                     value={Number(variant.price_modifier || 0)}
                                                     onChange={(e) => updateVariant(idx, { price_modifier: Number(e.target.value) })}
-                                                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm text-black focus:outline-none"
+                                                    className="w-full bg-white border border-[#c6c6c6] px-3 py-2 text-sm text-black focus:outline-none"
                                                     placeholder="0"
                                                 />
                                             </div>
@@ -709,7 +709,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                                     type="number"
                                                     value={Number(variant.stock_quantity || 0)}
                                                     onChange={(e) => updateVariant(idx, { stock_quantity: Number(e.target.value) })}
-                                                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm text-black focus:outline-none"
+                                                    className="w-full bg-white border border-[#c6c6c6] px-3 py-2 text-sm text-black focus:outline-none"
                                                     placeholder="0"
                                                 />
                                             </div>
@@ -718,7 +718,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                                                 <button
                                                     type="button"
                                                     onClick={() => removeVariant(idx)}
-                                                    className="h-10 w-10 flex items-center justify-center border-2 border-black rounded-none bg-white hover:bg-black hover:text-white transition-colors"
+                                                    className="h-10 w-10 flex items-center justify-center border border-[#c6c6c6] bg-white hover:bg-black hover:text-white transition-colors"
                                                     aria-label="Varyantı sil"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
@@ -731,7 +731,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                         </div>
 
                         <div className="col-span-2 border-t border-white/5 pt-6">
-                            <Label className="mb-4 block text-[var(--color-brand-safety-orange)] font-black tracking-widest text-[10px] uppercase italic">TEKNİK ÖZELLİK TABLOSU (SABİT ALANLAR)</Label>
+                            <Label className="mb-4 block text-[var(--color-brand-accent)] font-black tracking-widest text-[10px] uppercase italic">TEKNİK ÖZELLİK TABLOSU (SABİT ALANLAR)</Label>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <Label className="mb-2 block text-xs">Malzeme</Label>
@@ -768,7 +768,7 @@ const ProductModal = ({ product, onSave, onClose, isLoading, hideShowcaseOption 
                         <button
                             type="submit"
                             disabled={isLoading || !formData.image}
-                            className="flex-1 py-4 bg-[var(--color-brand-safety-orange)] rounded-xl font-bold hover:bg-[var(--color-brand-safety-orange)]/80 flex items-center justify-center gap-2 disabled:opacity-50 text-black uppercase tracking-widest"
+                            className="flex-1 py-4 bg-[var(--color-brand-accent)] rounded-xl font-bold hover:bg-[var(--color-brand-accent)]/80 flex items-center justify-center gap-2 disabled:opacity-50 text-black uppercase tracking-widest"
                         >
                             {isLoading ? (
                                 <><Activity className="w-5 h-5 animate-spin" /> İŞLENİYOR...</>
@@ -832,7 +832,7 @@ const CategoriesTab = ({ showNotification }: { showNotification: (type: "success
                 </div>
                 <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] hover:bg-[var(--color-brand-safety-orange)]/80 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    className="flex items-center gap-2 bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white px-6 py-3 rounded-xl font-bold transition-colors"
                 >
                     <FolderPlus className="w-5 h-5" /> Yeni Kategori Ekle
                 </button>
@@ -891,7 +891,7 @@ const CategoriesTab = ({ showNotification }: { showNotification: (type: "success
                                 </div>
                                 <div className="flex gap-4 pt-4">
                                     <button type="button" onClick={() => setIsAddModalOpen(false)} className="flex-1 py-3 border border-slate-700 rounded-xl font-bold">İptal</button>
-                                    <button type="submit" disabled={loading} className="flex-1 py-3 bg-[var(--color-brand-safety-orange)] rounded-xl font-bold">
+                                    <button type="submit" disabled={loading} className="flex-1 py-3 bg-[var(--color-brand-accent)] rounded-xl font-bold">
                                         {loading ? "Ekleniyor..." : "Ekle"}
                                     </button>
                                 </div>
@@ -972,10 +972,10 @@ const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | 
             <div className="space-y-8">
                 <section className="bg-slate-900/50 rounded-2xl border border-slate-800 p-8">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="font-bold text-xl uppercase tracking-widest text-[#D4AF37]">Hero Slider Görselleri</h2>
+                        <h2 className="font-bold text-xl uppercase tracking-widest text-[var(--color-brand-accent)]">Hero Slider Görselleri</h2>
                         <button
                             onClick={handleAddHeroImage}
-                            className="bg-black border border-[#D4AF37] text-[#D4AF37] px-4 py-2 text-xs font-black uppercase hover:bg-[#D4AF37] hover:text-white transition-all"
+                            className="bg-black border border-[var(--color-brand-accent)] text-[var(--color-brand-accent)] px-4 py-2 text-xs font-black uppercase hover:bg-[var(--color-brand-accent)] hover:text-white transition-all"
                         >
                             Yeni Görsel Ekle
                         </button>
@@ -1001,7 +1001,7 @@ const ImagesTab = ({ showNotification }: { showNotification: (type: "success" | 
                 </section>
 
                 <div className="bg-slate-900/50 rounded-2xl border border-slate-800 p-8">
-                    <h2 className="font-bold text-xl uppercase tracking-widest text-[#D4AF37] mb-6">Diğer Sistem Görselleri</h2>
+                    <h2 className="font-bold text-xl uppercase tracking-widest text-[var(--color-brand-accent)] mb-6">Diğer Sistem Görselleri</h2>
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                         {imageFields.map((field) => (
                             <div key={field.key} className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
@@ -1433,7 +1433,7 @@ const QuotesTab = ({ showNotification }: { showNotification: (type: "success" | 
                                     <div className="space-y-3">
                                         <div>
                                             <p className="text-[10px] text-slate-500 uppercase font-bold">Hizmet Tipi</p>
-                                            <p className="font-bold text-[var(--color-brand-safety-orange)]">{selectedQuote.service_type}</p>
+                                            <p className="font-bold text-[var(--color-brand-accent)]">{selectedQuote.service_type}</p>
                                         </div>
                                         <div>
                                             <p className="text-[10px] text-slate-500 uppercase font-bold">Talep Tarihi</p>
@@ -1506,18 +1506,18 @@ const QuotesTab = ({ showNotification }: { showNotification: (type: "success" | 
 };
 
 const StatCard = ({ label, value, icon }: { label: string, value: string | number, icon: React.ReactNode }) => (
-    <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+    <div className="bg-white border border-[#c6c6c6] p-6">
         <div className="flex justify-between items-start mb-4">
-            <span className="text-[10px] font-black text-slate-500 tracking-widest uppercase">{label}</span>
+            <span className="text-xs font-mono font-semibold text-[#525252] uppercase tracking-wider">{label}</span>
             {icon}
         </div>
-        <div className="text-3xl font-black text-white">{value}</div>
+        <div className="text-3xl font-bold text-[#161616]">{value}</div>
     </div>
 );
 
 // Sidebar Item
 const SidebarItem = ({ icon, label, active, onClick, className }: { icon: React.ReactNode; label: string; active?: boolean; onClick?: () => void; className?: string }) => (
-    <button onClick={onClick} className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all w-full text-left ${active ? "bg-[var(--color-brand-safety-orange)] text-white font-bold shadow-lg" : "text-slate-400 hover:text-white hover:bg-white/5"} ${className}`}>
+    <button onClick={onClick} className={`flex items-center gap-3 px-4 py-3 transition-all w-full text-left border border-transparent ${active ? "bg-[var(--color-brand-accent)] text-white font-semibold" : "text-[#525252] hover:text-[#161616] hover:bg-[#f4f4f4] hover:border-[#c6c6c6]"} ${className}`}>
         {icon}
         <span className="text-sm font-medium">{label}</span>
     </button>
@@ -1568,7 +1568,7 @@ const AuditLogsTab = () => {
                                     <div className="font-bold text-slate-300">{log.admin_email}</div>
                                 </td>
                                 <td className="p-4">
-                                    <span className="font-black text-[var(--color-brand-safety-orange)]">{log.action}</span>
+                                    <span className="font-black text-[var(--color-brand-accent)]">{log.action}</span>
                                 </td>
                                 <td className="p-4 text-slate-400">
                                     {log.entity} <span className="text-[10px] bg-slate-800 px-1 rounded">{log.entity_id}</span>
@@ -1608,7 +1608,7 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
                         if (success) showNotification("success", "Marka ayarları kaydedildi!");
                         else showNotification("error", "Kayıt hatası!");
                     }}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
+                    className="flex items-center gap-2 bg-[var(--color-brand-accent)] text-white px-8 py-4 border border-[#c6c6c6] font-semibold transition-colors font-black uppercase tracking-tighter"
                 >
                     <Save className="w-5 h-5" /> Kaydet
                 </button>
@@ -1622,7 +1622,7 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
                             type="text"
                             value={content.siteName || ""}
                             onChange={(e) => updateContent({ siteName: e.target.value })}
-                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] text-lg"
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)] text-lg"
                             placeholder="VERAL"
                         />
                     </div>
@@ -1634,7 +1634,7 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
                                 type="text"
                                 value={content.headerLogo || ""}
                                 onChange={(e) => updateContent({ headerLogo: e.target.value })}
-                                className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] font-mono text-xs"
+                                className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)] font-mono text-xs"
                                 placeholder="/logo.svg"
                             />
                             <div className="relative">
@@ -1673,7 +1673,7 @@ const BrandingTab = ({ showNotification }: { showNotification: (type: "success" 
                                 type="text"
                                 value={content.footerLogo || ""}
                                 onChange={(e) => updateContent({ footerLogo: e.target.value })}
-                                className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] font-mono text-xs"
+                                className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)] font-mono text-xs"
                                 placeholder="/logo-white.svg"
                             />
                             <div className="relative">
@@ -1806,7 +1806,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                 </div>
                 <button
                     onClick={handleSave}
-                    className="flex items-center gap-2 bg-[var(--color-brand-safety-orange)] text-black px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-black uppercase tracking-tighter"
+                    className="flex items-center gap-2 bg-[var(--color-brand-accent)] text-white px-8 py-4 border border-[#c6c6c6] font-semibold transition-colors font-black uppercase tracking-tighter"
                 >
                     <Save className="w-5 h-5" /> Kaydet
                 </button>
@@ -1820,7 +1820,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                             type="text"
                             value={content.metalShowcaseTitle || ""}
                             onChange={(e) => updateContent({ metalShowcaseTitle: e.target.value })}
-                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] text-lg"
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)] text-lg"
                             placeholder="Metal Art Atelier"
                         />
                     </div>
@@ -1830,7 +1830,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                         <textarea
                             value={content.metalShowcaseSubtitle || ""}
                             onChange={(e) => updateContent({ metalShowcaseSubtitle: e.target.value })}
-                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)] min-h-[80px]"
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)] min-h-[80px]"
                             placeholder="Endüstriyel kalite. Sanatsal tasarım."
                         />
                     </div>
@@ -1841,7 +1841,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                             type="text"
                             value={content.metalShowcaseHeroImage || ""}
                             onChange={(e) => updateContent({ metalShowcaseHeroImage: e.target.value })}
-                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-brand-accent)]"
                             placeholder="https://..."
                         />
                     </div>
@@ -1855,7 +1855,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                     <div className="grid grid-cols-3 gap-4">
                         {content.metalShowcaseTrustBadges?.map((badge, index) => (
                             <div key={index} className="bg-slate-800 rounded-xl p-4 space-y-3">
-                                <p className="text-xs font-bold text-[var(--color-brand-safety-orange)]">
+                                <p className="text-xs font-bold text-[var(--color-brand-accent)]">
                                     Rozet #{index + 1}
                                 </p>
                                 <input
@@ -1867,7 +1867,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                                         updateContent({ metalShowcaseTrustBadges: newBadges });
                                     }}
                                     placeholder="İkon (örn: Zap, Shield)"
-                                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-accent)]"
                                 />
                                 <input
                                     type="text"
@@ -1878,7 +1878,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                                         updateContent({ metalShowcaseTrustBadges: newBadges });
                                     }}
                                     placeholder="Metin (örn: Hızlı Üretim)"
-                                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-safety-orange)]"
+                                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-accent)]"
                                 />
                             </div>
                         ))}
@@ -1908,7 +1908,7 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
                     </div>
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="flex items-center gap-2 bg-white text-black px-4 py-2 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all font-black text-xs uppercase"
+                        className="flex items-center gap-2 bg-white text-black px-4 py-2 border border-[#c6c6c6] transition-colors font-black text-xs uppercase"
                     >
                         <Plus className="w-4 h-4" /> Showcase Ürünü Ekle
                     </button>
@@ -1916,11 +1916,11 @@ const MetalShowcaseTab = ({ showNotification }: { showNotification: (type: "succ
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {showcaseProducts.map((product) => (
-                        <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-safety-orange)] transition-all relative">
+                        <div key={product.id} className="bg-slate-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-[var(--color-brand-accent)] transition-all relative">
                             <div className="aspect-square bg-slate-900 border-b border-white/5">
                                 <img src={normalizeImagePath(product.image)} alt={product.name} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                    <button onClick={() => setEditingProduct(product)} className="p-2 bg-[var(--color-brand-safety-orange)] rounded-lg hover:scale-110 transition-transform">
+                                    <button onClick={() => setEditingProduct(product)} className="p-2 bg-[var(--color-brand-accent)] rounded-lg hover:scale-110 transition-transform">
                                         <Pencil className="w-4 h-4 text-black" />
                                     </button>
                                     <button onClick={() => handleDeleteProduct(product.id)} className="p-2 bg-red-500 rounded-lg hover:scale-110 transition-transform">

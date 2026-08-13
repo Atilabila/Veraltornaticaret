@@ -1,4 +1,4 @@
-
+﻿
 import Link from "next/link";
 import { AlertCircle, ArrowRight } from "lucide-react";
 
@@ -33,7 +33,7 @@ export function EmptyState({
             {actionLabel && actionHref && (
                 <Link
                     href={actionHref}
-                    className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold text-white uppercase bg-zinc-900 dark:bg-[#D4AF37] rounded hover:bg-zinc-800 dark:hover:bg-[#B5952F] transition-colors tracking-wider"
+                    className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold text-white uppercase bg-zinc-900 dark:bg-[var(--color-brand-accent)] rounded hover:bg-zinc-800 dark:hover:bg-[#B5952F] transition-colors tracking-wider"
                 >
                     {actionLabel} <ArrowRight className="w-4 h-4" />
                 </Link>

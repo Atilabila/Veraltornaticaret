@@ -1,7 +1,20 @@
-"use server";
+﻿"use server";
 
 import { createAdminSupabaseClient } from "@/lib/supabase/admin";
-import { v4 as uuidv4 } from "uuid";
+
+const MAX_QUOTE_FILE_BYTES = 10 * 1024 * 1024;
+const ALLOWED_QUOTE_EXTENSIONS = new Set([
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png",
+    "webp",
+    "zip",
+    "dwg",
+    "dxf",
+    "step",
+    "stp",
+]);
 
 export interface QuoteSubmissionData {
     fullName: string;
@@ -77,5 +90,56 @@ export async function submitQuote(data: QuoteSubmissionData) {
     } catch (error) {
         console.error("[QUOTE] Unexpected error:", error);
         return { success: false, error: "Beklenmedik bir hata oluştu." };
+    }
+}
+
+/**
+ * Public quote attachment upload. Must not use requireAdmin —
+ * visitors submit quotes without an admin session.
+ */
+export async function uploadQuoteAttachment(formData: FormData): Promise<{
+    success: boolean;
+    url?: string;
+    error?: string;
+}> {
+    try {
+        const file = formData.get("file");
+        if (!(file instanceof File) || file.size === 0) {
+            return { success: false, error: "Dosya bulunamadı." };
+        }
+
+        if (file.size > MAX_QUOTE_FILE_BYTES) {
+            return { success: false, error: "Dosya 10MB sınırını aşıyor." };
+        }
+
+        const extension = (file.name.split(".").pop() || "").toLowerCase();
+        if (!ALLOWED_QUOTE_EXTENSIONS.has(extension)) {
+            return { success: false, error: "Bu dosya türü kabul edilmiyor." };
+        }
+
+        const supabase = createAdminSupabaseClient();
+        const fileName = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${extension}`;
+        const filePath = `quotes/${fileName}`;
+
+        const { error } = await supabase.storage
+            .from("ürünler")
+            .upload(filePath, file, {
+                cacheControl: "3600",
+                upsert: false,
+            });
+
+        if (error) {
+            console.error("[QUOTE] Upload error:", error);
+            return { success: false, error: "Dosya yüklenemedi." };
+        }
+
+        const { data: urlData } = supabase.storage
+            .from("ürünler")
+            .getPublicUrl(filePath);
+
+        return { success: true, url: urlData.publicUrl };
+    } catch (error) {
+        console.error("[QUOTE] Upload unexpected error:", error);
+        return { success: false, error: "Dosya yüklenirken bir hata oluştu." };
     }
 }

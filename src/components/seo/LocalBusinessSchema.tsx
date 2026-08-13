@@ -1,10 +1,10 @@
-import React from 'react';
+﻿import React from 'react';
 
 export const LocalBusinessSchema = () => {
     const schema = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "VERAL Torna & Teneke Ticaret - İzmir Metal Poster, Dosya Teli & Takvim Tenekesi İmalatı",
+        "name": "VERAL Torna & Teneke Ticaret - İzmir Dosya Teli, Takvim Tenekesi & Metal Poster İmalatı",
         "alternateName": "Veral Teneke",
         "image": [
             "https://veralteneketicaret.com/veral-logo.webp",
@@ -42,7 +42,7 @@ export const LocalBusinessSchema = () => {
         },
         "priceRange": "₺₺",
         "currenciesAccepted": "TRY",
-        "paymentAccepted": "WhatsApp, Bank Transfer, Cash",
+        "paymentAccepted": "Teklif, WhatsApp, Bank Transfer, Cash",
         "areaServed": {
             "@type": "Country",
             "name": "Türkiye"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
@@ -144,7 +144,7 @@ export const AnalyticsTab = () => {
         return (
             <div className="flex items-center justify-center py-32">
                 <div className="text-center">
-                    <RefreshCw className="w-8 h-8 text-[var(--color-brand-safety-orange)] animate-spin mx-auto mb-4" />
+                    <RefreshCw className="w-8 h-8 text-[var(--color-brand-accent)] animate-spin mx-auto mb-4" />
                     <p className="text-slate-500 font-bold">Analitik veriler yükleniyor...</p>
                 </div>
             </div>
@@ -165,7 +165,7 @@ export const AnalyticsTab = () => {
                             key={opt.days}
                             onClick={() => setPeriod(opt.days)}
                             className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${period === opt.days
-                                ? "bg-[var(--color-brand-safety-orange)] text-black shadow-lg"
+                                ? "bg-[var(--color-brand-accent)] text-black shadow-lg"
                                 : "bg-white/60 text-slate-600 hover:bg-white border border-slate-200"
                                 }`}
                         >
@@ -224,7 +224,7 @@ export const AnalyticsTab = () => {
                 {/* Daily Chart */}
                 <div className="xl:col-span-2 bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-                        <BarChart3 className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
+                        <BarChart3 className="w-5 h-5 text-[var(--color-brand-accent)]" />
                         Günlük Ziyaretler
                     </h3>
                     {dailyStats.length === 0 ? (
@@ -263,7 +263,7 @@ export const AnalyticsTab = () => {
                 {/* Top Pages */}
                 <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                        <Globe className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
+                        <Globe className="w-5 h-5 text-[var(--color-brand-accent)]" />
                         En Çok Ziyaret Edilen
                     </h3>
                     <div className="space-y-3">
@@ -301,7 +301,7 @@ export const AnalyticsTab = () => {
                 {/* Device & Browser */}
                 <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                        <Smartphone className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
+                        <Smartphone className="w-5 h-5 text-[var(--color-brand-accent)]" />
                         Cihaz & Tarayıcı
                     </h3>
 
@@ -341,7 +341,7 @@ export const AnalyticsTab = () => {
                 {/* Recent Visitors */}
                 <div className="xl:col-span-2 bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                        <Clock className="w-5 h-5 text-[var(--color-brand-safety-orange)]" />
+                        <Clock className="w-5 h-5 text-[var(--color-brand-accent)]" />
                         Son Ziyaretçiler
                     </h3>
                     <div className="overflow-x-auto">

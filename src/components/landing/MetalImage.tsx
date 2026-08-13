@@ -1,4 +1,4 @@
-// =====================================================
+﻿// =====================================================
 // METAL IMAGE COMPONENT
 // SVG Injection with CSS Interactions & Ambient Glow
 // =====================================================
@@ -171,7 +171,7 @@ export const MetalImage: React.FC<MetalImageProps> = ({
 function getGlowFromBackground(bg: string): string {
     // Light backgrounds -> warm glow
     if (bg.includes("f0f4f8") || bg.includes("ffffff") || bg.includes("f8f")) {
-        return "#d4af37" // Gold
+        return "var(--color-brand-accent)" // Gold
     }
     // Purple backgrounds
     if (bg.includes("533483") || bg.includes("9c27b0")) {

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Shared contract for /api/admin/urunler/bulk endpoint and UI table rows.
  */
 export type BulkRowErrorCode =

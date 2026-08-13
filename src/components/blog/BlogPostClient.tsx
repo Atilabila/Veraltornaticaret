@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { m } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, ChevronRight, Terminal, ChevronLeft, ArrowRight, Activity } from "lucide-react";
@@ -21,7 +21,7 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
             <div className="container-brutal">
                 {/* BREADCRUMB_LOG */}
                 <div className="flex items-center gap-4 font-mono text-xs font-black mb-12 uppercase">
-                    <Link href="/blog" className="text-black/40 hover:text-black hover:bg-[#FFD700] px-2 py-1 border-2 border-transparent hover:border-black">RAPORLAR</Link>
+                    <Link href="/blog" className="text-black/40 hover:text-black hover:bg-[var(--color-brand-accent)] px-2 py-1 border-2 border-transparent hover:border-black">RAPORLAR</Link>
                     <ChevronRight className="w-4 h-4 text-black/20" />
                     <span className="bg-black text-white px-2 py-1">{post.category}</span>
                     <ChevronRight className="w-4 h-4 text-black/20" />
@@ -98,7 +98,7 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
                             <Link
                                 key={otherPost.id}
                                 href={`/blog/${otherPost.id}`}
-                                className="border-4 border-black bg-white p-8 shadow-brutal transition-none hover:bg-[#FFD700] group"
+                                className="border-4 border-black bg-white p-8 shadow-brutal transition-none hover:bg-[var(--color-brand-accent)] group"
                             >
                                 <div className="flex justify-between items-start mb-6">
                                     <span className="bg-black text-white px-2 py-0.5 font-mono text-[10px] font-black">{otherPost.category}</span>
@@ -124,7 +124,7 @@ function formatMarkdown(content: string): string {
         .replace(/^### (.*$)/gim, '<h3 class="text-xl font-[Archivo Black] text-[var(--color-brand-safety-orange)] mt-12 mb-6 uppercase border-b-4 border-black pb-2">$1</h3>')
         .replace(/^## (.*$)/gim, '<h2 class="text-3xl font-[Archivo Black] text-black mt-16 mb-8 uppercase border-b-8 border-black pb-4">$2</h2>')
         .replace(/^# (.*$)/gim, '<h1 class="text-4xl font-[Archivo Black] text-black mb-12 uppercase">$1</h1>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong class="bg-[#FFD700] px-1 text-black">$1</strong>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="bg-[var(--color-brand-accent)] px-1 text-black">$1</strong>')
         .replace(/^- (.*$)/gim, '<li class="ml-8 list-none flex items-start gap-4 before:content-[\'>>\'] before:text-[var(--color-brand-safety-orange)] mb-2">$1</li>')
         .replace(/^---$/gim, '<hr class="border-t-8 border-black my-16" />')
         .replace(/\n\n/g, '</p><p class="mb-6">');

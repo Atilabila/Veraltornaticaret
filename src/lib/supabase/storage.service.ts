@@ -1,4 +1,4 @@
-import { supabase } from "./client";
+﻿import { supabase } from "./client";
 
 export const uploadImage = async (file: File, path?: string): Promise<string> => {
     // Create a unique file name

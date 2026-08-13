@@ -1,4 +1,4 @@
-export function normalizeWhatsappNumber(raw: string): string {
+﻿export function normalizeWhatsappNumber(raw: string): string {
     return String(raw || '').replace(/\D/g, '');
 }
 

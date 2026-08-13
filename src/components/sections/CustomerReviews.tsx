@@ -16,79 +16,66 @@ export const CustomerReviews = () => {
 
     return (
         <DirectEdit tab="reviews">
-            <section id="reviews" className="py-16 lg:py-24">
+            <section id="reviews" className="py-16 lg:py-24 bg-white">
                 <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
 
                     <div className="flex flex-col gap-4 mb-16 text-center items-center">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                            <span className="text-sm font-black text-zinc-400 tracking-[0.3em] uppercase">KULLANICI DENEYİMİ</span>
-                        </div>
-                        <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-none italic">
-                            {content.reviewsTitle}{" "}
-                            <span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">
-                                {content.reviewsSubtitle}
+                            <div className="w-12 h-[2px] bg-[var(--color-brand-accent)]" />
+                            <span className="text-sm font-black text-[#525252] tracking-[0.3em] uppercase font-mono">
+                                {content.reviewsTitle} {content.reviewsSubtitle}
                             </span>
+                        </div>
+                        <h2 className="text-4xl lg:text-6xl font-black text-[#161616] tracking-tighter uppercase leading-none">
+                            Toptan İmalat Referansları
                         </h2>
                         <div className="flex items-center gap-2 mt-4">
-                            <Star className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
-                            <span className="text-sm font-black text-white uppercase tracking-[0.2em]">
+                            <Star className="w-4 h-4 text-[var(--color-brand-accent)] fill-[var(--color-brand-accent)]" />
+                            <span className="text-sm font-bold text-[#525252] uppercase tracking-[0.15em]">
                                 {content.reviewsRatingLabel}
                             </span>
                         </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-10">
+                    <div className="grid md:grid-cols-2 gap-6">
                         {reviews.map((review, index) => (
                             <m.div
                                 key={review.id || index}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.1, duration: 0.8 }}
-                                className="bg-zinc-900/50 p-12 lg:p-16 relative border border-zinc-800 group hover:border-[#D4AF37]/30 transition-all duration-700"
+                                transition={{ delay: index * 0.1, duration: 0.5 }}
+                                className="bg-[#f4f4f4] p-10 lg:p-12 relative border border-[#c6c6c6] group hover:border-[var(--color-brand-accent)] transition-colors"
                             >
-                                <Quote className="absolute top-12 right-12 w-16 h-16 text-[#D4AF37]/10 group-hover:text-[#D4AF37]/20 transition-all" />
+                                <Quote className="absolute top-10 right-10 w-12 h-12 text-[var(--color-brand-accent)]/10" />
 
-                                <div className="flex gap-1 mb-10">
+                                <div className="flex gap-1 mb-8">
                                     {[...Array(review.rating || 5)].map((_, i) => (
-                                        <Star key={i} className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
+                                        <Star key={i} className="w-4 h-4 text-[var(--color-brand-accent)] fill-[var(--color-brand-accent)]" />
                                     ))}
                                 </div>
 
-                                <p className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter leading-tight italic mb-12">
-                                    "{review.text}"
+                                <p className="text-xl lg:text-2xl font-semibold text-[#161616] leading-snug mb-10">
+                                    &ldquo;{review.text}&rdquo;
                                 </p>
 
-                                <div className="flex items-center justify-between pt-10 border-t border-zinc-800 mt-auto">
-                                    <div className="flex items-center gap-6">
-                                        <div className="w-14 h-14 border border-[#D4AF37] flex items-center justify-center font-black text-[#D4AF37] text-xl italic bg-zinc-800">
+                                <div className="flex items-center justify-between pt-8 border-t border-[#c6c6c6] mt-auto">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 border-2 border-[var(--color-brand-accent)] flex items-center justify-center font-bold text-[var(--color-brand-accent)] text-lg bg-white">
                                             {review.name.charAt(0)}
                                         </div>
                                         <div>
-                                            <div className="text-lg font-black text-white uppercase tracking-tighter leading-none mb-2">{review.name}</div>
-                                            <div className="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">{review.city} // {review.date}</div>
+                                            <div className="text-base font-bold text-[#161616] leading-none mb-1">{review.name}</div>
+                                            <div className="text-xs font-mono text-[#525252] uppercase tracking-wider">{review.city} · {review.date}</div>
                                         </div>
                                     </div>
 
-                                    <div className="hidden sm:flex items-center gap-4 border-l border-[#D4AF37]/20 pl-6">
-                                        <div className="text-right">
-                                            <span className="text-[10px] font-black text-zinc-500 uppercase block mb-1">ESER</span>
-                                            <span className="text-[10px] font-black text-white uppercase tracking-widest">{review.product}</span>
-                                        </div>
+                                    <div className="hidden sm:block text-right">
+                                        <span className="text-[10px] font-mono text-[#525252] uppercase block mb-1">Hat / Ürün</span>
+                                        <span className="text-xs font-bold text-[#161616]">{review.product}</span>
                                     </div>
                                 </div>
                             </m.div>
-                        ))}
-                    </div>
-
-                    {/* Shared Stats Bar */}
-                    <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-0 border border-zinc-800">
-                        {(content.statsItems || []).slice(0, 3).map((stat, i) => (
-                            <div key={i} className="bg-zinc-900/50 p-12 text-center border-r border-zinc-800 last:border-r-0">
-                                <div className="text-5xl lg:text-6xl font-black text-white italic tracking-tighter mb-4">{stat.value}</div>
-                                <div className="text-[10px] font-black text-[#D4AF37] tracking-[0.4em] uppercase">{stat.label}</div>
-                            </div>
                         ))}
                     </div>
                 </div>

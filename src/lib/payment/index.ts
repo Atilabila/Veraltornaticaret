@@ -1,4 +1,4 @@
-import type { PaymentProvider, PaymentConfig } from './types';
+﻿import type { PaymentProvider, PaymentConfig } from './types';
 import { IyzicoProvider } from './providers/iyzico';
 import { PayTRProvider } from './providers/paytr';
 import { MockProvider } from './providers/mock';

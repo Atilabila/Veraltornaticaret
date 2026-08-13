@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -398,7 +398,7 @@ export default function AdminUrunlerPage() {
     }, [buildPayload, categoryId, hasClientErrors, rows]);
 
     return (
-        <div className="min-h-screen bg-slate-100 p-6 md:p-8" data-testid="bulk-urunler-page">
+        <div className="min-h-screen bg-[#f4f4f4] p-6 md:p-8 admin-panel" data-testid="bulk-urunler-page">
             <Card className="mx-auto max-w-[1600px]">
                 <CardHeader className="space-y-3">
                     <div className="flex items-center justify-between gap-3">

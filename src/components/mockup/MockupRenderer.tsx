@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -226,14 +226,14 @@ export function MockupRenderer({
                         <line
                             x1={calib.refA.x * wrap.w} y1={calib.refA.y * wrap.h}
                             x2={calib.refB.x * wrap.w} y2={calib.refB.y * wrap.h}
-                            stroke="#D4AF37" strokeWidth="2" strokeDasharray="4 4"
+                            stroke="var(--color-brand-accent)" strokeWidth="2" strokeDasharray="4 4"
                         />
-                        <line x1={calib.refA.x * wrap.w} y1={calib.refA.y * wrap.h - 10} x2={calib.refA.x * wrap.w} y2={calib.refA.y * wrap.h + 10} stroke="#D4AF37" strokeWidth="3" />
-                        <line x1={calib.refB.x * wrap.w} y1={calib.refB.y * wrap.h - 10} x2={calib.refB.x * wrap.w} y2={calib.refB.y * wrap.h + 10} stroke="#D4AF37" strokeWidth="3" />
+                        <line x1={calib.refA.x * wrap.w} y1={calib.refA.y * wrap.h - 10} x2={calib.refA.x * wrap.w} y2={calib.refA.y * wrap.h + 10} stroke="var(--color-brand-accent)" strokeWidth="3" />
+                        <line x1={calib.refB.x * wrap.w} y1={calib.refB.y * wrap.h - 10} x2={calib.refB.x * wrap.w} y2={calib.refB.y * wrap.h + 10} stroke="var(--color-brand-accent)" strokeWidth="3" />
 
                         <foreignObject x={Math.min(calib.refA.x, calib.refB.x) * wrap.w} y={(calib.refA.y * wrap.h + calib.refB.y * wrap.h) / 2 - 40} width={Math.abs(calib.refB.x - calib.refA.x) * wrap.w} height="40">
                             <div className="w-full h-full flex items-center justify-center">
-                                <div className="bg-black text-[#D4AF37] px-3 py-1 font-mono text-[10px] font-black border border-[#D4AF37] shadow-xl whitespace-nowrap">
+                                <div className="bg-black text-[var(--color-brand-accent)] px-3 py-1 font-mono text-[10px] font-black border border-[var(--color-brand-accent)] shadow-xl whitespace-nowrap">
                                     {template.refName} GENİŞLİĞİ: {calib.refCm} CM
                                 </div>
                             </div>
@@ -259,10 +259,10 @@ export function MockupRenderer({
 
                     {/* Point A-B (Genişlik) */}
                     <div className="absolute w-8 h-8 -translate-x-1/2 -translate-y-1/2 cursor-move pointer-events-auto" style={{ left: `${calib.refA.x * 100}%`, top: `${calib.refA.y * 100}%` }} onMouseDown={(e) => handleMouseDown(e, "A")}>
-                        <div className="w-full h-full bg-[#D4AF37] rounded-full border-2 border-white shadow-xl flex items-center justify-center font-bold text-black text-[10px] animate-pulse">A</div>
+                        <div className="w-full h-full bg-[var(--color-brand-accent)] rounded-full border-2 border-white shadow-xl flex items-center justify-center font-bold text-black text-[10px] animate-pulse">A</div>
                     </div>
                     <div className="absolute w-8 h-8 -translate-x-1/2 -translate-y-1/2 cursor-move pointer-events-auto" style={{ left: `${calib.refB.x * 100}%`, top: `${calib.refB.y * 100}%` }} onMouseDown={(e) => handleMouseDown(e, "B")}>
-                        <div className="w-full h-full bg-[#D4AF37] rounded-full border-2 border-white shadow-xl flex items-center justify-center font-bold text-black text-[10px] animate-pulse">B</div>
+                        <div className="w-full h-full bg-[var(--color-brand-accent)] rounded-full border-2 border-white shadow-xl flex items-center justify-center font-bold text-black text-[10px] animate-pulse">B</div>
                     </div>
 
                     {/* Point C-D (Yükseklik) */}
@@ -273,7 +273,7 @@ export function MockupRenderer({
                         <div className="w-full h-full bg-[#3498db] rounded-full border-2 border-white shadow-xl flex items-center justify-center font-bold text-white text-[10px] animate-pulse">D</div>
                     </div>
 
-                    <div className="absolute top-10 left-1/2 -translate-x-1/2 text-white font-mono text-center bg-black/80 backdrop-blur-md p-4 border-2 border-[#D4AF37] shadow-2xl">
+                    <div className="absolute top-10 left-1/2 -translate-x-1/2 text-white font-mono text-center bg-black/80 backdrop-blur-md p-4 border-2 border-[var(--color-brand-accent)] shadow-2xl">
                         <div className="text-xl font-black mb-1 tracking-tighter uppercase whitespace-nowrap">Çift Akslı Sistematik Kalibrasyon</div>
                         <div className="text-[9px] uppercase font-bold opacity-80">A-B ile Genişliği, C-D ile Yüksekliği belirleyin</div>
                     </div>

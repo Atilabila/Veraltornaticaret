@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+﻿import { create } from 'zustand';
 
 // Ölçüler - Boyutlar otomatik olarak görsele göre (Yatay/Dikey) şekillenecek
 export const SIZES = [

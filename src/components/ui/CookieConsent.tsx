@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { m, AnimatePresence } from "framer-motion";
@@ -48,8 +48,8 @@ export const CookieConsent = () => {
 
                         {/* Header */}
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center">
-                                <Cookie className="w-5 h-5 text-[#D4AF37]" />
+                            <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-accent)]/10 border border-[var(--color-brand-accent)]/20 flex items-center justify-center">
+                                <Cookie className="w-5 h-5 text-[var(--color-brand-accent)]" />
                             </div>
                             <div>
                                 <h3 className="text-white font-bold text-base">Çerez Bildirimi</h3>
@@ -79,7 +79,7 @@ export const CookieConsent = () => {
                             </button>
                             <button
                                 onClick={handleAccept}
-                                className="flex-1 py-3 text-sm font-bold text-black bg-[#D4AF37] rounded-xl hover:bg-[#E5C04B] transition-all shadow-lg shadow-[#D4AF37]/20"
+                                className="flex-1 py-3 text-sm font-bold text-black bg-[var(--color-brand-accent)] rounded-xl hover:bg-[#E5C04B] transition-all shadow-lg shadow-[var(--color-brand-accent)]/20"
                             >
                                 Kabul Et
                             </button>
@@ -87,7 +87,7 @@ export const CookieConsent = () => {
 
                         {/* Policy Link */}
                         <div className="mt-3 text-center">
-                            <a href="/cerez" className="text-zinc-500 text-xs hover:text-[#D4AF37] transition-colors underline underline-offset-2">
+                            <a href="/cerez" className="text-zinc-500 text-xs hover:text-[var(--color-brand-accent)] transition-colors underline underline-offset-2">
                                 Çerez Politikamızı okuyun
                             </a>
                         </div>

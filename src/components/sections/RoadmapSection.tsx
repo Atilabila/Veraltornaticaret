@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { m } from 'framer-motion';
 import { CheckCircle2, Circle, Clock, Zap, Target, Rocket, ArrowRight, Layers } from "lucide-react";
@@ -27,7 +27,7 @@ const roadmapItems = [
             { id: "2.3", text: "Müşteri Deneyim Galerisi", done: false }
         ],
         icon: <Target className="w-8 h-8" />,
-        color: "bg-[#FFD700]"
+        color: "bg-[var(--color-brand-accent)]"
     },
     {
         phase: "PHASE 03",

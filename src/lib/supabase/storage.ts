@@ -1,4 +1,4 @@
-import { supabase } from './client';
+﻿import { supabase } from './client';
 
 export interface FileUploadResult {
     success: boolean;

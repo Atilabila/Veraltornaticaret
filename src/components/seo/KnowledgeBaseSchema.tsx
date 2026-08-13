@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 export const KnowledgeBaseSchema = () => {
     const faqSchema = {
@@ -23,10 +23,18 @@ export const KnowledgeBaseSchema = () => {
             },
             {
                 "@type": "Question",
+                "name": "Tef zili ve metal aksesuar imalatı yapıyor musunuz?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Tef zili üretimi ve metal aksesuar hatlarımızda seri imalat yapıyoruz. Müzik endüstrisi ve özel proje talepleri için teklif formu veya WhatsApp üzerinden ulaşabilirsiniz."
+                }
+            },
+            {
+                "@type": "Question",
                 "name": "UV baskılı teneke posterler nasıl üretilir ve solma yapar mı?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "UV baskılı teneke posterler, yüksek kaliteli alüminyum ve metal plakalar üzerine 4K çözünürlüklü CMYK+W endüstriyel baskı makineleri kullanılarak üretilir. Ürettiğimiz UV baskılı teneke posterler güneş ışığında solma yapmaz, suya dayanıklıdır ve ömür boyu kalıcı renk garantisine sahiptir."
+                    "text": "UV baskılı teneke posterler üçüncü üretim hattımızdır. Endüstriyel UV baskı ile metal yüzeylere kalıcı görsel aktarımı yapılır; ana odak noktamız dosya teli ve takvim tenekesi toptan imalatıdır."
                 }
             }
         ]
@@ -52,8 +60,14 @@ export const KnowledgeBaseSchema = () => {
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "UV Baskılı Teneke Posterler",
-                "description": "Duvar dekorasyonu alanında çizilmez, solmaz UV baskılı teneke metal posterler."
+                "name": "Tef Zili & Metal Aksesuar",
+                "description": "Profesyonel tef zili ve metal aksesuar seri imalatı."
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "UV Baskılı Metal Poster",
+                "description": "Dekoratif metal poster ve magnet — ikincil perakende hat."
             }
         ]
     };

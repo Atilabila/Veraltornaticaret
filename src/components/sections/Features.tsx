@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { m } from 'framer-motion';
 import Image from "next/image";
@@ -101,7 +101,7 @@ const FeatureModule = ({ feature, index }: { feature: Feature, index: number }) 
                         </div>
                     </div>
 
-                    <div className="mb-4 inline-block bg-[#FFD700] text-black px-3 py-1 font-mono font-black text-sm md:text-base">
+                    <div className="mb-4 inline-block bg-[var(--color-brand-accent)] text-black px-3 py-1 font-mono font-black text-sm md:text-base">
                         TEKNİK ETİKET: {feature.tag}
                     </div>
 

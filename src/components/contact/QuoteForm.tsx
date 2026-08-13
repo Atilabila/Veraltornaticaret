@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import {
     User, Building2, Mail, Phone,
@@ -15,15 +15,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/components/ui/use-toast';
-import { submitQuote } from '@/lib/actions/quotes.actions';
-import { uploadSiteAsset } from '@/actions/admin';
+import { submitQuote, uploadQuoteAttachment } from '@/lib/actions/quotes.actions';
 import { cn } from '@/lib/utils';
+import { useSearchParams } from 'next/navigation';
+import { getServiceBySlug } from '@/lib/b2b/services';
+
+const inputClass =
+    "bg-[#f4f4f4] border-[#c6c6c6] pl-12 h-14 focus:border-[var(--color-brand-accent)] transition-all rounded-none text-[#161616]";
+const labelClass = "text-xs font-mono font-semibold uppercase tracking-wider text-[#525252]";
 
 export const QuoteForm = () => {
     const { content } = useContentStore();
     const config = content.quotePage;
-
-    if (!config) return null;
+    const searchParams = useSearchParams();
 
     const [step, setStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,6 +54,26 @@ export const QuoteForm = () => {
     }[]>([]);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (!config) return;
+
+        const slug = searchParams.get('hizmet');
+        if (!slug) return;
+
+        const service = getServiceBySlug(slug);
+        if (!service) return;
+
+        const match = config.serviceOptions.find(
+            (opt) => opt === service.title || opt.toLowerCase().includes(service.title.split(' ')[0].toLowerCase())
+        );
+
+        if (match) {
+            setFormData((prev) => (prev.serviceType ? prev : { ...prev, serviceType: match }));
+        }
+    }, [searchParams, config]);
+
+    if (!config) return null;
 
     const updateField = (field: string, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -81,7 +105,7 @@ export const QuoteForm = () => {
                 preview: URL.createObjectURL(file),
                 isUploading: false
             };
-        }).filter(Boolean) as any[];
+        }).filter(Boolean) as typeof files;
 
         setFiles(prev => [...prev, ...newFiles]);
         if (fileInputRef.current) fileInputRef.current.value = "";
@@ -117,28 +141,30 @@ export const QuoteForm = () => {
     const handleSubmit = async () => {
         setIsSubmitting(true);
         try {
-            // 1. Upload files first
             const uploadedFiles = [];
-            for (let i = 0; i < files.length; i++) {
-                const f = files[i];
+            for (const f of files) {
                 const uploadData = new FormData();
                 uploadData.append("file", f.file);
-                uploadData.append("path", "quotes");
 
-                const res = await uploadSiteAsset(uploadData);
-                if (res.success) {
-                    uploadedFiles.push({
-                        name: f.file.name,
-                        type: f.file.type,
-                        size: f.file.size,
-                        url: res.url,
-                        // Extract path from URL or assume standard structure
-                        path: res.url.split('/').pop() || ""
+                const res = await uploadQuoteAttachment(uploadData);
+                if (!res.success || !res.url) {
+                    toast({
+                        title: "Hata",
+                        description: res.error || "Dosya yüklenemedi.",
+                        variant: "destructive",
                     });
+                    return;
                 }
+
+                uploadedFiles.push({
+                    name: f.file.name,
+                    type: f.file.type,
+                    size: f.file.size,
+                    url: res.url,
+                    path: res.url.split("/").pop() || "",
+                });
             }
 
-            // 2. Submit form
             const result = await submitQuote({
                 ...formData,
                 files: uploadedFiles as any
@@ -150,7 +176,7 @@ export const QuoteForm = () => {
             } else {
                 toast({ title: "Hata", description: result.error, variant: "destructive" });
             }
-        } catch (error) {
+        } catch {
             toast({ title: "Hata", description: "Bir hata oluştu.", variant: "destructive" });
         } finally {
             setIsSubmitting(false);
@@ -162,113 +188,79 @@ export const QuoteForm = () => {
             <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-zinc-900/50 border border-emerald-500/20 p-12 rounded-3xl text-center space-y-8"
+                className="bg-white border border-[#c6c6c6] p-12 text-center space-y-8 max-w-2xl"
             >
-                <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10" />
+                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                    <CheckCircle className="w-8 h-8" />
                 </div>
-                <h2 className="text-4xl font-black text-white italic uppercase tracking-tighter">
-                    {config.successTitle}
-                </h2>
-                <p className="text-zinc-400 text-lg max-w-lg mx-auto leading-relaxed">
-                    {config.successMessage}
-                </p>
-                <div className="bg-black/40 border border-white/5 p-6 rounded-2xl max-w-xs mx-auto">
-                    <span className="block text-[10px] text-zinc-500 font-bold uppercase tracking-widest mb-1">TAKİP NUMARASI</span>
-                    <span className="text-2xl font-mono text-emerald-400 font-bold uppercase">{quoteNumber}</span>
+                <h2 className="text-3xl font-bold text-[#161616]">{config.successTitle}</h2>
+                <p className="text-[#525252] text-lg max-w-lg mx-auto leading-relaxed">{config.successMessage}</p>
+                <div className="bg-[#f4f4f4] border border-[#c6c6c6] p-6 max-w-xs mx-auto">
+                    <span className="block text-xs text-[#525252] font-mono font-semibold uppercase tracking-wider mb-1">Takip numarası</span>
+                    <span className="text-2xl font-mono text-[var(--color-brand-accent)] font-bold">{quoteNumber}</span>
                 </div>
                 <Button
                     onClick={() => window.location.href = "/"}
-                    className="bg-emerald-500 hover:bg-emerald-600 text-black font-black uppercase tracking-widest h-14 px-12"
+                    className="bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white font-semibold h-12 px-10 rounded-none"
                 >
-                    ANA SAYFAYA DÖN
+                    Ana sayfaya dön
                 </Button>
             </m.div>
         );
     }
 
     return (
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
-            {/* Form Section */}
-            <div className="lg:col-span-8 bg-zinc-900/40 border border-white/5 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-sm">
-                {/* Progress Bar */}
-                <div className="h-1.5 w-full bg-white/5 flex">
+        <div className="grid lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-8 bg-white border border-[#c6c6c6] overflow-hidden shadow-sm">
+                <div className="h-1 w-full bg-[#e0e0e0] flex">
                     {[1, 2, 3].map(i => (
                         <div
                             key={i}
                             className={cn(
-                                "flex-1 transition-all duration-700",
-                                step >= i ? "bg-orange-500" : "bg-transparent"
+                                "flex-1 transition-all duration-500",
+                                step >= i ? "bg-[var(--color-brand-accent)]" : "bg-transparent"
                             )}
                         />
                     ))}
                 </div>
 
-                <div className="p-8 lg:p-12">
+                <div className="p-8 lg:p-10">
                     <AnimatePresence mode="wait">
                         {step === 1 && (
-                            <m.div
-                                key="step1"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                className="space-y-8"
-                            >
+                            <m.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter flex items-center gap-3">
-                                        <User className="text-orange-500" /> {config.contactSectionTitle}
+                                    <h3 className="text-xl font-bold text-[#161616] flex items-center gap-3">
+                                        <User className="text-[var(--color-brand-accent)] w-5 h-5" /> {config.contactSectionTitle}
                                     </h3>
-                                    <p className="text-zinc-500 text-sm">Lütfen sizinle iletişim kurabilmemiz için temel bilgileri doldurun.</p>
+                                    <p className="text-[#525252] text-sm">İletişim için temel bilgileri doldurun.</p>
                                 </div>
-
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.nameLabel} *</Label>
+                                        <Label className={labelClass}>{config.nameLabel} *</Label>
                                         <div className="relative">
-                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                                            <Input
-                                                value={formData.fullName}
-                                                onChange={(e) => updateField('fullName', e.target.value)}
-                                                placeholder={config.namePlaceholder}
-                                                className="bg-black/20 border-white/10 pl-12 h-14 focus:border-orange-500 transition-all rounded-xl"
-                                            />
+                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                            <Input value={formData.fullName} onChange={(e) => updateField('fullName', e.target.value)} placeholder={config.namePlaceholder} className={inputClass} />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.companyLabel}</Label>
+                                        <Label className={labelClass}>{config.companyLabel}</Label>
                                         <div className="relative">
-                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                                            <Input
-                                                value={formData.company}
-                                                onChange={(e) => updateField('company', e.target.value)}
-                                                placeholder={config.companyPlaceholder}
-                                                className="bg-black/20 border-white/10 pl-12 h-14 focus:border-orange-500 transition-all rounded-xl"
-                                            />
+                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                            <Input value={formData.company} onChange={(e) => updateField('company', e.target.value)} placeholder={config.companyPlaceholder} className={inputClass} />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.emailLabel} *</Label>
+                                        <Label className={labelClass}>{config.emailLabel} *</Label>
                                         <div className="relative">
-                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                                            <Input
-                                                type="email"
-                                                value={formData.email}
-                                                onChange={(e) => updateField('email', e.target.value)}
-                                                placeholder={config.emailPlaceholder}
-                                                className="bg-black/20 border-white/10 pl-12 h-14 focus:border-orange-500 transition-all rounded-xl"
-                                            />
+                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                            <Input type="email" value={formData.email} onChange={(e) => updateField('email', e.target.value)} placeholder={config.emailPlaceholder} className={inputClass} />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.phoneLabel} *</Label>
+                                        <Label className={labelClass}>{config.phoneLabel} *</Label>
                                         <div className="relative">
-                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                                            <Input
-                                                value={formData.phone}
-                                                onChange={(e) => updateField('phone', e.target.value)}
-                                                placeholder={config.phonePlaceholder}
-                                                className="bg-black/20 border-white/10 pl-12 h-14 focus:border-orange-500 transition-all rounded-xl"
-                                            />
+                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                            <Input value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} placeholder={config.phonePlaceholder} className={inputClass} />
                                         </div>
                                     </div>
                                 </div>
@@ -276,71 +268,47 @@ export const QuoteForm = () => {
                         )}
 
                         {step === 2 && (
-                            <m.div
-                                key="step2"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                className="space-y-8"
-                            >
+                            <m.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter flex items-center gap-3">
-                                        <Settings className="text-orange-500" /> {config.projectSectionTitle}
+                                    <h3 className="text-xl font-bold text-[#161616] flex items-center gap-3">
+                                        <Settings className="text-[var(--color-brand-accent)] w-5 h-5" /> {config.projectSectionTitle}
                                     </h3>
-                                    <p className="text-zinc-500 text-sm">Projenizin teknik ayrıntılarını ve ihtiyaçlarınızı belirtin.</p>
+                                    <p className="text-[#525252] text-sm">Projenizin teknik ayrıntılarını belirtin.</p>
                                 </div>
-
                                 <div className="space-y-6">
                                     <div className="space-y-2">
-                                        <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.serviceLabel} *</Label>
-                                        <Select onValueChange={(val) => updateField('serviceType', val)} defaultValue={formData.serviceType}>
-                                            <SelectTrigger className="bg-black/20 border-white/10 h-14 focus:border-orange-500 transition-all rounded-xl text-white">
+                                        <Label className={labelClass}>{config.serviceLabel} *</Label>
+                                        <Select onValueChange={(val) => updateField('serviceType', val)} value={formData.serviceType}>
+                                            <SelectTrigger className={`${inputClass} pl-4`}>
                                                 <SelectValue placeholder="Bir hizmet seçiniz" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-zinc-900 border-white/10 text-white">
+                                            <SelectContent className="bg-white border-[#c6c6c6] text-[#161616]">
                                                 {config.serviceOptions.map(opt => (
-                                                    <SelectItem key={opt} value={opt} className="focus:bg-orange-500 focus:text-black">{opt}</SelectItem>
+                                                    <SelectItem key={opt} value={opt} className="focus:bg-[var(--color-brand-accent)] focus:text-white">{opt}</SelectItem>
                                                 ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
-
                                     <div className="space-y-2">
-                                        <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.descriptionLabel} *</Label>
+                                        <Label className={labelClass}>{config.descriptionLabel} *</Label>
                                         <div className="relative">
-                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-zinc-600" />
-                                            <Textarea
-                                                value={formData.description}
-                                                onChange={(e) => updateField('description', e.target.value)}
-                                                placeholder={config.descriptionPlaceholder}
-                                                className="bg-black/20 border-white/10 pl-12 min-h-[150px] focus:border-orange-500 transition-all rounded-xl resize-none"
-                                            />
+                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-[#8d8d8d]" />
+                                            <Textarea value={formData.description} onChange={(e) => updateField('description', e.target.value)} placeholder={config.descriptionPlaceholder} className={`${inputClass} pl-12 min-h-[150px] resize-none`} />
                                         </div>
                                     </div>
-
                                     <div className="grid sm:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.quantityLabel}</Label>
+                                            <Label className={labelClass}>{config.quantityLabel}</Label>
                                             <div className="relative">
-                                                <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                                                <Input
-                                                    value={formData.quantity}
-                                                    onChange={(e) => updateField('quantity', e.target.value)}
-                                                    placeholder={config.quantityPlaceholder}
-                                                    className="bg-black/20 border-white/10 pl-12 h-14 focus:border-orange-500 transition-all rounded-xl"
-                                                />
+                                                <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                                <Input value={formData.quantity} onChange={(e) => updateField('quantity', e.target.value)} placeholder={config.quantityPlaceholder} className={inputClass} />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
-                                            <Label className="text-xs uppercase tracking-widest text-zinc-400">{config.materialLabel}</Label>
+                                            <Label className={labelClass}>{config.materialLabel}</Label>
                                             <div className="relative">
-                                                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                                                <Input
-                                                    value={formData.materialType}
-                                                    onChange={(e) => updateField('materialType', e.target.value)}
-                                                    placeholder={config.materialPlaceholder}
-                                                    className="bg-black/20 border-white/10 pl-12 h-14 focus:border-orange-500 transition-all rounded-xl"
-                                                />
+                                                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                                <Input value={formData.materialType} onChange={(e) => updateField('materialType', e.target.value)} placeholder={config.materialPlaceholder} className={inputClass} />
                                             </div>
                                         </div>
                                     </div>
@@ -349,54 +317,40 @@ export const QuoteForm = () => {
                         )}
 
                         {step === 3 && (
-                            <m.div
-                                key="step3"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                className="space-y-8"
-                            >
+                            <m.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter flex items-center gap-3">
-                                        <Upload className="text-orange-500" /> {config.uploadSectionTitle}
+                                    <h3 className="text-xl font-bold text-[#161616] flex items-center gap-3">
+                                        <Upload className="text-[var(--color-brand-accent)] w-5 h-5" /> {config.uploadSectionTitle}
                                     </h3>
-                                    <p className="text-zinc-500 text-sm">{config.fileDescription}</p>
+                                    <p className="text-[#525252] text-sm">{config.fileDescription}</p>
                                 </div>
-
                                 <div
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="border-2 border-dashed border-white/10 bg-black/20 rounded-2xl p-12 text-center hover:border-orange-500/50 hover:bg-black/40 transition-all cursor-pointer group"
+                                    className="border-2 border-dashed border-[#c6c6c6] bg-[#f4f4f4] p-12 text-center hover:border-[var(--color-brand-accent)] transition-colors cursor-pointer group"
                                 >
-                                    <input
-                                        type="file"
-                                        ref={fileInputRef}
-                                        onChange={handleFileChange}
-                                        multiple
-                                        className="hidden"
-                                    />
-                                    <Upload className="w-12 h-12 text-zinc-700 group-hover:text-orange-500 mx-auto mb-4 transition-colors" />
-                                    <p className="text-zinc-400 font-bold uppercase tracking-widest mb-2">{config.fileLabel}</p>
-                                    <p className="text-xs text-zinc-600">Sürükle bırak veya tıkla (Maks. {config.maxFiles} dosya, her biri {config.maxSizeMB}MB)</p>
+                                    <input type="file" ref={fileInputRef} onChange={handleFileChange} multiple className="hidden" />
+                                    <Upload className="w-10 h-10 text-[#8d8d8d] group-hover:text-[var(--color-brand-accent)] mx-auto mb-4 transition-colors" />
+                                    <p className="text-[#161616] font-semibold mb-2">{config.fileLabel}</p>
+                                    <p className="text-xs text-[#525252]">Sürükle bırak veya tıkla (Maks. {config.maxFiles} dosya, her biri {config.maxSizeMB}MB)</p>
                                 </div>
-
                                 {files.length > 0 && (
                                     <div className="grid gap-3">
                                         {files.map((f, i) => (
-                                            <div key={i} className="flex items-center justify-between bg-black/40 p-4 rounded-xl border border-white/5">
+                                            <div key={i} className="flex items-center justify-between bg-[#f4f4f4] p-4 border border-[#c6c6c6]">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-white/5 rounded-lg overflow-hidden flex items-center justify-center">
+                                                    <div className="w-12 h-12 bg-white border border-[#c6c6c6] overflow-hidden flex items-center justify-center">
                                                         {f.file.type.startsWith('image/') ? (
                                                             <img src={f.preview} alt="" className="w-full h-full object-cover" />
                                                         ) : (
-                                                            <Layers className="w-5 h-5 text-zinc-600" />
+                                                            <Layers className="w-5 h-5 text-[#8d8d8d]" />
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm font-bold text-white truncate max-w-[200px]">{f.file.name}</p>
-                                                        <p className="text-[10px] text-zinc-600 uppercase">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                                                        <p className="text-sm font-semibold text-[#161616] truncate max-w-[200px]">{f.file.name}</p>
+                                                        <p className="text-xs text-[#525252]">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
                                                     </div>
                                                 </div>
-                                                <button onClick={() => removeFile(i)} className="text-zinc-600 hover:text-red-500 transition-colors p-2">
+                                                <button onClick={() => removeFile(i)} className="text-[#8d8d8d] hover:text-red-600 transition-colors p-2">
                                                     <Trash2 className="w-5 h-5" />
                                                 </button>
                                             </div>
@@ -407,33 +361,21 @@ export const QuoteForm = () => {
                         )}
                     </AnimatePresence>
 
-                    {/* Navigation Buttons */}
-                    <div className="flex items-center justify-between pt-12 mt-12 border-t border-white/5">
+                    <div className="flex items-center justify-between pt-10 mt-10 border-t border-[#c6c6c6]">
                         {step > 1 ? (
-                            <Button
-                                variant="ghost"
-                                onClick={prevStep}
-                                className="text-zinc-400 hover:text-white flex items-center gap-2 group"
-                            >
-                                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> GERİ
+                            <Button variant="ghost" onClick={prevStep} className="text-[#525252] hover:text-[#161616] flex items-center gap-2 group">
+                                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Geri
                             </Button>
                         ) : <div />}
 
                         {step < 3 ? (
-                            <Button
-                                onClick={nextStep}
-                                className="bg-white text-black hover:bg-orange-500 transition-colors font-black uppercase tracking-widest h-14 px-12 rounded-xl flex items-center gap-3 group"
-                            >
-                                SONRAKİ ADIM <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <Button onClick={nextStep} className="bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2 group">
+                                Sonraki adım <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         ) : (
-                            <Button
-                                disabled={isSubmitting}
-                                onClick={handleSubmit}
-                                className="bg-orange-500 text-black hover:bg-emerald-500 transition-all duration-500 font-black uppercase tracking-widest h-14 px-12 rounded-xl flex items-center gap-3"
-                            >
+                            <Button disabled={isSubmitting} onClick={handleSubmit} className="bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2">
                                 {isSubmitting ? (
-                                    <>LÜTFEN BEKLEYİN <Loader2 className="w-4 h-4 animate-spin" /></>
+                                    <>Lütfen bekleyin <Loader2 className="w-4 h-4 animate-spin" /></>
                                 ) : (
                                     <>{config.submitButtonText} <ArrowRight className="w-4 h-4" /></>
                                 )}
@@ -443,9 +385,7 @@ export const QuoteForm = () => {
                 </div>
             </div>
 
-            {/* Sidebar Section */}
-            <div className="lg:col-span-4 space-y-8">
-                {/* Trust Blocks */}
+            <div className="lg:col-span-4 space-y-6">
                 <div className="grid gap-4">
                     {config.trustBlocks.map((block, i) => {
                         const Icon = block.icon === 'Clock' ? Clock :
@@ -458,32 +398,25 @@ export const QuoteForm = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: i * 0.1 }}
                                 key={i}
-                                className="bg-zinc-900/40 border border-white/5 p-8 rounded-3xl hover:border-orange-500/30 transition-all group"
+                                className="bg-white border border-[#c6c6c6] p-6 hover:border-[var(--color-brand-accent)] transition-colors group"
                             >
-                                <div className="w-12 h-12 bg-white/5 text-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                                    <Icon className="w-6 h-6" />
+                                <div className="w-10 h-10 bg-[#f4f4f4] text-[var(--color-brand-accent)] flex items-center justify-center mb-4 group-hover:bg-[var(--color-brand-accent)] group-hover:text-white transition-colors">
+                                    <Icon className="w-5 h-5" />
                                 </div>
-                                <h4 className="text-lg font-black text-white uppercase italic tracking-tighter mb-2">{block.title}</h4>
-                                <p className="text-zinc-500 text-sm leading-relaxed">{block.description}</p>
+                                <h4 className="text-base font-bold text-[#161616] mb-2">{block.title}</h4>
+                                <p className="text-[#525252] text-sm leading-relaxed">{block.description}</p>
                             </m.div>
                         );
                     })}
                 </div>
 
-                {/* Direct Contact Card */}
-                <div className="bg-gradient-to-br from-zinc-800 to-zinc-900 p-1 rounded-3xl group cursor-pointer transition-all hover:scale-[1.02]">
-                    <div className="bg-[#0A0A0A] p-10 rounded-[calc(1.5rem-1px)] space-y-6">
-                        <div className="w-12 h-1 bg-orange-500" />
-                        <h4 className="text-2xl font-black text-white uppercase italic tracking-tighter">Acil Bir Talebiniz Mi Var?</h4>
-                        <p className="text-zinc-500 text-sm">Hemen bizi arayın veya WhatsApp üzerinden teknik ekibimize doğrudan ulaşın.</p>
-                        <a
-                            href={`https://wa.me/${content.whatsappNumber}`}
-                            className="flex items-center justify-between group/wa"
-                        >
-                            <span className="text-orange-500 font-black tracking-widest uppercase text-xs">WHATSAPP İLE YAZIN</span>
-                            <ArrowRight className="w-5 h-5 text-orange-500 group-hover/wa:translate-x-2 transition-transform" />
-                        </a>
-                    </div>
+                <div className="bg-white border border-[#c6c6c6] p-8 space-y-4">
+                    <div className="w-10 h-1 bg-[var(--color-brand-accent)]" />
+                    <h4 className="text-xl font-bold text-[#161616]">Acil bir talebiniz mi var?</h4>
+                    <p className="text-[#525252] text-sm">WhatsApp üzerinden teknik ekibimize doğrudan ulaşın.</p>
+                    <a href={`https://wa.me/${content.whatsappNumber}`} className="inline-flex items-center gap-2 text-[var(--color-brand-accent)] font-semibold text-sm hover:underline">
+                        WhatsApp ile yazın <ArrowRight className="w-4 h-4" />
+                    </a>
                 </div>
             </div>
         </div>

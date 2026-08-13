@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Instagram, Heart } from "lucide-react";
@@ -45,9 +45,9 @@ export const InstagramMarquee = () => {
 
     return (
         <DirectEdit tab="instagram">
-            <section className="instagram-marquee py-0 bg-[#0A0A0A] border-b border-[#D4AF37]/10 relative overflow-hidden">
+            <section className="instagram-marquee py-0 bg-[#0A0A0A] border-b border-[var(--color-brand-accent)]/10 relative overflow-hidden">
                 {/* Header Strip */}
-                <div className="absolute top-0 left-0 z-20 bg-[#0A0A0A] px-4 py-1.5 border-r border-[#D4AF37]/10 flex items-center gap-3">
+                <div className="absolute top-0 left-0 z-20 bg-[#0A0A0A] px-4 py-1.5 border-r border-[var(--color-brand-accent)]/10 flex items-center gap-3">
                     <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
                     <span className="text-[9px] font-black tracking-[0.2em] text-white/50 uppercase">
                         @VERALTENEKETICARET
@@ -81,7 +81,7 @@ export const InstagramMarquee = () => {
                                 href={post.permalink || "https://instagram.com/veralteneketicaret"}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="relative w-[220px] h-[220px] shrink-0 border border-white/5 hover:border-[#D4AF37]/50 transition-colors duration-500 overflow-hidden bg-white/5"
+                                className="relative w-[220px] h-[220px] shrink-0 border border-white/5 hover:border-[var(--color-brand-accent)]/50 transition-colors duration-500 overflow-hidden bg-white/5"
                                 style={{ transform: 'translateZ(0)' }}
                             >
                                 <Image

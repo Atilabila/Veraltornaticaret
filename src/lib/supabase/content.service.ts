@@ -1,4 +1,4 @@
-import { supabase } from './client';
+﻿import { supabase } from './client';
 import { SiteContent } from '@/store/useContentStore';
 
 export class ContentService {

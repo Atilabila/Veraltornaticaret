@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ProductService } from "@/lib/supabase/products.service";
 import ProductDetailClient from "@/components/product/ProductDetailClient";
 import { Product } from "@/lib/products";
+import { PageShell } from "@/components/layout/PageShell";
 
 // SEO için dinamik Metadata üretimi (Server Side)
 export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }) {
@@ -78,14 +79,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     };
 
     return (
-        <main className="min-h-screen bg-transparent grid-terminal pt-32 pb-24">
-            {/* JSON-LD Injection */}
+        <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-
-            <ProductDetailClient product={product} />
-        </main>
+            <PageShell variant="light" padded={false}>
+                <ProductDetailClient product={product} />
+            </PageShell>
+        </>
     );
 }

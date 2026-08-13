@@ -1,4 +1,4 @@
-import { supabase } from './client';
+﻿import { supabase } from './client';
 import type { Database } from './database.types';
 
 type Product = Database['public']['Tables']['products']['Row'];

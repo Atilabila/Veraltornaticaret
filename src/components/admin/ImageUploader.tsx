@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef } from 'react';
 import { Upload, X, Check, Loader2, Image as LucideImage } from 'lucide-react';
@@ -78,7 +78,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             <div className="flex gap-6 items-start">
                 <div
                     className={`relative flex-1 border-2 border-dashed rounded-xl p-8 transition-colors flex flex-col items-center justify-center gap-4 cursor-pointer
-                        ${dragActive ? "border-[var(--color-brand-safety-orange)] bg-slate-800/80" : "border-slate-700 bg-slate-900/50 hover:bg-slate-800"}
+                        ${dragActive ? "border-[var(--color-brand-accent)] bg-slate-800/80" : "border-slate-700 bg-slate-900/50 hover:bg-slate-800"}
                         ${error ? "border-red-500 bg-red-500/10" : ""}
                     `}
                     onDragEnter={handleDrag}
@@ -97,12 +97,12 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 
                     {isUploading ? (
                         <>
-                            <Loader2 className="w-10 h-10 text-[var(--color-brand-safety-orange)] animate-spin" />
+                            <Loader2 className="w-10 h-10 text-[var(--color-brand-accent)] animate-spin" />
                             <p className="text-slate-400 font-mono text-sm animate-pulse">YÜKLENİYOR...</p>
                         </>
                     ) : (
                         <>
-                            <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-[var(--color-brand-safety-orange)] transition-colors">
+                            <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-[var(--color-brand-accent)] transition-colors">
                                 <Upload className="w-6 h-6 text-slate-400 group-hover:text-white" />
                             </div>
                             <div className="text-center">
@@ -142,7 +142,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                     type="text"
                     value={currentImage || ""}
                     onChange={(e) => onImageUploaded(e.target.value)}
-                    className="ml-2 bg-transparent border-b border-slate-700 focus:border-[var(--color-brand-safety-orange)] outline-none w-64 text-slate-400"
+                    className="ml-2 bg-transparent border-b border-slate-700 focus:border-[var(--color-brand-accent)] outline-none w-64 text-slate-400"
                 />
             </div>
         </div>

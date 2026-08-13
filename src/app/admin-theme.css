@@ -1,141 +1,190 @@
-/* Admin Panel Beige Theme Override */
+﻿/* Admin Panel — IBM Carbon light (aligned with public B2B site) */
 .admin-panel {
-    --admin-bg: #F5F1E8;
-    --admin-card-bg: #FFFFFF;
-    --admin-card-border: rgba(100, 100, 100, 0.15);
-    --admin-text: #0F172A;
-    /* Even darker for high contrast */
-    --admin-text-muted: #475569;
-    /* Much darker gray than before */
-    --admin-input-bg: #FFFFFF;
-    --admin-input-border: #94A3B8;
-    /* Darker border for inputs */
+    --admin-bg: #f4f4f4;
+    --admin-surface: #ffffff;
+    --admin-surface-muted: #e0e0e0;
+    --admin-border: #c6c6c6;
+    --admin-text: #161616;
+    --admin-text-muted: #525252;
+    --admin-accent: var(--color-brand-accent, #0f62fe);
+    --admin-accent-hover: #0043ce;
+    --admin-input-bg: #f4f4f4;
+    --admin-input-border: #c6c6c6;
 }
 
-/* Backgrounds */
+/* Base surfaces */
 .admin-panel,
-.admin-panel main,
+.admin-panel main {
+    background-color: var(--admin-bg) !important;
+    color: var(--admin-text);
+}
+
 .admin-panel .bg-slate-100,
 .admin-panel .bg-zinc-950,
-.admin-panel .bg-black {
+.admin-panel .bg-black:not(button):not([class*="bg-red"]):not([class*="bg-green"]) {
     background-color: var(--admin-bg) !important;
 }
 
 .admin-panel .bg-slate-900,
+.admin-panel .bg-slate-900\/50,
+.admin-panel .bg-slate-950,
 .admin-panel .bg-zinc-900,
-.admin-panel .bg-slate-800 {
-    background-color: var(--admin-card-bg) !important;
+.admin-panel .bg-slate-800,
+.admin-panel .bg-slate-800\/50 {
+    background-color: var(--admin-surface) !important;
 }
 
-/* ===== COMPREHENSIVE TEXT COLOR OVERRIDES ===== */
-
-/* High contrast for all text */
-.admin-panel * {
-    border-color: var(--admin-card-border);
+.admin-panel aside {
+    background-color: var(--admin-surface) !important;
+    border-color: var(--admin-border) !important;
 }
 
-/* Force dark text on everything that isn't a status pill or designated color */
+/* Typography on dark-legacy classes */
 .admin-panel h1,
 .admin-panel h2,
 .admin-panel h3,
 .admin-panel h4,
 .admin-panel h5,
 .admin-panel h6,
-.admin-panel p,
-.admin-panel span,
 .admin-panel label,
-.admin-panel div:not([class*="bg-"]),
 .admin-panel .text-white,
 .admin-panel .text-slate-100,
 .admin-panel .text-slate-200,
-.admin-panel .text-slate-300,
-.admin-panel .text-slate-400,
-.admin-panel .text-slate-500,
-.admin-panel .text-zinc-100,
-.admin-panel .text-zinc-400,
-.admin-panel .text-zinc-500 {
+.admin-panel .text-slate-300 {
     color: var(--admin-text) !important;
 }
 
-/* Subtitles and muted text */
+.admin-panel .text-slate-400,
+.admin-panel .text-slate-500,
+.admin-panel .text-slate-600,
+.admin-panel .text-zinc-400,
+.admin-panel .text-zinc-500,
 .admin-panel .text-white\/60,
 .admin-panel .text-white\/50,
-.admin-panel .text-slate-400,
-.admin-panel .text-zinc-400 {
+.admin-panel .text-white\/80 {
     color: var(--admin-text-muted) !important;
 }
 
-/* Admin title in the header */
-.admin-panel .text-4xl,
-.admin-panel .text-5xl,
-.admin-panel .font-black {
+/* Gradient title fix (CMS header) */
+.admin-panel .bg-clip-text.text-transparent {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
     color: var(--admin-text) !important;
 }
 
-/* Sidebar labels */
-.admin-panel aside span,
-.admin-panel aside div {
-    color: var(--admin-text) !important;
+/* Borders */
+.admin-panel .border-white\/5,
+.admin-panel .border-white\/10,
+.admin-panel .border-slate-800,
+.admin-panel .border-slate-700,
+.admin-panel .border-slate-300\/50 {
+    border-color: var(--admin-border) !important;
 }
 
 /* Forms */
 .admin-panel input,
 .admin-panel textarea,
-.admin-panel select {
+.admin-panel select,
+.admin-panel [role="combobox"] {
     background-color: var(--admin-input-bg) !important;
-    border: 1px solid var(--admin-input-border) !important;
-    color: var(--admin-text) !important;
-}
-
-.admin-panel input::placeholder {
-    color: #94A3B8 !important;
-}
-
-/* Buttons */
-.admin-panel button:not([class*="bg-blue"]):not([class*="bg-red"]):not([class*="bg-green"]):not([class*="bg-orange"]) {
-    color: var(--admin-text) !important;
     border-color: var(--admin-input-border) !important;
-}
-
-.admin-panel .bg-white\/10 {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-}
-
-/* Specific fix for faint titles in the user's image */
-.admin-panel .text-lg.font-medium,
-.admin-panel .text-sm.text-zinc-400 {
     color: var(--admin-text) !important;
-    opacity: 1 !important;
+    border-radius: 0 !important;
+}
+
+.admin-panel input::placeholder,
+.admin-panel textarea::placeholder {
+    color: #8d8d8d !important;
+}
+
+.admin-panel input:focus,
+.admin-panel textarea:focus,
+.admin-panel select:focus {
+    border-color: var(--admin-accent) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 1px var(--admin-accent) !important;
 }
 
 /* Tabs */
 .admin-panel [role="tablist"] {
-    background-color: #E2E8F0 !important;
+    background-color: var(--admin-input-bg) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: 0 !important;
 }
 
 .admin-panel [role="tab"][data-state="active"] {
-    background-color: white !important;
-    color: var(--admin-text) !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    background-color: var(--admin-accent) !important;
+    color: #fff !important;
 }
 
 .admin-panel [role="tab"]:not([data-state="active"]) {
-    color: #64748B !important;
-}
-
-/* Sidebar navigation */
-.admin-panel aside a,
-.admin-panel aside button {
     color: var(--admin-text-muted) !important;
 }
 
-.admin-panel aside a:hover,
-.admin-panel aside button:hover {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-    color: var(--admin-text) !important;
+/* Sidebar nav */
+.admin-panel aside button,
+.admin-panel aside a {
+    border-radius: 0 !important;
 }
 
-.admin-panel aside .bg-slate-800 {
-    background-color: rgba(0, 0, 0, 0.1) !important;
-    color: var(--admin-text) !important;
+.admin-panel aside .bg-\[var\(--color-brand-accent\)\],
+.admin-panel aside .bg-\[var\(--color-brand-safety-orange\)\] {
+    background-color: var(--admin-accent) !important;
+    color: #fff !important;
+}
+
+/* Primary actions — strip brutal shadows if any remain */
+.admin-panel .shadow-\[4px_4px_0px_0px_rgba\(0\,0\,0\,1\)\],
+.admin-panel .shadow-\[6px_6px_0px_0px_rgba\(0\,0\,0\,1\)\],
+.admin-panel .shadow-\[8px_8px_0px_0px_rgba\(0\,0\,0\,1\)\] {
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.admin-panel .border-4.border-black {
+    border-width: 1px !important;
+    border-color: var(--admin-border) !important;
+}
+
+/* Cards (shadcn) */
+.admin-panel [class*="rounded-2xl"],
+.admin-panel [class*="rounded-xl"]:not([role="tab"]) {
+    border-radius: 0 !important;
+}
+
+.admin-panel .hover\:bg-white\/5:hover {
+    background-color: var(--admin-input-bg) !important;
+}
+
+/* Stat cards */
+.admin-panel .shadow-xl {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Keep semantic status colors */
+.admin-panel .text-red-400,
+.admin-panel .text-red-500,
+.admin-panel .text-red-600,
+.admin-panel .text-red-700,
+.admin-panel .text-emerald-400,
+.admin-panel .text-emerald-500,
+.admin-panel .text-emerald-600,
+.admin-panel .text-emerald-700,
+.admin-panel .text-amber-600,
+.admin-panel .text-blue-400,
+.admin-panel .text-orange-500,
+.admin-panel .bg-green-500,
+.admin-panel .bg-red-500 {
+    /* do not override */
+}
+
+.admin-panel button.bg-\[var\(--color-brand-accent\)\],
+.admin-panel button.bg-\[var\(--color-brand-safety-orange\)\] {
+    color: #fff !important;
+}
+
+.admin-panel button.bg-\[var\(--color-brand-accent\)\]:hover,
+.admin-panel button.bg-\[var\(--color-brand-safety-orange\)\]:hover {
+    background-color: var(--admin-accent-hover) !important;
 }

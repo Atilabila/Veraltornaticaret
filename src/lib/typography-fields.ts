@@ -1,4 +1,4 @@
-// Typography Field Mapping - Tüm sitedeki text alanları ve admin CMS karşılıkları
+﻿// Typography Field Mapping - Tüm sitedeki text alanları ve admin CMS karşılıkları
 
 export const TYPOGRAPHY_FIELDS = {
     // HERO SECTION

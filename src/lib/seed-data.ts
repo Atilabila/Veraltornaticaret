@@ -1,4 +1,4 @@
-
+﻿
 import { MOCK_PRODUCTS } from "@/lib/data/mock-products"
 import { MetalProduct } from "@/lib/supabase/metal-products.types"
 

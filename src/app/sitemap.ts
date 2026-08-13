@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+﻿import { MetadataRoute } from 'next'
 import { getProducts, getCategories } from '@/lib/actions/metal-products.actions'
 import { ContentService } from '@/lib/supabase/content.service'
 

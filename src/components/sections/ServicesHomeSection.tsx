@@ -1,10 +1,12 @@
 ﻿"use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
 import { DirectEdit } from "@/components/admin/DirectEdit";
-import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
+import { resolveServiceStockImage } from "@/lib/service-stock-images";
+import { normalizeImagePath } from "@/lib/utils";
 
 export const ServicesHomeSection = () => {
     const { content } = useContentStore();
@@ -33,38 +35,46 @@ export const ServicesHomeSection = () => {
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-                        {services.map((service, index) => (
-                            <Link
-                                key={service.id}
-                                href={`/hizmetler/${service.slug}`}
-                                className="group relative flex flex-col min-h-[220px] lg:min-h-[260px] p-8 lg:p-10 bg-white border border-[#c6c6c6] border-l-4 border-l-transparent hover:border-l-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] transition-[border-color] duration-300"
-                            >
-                                <div className="flex items-start justify-between gap-4 mb-8">
-                                    <div className="w-16 h-16 lg:w-20 lg:h-20 flex items-center justify-center bg-[#f4f4f4] text-[var(--color-brand-accent)] group-hover:bg-[var(--color-brand-accent)] group-hover:text-white transition-colors duration-300">
-                                        <DynamicLucideIcon
-                                            name={service.icon}
-                                            fallbackName="settings"
-                                            className="w-8 h-8 lg:w-10 lg:h-10"
+                        {services.map((service, index) => {
+                            const imageSrc = normalizeImagePath(
+                                resolveServiceStockImage(service)
+                            );
+
+                            return (
+                                <Link
+                                    key={service.id}
+                                    href={`/hizmetler/${service.slug}`}
+                                    className="group relative flex flex-col bg-white border border-[#c6c6c6] border-l-4 border-l-transparent hover:border-l-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] transition-[border-color] duration-300 overflow-hidden"
+                                >
+                                    <div className="relative w-full aspect-[16/9] bg-[#f4f4f4] border-b border-[#c6c6c6]">
+                                        <Image
+                                            src={imageSrc}
+                                            alt={service.title}
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                                            sizes="(min-width:1024px) 560px, 94vw"
                                         />
+                                        <span className="absolute top-3 right-3 text-xs font-mono font-semibold text-white tabular-nums bg-black/55 px-2 py-1">
+                                            {String(index + 1).padStart(2, "0")}
+                                        </span>
                                     </div>
-                                    <span className="text-xs font-mono font-semibold text-[#a8a8a8] tabular-nums">
-                                        {String(index + 1).padStart(2, "0")}
-                                    </span>
-                                </div>
 
-                                <h3 className="text-2xl lg:text-3xl font-bold text-[#161616] mb-3 group-hover:text-[var(--color-brand-accent)] transition-colors leading-tight">
-                                    {service.title}
-                                </h3>
-                                <p className="text-base lg:text-lg text-[#525252] leading-relaxed flex-1">
-                                    {service.shortDescription}
-                                </p>
+                                    <div className="flex flex-col flex-1 p-8 lg:p-10">
+                                        <h3 className="text-2xl lg:text-3xl font-bold text-[#161616] mb-3 group-hover:text-[var(--color-brand-accent)] transition-colors leading-tight">
+                                            {service.title}
+                                        </h3>
+                                        <p className="text-base lg:text-lg text-[#525252] leading-relaxed flex-1">
+                                            {service.shortDescription}
+                                        </p>
 
-                                <div className="mt-8 flex items-center gap-2 text-sm font-semibold text-[var(--color-brand-accent)]">
-                                    Detaylı incele
-                                    <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                </div>
-                            </Link>
-                        ))}
+                                        <div className="mt-8 flex items-center gap-2 text-sm font-semibold text-[var(--color-brand-accent)]">
+                                            Detaylı incele
+                                            <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
                     </div>
 
                     <p className="mt-12 text-base text-[#525252]">

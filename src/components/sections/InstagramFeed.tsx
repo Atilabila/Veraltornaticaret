@@ -20,20 +20,20 @@ export const InstagramFeed = () => {
 
                 <div className="flex flex-col gap-4 mb-16 items-center text-center">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-[1px] bg-[#D4AF37]" />
-                        <span className="text-sm font-black text-[#D4AF37] tracking-[0.3em] uppercase">DİJİTAL TOPLULUK</span>
+                        <div className="w-12 h-[1px] bg-[var(--color-brand-accent)]" />
+                        <span className="text-sm font-black text-[var(--color-brand-accent)] tracking-[0.3em] uppercase">D�J�TAL TOPLULUK</span>
                     </div>
                     <h2 className="text-5xl lg:text-7xl font-black text-[#0A0A0A] tracking-tighter uppercase leading-none italic">
-                        #METAL<span className="font-serif italic font-normal text-gold-gradient normal-case tracking-normal">POSTERPRO</span>
+                        #VERAL<span className="font-normal text-[var(--color-brand-accent)] normal-case tracking-normal">T?CARET</span>
                     </h2>
-                    <p className="text-[#0A0A0A]/50 text-lg font-medium tracking-tight mt-2">@metalposterpro // #noblecollection</p>
+                    <p className="text-[#0A0A0A]/50 text-lg font-medium tracking-tight mt-2">@veralticaret // #imalat</p>
                 </div>
 
                 <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
                     {instagramPosts.map((post, index) => (
                         <m.a
                             key={post.id}
-                            href="https://instagram.com/metalposterpro"
+                            href="https://instagram.com/veralticaret"
                             target="_blank"
                             rel="noopener noreferrer"
                             initial={{ opacity: 0, scale: 0.9 }}
@@ -44,12 +44,12 @@ export const InstagramFeed = () => {
                         >
                             <Image
                                 src={post.image}
-                                alt="Instagram Paylaşımı"
+                                alt="Instagram Payla��m�"
                                 fill
                                 className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-[#0A0A0A]/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center">
-                                <Heart className="w-6 h-6 text-[#D4AF37] mb-2" />
+                                <Heart className="w-6 h-6 text-[var(--color-brand-accent)] mb-2" />
                                 <span className="text-white text-lg font-black italic tracking-tighter">{post.likes}</span>
                             </div>
                         </m.a>
@@ -58,13 +58,13 @@ export const InstagramFeed = () => {
 
                 <div className="text-center mt-20">
                     <a
-                        href="https://instagram.com/metalposterpro"
+                        href="https://instagram.com/veralticaret"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-8 px-12 h-20 border border-[#0A0A0A] text-[#0A0A0A] font-black tracking-[0.4em] text-[10px] hover:bg-[#0A0A0A] hover:text-[#D4AF37] transition-all duration-500"
+                        className="inline-flex items-center gap-8 px-12 h-20 border border-[#0A0A0A] text-[#0A0A0A] font-black tracking-[0.4em] text-[10px] hover:bg-[#0A0A0A] hover:text-[var(--color-brand-accent)] transition-all duration-500"
                     >
-                        <Instagram className="w-5 h-5 text-[#D4AF37]" />
-                        <span>TAKİP ET</span>
+                        <Instagram className="w-5 h-5 text-[var(--color-brand-accent)]" />
+                        <span>TAK�P ET</span>
                         <ExternalLink className="w-4 h-4 opacity-30" />
                     </a>
                 </div>

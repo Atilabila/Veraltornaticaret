@@ -114,7 +114,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
     </div>
   );
 
-  const content = (
+  const cardBody = (
     <div
       className={`flex flex-col flex-grow min-w-0 ${isHorizontal ? "p-4 gap-3" : "p-4 sm:p-5 lg:p-6 space-y-4 sm:space-y-6"} relative bg-[#FAFAFA]`}
     >
@@ -215,14 +215,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
           {media}
           <div className="flex flex-col flex-1 min-w-0 border-l border-white/5 lg:border-l-0 lg:border-t">
             {header}
-            {content}
+            {cardBody}
           </div>
         </>
       ) : (
         <>
           {header}
           {media}
-          {content}
+          {cardBody}
         </>
       )}
     </div>
