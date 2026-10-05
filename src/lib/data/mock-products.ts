@@ -1,4 +1,4 @@
-﻿import { MetalProduct } from "@/lib/supabase/metal-products.types";
+import { MetalProduct } from "@/lib/supabase/metal-products.types";
 
 export const MOCK_PRODUCTS: MetalProduct[] = [
     {
@@ -43,8 +43,7 @@ export const MOCK_PRODUCTS: MetalProduct[] = [
         sku: "LEV-BAKR-02",
         description: "Isı ve elektrik iletkenliği yüksek, endüstriyel bakır levha.",
         price: 3200,
-        image_url: "
-https://images.unsplash.com/photo-1622359670088-724d29f8c121?auto=format&fit=crop&q=80&w=800",
+        image_url: "https://images.unsplash.com/photo-1622359670088-724d29f8c121?auto=format&fit=crop&q=80&w=800",
         background_color: "var(--color-brand-accent)",
         category_id: "cat-2",
         is_active: true,

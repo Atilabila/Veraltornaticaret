@@ -7,17 +7,28 @@ export default function robots(): MetadataRoute.Robots {
                 userAgent: '*',
                 allow: '/',
                 disallow: [
+                    '/admin',
                     '/admin/',
-                    '/api/',
-                    '/_next/',
-                    '/static/',
-                    '/*.json$',
+                    '/admin-login',
+                    '/api/admin/',
+                    '/api/auth/',
                 ],
             },
             {
-                // GEO Focus: Allow AI crawlers to index content for AI Search recommendations
-                userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'OAI-SearchBot'],
+                // Explicitly unblock Googlebot & Googlebot-Image
+                userAgent: ['Googlebot', 'Googlebot-Image', 'Bingbot', 'Applebot'],
                 allow: '/',
+                disallow: [
+                    '/admin',
+                    '/admin/',
+                    '/admin-login',
+                ],
+            },
+            {
+                // Machine Layer & GEO: Full permission for AI search crawlers to cite and index brand
+                userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'OAI-SearchBot', 'Bytespider', 'CCBot'],
+                allow: '/',
+                disallow: ['/admin/'],
             }
         ],
         sitemap: 'https://veralteneketicaret.com/sitemap.xml',

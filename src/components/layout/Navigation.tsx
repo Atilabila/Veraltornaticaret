@@ -100,8 +100,11 @@ export const Navigation = () => {
         ? (content.menuItems || []).filter(item => item.visible && item.url !== '/metal-urunler').sort((a, b) => a.order - b.order)
         : [
             { id: 'f1', label: 'Katalog', url: '/urunler', isPrimary: false },
-            { id: 'f2', label: 'Hakkımızda', url: '/hakkimizda', isPrimary: false },
-            { id: 'f4', label: 'Teklif Al', url: '/teklif-al', isPrimary: true },
+            { id: 'f2', label: 'Hizmetler', url: '/hizmetler', isPrimary: false },
+            { id: 'f3', label: 'SSS', url: '/sss', isPrimary: false },
+            { id: 'f4', label: 'Blog', url: '/blog', isPrimary: false },
+            { id: 'f5', label: 'Hakkımızda', url: '/hakkimizda', isPrimary: false },
+            { id: 'f6', label: 'Teklif Al', url: '/teklif-al', isPrimary: true },
         ]; // Fallback while loading or if empty
 
     const { isDarkPage, headerMode } = useThemeDetection();

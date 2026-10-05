@@ -46,7 +46,17 @@ export const metadata: Metadata = {
   title: "VERAL - Dosya Teli, Takvim Tenekesi ve Metal Poster İmalatı",
   description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
   keywords: ["dosya teli", "toptan dosya teli", "dosya teli üretimi", "dosya teli imalatı", "takvim tenekesi", "metal poster", "mıknatıslı magnet", "tef zili izmir"],
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   verification: {
     google: "mA7ESmS5CcTCWG7a5octdFFwX1_nZcURfbMvIn9inxc",
   },

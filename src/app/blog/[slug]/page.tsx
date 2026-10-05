@@ -147,11 +147,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!post) return { title: "Rapor Bulunamadı | Veral Torna & Teneke" };
 
     return {
-        title: `${post.title} | Veral Torna & Teneke Raporlar`,
-        description: post.content.substring(0, 160).replace(/[#*]/g, ''),
+        title: `${post.title} | Veral Torna & Teneke`,
+        description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
+        alternates: {
+            canonical: `https://veralteneketicaret.com/blog/${slug}`,
+        },
         openGraph: {
             title: post.title,
+            description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
             images: [post.image],
+            url: `https://veralteneketicaret.com/blog/${slug}`,
+            type: "article",
         },
     };
 }
@@ -169,8 +175,68 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         .slice(0, 2)
         .map(([id, data]) => ({ id, ...data }));
 
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post.title,
+        "image": [post.image.startsWith("http") ? post.image : `https://veralteneketicaret.com${post.image}`],
+        "datePublished": "2026-02-03T09:00:00+03:00",
+        "dateModified": "2026-02-03T09:00:00+03:00",
+        "author": {
+            "@type": "Person",
+            "name": "Atila Bila",
+            "jobTitle": "Metal Zanaatı ve UV Baskı Uzmanı",
+            "url": "https://veralteneketicaret.com/yazar/atila-bila"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Veral Torna & Teneke Ticaret",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://veralteneketicaret.com/veral-logo.webp"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://veralteneketicaret.com/blog/${slug}`
+        }
+    };
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana Sayfa",
+                "item": "https://veralteneketicaret.com"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Raporlar & Blog",
+                "item": "https://veralteneketicaret.com/blog"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.title,
+                "item": `https://veralteneketicaret.com/blog/${slug}`
+            }
+        ]
+    };
+
     return (
         <main className="min-h-screen bg-white grid-terminal no-transition pb-24">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
             {/* NAVIGATION_TERMINAL (Server Side Links) */}
             <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b-4 border-black py-4">
                 <div className="container-brutal flex justify-between items-center">
@@ -188,6 +254,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <Link href="/" className="hover:bg-black hover:text-white px-2 py-1">ÜRETİM HATTI</Link>
                         <Link href="/urunler" className="hover:bg-black hover:text-white px-2 py-1">KATALOG DOSYALARI</Link>
                         <Link href="/hakkimizda" className="hover:bg-black hover:text-white px-2 py-1">TARİHÇE KAYDI</Link>
+                        <Link href="/sss" className="hover:bg-black hover:text-white px-2 py-1">SSS</Link>
                         <Link href="/blog" className="bg-black text-white px-2 py-1">RAPORLAR</Link>
                     </nav>
                 </div>
@@ -198,7 +265,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {/* FOOTER_TERMINAL */}
             <footer id="terminals" className="bg-black text-white py-24 border-t-8 border-[#FF5F1F]">
                 <div className="container-brutal text-center font-mono opacity-50 text-xs">
-                    © 2026 VERAL TORNA & TENEKE // RAPOR KAYDI v4.5.11
+                    © 2026 VERAL TORNA & TENEKE // RAPOR KAYDI v4.5.11 · <Link href="/yazar/atila-bila" className="underline hover:text-white">Yazar Profili</Link>
                 </div>
             </footer>
         </main>

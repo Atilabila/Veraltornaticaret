@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
@@ -55,10 +55,13 @@ export const Footer = () => {
                             <h4 className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider mb-6">Navigasyon</h4>
                             <ul className="flex flex-col gap-3">
                                 {[
-                                    { label: 'Hizmetler', href: '/#hizmetler' },
-                                    { label: 'Teklif Al', href: '/teklif-al' },
-                                    { label: 'Katalog', href: '/urunler' },
+                                    { label: 'İmalat Hatları', href: '/hizmetler' },
+                                    { label: 'Ürün Kataloğu', href: '/urunler' },
+                                    { label: 'Sıkça Sorulanlar (SSS)', href: '/sss' },
+                                    { label: 'Teknik Raporlar & Blog', href: '/blog' },
+                                    { label: 'Usta Biyografisi (E-E-A-T)', href: '/yazar/atila-bila' },
                                     { label: 'Hakkımızda', href: '/hakkimizda' },
+                                    { label: 'Hızlı Teklif Al', href: '/teklif-al' },
                                     { label: 'İletişim', href: '/iletisim' }
                                 ].map((item) => (
                                     <li key={item.label}>

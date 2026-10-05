@@ -1,55 +1,132 @@
-﻿import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import { PageShell } from '@/components/layout/PageShell';
-import { PageContainer } from '@/components/layout/PageContainer';
+import React from "react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { Breadcrumb } from "@/components/seo/Breadcrumb";
+import { FAQSchema } from "@/components/seo/FAQSchema";
+import { ArrowRight, HelpCircle, Phone, Sparkles } from "lucide-react";
 
-const faqs = [
+export const metadata: Metadata = {
+    title: "Sıkça Sorulan Sorular (SSS) | Metal Poster & Toptan İmalat | Veral Ticaret",
+    description: "Toptan dosya teli, takvim tenekesi ve 4K UV metal poster imalatı hakkında merak edilenler: Mıknatıslı montaj, minimum sipariş adetleri, kargo ve kalite garantisi.",
+    alternates: {
+        canonical: "https://veralteneketicaret.com/sss",
+    },
+    openGraph: {
+        title: "Sıkça Sorulan Sorular | Veral Torna & Teneke Ticaret",
+        description: "Metal poster ve seri imalat süreçleri hakkında tüm teknik ve ticari sorularınızın yanıtları.",
+        url: "https://veralteneketicaret.com/sss",
+    },
+};
+
+const faqData = [
     {
-        q: "Toptan dosya teli minimum sipariş miktarı nedir?",
-        a: "Miktar ve ölçüye göre değişir. Teklif formundan veya WhatsApp hattından net bilgi alabilirsiniz.",
+        question: "Toptan dosya teli siparişlerinde minimum sipariş miktarı (MOQ) nedir?",
+        answer: "Standart üretim arşiv tipi dosya tellerinde koli bazlı toptan teslimat yapmaktayız (genellikle 1.000 adet ve katları). Özel ebat veya özel kaplama taleplerinde ise makine kalıp ayarları gereği minimum üretim partisimiz 10.000 adettir. Günlük 50.000 adet üretim kapasitemizle acil siparişleri aynı gün ambara verebiliyoruz.",
     },
     {
-        q: "Teklif ne kadar sürede gelir?",
-        a: "Standart taleplerde 24 saat içinde dönüş hedefliyoruz.",
+        question: "Mıknatıslı metal posterler duvara nasıl asılır? Duvarı delmek gerekir mi?",
+        answer: "Kesinlikle duvar delme, matkap veya çivi gerektirmez. Posterlerimizle birlikte gönderilen özel 3M VHB yapışkanlı manyetik koruyucu pedi duvara yapıştırmanız yeterlidir. Yüksek çekim gücüne sahip N35 sınıfı Neodimyum mıknatıs sistemi, 0.5mm kalınlığındaki metal posterinizi sarsıntısız ve milimetrik olarak tutar. İstediğiniz zaman farklı bir metal posterle saniyeler içinde değiştirebilirsiniz.",
     },
     {
-        q: "Özel ölçü üretim yapıyor musunuz?",
-        a: "Evet. Dosya teli ve ilgili metal hatlarda özel ölçü seri imalat yapıyoruz.",
+        question: "Metal posterlerde UV baskı kalitesi nasıldır? Renkler solar mı veya çizilir mi?",
+        answer: "Üretim hattımızda 1200x1200 DPI çözünürlüğünde endüstriyel piezoelektrik UV baskı teknolojisi kullanılmaktadır. Baskı anında ultraviyole ışıkla kürlenen özel pigment mürekkepler ve ardından uygulanan koruyucu mat vernik tabakası sayesinde tablolarımız doğrudan güneş ışığına, neme ve çizilmelere karşı 10 yıl renk canlılığı garantilidir.",
     },
     {
-        q: "Kargo ve teslimat nasıl?",
-        a: "Onaylanan siparişler anlaşmalı kargo ile Türkiye geneline gönderilir. Toptan sevkiyat detayı teklifte belirtilir.",
+        question: "Takvim tenekesi imalatında hangi hammadde ve ebatlar kullanılmaktadır?",
+        answer: "0.22 mm ile 0.30 mm arasında değişen yüksek korozyon direncine sahip birinci kalite elektrolitik teneke (ETP) plakalar kullanıyoruz. Özel büküm kalıplarımız sayesinde kağıt veya kuşe takvim kenarlarını kesinlikle yırtmaz veya kesmez. 20 cm'den 70 cm'ye kadar matbaalar için standart ve özel boy kesimler yapıyoruz.",
+    },
+    {
+        question: "Özel görsel veya kurumsal logo ile kendi metal posterimizi ürettirebilir miyiz?",
+        answer: "Evet. Şirketler, tasarımcılar ve bireysel kullanıcılar için kişiye özel (custom) metal poster baskı hizmetimiz mevcuttur. Yüksek çözünürlüklü görselinizi (minimum 300 DPI önerilir) teklif formumuzdan veya doğrudan destek hattımızdan ileterek onaylı prova baskı alabilirsiniz.",
+    },
+    {
+        question: "Kargo ve teslimat süreci nasıl işlemektedir?",
+        answer: "İzmir Alsancak'taki üretim merkezimizden çıkan ürünler, Türkiye'nin 81 iline anlaşmalı kargo firmaları veya toptan siparişler için ambar lojistiği ile gönderilir. Standart stoklu ürünler aynı gün veya ertesi iş günü sevk edilirken, özel üretim siparişleri 2-4 iş günü içinde kargoya teslim edilmektedir.",
+    },
+    {
+        question: "Hasarlı teslimat veya iade koşullarınız nelerdir?",
+        answer: "Tüm kargolarımız özel sertleştirilmiş kraft ambalaj ve köşe koruyucularla sevk edilir. Nadir de olsa kargo kaynaklı herhangi bir eğilme, çizilme veya hasar durumunda, kargo hasar tutanağı dahi aranmaksızın 48 saat içinde yenisi ücretsiz olarak üretilip adresinize kargolanır.",
     },
 ];
 
 export default function SSSPage() {
-    return (
-        <PageShell variant="muted">
-            <PageContainer className="max-w-3xl">
-                <header className="mb-10">
-                    <p className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--color-brand-accent)] mb-3">SSS</p>
-                    <h1 className="text-3xl font-bold text-[#161616] mb-3">Sıkça sorulan sorular</h1>
-                    <p className="text-[#525252]">Toptan imalat ve teklif süreci hakkında kısa yanıtlar.</p>
-                </header>
+    const breadcrumbs = [
+        { name: "Ana Sayfa", url: "/" },
+        { name: "Sıkça Sorulan Sorular", url: "/sss" },
+    ];
 
-                <div className="space-y-4 mb-10">
-                    {faqs.map((item) => (
-                        <details key={item.q} className="bg-white border border-[#c6c6c6] group">
-                            <summary className="cursor-pointer p-5 font-semibold text-[#161616] list-none flex items-center justify-between gap-4">
-                                {item.q}
-                                <span className="text-[var(--color-brand-accent)] text-lg leading-none group-open:rotate-45 transition-transform">+</span>
+    return (
+        <main className="min-h-screen bg-[#0e0e11] text-zinc-200">
+            <FAQSchema items={faqData} />
+            <Navigation />
+
+            <div className="pt-28 pb-4 px-4 md:px-8 max-w-5xl mx-auto">
+                <Breadcrumb items={breadcrumbs} />
+            </div>
+
+            <section className="px-4 md:px-8 max-w-5xl mx-auto pb-12">
+                <div className="mb-10 text-center sm:text-left">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-4">
+                        <HelpCircle className="w-3.5 h-3.5" /> DESTEK & BİLGİ MERKEZİ
+                    </span>
+                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+                        Sıkça Sorulan Sorular
+                    </h1>
+                    <p className="text-base md:text-lg text-zinc-400 max-w-2xl">
+                        Toptan dosya teli, takvim tenekesi ve mıknatıslı UV metal poster imalat süreçlerimizle ilgili en çok merak edilen konular.
+                    </p>
+                </div>
+
+                {/* FAQ ACCORDION LIST */}
+                <div className="space-y-4 mb-14">
+                    {faqData.map((item, index) => (
+                        <details
+                            key={index}
+                            className="group border border-zinc-800 bg-zinc-900/60 rounded-xl overflow-hidden transition-colors hover:border-zinc-700"
+                        >
+                            <summary className="cursor-pointer p-5 md:p-6 font-semibold text-white list-none flex items-center justify-between gap-4 select-none">
+                                <span className="text-base md:text-lg leading-snug">{item.question}</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-emerald-400 font-mono text-lg group-open:rotate-45 transition-transform duration-200">
+                                    +
+                                </span>
                             </summary>
-                            <div className="px-5 pb-5 text-sm text-[#525252] leading-relaxed border-t border-[#e0e0e0] pt-4">
-                                {item.a}
+                            <div className="px-5 md:px-6 pb-6 text-zinc-300 text-sm md:text-base leading-relaxed border-t border-zinc-800/60 pt-4 font-normal">
+                                {item.answer}
                             </div>
                         </details>
                     ))}
                 </div>
 
-                <Link href="/teklif-al" className="inline-flex items-center gap-2 h-12 px-6 bg-[var(--color-brand-accent)] text-white font-semibold hover:bg-[#0043ce] transition-colors">
-                    Teklif al <ArrowRight className="w-4 h-4" />
-                </Link>
-            </PageContainer>
-        </PageShell>
+                {/* CALL TO ACTION BOX */}
+                <div className="rounded-2xl border border-zinc-800 bg-gradient-to-r from-zinc-900 to-zinc-900/40 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                    <div className="space-y-2 text-center md:text-left">
+                        <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2 justify-center md:justify-start">
+                            <Sparkles className="w-5 h-5 text-emerald-400" /> Başka bir sorunuz mu var?
+                        </h2>
+                        <p className="text-sm text-zinc-400 max-w-md">
+                            İzmir Alsancak atölyemizdeki ustalarımızla doğrudan görüşebilir veya hızlı teklif formumuzu doldurabilirsiniz.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                        <Link
+                            href="/teklif-al"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition-colors shadow-lg shadow-emerald-500/20"
+                        >
+                            Hızlı Teklif Al <ArrowRight className="w-4 h-4" />
+                        </Link>
+                        <a
+                            href="tel:+905323794003"
+                            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-zinc-700 hover:bg-zinc-800 text-white font-medium text-sm transition-colors"
+                        >
+                            <Phone className="w-4 h-4 text-emerald-400" /> Usta Hattı
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
+        </main>
     );
 }
