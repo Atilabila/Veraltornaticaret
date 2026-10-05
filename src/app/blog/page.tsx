@@ -1,70 +1,99 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BlogListClient } from "@/components/blog/BlogListClient";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
+import { BlogListClient } from "@/components/blog/BlogListClient";
 
 export const metadata: Metadata = {
-    title: "Teknik Raporlar & Blog | Metal İmalat & UV Baskı | Veral Ticaret",
-    description: "Toptan dosya teli, takvim tenekesi, UV metal poster ve malzeme bilimi üzerine teknik incelemeler, saha testleri ve İzmir Alsancak atölye rehberleri.",
+    title: "Teknik Raporlar & Blog | Metalurji, Tolerans ve Zanaat | Veral Ticaret",
+    description: "Toptan dosya teli, takvim tenekesi, DIN EN 10202 normları, mikron toleranslı giyotin kesim ve 4K UV metal baskı üzerine teknik incelemeler ve Alsancak atölye raporları.",
     alternates: {
         canonical: "https://veralteneketicaret.com/blog",
     },
     openGraph: {
-        title: "Teknik Raporlar & Blog | Veral Torna & Teneke Ticaret",
+        title: "Teknik Raporlar & Blog | Veral Teneke Ticaret İzmir",
         description: "Metal imalatı, 1200 DPI UV baskı, takvim çıtası ve dosya teli üretim standartları teknik veri tabanı.",
         url: "https://veralteneketicaret.com/blog",
     },
 };
 
-const blogPosts = [
+export const blogPosts = [
     {
         id: "takvim-tenekesi-imalati-izmir",
-        title: "TAKVİM TENEKESİ İMALATI: İZMİR'DE SERİ ÜRETİM VE KALİTE STANDARTLARI",
-        excerpt: "Takvim yayıncılığı için kritik bileşenler: teneke kalınlığı, büküm hassasiyeti ve matbaa tedarik süreçleri.",
+        title: "Takvim Tenekesi İmalatı: İzmir'de Seri Üretim ve DIN Kalite Standartları",
+        excerpt: "Takvim yayıncılığı ve matbaalar için kritik parametreler: teneke kalınlığı, çift kanal koruyucu büküm radüsü ve korozyon direnci analizleri.",
         category: "ENDÜSTRİYEL İMALAT",
         date: "03.02.2026",
-        readTime: "06 DAKİKA",
-        image: "/images/production/teneke.jpg",
+        readTime: "6 Dakika",
+        image: "/images/services/takvim-teneke.jpg",
         featured: true,
-        tags: ["TAKVİM TENEKESİ", "İMALAT", "İZMİR", "SERİ ÜRETİM"],
+        tags: ["Takvim Tenekesi", "Seri İmalat", "Alsancak", "DIN EN 10202"],
     },
     {
         id: "dosya-teli-ve-arsiv-sistemleri",
-        title: "DOSYA TELİ ÜRETİMİNDE MALZEME BİLİMİ: PASLANMAZ DİRENÇLİ ÇÖZÜMLER",
-        excerpt: "Arşiv sektörü için galvanizli çelik dosya teli analizi: metal yorgunluğu ve 96 saatlik tuz sisi korozyon testleri.",
+        title: "Dosya Teli Üretiminde Malzeme Bilimi: Paslanmaz ve Yüksek Elastikiyet",
+        excerpt: "Devlet arşivleri ve kurumsal ofisler için polimer kaplı çelik dosya teli incelemesi: 5.000+ büküm direnci ve 96 saatlik tuz sisi korozyon testleri.",
         category: "KIRTASİYE EKİPMANLARI",
         date: "03.02.2026",
-        readTime: "05 DAKİKA",
-        image: "/images/production/dosya-teli.jpg",
+        readTime: "5 Dakika",
+        image: "/images/services/dosya-teli.jpg",
         featured: false,
-        tags: ["DOSYA TELİ", "METAL", "ARŞİV", "ÜRETİM"],
+        tags: ["Dosya Teli", "Arşiv", "Polimer Kaplama", "Mekanik Direnç"],
+    },
+    {
+        id: "giyotin-sac-kesim-ve-tolerans-standartlari",
+        title: "CNC Giyotin Sac Kesiminde Tolerans ve Çapaksız Gönye Kriterleri",
+        excerpt: "0.15 mm - 3.00 mm sac kalınlıklarında lif düzlemini bozmadan yapılan ±0.05 mm hassasiyetindeki endüstriyel makas ebatlama yöntemleri.",
+        category: "ENDÜSTRİYEL İMALAT",
+        date: "18.01.2026",
+        readTime: "7 Dakika",
+        image: "/images/services/giyotin-kesim.webp",
+        featured: true,
+        tags: ["Giyotin Kesim", "CNC Makas", "Tolerans", "DKP Sac"],
     },
     {
         id: "miknatisli-magnet-ve-metal-poster-estetigi",
-        title: "MIKNATISLI MAGNET VE METAL POSTER: MODERN DEKORASYONDA YENİ NESİL DOKUNUŞ",
-        excerpt: "N35 Neodimyum mıknatıs sistemi ile duvara hasar vermeden saniyeler içinde asılan 1200 DPI UV baskılı tablolar.",
-        category: "DEKORASYON",
-        date: "03.02.2026",
-        readTime: "09 DAKİKA",
-        image: "/images/production/poster.jpg",
+        title: "Mıknatıslı Metal Posterler: N35 Neodimyum Askı Sistemi ile Duvarı Delmeden Montaj",
+        excerpt: "Duvar delme, çivi ve matkap gerektirmeyen 3M VHB manyetik tutucu teknolojisi ve 1.5 mm çelik plaka üzerinde 4K UV kürlemeli mikronize baskı.",
+        category: "DEKORASYON & SANAT",
+        date: "10.01.2026",
+        readTime: "8 Dakika",
+        image: "/images/services/magnet-poster.jpg",
         featured: false,
-        tags: ["METAL POSTER", "MAGNET", "DEKORASYON", "MIKNATISLI"],
+        tags: ["Metal Poster", "Neodimyum", "Manyetik Montaj", "UV Kürleme"],
     },
     {
         id: "endustriyel-metal-baski-rehberi",
-        title: "ENDÜSTRİYEL METAL BASKI PROTOKOLÜ: DİJİTAL DÖNÜŞÜM ANALİZİ",
-        excerpt: "Metal yüzeylerde UV kürleme ve serigrafi baskı tekniklerinin dayanıklılık ve renk kalibrasyonu açısından laboratuvar karşılaştırması.",
+        title: "Endüstriyel 4K UV Metal Baskı: Fırın Kürleme ve Güneş Solmazlığı Analizi",
+        excerpt: "Metal levhalarda 1200 DPI piezoelektrik baskı ve çift kat vernik kürleme. Dış mekan, nem ve UV ışınlarına karşı 10 yıllık dayanım karşılaştırması.",
         category: "ENDÜSTRİYEL BASKI",
-        date: "12.01.2026",
-        readTime: "08 DAKİKA",
-        image: "/porsche.png",
-        featured: true,
-        tags: ["METAL", "UV BASKI", "SERİGRAFİ", "PLAKA"],
+        date: "05.01.2026",
+        readTime: "8 Dakika",
+        image: "/hero-izmir-metal-poster.jpg",
+        featured: false,
+        tags: ["4K UV Baskı", "Vernik Kürleme", "Solmazlık", "Alsancak Zanaat"],
+    },
+    {
+        id: "rulo-sac-dilme-slitting-hatlari",
+        title: "Rulo Teneke Sac Dilimleme (Slitting) ve Dar Şerit Sarım Mühendisliği",
+        excerpt: "Dairesel çelik disk bıçaklarla minimum 8 mm genişliğe kadar mikron toleranslı rulo dilme ve neme dayanıklı ambalajlama operasyonları.",
+        category: "ENDÜSTRİYEL İMALAT",
+        date: "28.12.2025",
+        readTime: "6 Dakika",
+        image: "/images/services/rulo-dilimleme.webp",
+        featured: false,
+        tags: ["Rulo Dilme", "Slitting", "Şerit Sac", "Alsancak Hat"],
     },
 ];
 
-const categories = ["TÜM KAYITLAR", "ENDÜSTRİYEL İMALAT", "DEKORASYON", "KIRTASİYE EKİPMANLARI", "ENDÜSTRİYEL BASKI"];
+const categories = [
+    "TÜM KAYITLAR",
+    "ENDÜSTRİYEL İMALAT",
+    "KIRTASİYE EKİPMANLARI",
+    "DEKORASYON & SANAT",
+    "ENDÜSTRİYEL BASKI"
+];
 
 export default function BlogPage() {
     const breadcrumbs = [
@@ -73,48 +102,18 @@ export default function BlogPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-white grid-terminal no-transition pb-24">
-            {/* NAVIGATION_TERMINAL */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b-4 border-black py-4">
-                <div className="container-brutal flex justify-between items-center gap-4">
-                    <Link href="/" className="flex items-center gap-2 sm:gap-4 group shrink-0">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black flex items-center justify-center text-white font-black text-xl sm:text-2xl group-active:translate-x-1 group-active:translate-y-1 group-active:shadow-none transition-none shadow-[4px_4px_0px_0px_var(--color-brand-safety-orange)]">
-                            V
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-sm sm:text-lg font-[Archivo Black] leading-none uppercase flex items-center gap-1">
-                                VERAL <span className="text-[var(--color-brand-veral-green)] text-[8px] sm:text-[10px] bg-black px-1 py-0.5">IND</span>
-                            </span>
-                            <span className="text-[8px] sm:text-[10px] font-mono font-black text-black/40 uppercase tracking-[0.2em]">TORNA & TENEKE</span>
-                        </div>
-                    </Link>
+        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+            <Navigation />
 
-                    <div className="hidden lg:flex items-center gap-8 font-mono font-bold text-sm">
-                        <Link href="/" className="hover:bg-black hover:text-white px-2 py-1">ÜRETİM HATTI</Link>
-                        <Link href="/urunler" className="hover:bg-black hover:text-white px-2 py-1">KATALOG</Link>
-                        <Link href="/hakkimizda" className="hover:bg-black hover:text-white px-2 py-1">HAKKIMIZDA</Link>
-                        <Link href="/sss" className="hover:bg-black hover:text-white px-2 py-1">SSS</Link>
-                        <Link href="/blog" className="px-2 py-1 bg-black text-white">RAPORLAR</Link>
-                    </div>
-
-                    <Link href="/" className="btn-mechanical bg-[var(--color-brand-safety-orange)] text-white text-[10px] sm:text-xs font-black px-4 sm:px-6 py-2 uppercase truncate max-w-[140px] sm:max-w-none">
-                        ANA SAYFAYA DÖN
-                    </Link>
-                </div>
-            </nav>
-
-            <div className="pt-24 px-4 md:px-8 max-w-6xl mx-auto">
-                <Breadcrumb items={breadcrumbs} className="text-black" />
+            {/* Breadcrumb Bar */}
+            <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
+                <Breadcrumb items={breadcrumbs} className="text-zinc-600" />
             </div>
 
+            {/* Blog List Client Container */}
             <BlogListClient posts={blogPosts} categories={categories} />
 
-            {/* FOOTER_TERMINAL */}
-            <footer className="bg-zinc-900 text-white py-12 border-t border-zinc-700">
-                <div className="container-brutal text-center font-mono opacity-80 text-xs">
-                    © 2026 VERAL TORNA & TENEKE // TEKNİK RAPOR ARŞİVİ · <Link href="/yazar/oguzcan-veral" className="underline hover:text-amber-400">Teknik Editör: Oğuzcan Veral</Link>
-                </div>
-            </footer>
+            <Footer />
         </main>
     );
 }

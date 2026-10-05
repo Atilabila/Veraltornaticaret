@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, Calendar, Clock, Search, Activity, Database } from "lucide-react";
+import { ArrowRight, Calendar, Clock, Search, BookOpen, Sparkles, Tag, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { AuthorCard } from "./AuthorCard";
 
 interface BlogPostItem {
     id: string;
@@ -30,182 +31,229 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
         const matchesCategory = selectedCategory === "TÜM KAYITLAR" || post.category === selectedCategory;
         const matchesSearch =
             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+            post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            post.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
         return matchesCategory && matchesSearch;
     });
 
-    const featuredPosts = posts.filter((post) => post.featured);
+    const featuredPost = posts.find((post) => post.featured) || posts[0];
+    const nonFeaturedPosts = filteredPosts.filter((post) =>
+        selectedCategory === "TÜM KAYITLAR" && searchQuery === "" ? post.id !== featuredPost?.id : true
+    );
 
     return (
-        <div>
-            {/* HEADER_MODULE */}
-            <section className="pt-28 pb-16 bg-[#E5E7EB] border-b-8 border-black">
-                <div className="container-brutal">
-                    <div className="max-w-4xl border-8 border-black bg-white p-8 md:p-12 shadow-brutal relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-                            <Database className="w-64 h-64 text-black" />
-                        </div>
-                        <div className="relative z-10">
-                            <div className="inline-flex items-center gap-3 bg-black text-white px-3 py-1 font-mono text-xs font-black mb-6">
-                                <Activity className="w-4 h-4 text-[var(--color-brand-safety-orange)]" />
-                                [ MERKEZİ TEKNİK RAPOR VERİTABANI v2026 ]
-                            </div>
-                            <h1 className="text-3xl sm:text-5xl md:text-7xl font-[Archivo Black] leading-none mb-8 uppercase">
-                                TEKNİK <span className="text-[var(--color-brand-safety-orange)]">RAPORLAR</span>
-                            </h1>
-
-                            {/* SEARCH_TERMINAL */}
-                            <div className="relative border-4 border-black group">
-                                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-black" />
-                                <input
-                                    type="text"
-                                    placeholder="İÇERİK VEYA MALZEME ARA..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full bg-white font-mono font-bold text-base md:text-lg pl-16 pr-6 py-5 focus:outline-none focus:bg-[var(--color-brand-accent)] transition-none"
-                                />
-                            </div>
-                        </div>
+        <div className="pb-24">
+            {/* HERO & SEARCH MODULE */}
+            <section className="px-4 md:px-8 max-w-7xl mx-auto pt-4 pb-12">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-10">
+                    <div className="max-w-3xl space-y-4">
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-amber-50 text-amber-900 border border-amber-600/20 shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
+                            TEKNİK MAKALE VE SAHA RAPORLARI
+                        </span>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-zinc-900 tracking-tight leading-[1.1]">
+                            Metalurji, Tolerans ve Zanaat Hafızası
+                        </h1>
+                        <p className="text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
+                            İzmir Alsancak torna ve pres atölyemizden toptan dosya teli, takvim tenekesi, DIN EN 10202 normları ve 4K UV metal baskı teknolojisi üzerine teknik incelemeler.
+                        </p>
                     </div>
-                </div>
-            </section>
 
-            {/* CATEGORY_TERMINAL */}
-            <section className="py-8 border-b-8 border-black bg-white">
-                <div className="container-brutal">
-                    <div className="flex flex-wrap gap-3 justify-center">
-                        {categories.map((category) => (
+                    {/* SEARCH INPUT */}
+                    <div className="w-full lg:w-96 relative">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+                        <input
+                            type="text"
+                            placeholder="Makale, hammadde veya konu ara..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-white border border-zinc-200 rounded-xl pl-12 pr-4 py-3.5 text-sm font-medium text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 shadow-sm transition-all"
+                        />
+                        {searchQuery && (
                             <button
-                                key={category}
-                                onClick={() => setSelectedCategory(category)}
-                                className={`px-6 py-3 font-mono font-black text-xs md:text-sm border-4 border-black shadow-brutal-sm uppercase cursor-pointer ${
-                                    selectedCategory === category
-                                        ? "bg-black text-white shadow-none translate-x-0.5 translate-y-0.5"
-                                        : "bg-white text-black hover:bg-[var(--color-brand-safety-orange)] hover:text-white"
-                                }`}
+                                onClick={() => setSearchQuery("")}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-mono text-zinc-400 hover:text-zinc-700"
                             >
-                                {category}
+                                Temizle
                             </button>
-                        ))}
+                        )}
                     </div>
+                </div>
+
+                {/* CATEGORY FILTER CHIPS */}
+                <div className="flex flex-wrap gap-2 pt-2 border-t border-zinc-200">
+                    {categories.map((category) => (
+                        <button
+                            key={category}
+                            onClick={() => setSelectedCategory(category)}
+                            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold tracking-wider uppercase transition-all cursor-pointer ${
+                                selectedCategory === category
+                                    ? "bg-amber-600 text-white shadow-md shadow-amber-600/20"
+                                    : "bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-amber-500"
+                            }`}
+                        >
+                            {category}
+                        </button>
+                    ))}
                 </div>
             </section>
 
-            {/* FEATURED POSTS */}
-            {selectedCategory === "TÜM KAYITLAR" && searchQuery === "" && (
-                <section className="py-16 bg-[#E5E7EB] border-b-8 border-black">
-                    <div className="container-brutal">
-                        <div className="flex items-center gap-3 mb-10">
-                            <div className="w-6 h-6 bg-black" />
-                            <h2 className="text-2xl md:text-3xl font-[Archivo Black] uppercase">ÖNCELİKLİ RAPORLAR</h2>
-                        </div>
-                        <div className="grid md:grid-cols-2 gap-0 border-8 border-black shadow-brutal bg-white overflow-hidden">
-                            {featuredPosts.map((post) => (
-                                <article
-                                    key={post.id}
-                                    className="border-b-8 md:border-b-0 md:border-r-8 last:border-b-0 md:last:border-r-0 border-black group hover:bg-black/5"
-                                >
-                                    <div className="aspect-[16/9] relative overflow-hidden border-b-8 border-black">
-                                        <Image
-                                            src={post.image}
-                                            alt={post.title}
-                                            fill
-                                            priority
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                            className="object-cover"
-                                        />
-                                        <div className="absolute top-4 left-4 z-10">
-                                            <span className="px-4 py-1.5 bg-[var(--color-brand-safety-orange)] text-white text-[11px] font-black border-2 border-black shadow-brutal-sm">
-                                                {post.category}
-                                            </span>
-                                        </div>
+            {/* FEATURED POST HERO CARD (When on "TÜM KAYITLAR" and no search) */}
+            {selectedCategory === "TÜM KAYITLAR" && searchQuery === "" && featuredPost && (
+                <section className="px-4 md:px-8 max-w-7xl mx-auto mb-16">
+                    <div className="group rounded-3xl bg-white border border-zinc-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-amber-500 transition-all duration-300">
+                        <div className="grid lg:grid-cols-12 gap-0">
+                            <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto bg-zinc-100 overflow-hidden">
+                                <Image
+                                    src={featuredPost.image}
+                                    alt={featuredPost.title}
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 100vw, 700px"
+                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-mono font-bold text-amber-800 border border-amber-600/20 shadow-sm flex items-center gap-1.5">
+                                    <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                                    ÖNE ÇIKAN TEKNİK RAPOR
+                                </div>
+                            </div>
+
+                            <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between">
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-3 text-xs font-mono text-zinc-500">
+                                        <span className="text-amber-700 font-bold uppercase">{featuredPost.category}</span>
+                                        <span>•</span>
+                                        <span className="flex items-center gap-1">
+                                            <Calendar className="w-3.5 h-3.5" /> {featuredPost.date}
+                                        </span>
+                                        <span>•</span>
+                                        <span className="flex items-center gap-1">
+                                            <Clock className="w-3.5 h-3.5" /> {featuredPost.readTime}
+                                        </span>
                                     </div>
-                                    <div className="p-8 md:p-10">
-                                        <div className="flex gap-6 font-mono text-xs font-black text-black/50 mb-6 border-l-4 border-black pl-4">
-                                            <span className="flex items-center gap-1.5">
-                                                <Calendar className="w-3.5 h-3.5" />
-                                                {post.date}
-                                            </span>
-                                            <span className="flex items-center gap-1.5">
-                                                <Clock className="w-3.5 h-3.5" />
-                                                {post.readTime}
-                                            </span>
-                                        </div>
-                                        <h3 className="text-xl md:text-2xl font-[Archivo Black] mb-4 leading-snug group-hover:text-[var(--color-brand-safety-orange)]">
-                                            {post.title}
-                                        </h3>
-                                        <p className="font-mono text-xs md:text-sm font-bold text-black/70 mb-8 leading-relaxed uppercase">
-                                            {post.excerpt}
-                                        </p>
-                                        <Link
-                                            href={`/blog/${post.id}`}
-                                            className="bg-black text-white text-xs font-black px-6 py-3 uppercase flex items-center justify-between group/btn hover:bg-zinc-800 transition-colors"
-                                        >
-                                            DOSYAYI İNCELE <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1.5 transition-transform" />
+
+                                    <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 group-hover:text-amber-700 transition-colors leading-snug">
+                                        <Link href={`/blog/${featuredPost.id}`}>
+                                            {featuredPost.title}
                                         </Link>
+                                    </h2>
+
+                                    <p className="text-sm md:text-base text-zinc-600 leading-relaxed font-normal">
+                                        {featuredPost.excerpt}
+                                    </p>
+
+                                    <div className="flex flex-wrap gap-1.5 pt-2">
+                                        {featuredPost.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="px-2.5 py-1 rounded-md bg-zinc-100 text-zinc-700 text-xs font-mono font-medium"
+                                            >
+                                                #{tag}
+                                            </span>
+                                        ))}
                                     </div>
-                                </article>
-                            ))}
+                                </div>
+
+                                <div className="pt-8">
+                                    <Link
+                                        href={`/blog/${featuredPost.id}`}
+                                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-600/20 group-hover:scale-105"
+                                    >
+                                        <span>Raporu İncele</span>
+                                        <ArrowRight className="w-4 h-4" />
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
             )}
 
-            {/* ALL REPORTS GRID */}
-            <section className="py-16">
-                <div className="container-brutal">
-                    <div className="flex items-center justify-between mb-12 px-6 border-l-8 border-black">
-                        <h2 className="text-2xl md:text-3xl font-[Archivo Black] uppercase">
-                            {selectedCategory === "TÜM KAYITLAR" ? "KAYIT ARŞİVİ" : `${selectedCategory} LİSTESİ`}
-                        </h2>
-                        <div className="font-mono text-xs font-black text-black/40">
-                            [ ADET: {filteredPosts.length} ]
-                        </div>
+            {/* BLOG POSTS BENTO GRID */}
+            <section className="px-4 md:px-8 max-w-7xl mx-auto mb-16">
+                {nonFeaturedPosts.length === 0 ? (
+                    <div className="p-12 text-center bg-white border border-zinc-200 rounded-3xl">
+                        <p className="text-zinc-600 font-mono text-sm">
+                            Aradığınız kriterlere uygun bir teknik rapor bulunamadı.
+                        </p>
                     </div>
-
-                    {filteredPosts.length === 0 ? (
-                        <div className="border-8 border-black p-16 text-center bg-[#E5E7EB]">
-                            <p className="font-mono text-lg font-black uppercase text-black/40">EŞLEŞEN RAPOR BULUNAMADI</p>
-                        </div>
-                    ) : (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {filteredPosts.map((post) => (
-                                <article
-                                    key={post.id}
-                                    className="border-4 border-black bg-white shadow-brutal transition-none group hover:bg-[var(--color-brand-accent)]"
-                                >
-                                    <div className="aspect-[16/10] relative border-b-4 border-black">
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {nonFeaturedPosts.map((post) => (
+                            <article
+                                key={post.id}
+                                className="group flex flex-col justify-between bg-white border border-zinc-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-amber-500 transition-all duration-300"
+                            >
+                                <div>
+                                    <div className="relative w-full aspect-[16/10] bg-zinc-100 overflow-hidden border-b border-zinc-200">
                                         <Image
                                             src={post.image}
                                             alt={post.title}
                                             fill
-                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                            className="object-cover"
+                                            sizes="(min-width: 1024px) 380px, 92vw"
+                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
-                                    </div>
-                                    <div className="p-6">
-                                        <div className="flex items-center justify-between text-[10px] font-mono font-black text-black/50 mb-3 uppercase">
-                                            <span className="bg-black text-white px-2 py-0.5">{post.category}</span>
-                                            <span>{post.readTime}</span>
+                                        <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-mono font-bold text-amber-800 border border-amber-600/20 shadow-sm">
+                                            {post.category}
                                         </div>
-                                        <h3 className="text-lg font-[Archivo Black] mb-3 leading-snug group-hover:text-black uppercase line-clamp-2">
-                                            {post.title}
+                                        <div className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md text-white px-2 py-0.5 rounded text-[10px] font-mono font-semibold flex items-center gap-1">
+                                            <Clock className="w-3 h-3 text-amber-400" />
+                                            {post.readTime}
+                                        </div>
+                                    </div>
+
+                                    <div className="p-6">
+                                        <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-3">
+                                            <Calendar className="w-3.5 h-3.5" />
+                                            <span>{post.date}</span>
+                                        </div>
+
+                                        <h3 className="text-lg font-bold text-zinc-900 group-hover:text-amber-700 transition-colors leading-snug mb-3">
+                                            <Link href={`/blog/${post.id}`}>
+                                                {post.title}
+                                            </Link>
                                         </h3>
-                                        <p className="font-mono text-xs text-black/70 mb-6 uppercase line-clamp-2">
+
+                                        <p className="text-sm text-zinc-600 leading-relaxed font-normal mb-4 line-clamp-3">
                                             {post.excerpt}
                                         </p>
-                                        <Link
-                                            href={`/blog/${post.id}`}
-                                            className="font-mono text-xs font-black text-black flex items-center justify-between group-hover:text-black"
-                                        >
-                                            RAPORU OKU <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                        </Link>
+
+                                        <div className="flex flex-wrap gap-1">
+                                            {post.tags.slice(0, 3).map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[11px] font-mono"
+                                                >
+                                                    #{tag}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
-                                </article>
-                            ))}
-                        </div>
-                    )}
+                                </div>
+
+                                <div className="p-6 pt-0">
+                                    <Link
+                                        href={`/blog/${post.id}`}
+                                        className="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-xl bg-zinc-50 group-hover:bg-amber-600 group-hover:text-white text-zinc-900 font-semibold text-xs transition-colors"
+                                    >
+                                        <span>Raporu Oku</span>
+                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                    </Link>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                )}
+            </section>
+
+            {/* AUTHOR ATTRIBUTION */}
+            <section className="px-4 md:px-8 max-w-7xl mx-auto">
+                <div className="mb-4">
+                    <span className="text-xs font-mono uppercase tracking-widest text-amber-700 block font-bold">
+                        TEKNİK İÇERİK SORUMLUSU & BAŞYAZAR
+                    </span>
                 </div>
+                <AuthorCard />
             </section>
         </div>
     );

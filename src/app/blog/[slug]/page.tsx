@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
 import BlogPostClient from "@/components/blog/BlogPostClient";
 
 // Blog yazıları veritabanı (Server Side)
@@ -14,140 +15,158 @@ const blogPosts: Record<string, {
     content: string;
 }> = {
     "takvim-tenekesi-imalati-izmir": {
-        title: "TAKVİM TENEKESİ İMALATI: İZMİR'DE SERİ ÜRETİM VE KALİTE STANDARTLARI",
+        title: "Takvim Tenekesi İmalatı: İzmir'de Seri Üretim ve DIN Kalite Standartları",
         category: "ENDÜSTRİYEL İMALAT",
         date: "03.02.2026",
-        readTime: "06 DAKİKA",
-        image: "/images/production/teneke.jpg",
-        tags: ["TAKVİM TENEKESİ", "İMALAT", "İZMİR", "SERİ ÜRETİM"],
+        readTime: "6 Dakika",
+        image: "/images/services/takvim-teneke.jpg",
+        tags: ["Takvim Tenekesi", "Seri İmalat", "Alsancak", "DIN EN 10202"],
         content: `
 ## Giriş: Takvim Yayıncılığının Omurgası
 
-Yılın son çeyreği geldiğinde, matbaalar ve yayınevleri için en kritik ürünlerden biri **takvim tenekesi** haline gelir. İzmir Alsancak'ta 40 yılı aşkın süredir devam eden torna ve teneke imalatı geleneğimizle, Türkiye'nin takvim tenekesi ihtiyacını en yüksek standartlarda karşılıyoruz.
+Yılın son çeyreği geldiğinde, matbaalar ve yayınevleri için en kritik ürünlerden biri **takvim tenekesi** haline gelir. İzmir Alsancak'ta 1980 yılından bu yana devam eden torna ve teneke imalatı geleneğimizle, Türkiye'nin takvim tenekesi ihtiyacını en yüksek standartlarda karşılıyoruz.
 
 ## Teknik Parametreler ve Üretim Hassasiyeti
 
 Bir takvim tenekesinin kalitesini belirleyen temel unsur, kullanılan hammaddenin kalınlığı ve büküm hassasiyetidir:
 
-- **Hammadde Seçimi**: 0.22mm ile 0.30mm arasında değişen, korozyon direnci yüksek teneke plakalar.
-- **Büküm Teknolojisi**: Kağıdı yırtmayan, pürüzsüz ve sıkı tutuş sağlayan özel formlu kanallar.
+- **Hammadde Seçimi**: DIN EN 10202 normlarına uygun, 0.22mm ile 0.30mm arasında değişen korozyon direnci yüksek elektrolitik teneke (ETP) plakalar.
+- **Büküm Teknolojisi**: Kağıdı ve kuşe yüzeyleri yırtmayan, pürüzsüz ve sıkı tutuş sağlayan çift kanallı özel formlu profiller.
 - **Seri İmalat**: Günlük 50.000 adet üzerindeki kapasitemizle, en yoğun sezonlarda bile aksamayan tedarik zinciri.
 
-## İzmir'den Türkiye'ye Sevkiyat
+## İzmir'den Tüm Türkiye'ye Sevkiyat
 
-Veral Ticaret olarak, yalnızca İzmir içine değil, İstanbul, Ankara ve tüm Anadolu'ya takvim tenekesi sevk ediyoruz. **Tef zili** üretimindeki hassasiyetimizi, takvim tenekelerimizin her bir milimetresine aktarıyoruz.
+Veral Teneke Ticaret olarak, yalnızca İzmir içine değil, İstanbul, Ankara, Bursa ve tüm Anadolu'ya takvim tenekesi sevk ediyoruz. Eksantrik preslerimizde elde ettiğimiz mikron hassasiyetini, takvim tenekelerimizin her bir santimetresine aktarıyoruz.
 
 ## Sonuç
 
-Doğru takvim tenekesi seçimi, nihai ürünün profesyonel görünümünü ve ömrünü belirler. Modern hatlarımızda üretilen tenekelerimizle yayınlarınıza teknik ve estetik değer katıyoruz.
-    `,
+Doğru takvim tenekesi seçimi, nihai ürünün profesyonel görünümünü ve raftaki ömrünü belirler. Alsancak atölyemizde üretilen tenekelerimizle yayınlarınıza teknik ve estetik değer katıyoruz.
+        `,
     },
     "dosya-teli-ve-arsiv-sistemleri": {
-        title: "DOSYA TELİ ÜRETİMİNDE MALZEME BİLİMİ: PASLANMAZ DİRENÇLİ ÇÖZÜMLER",
+        title: "Dosya Teli Üretiminde Malzeme Bilimi: Paslanmaz ve Yüksek Elastikiyet",
         category: "KIRTASİYE EKİPMANLARI",
         date: "03.02.2026",
-        readTime: "05 DAKİKA",
-        image: "/images/production/dosya-teli.jpg",
-        tags: ["DOSYA TELİ", "METAL", "ARŞİV", "ÜRETİM"],
+        readTime: "5 Dakika",
+        image: "/images/services/dosya-teli.jpg",
+        tags: ["Dosya Teli", "Arşiv", "Polimer Kaplama", "Mekanik Direnç"],
         content: `
-## Arşivlerin Gizli Kahramanı: Dosya Teli
+## Arşivlerin Gizli Kahramanı: Endüstriyel Dosya Teli
 
-Milyonlarca belgenin düzenlendiği arşiv merkezlerinden, küçük bir ofis çekmecesine kadar her yerde **dosya teli** sessizce görevini yapar. Ancak her metal tel, dosya teli olmaya uygun değildir.
+Milyonlarca belgenin düzenlendiği devlet arşiv merkezlerinden, adliye arşivlerine ve kurumsal ofislere kadar her yerde **dosya teli** sessizce görevini yapar. Ancak her metal tel, resmi arşiv standartlarına uygun değildir.
 
-## Endüstriyel Dosya Teli Üretimi
+## Endüstriyel Dosya Teli İmalat Protokolü
 
-Veral bünyesinde üretilen dosya telleri, belirli mekanik testlerden geçerek son kullanıcıya ulaşır:
+Veral bünyesinde üretilen dosya telleri, belirli mekanik ve metalurjik testlerden geçerek son kullanıcıya ulaşır:
 
-1. **Esneklik Dayımı**: Sürekli açılıp kapanmaya karşı metal yorgunluğu testleri.
-2. **Korozyon Direnci**: Arşivlerde on yıllarca sürecek saklama koşullarına uygun kaplama.
-3. **Pürüzsüz Kenarlar**: Kağıtlara ve kullanıcı ellerine zarar vermeyen hassas kesim teknolojisi.
+- **5.000+ Büküm Direnci**: Sürekli açılıp kapanmaya karşı metal yorgunluğunu engelleyen özel tavlanmış çelik yapı.
+- **Korozyon Direnci**: Arşivlerde on yıllarca sürecek saklama koşullarına uygun polimer kaplama veya parlak nikelaj tabakası.
+- **Çapaksız Kenarlar**: Belgelere ve kullanıcı ellerine zarar vermeyen hassas giyotin kesim teknolojisi.
 
-## Tasarım ve Kapasite
+## Kapasite ve Toptan Tedarik
 
-İzmir'deki tesisimizde, standart dosya teli ölçülerinin yanı sıra özel projeler için de üretim yapıyoruz. Torna tezgahlarımızda işlenen her bir parça gibi, dosya tellerimiz de milimetrik hassasiyetle paketlenir.
+İzmir'deki atölyemizde, standart dosya teli ölçülerinin yanı sıra özel projeler için de fason üretim yapıyoruz. Günlük 50.000 adetlik kapasitemizle, Türkiye'nin önde gelen kırtasiye toptancılarına doğrudan koli ve palet bazlı sevkiyat sağlıyoruz.
+        `,
+    },
+    "giyotin-sac-kesim-ve-tolerans-standartlari": {
+        title: "CNC Giyotin Sac Kesiminde Tolerans ve Çapaksız Gönye Kriterleri",
+        category: "ENDÜSTRİYEL İMALAT",
+        date: "18.01.2026",
+        readTime: "7 Dakika",
+        image: "/images/services/giyotin-kesim.webp",
+        tags: ["Giyotin Kesim", "CNC Makas", "Tolerans", "DKP Sac"],
+        content: `
+## Hassas Sac Kesiminde Temel Mühendislik
 
-## Sonuç
+Endüstriyel parça üretiminde ilk operasyon sacın doğru gönyede ve çapaksız ebatlanmasıdır. Sac kesiminde oluşabilecek 0.5 mm'lik bir sapma, sonraki büküm ve montaj aşamalarında ciddi tolerans hatalarına yol açar.
 
-Arşivleme sistemlerinizde uzun ömür ve güvenlik arıyorsanız, endüstriyel kalitedeki dosya teli çözümlerimizi tercih edin. 40 yıllık imalat güveniyle, belgelerinizi metalin gücüyle koruyoruz.
-    `,
+## Veral Atölyesinde CNC Giyotin Standartları
+
+Alsancak atölyemizdeki CNC dijital arka dayamalı makas hatlarımız şu avantajları sağlar:
+
+- **±0.05 mm Kesim Toleransı**: İleri teknoloji arka dayama ve hidrolik baskı pabuçları ile sıfır kayma.
+- **3.000 mm Boy Kesim Kapasitesi**: Geniş levhalardan dar şeritlere kadar esnek ebatlama imkânı.
+- **Sıfır Çapak ve Dik Gönye**: Çift taraflı taşlanmış takım çeliği bıçaklar sayesinde ek taşlama gerektirmeyen temiz kenarlar.
+
+Müşteri teknik resmine göre DKP, galvaniz, paslanmaz ve teneke sac kesimlerinde aynı gün numune hazırlıyoruz.
+        `,
     },
     "miknatisli-magnet-ve-metal-poster-estetigi": {
-        title: "MIKNATISLI MAGNET VE METAL POSTER: MODERN DEKORASYONDA YENİ NESİL DOKUNUŞ",
-        category: "DEKORASYON",
-        date: "03.02.2026",
-        readTime: "09 DAKİKA",
-        image: "/images/production/poster.jpg",
-        tags: ["METAL POSTER", "MAGNET", "DEKORASYON", "MIKNATISLI"],
+        title: "Mıknatıslı Metal Posterler: N35 Neodimyum Askı Sistemi ile Duvarı Delmeden Montaj",
+        category: "DEKORASYON & SANAT",
+        date: "10.01.2026",
+        readTime: "8 Dakika",
+        image: "/images/services/magnet-poster.jpg",
+        tags: ["Metal Poster", "Neodimyum", "Manyetik Montaj", "UV Kürleme"],
         content: `
-## Digital Sanatın Metal Hali
+## Dijital Sanatın Metal Hali
 
-Kağıt posterlerin devri kapanıyor. Artık duvarlarda daha ricit, daha parlak ve çok daha dayanıklı bir medya var: **Metal Poster**. Veral Ticaret olarak, 4K UV baskı kalitesini 1.5mm metal plakalarla buluşturuyoruz.
+Kağıt posterlerin ve dayanıksız çerçevelerin devri geride kaldı. Modern yaşam alanlarında artık daha rijit, daha parlak ve çok daha dayanıklı bir medya var: **4K UV Baskılı Metal Poster**. Veral Ticaret olarak, endüstriyel sac işleme tecrübemizi yüksek çözünürlüklü UV teknolojisiyle birleştiriyoruz.
 
-## Mıknatıslı Magnet: Pratik Montajın Gücü
+## Mıknatıslı Askı Sistemi: Pratik ve Hasarsız Montaj
 
-Bir metal posteri duvara asmak için matkap veya çiviye ihtiyacınız yok. Geliştirdiğimiz **mıknatıslı magnet** sistemleri sayesinde:
+Bir metal posteri duvara asmak için matkap, dübel veya çiviye kesinlikle ihtiyacınız yok:
 
-- **Hızlı Montaj**: Duvara yapıştırılan özel manyetik pedler.
-- **Güçlü Tutuş**: Ağır metal plakaları bile sarsıntısız tutan neodimyum bazlı mıknatıslar.
-- **Değiştirilebilirlik**: İstediğiniz zaman farklı bir metal poster tasarımına saniyeler içinde geçiş yapın.
+- **3M VHB Manyetik Ped**: Duvar yüzeyine zarar vermeyen güçlü yapışkanlı özel koruyucu ped.
+- **N35 Neodimyum Mıknatıs**: 1.5 mm kalınlığındaki çelik plakayı sarsıntısız, düz ve milimetrik tutan yüksek çekim gücü.
+- **Saniyeler İçinde Değiştirme**: İstediğiniz zaman farklı bir metal tabloyu çekip yerine yenisini takabilme özgürlüğü.
 
-## İzmir Metal Tasarım Atölyesi
-
-İzmir Alsancak'taki atölyemizde üretilen her bir metal poster, özel koruma katmanıyla kaplanır. Solmayan renkler ve mıknatıslı magnetlerin pratikliği ile yaşam alanlarınıza endüstriyel bir ruh katın.
-
-## Sonuç
-
-Metal poster ve magnet sistemlerimiz, dekorasyonda hem kaliteyi hem de esnekliği bir arada sunar. Takvim tenekesinden tef zili üretimine uzanan metal işleme uzmanlığımızla, şimdi evlerinize sanatsal bir dokunuş yapıyoruz.
-    `,
+İzmir Saat Kulesi gibi kültürel miras eserlerinden özel kurumsal tasarımlara kadar tüm metal posterler çift kat vernik fırınlamasıyla üretilir.
+        `,
     },
     "endustriyel-metal-baski-rehberi": {
-        title: "ENDÜSTRİYEL METAL BASKI PROTOKOLÜ: DİJİTAL DÖNÜŞÜM ANALİZİ",
+        title: "Endüstriyel 4K UV Metal Baskı: Fırın Kürleme ve Güneş Solmazlığı Analizi",
         category: "ENDÜSTRİYEL BASKI",
-        date: "12.01.2026",
-        readTime: "08 DAKİKA",
-        image: "/porsche.png",
-        tags: ["METAL", "UV BASKI", "SERİGRAFİ", "PLAKA"],
+        date: "05.01.2026",
+        readTime: "8 Dakika",
+        image: "/hero-izmir-metal-poster.jpg",
+        tags: ["4K UV Baskı", "Vernik Kürleme", "Solmazlık", "Alsancak Zanaat"],
         content: `
-## Giriş: Metalin Yüzeyine Hikaye Yazmak
+## Metal Yüzeylerde Yüksek Mukavemetli Baskı
 
-Bir fabrika sahasında yürüyorsunuz. Etrafınızda metal raflar, alüminyum paneller ve paslanmaz metal kaplamalar. Her biri sessiz, anonim—ta ki üzerlerine **endüstriyel metal baskı** uygulanana kadar.
+Endüstriyel metal baskı; cihaz panellerinden tabelalara, mimari kaplamalardan dekoratif tablolara kadar soğuk metale kalıcı bir kimlik kazandırma sanatıdır.
 
-Metal baskı, yalnızca bir logo veya uyarı işareti yerleştirmek değildir. **Hammaddeyi konuşturmak, soğuk yüzeylere kimlik kazandırmak ve dayanıklılığı estetikle buluşturmaktır.** Veral Ticaret olarak, torna ve teneke işçiliğinde onlarca yıllık deneyimimizi, modern UV ve serigrafi baskı teknolojileriyle birleştiriyoruz.
+## Piezoelektrik UV Kürleme Teknolojisi
 
-## Metal Baskı Teknolojileri: Gelenekselden Moderne
+Atölyemizde uygulanan 1200x1200 DPI endüstriyel UV baskı hatlarının öne çıkan özellikleri:
 
-### 1. Serigrafi (Screen Printing) Baskı
+- **Anlık Fotopolimerizasyon**: Ultraviyole ışık dalgalarıyla anında sertleşen pigment mürekkepler.
+- **Çift Kat Mat Vernik Koruması**: Güneşin UV ışınlarına, suya, neme ve sürtünmeye karşı 10 yıllık renk canlılığı garantisi.
+- **Yüksek Doku Hassasiyeti**: Metalin kendi soğuk dokusu ile 4K renk derinliğinin kusursuz uyumu.
 
-En klasik ve güvenilir yöntemlerden biri olan serigrafi, **yüksek adetli üretimlerde** maliyet avantajı sunar:
+Numune baskı ve kurumsal prova talepleriniz için doğrudan teknik çizim gönderebilirsiniz.
+        `,
+    },
+    "rulo-sac-dilme-slitting-hatlari": {
+        title: "Rulo Teneke Sac Dilimleme (Slitting) ve Dar Şerit Sarım Mühendisliği",
+        category: "ENDÜSTRİYEL İMALAT",
+        date: "28.12.2025",
+        readTime: "6 Dakika",
+        image: "/images/services/rulo-dilimleme.webp",
+        tags: ["Rulo Dilme", "Slitting", "Şerit Sac", "Alsancak Hat"],
+        content: `
+## Rulo Sac Dilimlemede Hassasiyet Kriterleri
 
-- **Çalışma Prensibi**: İnce bir elek üzerinden mürekkep, metal yüzeyine transfer edilir.
-- **Avantajları**: Kalın mürekkep katmanı, canlı renkler, uzun ömür
-- **İdeal Kullanım**: Sanayi plakaları, uyarı levhaları, makine etiketleri
+Matbaa, ambalaj ve kırtasiye sektörleri için geniş rulo tenekelerin istenilen genişlikte dar şeritlere ayrılması yüksek hassasiyet gerektiren bir slitting operasyonudur.
 
-### 2. UV Dijital Baskı
+- **Bıçak Ayarı**: Dairesel çelik disk bıçaklar arasında mikron toleranslı boşluk kalibrasyonu.
+- **Genişlik Toleransı**: Minimum 8 mm şerit genişliğinde ±0.08 mm hassasiyet.
+- **Neme Karşı Özel Ambalaj**: Şeritlerin kenar deformasyonunu ve paslanmayı önleyen çemberli kraft paletleme.
 
-**Geleceğin teknolojisi** olarak adlandırılan UV baskı, esnekliği ve kalitesiyle öne çıkar:
-
-- **Çalışma Prensibi**: Ultraviyole ışınlarla anlık kürlenen özel mürekkepler
-- **Avantajları**: Sınırsız renk, fotoğraf kalitesi, kalıp maliyeti yok
-- **İdeal Kullanım**: Logolu paneller, dekoratif kaplamalar, özel tasarımlar
-
-## Sonuç
-
-Metal baskı, ham malzemeyi **iletişim aracına** dönüştürür. Veral Ticaret olarak, teneke ve torna işçiliğindeki köklü geleneklerimizi, 21. yüzyılın dijital baskı teknolojileriyle birleştiriyoruz.
-    `,
+Alsancak tesislerimizde müşteri şartnamesine göre rulo sac dilimleme hizmeti vermekteyiz.
+        `,
     },
 };
 
-// SEO için dinamik Metadata üretimi
+// SEO Metadata
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const post = blogPosts[slug];
 
-    if (!post) return { title: "Rapor Bulunamadı | Veral Torna & Teneke" };
+    if (!post) return { title: "Rapor Bulunamadı | Veral Teneke Ticaret" };
 
     return {
-        title: `${post.title} | Veral Torna & Teneke`,
+        title: `${post.title} | Veral Teneke Ticaret İzmir`,
         description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
         alternates: {
             canonical: `https://veralteneketicaret.com/blog/${slug}`,
@@ -190,10 +209,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         },
         "publisher": {
             "@type": "Organization",
-            "name": "Veral Torna & Teneke Ticaret",
+            "name": "Veral Teneke Ticaret",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://veralteneketicaret.com/veral-logo.webp"
+                "url": "https://veralteneketicaret.com/veral-logo.png"
             }
         },
         "mainEntityOfPage": {
@@ -215,7 +234,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Raporlar & Blog",
+                "name": "Teknik Raporlar & Blog",
                 "item": "https://veralteneketicaret.com/blog"
             },
             {
@@ -228,7 +247,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     };
 
     return (
-        <main className="min-h-screen bg-white grid-terminal no-transition pb-24">
+        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -237,37 +256,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
-            {/* NAVIGATION_TERMINAL (Server Side Links) */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b-4 border-black py-4">
-                <div className="container-brutal flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-4 group">
-                        <div className="w-12 h-12 bg-black flex items-center justify-center text-white font-black text-2xl group-active:translate-x-1 group-active:translate-y-1 group-active:shadow-none transition-none shadow-[4px_4px_0px_0px_var(--color-brand-safety-orange)]">
-                            V
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-xl font-[Archivo Black] leading-none uppercase">VERAL</span>
-                            <span className="text-xs font-mono font-bold tracking-widest text-[var(--color-brand-veral-green)]">TORNA & TENEKE</span>
-                        </div>
-                    </Link>
 
-                    <nav className="hidden lg:flex items-center gap-8 font-mono font-bold text-sm">
-                        <Link href="/" className="hover:bg-black hover:text-white px-2 py-1">ÜRETİM HATTI</Link>
-                        <Link href="/urunler" className="hover:bg-black hover:text-white px-2 py-1">KATALOG DOSYALARI</Link>
-                        <Link href="/hakkimizda" className="hover:bg-black hover:text-white px-2 py-1">TARİHÇE KAYDI</Link>
-                        <Link href="/sss" className="hover:bg-black hover:text-white px-2 py-1">SSS</Link>
-                        <Link href="/blog" className="bg-black text-white px-2 py-1">RAPORLAR</Link>
-                    </nav>
-                </div>
-            </nav>
+            <Navigation />
 
             <BlogPostClient post={post} slug={slug} otherPosts={otherPosts} />
 
-            {/* FOOTER_TERMINAL */}
-            <footer id="terminals" className="bg-zinc-900 text-white py-16 border-t border-zinc-700">
-                <div className="container-brutal text-center font-mono opacity-80 text-xs">
-                    © 2026 VERAL TORNA & TENEKE // RAPOR KAYDI v4.5.11 · <Link href="/yazar/oguzcan-veral" className="underline hover:text-amber-400">Teknik Editör: Oğuzcan Veral</Link>
-                </div>
-            </footer>
+            <Footer />
         </main>
     );
 }
