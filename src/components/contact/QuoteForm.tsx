@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
@@ -21,8 +21,8 @@ import { useSearchParams } from 'next/navigation';
 import { getServiceBySlug } from '@/lib/b2b/services';
 
 const inputClass =
-    "bg-[#f4f4f4] border-[#c6c6c6] pl-12 h-14 focus:border-[var(--color-brand-accent)] transition-all rounded-none text-[#161616]";
-const labelClass = "text-xs font-mono font-semibold uppercase tracking-wider text-[#525252]";
+    "bg-zinc-50 border-zinc-200 pl-12 h-14 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 transition-all rounded-xl text-zinc-900";
+const labelClass = "text-xs font-mono font-semibold uppercase tracking-wider text-zinc-700";
 
 export const QuoteForm = () => {
     const { content } = useContentStore();
@@ -188,51 +188,51 @@ export const QuoteForm = () => {
             <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white border border-[#c6c6c6] p-12 text-center space-y-8 max-w-2xl"
+                className="bg-white border border-zinc-200 rounded-3xl p-10 md:p-14 text-center space-y-8 max-w-2xl mx-auto shadow-xl"
             >
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto border border-emerald-200 shadow-sm">
                     <CheckCircle className="w-8 h-8" />
                 </div>
-                <h2 className="text-3xl font-bold text-[#161616]">{config.successTitle}</h2>
-                <p className="text-[#525252] text-lg max-w-lg mx-auto leading-relaxed">{config.successMessage}</p>
-                <div className="bg-[#f4f4f4] border border-[#c6c6c6] p-6 max-w-xs mx-auto">
-                    <span className="block text-xs text-[#525252] font-mono font-semibold uppercase tracking-wider mb-1">Takip numarası</span>
-                    <span className="text-2xl font-mono text-[var(--color-brand-accent)] font-bold">{quoteNumber}</span>
+                <h2 className="text-3xl font-black text-zinc-900 tracking-tight">{config.successTitle}</h2>
+                <p className="text-zinc-600 text-base md:text-lg max-w-lg mx-auto leading-relaxed">{config.successMessage}</p>
+                <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-6 max-w-xs mx-auto">
+                    <span className="block text-xs text-zinc-500 font-mono font-semibold uppercase tracking-wider mb-1">Teklif Takip Numarası</span>
+                    <span className="text-2xl font-mono text-amber-700 font-black">{quoteNumber}</span>
                 </div>
                 <Button
                     onClick={() => window.location.href = "/"}
-                    className="bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white font-semibold h-12 px-10 rounded-none"
+                    className="bg-amber-600 hover:bg-amber-700 text-white font-bold h-12 px-10 rounded-xl transition-all shadow-md shadow-amber-600/20"
                 >
-                    Ana sayfaya dön
+                    Ana Sayfaya Dön
                 </Button>
             </m.div>
         );
     }
 
     return (
-        <div className="grid lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-8 bg-white border border-[#c6c6c6] overflow-hidden shadow-sm">
-                <div className="h-1 w-full bg-[#e0e0e0] flex">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            <div className="lg:col-span-8 bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-sm">
+                <div className="h-1.5 w-full bg-zinc-100 flex">
                     {[1, 2, 3].map(i => (
                         <div
                             key={i}
                             className={cn(
                                 "flex-1 transition-all duration-500",
-                                step >= i ? "bg-[var(--color-brand-accent)]" : "bg-transparent"
+                                step >= i ? "bg-amber-600" : "bg-transparent"
                             )}
                         />
                     ))}
                 </div>
 
-                <div className="p-8 lg:p-10">
+                <div className="p-8 lg:p-12">
                     <AnimatePresence mode="wait">
                         {step === 1 && (
                             <m.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-xl font-bold text-[#161616] flex items-center gap-3">
-                                        <User className="text-[var(--color-brand-accent)] w-5 h-5" /> {config.contactSectionTitle}
+                                    <h3 className="text-2xl font-black text-zinc-900 flex items-center gap-3">
+                                        <User className="text-amber-600 w-6 h-6" /> {config.contactSectionTitle}
                                     </h3>
-                                    <p className="text-[#525252] text-sm">İletişim için temel bilgileri doldurun.</p>
+                                    <p className="text-zinc-600 text-sm">İletişim ve kurumsal firma bilgilerinizi belirtin.</p>
                                 </div>
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div className="space-y-2">
@@ -270,10 +270,10 @@ export const QuoteForm = () => {
                         {step === 2 && (
                             <m.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-xl font-bold text-[#161616] flex items-center gap-3">
-                                        <Settings className="text-[var(--color-brand-accent)] w-5 h-5" /> {config.projectSectionTitle}
+                                    <h3 className="text-2xl font-black text-zinc-900 flex items-center gap-3">
+                                        <Settings className="text-amber-600 w-6 h-6" /> {config.projectSectionTitle}
                                     </h3>
-                                    <p className="text-[#525252] text-sm">Projenizin teknik ayrıntılarını belirtin.</p>
+                                    <p className="text-zinc-600 text-sm">Projenizin teknik ayrıntılarını ve ölçü gereksinimlerini belirtin.</p>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
@@ -282,9 +282,9 @@ export const QuoteForm = () => {
                                             <SelectTrigger className={`${inputClass} pl-4`}>
                                                 <SelectValue placeholder="Bir hizmet seçiniz" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-white border-[#c6c6c6] text-[#161616]">
+                                            <SelectContent className="bg-white border-zinc-200 text-zinc-900 rounded-xl shadow-lg">
                                                 {config.serviceOptions.map(opt => (
-                                                    <SelectItem key={opt} value={opt} className="focus:bg-[var(--color-brand-accent)] focus:text-white">{opt}</SelectItem>
+                                                    <SelectItem key={opt} value={opt} className="focus:bg-amber-600 focus:text-white rounded-lg">{opt}</SelectItem>
                                                 ))}
                                             </SelectContent>
                                         </Select>
@@ -292,22 +292,22 @@ export const QuoteForm = () => {
                                     <div className="space-y-2">
                                         <Label className={labelClass}>{config.descriptionLabel} *</Label>
                                         <div className="relative">
-                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-[#8d8d8d]" />
-                                            <Textarea value={formData.description} onChange={(e) => updateField('description', e.target.value)} placeholder={config.descriptionPlaceholder} className={`${inputClass} pl-12 min-h-[150px] resize-none`} />
+                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-zinc-400" />
+                                            <Textarea value={formData.description} onChange={(e) => updateField('description', e.target.value)} placeholder={config.descriptionPlaceholder} className={`${inputClass} pl-12 min-h-[140px] resize-none pt-4`} />
                                         </div>
                                     </div>
                                     <div className="grid sm:grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <Label className={labelClass}>{config.quantityLabel}</Label>
                                             <div className="relative">
-                                                <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                                <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                                                 <Input value={formData.quantity} onChange={(e) => updateField('quantity', e.target.value)} placeholder={config.quantityPlaceholder} className={inputClass} />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <Label className={labelClass}>{config.materialLabel}</Label>
                                             <div className="relative">
-                                                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
+                                                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                                                 <Input value={formData.materialType} onChange={(e) => updateField('materialType', e.target.value)} placeholder={config.materialPlaceholder} className={inputClass} />
                                             </div>
                                         </div>
@@ -319,38 +319,38 @@ export const QuoteForm = () => {
                         {step === 3 && (
                             <m.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-xl font-bold text-[#161616] flex items-center gap-3">
-                                        <Upload className="text-[var(--color-brand-accent)] w-5 h-5" /> {config.uploadSectionTitle}
+                                    <h3 className="text-2xl font-black text-zinc-900 flex items-center gap-3">
+                                        <Upload className="text-amber-600 w-6 h-6" /> {config.uploadSectionTitle}
                                     </h3>
-                                    <p className="text-[#525252] text-sm">{config.fileDescription}</p>
+                                    <p className="text-zinc-600 text-sm">{config.fileDescription || "CAD, DXF, DWG, PDF veya yüksek çözünürlüklü teknik çizim yükleyebilirsiniz."}</p>
                                 </div>
                                 <div
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="border-2 border-dashed border-[#c6c6c6] bg-[#f4f4f4] p-12 text-center hover:border-[var(--color-brand-accent)] transition-colors cursor-pointer group"
+                                    className="border-2 border-dashed border-zinc-300 bg-zinc-50 rounded-2xl p-10 text-center hover:border-amber-600 hover:bg-amber-50/20 transition-all cursor-pointer group"
                                 >
                                     <input type="file" ref={fileInputRef} onChange={handleFileChange} multiple className="hidden" />
-                                    <Upload className="w-10 h-10 text-[#8d8d8d] group-hover:text-[var(--color-brand-accent)] mx-auto mb-4 transition-colors" />
-                                    <p className="text-[#161616] font-semibold mb-2">{config.fileLabel}</p>
-                                    <p className="text-xs text-[#525252]">Sürükle bırak veya tıkla (Maks. {config.maxFiles} dosya, her biri {config.maxSizeMB}MB)</p>
+                                    <Upload className="w-10 h-10 text-zinc-400 group-hover:text-amber-600 mx-auto mb-3 transition-colors" />
+                                    <p className="text-zinc-900 font-bold mb-1">{config.fileLabel}</p>
+                                    <p className="text-xs text-zinc-500 font-mono">Sürükle bırak veya tıkla (Maks. {config.maxFiles} dosya, her biri {config.maxSizeMB}MB)</p>
                                 </div>
                                 {files.length > 0 && (
                                     <div className="grid gap-3">
                                         {files.map((f, i) => (
-                                            <div key={i} className="flex items-center justify-between bg-[#f4f4f4] p-4 border border-[#c6c6c6]">
+                                            <div key={i} className="flex items-center justify-between bg-zinc-50 p-4 border border-zinc-200 rounded-xl">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-white border border-[#c6c6c6] overflow-hidden flex items-center justify-center">
+                                                    <div className="w-12 h-12 bg-white border border-zinc-200 rounded-lg overflow-hidden flex items-center justify-center shadow-xs">
                                                         {f.file.type.startsWith('image/') ? (
                                                             <img src={f.preview} alt="" className="w-full h-full object-cover" />
                                                         ) : (
-                                                            <Layers className="w-5 h-5 text-[#8d8d8d]" />
+                                                            <Layers className="w-5 h-5 text-amber-600" />
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm font-semibold text-[#161616] truncate max-w-[200px]">{f.file.name}</p>
-                                                        <p className="text-xs text-[#525252]">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                                                        <p className="text-sm font-semibold text-zinc-900 truncate max-w-[200px]">{f.file.name}</p>
+                                                        <p className="text-xs font-mono text-zinc-500">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
                                                     </div>
                                                 </div>
-                                                <button onClick={() => removeFile(i)} className="text-[#8d8d8d] hover:text-red-600 transition-colors p-2">
+                                                <button onClick={() => removeFile(i)} className="text-zinc-400 hover:text-red-600 transition-colors p-2">
                                                     <Trash2 className="w-5 h-5" />
                                                 </button>
                                             </div>
@@ -361,23 +361,23 @@ export const QuoteForm = () => {
                         )}
                     </AnimatePresence>
 
-                    <div className="flex items-center justify-between pt-10 mt-10 border-t border-[#c6c6c6]">
+                    <div className="flex items-center justify-between pt-8 mt-8 border-t border-zinc-200">
                         {step > 1 ? (
-                            <Button variant="ghost" onClick={prevStep} className="text-[#525252] hover:text-[#161616] flex items-center gap-2 group">
+                            <Button variant="ghost" onClick={prevStep} className="text-zinc-600 hover:text-zinc-900 flex items-center gap-2 group rounded-xl">
                                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Geri
                             </Button>
                         ) : <div />}
 
                         {step < 3 ? (
-                            <Button onClick={nextStep} className="bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2 group">
-                                Sonraki adım <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <Button onClick={nextStep} className="bg-amber-600 hover:bg-amber-700 text-white font-bold h-12 px-8 rounded-xl flex items-center gap-2 group transition-all shadow-md shadow-amber-600/20">
+                                Sonraki Adım <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         ) : (
-                            <Button disabled={isSubmitting} onClick={handleSubmit} className="bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2">
+                            <Button disabled={isSubmitting} onClick={handleSubmit} className="bg-amber-600 hover:bg-amber-700 text-white font-bold h-12 px-8 rounded-xl flex items-center gap-2 transition-all shadow-md shadow-amber-600/20">
                                 {isSubmitting ? (
                                     <>Lütfen bekleyin <Loader2 className="w-4 h-4 animate-spin" /></>
                                 ) : (
-                                    <>{config.submitButtonText} <ArrowRight className="w-4 h-4" /></>
+                                    <>{config.submitButtonText || "Teklifi Gönder"} <ArrowRight className="w-4 h-4" /></>
                                 )}
                             </Button>
                         )}
@@ -398,24 +398,35 @@ export const QuoteForm = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: i * 0.1 }}
                                 key={i}
-                                className="bg-white border border-[#c6c6c6] p-6 hover:border-[var(--color-brand-accent)] transition-colors group"
+                                className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm hover:border-amber-500 transition-colors group"
                             >
-                                <div className="w-10 h-10 bg-[#f4f4f4] text-[var(--color-brand-accent)] flex items-center justify-center mb-4 group-hover:bg-[var(--color-brand-accent)] group-hover:text-white transition-colors">
+                                <div className="w-10 h-10 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center mb-3 group-hover:bg-amber-600 group-hover:text-white transition-colors">
                                     <Icon className="w-5 h-5" />
                                 </div>
-                                <h4 className="text-base font-bold text-[#161616] mb-2">{block.title}</h4>
-                                <p className="text-[#525252] text-sm leading-relaxed">{block.description}</p>
+                                <h4 className="text-base font-bold text-zinc-900 mb-1">{block.title}</h4>
+                                <p className="text-zinc-600 text-sm leading-relaxed">{block.description}</p>
                             </m.div>
                         );
                     })}
                 </div>
 
-                <div className="bg-white border border-[#c6c6c6] p-8 space-y-4">
-                    <div className="w-10 h-1 bg-[var(--color-brand-accent)]" />
-                    <h4 className="text-xl font-bold text-[#161616]">Acil bir talebiniz mi var?</h4>
-                    <p className="text-[#525252] text-sm">WhatsApp üzerinden teknik ekibimize doğrudan ulaşın.</p>
-                    <a href={`https://wa.me/${content.whatsappNumber}`} className="inline-flex items-center gap-2 text-[var(--color-brand-accent)] font-semibold text-sm hover:underline">
-                        WhatsApp ile yazın <ArrowRight className="w-4 h-4" />
+                <div className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm space-y-4">
+                    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-emerald-50 text-emerald-800 text-xs font-mono font-bold border border-emerald-200">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        HIZLI İLETİŞİM
+                    </div>
+                    <h4 className="text-lg font-bold text-zinc-900">Acil bir talebiniz mi var?</h4>
+                    <p className="text-zinc-600 text-sm leading-relaxed">
+                        Alsancak atölyemizdeki imalat şefimizle WhatsApp üzerinden teknik detayları doğrudan görüşebilirsiniz.
+                    </p>
+                    <a
+                        href="https://wa.me/905323794003"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-sm"
+                    >
+                        <span>WhatsApp Usta Hattı</span>
+                        <ArrowRight className="w-4 h-4" />
                     </a>
                 </div>
             </div>

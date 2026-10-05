@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { m } from 'framer-motion';
 import { Star, Quote } from "lucide-react";
@@ -16,23 +16,25 @@ export const CustomerReviews = () => {
 
     return (
         <DirectEdit tab="reviews">
-            <section id="reviews" className="py-16 lg:py-24 bg-white">
-                <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
+            <section id="reviews" className="py-16 lg:py-24 bg-white border-b border-zinc-200">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl">
 
                     <div className="flex flex-col gap-4 mb-16 text-center items-center">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-[2px] bg-[var(--color-brand-accent)]" />
-                            <span className="text-sm font-black text-[#525252] tracking-[0.3em] uppercase font-mono">
-                                {content.reviewsTitle} {content.reviewsSubtitle}
-                            </span>
-                        </div>
-                        <h2 className="text-4xl lg:text-6xl font-black text-[#161616] tracking-tighter uppercase leading-none">
-                            Toptan İmalat Referansları
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-amber-50 text-amber-900 border border-amber-600/20 shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
+                            35.000+ Doğrulanmış Sipariş
+                        </span>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-zinc-900 tracking-tight">
+                            Toptan İmalat Referanslarımız
                         </h2>
-                        <div className="flex items-center gap-2 mt-4">
-                            <Star className="w-4 h-4 text-[var(--color-brand-accent)] fill-[var(--color-brand-accent)]" />
-                            <span className="text-sm font-bold text-[#525252] uppercase tracking-[0.15em]">
-                                {content.reviewsRatingLabel}
+                        <div className="flex items-center gap-2 mt-2">
+                            <div className="flex gap-1">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="w-4 h-4 text-amber-500 fill-amber-500" />
+                                ))}
+                            </div>
+                            <span className="text-xs font-mono font-bold text-zinc-600 uppercase tracking-wider">
+                                {content.reviewsRatingLabel || "%99.2 Müşteri Memnuniyeti"}
                             </span>
                         </div>
                     </div>
@@ -45,35 +47,34 @@ export const CustomerReviews = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                                className="bg-[#f4f4f4] p-10 lg:p-12 relative border border-[#c6c6c6] group hover:border-[var(--color-brand-accent)] transition-colors"
+                                className="bg-[#fafafa] p-8 lg:p-10 relative border border-zinc-200 rounded-2xl shadow-sm group hover:border-amber-500 hover:shadow-md transition-all"
                             >
-                                <Quote className="absolute top-10 right-10 w-12 h-12 text-[var(--color-brand-accent)]/10" />
+                                <Quote className="absolute top-8 right-8 w-10 h-10 text-amber-600/15" />
 
-                                <div className="flex gap-1 mb-8">
+                                <div className="flex gap-1 mb-6">
                                     {[...Array(review.rating || 5)].map((_, i) => (
-                                        <Star key={i} className="w-4 h-4 text-[var(--color-brand-accent)] fill-[var(--color-brand-accent)]" />
+                                        <Star key={i} className="w-4 h-4 text-amber-500 fill-amber-500" />
                                     ))}
                                 </div>
 
-                                <p className="text-xl lg:text-2xl font-semibold text-[#161616] leading-snug mb-10">
+                                <p className="text-lg lg:text-xl font-medium text-zinc-900 leading-relaxed mb-8">
                                     &ldquo;{review.text}&rdquo;
                                 </p>
 
-                                <div className="flex items-center justify-between pt-8 border-t border-[#c6c6c6] mt-auto">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 border-2 border-[var(--color-brand-accent)] flex items-center justify-center font-bold text-[var(--color-brand-accent)] text-lg bg-white">
-                                            {review.name.charAt(0)}
+                                <div className="flex items-center justify-between border-t border-zinc-200 pt-4">
+                                    <div>
+                                        <div className="font-bold text-sm text-zinc-900">
+                                            {review.author}
                                         </div>
-                                        <div>
-                                            <div className="text-base font-bold text-[#161616] leading-none mb-1">{review.name}</div>
-                                            <div className="text-xs font-mono text-[#525252] uppercase tracking-wider">{review.city} · {review.date}</div>
+                                        <div className="text-xs font-mono text-amber-700">
+                                            {review.role || "Toptan Müşteri"}
                                         </div>
                                     </div>
-
-                                    <div className="hidden sm:block text-right">
-                                        <span className="text-[10px] font-mono text-[#525252] uppercase block mb-1">Hat / Ürün</span>
-                                        <span className="text-xs font-bold text-[#161616]">{review.product}</span>
-                                    </div>
+                                    {review.location && (
+                                        <div className="text-xs font-mono text-zinc-400">
+                                            {review.location}
+                                        </div>
+                                    )}
                                 </div>
                             </m.div>
                         ))}

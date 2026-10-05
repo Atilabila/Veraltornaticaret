@@ -55,8 +55,7 @@ export const Footer = () => {
                             <h4 className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider mb-6">Navigasyon</h4>
                             <ul className="flex flex-col gap-3">
                                 {[
-                                    { label: 'İmalat Hatları', href: '/hizmetler' },
-                                    { label: 'Ürün Kataloğu', href: '/urunler' },
+                                    { label: 'İmalat Hatlarımız', href: '/hizmetler' },
                                     { label: 'Sıkça Sorulanlar (SSS)', href: '/sss' },
                                     { label: 'Teknik Raporlar & Blog', href: '/blog' },
                                     { label: 'Atölye ve Editör Biyografisi', href: '/yazar/oguzcan-veral' },

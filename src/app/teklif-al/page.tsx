@@ -1,53 +1,77 @@
-﻿import React from 'react';
-import { Metadata } from 'next';
+import React from 'react';
+import type { Metadata } from 'next';
 import { QuoteForm } from '@/components/contact/QuoteForm';
+import { Navigation } from '@/components/layout/Navigation';
+import { Footer } from '@/components/layout/Footer';
+import { Breadcrumb } from '@/components/seo/Breadcrumb';
 import { ContentProvider } from '@/components/layout/ContentProvider';
 import { ContentService } from '@/lib/supabase/content.service';
-import { PageShell } from '@/components/layout/PageShell';
-import { PageContainer } from '@/components/layout/PageContainer';
+import { ShieldCheck, Clock, FileText, CheckCircle2 } from 'lucide-react';
 
-const fallbackQuotePage = {
-    title: "Toptan Teklif Formu",
-    subtitle: "Dosya Teli & İmalat İçin Fiyatlandırma",
-    description:
-        "İmalatçıdan halka: toptan dosya teli, takvim tenekesi ve seri metal imalat için 24 saat içinde teklif sunuyoruz.",
-    seoTitle: "Teklif Al | Toptan Dosya Teli ve İmalat - VERAL",
-    seoDescription:
-        "Toptan dosya teli, takvim tenekesi ve endüstriyel metal imalat teklifi. İzmir üreticiden doğrudan fiyat.",
-} as const;
-
-export async function generateMetadata(): Promise<Metadata> {
-    const dbContent = await ContentService.getContent();
-    const config = dbContent?.quotePage || fallbackQuotePage;
-    return {
-        title: config.seoTitle || "Teklif Al | VERAL",
-        description: config.seoDescription || "Özel metal üretim projeleriniz için teklif alın.",
-    };
-}
+export const metadata: Metadata = {
+    title: "B2B Hızlı Fiyat Teklifi (RFQ) | Toptan Dosya Teli & Teneke İmalatı | Veral Ticaret",
+    description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve UV metal poster siparişleriniz için 24 saat içinde teknik fiyatlandırma ve numune desteği. İzmir Alsancak doğrudan imalatçı fiyatı.",
+    alternates: {
+        canonical: "https://veralteneketicaret.com/teklif-al",
+    },
+    openGraph: {
+        title: "B2B Hızlı Fiyat Teklifi | Veral Teneke Ticaret İzmir",
+        description: "Özel metal üretim, toptan tel ve teneke projeleriniz için doğrudan atölyeden fiyat teklifi alın.",
+        url: "https://veralteneketicaret.com/teklif-al",
+    },
+};
 
 export default async function QuotePage() {
     const dbContent = await ContentService.getContent();
-    const config = dbContent?.quotePage || fallbackQuotePage;
-    if (!config) return null;
+
+    const breadcrumbs = [
+        { name: "Ana Sayfa", url: "/" },
+        { name: "Fiyat Teklifi Al (RFQ)", url: "/teklif-al" },
+    ];
 
     return (
         <ContentProvider initialContent={dbContent || undefined}>
-            <PageShell variant="muted">
-                <PageContainer>
+            <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+                <Navigation />
+
+                <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
+                    <Breadcrumb items={breadcrumbs} className="text-zinc-600" />
+                </div>
+
+                <section className="px-4 md:px-8 max-w-7xl mx-auto pb-20 pt-4">
                     <div className="max-w-3xl mb-12 space-y-4">
-                        <p className="text-sm font-mono font-semibold uppercase tracking-widest text-[var(--color-brand-accent)]">
-                            {config.subtitle}
-                        </p>
-                        <h1 className="text-4xl md:text-5xl font-bold text-[#161616] leading-tight">
-                            {config.title}
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-amber-50 text-amber-900 border border-amber-600/20 shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
+                            İMALATÇIDAN DOĞRUDAN TEKLİF · İZMİR ALSANCAK
+                        </span>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-zinc-900 tracking-tight leading-tight">
+                            B2B Hızlı Fiyat & Numune Teklifi (RFQ)
                         </h1>
-                        <p className="text-lg text-[#525252] leading-relaxed">
-                            {config.description}
+                        <p className="text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
+                            Toptan dosya teli, takvim tenekesi, fason giyotin kesim ve mıknatıslı UV metal poster projeleriniz için teknik resminizi yükleyin veya ölçülerinizi belirtin. İmalat mühendislerimiz 24 saat içinde detaylı teklif föyünüzü hazırlasın.
                         </p>
+
+                        <div className="pt-2 flex flex-wrap items-center gap-6 text-xs font-mono text-zinc-600">
+                            <div className="flex items-center gap-1.5">
+                                <Clock className="w-4 h-4 text-amber-600" />
+                                <span>24 Saat İçinde Yanıt</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <FileText className="w-4 h-4 text-amber-600" />
+                                <span>CAD / DXF / PDF Desteği</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <ShieldCheck className="w-4 h-4 text-amber-600" />
+                                <span>Doğrudan Fabrika Fiyatı</span>
+                            </div>
+                        </div>
                     </div>
+
                     <QuoteForm />
-                </PageContainer>
-            </PageShell>
+                </section>
+
+                <Footer />
+            </main>
         </ContentProvider>
     );
 }

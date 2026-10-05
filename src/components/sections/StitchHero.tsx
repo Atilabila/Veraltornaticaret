@@ -41,10 +41,10 @@ export function StitchHero() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 w-full sm:w-auto">
               <Link
-                href="/urunler"
+                href="/hizmetler"
                 className="h-14 px-8 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg shadow-amber-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
-                <span>Koleksiyonu Keşfet</span>
+                <span>Üretim Hatlarımız</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
@@ -103,7 +103,7 @@ export function StitchHero() {
                     <span className="text-xs font-bold text-zinc-900">Mıknatıslı Duvar Montaj Kiti Dahil</span>
                   </div>
                   <span className="text-xs font-mono font-bold bg-amber-600 text-white px-2.5 py-1 rounded shadow-sm">
-                    420 ₺'den Başlayan
+                    Toptan & Seri İmalat
                   </span>
                 </div>
               </div>

@@ -5,7 +5,6 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
 import { StitchHero } from "@/components/sections/StitchHero";
 import { StitchAssurance } from "@/components/sections/StitchAssurance";
-import { StitchCatalog } from "@/components/sections/StitchCatalog";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import dynamic from "next/dynamic";
 
@@ -13,7 +12,6 @@ const ServicesHomeSection = dynamic(() =>
     import("@/components/sections/ServicesHomeSection").then((mod) => mod.ServicesHomeSection)
 );
 const ProcessSection = dynamic(() => import("@/components/sections/ProcessSection").then(mod => mod.ProcessSection));
-const BlueprintShowcase = dynamic(() => import("@/components/sections/BlueprintShowcase").then(mod => mod.BlueprintShowcase));
 const CustomerReviews = dynamic(() => import("@/components/sections/CustomerReviews").then(mod => mod.CustomerReviews));
 
 export const metadata: Metadata = {
@@ -71,9 +69,6 @@ export default function ShopHomePage() {
             {/* 2. STITCH 4-COLUMN ASSURANCE PROTOCOL (NO JARGON) */}
             <StitchAssurance />
 
-            {/* 3. TREND METAL POSTER CATALOG */}
-            <StitchCatalog />
-
             {/* 5. HİZMETLER & İMALAT HATLARI */}
             <section className="bg-[#f8f9fa] text-[#161616] relative z-10 border-b border-[#e5e7eb]">
                 <ServicesHomeSection />
@@ -87,11 +82,6 @@ export default function ShopHomePage() {
             {/* 7. 35.000+ SİPARİŞ DENEYİMİ & YORUMLAR */}
             <section className="bg-[#f8f9fa] text-[#161616] relative border-b border-[#e5e7eb]">
                 <CustomerReviews />
-            </section>
-
-            {/* 8. TEKNİK ŞEMATİK / RETRO BLUEPRINT CATALOG */}
-            <section className="bg-white text-[#161616] relative z-0 border-b border-[#e5e7eb]">
-                <BlueprintShowcase />
             </section>
 
             {/* GLOBAL FOOTER */}
