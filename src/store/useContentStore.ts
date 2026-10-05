@@ -1,4 +1,4 @@
-﻿import { create } from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ContentService } from "@/lib/supabase/content.service";
 import { upsertAdminContent } from "@/actions/admin";
@@ -415,14 +415,14 @@ interface ContentStore {
 
 export const defaultContent: SiteContent = {
     // Branding
-    headerLogo: "/logo.svg",
-    footerLogo: "/logo-white.svg",
+    headerLogo: "/veral-logo.png",
+    footerLogo: "/veral-logo.png",
     siteName: "VERAL",
 
     // Header Defaults
     headerConfig: {
-        logoLight: "/logo-white.svg",
-        logoDark: "/logo.svg",
+        logoLight: "/veral-logo.png",
+        logoDark: "/veral-logo.png",
         mode: 'translucent',
         transparency: 90,
         blur: 12,

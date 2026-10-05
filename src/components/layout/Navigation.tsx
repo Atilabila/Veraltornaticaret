@@ -124,7 +124,7 @@ export const Navigation = () => {
 
     const headerBg = isScrolled ? 'rgba(255, 255, 255, 0.96)' : 'rgba(255, 255, 255, 0.88)';
     const textColorClass = 'text-[#161616]';
-    const logoSrc = normalizeImagePath(config.logoDark || "/veral-logo.webp");
+    const logoSrc = "/veral-logo.png";
     const borderColor = 'rgba(0, 0, 0, 0.08)';
     const enableFx = !isMobileViewport;
     const blurValue = enableFx ? Math.min(config.blur || 12, 12) : 0;
@@ -156,24 +156,24 @@ export const Navigation = () => {
                 )}
 
                 <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-                    <div className={`flex items-center justify-between transition-all duration-500 ${config.announcementActive ? (isScrolled ? 'py-2' : 'py-3') : (isScrolled ? 'py-3' : 'py-4 md:py-5')
+                    <div className={`flex items-center justify-between transition-all duration-500 ${config.announcementActive ? (isScrolled ? 'py-2' : 'py-3') : (isScrolled ? 'py-2.5' : 'py-3.5 md:py-4')
                         }`}>
                         <div className="flex items-center gap-3 sm:gap-8 lg:gap-16 min-w-0 sm:min-w-[280px] lg:min-w-[320px]">
                             <m.div
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <Link href="/" className="flex items-center gap-2 sm:gap-4 group">
-                                    <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-7 w-7 md:h-10 md:w-10' : 'h-8 w-8 md:h-12 md:w-12'
+                                <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
+                                    <div className={`transition-all duration-500 flex-shrink-0 relative ${isScrolled ? 'h-9 w-9 md:h-11 md:w-11' : 'h-10 w-10 md:h-12 md:w-12'
                                         }`}>
                                         <Image
                                             src={logoSrc}
                                             alt={content.siteName || "VERAL"}
                                             fill
                                             sizes="(max-width: 768px) 56px, 80px"
-                                            className="object-contain transition-all duration-500"
+                                            className="object-contain rounded-full shadow-sm transition-all duration-500"
                                             priority
-                                            quality={70}
+                                            quality={95}
                                         />
                                     </div>
                                     <div className="flex flex-col">

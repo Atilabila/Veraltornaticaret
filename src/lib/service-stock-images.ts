@@ -13,7 +13,7 @@ function isRemoteProductImage(image?: string | null): boolean {
   const value = (image || "").trim();
   if (!value) return false;
   const lower = value.toLowerCase();
-  if (lower.includes("placeholder")) return false;
+  if (lower.includes("placeholder") || lower.includes("supabase.co")) return false;
   return lower.startsWith("http://") || lower.startsWith("https://");
 }
 
@@ -51,23 +51,22 @@ function matchStockByName(service: {
 }
 
 /**
- * Storefront cards: CMS-uploaded product photos first (the two real giyotin shots),
- * then name-matched local stock. Placeholder paths are ignored.
+ * Storefront cards: Verified local stock images first, then valid remote images (non-supabase).
  */
 export function resolveServiceStockImage(service: {
   image?: string | null;
   slug?: string | null;
   title?: string | null;
 }): string {
+  const byName = matchStockByName(service);
+  if (byName) return byName;
+
   if (isRemoteProductImage(service.image)) {
     return (service.image || "").trim();
   }
 
-  const byName = matchStockByName(service);
-  if (byName) return byName;
-
   const uploaded = (service.image || "").trim();
-  if (uploaded && !uploaded.toLowerCase().includes("placeholder")) {
+  if (uploaded && !uploaded.toLowerCase().includes("placeholder") && !uploaded.toLowerCase().includes("supabase.co")) {
     return uploaded;
   }
 

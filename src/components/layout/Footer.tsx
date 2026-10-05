@@ -11,7 +11,7 @@ import { PageContainer } from '@/components/layout/PageContainer';
 
 export const Footer = () => {
     const { content } = useContentStore();
-    const footerLogoSrc = normalizeImagePath((content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/logo.svg");
+    const footerLogoSrc = "/veral-logo.png";
     const siteName = content.siteName || "VERAL";
     const instagramHandle = (content.footerInstagram || "").replace('@', '').trim();
     const socialLinks = [
@@ -27,8 +27,8 @@ export const Footer = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
                         <div className="lg:col-span-12 xl:col-span-4 flex flex-col gap-6">
                             <Link href="/" className="flex items-center gap-4 group">
-                                <div className="h-12 w-12 relative flex-shrink-0">
-                                    <Image src={footerLogoSrc} alt={siteName} fill sizes="48px" className="object-contain" quality={70} />
+                                <div className="h-14 w-14 relative flex-shrink-0">
+                                    <Image src={footerLogoSrc} alt={siteName} fill sizes="56px" className="object-contain rounded-full shadow-sm" quality={95} />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-lg font-bold tracking-wide uppercase">{siteName}</span>

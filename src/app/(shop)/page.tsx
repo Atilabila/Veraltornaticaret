@@ -15,9 +15,6 @@ const ServicesHomeSection = dynamic(() =>
 const ProcessSection = dynamic(() => import("@/components/sections/ProcessSection").then(mod => mod.ProcessSection));
 const BlueprintShowcase = dynamic(() => import("@/components/sections/BlueprintShowcase").then(mod => mod.BlueprintShowcase));
 const CustomerReviews = dynamic(() => import("@/components/sections/CustomerReviews").then(mod => mod.CustomerReviews));
-const MetalArtCurator = dynamic(() =>
-    import("@/components/interactive/MetalArtCurator").then((mod) => mod.MetalArtCurator)
-);
 
 export const metadata: Metadata = {
     title: "Veral Teneke & Metal Poster İmalatı | İzmir Alsancak Seri Üretim",
@@ -76,11 +73,6 @@ export default function ShopHomePage() {
 
             {/* 3. TREND METAL POSTER CATALOG */}
             <StitchCatalog />
-
-            {/* 4. AI ATÖLYE KÜRATÖRÜ */}
-            <section className="bg-white text-[#161616] relative z-10 border-b border-[#e5e7eb] py-16 px-4 sm:px-6 lg:px-12">
-                <MetalArtCurator />
-            </section>
 
             {/* 5. HİZMETLER & İMALAT HATLARI */}
             <section className="bg-[#f8f9fa] text-[#161616] relative z-10 border-b border-[#e5e7eb]">
