@@ -101,7 +101,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                         </div>
                         <Link
                             href={`/teklif-al?hizmet=${service.slug}`}
-                            className="inline-flex items-center gap-2 h-12 px-6 bg-[var(--color-brand-accent)] text-white text-sm font-semibold hover:bg-[#0043ce] transition-colors shrink-0"
+                            className="inline-flex items-center gap-2 h-12 px-6 bg-[var(--color-brand-accent)] text-white text-sm font-semibold hover:bg-[#b45309] transition-colors shrink-0"
                         >
                             Teklif al <ArrowRight className="w-4 h-4" />
                         </Link>

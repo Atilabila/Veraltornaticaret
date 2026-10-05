@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useMemo, useEffect } from "react";
 import {
@@ -10,6 +10,7 @@ import {
   Filter,
   Sparkles,
   ShieldCheck,
+  Factory,
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -288,8 +289,8 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
 
 
   return (
-    <section className="bg-zinc-50 min-h-screen selection:bg-industrial-gold/30 selection:text-zinc-900">
-      <div className="pt-32 pb-16 md:pt-48 md:pb-32 px-6 overflow-hidden border-b border-zinc-200 relative bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.05),transparent_50%)]">
+    <section className="bg-[#fafafa] min-h-screen selection:bg-amber-500/30 selection:text-zinc-900">
+      <div className="pt-28 pb-14 md:pt-40 md:pb-24 px-6 overflow-hidden border-b border-zinc-200 relative bg-brushed-metal blueprint-grid">
         {headerBg && (
           <div
             className="absolute inset-0 bg-cover bg-center opacity-10 pointer-events-none mix-blend-multiply grayscale"
@@ -297,28 +298,28 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
           />
         )}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-industrial-gold/5 to-transparent opacity-40" />
-          <div className="absolute top-[-4rem] right-[-4rem] sm:right-[-2rem] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] bg-industrial-gold/10 blur-[120px] rounded-full" />
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-amber-500/5 to-transparent opacity-40" />
+          <div className="absolute top-[-4rem] right-[-4rem] sm:right-[-2rem] w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] bg-amber-500/10 blur-[120px] rounded-full" />
         </div>
 
         <div className="mx-auto w-full max-w-screen-2xl px-4 md:px-6 lg:px-8">
-          <div className="flex flex-col gap-6 max-w-4xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-none border border-industrial-gold/20 bg-industrial-gold/5 w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-industrial-gold shadow-[0_0_8px_rgba(212,175,55,0.4)] animate-pulse" />
-              <span className="text-[9px] font-black font-mono text-industrial-gold uppercase tracking-[0.3em]">
-                {headerLabel}
+          <div className="flex flex-col gap-5 max-w-4xl relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-none border border-amber-600/30 bg-white/80 backdrop-blur-sm w-fit">
+              <span className="w-2 h-2 rounded-full bg-amber-600 shadow-[0_0_8px_rgba(217,119,6,0.4)] animate-pulse" />
+              <span className="text-[10px] font-bold font-mono text-amber-800 uppercase tracking-[0.25em] technical-tag">
+                {headerLabel} // ATELIER DISPATCH : ALSANCAK, İZMİR
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black uppercase tracking-tighter text-zinc-900 font-syne italic leading-[0.85] max-w-5xl">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-zinc-900 font-syne leading-[0.9] max-w-5xl">
               {headerTitle.split(" ").map((word, i) => (
-                <span key={i} className={i % 2 !== 0 ? "text-industrial-gold" : ""}>
+                <span key={i} className={i % 2 !== 0 ? "text-amber-600" : ""}>
                   {word}{" "}
                 </span>
               ))}
             </h1>
 
-            <p className="text-lg md:text-xl text-zinc-500 max-w-xl font-medium leading-relaxed italic uppercase tracking-widest border-l-2 border-industrial-gold/30 pl-6">
+            <p className="text-base md:text-lg text-zinc-600 max-w-2xl font-medium leading-relaxed border-l-2 border-amber-500/40 pl-5">
               {headerSubtitle}
             </p>
           </div>
@@ -337,47 +338,65 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
             <div className="space-y-4">
               <div className="rounded-none border border-zinc-200 bg-white p-5 space-y-3 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <img src="/logo.svg" alt="Logo" className="h-10 w-10 object-contain drop-shadow-sm filter invert" />
+                  <img src="/veral-logo.png" alt="Veral Teneke Ticaret" className="h-10 w-10 object-contain drop-shadow-sm" />
                   <div className="text-zinc-900 font-black text-lg tracking-tight">
                     {content.siteName || "VERAL"}
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-industrial-gold" /> Hızlı kargo
+                <div className="grid grid-cols-2 gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-600 font-mono">
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-600" /> Hızlı Kargo
                   </div>
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-industrial-gold" /> İade garantisi
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-600" /> Üretici Fiyatı
                   </div>
-                  <div className="flex items-center gap-2 col-span-2">
-                    <ShieldCheck className="w-4 h-4 text-industrial-gold" /> Güvenli ödeme (256-bit SSL)
+                  <div className="flex items-center gap-1.5 col-span-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-600" /> DIN EN 10202 Sac Kalitesi
                   </div>
                 </div>
               </div>
 
-              {CART_ENABLED && (
-              <div className="rounded-none border-t-4 border-t-industrial-gold border border-zinc-200 bg-white p-6 space-y-4 shadow-lg shadow-zinc-200/50">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500">
-                    Sipariş Özeti
-                  </span>
-                  <ShoppingCart className="w-5 h-5 text-industrial-gold" />
+              {CART_ENABLED ? (
+                <div className="rounded-none border-t-4 border-t-amber-600 border border-zinc-200 bg-white p-6 space-y-4 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500 font-mono">
+                      Sipariş Özeti
+                    </span>
+                    <ShoppingCart className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div className="text-3xl font-black text-zinc-900 italic tracking-tighter">
+                    {cartTotal.toLocaleString("tr-TR")} <span className="text-sm font-mono text-zinc-400 uppercase ml-1">TL</span>
+                  </div>
+                  <div className="text-[10px] text-zinc-500 uppercase tracking-[0.15em] font-mono leading-relaxed">
+                    {shippingRemaining > 0
+                      ? `Bedava kargo için ${shippingRemaining.toLocaleString("tr-TR")} TL kaldı!`
+                      : "Tebrikler, kargo bizden!"}
+                  </div>
+                  <Link
+                    href="/sepet"
+                    className="inline-flex items-center justify-center w-full h-12 bg-amber-600 text-white font-black uppercase tracking-[0.2em] text-[11px] transition-all duration-200 shadow-sm hover:bg-amber-700"
+                  >
+                    ÖDEMEYE GİT ({cartCount})
+                  </Link>
                 </div>
-                <div className="text-3xl font-black text-zinc-900 italic tracking-tighter">
-                  {cartTotal.toLocaleString("tr-TR")} <span className="text-sm font-mono text-zinc-400 uppercase ml-1">TL</span>
+              ) : (
+                <div className="rounded-none border-t-4 border-t-amber-600 border border-zinc-200 bg-white p-5 space-y-3 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] font-mono text-amber-800">
+                      B2B & Toptan Sipariş
+                    </span>
+                    <Factory className="w-4 h-4 text-amber-600" />
+                  </div>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
+                    Toptan dosya teli, takvim tenekesi ve özel ölçü UV metal posterler için doğrudan Alsancak atölyemizden teklif alın.
+                  </p>
+                  <Link
+                    href="/teklif-al"
+                    className="inline-flex items-center justify-center w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold uppercase tracking-wider text-xs font-mono transition-colors shadow-sm"
+                  >
+                    Hızlı B2B Teklifi Al
+                  </Link>
                 </div>
-                <div className="text-[10px] text-zinc-500 uppercase tracking-[0.15em] font-mono leading-relaxed">
-                  {shippingRemaining > 0
-                    ? `Bedava kargo için ${shippingRemaining.toLocaleString("tr-TR")} TL kaldı!`
-                    : "Tebrikler, kargo bizden!"}
-                </div>
-                <Link
-                  href="/sepet"
-                  className="inline-flex items-center justify-center w-full h-12 bg-industrial-gold border-2 border-zinc-900 text-zinc-900 font-black uppercase tracking-[0.2em] text-[11px] transition-all duration-200 shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px]"
-                >
-                  ÖDEMEYE GİT ({cartCount})
-                </Link>
-              </div>
               )}
 
               <RecentlyViewed items={recentItems} />

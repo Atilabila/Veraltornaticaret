@@ -16,7 +16,7 @@ export default function UretimPage() {
                     Toptan teklif için formu doldurun.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Link href="/teklif-al" className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-[var(--color-brand-accent)] text-white font-semibold hover:bg-[#0043ce] transition-colors">
+                    <Link href="/teklif-al" className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-[var(--color-brand-accent)] text-white font-semibold hover:bg-[#b45309] transition-colors">
                         Teklif al <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link href="/#hizmetler" className="inline-flex items-center justify-center h-12 px-6 border border-[#c6c6c6] font-semibold hover:border-[var(--color-brand-accent)] transition-colors">

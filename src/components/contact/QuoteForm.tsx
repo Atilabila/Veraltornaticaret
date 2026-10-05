@@ -201,7 +201,7 @@ export const QuoteForm = () => {
                 </div>
                 <Button
                     onClick={() => window.location.href = "/"}
-                    className="bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white font-semibold h-12 px-10 rounded-none"
+                    className="bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white font-semibold h-12 px-10 rounded-none"
                 >
                     Ana sayfaya dön
                 </Button>
@@ -369,11 +369,11 @@ export const QuoteForm = () => {
                         ) : <div />}
 
                         {step < 3 ? (
-                            <Button onClick={nextStep} className="bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2 group">
+                            <Button onClick={nextStep} className="bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2 group">
                                 Sonraki adım <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         ) : (
-                            <Button disabled={isSubmitting} onClick={handleSubmit} className="bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2">
+                            <Button disabled={isSubmitting} onClick={handleSubmit} className="bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white font-semibold h-12 px-10 rounded-none flex items-center gap-2">
                                 {isSubmitting ? (
                                     <>Lütfen bekleyin <Loader2 className="w-4 h-4 animate-spin" /></>
                                 ) : (

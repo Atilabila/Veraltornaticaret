@@ -68,9 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr">
       <head>
-        <link rel="preconnect" href="https://wswlhtglwpyragymrdhl.supabase.co" />
-        <link rel="dns-prefetch" href="https://wswlhtglwpyragymrdhl.supabase.co" />
-
         {/* Runtime Google Fonts (avoids build-time fetch in restricted networks). */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -85,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LocalBusinessSchema />
         <KnowledgeBaseSchema />
       </head>
-      <body className="antialiased bg-zinc-950 text-zinc-300">
+      <body className="antialiased bg-[#fafafa] text-[#161616] selection:bg-[#d97706] selection:text-white">
         <MotionProvider>
           <AdminProvider>
             <ContentSyncProvider>

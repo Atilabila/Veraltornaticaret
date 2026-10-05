@@ -832,7 +832,7 @@ const CategoriesTab = ({ showNotification }: { showNotification: (type: "success
                 </div>
                 <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white px-6 py-3 rounded-xl font-bold transition-colors"
+                    className="flex items-center gap-2 bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white px-6 py-3 rounded-xl font-bold transition-colors"
                 >
                     <FolderPlus className="w-5 h-5" /> Yeni Kategori Ekle
                 </button>

@@ -1,475 +1,488 @@
 // =====================================================
-// PRODUCT DETAIL COMPONENT
-// Gallery-Style Presentation with Metal Art Aesthetic
+// PRODUCT DETAIL COMPONENT - GOOGLE STITCH LUXURY B2B
+// Luxury Industrial Architectural Metal Art Studio
 // =====================================================
-"use client"
+"use client";
 
-import * as React from "react"
-import { m } from 'framer-motion'
-import Link from "next/link"
+import * as React from "react";
+import { m } from "framer-motion";
+import Link from "next/link";
 import {
-    ArrowLeft, ShoppingBag, Share2, Heart,
-    Zap, Shield, Package, Truck, Check,
-    Info, Ruler, FileText, Factory, Phone, MessageCircle
-} from "lucide-react"
-import { MetalImage } from "@/components/landing/MetalImage"
-import { useCartStore } from "@/store/useCartStore"
-import { useContentStore } from "@/store/useContentStore"
-import { useToast } from "@/components/ui/use-toast"
-import { cn, formatPrice } from "@/lib/utils"
-import type { MetalProduct } from "@/lib/supabase/metal-products.types"
-import { useRouter } from "next/navigation"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CART_ENABLED } from "@/lib/commerce"
+  ArrowLeft,
+  Share2,
+  Heart,
+  Zap,
+  Shield,
+  Package,
+  Truck,
+  Check,
+  Info,
+  Ruler,
+  FileText,
+  Factory,
+  Phone,
+  MessageCircle,
+  Layers,
+  Sparkles,
+  Award,
+} from "lucide-react";
+import { MetalImage } from "@/components/landing/MetalImage";
+import { useContentStore } from "@/store/useContentStore";
+import { useToast } from "@/components/ui/use-toast";
+import { cn, formatPrice } from "@/lib/utils";
+import type { MetalProduct } from "@/lib/supabase/metal-products.types";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-    toTelHref,
-    buildProductWhatsAppUrl,
-    resolveFooterPhone,
-    resolveWhatsappNumber,
-} from "@/lib/contact"
+  toTelHref,
+  buildProductWhatsAppUrl,
+  resolveFooterPhone,
+  resolveWhatsappNumber,
+} from "@/lib/contact";
 
 interface ProductDetailProps {
-    product: MetalProduct
-    relatedProducts?: any[]
+  product: MetalProduct;
+  relatedProducts?: any[];
 }
 
-// Dynamic icon mapping
 const FEATURE_ICONS: Record<string, React.ElementType> = {
-    Shield, Zap, Package, Truck, Check, Info, Ruler, FileText, Factory
-}
+  Shield,
+  Zap,
+  Package,
+  Truck,
+  Check,
+  Info,
+  Ruler,
+  FileText,
+  Factory,
+};
 
-export const ProductDetail: React.FC<ProductDetailProps> = ({ product, relatedProducts = [] }) => {
-    const { addItem, items } = useCartStore()
-    const { content } = useContentStore()
-    const { toast } = useToast()
-    const router = useRouter()
-    const [isAdding, setIsAdding] = React.useState(false)
+export const ProductDetail: React.FC<ProductDetailProps> = ({
+  product,
+  relatedProducts = [],
+}) => {
+  const { content } = useContentStore();
+  const { toast } = useToast();
 
-    const tel = toTelHref(resolveFooterPhone(content.footerPhone))
-    const wa = buildProductWhatsAppUrl({
-        whatsappNumber: resolveWhatsappNumber(content.whatsappNumber),
-        productName: product.name,
-        baseMessage: content.whatsappMessage,
-    })
+  // State for interactive Stitch configuration selectors
+  const [selectedSize, setSelectedSize] = React.useState<string>("L (45x65 cm)");
+  const [selectedMounting, setSelectedMounting] = React.useState<string>("3M VHB Manyetik");
+  const [selectedFinish, setSelectedFinish] = React.useState<string>("Mat Koruyucu Vernik");
 
-    const inCart = items.some(item => item.productId === product.id)
-    const isRetail = product.price > 0 && product.stock_quantity > 0;
+  const tel = toTelHref(resolveFooterPhone(content.footerPhone));
+  const wa = buildProductWhatsAppUrl({
+    whatsappNumber: resolveWhatsappNumber(content.whatsappNumber),
+    productName: `${product.name} [${selectedSize} - ${selectedMounting}]`,
+    baseMessage: content.whatsappMessage,
+  });
 
-    const handleAddToCart = (redirect: boolean = false) => {
-        if (!CART_ENABLED) return
-        setIsAdding(true)
-        const result = addItem({
-            productId: product.id,
-            name: product.name,
-            slug: product.slug,
-            price: product.price,
-            image: product.image_url || "/placeholder.png",
-            size: "Standart (45x60cm)",
-            orientation: "vertical"
-        })
+  const isRetail = product.price > 0 && product.stock_quantity > 0;
+  const sortedFeatures =
+    product.features?.sort((a, b) => a.display_order - b.display_order) || [];
 
-        if (result.success) {
-            toast({
-                title: "Başarılı",
-                description: "Ürün sepetinize eklendi!",
-            })
-            if (redirect) {
-                router.push("/sepet")
-            }
-        } else {
-            toast({
-                title: "Hata",
-                description: result.error,
-                variant: "destructive"
-            })
-        }
-        setIsAdding(false)
+  const handleShare = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard?.writeText(window.location.href);
+      toast({
+        title: "Bağlantı Kopyalandı",
+        description: "Ürün linki panoya kaydedildi.",
+      });
     }
+  };
 
-    const sortedFeatures = product.features?.sort((a, b) => a.display_order - b.display_order) || []
+  return (
+    <main className="min-h-screen bg-brushed-metal font-sans selection:bg-amber-600 selection:text-white">
+      {/* Precision Top Sticky Sub-Header */}
+      <header className="sticky top-0 z-40 glass-panel border-b border-zinc-200/80 px-4 md:px-8 py-3 transition-colors">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link
+            href="/urunler"
+            className="flex items-center gap-2 text-zinc-600 hover:text-amber-800 font-mono text-xs font-bold uppercase tracking-widest transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Kataloğa Dön</span>
+          </Link>
 
-    return (
-        <main className="min-h-screen bg-[#FAFAFA] font-syne">
-            {/* Navigation Bar */}
-            <nav className="fixed top-0 left-0 right-0 z-40 bg-[#FAFAFA]/90 backdrop-blur-lg border-b-2 border-zinc-900 shadow-[0_4px_0_0_#18181b]">
-                <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-                    <Link
-                        href="/urunler"
-                        className="flex items-center gap-2 text-zinc-600 hover:text-zinc-900 font-black uppercase tracking-[0.2em] font-mono transition-colors"
-                    >
-                        <ArrowLeft className="w-5 h-5" />
-                        <span className="text-sm">Kataloğa Dön</span>
-                    </Link>
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline-block text-[11px] font-mono text-amber-800 bg-amber-50 px-2.5 py-1 border border-amber-200">
+              SPEC: DIN EN 10202
+            </span>
+            <button
+              onClick={handleShare}
+              aria-label="Paylaş"
+              className="p-2 border border-zinc-300 hover:border-amber-600 bg-white/80 hover:bg-white text-zinc-700 transition-colors"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </header>
 
-                    <div className="flex items-center gap-3">
-                        <button className="p-2 border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b] bg-white hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
-                            <Heart className="w-5 h-5 text-zinc-900" />
-                        </button>
-                        <button className="p-2 border-2 border-zinc-900 shadow-[2px_2px_0_0_#18181b] bg-white hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
-                            <Share2 className="w-5 h-5 text-zinc-900" />
-                        </button>
-                    </div>
+      {/* Main Showcase Layout */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
+        {/* Breadcrumb line */}
+        <nav className="flex items-center gap-2 text-xs font-mono text-zinc-500 mb-8 uppercase tracking-wider">
+          <Link href="/" className="hover:text-amber-700 transition-colors">
+            Ana Sayfa
+          </Link>
+          <span>/</span>
+          <Link href="/urunler" className="hover:text-amber-700 transition-colors">
+            Katalog
+          </Link>
+          <span>/</span>
+          <span className="text-zinc-900 font-bold truncate max-w-xs">{product.name}</span>
+        </nav>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* LEFT: Floating Showcase Metal Plate */}
+          <div className="lg:col-span-7 space-y-6 lg:sticky lg:top-24">
+            <div className="relative group w-full aspect-[4/3] rounded-none overflow-hidden bg-white border border-zinc-200 shadow-xl">
+              {/* Subtle ambient metal drop shadow */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none" />
+
+              {/* Technical Corner Alignment Marks */}
+              <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-amber-600/80 pointer-events-none z-10" />
+              <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-amber-600/80 pointer-events-none z-10" />
+              <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-amber-600/80 pointer-events-none z-10" />
+              <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-amber-600/80 pointer-events-none z-10" />
+
+              {product.image_url ? (
+                <MetalImage
+                  src={product.image_url}
+                  alt={product.name}
+                  backgroundColor="transparent"
+                  className="w-full h-full p-6 sm:p-10 transition-transform duration-700 group-hover:scale-105"
+                  priority
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-zinc-300">
+                  <Factory className="w-20 h-20 stroke-1" />
                 </div>
-            </nav>
+              )}
 
-            {/* Main Content */}
-            <div className="pt-24 pb-32">
-                <div className="container mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-
-                        {/* Left: Product Image */}
-                        <m.div
-                            initial={{ opacity: 0, x: -40 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="sticky top-24"
-                        >
-                            <div
-                                className={cn(
-                                    "aspect-square overflow-hidden",
-                                    "border-2 border-zinc-900 bg-white",
-                                    "flex items-center justify-center p-2",
-                                    "relative shadow-[12px_12px_0_0_#18181b]"
-                                )}
-                            >
-                                {product.image_url ? (
-                                    <MetalImage
-                                        src={product.image_url}
-                                        alt={product.name}
-                                        backgroundColor={"transparent"}
-                                        className="w-full h-full p-8"
-                                        priority
-                                    />
-                                ) : (
-                                    <div className="w-32 h-32 rounded-sm bg-zinc-100 border-2 border-dashed border-zinc-300" />
-                                )}
-
-                                {/* Category Badge */}
-                                <div className="absolute top-4 left-4">
-                                    <span className={cn(
-                                        "inline-flex items-center gap-2 px-3 py-1.5",
-                                        "text-xs lg:text-sm font-black uppercase tracking-[0.2em] font-mono",
-                                        "bg-industrial-gold border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b]"
-                                    )}>
-                                        {product.category?.name}
-                                    </span>
-                                </div>
-
-                                {/* Stock Badge */}
-                                {isRetail && (
-                                    <div className="absolute top-4 right-4">
-                                        <span className={cn(
-                                            "inline-flex items-center gap-2 px-3 py-1.5",
-                                            "text-xs lg:text-sm font-black uppercase tracking-[0.2em] font-mono",
-                                            "bg-emerald-400 border-2 border-zinc-900 text-zinc-900 shadow-[2px_2px_0_0_#18181b]"
-                                        )}>
-                                            <span className="w-2 h-2 rounded-full bg-white border-2 border-zinc-900 animate-pulse" />
-                                            Stokta
-                                        </span>
-                                    </div>
-                                )}
-                            </div>
-                        </m.div>
-
-                        {/* Right: Product Info */}
-                        <m.div
-                            initial={{ opacity: 0, x: 40 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            className="space-y-8 pt-8 lg:pt-0"
-                        >
-                            {/* Title & SKU */}
-                            <div>
-                                <div className="flex items-center gap-3 mb-4">
-                                    <span className="text-xs lg:text-sm font-black font-mono text-zinc-500 uppercase tracking-widest bg-zinc-200 border-2 border-zinc-900 px-3 py-2 shadow-[2px_2px_0_0_#18181b]">
-                                        SKU: {product.sku || product.id.slice(0, 8)}
-                                    </span>
-                                    {product.is_showcase && (
-                                        <span className="px-3 py-2 font-mono border-2 border-zinc-900 bg-amber-400 text-zinc-900 text-xs lg:text-sm font-black uppercase tracking-widest shadow-[2px_2px_0_0_#18181b]">
-                                            Vitrin Ürünü
-                                        </span>
-                                    )}
-                                </div>
-                                <h1 className="font-syne text-5xl md:text-6xl lg:text-7xl font-black uppercase italic text-zinc-900 mb-6 tracking-tighter leading-[0.9]">
-                                    {product.name}
-                                </h1>
-                                {product.description && (
-                                    <p className="text-lg lg:text-xl text-zinc-700 leading-relaxed font-mono font-medium border-l-4 border-industrial-gold pl-5 py-2">
-                                        {product.description}
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* Price & CTA */}
-                            {isRetail ? (
-                                <div className="p-8 bg-white border-2 border-zinc-900 space-y-8 shadow-[8px_8px_0_0_#18181b]">
-                                    <div className="flex items-baseline gap-4">
-                                        <span className="text-5xl font-black text-zinc-900 italic tracking-tighter">
-                                            {formatPrice(product.price)}
-                                        </span>
-                                        <span className="text-xs lg:text-sm font-black font-mono text-zinc-500 uppercase tracking-widest bg-zinc-100 border-2 border-zinc-900 px-3 py-1.5 shadow-[2px_2px_0_0_#18181b]">
-                                            KDV Dahil
-                                        </span>
-                                    </div>
-
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                        {CART_ENABLED ? (
-                                            <>
-                                                <m.button
-                                                    onClick={() => handleAddToCart()}
-                                                    disabled={inCart || isAdding}
-                                                    className={cn(
-                                                        "flex-1 flex items-center justify-center gap-3 px-8 py-5",
-                                                        "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
-                                                        "transition-all duration-300 border-2 border-zinc-900",
-                                                        inCart
-                                                            ? "bg-emerald-400 text-zinc-900 shadow-[4px_4px_0_0_#10b981]"
-                                                            : "bg-white text-zinc-900 shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]",
-                                                    )}
-                                                >
-                                                    {inCart ? (
-                                                        <>
-                                                            <Check className="w-6 h-6" />
-                                                            Sepette
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <ShoppingBag className="w-6 h-6" />
-                                                            {isAdding ? "..." : "Sepete Ekle"}
-                                                        </>
-                                                    )}
-                                                </m.button>
-
-                                                <m.button
-                                                    onClick={() => handleAddToCart(true)}
-                                                    disabled={isAdding}
-                                                    className={cn(
-                                                        "flex-1 flex items-center justify-center gap-3 px-10 py-5",
-                                                        "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
-                                                        "transition-all duration-300 border-2 border-zinc-900",
-                                                        "bg-industrial-gold text-zinc-900",
-                                                        "shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]"
-                                                    )}
-                                                >
-                                                    <Zap className="w-6 h-6 fill-current" />
-                                                    Hemen Al
-                                                </m.button>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <a
-                                                    href={tel}
-                                                    className={cn(
-                                                        "flex-1 flex items-center justify-center gap-3 px-8 py-5",
-                                                        "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
-                                                        "transition-all duration-300 border-2 border-zinc-900",
-                                                        "bg-white text-zinc-900 shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]"
-                                                    )}
-                                                >
-                                                    <Phone className="w-6 h-6" />
-                                                    Ara
-                                                </a>
-                                                <a
-                                                    href={wa}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className={cn(
-                                                        "flex-1 flex items-center justify-center gap-3 px-10 py-5",
-                                                        "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
-                                                        "transition-all duration-300 border-2 border-zinc-900",
-                                                        "bg-industrial-gold text-zinc-900",
-                                                        "shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]"
-                                                    )}
-                                                >
-                                                    <MessageCircle className="w-6 h-6" />
-                                                    WhatsApp
-                                                </a>
-                                                <Link
-                                                    href="/teklif-al"
-                                                    className={cn(
-                                                        "flex items-center justify-center gap-3 px-8 py-4 w-full",
-                                                        "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
-                                                        "border-2 border-zinc-900 text-zinc-700 hover:bg-zinc-50 transition-all"
-                                                    )}
-                                                >
-                                                    <FileText className="w-5 h-5" />
-                                                    Teklif Al
-                                                </Link>
-                                            </>
-                                        )}
-                                    </div>
-
-                                    <div className="flex items-center gap-3 text-xs lg:text-sm font-black font-mono text-zinc-500 uppercase tracking-widest justify-center">
-                                        <Shield className="w-5 h-5 text-industrial-gold" />
-                                        <span>Güvenli Ödeme & SSL Koruması</span>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="p-8 bg-white border-2 border-zinc-900 space-y-6 shadow-[8px_8px_0_0_#18181b]">
-                                    <div className="flex items-center gap-3 text-industrial-gold mb-2">
-                                        <Info className="w-6 h-6" />
-                                        <span className="font-black font-mono uppercase tracking-[0.2em] text-zinc-900">Özel Üretim / Proje Ürünü</span>
-                                    </div>
-                                    <p className="text-zinc-700 font-mono text-base lg:text-lg leading-relaxed border-l-4 border-industrial-gold pl-5 py-2">
-                                        Bu ürün stoktan satışa kapalıdır. Projeleriniz için özel üretim olarak talep edebilirsiniz.
-                                    </p>
-                                    <a
-                                        href={wa}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={cn(
-                                            "flex items-center justify-center gap-3 px-8 py-5 w-full",
-                                            "font-black text-sm lg:text-base uppercase tracking-[0.2em] font-mono",
-                                            "bg-industrial-gold border-2 border-zinc-900 text-zinc-900 transition-all",
-                                            "shadow-[6px_6px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[4px] hover:translate-y-[4px]"
-                                        )}
-                                    >
-                                        <FileText className="w-6 h-6" />
-                                        Fiyat Teklifi İste
-                                    </a>
-                                </div>
-                            )}
-
-                            {/* Detailed Info Tabs */}
-                            <div className="pt-8">
-                                <Tabs defaultValue="features" className="w-full">
-                                    <TabsList className="w-full grid grid-cols-3 bg-zinc-100 border-2 border-zinc-900 rounded-none p-0 h-auto shadow-[4px_4px_0_0_#18181b]">
-                                        <TabsTrigger value="features" className="font-black text-sm lg:text-base font-mono uppercase tracking-[0.1em] rounded-none py-5 data-[state=active]:bg-industrial-gold data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 data-[state=active]:shadow-none text-zinc-500 hover:text-zinc-900">Özellikler</TabsTrigger>
-                                        <TabsTrigger value="shipping" className="font-black text-sm lg:text-base font-mono uppercase tracking-[0.1em] rounded-none py-5 border-l-2 border-zinc-900 data-[state=active]:bg-industrial-gold data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 data-[state=active]:shadow-none text-zinc-500 hover:text-zinc-900">Teslimat</TabsTrigger>
-                                        <TabsTrigger value="warranty" className="font-black text-sm lg:text-base font-mono uppercase tracking-[0.1em] rounded-none py-5 border-l-2 border-zinc-900 data-[state=active]:bg-industrial-gold data-[state=active]:text-zinc-900 data-[state=active]:border-b-2 data-[state=active]:border-zinc-900 data-[state=active]:shadow-none text-zinc-500 hover:text-zinc-900">Garanti</TabsTrigger>
-                                    </TabsList>
-
-                                    <TabsContent value="features" className="mt-8 space-y-4">
-                                        <div className="grid grid-cols-1 gap-4">
-                                            {sortedFeatures.map((feature, index) => (
-                                                <div key={index} className="flex gap-4 p-5 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b]">
-                                                    <div className="mt-1 border-r-2 border-zinc-900 pr-4 mr-1">
-                                                        {feature.feature_icon && FEATURE_ICONS[feature.feature_icon] ? (
-                                                            React.createElement(FEATURE_ICONS[feature.feature_icon], { className: "w-6 h-6 text-industrial-gold" })
-                                                        ) : <Zap className="w-6 h-6 text-industrial-gold" />}
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="font-black font-mono tracking-widest uppercase text-zinc-900 text-xs lg:text-sm mb-2">{product.category?.name || "Özellik"}</h4>
-                                                        <p className="text-zinc-700 font-medium text-base lg:text-lg border-l-2 border-zinc-300 pl-4">{feature.feature_text}</p>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                            {/* Default Specs if none */}
-                                            {sortedFeatures.length === 0 && (
-                                                <div className="text-zinc-500 text-sm font-mono border-l-4 border-zinc-300 pl-4 py-2 bg-zinc-100 italic">Bu ürün için ek teknik özellik girilmemiştir.</div>
-                                            )}
-
-                                            {/* Common Specs - Refined Display */}
-                                            <div className="mt-6 border-t-4 border-zinc-900 pt-6">
-                                                <h4 className="font-syne font-black italic uppercase text-2xl lg:text-3xl text-zinc-900 mb-6 underline decoration-industrial-gold decoration-4 underline-offset-4">Teknik Detaylar</h4>
-                                                <div className="space-y-4 font-mono text-base lg:text-lg">
-                                                    <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
-                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Malzeme:</span>
-                                                        <span className="font-bold text-zinc-900">{product.material || "1.5mm DKP Sac"}</span>
-                                                    </div>
-                                                    <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
-                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Boya:</span>
-                                                        <span className="font-bold text-zinc-900">{product.paint || "Elektrostatik Toz"}</span>
-                                                    </div>
-                                                    <div className="flex justify-between items-center border-b-2 border-zinc-100 pb-2">
-                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Montaj:</span>
-                                                        <span className="font-bold text-zinc-900">{product.installation || "Hazır Askı Sistemi"}</span>
-                                                    </div>
-                                                    <div className="flex justify-between items-center pb-2">
-                                                        <span className="font-black text-zinc-500 uppercase tracking-widest text-xs lg:text-sm">Menşei:</span>
-                                                        <span className="font-bold text-zinc-900">{product.origin || "Yerli Üretim (İzmir)"}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </TabsContent>
-
-                                    <TabsContent value="shipping" className="mt-8">
-                                        <div className="space-y-6 text-zinc-700 text-base lg:text-lg font-medium font-mono p-8 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b]">
-                                            <p className="border-l-4 border-industrial-gold pl-5 py-1"><strong className="text-zinc-900 uppercase tracking-wider text-sm lg:text-base block mb-2">Standart Teslimat:</strong> Siparişiniz, onaylandıktan sonraki 2-4 iş günü içerisinde kargoya teslim edilir.</p>
-                                            <p className="border-l-4 border-industrial-gold pl-5 py-1"><strong className="text-zinc-900 uppercase tracking-wider text-sm lg:text-base block mb-2">Özenli Paketleme:</strong> Tüm metal posterlerimiz, darbelere dayanıklı özel kutularda ve koruyucu strafor destekli olarak gönderilir.</p>
-                                            <p className="text-xs lg:text-sm text-zinc-500 uppercase font-black tracking-widest mt-8 bg-zinc-100 p-4 border-2 border-dashed border-zinc-300">*Resmi tatiller ve kampanya dönemlerinde teslimat sürelerinde değişiklik olabilir.</p>
-                                        </div>
-                                    </TabsContent>
-
-                                    <TabsContent value="warranty" className="mt-8">
-                                        <div className="space-y-6 text-zinc-700 text-base lg:text-lg font-medium font-mono p-8 bg-white border-2 border-zinc-900 shadow-[4px_4px_0_0_#18181b]">
-                                            <div className="flex items-center gap-4 mb-8 border-b-2 border-zinc-100 pb-6">
-                                                <Shield className="w-10 h-10 text-industrial-gold" />
-                                                <span className="text-zinc-900 font-syne font-black italic uppercase text-2xl lg:text-3xl">10 Yıl Solmazlık Garantisi</span>
-                                            </div>
-                                            <p className="border-l-4 border-industrial-gold pl-5 py-2">VERAL Metal Works ürünleri, en yüksek kalitede malzemeler ve boya teknolojisi kullanılarak üretilir. İç mekan kullanımında solmaya, paslanmaya ve deformasyona karşı 10 yıl garanti sunuyoruz.</p>
-                                            <p className="border-l-4 border-industrial-gold pl-5 py-2">İade ve değişim işlemleriniz için 14 gün içerisinde müşteri hizmetlerimizle iletişime geçebilirsiniz.</p>
-                                        </div>
-                                    </TabsContent>
-                                </Tabs>
-                            </div>
-                        </m.div>
-                    </div>
-                </div>
+              {/* Status Tag */}
+              <div className="absolute top-4 left-4 z-20">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/95 backdrop-blur-md border border-amber-600/40 text-amber-800 text-[10px] font-mono font-bold uppercase tracking-widest shadow-sm">
+                  <Sparkles className="w-3 h-3 text-amber-600" />
+                  {product.category?.name || "ÖZEL SERİ"}
+                </span>
+              </div>
             </div>
 
-            {/* Related Products Section */}
-            {relatedProducts && relatedProducts.length > 0 && (
-                <section className="py-24 border-t-4 border-zinc-900 bg-white">
-                    <div className="container mx-auto px-6">
-                        <div className="flex items-center justify-between mb-16 border-b-2 border-zinc-900 pb-4">
-                            <h2 className="text-4xl md:text-5xl font-black font-syne uppercase italic text-zinc-900 tracking-tighter">
-                                Benzer Ürünler
-                            </h2>
-                            <Link
-                                href="/urunler"
-                                className="text-sm font-black text-zinc-500 uppercase tracking-widest hover:text-industrial-gold transition-colors flex items-center gap-2 font-mono"
-                            >
-                                Tümünü Gör <ArrowLeft className="w-5 h-5 rotate-180" />
-                            </Link>
-                        </div>
+            {/* Quick Feature Strip Below Image */}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="p-3 bg-white/80 backdrop-blur-sm border border-zinc-200">
+                <span className="block text-[11px] font-mono font-bold text-zinc-900 uppercase">
+                  1200 DPI UV
+                </span>
+                <span className="text-[10px] text-zinc-500 font-mono">Mikronize Piezo</span>
+              </div>
+              <div className="p-3 bg-white/80 backdrop-blur-sm border border-zinc-200">
+                <span className="block text-[11px] font-mono font-bold text-zinc-900 uppercase">
+                  0.50 MM ÇELİK
+                </span>
+                <span className="text-[10px] text-zinc-500 font-mono">DIN EN 10202 Sac</span>
+              </div>
+              <div className="p-3 bg-white/80 backdrop-blur-sm border border-zinc-200">
+                <span className="block text-[11px] font-mono font-bold text-zinc-900 uppercase">
+                  10 YIL GARANTİ
+                </span>
+                <span className="text-[10px] text-zinc-500 font-mono">Solmazlık & Pas</span>
+              </div>
+            </div>
+          </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {relatedProducts.map((relProduct) => (
-                                <Link
-                                    key={relProduct.id}
-                                    href={`/urunler/${relProduct.slug}`}
-                                    className="group block border-2 border-zinc-900 bg-[#FAFAFA] shadow-[8px_8px_0_0_#18181b] hover:shadow-[2px_2px_0_0_#18181b] hover:translate-x-[6px] hover:translate-y-[6px] transition-all p-3"
-                                >
-                                    <div
-                                        className="aspect-square border-2 border-zinc-900 overflow-hidden mb-4 relative bg-white"
-                                    >
-                                        {relProduct.image_url ? (
-                                            <MetalImage
-                                                src={relProduct.image_url}
-                                                alt={relProduct.name}
-                                                backgroundColor="transparent"
-                                                className="w-full h-full p-8 transition-transform duration-500 group-hover:scale-105"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-zinc-100 text-zinc-400">
-                                                <Zap className="w-8 h-8" />
-                                            </div>
-                                        )}
+          {/* RIGHT: Product Details, Configurator & Direct B2B Triggers */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Header Block */}
+            <div className="space-y-3 pb-4 border-b border-zinc-200">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest bg-zinc-100 px-2.5 py-1 border border-zinc-200">
+                  SKU: {product.sku || product.id.slice(0, 8).toUpperCase()}
+                </span>
+                <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2.5 py-1 border border-emerald-200 font-bold uppercase">
+                  İZMİR ALSANCAK İMALATI
+                </span>
+              </div>
 
-                                        {relProduct.price > 0 && (
-                                            <div className="absolute top-0 right-0 border-l-2 border-b-2 border-zinc-900 bg-industrial-gold px-4 py-2 text-xs lg:text-sm font-black font-mono text-zinc-900">
-                                                {formatPrice(relProduct.price)}
-                                            </div>
-                                        )}
-                                    </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-zinc-900 font-syne leading-tight">
+                {product.name}
+              </h1>
 
-                                    <div className="px-1 pb-3 pt-2">
-                                        <h3 className="text-zinc-900 font-syne font-black uppercase text-xl lg:text-2xl truncate group-hover:text-industrial-gold transition-colors">
-                                            {relProduct.name}
-                                        </h3>
-                                        <p className="text-xs lg:text-sm uppercase font-black tracking-widest text-zinc-500 font-mono mt-2 truncate">
-                                            {relProduct.category?.name || "Metal Tablo"}
-                                        </p>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
+              {product.description && (
+                <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-sans">
+                  {product.description}
+                </p>
+              )}
+            </div>
+
+            {/* Price & Wholesale Notice */}
+            <div className="p-5 glass-panel border border-zinc-200 space-y-2">
+              <div className="flex items-baseline justify-between">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 block mb-1">
+                    BİRİM LİSTE FİYATI
+                  </span>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-3xl sm:text-4xl font-black text-zinc-900 tracking-tight font-syne">
+                      {isRetail ? formatPrice(product.price) : "Proje Fiyatı"}
+                    </span>
+                    {isRetail && (
+                      <span className="text-[10px] font-mono text-emerald-700 font-bold uppercase bg-emerald-100/60 px-2 py-0.5">
+                        KDV Dahil
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] font-mono text-amber-800 font-bold uppercase block">
+                    Toptan Alımlarda
+                  </span>
+                  <span className="text-xs text-zinc-600 font-semibold">Özel İskonto Mevcuttur</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Stitch Configuration Selectors */}
+            <div className="space-y-4 pt-2">
+              {/* Ebat / Boyut Seçimi */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold font-mono uppercase tracking-wider text-zinc-800 flex justify-between">
+                  <span>Ölçü Seçimi</span>
+                  <span className="text-[10px] text-amber-700 font-normal">Özel Ebat Mümkündür</span>
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { label: "M", dim: "30x42 cm", code: "M (30x42 cm)" },
+                    { label: "L", dim: "45x65 cm", code: "L (45x65 cm)" },
+                    { label: "XL", dim: "70x100 cm", code: "XL (70x100 cm)" },
+                  ].map((sz) => (
+                    <button
+                      key={sz.code}
+                      type="button"
+                      onClick={() => setSelectedSize(sz.code)}
+                      className={cn(
+                        "py-3 px-2 text-center border font-mono transition-all",
+                        selectedSize === sz.code
+                          ? "border-amber-600 bg-amber-50 text-amber-900 font-bold shadow-sm"
+                          : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-400"
+                      )}
+                    >
+                      <span className="block text-xs font-bold">{sz.label}</span>
+                      <span className="text-[10px] opacity-75">{sz.dim}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Asma & Montaj Sistemi */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold font-mono uppercase tracking-wider text-zinc-800">
+                  Montaj & Asma Kiti
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { title: "3M VHB Manyetik Ped", subtitle: "Duvar Delmez / Saniyede Montaj" },
+                    { title: "Paslanmaz Standoff Vida", subtitle: "Mekanik Yükseltici Kit" },
+                  ].map((m) => (
+                    <button
+                      key={m.title}
+                      type="button"
+                      onClick={() => setSelectedMounting(m.title)}
+                      className={cn(
+                        "p-3 text-left border transition-all",
+                        selectedMounting === m.title
+                          ? "border-amber-600 bg-amber-50 text-amber-900 shadow-sm"
+                          : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-400"
+                      )}
+                    >
+                      <span className="block text-xs font-bold">{m.title}</span>
+                      <span className="text-[10px] text-zinc-500 font-mono">{m.subtitle}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 100% B2B Action Buttons (CART_ENABLED = false) */}
+            <div className="space-y-3 pt-4 border-t border-zinc-200">
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-3 shadow-md shadow-emerald-600/20 transition-all font-mono"
+              >
+                <MessageCircle className="w-5 h-5" />
+                WhatsApp ile Sipariş & Fiyat Onayı
+              </a>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  href="/teklif-al"
+                  className="py-3 px-4 border border-zinc-300 hover:border-amber-600 hover:bg-amber-50 text-zinc-800 hover:text-amber-900 text-xs font-bold font-mono tracking-wider uppercase text-center flex items-center justify-center gap-2 transition-colors"
+                >
+                  <FileText className="w-4 h-4 text-amber-600" />
+                  Teklif Formu
+                </Link>
+
+                <a
+                  href={tel}
+                  className="py-3 px-4 border border-zinc-300 hover:border-zinc-800 hover:bg-zinc-50 text-zinc-800 text-xs font-bold font-mono tracking-wider uppercase text-center flex items-center justify-center gap-2 transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-zinc-600" />
+                  Atölye Hattı
+                </a>
+              </div>
+            </div>
+
+            {/* Reassurance Grid */}
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <div className="p-3 bg-white border border-zinc-200 flex items-start gap-2.5">
+                <Truck className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold text-zinc-900">Güvenli Ahşap Kasa</h4>
+                  <p className="text-[10px] text-zinc-500">Köşe korumalı kraft ambalaj</p>
+                </div>
+              </div>
+              <div className="p-3 bg-white border border-zinc-200 flex items-start gap-2.5">
+                <Award className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold text-zinc-900">Alsancak Zanaati</h4>
+                  <p className="text-[10px] text-zinc-500">1980&apos;den beri kesintisiz üretim</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Tabs: Specifications, Delivery, Warranty */}
+            <div className="pt-4">
+              <Tabs defaultValue="features" className="w-full">
+                <TabsList className="w-full grid grid-cols-3 bg-zinc-100 border border-zinc-200 rounded-none p-0 h-auto">
+                  <TabsTrigger
+                    value="features"
+                    className="font-mono font-bold text-xs uppercase py-3 data-[state=active]:bg-white data-[state=active]:text-amber-800 data-[state=active]:border-b-2 data-[state=active]:border-amber-600 text-zinc-600 rounded-none"
+                  >
+                    Teknik Detay
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="shipping"
+                    className="font-mono font-bold text-xs uppercase py-3 data-[state=active]:bg-white data-[state=active]:text-amber-800 data-[state=active]:border-b-2 data-[state=active]:border-amber-600 text-zinc-600 rounded-none"
+                  >
+                    Lojistik
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="warranty"
+                    className="font-mono font-bold text-xs uppercase py-3 data-[state=active]:bg-white data-[state=active]:text-amber-800 data-[state=active]:border-b-2 data-[state=active]:border-amber-600 text-zinc-600 rounded-none"
+                  >
+                    Garanti
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="features" className="mt-4 space-y-3">
+                  <div className="p-4 bg-white border border-zinc-200 space-y-2.5 text-xs font-mono">
+                    <div className="flex justify-between border-b border-zinc-100 pb-2">
+                      <span className="text-zinc-500">Hammadde Standardı:</span>
+                      <span className="font-bold text-zinc-900">
+                        {product.material || "0.50mm DIN EN 10202 Teneke Levha"}
+                      </span>
                     </div>
-                </section>
-            )}
+                    <div className="flex justify-between border-b border-zinc-100 pb-2">
+                      <span className="text-zinc-500">Baskı Çözünürlüğü:</span>
+                      <span className="font-bold text-zinc-900">1200 x 1200 DPI Piezo UV</span>
+                    </div>
+                    <div className="flex justify-between border-b border-zinc-100 pb-2">
+                      <span className="text-zinc-500">Yüzey Koruması:</span>
+                      <span className="font-bold text-zinc-900">
+                        {product.paint || "Çift Kat Ultraviyole Mat Vernik"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-zinc-100 pb-2">
+                      <span className="text-zinc-500">Montaj Donanımı:</span>
+                      <span className="font-bold text-zinc-900">
+                        {product.installation || "N35 Neodimyum Manyetik Ped Dahil"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-zinc-500">İmalat Yeri:</span>
+                      <span className="font-bold text-zinc-900">Alsancak / Konak / İzmir</span>
+                    </div>
+                  </div>
+                </TabsContent>
 
-        </main>
-    )
-}
+                <TabsContent value="shipping" className="mt-4">
+                  <div className="p-4 bg-white border border-zinc-200 space-y-2 text-xs text-zinc-600 leading-relaxed font-sans">
+                    <p>
+                      <strong>Standart Teslimat:</strong> Siparişiniz onaylandıktan sonra 24-48 saat içerisinde özenle paketlenerek anlaşmalı kargoya verilir.
+                    </p>
+                    <p>
+                      <strong>Toptan ve Ambar Sevkiyatı:</strong> İzmir Gıda Çarşısı ve ambarlar üzerinden tüm Türkiye&apos;ye doğrudan paletli sevkiyat sağlanmaktadır.
+                    </p>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="warranty" className="mt-4">
+                  <div className="p-4 bg-white border border-zinc-200 space-y-2 text-xs text-zinc-600 leading-relaxed font-sans">
+                    <p>
+                      <strong>10 Yıl Renk Solmazlık Güvencesi:</strong> UV kürlemeli endüstriyel pigmentlerimiz iç mekanda güneş ışığına maruz kalsa dahi solmama ve paslanmama garantisine sahiptir.
+                    </p>
+                    <p>
+                      <strong>Hasarsız Teslimat Sözü:</strong> Kargo kaynaklı deformasyonlarda 48 saat içinde bedelsiz yeni ürün imal edilip adresinize gönderilir.
+                    </p>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Related Products Showcase */}
+      {relatedProducts && relatedProducts.length > 0 && (
+        <section className="py-16 border-t border-zinc-200 bg-white">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="flex items-center justify-between mb-8 pb-3 border-b border-zinc-200">
+              <h2 className="text-2xl font-bold font-syne uppercase tracking-tight text-zinc-900">
+                Atölyeden Benzer İmalatlar
+              </h2>
+              <Link
+                href="/urunler"
+                className="text-xs font-mono font-bold text-amber-700 hover:underline uppercase tracking-wider"
+              >
+                Kataloğun Tamamı →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              {relatedProducts.slice(0, 4).map((relProduct) => (
+                <Link
+                  key={relProduct.id}
+                  href={`/urunler/${relProduct.slug}`}
+                  className="group block border border-zinc-200 bg-white p-3 hover:border-amber-600 hover:shadow-lg transition-all"
+                >
+                  <div className="aspect-[4/3] bg-zinc-50 overflow-hidden relative mb-3">
+                    {relProduct.image_url ? (
+                      <MetalImage
+                        src={relProduct.image_url}
+                        alt={relProduct.name}
+                        backgroundColor="transparent"
+                        className="w-full h-full p-4 transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-zinc-300">
+                        <Zap className="w-6 h-6" />
+                      </div>
+                    )}
+                  </div>
+                  <h3 className="text-xs sm:text-sm font-bold text-zinc-900 group-hover:text-amber-800 transition-colors truncate">
+                    {relProduct.name}
+                  </h3>
+                  <p className="text-[10px] font-mono text-zinc-400 uppercase mt-1">
+                    {relProduct.category?.name || "Metal İmalat"}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </main>
+  );
+};

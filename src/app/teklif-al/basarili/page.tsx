@@ -83,7 +83,7 @@ function TeklifBasariliContent() {
                 <Link href="/#hizmetler" className="flex-1 text-center h-12 flex items-center justify-center border border-[#c6c6c6] text-sm font-semibold hover:border-[var(--color-brand-accent)] transition-colors">
                     Hizmetler
                 </Link>
-                <Link href="/" className="flex-1 text-center h-12 flex items-center justify-center gap-2 bg-[var(--color-brand-accent)] text-white text-sm font-semibold hover:bg-[#0043ce] transition-colors">
+                <Link href="/" className="flex-1 text-center h-12 flex items-center justify-center gap-2 bg-[var(--color-brand-accent)] text-white text-sm font-semibold hover:bg-[#b45309] transition-colors">
                     Ana sayfa <ArrowRight className="w-4 h-4" />
                 </Link>
             </div>

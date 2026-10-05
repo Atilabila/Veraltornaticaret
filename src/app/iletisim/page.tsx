@@ -120,7 +120,7 @@ export default function IletisimPage() {
                                     href={`https://wa.me/${content.whatsappNumber || "905071651315"}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="h-14 w-full bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#0043ce] transition-colors flex items-center justify-center gap-3"
+                                    className="h-14 w-full bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#b45309] transition-colors flex items-center justify-center gap-3"
                                 >
                                     WhatsApp destek hattı <MessageSquare size={18} />
                                 </a>

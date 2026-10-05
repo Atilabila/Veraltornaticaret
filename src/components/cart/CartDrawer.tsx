@@ -172,7 +172,7 @@ export const CartDrawer = () => {
                                 <Link
                                     href="/odeme"
                                     onClick={() => setCartOpen(false)}
-                                    className="w-full h-12 bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#0043ce] transition-colors flex items-center justify-center gap-2"
+                                    className="w-full h-12 bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#b45309] transition-colors flex items-center justify-center gap-2"
                                 >
                                     Ödemeye geç <ArrowRight className="w-4 h-4" />
                                 </Link>
