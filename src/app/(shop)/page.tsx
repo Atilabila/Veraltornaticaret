@@ -3,10 +3,15 @@ import type { Metadata } from "next";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
-import { Hero } from "@/components/sections/Hero";
+import { StitchHero } from "@/components/sections/StitchHero";
+import { StitchAssurance } from "@/components/sections/StitchAssurance";
+import { StitchCatalog } from "@/components/sections/StitchCatalog";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import dynamic from "next/dynamic";
 
+const StitchPosterConfigurator = dynamic(() =>
+    import("@/components/interactive/StitchPosterConfigurator").then((mod) => mod.StitchPosterConfigurator)
+);
 const ServicesHomeSection = dynamic(() =>
     import("@/components/sections/ServicesHomeSection").then((mod) => mod.ServicesHomeSection)
 );
@@ -52,50 +57,63 @@ const homeFaqs = [
         question: "Mıknatıslı metal posterler nasıl monte edilir?",
         answer: "Özel 3M VHB yapışkanlı manyetik tutucu ped ve N35 neodimyum mıknatıs sistemi sayesinde duvar delmeden, çivi çakmadan 30 saniyede asılır.",
     },
+    {
+        question: "Özel ölçü metal levha ve fason UV baskı siparişi verebilir miyim?",
+        answer: "Evet, mimari projeler, kafe-restoran tabelaları ve kurumsal promosyonlar için özel ölçü kesim, kenar büküm ve UV kürleme fason imalat hizmeti veriyoruz.",
+    },
 ];
 
 export default function ShopHomePage() {
     return (
-        <main className="home-page min-h-screen bg-[#f4f4f4] text-[#161616] selection:bg-[var(--color-brand-accent)] selection:text-white pb-24 lg:pb-0 relative z-10">
+        <main className="home-page min-h-screen bg-[#0a0c10] text-[#f4f4f4] selection:bg-amber-400 selection:text-black pb-24 lg:pb-0 relative z-10">
             <FAQSchema items={homeFaqs} />
 
-            {/* GLOBAL_NAV */}
+            {/* GLOBAL NAVIGATION */}
             <Navigation />
 
-            {/* HERO */}
-            <section className="bg-white text-[#161616] relative z-0 border-b border-[#c6c6c6]">
-                <Hero />
+            {/* 1. STITCH LUXURY INDUSTRIAL HERO */}
+            <StitchHero />
+
+            {/* 2. STITCH 4-COLUMN ASSURANCE & E-E-A-T PROTOCOL */}
+            <StitchAssurance />
+
+            {/* 3. INTERACTIVE STITCH METAL POSTER CONFIGURATOR */}
+            <section id="konfigurator" className="py-16 px-4 sm:px-6 lg:px-12 bg-[#090b0f] border-b border-zinc-800">
+                <StitchPosterConfigurator />
             </section>
 
-            {/* HİZMETLER — 2. ekran (/hizmetler içeriği) */}
-            <section className="bg-[#f4f4f4] text-[#161616] relative z-10 border-b border-[#c6c6c6]">
-                <ServicesHomeSection />
-            </section>
+            {/* 4. STITCH TREND METAL POSTER CATALOG */}
+            <StitchCatalog />
 
-            {/* AI ROOM & METAL POSTER CURATOR */}
-            <section className="bg-zinc-950 text-white relative z-10 border-b border-zinc-800 py-12 px-4 sm:px-6 lg:px-12">
+            {/* 5. AI ROOM & STITCH CURATOR */}
+            <section className="bg-zinc-950 text-white relative z-10 border-b border-zinc-800 py-16 px-4 sm:px-6 lg:px-12">
                 <MetalArtCurator />
             </section>
 
-            {/* SERİ İMALAT */}
+            {/* 6. HİZMETLER & İMALAT HATLARI */}
+            <section className="bg-white text-[#161616] relative z-10 border-b border-[#c6c6c6]">
+                <ServicesHomeSection />
+            </section>
+
+            {/* 7. SERİ İMALAT SÜRECİ */}
             <section className="bg-white text-[#161616] relative z-0 border-b border-[#c6c6c6]">
                 <ProcessSection />
             </section>
 
-            {/* SOCIAL_PROOF & 35.000+ ORDER DENOMINATOR */}
+            {/* 8. 35.000+ SİPARİŞ DENEYİMİ & YORUMLAR */}
             <section className="bg-white text-[#161616] relative border-b border-[#c6c6c6]">
                 <CustomerReviews />
             </section>
 
-            {/* RETAIL CATALOG */}
+            {/* 9. TEKNİK ŞEMATİK / RETRO BLUEPRINT CATALOG */}
             <section className="bg-[#f4f4f4] text-[#161616] relative z-0 border-b border-[#c6c6c6]">
                 <BlueprintShowcase />
             </section>
 
-            {/* GLOBAL_FOOTER */}
+            {/* GLOBAL FOOTER */}
             <Footer />
 
-            {/* INTERACTION_LAYER */}
+            {/* INTERACTION LAYER */}
             <MobileStickyBar />
         </main>
     );

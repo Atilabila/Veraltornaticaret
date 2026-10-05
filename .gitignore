@@ -49,5 +49,7 @@ public/ozibugfix.txt
 *.tsbuildinfo
 next-env.d.ts
 
+.stitch_designs
+
 .vercel
 .env*.local
