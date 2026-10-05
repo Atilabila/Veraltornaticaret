@@ -38,116 +38,112 @@ export function MetalArtCurator() {
     };
 
     return (
-        <section className="my-16 p-6 md:p-12 rounded-2xl border border-zinc-800 bg-zinc-900/90 shadow-2xl relative overflow-hidden backdrop-blur-md">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-4xl mx-auto p-6 md:p-10 rounded-2xl border border-zinc-200 bg-white shadow-xl relative overflow-hidden">
+            <div className="text-center mb-8">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-amber-50 text-amber-800 border border-amber-600/20 mb-3">
+                    <Bot className="w-3.5 h-3.5 text-amber-700" /> ATÖLYE & MEKAN KÜRATÖRÜ
+                </span>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-zinc-900 tracking-tight mb-2">
+                    Mekanınıza Özel Metal Poster Önerisi Alın
+                </h2>
+                <p className="text-sm md:text-base text-zinc-600 max-w-xl mx-auto">
+                    Alsancak atölyemizin 40 yıllık malzeme bilgisiyle mekanınıza en uygun ölçü, mıknatıs ve renk dengesini hesaplayın.
+                </p>
+            </div>
 
-            <div className="max-w-3xl mx-auto relative z-10">
-                <div className="text-center mb-10">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
-                        <Bot className="w-3.5 h-3.5" /> STITCH & GEMINI AI DESTEKLİ KÜRATÖR
-                    </span>
-                    <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-3">
-                        Odanıza Özel Metal Poster Kombinasyonunu Oluşturun
-                    </h2>
-                    <p className="text-sm md:text-base text-zinc-400">
-                        Alsancak atölyemizin 40 yıllık malzeme bilgisi ve yapay zeka küratörümüzle mekanınıza en uygun ölçü, mıknatıs ve renk dengesini hesaplayın.
-                    </p>
-                </div>
-
-                <form onSubmit={handleCurate} className="space-y-6">
-                    <div className="grid sm:grid-cols-3 gap-4">
-                        <div>
-                            <label className="block text-xs font-mono font-bold uppercase text-zinc-400 mb-2">
-                                Mekan Türü
-                            </label>
-                            <select
-                                value={roomType}
-                                onChange={(e) => setRoomType(e.target.value)}
-                                className="w-full h-11 px-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white text-sm focus:outline-none focus:border-emerald-500"
-                            >
-                                <option>Salon & Oturma Odası</option>
-                                <option>Çalışma Odası & Ofis</option>
-                                <option>Yatak Odası</option>
-                                <option>Oyun Odası / Gaming</option>
-                                <option>Kafe & Restoran</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-mono font-bold uppercase text-zinc-400 mb-2">
-                                Dekorasyon Stili
-                            </label>
-                            <select
-                                value={stylePreference}
-                                onChange={(e) => setStylePreference(e.target.value)}
-                                className="w-full h-11 px-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white text-sm focus:outline-none focus:border-emerald-500"
-                            >
-                                <option>Endüstriyel & Loft</option>
-                                <option>Minimalist & Modern</option>
-                                <option>Retro & Otomotiv</option>
-                                <option>Cyberpunk & Karanlık Tema</option>
-                                <option>Teknik Şematik & Blueprint</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-mono font-bold uppercase text-zinc-400 mb-2">
-                                Ölçü Tercihi
-                            </label>
-                            <select
-                                value={dimensions}
-                                onChange={(e) => setDimensions(e.target.value)}
-                                className="w-full h-11 px-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white text-sm focus:outline-none focus:border-emerald-500"
-                            >
-                                <option>Küçük Boy (30x45 cm)</option>
-                                <option>Orta Boy (45x67 cm)</option>
-                                <option>Büyük Boy (60x90 cm)</option>
-                                <option>Çoklu Galeri Duvarı (Triptik)</option>
-                            </select>
-                        </div>
+            <form onSubmit={handleCurate} className="space-y-5">
+                <div className="grid sm:grid-cols-3 gap-4">
+                    <div>
+                        <label className="block text-xs font-mono font-bold uppercase text-zinc-700 mb-1.5">
+                            Mekan Türü
+                        </label>
+                        <select
+                            value={roomType}
+                            onChange={(e) => setRoomType(e.target.value)}
+                            className="w-full h-11 px-3 rounded-lg bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm focus:outline-none focus:border-amber-600 focus:bg-white transition-colors"
+                        >
+                            <option>Salon & Oturma Odası</option>
+                            <option>Çalışma Odası & Ofis</option>
+                            <option>Yatak Odası</option>
+                            <option>Oyun Odası / Gaming</option>
+                            <option>Kafe & Restoran</option>
+                        </select>
                     </div>
 
                     <div>
-                        <label className="block text-xs font-mono font-bold uppercase text-zinc-400 mb-2">
-                            Duvar Rengi veya Özel İstek (Opsiyonel)
+                        <label className="block text-xs font-mono font-bold uppercase text-zinc-700 mb-1.5">
+                            Dekorasyon Stili
                         </label>
-                        <input
-                            type="text"
-                            placeholder="Örn: Koyu gri duvar, doğrudan güneş alıyor, mat doku istiyorum..."
-                            value={specialRequest}
-                            onChange={(e) => setSpecialRequest(e.target.value)}
-                            className="w-full h-11 px-4 rounded-lg bg-zinc-800 border border-zinc-700 text-white text-sm focus:outline-none focus:border-emerald-500 placeholder:text-zinc-500"
-                        />
+                        <select
+                            value={stylePreference}
+                            onChange={(e) => setStylePreference(e.target.value)}
+                            className="w-full h-11 px-3 rounded-lg bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm focus:outline-none focus:border-amber-600 focus:bg-white transition-colors"
+                        >
+                            <option>Endüstriyel & Loft</option>
+                            <option>Minimalist & Modern</option>
+                            <option>Retro & Otomotiv</option>
+                            <option>Şehir & Mimari</option>
+                            <option>Teknik Şematik & Blueprint</option>
+                        </select>
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full h-12 rounded-lg bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-black font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-lg shadow-emerald-500/20 cursor-pointer"
-                    >
-                        {loading ? (
-                            <>
-                                <Loader2 className="w-4 h-4 animate-spin" /> Atölye Küratörü Analiz Ediyor...
-                            </>
-                        ) : (
-                            <>
-                                <Sparkles className="w-4 h-4" /> Usta Tavsiyeli Poster Analizi Al
-                            </>
-                        )}
-                    </button>
-                </form>
-
-                {recommendation && (
-                    <div className="mt-8 p-6 md:p-8 rounded-xl border border-emerald-500/40 bg-zinc-950/90 text-zinc-200">
-                        <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
-                            <ShieldCheck className="w-4 h-4" /> VERAL ATÖLYESİ KÜRATÖR TAVSİYESİ
-                        </div>
-                        <div className="prose prose-invert max-w-none text-sm md:text-base leading-relaxed whitespace-pre-line font-sans">
-                            {recommendation}
-                        </div>
+                    <div>
+                        <label className="block text-xs font-mono font-bold uppercase text-zinc-700 mb-1.5">
+                            Ölçü Tercihi
+                        </label>
+                        <select
+                            value={dimensions}
+                            onChange={(e) => setDimensions(e.target.value)}
+                            className="w-full h-11 px-3 rounded-lg bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm focus:outline-none focus:border-amber-600 focus:bg-white transition-colors"
+                        >
+                            <option>Küçük Boy (32x45 cm)</option>
+                            <option>Orta Boy (48x67 cm)</option>
+                            <option>Büyük Boy (64x90 cm)</option>
+                            <option>Çoklu Galeri Duvarı (Triptik)</option>
+                        </select>
                     </div>
-                )}
-            </div>
-        </section>
+                </div>
+
+                <div>
+                    <label className="block text-xs font-mono font-bold uppercase text-zinc-700 mb-1.5">
+                        Duvar Rengi veya Özel İstek (Opsiyonel)
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Örn: Açık gri taş duvar, doğrudan ışık alıyor..."
+                        value={specialRequest}
+                        onChange={(e) => setSpecialRequest(e.target.value)}
+                        className="w-full h-11 px-4 rounded-lg bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm focus:outline-none focus:border-amber-600 focus:bg-white transition-colors placeholder:text-zinc-400"
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full h-12 rounded-xl bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-amber-600/20 cursor-pointer active:scale-[0.99]"
+                >
+                    {loading ? (
+                        <>
+                            <Loader2 className="w-4 h-4 animate-spin" /> Atölye Küratörü Analiz Ediyor...
+                        </>
+                    ) : (
+                        <>
+                            <Sparkles className="w-4 h-4" /> Usta Tavsiyeli Poster Analizi Al
+                        </>
+                    )}
+                </button>
+            </form>
+
+            {recommendation && (
+                <div className="mt-6 p-6 rounded-xl border border-amber-200 bg-amber-50/70 text-zinc-900 shadow-sm">
+                    <div className="flex items-center gap-2 text-amber-800 text-xs font-mono font-bold uppercase tracking-wider mb-3 pb-2 border-b border-amber-200">
+                        <ShieldCheck className="w-4 h-4 text-amber-700" /> VERAL ATÖLYESİ KÜRATÖR TAVSİYESİ
+                    </div>
+                    <div className="prose max-w-none text-sm md:text-base text-zinc-800 leading-relaxed whitespace-pre-line font-sans">
+                        {recommendation}
+                    </div>
+                </div>
+            )}
+        </div>
     );
 }

@@ -6,30 +6,22 @@ import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { AuthorCard } from "@/components/blog/AuthorCard";
-import { ShieldCheck, Award, Hammer, Clock, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
+import { MapPin, Hammer, Award, ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-    title: "Hakkımızda | 40 Yıllık Metal & Teneke İmalat Geleneği | Veral Ticaret",
-    description: "1980'den bu yana İzmir Alsancak'taki atölyemizde toptan dosya teli, takvim tenekesi ve 4K UV metal poster imalatı. 35.000+ tamamlanmış sipariş tecrübesi.",
+    title: "Hakkımızda | Veral Teneke & Torna İmalatı | İzmir Alsancak 1980",
+    description: "1980'den bu yana İzmir Alsancak'ta toptan dosya teli, takvim tenekesi ve 4K UV baskılı mıknatıslı metal poster imalatı. 40 yılı aşkın metal hafızası ve zanaat tutkusu.",
     alternates: {
         canonical: "https://veralteneketicaret.com/hakkimizda",
     },
     openGraph: {
         title: "Hakkımızda | Veral Torna & Teneke Ticaret",
-        description: "İzmir Alsancak'ta 40 yılı aşkın süredir endüstriyel metal işleme, torna kalıp ve UV metal poster baskı sanatı.",
+        description: "İzmir Alsancak'ta 40 yılı aşkın süredir toptan dosya teli, takvim tenekesi ve metal poster imalatı.",
         url: "https://veralteneketicaret.com/hakkimizda",
-        images: [
-            {
-                url: "/alsancak-mockup.png",
-                width: 1200,
-                height: 630,
-                alt: "Veral Torna & Teneke Alsancak Atölyesi",
-            },
-        ],
     },
 };
 
-export default function HakkimizdaPage() {
+export default function AboutPage() {
     const breadcrumbs = [
         { name: "Ana Sayfa", url: "/" },
         { name: "Hakkımızda", url: "/hakkimizda" },
@@ -40,10 +32,10 @@ export default function HakkimizdaPage() {
         "@type": "Organization",
         "name": "Veral Torna & Teneke Ticaret",
         "foundingDate": "1980",
-        "founder": {
+        "director": {
             "@type": "Person",
-            "name": "Atila Bila",
-            "url": "https://veralteneketicaret.com/yazar/atila-bila"
+            "name": "Oğuzcan Veral",
+            "url": "https://veralteneketicaret.com/yazar/oguzcan-veral"
         },
         "url": "https://veralteneketicaret.com",
         "logo": "https://veralteneketicaret.com/veral-logo.webp",
@@ -65,7 +57,7 @@ export default function HakkimizdaPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#0e0e11] text-zinc-200">
+        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -80,45 +72,45 @@ export default function HakkimizdaPage() {
             <section className="px-4 md:px-8 max-w-6xl mx-auto pb-16">
                 <div className="grid lg:grid-cols-12 gap-12 items-center">
                     <div className="lg:col-span-7 space-y-6">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                            <MapPin className="w-3.5 h-3.5" /> İZMİR ALSANCAK · 1980&apos;DEN BUGÜNE
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-widest uppercase bg-amber-50 text-amber-800 border border-amber-600/20">
+                            <MapPin className="w-3.5 h-3.5 text-amber-700" /> İZMİR ALSANCAK · 1980&apos;DEN BUGÜNE
                         </span>
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-zinc-900 tracking-tight leading-tight">
                             Yarım Asırlık Metal Hafızası ve Zanaat Tutkusu
                         </h1>
-                        <p className="text-base md:text-lg text-zinc-300 leading-relaxed font-light">
+                        <p className="text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
                             Veral Torna & Teneke, İzmir&apos;in kalbi Alsancak&apos;ta 1980 yılında kurulmuş, Türkiye&apos;nin en köklü metal kırtasiye ve teneke işleme atölyelerinden biridir. 
-                            Geleneksel torna tezgahlarının mikron hassasiyetini, 21. yüzyılın 1200 DPI endüstriyel UV baskı teknolojisiyle birleştiriyoruz.
+                            Geleneksel torna tezgahlarının mikron hassasiyetini, 21. yüzyılın 4K UV endüstriyel baskı teknolojisiyle birleştiriyoruz.
                         </p>
                         <div className="flex flex-wrap gap-4 pt-2">
                             <Link
                                 href="/urunler"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition-colors shadow-lg shadow-emerald-500/20"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm transition-all shadow-md shadow-amber-600/20"
                             >
                                 Üretim Kataloğu <ArrowRight className="w-4 h-4" />
                             </Link>
                             <Link
-                                href="/yazar/atila-bila"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-zinc-700 hover:bg-zinc-800 text-white font-medium text-sm transition-colors"
+                                href="/yazar/oguzcan-veral"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-zinc-300 hover:bg-zinc-100 text-zinc-900 font-semibold text-sm transition-colors shadow-sm"
                             >
-                                Usta Biyografisi (E-E-A-T)
+                                Atölye ve İmalatçı Biyografisi
                             </Link>
                         </div>
                     </div>
 
                     <div className="lg:col-span-5">
-                        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl">
+                        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-white shadow-xl">
                             <Image
-                                src="/alsancak-mockup.png"
-                                alt="İzmir Alsancak Veral Atölyesi"
+                                src="/hero-izmir-metal-poster.jpg"
+                                alt="İzmir Alsancak Veral Atölyesi ve Metal Sanatı"
                                 fill
                                 priority
                                 sizes="(max-width: 1024px) 100vw, 500px"
                                 className="object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
-                                <div className="text-xs font-mono text-zinc-300">
-                                    <span className="text-emerald-400 font-bold block mb-1">ALSANCAK İMALAT ÜSSÜ</span>
+                                <div className="text-xs font-mono text-white">
+                                    <span className="text-amber-400 font-bold block mb-1">ALSANCAK İMALAT ÜSSÜ</span>
                                     1471 Sokak No:12/A Konak / İzmir
                                 </div>
                             </div>
@@ -128,34 +120,34 @@ export default function HakkimizdaPage() {
             </section>
 
             {/* SCALE DENOMINATOR & STATS */}
-            <section className="border-t border-b border-zinc-800 bg-zinc-950/60 py-12 px-4 md:px-8">
+            <section className="border-t border-b border-zinc-200 bg-white py-12 px-4 md:px-8">
                 <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     <div>
-                        <span className="block text-3xl md:text-5xl font-black text-white font-mono mb-2">40+ Yıl</span>
-                        <span className="text-xs md:text-sm text-zinc-400 font-mono">Kesintisiz Üretim</span>
+                        <span className="block text-3xl md:text-5xl font-black text-zinc-900 font-mono mb-2">40+ Yıl</span>
+                        <span className="text-xs md:text-sm text-zinc-500 font-mono">Kesintisiz Üretim</span>
                     </div>
                     <div>
-                        <span className="block text-3xl md:text-5xl font-black text-emerald-400 font-mono mb-2">35.000+</span>
-                        <span className="text-xs md:text-sm text-zinc-400 font-mono">Teslim Edilen Sipariş</span>
+                        <span className="block text-3xl md:text-5xl font-black text-amber-700 font-mono mb-2">35.000+</span>
+                        <span className="text-xs md:text-sm text-zinc-500 font-mono">Teslim Edilen Sipariş</span>
                     </div>
                     <div>
-                        <span className="block text-3xl md:text-5xl font-black text-white font-mono mb-2">50.000</span>
-                        <span className="text-xs md:text-sm text-zinc-400 font-mono">Günlük Parça Kapasitesi</span>
+                        <span className="block text-3xl md:text-5xl font-black text-zinc-900 font-mono mb-2">50.000</span>
+                        <span className="text-xs md:text-sm text-zinc-500 font-mono">Günlük Parça Kapasitesi</span>
                     </div>
                     <div>
-                        <span className="block text-3xl md:text-5xl font-black text-emerald-400 font-mono mb-2">%98.7</span>
-                        <span className="text-xs md:text-sm text-zinc-400 font-mono">Doğrulanmış Memnuniyet</span>
+                        <span className="block text-3xl md:text-5xl font-black text-amber-700 font-mono mb-2">%98.7</span>
+                        <span className="text-xs md:text-sm text-zinc-500 font-mono">Doğrulanmış Memnuniyet</span>
                     </div>
                 </div>
             </section>
 
-            {/* CRAFTSMANSHIP & E-E-A-T AUTHOR */}
+            {/* CRAFTSMANSHIP & AUTHOR */}
             <section className="px-4 md:px-8 max-w-6xl mx-auto py-16">
-                <div className="mb-10">
-                    <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2 font-semibold">
-                        ZANAATKÂR KİMLİĞİ & BAŞ USTA
+                <div className="mb-8">
+                    <span className="text-xs font-mono uppercase tracking-widest text-amber-700 block mb-2 font-bold">
+                        ZANAATKÂR KİMLİĞİ & İMALAT DİREKTÖRÜ
                     </span>
-                    <h2 className="text-2xl md:text-4xl font-black text-white">
+                    <h2 className="text-2xl md:text-4xl font-black text-zinc-900">
                         Üretimimizin Başındaki İsim
                     </h2>
                 </div>
@@ -165,31 +157,31 @@ export default function HakkimizdaPage() {
 
             {/* PRODUCTION PILLARS */}
             <section className="px-4 md:px-8 max-w-6xl mx-auto pb-24">
-                <h2 className="text-2xl md:text-3xl font-black text-white mb-8">
+                <h2 className="text-2xl md:text-3xl font-black text-zinc-900 mb-8">
                     Kalite ve İmalat İlkelerimiz
                 </h2>
                 <div className="grid md:grid-cols-3 gap-6">
-                    <div className="p-8 rounded-xl border border-zinc-800 bg-zinc-900/40 space-y-4">
-                        <Hammer className="w-8 h-8 text-emerald-400" />
-                        <h3 className="text-lg font-bold text-white">Milimetrik Torna Kalıpları</h3>
-                        <p className="text-sm text-zinc-400 leading-relaxed">
+                    <div className="p-8 rounded-2xl border border-zinc-200 bg-white space-y-4 shadow-sm">
+                        <Hammer className="w-8 h-8 text-amber-600" />
+                        <h3 className="text-lg font-bold text-zinc-900">Milimetrik Torna Kalıpları</h3>
+                        <p className="text-sm text-zinc-600 leading-relaxed">
                             Kağıdı ve kuşe yüzeyleri zedelemeyen çift bükümlü kalıplarımız, kendi torna atölyemizde mikron hassasiyetinde taşlanarak üretilir.
                         </p>
                     </div>
 
-                    <div className="p-8 rounded-xl border border-zinc-800 bg-zinc-900/40 space-y-4">
-                        <Award className="w-8 h-8 text-emerald-400" />
-                        <h3 className="text-lg font-bold text-white">1200 DPI Piezo UV Baskı</h3>
-                        <p className="text-sm text-zinc-400 leading-relaxed">
-                            Alüminyum plakalar üzerine uygulanan ultraviyole kurutmalı mat vernik sayesinde posterlerimiz suya, güneşe ve çizilmeye 10 yıl dayanır.
+                    <div className="p-8 rounded-2xl border border-zinc-200 bg-white space-y-4 shadow-sm">
+                        <ShieldCheck className="w-8 h-8 text-amber-600" />
+                        <h3 className="text-lg font-bold text-zinc-900">4K UV Kürleme Teknolojisi</h3>
+                        <p className="text-sm text-zinc-600 leading-relaxed">
+                            Metal poster ve levhalarda güneş ışığında solmayan, suya ve neme dirençli çift kat mikronize fırın kürleme kullanılır.
                         </p>
                     </div>
 
-                    <div className="p-8 rounded-xl border border-zinc-800 bg-zinc-900/40 space-y-4">
-                        <ShieldCheck className="w-8 h-8 text-emerald-400" />
-                        <h3 className="text-lg font-bold text-white">Hasarsız Teslimat Garantisi</h3>
-                        <p className="text-sm text-zinc-400 leading-relaxed">
-                            Güçlendirilmiş kraft kutular ve köşe tamponları ile sevk edilen tüm ürünlerde, kargo hasarı anında 48 saatte koşulsuz telafi edilir.
+                    <div className="p-8 rounded-2xl border border-zinc-200 bg-white space-y-4 shadow-sm">
+                        <Award className="w-8 h-8 text-amber-600" />
+                        <h3 className="text-lg font-bold text-zinc-900">Doğrudan Üretici Güvencesi</h3>
+                        <p className="text-sm text-zinc-600 leading-relaxed">
+                            Aracı veya komisyoncu olmadan, İzmir Alsancak atölyemizden tüm Türkiye&apos;ye doğrudan fabrika fiyatlarıyla sevkiyat.
                         </p>
                     </div>
                 </div>

@@ -184,9 +184,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "dateModified": "2026-02-03T09:00:00+03:00",
         "author": {
             "@type": "Person",
-            "name": "Atila Bila",
-            "jobTitle": "Metal Zanaatı ve UV Baskı Uzmanı",
-            "url": "https://veralteneketicaret.com/yazar/atila-bila"
+            "name": "Oğuzcan Veral",
+            "jobTitle": "İmalat Direktörü ve Teknik Editör",
+            "url": "https://veralteneketicaret.com/yazar/oguzcan-veral"
         },
         "publisher": {
             "@type": "Organization",
@@ -263,9 +263,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <BlogPostClient post={post} slug={slug} otherPosts={otherPosts} />
 
             {/* FOOTER_TERMINAL */}
-            <footer id="terminals" className="bg-black text-white py-24 border-t-8 border-[#FF5F1F]">
-                <div className="container-brutal text-center font-mono opacity-50 text-xs">
-                    © 2026 VERAL TORNA & TENEKE // RAPOR KAYDI v4.5.11 · <Link href="/yazar/atila-bila" className="underline hover:text-white">Yazar Profili</Link>
+            <footer id="terminals" className="bg-zinc-900 text-white py-16 border-t border-zinc-700">
+                <div className="container-brutal text-center font-mono opacity-80 text-xs">
+                    © 2026 VERAL TORNA & TENEKE // RAPOR KAYDI v4.5.11 · <Link href="/yazar/oguzcan-veral" className="underline hover:text-amber-400">Teknik Editör: Oğuzcan Veral</Link>
                 </div>
             </footer>
         </main>

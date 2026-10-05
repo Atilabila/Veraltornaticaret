@@ -1,4 +1,4 @@
-﻿/* =====================================================
+/* =====================================================
    METAL ART ATELIER - DESIGN SYSTEM
    Premium Industrial Aesthetic
    ===================================================== */
@@ -32,11 +32,11 @@
     --color-platinum: #e5e4e2;
     --color-copper: #b87333;
     --color-bronze: #cd7f32;
-    --color-gold: #0f62fe;
+    --color-gold: #d4af37;
 
     /* Functional Colors */
     --color-accent: #c0c0c0;
-    --color-accent-warm: #0f62fe;
+    --color-accent-warm: #d97706;
     --color-success: #22c55e;
     --color-warning: #f59e0b;
     --color-error: #ef4444;
@@ -58,12 +58,12 @@
     --muted: #e8e8e8;
     --muted-foreground: #525252;
     --border: #c6c6c6;
-    --accent: #0f62fe;
+    --accent: #d97706;
 
     /* Metallic Shimmer Gradient */
     --gradient-metal: linear-gradient(135deg, #1a1a1e 0%, #27272c 50%, #1a1a1e 100%);
     --gradient-steel: linear-gradient(135deg, #71717a 0%, #d4d4d8 50%, #71717a 100%);
-    --gradient-gold: linear-gradient(135deg, #cc3d00 0%, var(--color-brand-accent) 50%, #cc3d00 100%);
+    --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f5e08e 50%, #d4af37 100%);
 }
 
 /* =====================================================

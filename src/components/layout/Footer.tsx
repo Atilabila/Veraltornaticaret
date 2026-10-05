@@ -59,7 +59,7 @@ export const Footer = () => {
                                     { label: 'Ürün Kataloğu', href: '/urunler' },
                                     { label: 'Sıkça Sorulanlar (SSS)', href: '/sss' },
                                     { label: 'Teknik Raporlar & Blog', href: '/blog' },
-                                    { label: 'Usta Biyografisi (E-E-A-T)', href: '/yazar/atila-bila' },
+                                    { label: 'Atölye ve Editör Biyografisi', href: '/yazar/oguzcan-veral' },
                                     { label: 'Hakkımızda', href: '/hakkimizda' },
                                     { label: 'Hızlı Teklif Al', href: '/teklif-al' },
                                     { label: 'İletişim', href: '/iletisim' }

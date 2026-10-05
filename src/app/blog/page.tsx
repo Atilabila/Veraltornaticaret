@@ -110,9 +110,9 @@ export default function BlogPage() {
             <BlogListClient posts={blogPosts} categories={categories} />
 
             {/* FOOTER_TERMINAL */}
-            <footer className="bg-black text-white py-16 border-t-8 border-[#FF5F1F]">
-                <div className="container-brutal text-center font-mono opacity-50 text-xs">
-                    © 2026 VERAL TORNA & TENEKE // TEKNİK RAPOR ARŞİVİ · <Link href="/yazar/atila-bila" className="underline hover:text-white">Yazar: Atila Bila</Link>
+            <footer className="bg-zinc-900 text-white py-12 border-t border-zinc-700">
+                <div className="container-brutal text-center font-mono opacity-80 text-xs">
+                    © 2026 VERAL TORNA & TENEKE // TEKNİK RAPOR ARŞİVİ · <Link href="/yazar/oguzcan-veral" className="underline hover:text-amber-400">Teknik Editör: Oğuzcan Veral</Link>
                 </div>
             </footer>
         </main>

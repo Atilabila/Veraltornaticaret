@@ -1,4 +1,4 @@
-﻿/* Admin Panel — IBM Carbon light (aligned with public B2B site) */
+/* Admin Panel — IBM Carbon light (aligned with public B2B site) */
 .admin-panel {
     --admin-bg: #f4f4f4;
     --admin-surface: #ffffff;
@@ -6,8 +6,8 @@
     --admin-border: #c6c6c6;
     --admin-text: #161616;
     --admin-text-muted: #525252;
-    --admin-accent: var(--color-brand-accent, #0f62fe);
-    --admin-accent-hover: #0043ce;
+    --admin-accent: var(--color-brand-accent, #d97706);
+    --admin-accent-hover: #b45309;
     --admin-input-bg: #f4f4f4;
     --admin-input-border: #c6c6c6;
 }

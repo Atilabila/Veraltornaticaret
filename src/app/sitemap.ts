@@ -97,7 +97,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.75,
         },
         {
-            url: `${baseUrl}/yazar/atila-bila`,
+            url: `${baseUrl}/yazar/oguzcan-veral`,
             lastModified: lastMod,
             changeFrequency: 'monthly',
             priority: 0.7,

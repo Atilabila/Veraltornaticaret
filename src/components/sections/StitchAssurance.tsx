@@ -30,26 +30,26 @@ const ASSURANCES = [
 
 export function StitchAssurance() {
   return (
-    <section className="bg-[#0e1117] text-white border-b border-zinc-800 py-12 px-4 sm:px-6 lg:px-12 relative z-10">
+    <section className="bg-white text-[#161616] border-b border-zinc-200 py-12 px-4 sm:px-6 lg:px-12 relative z-10">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-zinc-800 border border-zinc-800 rounded-2xl bg-zinc-950/60 backdrop-blur-md overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-zinc-200 border border-zinc-200 rounded-2xl bg-[#fcfcfc] overflow-hidden shadow-sm">
           {ASSURANCES.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className="p-8 group hover:bg-zinc-900/60 transition-colors duration-300 flex flex-col items-start"
+                className="p-8 group hover:bg-zinc-50 transition-colors duration-300 flex flex-col items-start"
               >
-                <div className="w-12 h-12 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-400 flex items-center justify-center mb-6 group-hover:bg-amber-400 group-hover:text-black transition-all duration-300 shadow-lg shadow-amber-500/5">
+                <div className="w-12 h-12 rounded-xl border border-amber-600/30 bg-amber-50 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300 shadow-sm">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-base font-bold text-white uppercase tracking-wider mb-1 font-mono">
+                <h3 className="text-base font-bold text-zinc-900 uppercase tracking-wider mb-1 font-mono">
                   {item.title}
                 </h3>
-                <span className="text-xs font-semibold text-amber-400 uppercase tracking-widest block mb-2 font-mono">
+                <span className="text-xs font-bold text-amber-700 uppercase tracking-widest block mb-2 font-mono">
                   {item.subtitle}
                 </span>
-                <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                <p className="text-xs text-zinc-600 leading-relaxed font-normal">
                   {item.desc}
                 </p>
               </div>

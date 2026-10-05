@@ -9,9 +9,6 @@ import { StitchCatalog } from "@/components/sections/StitchCatalog";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import dynamic from "next/dynamic";
 
-const StitchPosterConfigurator = dynamic(() =>
-    import("@/components/interactive/StitchPosterConfigurator").then((mod) => mod.StitchPosterConfigurator)
-);
 const ServicesHomeSection = dynamic(() =>
     import("@/components/sections/ServicesHomeSection").then((mod) => mod.ServicesHomeSection)
 );
@@ -35,10 +32,10 @@ export const metadata: Metadata = {
         siteName: "Veral Torna & Teneke Ticaret",
         images: [
             {
-                url: "/alsancak-mockup.png",
-                width: 1200,
-                height: 630,
-                alt: "Veral Torna ve Teneke İmalat Atölyesi",
+                url: "/hero-izmir-metal-poster.jpg",
+                width: 880,
+                height: 734,
+                alt: "İzmir Saat Kulesi Mıknatıslı Metal Poster - Veral Teneke İmalatı",
             },
         ],
     },
@@ -65,48 +62,43 @@ const homeFaqs = [
 
 export default function ShopHomePage() {
     return (
-        <main className="home-page min-h-screen bg-[#0a0c10] text-[#f4f4f4] selection:bg-amber-400 selection:text-black pb-24 lg:pb-0 relative z-10">
+        <main className="home-page min-h-screen bg-[#fafafa] text-[#161616] selection:bg-amber-600 selection:text-white pb-24 lg:pb-0 relative z-10">
             <FAQSchema items={homeFaqs} />
 
             {/* GLOBAL NAVIGATION */}
             <Navigation />
 
-            {/* 1. STITCH LUXURY INDUSTRIAL HERO */}
+            {/* 1. STITCH LUXURY INDUSTRIAL HERO (İzmir Metal Poster Art) */}
             <StitchHero />
 
-            {/* 2. STITCH 4-COLUMN ASSURANCE & E-E-A-T PROTOCOL */}
+            {/* 2. STITCH 4-COLUMN ASSURANCE PROTOCOL (NO JARGON) */}
             <StitchAssurance />
 
-            {/* 3. INTERACTIVE STITCH METAL POSTER CONFIGURATOR */}
-            <section id="konfigurator" className="py-16 px-4 sm:px-6 lg:px-12 bg-[#090b0f] border-b border-zinc-800">
-                <StitchPosterConfigurator />
-            </section>
-
-            {/* 4. STITCH TREND METAL POSTER CATALOG */}
+            {/* 3. TREND METAL POSTER CATALOG */}
             <StitchCatalog />
 
-            {/* 5. AI ROOM & STITCH CURATOR */}
-            <section className="bg-zinc-950 text-white relative z-10 border-b border-zinc-800 py-16 px-4 sm:px-6 lg:px-12">
+            {/* 4. AI ATÖLYE KÜRATÖRÜ */}
+            <section className="bg-white text-[#161616] relative z-10 border-b border-[#e5e7eb] py-16 px-4 sm:px-6 lg:px-12">
                 <MetalArtCurator />
             </section>
 
-            {/* 6. HİZMETLER & İMALAT HATLARI */}
-            <section className="bg-white text-[#161616] relative z-10 border-b border-[#c6c6c6]">
+            {/* 5. HİZMETLER & İMALAT HATLARI */}
+            <section className="bg-[#f8f9fa] text-[#161616] relative z-10 border-b border-[#e5e7eb]">
                 <ServicesHomeSection />
             </section>
 
-            {/* 7. SERİ İMALAT SÜRECİ */}
-            <section className="bg-white text-[#161616] relative z-0 border-b border-[#c6c6c6]">
+            {/* 6. SERİ İMALAT SÜRECİ */}
+            <section className="bg-white text-[#161616] relative z-0 border-b border-[#e5e7eb]">
                 <ProcessSection />
             </section>
 
-            {/* 8. 35.000+ SİPARİŞ DENEYİMİ & YORUMLAR */}
-            <section className="bg-white text-[#161616] relative border-b border-[#c6c6c6]">
+            {/* 7. 35.000+ SİPARİŞ DENEYİMİ & YORUMLAR */}
+            <section className="bg-[#f8f9fa] text-[#161616] relative border-b border-[#e5e7eb]">
                 <CustomerReviews />
             </section>
 
-            {/* 9. TEKNİK ŞEMATİK / RETRO BLUEPRINT CATALOG */}
-            <section className="bg-[#f4f4f4] text-[#161616] relative z-0 border-b border-[#c6c6c6]">
+            {/* 8. TEKNİK ŞEMATİK / RETRO BLUEPRINT CATALOG */}
+            <section className="bg-white text-[#161616] relative z-0 border-b border-[#e5e7eb]">
                 <BlueprintShowcase />
             </section>
 

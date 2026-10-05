@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @plugin "tailwindcss-animate";
 
@@ -16,20 +16,20 @@ html {
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  /* Brutalist palette tokens (used across admin + shop UI) */
+  /* Industrial & Architectural palette tokens (Warm Amber / Bronze / Crisp Clean) */
   --color-paper-white: #fdfbf7;
-  --color-near-black: #0a0a0a;
-  --color-fog-gray: #ecebe7;
-  --color-steel-gray: #7a7a7a;
-  --color-hazard-orange: #0f62fe;
-  --color-acid-green: #b7ff2a;
-  /* Primary B2B accent — IBM Carbon blue (replaces aggressive orange-on-black) */
-  --color-brand-accent: #0f62fe;
-  --color-brand-accent-muted: #0043ce;
-  --color-brand-safety-orange: #0f62fe;
+  --color-near-black: #161616;
+  --color-fog-gray: #f4f4f4;
+  --color-steel-gray: #525252;
+  --color-hazard-orange: #d97706;
+  --color-acid-green: #15803d;
+  /* Primary B2B & Luxury Metal accent — Warm Industrial Amber/Bronze (NO BLUE) */
+  --color-brand-accent: #d97706;
+  --color-brand-accent-muted: #b45309;
+  --color-brand-safety-orange: #d97706;
   /* Deprecated aliases */
-  --color-industrial-gold: #0f62fe;
-  --color-industrial-gold-muted: #0043ce;
+  --color-industrial-gold: #d97706;
+  --color-industrial-gold-muted: #b45309;
 
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
@@ -94,10 +94,10 @@ html {
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --industrial-gold: 217 91% 53%;
-    /* #0f62fe — IBM blue accent */
-    --industrial-gold-muted: 217 91% 40%;
-    /* #0043ce */
+    --industrial-gold: 38 92% 50%;
+    /* #d97706 — Warm industrial amber */
+    --industrial-gold-muted: 38 92% 38%;
+    /* #b45309 */
 
     --radius: 0;
   }

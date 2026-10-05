@@ -58,23 +58,23 @@ export default function SSSPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-[#0e0e11] text-zinc-200">
+        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
             <FAQSchema items={faqData} />
             <Navigation />
 
             <div className="pt-28 pb-4 px-4 md:px-8 max-w-5xl mx-auto">
-                <Breadcrumb items={breadcrumbs} />
+                <Breadcrumb items={breadcrumbs} className="text-zinc-600" />
             </div>
 
-            <section className="px-4 md:px-8 max-w-5xl mx-auto pb-12">
+            <section className="px-4 md:px-8 max-w-5xl mx-auto pb-16">
                 <div className="mb-10 text-center sm:text-left">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-none text-xs font-mono font-semibold tracking-widest uppercase bg-amber-50 text-amber-700 border border-amber-200 mb-4">
                         <HelpCircle className="w-3.5 h-3.5" /> DESTEK & BİLGİ MERKEZİ
                     </span>
-                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+                    <h1 className="text-3xl md:text-5xl font-black text-[#161616] tracking-tight mb-4">
                         Sıkça Sorulan Sorular
                     </h1>
-                    <p className="text-base md:text-lg text-zinc-400 max-w-2xl">
+                    <p className="text-base md:text-lg text-zinc-600 max-w-2xl">
                         Toptan dosya teli, takvim tenekesi ve mıknatıslı UV metal poster imalat süreçlerimizle ilgili en çok merak edilen konular.
                     </p>
                 </div>
@@ -84,15 +84,15 @@ export default function SSSPage() {
                     {faqData.map((item, index) => (
                         <details
                             key={index}
-                            className="group border border-zinc-800 bg-zinc-900/60 rounded-xl overflow-hidden transition-colors hover:border-zinc-700"
+                            className="group border border-zinc-200 bg-white rounded-none shadow-sm overflow-hidden transition-colors hover:border-amber-500"
                         >
-                            <summary className="cursor-pointer p-5 md:p-6 font-semibold text-white list-none flex items-center justify-between gap-4 select-none">
+                            <summary className="cursor-pointer p-5 md:p-6 font-semibold text-[#161616] list-none flex items-center justify-between gap-4 select-none">
                                 <span className="text-base md:text-lg leading-snug">{item.question}</span>
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-emerald-400 font-mono text-lg group-open:rotate-45 transition-transform duration-200">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-none bg-zinc-100 flex items-center justify-center text-amber-700 font-mono text-lg group-open:rotate-45 transition-transform duration-200">
                                     +
                                 </span>
                             </summary>
-                            <div className="px-5 md:px-6 pb-6 text-zinc-300 text-sm md:text-base leading-relaxed border-t border-zinc-800/60 pt-4 font-normal">
+                            <div className="px-5 md:px-6 pb-6 text-zinc-700 text-sm md:text-base leading-relaxed border-t border-zinc-100 pt-4 font-normal">
                                 {item.answer}
                             </div>
                         </details>
@@ -100,27 +100,27 @@ export default function SSSPage() {
                 </div>
 
                 {/* CALL TO ACTION BOX */}
-                <div className="rounded-2xl border border-zinc-800 bg-gradient-to-r from-zinc-900 to-zinc-900/40 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                <div className="rounded-none border border-zinc-200 bg-white p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
                     <div className="space-y-2 text-center md:text-left">
-                        <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2 justify-center md:justify-start">
-                            <Sparkles className="w-5 h-5 text-emerald-400" /> Başka bir sorunuz mu var?
+                        <h2 className="text-xl md:text-2xl font-bold text-[#161616] flex items-center gap-2 justify-center md:justify-start">
+                            <Sparkles className="w-5 h-5 text-amber-600" /> Başka bir sorunuz mu var?
                         </h2>
-                        <p className="text-sm text-zinc-400 max-w-md">
-                            İzmir Alsancak atölyemizdeki ustalarımızla doğrudan görüşebilir veya hızlı teklif formumuzu doldurabilirsiniz.
+                        <p className="text-sm text-zinc-600 max-w-md">
+                            İzmir Alsancak atölyemizdeki imalat uzmanlarımızla doğrudan görüşebilir veya hızlı teklif formumuzu doldurabilirsiniz.
                         </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-3">
                         <Link
                             href="/teklif-al"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition-colors shadow-lg shadow-emerald-500/20"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm transition-colors shadow-sm"
                         >
                             Hızlı Teklif Al <ArrowRight className="w-4 h-4" />
                         </Link>
                         <a
                             href="tel:+905323794003"
-                            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-zinc-700 hover:bg-zinc-800 text-white font-medium text-sm transition-colors"
+                            className="inline-flex items-center gap-2 px-5 py-3 border border-zinc-300 hover:bg-zinc-50 text-zinc-800 font-medium text-sm transition-colors"
                         >
-                            <Phone className="w-4 h-4 text-emerald-400" /> Usta Hattı
+                            <Phone className="w-4 h-4 text-amber-600" /> Usta Hattı
                         </a>
                     </div>
                 </div>
