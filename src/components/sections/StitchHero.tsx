@@ -19,7 +19,7 @@ export function StitchHero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Semantic Headline & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start space-y-6">
+          <div className="lg:col-span-6 flex flex-col items-start space-y-6">
             {/* Heritage Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-mono font-semibold tracking-wider uppercase">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
@@ -74,19 +74,19 @@ export function StitchHero() {
           </div>
 
           {/* Right Column: 3D Metal Plate Presentation */}
-          <div className="lg:col-span-5 relative w-full flex justify-center">
+          <div className="lg:col-span-6 relative w-full flex justify-center">
             {/* Ambient Aura */}
             <div className="absolute inset-0 bg-amber-500/10 blur-3xl rounded-full transform scale-90" />
 
             {/* 3D Perspective Card */}
-            <div className="relative z-10 w-full max-w-[420px] aspect-[4/5] rounded-2xl p-4 bg-gradient-to-br from-zinc-800/70 to-zinc-950/90 border border-white/10 shadow-2xl backdrop-blur-md transition-transform duration-500 hover:scale-[1.02]">
+            <div className="relative z-10 w-full max-w-[540px] aspect-[880/734] rounded-2xl p-2 sm:p-3 bg-gradient-to-br from-zinc-800/70 to-zinc-950/90 border border-white/10 shadow-2xl backdrop-blur-md transition-transform duration-500 hover:scale-[1.02]">
               <div className="relative w-full h-full rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800">
                 <Image
-                  src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop"
-                  alt="Veral Teneke 4K UV Baskılı Mıknatıslı Metal Poster Örneği"
+                  src="/hero-izmir-metal-poster.jpg"
+                  alt="İzmir Saat Kulesi Mıknatıslı Metal Poster - Veral Teneke İmalatı"
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, 420px"
+                  sizes="(max-width: 768px) 100vw, 540px"
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
 
@@ -97,9 +97,9 @@ export function StitchHero() {
                 <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-amber-400" />
 
                 {/* Live Overlay Tag */}
-                <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-md p-3 rounded-lg border border-white/10 flex items-center justify-between">
+                <div className="absolute bottom-4 left-4 right-4 bg-black/85 backdrop-blur-md p-3 rounded-lg border border-white/10 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-amber-400 tracking-wider block">Doğrudan Üreticiden</span>
+                    <span className="text-[10px] font-mono uppercase text-amber-400 tracking-wider block">İzmir Alsancak Üretimi</span>
                     <span className="text-xs font-bold text-white">Mıknatıslı Duvar Montaj Kiti Dahil</span>
                   </div>
                   <span className="text-xs font-mono font-bold bg-amber-500 text-black px-2.5 py-1 rounded">
