@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { ContentService } from '@/lib/supabase/content.service';
 import { normalizeImagePath } from '@/lib/utils';
-import { resolveServiceStockImage } from '@/lib/service-stock-images';
+import { resolveServiceStockImage, serviceImageAlt, serviceImageFit } from '@/lib/service-stock-images';
 import { ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-react';
 import { PageShell } from '@/components/layout/PageShell';
 import { PageContainer } from '@/components/layout/PageContainer';
@@ -55,6 +55,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         .slice(0, 3);
 
     const imageSrc = normalizeImagePath(resolveServiceStockImage(service));
+    const imageAlt = serviceImageAlt(imageSrc, service.title);
 
     return (
         <PageShell variant="light" padded={false}>
@@ -63,7 +64,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 <div className="absolute inset-0 z-0">
                     <Image
                         src={imageSrc}
-                        alt={service.title}
+                        alt={imageAlt}
                         fill
                         className="object-cover opacity-20"
                         sizes="100vw"
@@ -135,7 +136,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         </Link>
                                     </div>
                                     <div className="relative h-[240px] w-full overflow-hidden border border-[#c6c6c6]">
-                                        <Image src={imageSrc} alt={service.title} fill className="object-cover" />
+                                        <Image src={imageSrc} alt={imageAlt} fill sizes="(min-width: 768px) 400px, 92vw" className={serviceImageFit(imageSrc)} />
                                     </div>
                                 </div>
                             </div>
@@ -144,11 +145,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 <div className="space-y-4">
                                     <h3 className="text-xl font-bold text-[#161616]">Üretimden görseller</h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        {service.images.map((img: string, idx: number) => (
-                                            <div key={idx} className="relative aspect-[4/3] w-full overflow-hidden border border-[#c6c6c6] bg-[#f4f4f4]">
-                                                <Image src={normalizeImagePath(img)} alt={`${service.title} görsel ${idx + 1}`} fill className="object-cover" />
-                                            </div>
-                                        ))}
+                                        {service.images.map((img: string, idx: number) => {
+                                            const src = normalizeImagePath(img);
+                                            return (
+                                                <div key={idx} className="relative aspect-[4/3] w-full overflow-hidden border border-[#c6c6c6] bg-[#f4f4f4]">
+                                                    <Image src={src} alt={serviceImageAlt(src, `${service.title} görsel ${idx + 1}`)} fill sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 92vw" className={serviceImageFit(src)} />
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             )}
@@ -169,14 +173,16 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         </Link>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {otherServices.map((other: typeof service) => (
+                                        {otherServices.map((other: typeof service) => {
+                                            const otherSrc = normalizeImagePath(resolveServiceStockImage(other));
+                                            return (
                                             <Link
                                                 key={other.id}
                                                 href={`/hizmetler/${other.slug}`}
                                                 className="group bg-[#f4f4f4] border border-[#c6c6c6] overflow-hidden hover:border-[var(--color-brand-accent)] transition-colors flex flex-col"
                                             >
                                                 <div className="relative h-40 w-full overflow-hidden">
-                                                    <Image src={normalizeImagePath(resolveServiceStockImage(other))} alt={other.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                                                    <Image src={otherSrc} alt={serviceImageAlt(otherSrc, other.title)} fill sizes="(min-width: 768px) 360px, 92vw" className={`${serviceImageFit(otherSrc)} transition-transform duration-500 group-hover:scale-105`} />
                                                 </div>
                                                 <div className="p-5 flex-1 flex flex-col">
                                                     <h3 className="text-lg font-bold text-[#161616] mb-2 group-hover:text-[var(--color-brand-accent)] transition-colors">
@@ -185,7 +191,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                                     <p className="text-sm text-[#525252] line-clamp-2">{other.shortDescription}</p>
                                                 </div>
                                             </Link>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             )}

@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Clock, Tag, Share2, ChevronRight, ArrowRight, Shie
 import Link from "next/link";
 import Image from "next/image";
 import { AuthorCard } from "./AuthorCard";
+import { serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
 
 interface BlogPost {
     title: string;
@@ -99,11 +100,11 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
                     <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 mb-10 shadow-sm">
                         <Image
                             src={post.image}
-                            alt={post.title}
+                            alt={serviceImageAlt(post.image, post.title)}
                             fill
                             priority
                             sizes="(max-width: 1024px) 100vw, 800px"
-                            className="object-cover"
+                            className={serviceImageFit(post.image)}
                         />
                     </div>
 

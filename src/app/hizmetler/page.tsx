@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
+import { serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
 import {
     ArrowRight,
     CheckCircle2,
@@ -40,10 +41,9 @@ const serviceCards = [
         title: "Toptan Dosya Teli İmalatı",
         badge: "DIN EN 10202 • 0.20-0.35 mm",
         capacity: "50.000 ADET / GÜN",
-        image: "/images/services/dosya-teli.jpg",
+        image: "/images/services/dosya-teli-plastik-takim.webp",
         description: "Çift taraflı bükülebilir polimer kaplı veya nikelajlı yüksek elastikiyetli çelik tel. Büro kırtasiye ve arşiv standartlarına %100 uyumludur.",
         specs: [
-            { label: "Mekanik Direnç", val: "5.000+ Büküm Direnci" },
             { label: "Yüzey Kaplama", val: "Polimer / Parlak Nikelaj" },
             { label: "Ambalaj", val: "1.000'lik Koliler & Paletli Sevkiyat" },
         ],
@@ -55,11 +55,11 @@ const serviceCards = [
         title: "Takvim Tenekesi & Çıtası İmalatı",
         badge: "TH-415 / TH-550 • ETP",
         capacity: "ASKILI / ASKISIZ",
-        image: "/images/services/takvim-teneke.jpg",
-        description: "Duvar ve masa takvimleri için ETP tenekeden, kağıdı yırtmayan çift kanal koruyucu büküm radüsü. 20 cm'den 100 cm'ye kadar boy kesim.",
+        image: "/images/services/takvim-tenekeleri-detay.webp",
+        description: "Duvar takvimlerinin (özellikle gemici ve yapraklı blok takvimlerin) karton veya sert zeminlerine, üst veya alt kısımlarına geçirilen, takvimin duvarda dik ve düzgün durmasını sağlayan, kenarlarını koruyan ve asma deliği barındıran metal çıta / profil parçasıdır. Toptan / seri üretim.",
         specs: [
             { label: "Hammadde", val: "ETP Elektrolitik Teneke" },
-            { label: "Kıvırma Profili", val: "Çift Kanal Kağıt Koruma" },
+            { label: "Üretim", val: "Toptan / Seri Üretim" },
             { label: "Standart Boylar", val: "20 cm - 100 cm Boy Kesim" },
         ],
         icon: Layers,
@@ -100,7 +100,7 @@ const serviceCards = [
         title: "Tef Zili & Metal Pul Pres İmalatı",
         badge: "Yüksek Hızlı Eksantrik",
         capacity: "AKUSTİK PERFORMANS",
-        image: "/images/services/tef-zili.jpg",
+        image: "/images/services/tef-zili-38mm.webp",
         description: "Müzik aleti üreticileri ve enstrüman atölyeleri için paslanmaz pirinç veya teneke alaşımlı, yüksek rezonans tınlamalı seri pres üretimi.",
         specs: [
             { label: "Hammadde", val: "Pirinç (MS-63), Teneke, Çelik" },
@@ -115,7 +115,7 @@ const serviceCards = [
         title: "Mıknatıslı UV Baskılı Metal Levha & Poster",
         badge: "1.5 mm Çelik Sac • 4K UV",
         capacity: "SERİ & ÖZEL BASKI",
-        image: "/images/services/magnet-poster.jpg",
+        image: "/images/services/metal-tabelalar.webp",
         description: "Endüstriyel 1200 DPI piezoelektrik UV baskı ve çizilmeye dayanıklı çift kat mat vernik kürleme. Duvarı delmeden tutan N35 neodimyum mıknatıs askı kiti.",
         specs: [
             { label: "Baskı Teknolojisi", val: "4K Endüstriyel UV Kürleme" },
@@ -317,10 +317,10 @@ export default function HizmetlerPage() {
                                     <div className="relative w-full aspect-[16/10] bg-zinc-100 overflow-hidden border-b border-zinc-200">
                                         <Image
                                             src={service.image}
-                                            alt={service.title}
+                                            alt={serviceImageAlt(service.image, service.title)}
                                             fill
                                             sizes="(min-width:1024px) 380px, 92vw"
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                            className={`${serviceImageFit(service.image)} group-hover:scale-105 transition-transform duration-500`}
                                         />
                                         <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-mono font-bold text-zinc-900 border border-zinc-200 shadow-sm">
                                             {service.badge}

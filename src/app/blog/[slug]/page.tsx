@@ -19,7 +19,7 @@ const blogPosts: Record<string, {
         category: "ENDÜSTRİYEL İMALAT",
         date: "03.02.2026",
         readTime: "6 Dakika",
-        image: "/images/services/takvim-teneke.jpg",
+        image: "/images/services/takvim-tenekeleri-detay.webp",
         tags: ["Takvim Tenekesi", "Seri İmalat", "Alsancak", "DIN EN 10202"],
         content: `
 ## Giriş: Takvim Yayıncılığının Omurgası
@@ -48,7 +48,7 @@ Doğru takvim tenekesi seçimi, nihai ürünün profesyonel görünümünü ve r
         category: "KIRTASİYE EKİPMANLARI",
         date: "03.02.2026",
         readTime: "5 Dakika",
-        image: "/images/services/dosya-teli.jpg",
+        image: "/images/services/dosya-teli-plastik-takim.webp",
         tags: ["Dosya Teli", "Arşiv", "Polimer Kaplama", "Mekanik Direnç"],
         content: `
 ## Arşivlerin Gizli Kahramanı: Endüstriyel Dosya Teli
@@ -96,7 +96,7 @@ Müşteri teknik resmine göre DKP, galvaniz, paslanmaz ve teneke sac kesimlerin
         category: "DEKORASYON & SANAT",
         date: "10.01.2026",
         readTime: "8 Dakika",
-        image: "/images/services/magnet-poster.jpg",
+        image: "/images/services/metal-tabelalar.webp",
         tags: ["Metal Poster", "Neodimyum", "Manyetik Montaj", "UV Kürleme"],
         content: `
 ## Dijital Sanatın Metal Hali

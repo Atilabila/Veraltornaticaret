@@ -5,6 +5,7 @@ import { ArrowRight, Calendar, Clock, Search, BookOpen, Sparkles, Tag, CheckCirc
 import Link from "next/link";
 import Image from "next/image";
 import { AuthorCard } from "./AuthorCard";
+import { serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
 
 interface BlogPostItem {
     id: string;
@@ -106,11 +107,11 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                             <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto bg-zinc-100 overflow-hidden">
                                 <Image
                                     src={featuredPost.image}
-                                    alt={featuredPost.title}
+                                    alt={serviceImageAlt(featuredPost.image, featuredPost.title)}
                                     fill
                                     priority
                                     sizes="(max-width: 1024px) 100vw, 700px"
-                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    className={`${serviceImageFit(featuredPost.image)} group-hover:scale-105 transition-transform duration-700`}
                                 />
                                 <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-mono font-bold text-amber-800 border border-amber-600/20 shadow-sm flex items-center gap-1.5">
                                     <Sparkles className="w-3.5 h-3.5 text-amber-600" />
@@ -188,10 +189,10 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                                     <div className="relative w-full aspect-[16/10] bg-zinc-100 overflow-hidden border-b border-zinc-200">
                                         <Image
                                             src={post.image}
-                                            alt={post.title}
+                                            alt={serviceImageAlt(post.image, post.title)}
                                             fill
                                             sizes="(min-width: 1024px) 380px, 92vw"
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                            className={`${serviceImageFit(post.image)} group-hover:scale-105 transition-transform duration-500`}
                                         />
                                         <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-mono font-bold text-amber-800 border border-amber-600/20 shadow-sm">
                                             {post.category}
