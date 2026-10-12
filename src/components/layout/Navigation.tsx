@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Search, Menu, X } from 'lucide-react';
+import { LayoutGrid, Menu, X } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
 import { m, AnimatePresence } from 'framer-motion';
 import { useAdminStore } from '@/store/useAdminStore';
@@ -181,7 +181,7 @@ export const Navigation = () => {
                             aria-controls={SEARCH_DIALOG_ID}
                             className="p-2 text-atl-muted transition-colors hover:text-atl-text"
                         >
-                            <Search className="h-5 w-5" />
+                            <LayoutGrid className="h-5 w-5" />
                         </button>
                         <Link
                             href={ctaLink}
