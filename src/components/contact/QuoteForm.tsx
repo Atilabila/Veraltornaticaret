@@ -190,7 +190,7 @@ export const QuoteForm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-atl-surface border border-atl-line rounded-3xl p-10 md:p-14 text-center space-y-8 max-w-2xl mx-auto shadow-xl"
             >
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto border border-emerald-200 shadow-sm">
+                <div className="w-16 h-16 bg-emerald-950/40 text-emerald-300 rounded-2xl flex items-center justify-center mx-auto border border-emerald-500/30 shadow-sm">
                     <CheckCircle className="w-8 h-8" />
                 </div>
                 <h2 className="text-3xl font-display text-atl-text tracking-tight">{config.successTitle}</h2>
@@ -350,7 +350,7 @@ export const QuoteForm = () => {
                                                         <p className="text-xs font-mono text-atl-muted">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
                                                     </div>
                                                 </div>
-                                                <button onClick={() => removeFile(i)} className="text-atl-muted hover:text-red-600 transition-colors p-2">
+                                                <button onClick={() => removeFile(i)} className="text-atl-muted hover:text-red-400 transition-colors p-2">
                                                     <Trash2 className="w-5 h-5" />
                                                 </button>
                                             </div>

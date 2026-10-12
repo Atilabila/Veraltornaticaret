@@ -104,7 +104,7 @@ export default function IletisimPage() {
                             </div>
                             <div className="flex items-center gap-2">
                                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                                <span>Aynı Gün Numune İnceleme</span>
+                                <span>Numune İnceleme</span>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ export default function IletisimPage() {
                                 </span>
                                 <h3 className="text-2xl font-black text-atl-text mb-2">Acil Talepler İçin</h3>
                                 <p className="text-atl-muted text-sm leading-relaxed font-normal">
-                                    WhatsApp hattımız üzerinden atölye şefimize parça ölçüsü veya teknik çizim göndererek 30 dakika içinde geri dönüş alabilirsiniz.
+                                    WhatsApp hattımız üzerinden atölye şefimize parça ölçüsü veya teknik çizim gönderebilirsiniz.
                                 </p>
                             </div>
 

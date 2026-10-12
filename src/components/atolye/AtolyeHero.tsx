@@ -32,7 +32,7 @@ export function AtolyeHero() {
                     <div className="relative aspect-[4/3] overflow-hidden border border-atl-line bg-atl-surface">
                         <Image
                             src="/images/services/giyotin-kesim.webp"
-                            alt="Veral Alsancak atölyesinde giyotin sac kesim hattı"
+                            alt="Giyotin sac kesim hattı"
                             fill
                             priority
                             sizes="(min-width: 1024px) 640px, 92vw"
@@ -43,7 +43,7 @@ export function AtolyeHero() {
                         <span aria-hidden className="absolute bottom-3 left-3 h-5 w-5 border-b border-l border-atl-brass" />
                         <span aria-hidden className="absolute bottom-3 right-3 h-5 w-5 border-b border-r border-atl-brass" />
                     </div>
-                    <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.24em] text-atl-muted">Alsancak atölyesi · giyotin hattı</figcaption>
+                    <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.24em] text-atl-muted">Giyotin sac kesim</figcaption>
                 </figure>
             </div>
         </section>

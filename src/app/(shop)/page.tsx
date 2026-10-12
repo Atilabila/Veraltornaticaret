@@ -40,11 +40,11 @@ const homeFaqs = [
     },
     {
         question: "Toptan dosya teli ve takvim tenekesinde teslimat süreleri nedir?",
-        answer: "Standart siparişler aynı gün veya 24 saat içinde ambara teslim edilir. Özel boy kesim ve kurumsal fason talepler 2-4 iş günü içinde sevk edilir.",
+        answer: "Teslimat süresi sipariş miktarına, ölçüye ve stok durumuna göre değişir; kesin termin teklifle birlikte yazılı olarak bildirilir.",
     },
     {
         question: "Mıknatıslı metal posterler nasıl monte edilir?",
-        answer: "Özel 3M VHB yapışkanlı manyetik tutucu ped ve N35 neodimyum mıknatıs sistemi sayesinde duvar delmeden, çivi çakmadan 30 saniyede asılır.",
+        answer: "Mıknatıslı metal posterler, duvara yapıştırılan manyetik tutucu ped sayesinde duvar delmeden ve çivi çakmadan asılır.",
     },
     {
         question: "Özel ölçü metal levha ve fason UV baskı siparişi verebilir miyim?",

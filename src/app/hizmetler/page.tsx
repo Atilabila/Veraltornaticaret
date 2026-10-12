@@ -226,11 +226,11 @@ export default function HizmetlerPage() {
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <ShieldCheck className="w-4 h-4 text-atl-brass" />
-                                <span>DIN EN 10202 Akredite Hammadde</span>
+                                <span>DIN EN 10202 Uyumlu Hammadde</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <CheckCircle2 className="w-4 h-4 text-atl-brass" />
-                                <span>Aynı Gün Numune Sevkiyatı</span>
+                                <span>Numune Desteği</span>
                             </div>
                         </div>
                     </div>
@@ -378,10 +378,10 @@ export default function HizmetlerPage() {
                             ÖZEL TEKNİK ŞARTNAME & FASON İMALAT
                         </span>
                         <h2 className="text-2xl sm:text-3xl font-black text-atl-text">
-                            Projeniz İçin Teknik Resim Gönderin, 24 Saatte Fiyatlandıralım
+                            Projeniz İçin Teknik Resim Gönderin, Fiyatlandıralım
                         </h2>
                         <p className="text-sm text-atl-muted leading-relaxed font-normal">
-                            CAD, DXF veya PDF teknik çizimlerinizi doğrudan teklif formumuzdan iletin; imalat mühendisimiz ve atölye şefimiz Oğuzcan Veral aynı gün tolerans ve fiyat analizi çıkarsın.
+                            CAD, DXF veya PDF teknik çizimlerinizi doğrudan teklif formumuzdan iletin; atölye şefimiz Oğuzcan Veral tolerans ve fiyat analizini çıkarsın.
                         </p>
                     </div>
 

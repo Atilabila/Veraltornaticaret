@@ -148,14 +148,6 @@ export default function OguzcanVeralProfilePage() {
                             <p className="text-sm sm:text-base text-atl-muted leading-relaxed">
                                 İzmir Alsancak Sanayi Sitesi'ndeki 1471 Sokak atölyemizde süregelen torna, pres ve metal levha işleme kültürünü modern UV kürleme teknolojileriyle birleştiren Oğuzcan Veral; toptan dosya teli, takvim tenekesi ve mıknatıslı metal poster üretim hatlarının kalite kontrol ve teknik şartname süreçlerini yönetmektedir.
                             </p>
-
-                            {/* Experience Metrics */}
-                            <div className="grid grid-cols-1 gap-4 pt-4 border-t border-atl-line">
-                                <div>
-                                    <span className="block text-2xl font-black font-mono text-atl-text">%98.7</span>
-                                    <span className="text-xs text-atl-muted font-medium">Tolerans Memnuniyeti</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

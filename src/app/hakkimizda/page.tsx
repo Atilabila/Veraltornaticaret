@@ -184,18 +184,10 @@ export default function AboutPage() {
                 </div>
 
                 {/* STATS STRIP */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
-                    <div className="p-6 rounded-xl bg-atl-surface border border-atl-line shadow-sm text-center">
-                        <span className="block text-3xl md:text-4xl font-black text-atl-text font-mono mb-1">40+ Yıl</span>
-                        <span className="text-xs font-mono uppercase tracking-wider text-atl-brass font-bold">Kesintisiz Üretim</span>
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-1 gap-4 mt-12">
                     <div className="p-6 rounded-xl bg-atl-surface border border-atl-line shadow-sm text-center">
                         <span className="block text-3xl md:text-4xl font-black text-atl-text font-mono mb-1">50.000</span>
                         <span className="text-xs font-mono uppercase tracking-wider text-atl-brass font-bold">Günlük Parça Kapasitesi</span>
-                    </div>
-                    <div className="p-6 rounded-xl bg-atl-surface border border-atl-line shadow-sm text-center">
-                        <span className="block text-3xl md:text-4xl font-black text-atl-brass font-mono mb-1">%99.2</span>
-                        <span className="text-xs font-mono uppercase tracking-wider text-atl-brass font-bold">Doğrulanmış Memnuniyet</span>
                     </div>
                 </div>
             </section>
@@ -299,7 +291,7 @@ export default function AboutPage() {
 
                     <div className="p-8 rounded-2xl border border-atl-line bg-atl-surface space-y-4 shadow-sm">
                         <ShieldCheck className="w-8 h-8 text-atl-brass" />
-                        <h3 className="text-lg font-bold text-atl-text">DIN EN 10202 Akredite Kalite</h3>
+                        <h3 className="text-lg font-bold text-atl-text">DIN EN 10202 Uyumlu Hammadde</h3>
                         <p className="text-sm text-atl-muted leading-relaxed font-normal">
                             Üretimde yalnızca Avrupa normlarına uygun elektrolitik teneke (ETP) ve TFS sertifikalı sac hammaddeleri kullanılır.
                         </p>

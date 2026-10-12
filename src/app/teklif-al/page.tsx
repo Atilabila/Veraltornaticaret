@@ -10,7 +10,7 @@ import { ShieldCheck, Clock, FileText, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: "B2B Hızlı Fiyat Teklifi (RFQ) | Toptan Dosya Teli & Teneke İmalatı | Veral Ticaret",
-    description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve UV metal poster siparişleriniz için 24 saat içinde teknik fiyatlandırma ve numune desteği. İzmir Alsancak doğrudan imalatçı fiyatı.",
+    description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve UV metal poster siparişleriniz için teknik fiyatlandırma ve numune desteği. İzmir Alsancak doğrudan imalatçı fiyatı.",
     alternates: {
         canonical: "https://veralteneketicaret.com/teklif-al",
     },
@@ -48,13 +48,13 @@ export default async function QuotePage() {
                             B2B Hızlı Fiyat & Numune Teklifi (RFQ)
                         </h1>
                         <p className="text-base md:text-lg text-atl-muted leading-relaxed font-normal">
-                            Toptan dosya teli, takvim tenekesi, fason giyotin kesim ve mıknatıslı UV metal poster projeleriniz için teknik resminizi yükleyin veya ölçülerinizi belirtin. İmalat mühendislerimiz 24 saat içinde detaylı teklif föyünüzü hazırlasın.
+                            Toptan dosya teli, takvim tenekesi, fason giyotin kesim ve mıknatıslı UV metal poster projeleriniz için teknik resminizi yükleyin veya ölçülerinizi belirtin. İmalat ekibimiz detaylı teklif föyünüzü hazırlasın.
                         </p>
 
                         <div className="pt-2 flex flex-wrap items-center gap-6 text-xs font-mono text-atl-muted">
                             <div className="flex items-center gap-1.5">
                                 <Clock className="w-4 h-4 text-atl-brass" />
-                                <span>24 Saat İçinde Yanıt</span>
+                                <span>Yazılı Teklif</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <FileText className="w-4 h-4 text-atl-brass" />

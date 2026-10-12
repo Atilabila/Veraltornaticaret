@@ -37,7 +37,7 @@ function TeklifBasariliContent() {
                 <p className="text-lg text-atl-muted">
                     {uploadStatus === 'fail'
                         ? 'Teklif talebiniz kaydedildi ancak dosya yüklenirken bir hata oluştu.'
-                        : 'Teklif talebiniz başarıyla kaydedildi. Ekibimiz en geç 24 saat içinde dönüş yapacaktır.'}
+                        : 'Teklif talebiniz başarıyla kaydedildi. Ekibimiz talebinizi inceleyip size dönüş yapacaktır.'}
                 </p>
             </div>
 

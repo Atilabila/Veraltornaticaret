@@ -24,7 +24,7 @@ const faqData = [
     {
         category: "Toptan İmalat & Sipariş",
         question: "Toptan dosya teli siparişlerinde minimum sipariş miktarı (MOQ) nedir?",
-        answer: "Standart üretim arşiv tipi dosya tellerinde koli bazlı toptan teslimat yapmaktayız (genellikle 1.000 adetlik paketler ve katları). Özel ebat veya özel nikelaj/polimer kaplama taleplerinde ise makine kalıp ayarları gereği minimum üretim partimiz 10.000 adettir. Günlük 50.000 adet üretim kapasitemizle acil siparişleri aynı gün ambara veya kargoya verebiliyoruz.",
+        answer: "Standart üretim arşiv tipi dosya tellerinde koli bazlı toptan teslimat yapmaktayız (genellikle 1.000 adetlik paketler ve katları). Özel ebat veya özel nikelaj/polimer kaplama taleplerinde ise makine kalıp ayarları gereği minimum üretim partimiz 10.000 adettir.",
     },
     {
         category: "Toptan İmalat & Sipariş",
@@ -54,12 +54,12 @@ const faqData = [
     {
         category: "Lojistik & Teslimat",
         question: "Kargo ve teslimat süreci nasıl işlemektedir?",
-        answer: "İzmir Alsancak 1471 Sokak'taki üretim merkezimizden çıkan ürünler, Türkiye'nin 81 iline anlaşmalı kargo firmaları veya toptan siparişler için ambar lojistiği ile gönderilir. Standart stoklu ürünler aynı gün veya ertesi iş günü sevk edilirken, özel üretim siparişleri 2-4 iş günü içinde kargoya teslim edilmektedir.",
+        answer: "İzmir Alsancak 1471 Sokak'taki üretim merkezimizden çıkan ürünler, Türkiye'nin 81 iline anlaşmalı kargo firmaları veya toptan siparişler için ambar lojistiği ile gönderilir. Sevk tarihi sipariş miktarına ve üretim planına göre teklifle birlikte bildirilir.",
     },
     {
         category: "Lojistik & Teslimat",
-        question: "Hasarlı teslimat veya parça değişim garantiniz var mı?",
-        answer: "Tüm kargolarımız özel sertleştirilmiş kraft ambalaj, çemberli palet ve köşe koruyucularla sevk edilir. Kargo kaynaklı herhangi bir eğilme, çizilme veya hasar durumunda, kargo hasar tutanağı dahi aranmaksızın 48 saat içinde yenisi ücretsiz olarak üretilip adresinize ulaştırılır.",
+        question: "Hasarlı teslimatta ne yapmalıyım?",
+        answer: "Tüm kargolarımız özel sertleştirilmiş kraft ambalaj, çemberli palet ve köşe koruyucularla sevk edilir. Kargo kaynaklı hasar durumunda bizimle iletişime geçmeniz yeterlidir; değişim koşulları sipariş sözleşmesine göre birlikte değerlendirilir.",
     },
 ];
 
