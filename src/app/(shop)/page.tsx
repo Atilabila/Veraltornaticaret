@@ -4,7 +4,6 @@ import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
 import { StitchHero } from "@/components/sections/StitchHero";
-import { StitchAssurance } from "@/components/sections/StitchAssurance";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import dynamic from "next/dynamic";
 
@@ -62,9 +61,6 @@ export default function ShopHomePage() {
 
             {/* 1. STITCH LUXURY INDUSTRIAL HERO (İzmir Metal Poster Art) */}
             <StitchHero />
-
-            {/* 2. STITCH 4-COLUMN ASSURANCE PROTOCOL (NO JARGON) */}
-            <StitchAssurance />
 
             {/* 5. HİZMETLER & İMALAT HATLARI */}
             <section className="bg-[#f8f9fa] text-[#161616] relative z-10 border-b border-[#e5e7eb]">
