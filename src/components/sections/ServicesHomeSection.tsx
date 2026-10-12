@@ -110,7 +110,7 @@ export const ServicesHomeSection = () => {
                                 className="group flex flex-col justify-between bg-white border border-zinc-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-amber-500 transition-all duration-300"
                             >
                                 <div>
-                                    <div className="relative w-full aspect-[16/10] bg-zinc-100 overflow-hidden border-b border-zinc-200">
+                                    <div className="relative w-full aspect-[4/5] bg-zinc-100 overflow-hidden border-b border-zinc-200">
                                         <Image
                                             src={service.image}
                                             alt={serviceImageAlt(service.image, service.title)}

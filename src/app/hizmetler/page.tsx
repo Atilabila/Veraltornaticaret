@@ -314,7 +314,7 @@ export default function HizmetlerPage() {
                             >
                                 <div>
                                     {/* Real Local Image */}
-                                    <div className="relative w-full aspect-[16/10] bg-zinc-100 overflow-hidden border-b border-zinc-200">
+                                    <div className="relative w-full aspect-[4/5] bg-zinc-100 overflow-hidden border-b border-zinc-200">
                                         <Image
                                             src={service.image}
                                             alt={serviceImageAlt(service.image, service.title)}

@@ -135,7 +135,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                             Hemen teklif al <ArrowRight className="w-4 h-4" />
                                         </Link>
                                     </div>
-                                    <div className="relative h-[240px] w-full overflow-hidden border border-[#c6c6c6]">
+                                    <div className="relative aspect-[4/5] w-full overflow-hidden border border-[#c6c6c6]">
                                         <Image src={imageSrc} alt={imageAlt} fill sizes="(min-width: 768px) 400px, 92vw" className={serviceImageFit(imageSrc)} />
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         {service.images.map((img: string, idx: number) => {
                                             const src = normalizeImagePath(img);
                                             return (
-                                                <div key={idx} className="relative aspect-[4/3] w-full overflow-hidden border border-[#c6c6c6] bg-[#f4f4f4]">
+                                                <div key={idx} className="relative aspect-[4/5] w-full overflow-hidden border border-[#c6c6c6] bg-[#f4f4f4]">
                                                     <Image src={src} alt={serviceImageAlt(src, `${service.title} görsel ${idx + 1}`)} fill sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 92vw" className={serviceImageFit(src)} />
                                                 </div>
                                             );
@@ -181,7 +181,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                                 href={`/hizmetler/${other.slug}`}
                                                 className="group bg-[#f4f4f4] border border-[#c6c6c6] overflow-hidden hover:border-[var(--color-brand-accent)] transition-colors flex flex-col"
                                             >
-                                                <div className="relative h-40 w-full overflow-hidden">
+                                                <div className="relative aspect-[4/5] w-full overflow-hidden">
                                                     <Image src={otherSrc} alt={serviceImageAlt(otherSrc, other.title)} fill sizes="(min-width: 768px) 360px, 92vw" className={`${serviceImageFit(otherSrc)} transition-transform duration-500 group-hover:scale-105`} />
                                                 </div>
                                                 <div className="p-5 flex-1 flex flex-col">
