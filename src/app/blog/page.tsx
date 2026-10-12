@@ -33,7 +33,7 @@ export const blogPosts = [
     {
         id: "dosya-teli-ve-arsiv-sistemleri",
         title: "Dosya Teli Üretiminde Malzeme Bilimi: Paslanmaz ve Yüksek Elastikiyet",
-        excerpt: "Devlet arşivleri ve kurumsal ofisler için polimer kaplı çelik dosya teli incelemesi: 5.000+ büküm direnci ve 96 saatlik tuz sisi korozyon testleri.",
+        excerpt: "Devlet arşivleri ve kurumsal ofisler için polimer kaplı çelik dosya teli incelemesi: polimer kaplama ve 96 saatlik tuz sisi korozyon testleri.",
         category: "KIRTASİYE EKİPMANLARI",
         date: "03.02.2026",
         readTime: "5 Dakika",

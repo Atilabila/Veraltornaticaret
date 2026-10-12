@@ -59,7 +59,6 @@ Milyonlarca belgenin düzenlendiği devlet arşiv merkezlerinden, adliye arşivl
 
 Veral bünyesinde üretilen dosya telleri, belirli mekanik ve metalurjik testlerden geçerek son kullanıcıya ulaşır:
 
-- **5.000+ Büküm Direnci**: Sürekli açılıp kapanmaya karşı metal yorgunluğunu engelleyen özel tavlanmış çelik yapı.
 - **Korozyon Direnci**: Arşivlerde on yıllarca sürecek saklama koşullarına uygun polimer kaplama veya parlak nikelaj tabakası.
 - **Çapaksız Kenarlar**: Belgelere ve kullanıcı ellerine zarar vermeyen hassas giyotin kesim teknolojisi.
 
