@@ -24,8 +24,8 @@ html {
   --color-hazard-orange: #d97706;
   --color-acid-green: #15803d;
   /* Primary B2B & Luxury Metal accent — Warm Industrial Amber/Bronze (NO BLUE) */
-  --color-brand-accent: #d97706;
-  --color-brand-accent-muted: #b45309;
+  --color-brand-accent: #c9a35c;
+  --color-brand-accent-muted: #b8914a;
   --color-brand-safety-orange: #d97706;
   /* Deprecated aliases */
   --color-industrial-gold: #d97706;
@@ -54,45 +54,59 @@ html {
 
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
+
+  /* Atölye tasarım dili */
+  --color-atl-bg: #121110;
+  --color-atl-surface: #1b1a18;
+  --color-atl-surface-2: #23211e;
+  --color-atl-line: #2e2b27;
+  --color-atl-brass: #c9a35c;
+  --color-atl-brass-light: #e3c78a;
+  --color-atl-brass-tint: #2a2318;
+  --color-atl-text: #ece6da;
+  --color-atl-muted: #a39b8c;
+
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @layer base {
   :root {
     /* Runtime-loaded fonts (Google Fonts link in layout head). */
-    --font-space-grotesk: "IBM Plex Sans";
-    --font-syne: "IBM Plex Sans";
+    --font-space-grotesk: "Archivo";
+    --font-syne: "Archivo";
     --font-ibm-plex-mono: "IBM Plex Mono";
 
     --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
 
-    --background: 0 0% 98%;
-    --foreground: 240 10% 3.9%;
+    --background: 30 6% 7%;
+    --foreground: 40 30% 89%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 40 6% 10%;
+    --card-foreground: 40 30% 89%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 36 6% 13%;
+    --muted-foreground: 39 9% 59%;
 
-    --primary: 240 10% 3.9%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 39 50% 57%;
+    --primary-foreground: 30 6% 7%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 10% 3.9%;
+    --secondary: 36 6% 13%;
+    --secondary-foreground: 40 30% 89%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 10% 3.9%;
+    --accent: 36 6% 13%;
+    --accent-foreground: 40 30% 89%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --border: 35 6% 17%;
+    --input: 35 6% 17%;
+    --ring: 39 50% 57%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 40 6% 10%;
+    --popover-foreground: 40 30% 89%;
 
     --industrial-gold: 38 92% 50%;
     /* #d97706 — Warm industrial amber */
@@ -168,7 +182,8 @@ html {
 
   /* Keyboard users: net focus */
   :focus-visible {
-    outline: none;
+    outline: 2px solid var(--color-atl-brass);
+    outline-offset: 2px;
   }
 
   .focus-ring {
@@ -372,3 +387,39 @@ html.force-desktop body {
     box-shadow: 0 8px 20px -3px rgba(217, 119, 6, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 }
+
+/* ===== Atölye dokusu, giriş animasyonu, uzun metin ===== */
+.atl-grain {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at 18% 0%, rgba(201, 163, 92, 0.09), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(201, 163, 92, 0.05), transparent 50%);
+}
+
+@keyframes atl-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.atl-rise { animation: atl-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.atl-rise-2 { animation-delay: 0.12s; }
+.atl-rise-3 { animation-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .atl-rise { animation: none; }
+}
+
+.atl-prose {
+  max-width: 68ch;
+  line-height: 1.7;
+  color: var(--color-atl-muted);
+}
+
+.atl-prose h2, .atl-prose h3 {
+  font-family: var(--font-display);
+  color: var(--color-atl-text);
+  font-weight: 400;
+}
+
+.atl-prose strong { color: var(--color-atl-text); }
+.atl-prose a { color: var(--color-atl-brass-light); text-decoration: underline; text-underline-offset: 3px; }

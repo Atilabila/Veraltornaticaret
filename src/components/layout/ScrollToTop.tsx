@@ -35,7 +35,7 @@ export function ScrollToTop() {
             <button
                 type="button"
                 onClick={scrollToTop}
-                className="flex items-center justify-center w-12 h-12 bg-white border-2 border-zinc-900 text-zinc-900 shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+                className="flex items-center justify-center w-12 h-12 bg-atl-surface border-2 border-atl-brass text-atl-text shadow-[4px_4px_0_0_#c9a35c] hover:shadow-[1px_1px_0_0_#c9a35c] hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
                 aria-label="Yukarı Çık"
             >
                 <ArrowUp className="w-6 h-6" />

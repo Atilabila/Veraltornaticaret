@@ -24,7 +24,7 @@ const faqData = [
     {
         category: "Toptan İmalat & Sipariş",
         question: "Toptan dosya teli siparişlerinde minimum sipariş miktarı (MOQ) nedir?",
-        answer: "Standart üretim arşiv tipi dosya tellerinde koli bazlı toptan teslimat yapmaktayız (genellikle 1.000 adetlik paketler ve katları). Özel ebat veya özel nikelaj/polimer kaplama taleplerinde ise makine kalıp ayarları gereği minimum üretim partimiz 10.000 adettir. Günlük 50.000 adet üretim kapasitemizle acil siparişleri aynı gün ambara veya kargoya verebiliyoruz.",
+        answer: "Standart üretim arşiv tipi dosya tellerinde koli bazlı toptan teslimat yapmaktayız (genellikle 1.000 adetlik paketler ve katları). Özel ebat veya özel nikelaj/polimer kaplama taleplerinde ise makine kalıp ayarları gereği minimum üretim partimiz 10.000 adettir.",
     },
     {
         category: "Toptan İmalat & Sipariş",
@@ -39,7 +39,7 @@ const faqData = [
     {
         category: "Teknik Normlar & Malzeme",
         question: "Fason giyotin kesim ve rulo dilimlemede tolerans aralığınız nedir?",
-        answer: "CNC dijital arka dayamalı giyotin makas hatlarımızda 3.000 mm boya ve 0.15 - 3.00 mm kalınlığa kadar ±0.05 mm hassasiyetle çapaksız dik gönyede kesim yapıyoruz. Dairesel bıçaklı rulo sac dilme (slitting) hattımızda ise minimum 8 mm şerit genişliğinde ±0.08 mm tolerans garantisi verilmektedir.",
+        answer: "CNC dijital arka dayamalı giyotin makas hatlarımızda 3.000 mm boya ve 0.15 - 3.00 mm kalınlığa kadar ±0.05 mm hassasiyetle çapaksız dik gönyede kesim yapıyoruz. Dairesel bıçaklı rulo sac dilme (slitting) hattımızda ise minimum 8 mm şerit genişliğinde ±0.08 mm toleransla çalışılmaktadır.",
     },
     {
         category: "UV Metal Poster & Baskı",
@@ -49,17 +49,17 @@ const faqData = [
     {
         category: "UV Metal Poster & Baskı",
         question: "Metal posterlerde UV baskı kalitesi nasıldır? Renkler solar mı veya çizilir mi?",
-        answer: "Üretim hattımızda 1200x1200 DPI çözünürlüğünde endüstriyel piezoelektrik UV baskı teknolojisi kullanılmaktadır. Baskı anında ultraviyole ışıkla kürlenen özel pigment mürekkepler ve ardından uygulanan koruyucu mat vernik tabakası sayesinde tablolarımız doğrudan güneş ışığına, neme ve çizilmelere karşı 10 yıl renk canlılığı garantilidir.",
+        answer: "Üretim hattımızda 1200x1200 DPI çözünürlüğünde endüstriyel piezoelektrik UV baskı teknolojisi kullanılmaktadır. Baskı anında ultraviyole ışıkla kürlenen özel pigment mürekkepler ve ardından uygulanan koruyucu mat vernik tabakası sayesinde tablolarımız güneş ışığına, neme ve çizilmelere karşı dayanıklıdır.",
     },
     {
         category: "Lojistik & Teslimat",
         question: "Kargo ve teslimat süreci nasıl işlemektedir?",
-        answer: "İzmir Alsancak 1471 Sokak'taki üretim merkezimizden çıkan ürünler, Türkiye'nin 81 iline anlaşmalı kargo firmaları veya toptan siparişler için ambar lojistiği ile gönderilir. Standart stoklu ürünler aynı gün veya ertesi iş günü sevk edilirken, özel üretim siparişleri 2-4 iş günü içinde kargoya teslim edilmektedir.",
+        answer: "İzmir Alsancak 1471 Sokak'taki üretim merkezimizden çıkan ürünler, Türkiye'nin 81 iline anlaşmalı kargo firmaları veya toptan siparişler için ambar lojistiği ile gönderilir. Sevk tarihi sipariş miktarına ve üretim planına göre teklifle birlikte bildirilir.",
     },
     {
         category: "Lojistik & Teslimat",
-        question: "Hasarlı teslimat veya parça değişim garantiniz var mı?",
-        answer: "Tüm kargolarımız özel sertleştirilmiş kraft ambalaj, çemberli palet ve köşe koruyucularla sevk edilir. Kargo kaynaklı herhangi bir eğilme, çizilme veya hasar durumunda, kargo hasar tutanağı dahi aranmaksızın 48 saat içinde yenisi ücretsiz olarak üretilip adresinize ulaştırılır.",
+        question: "Hasarlı teslimatta ne yapmalıyım?",
+        answer: "Tüm kargolarımız özel sertleştirilmiş kraft ambalaj, çemberli palet ve köşe koruyucularla sevk edilir. Kargo kaynaklı hasar durumunda bizimle iletişime geçmeniz yeterlidir; değişim koşulları sipariş sözleşmesine göre birlikte değerlendirilir.",
     },
 ];
 
@@ -70,23 +70,23 @@ export default function SSSPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+        <main className="min-h-screen bg-atl-bg text-atl-text">
             <FAQSchema items={faqData} />
             <Navigation />
 
             <div className="pt-28 pb-4 px-4 md:px-8 max-w-5xl mx-auto">
-                <Breadcrumb items={breadcrumbs} className="text-zinc-600" />
+                <Breadcrumb items={breadcrumbs} className="text-atl-muted" />
             </div>
 
             <section className="px-4 md:px-8 max-w-5xl mx-auto pb-20 pt-4">
                 <div className="mb-12 text-center sm:text-left">
-                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-amber-50 text-amber-900 border border-amber-600/20 shadow-sm mb-4">
-                        <HelpCircle className="w-3.5 h-3.5 text-amber-700" /> DESTEK & TEKNİK BİLGİ MERKEZİ
+                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-atl-brass-tint text-atl-brass border border-atl-brass/20 shadow-sm mb-4">
+                        <HelpCircle className="w-3.5 h-3.5 text-atl-brass" /> DESTEK & TEKNİK BİLGİ MERKEZİ
                     </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-zinc-900 tracking-tight mb-4">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight mb-4">
                         Sıkça Sorulan Sorular
                     </h1>
-                    <p className="text-base md:text-lg text-zinc-600 max-w-2xl font-normal leading-relaxed">
+                    <p className="text-base md:text-lg text-atl-muted max-w-2xl font-normal leading-relaxed">
                         Toptan dosya teli, takvim tenekesi, giyotin sac kesim, rulo dilimleme ve mıknatıslı UV metal poster imalat süreçlerimizle ilgili en çok merak edilen teknik ve ticari konular.
                     </p>
                 </div>
@@ -96,22 +96,22 @@ export default function SSSPage() {
                     {faqData.map((item, index) => (
                         <details
                             key={index}
-                            className="group border border-zinc-200 bg-white rounded-2xl shadow-sm overflow-hidden transition-all duration-200 hover:border-amber-500 hover:shadow-md"
+                            className="group border border-atl-line bg-atl-surface rounded-2xl shadow-sm overflow-hidden transition-all duration-200 hover:border-atl-brass hover:shadow-md"
                         >
-                            <summary className="cursor-pointer p-6 font-bold text-zinc-900 list-none flex items-center justify-between gap-4 select-none">
+                            <summary className="cursor-pointer p-6 font-bold text-atl-text list-none flex items-center justify-between gap-4 select-none">
                                 <div className="space-y-1">
-                                    <span className="text-[11px] font-mono font-bold text-amber-700 uppercase tracking-wider block">
+                                    <span className="text-[11px] font-mono font-bold text-atl-brass uppercase tracking-wider block">
                                         {item.category}
                                     </span>
                                     <span className="text-base sm:text-lg leading-snug">
                                         {item.question}
                                     </span>
                                 </div>
-                                <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-zinc-100 flex items-center justify-center text-amber-700 font-mono text-lg group-open:rotate-45 transition-transform duration-200 shadow-xs">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-atl-surface-2 flex items-center justify-center text-atl-brass font-mono text-lg group-open:rotate-45 transition-transform duration-200 shadow-xs">
                                     +
                                 </span>
                             </summary>
-                            <div className="px-6 pb-6 text-zinc-600 text-sm sm:text-base leading-relaxed border-t border-zinc-100 pt-4 font-normal">
+                            <div className="px-6 pb-6 text-atl-muted text-sm sm:text-base leading-relaxed border-t border-atl-line pt-4 font-normal">
                                 {item.answer}
                             </div>
                         </details>
@@ -119,22 +119,22 @@ export default function SSSPage() {
                 </div>
 
                 {/* CALL TO ACTION BOX */}
-                <div className="rounded-3xl border border-zinc-200 bg-white p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+                <div className="rounded-3xl border border-atl-line bg-atl-surface p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
                     <div className="space-y-2 text-center md:text-left">
-                        <span className="text-xs font-mono font-bold text-amber-700 uppercase tracking-wider block">
+                        <span className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider block">
                             DOĞRUDAN USTA DESTEĞİ
                         </span>
-                        <h2 className="text-xl md:text-2xl font-black text-zinc-900 flex items-center gap-2 justify-center md:justify-start">
-                            <Sparkles className="w-5 h-5 text-amber-600" /> Başka bir sorunuz veya özel şartnameniz mi var?
+                        <h2 className="text-xl md:text-2xl font-display text-atl-text flex items-center gap-2 justify-center md:justify-start">
+                            <Sparkles className="w-5 h-5 text-atl-brass" /> Başka bir sorunuz veya özel şartnameniz mi var?
                         </h2>
-                        <p className="text-sm text-zinc-600 max-w-md">
+                        <p className="text-sm text-atl-muted max-w-md">
                             İzmir Alsancak atölyemizdeki imalat uzmanlarımızla doğrudan görüşebilir veya hızlı teklif formumuzu doldurabilirsiniz.
                         </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-3">
                         <Link
                             href="/teklif-al"
-                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all hover:scale-105"
+                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-xs uppercase tracking-wider shadow-sm transition-all hover:scale-105"
                         >
                             <span>Hızlı Teklif Al</span>
                             <ArrowRight className="w-4 h-4" />
@@ -143,7 +143,7 @@ export default function SSSPage() {
                             href="https://wa.me/905323794003"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-zinc-300 hover:bg-zinc-50 text-zinc-900 font-semibold text-xs transition-colors"
+                            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-atl-line hover:bg-atl-surface-2 text-atl-text font-semibold text-xs transition-colors"
                         >
                             <Phone className="w-4 h-4 text-emerald-600" />
                             <span>WhatsApp Usta Hattı</span>

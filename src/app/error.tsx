@@ -25,7 +25,7 @@ export default function Error({
                 />
                 <button
                     onClick={reset}
-                    className="mt-6 px-8 py-3 text-xs font-black border border-zinc-300 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors uppercase tracking-[0.2em]"
+                    className="mt-6 px-8 py-3 text-xs font-black border border-atl-line rounded hover:bg-atl-surface-2 transition-colors uppercase tracking-[0.2em]"
                 >
                     TEKRAR DENE
                 </button>
