@@ -11,9 +11,6 @@ import dynamic from "next/dynamic";
 const ServicesHomeSection = dynamic(() =>
     import("@/components/sections/ServicesHomeSection").then((mod) => mod.ServicesHomeSection)
 );
-const ProcessSection = dynamic(() => import("@/components/sections/ProcessSection").then(mod => mod.ProcessSection));
-const CustomerReviews = dynamic(() => import("@/components/sections/CustomerReviews").then(mod => mod.CustomerReviews));
-
 export const metadata: Metadata = {
     title: "Veral Teneke & Metal Poster İmalatı | İzmir Alsancak Seri Üretim",
     description: "40 yılı aşkın tecrübeyle toptan dosya teli, takvim tenekesi ve 4K UV baskılı mıknatıslı metal poster imalatı. İzmir'den 81 ile doğrudan üreticiden sevkiyat.",
@@ -72,16 +69,6 @@ export default function ShopHomePage() {
             {/* 5. HİZMETLER & İMALAT HATLARI */}
             <section className="bg-[#f8f9fa] text-[#161616] relative z-10 border-b border-[#e5e7eb]">
                 <ServicesHomeSection />
-            </section>
-
-            {/* 6. SERİ İMALAT SÜRECİ */}
-            <section className="bg-white text-[#161616] relative z-0 border-b border-[#e5e7eb]">
-                <ProcessSection />
-            </section>
-
-            {/* 7. 35.000+ SİPARİŞ DENEYİMİ & YORUMLAR */}
-            <section className="bg-[#f8f9fa] text-[#161616] relative border-b border-[#e5e7eb]">
-                <CustomerReviews />
             </section>
 
             {/* GLOBAL FOOTER */}
