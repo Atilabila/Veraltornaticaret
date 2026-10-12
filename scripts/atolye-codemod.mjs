@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
 const MAP = {
@@ -79,17 +79,25 @@ export function transform(source) {
 const LEFTOVER_RE = /(?<=^|[\s"'`{])(?:[a-z0-9-]+:)*(?:bg|text|border)-(?:white|gray-\d{2,3}|slate-\d{2,3}|zinc-\d{2,3}|neutral-[1-4]\d{2}|stone-\d{2,3}|amber-\d{2,3}|\[#[ef][0-9a-fA-F]{5}\])(?:\/\d{1,3})?(?=$|[\s"'`}])/g;
 
 export function findLeftovers(source) {
-  return [...source.matchAll(LEFTOVER_RE)].map((m) => m[0]).filter((c) => !c.endsWith("text-white"));
+  return [...source.matchAll(LEFTOVER_RE)]
+    .map((m) => m[0])
+    .filter((c) => !/(?:^|:)(?:text-white(?:\/\d{1,3})?|border-white\/\d{1,3})$/.test(c));
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const args = process.argv.slice(2);
   const check = args[0] === "--check";
-  const files = check ? args.slice(1) : args;
-  if (!files.length) {
+  const paths = check ? args.slice(1) : args;
+  if (!paths.length) {
     console.error("usage: node scripts/atolye-codemod.mjs [--check] <file...>");
     process.exit(1);
   }
+  const files = paths.filter((file) => {
+    if (existsSync(file)) return true;
+    console.error(`missing: ${file}`);
+    process.exitCode = 1;
+    return false;
+  });
   let leftoverTotal = 0;
   let riskTotal = 0;
   for (const file of files) {

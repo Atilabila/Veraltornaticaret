@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -114,6 +114,11 @@ test("findContrastRisks pirinç zemin + text-white satırlarını bulur", () => 
   assert.deepEqual(findContrastRisks(src), [1, 4, 5]);
 });
 
+test("findLeftovers koyu temada geçerli beyaz metin/kenarlığı raporlamaz, beyaz zemini raporlar", () => {
+  const src = `className="text-white hover:text-white/80 text-white/5 border-white/10 md:border-white/100 bg-white bg-white/90 hover:bg-white/5 border-white"`;
+  assert.deepEqual(findLeftovers(src), ["bg-white", "bg-white/90", "hover:bg-white/5", "border-white"]);
+});
+
 const CLI = fileURLToPath(new URL("./atolye-codemod.mjs", import.meta.url));
 const runCli = (...args) => spawnSync(process.execPath, [CLI, ...args], { encoding: "utf8" });
 
@@ -139,6 +144,26 @@ test("CLI --check: sorun varsa çıkış kodu 1 ve contrast satırı, yoksa 0", 
     const ok = runCli("--check", good);
     assert.equal(ok.status, 0);
     assert.match(ok.stdout, /leftovers: 0/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("CLI: eksik dosya stderr'e missing yazar, kod 1, diğer dosyalar işlenir", () => {
+  const dir = mkdtempSync(join(tmpdir(), "atolye-"));
+  try {
+    const missing = join(dir, "yok.tsx");
+    const real = join(dir, "var.tsx");
+    writeFileSync(real, `<a className="bg-white">`);
+    const r = runCli(real, missing);
+    assert.equal(r.status, 1);
+    assert.ok(r.stderr.includes(`missing: ${missing}`), r.stderr);
+    assert.doesNotMatch(r.stderr, /ENOENT|at /);
+    assert.equal(readFileSync(real, "utf8"), `<a className="bg-atl-surface">`);
+    const c = runCli("--check", missing, real);
+    assert.equal(c.status, 1);
+    assert.ok(c.stderr.includes(`missing: ${missing}`), c.stderr);
+    assert.match(c.stdout, /leftovers: 0/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
