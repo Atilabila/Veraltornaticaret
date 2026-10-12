@@ -104,7 +104,7 @@ const serviceCards = [
         description: "Müzik aleti üreticileri ve enstrüman atölyeleri için paslanmaz pirinç veya teneke alaşımlı, yüksek rezonans tınlamalı seri pres üretimi.",
         specs: [
             { label: "Hammadde", val: "Pirinç (MS-63), Teneke, Çelik" },
-            { label: "Çap Ölçüleri", val: "Standart Ø40 mm, Ø45 mm, Ø50 mm" },
+            { label: "Çap Ölçüsü", val: "Ø38 mm Çap" },
             { label: "Yüzey Formu", val: "Polisajlı Parlak / Çapaksız Delik" },
         ],
         icon: Bell,

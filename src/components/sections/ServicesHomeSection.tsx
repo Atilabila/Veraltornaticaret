@@ -57,7 +57,7 @@ const serviceCards = [
         capacity: "AKUSTİK PERFORMANS",
         image: "/images/services/tef-zili-38mm.webp",
         description: "Enstrüman üreticileri için paslanmaz pirinç veya teneke alaşımlı, yüksek rezonans tınlamalı seri formlanmış pres üretimi.",
-        metric: "Ø40, Ø45, Ø50 mm Formlar",
+        metric: "Ø38 mm Çap",
     },
     {
         id: "miknatisli-magnet",
