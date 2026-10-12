@@ -225,7 +225,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 <h3 className="text-2xl font-bold leading-tight mb-4">{service.ctaTitle}</h3>
                                 <Link
                                     href={`/teklif-al?hizmet=${service.slug}`}
-                                    className="bg-atl-surface text-[var(--color-brand-accent)] w-full py-4 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-atl-bg transition-colors"
+                                    className="bg-atl-surface text-[var(--color-brand-accent)] w-full py-4 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-atl-bg transition-colors focus-visible:outline-atl-bg"
                                 >
                                     {service.ctaLabel} <ArrowRight className="w-4 h-4" />
                                 </Link>
