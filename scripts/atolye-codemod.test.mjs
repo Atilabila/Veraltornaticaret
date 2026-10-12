@@ -1,6 +1,13 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { transform, findLeftovers } from "./atolye-codemod.mjs";
+import { spawnSync } from "node:child_process";
+import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import * as codemod from "./atolye-codemod.mjs";
+
+const { transform, findLeftovers, findContrastRisks } = codemod;
 
 test("zemin, metin ve kenarlık sınıflarını token'a çevirir", () => {
   const src = `<div className="bg-white text-[#161616] border border-zinc-200">`;
@@ -55,4 +62,84 @@ test("kontrast düzeltmesi JSX metnindeki kesme işaretlerinden etkilenmez", () 
 
 test("findLeftovers dönüştürülmemiş açık sınıfları listeler", () => {
   assert.deepEqual(findLeftovers(`className="bg-gray-100 text-slate-700 bg-atl-bg"`), ["bg-gray-100", "text-slate-700"]);
+});
+
+test("opaklıklı pirinç zeminde beyaz metin koyulaşır", () => {
+  assert.equal(transform(`className="bg-amber-600/90 text-white"`), `className="bg-atl-brass/90 text-atl-bg"`);
+});
+
+test("hover pirinç-açık zemininde hover:text-white koyulaşır", () => {
+  assert.equal(
+    transform(`className="bg-amber-500 hover:bg-amber-700 hover:text-white"`),
+    `className="bg-atl-brass hover:bg-atl-brass-light hover:text-atl-bg"`
+  );
+});
+
+test("aynı varyant önekli pirinç zemin, yığılmış önekler dahil", () => {
+  assert.equal(
+    transform(`className="md:bg-amber-600 md:text-white md:hover:bg-amber-700 md:hover:text-white"`),
+    `className="md:bg-atl-brass md:text-atl-bg md:hover:bg-atl-brass-light md:hover:text-atl-bg"`
+  );
+});
+
+test("beyaz metnin opaklığı korunur", () => {
+  assert.equal(transform(`className="bg-amber-600 text-white/90"`), `className="bg-atl-brass text-atl-bg/90"`);
+});
+
+test("pirinç olmayan zeminlerdeki text-white'a dokunmaz", () => {
+  const src = `className="bg-amber-50 text-white"`;
+  assert.equal(transform(src), `className="bg-atl-brass-tint text-white"`);
+  const other = `className="bg-black text-white md:bg-zinc-900 md:text-white"`;
+  assert.equal(transform(other), other);
+  const prefixMismatch = `className="hover:bg-amber-600 text-white"`;
+  assert.equal(transform(prefixMismatch), `className="hover:bg-atl-brass text-white"`);
+});
+
+test("transform idempotenttir", () => {
+  const src = `className="bg-amber-600/90 hover:bg-amber-700 text-white hover:text-white/80 md:bg-white"`;
+  const once = transform(src);
+  assert.equal(once, `className="bg-atl-brass/90 hover:bg-atl-brass-light text-atl-bg hover:text-atl-bg/80 md:bg-atl-surface"`);
+  assert.equal(transform(once), once);
+});
+
+test("findContrastRisks pirinç zemin + text-white satırlarını bulur", () => {
+  const src = [
+    `cn("bg-atl-brass text-white")`,
+    `cn("bg-black text-white")`,
+    `<a className="bg-atl-brass text-atl-bg">`,
+    `cn("md:bg-atl-brass-light/90", "hover:text-white/80")`,
+    `cn("bg-[var(--color-brand-accent)] text-white")`,
+    `cn("bg-atl-brass-tint text-white")`,
+  ].join("\n");
+  assert.deepEqual(findContrastRisks(src), [1, 4, 5]);
+});
+
+const CLI = fileURLToPath(new URL("./atolye-codemod.mjs", import.meta.url));
+const runCli = (...args) => spawnSync(process.execPath, [CLI, ...args], { encoding: "utf8" });
+
+test("CLI: dosya argümanı yoksa kullanım mesajı ve çıkış kodu 1", () => {
+  for (const args of [[], ["--check"]]) {
+    const r = runCli(...args);
+    assert.equal(r.status, 1);
+    assert.match(r.stderr, /usage/i);
+  }
+});
+
+test("CLI --check: sorun varsa çıkış kodu 1 ve contrast satırı, yoksa 0", () => {
+  const dir = mkdtempSync(join(tmpdir(), "atolye-"));
+  try {
+    const bad = join(dir, "bad.tsx");
+    const good = join(dir, "good.tsx");
+    writeFileSync(bad, `x\ncn("bg-atl-brass text-white")\n`);
+    writeFileSync(good, `<a className="bg-atl-brass text-atl-bg">`);
+    const r = runCli("--check", bad);
+    assert.equal(r.status, 1);
+    assert.match(r.stdout, new RegExp(`${bad.replace(/[\\.]/g, "\\$&")}:2 contrast`));
+    assert.match(r.stdout, /contrast risks: 1/);
+    const ok = runCli("--check", good);
+    assert.equal(ok.status, 0);
+    assert.match(ok.stdout, /leftovers: 0/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });

@@ -41,21 +41,35 @@ function mapClasses(source) {
   });
 }
 
-const BRASS_BG = (prefix) =>
-  new RegExp(`(?<=^|[\\s"'\`])${prefix.replace(/[-:]/g, "\\$&")}bg-(atl-brass|\\[var\\(--color-brand-accent\\)\\])(?=$|[\\s"'\`])`);
+const BRASS = String.raw`bg-(?:atl-brass(?:-light)?|\[var\(--color-brand-accent\)\])(?:\/\d{1,3})?`;
+const WHITE = String.raw`text-white(\/\d{1,3})?`;
+const BRASS_TOKEN = new RegExp(String.raw`^((?:[a-z0-9-]+:)*)${BRASS}$`);
+const WHITE_TOKEN = new RegExp(String.raw`^((?:[a-z0-9-]+:)*)${WHITE}$`);
 
 // Only className values: Turkish apostrophes in JSX text must not pair up as quotes.
 function fixContrast(source) {
   return source.replace(/(className=\{?\s*)(["'`])([^"'`]*)\2/g, (literal, head, quote, body) => {
-    let next = body;
-    for (const prefix of ["", "hover:", "group-hover:"]) {
-      if (BRASS_BG(prefix).test(next)) {
-        const white = new RegExp(`(?<=^|\\s)${prefix.replace(/[-:]/g, "\\$&")}text-white(?=$|\\s)`, "g");
-        next = next.replace(white, `${prefix}text-atl-bg`);
-      }
-    }
+    const tokens = body.split(/(\s+)/);
+    const brassPrefixes = new Set(tokens.map((t) => t.match(BRASS_TOKEN)?.[1]).filter((p) => p !== undefined));
+    const next = tokens
+      .map((t) => {
+        const m = t.match(WHITE_TOKEN);
+        return m && brassPrefixes.has(m[1]) ? `${m[1]}text-atl-bg${m[2] ?? ""}` : t;
+      })
+      .join("");
     return `${head}${quote}${next}${quote}`;
   });
+}
+
+const EDGE_L = String.raw`(?<=^|[\s"'\`{:])`;
+const EDGE_R = String.raw`(?=$|[\s"'\`}])`;
+const BRASS_ANY = new RegExp(`${EDGE_L}${BRASS}${EDGE_R}`);
+const WHITE_ANY = new RegExp(`${EDGE_L}${WHITE}${EDGE_R}`);
+
+export function findContrastRisks(source) {
+  return source
+    .split("\n")
+    .flatMap((line, i) => (BRASS_ANY.test(line) && WHITE_ANY.test(line) ? [i + 1] : []));
 }
 
 export function transform(source) {
@@ -72,18 +86,30 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const args = process.argv.slice(2);
   const check = args[0] === "--check";
   const files = check ? args.slice(1) : args;
+  if (!files.length) {
+    console.error("usage: node scripts/atolye-codemod.mjs [--check] <file...>");
+    process.exit(1);
+  }
   let leftoverTotal = 0;
+  let riskTotal = 0;
   for (const file of files) {
     const src = readFileSync(file, "utf8");
     if (check) {
       const left = findLeftovers(src);
       leftoverTotal += left.length;
       if (left.length) console.log(`${file}: ${[...new Set(left)].join(" ")}`);
+      const risks = findContrastRisks(src);
+      riskTotal += risks.length;
+      for (const line of risks) console.log(`${file}:${line} contrast`);
     } else {
       const out = transform(src);
       if (out !== src) writeFileSync(file, out);
       console.log(`${out === src ? "unchanged" : "updated  "} ${file}`);
     }
   }
-  if (check) console.log(`leftovers: ${leftoverTotal}`);
+  if (check) {
+    console.log(`leftovers: ${leftoverTotal}`);
+    console.log(`contrast risks: ${riskTotal}`);
+    if (leftoverTotal + riskTotal > 0) process.exitCode = 1;
+  }
 }
