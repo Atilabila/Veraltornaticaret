@@ -31,37 +31,37 @@ export default async function QuotePage() {
 
     return (
         <ContentProvider initialContent={dbContent || undefined}>
-            <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+            <main className="min-h-screen bg-atl-bg text-atl-text">
                 <Navigation />
 
                 <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
-                    <Breadcrumb items={breadcrumbs} className="text-zinc-600" />
+                    <Breadcrumb items={breadcrumbs} className="text-atl-muted" />
                 </div>
 
                 <section className="px-4 md:px-8 max-w-7xl mx-auto pb-20 pt-4">
                     <div className="max-w-3xl mb-12 space-y-4">
-                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-amber-50 text-amber-900 border border-amber-600/20 shadow-sm">
-                            <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-atl-brass-tint text-atl-brass border border-atl-brass/20 shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
                             İMALATÇIDAN DOĞRUDAN TEKLİF · İZMİR ALSANCAK
                         </span>
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-zinc-900 tracking-tight leading-tight">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight leading-tight">
                             B2B Hızlı Fiyat & Numune Teklifi (RFQ)
                         </h1>
-                        <p className="text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
+                        <p className="text-base md:text-lg text-atl-muted leading-relaxed font-normal">
                             Toptan dosya teli, takvim tenekesi, fason giyotin kesim ve mıknatıslı UV metal poster projeleriniz için teknik resminizi yükleyin veya ölçülerinizi belirtin. İmalat mühendislerimiz 24 saat içinde detaylı teklif föyünüzü hazırlasın.
                         </p>
 
-                        <div className="pt-2 flex flex-wrap items-center gap-6 text-xs font-mono text-zinc-600">
+                        <div className="pt-2 flex flex-wrap items-center gap-6 text-xs font-mono text-atl-muted">
                             <div className="flex items-center gap-1.5">
-                                <Clock className="w-4 h-4 text-amber-600" />
+                                <Clock className="w-4 h-4 text-atl-brass" />
                                 <span>24 Saat İçinde Yanıt</span>
                             </div>
                             <div className="flex items-center gap-1.5">
-                                <FileText className="w-4 h-4 text-amber-600" />
+                                <FileText className="w-4 h-4 text-atl-brass" />
                                 <span>CAD / DXF / PDF Desteği</span>
                             </div>
                             <div className="flex items-center gap-1.5">
-                                <ShieldCheck className="w-4 h-4 text-amber-600" />
+                                <ShieldCheck className="w-4 h-4 text-atl-brass" />
                                 <span>Doğrudan Fabrika Fiyatı</span>
                             </div>
                         </div>

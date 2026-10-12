@@ -10,7 +10,7 @@ export const LocalBusinessSchema = () => {
             "https://veralteneketicaret.com/veral-logo.webp",
             "https://veralteneketicaret.com/og-image.jpg"
         ],
-        "description": "VERAL Torna & Teneke Ticaret, Türkiye'nin lider toptan dosya teli üreticisi ve takvim tenekesi imalatçısıdır. İzmir Alsancak merkezli tesisimizde ayrıca UV baskılı teneke posterler, mıknatıslı magnet ve tef zili üretimi yapmaktayız. 40 yılı aşkın tecrübe ile en uygun fiyatlı toptan metal imalat çözümleri sunuyoruz.",
+        "description": "VERAL Torna & Teneke Ticaret, İzmir Alsancak merkezli toptan dosya teli ve takvim tenekesi imalatçısıdır. Tesisimizde ayrıca UV baskılı teneke posterler, mıknatıslı magnet ve tef zili üretimi yapmaktayız.",
         "url": "https://veralteneketicaret.com",
         "telephone": "+905071651315",
         "email": "info@veralteneketicaret.com",
