@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -38,13 +38,35 @@ const SEARCH_GROUPS = [
     },
 ];
 
+const SEARCH_DIALOG_ID = 'site-shortcuts-dialog';
+const MOBILE_MENU_ID = 'mobile-menu-dialog';
+
+function useOverlayFocus(
+    open: boolean,
+    dialogRef: React.RefObject<HTMLDivElement | null>,
+    triggerRef: React.RefObject<HTMLButtonElement | null>
+) {
+    const wasOpen = useRef(false);
+    useEffect(() => {
+        if (open) {
+            dialogRef.current?.querySelector<HTMLElement>('button, a[href]')?.focus();
+        } else if (wasOpen.current) {
+            triggerRef.current?.focus();
+        }
+        wasOpen.current = open;
+    }, [open, dialogRef, triggerRef]);
+}
+
 export const Navigation = () => {
     const { content } = useContentStore();
     const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
+    const searchButtonRef = useRef<HTMLButtonElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
+    const searchDialogRef = useRef<HTMLDivElement>(null);
+    const menuDialogRef = useRef<HTMLDivElement>(null);
     const setAdmin = useAdminStore((state) => state.setAdmin);
     const isAdmin = useAdminStore((state) => state.isAdmin);
 
@@ -88,6 +110,20 @@ export const Navigation = () => {
         return () => { document.body.style.overflow = ''; };
     }, [isMobileMenuOpen]);
 
+    useEffect(() => {
+        if (!isSearchOpen && !isMobileMenuOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key !== 'Escape') return;
+            setIsSearchOpen(false);
+            setIsMobileMenuOpen(false);
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isSearchOpen, isMobileMenuOpen]);
+
+    useOverlayFocus(isSearchOpen, searchDialogRef, searchButtonRef);
+    useOverlayFocus(isMobileMenuOpen, menuDialogRef, menuButtonRef);
+
     const ctaText = content.headerConfig?.ctaText || "TEKLİF AL";
     const ctaLink = content.headerConfig?.ctaLink || "/teklif-al";
     const isActive = (href: string) => pathname === href || (href !== '/hizmetler' && pathname?.startsWith(href));
@@ -114,9 +150,9 @@ export const Navigation = () => {
                             />
                         </span>
                         <div className="flex flex-col leading-none">
-                            <h2 className="font-display text-xl tracking-wide text-atl-text transition-colors group-hover:text-atl-brass-light md:text-2xl">
+                            <span className="font-display text-xl tracking-wide text-atl-text transition-colors group-hover:text-atl-brass-light md:text-2xl">
                                 {content.siteName || "VERAL"}
-                            </h2>
+                            </span>
                             <span className="mt-1 font-mono text-[8px] uppercase tracking-[0.3em] text-atl-muted md:text-[9px]">Torna & Teneke Ti̇caret</span>
                         </div>
                     </Link>
@@ -138,8 +174,11 @@ export const Navigation = () => {
 
                     <div className="flex items-center gap-2 sm:gap-4">
                         <button
+                            ref={searchButtonRef}
                             onClick={() => setIsSearchOpen(true)}
-                            aria-label="Arama aç"
+                            aria-label="Hizmet ve sayfalarda gezin"
+                            aria-expanded={isSearchOpen}
+                            aria-controls={SEARCH_DIALOG_ID}
                             className="p-2 text-atl-muted transition-colors hover:text-atl-text"
                         >
                             <Search className="h-5 w-5" />
@@ -151,8 +190,11 @@ export const Navigation = () => {
                             {ctaText}
                         </Link>
                         <button
+                            ref={menuButtonRef}
                             className="p-2 text-atl-text lg:hidden"
                             aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
+                            aria-expanded={isMobileMenuOpen}
+                            aria-controls={MOBILE_MENU_ID}
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         >
                             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -171,34 +213,23 @@ export const Navigation = () => {
                     >
                         <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={() => setIsSearchOpen(false)} />
                         <m.div
+                            ref={searchDialogRef}
+                            id={SEARCH_DIALOG_ID}
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label="Hizmet ve sayfa kısayolları"
                             initial={{ y: -30, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: -30, opacity: 0 }}
                             className="relative z-10 w-full max-w-2xl border border-atl-line bg-atl-surface p-8 md:p-12"
                         >
-                            <div className="mb-8 flex items-center justify-between">
-                                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-atl-brass">Arama</span>
-                                <button onClick={() => setIsSearchOpen(false)} aria-label="Aramayı kapat" className="text-atl-muted hover:text-atl-text">
+                            <div className="flex items-center justify-between">
+                                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-atl-brass">Hızlı erişim</span>
+                                <button onClick={() => setIsSearchOpen(false)} aria-label="Kısayolları kapat" className="text-atl-muted hover:text-atl-text">
                                     <X className="h-6 w-6" />
                                 </button>
                             </div>
-                            <div className="relative">
-                                <input
-                                    autoFocus
-                                    type="text"
-                                    placeholder="Ürün veya hizmet adı…"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter' && searchQuery.trim()) {
-                                            window.location.href = `/urunler?search=${encodeURIComponent(searchQuery)}`;
-                                        }
-                                    }}
-                                    className="w-full border border-atl-line bg-atl-bg px-6 py-5 font-display text-2xl text-atl-text placeholder:text-atl-muted/60 focus:border-atl-brass focus:outline-none md:text-3xl"
-                                />
-                                <Search className="absolute right-6 top-1/2 h-7 w-7 -translate-y-1/2 text-atl-brass" />
-                            </div>
-                            <div className="mt-10 grid grid-cols-1 gap-10 border-t border-atl-line pt-8 md:grid-cols-2">
+                            <div className="mt-8 grid grid-cols-1 gap-10 border-t border-atl-line pt-8 md:grid-cols-2">
                                 {SEARCH_GROUPS.map((group) => (
                                     <div key={group.title}>
                                         <h4 className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">{group.title}</h4>
@@ -225,6 +256,11 @@ export const Navigation = () => {
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <m.div
+                        ref={menuDialogRef}
+                        id={MOBILE_MENU_ID}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Mobil menü"
                         initial={{ opacity: 0, x: '100%' }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '100%' }}
