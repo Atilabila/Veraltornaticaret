@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
-import { serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
+import { ServiceCard } from "@/components/atolye/ServiceCard";
 import {
     ArrowRight,
     CheckCircle2,
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: "Endüstriyel Üretim Hatlarımız | Veral Teneke Ticaret İzmir",
-        description: "1980'den bu yana İzmir Alsancak'ta mikron toleranslı metal presleme, giyotin kesim ve toptan tel imalatı.",
+        description: "İzmir Alsancak'ta metal presleme, giyotin kesim ve toptan tel imalatı.",
         url: "https://veralteneketicaret.com/hizmetler",
     },
 };
@@ -172,12 +172,12 @@ export default function HizmetlerPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+        <main className="min-h-screen bg-atl-bg text-atl-text">
             <Navigation />
 
             {/* Breadcrumb Bar */}
             <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
-                <Breadcrumb items={breadcrumbs} className="text-zinc-600" />
+                <Breadcrumb items={breadcrumbs} className="text-atl-muted" />
             </div>
 
             {/* HERO SECTION WITH AUTHENTIC WORKSHOP ASSET */}
@@ -185,23 +185,23 @@ export default function HizmetlerPage() {
                 <div className="grid lg:grid-cols-12 gap-10 items-center">
                     <div className="lg:col-span-7 space-y-6">
                         {/* Heritage Badge */}
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-600/30 bg-amber-50 text-amber-900 text-xs font-mono font-semibold tracking-wider uppercase shadow-sm">
-                            <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
-                            İzmir Alsancak Fabrikası • 1980&apos;den Günümüze
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-atl-brass/30 bg-atl-brass-tint text-atl-brass text-xs font-mono font-semibold tracking-wider uppercase shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
+                            İzmir Alsancak Atölyesi
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-zinc-900 tracking-tight leading-[1.1]">
-                            Yarım Asırlık Zanaat, Mikron Hassasiyetinde Seri Üretim
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-atl-text tracking-tight leading-[1.1]">
+                            Alsancak Atölyesinde Toptan Metal İmalatı
                         </h1>
 
-                        <p className="text-base md:text-lg text-zinc-600 font-normal leading-relaxed max-w-2xl">
+                        <p className="text-base md:text-lg text-atl-muted font-normal leading-relaxed max-w-2xl">
                             İzmir Alsancak 1471 Sokak&apos;taki torna ve pres atölyemizde; ETP Elektrolitik Teneke ve DKP sac hammaddelerinden toptan dosya teli, takvim tenekesi, giyotin sac kesim, rulo dilimleme ve 4K UV baskılı metal levhalar üretiyoruz.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4 pt-2">
                             <Link
                                 href="/teklif-al"
-                                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm tracking-wider uppercase shadow-md shadow-amber-600/20 transition-all hover:scale-[1.02]"
+                                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-sm tracking-wider uppercase shadow-md shadow-black/20 transition-all hover:scale-[1.02]"
                             >
                                 <span>Fiyat & Numune Teklifi Al</span>
                                 <ArrowRight className="w-4 h-4" />
@@ -211,7 +211,7 @@ export default function HizmetlerPage() {
                                 href="https://wa.me/905323794003"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-50 text-zinc-900 font-semibold text-sm transition-colors shadow-sm"
+                                className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl border border-atl-line bg-atl-surface hover:bg-atl-surface-2 text-atl-text font-semibold text-sm transition-colors shadow-sm"
                             >
                                 <Phone className="w-4 h-4 text-emerald-600" />
                                 <span>WhatsApp Usta Hattı</span>
@@ -219,17 +219,17 @@ export default function HizmetlerPage() {
                         </div>
 
                         {/* Assurance Badges */}
-                        <div className="pt-4 flex flex-wrap items-center gap-6 border-t border-zinc-200 text-xs font-mono text-zinc-600">
+                        <div className="pt-4 flex flex-wrap items-center gap-6 border-t border-atl-line text-xs font-mono text-atl-muted">
                             <div className="flex items-center gap-1.5">
-                                <CheckCircle2 className="w-4 h-4 text-amber-600" />
+                                <CheckCircle2 className="w-4 h-4 text-atl-brass" />
                                 <span>±0.005 mm Kalınlık Hassasiyeti</span>
                             </div>
                             <div className="flex items-center gap-1.5">
-                                <ShieldCheck className="w-4 h-4 text-amber-600" />
+                                <ShieldCheck className="w-4 h-4 text-atl-brass" />
                                 <span>DIN EN 10202 Akredite Hammadde</span>
                             </div>
                             <div className="flex items-center gap-1.5">
-                                <CheckCircle2 className="w-4 h-4 text-amber-600" />
+                                <CheckCircle2 className="w-4 h-4 text-atl-brass" />
                                 <span>Aynı Gün Numune Sevkiyatı</span>
                             </div>
                         </div>
@@ -237,8 +237,8 @@ export default function HizmetlerPage() {
 
                     {/* Authentic Workshop Photo (NO FAKE AI HANGAR) */}
                     <div className="lg:col-span-5 relative">
-                        <div className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-white shadow-xl p-2">
-                            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100">
+                        <div className="relative rounded-2xl overflow-hidden border border-atl-line bg-atl-surface shadow-xl p-2">
+                            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-atl-surface-2">
                                 <Image
                                     src="/images/services/giyotin-kesim.webp"
                                     alt="Veral Teneke Ticaret İzmir Alsancak Giyotin Kesim ve Pres Hatları"
@@ -265,130 +265,73 @@ export default function HizmetlerPage() {
 
                 {/* 4 Metric Cards */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
-                    <div className="p-5 rounded-xl bg-white border border-zinc-200 shadow-sm">
-                        <div className="text-xs font-mono font-bold text-amber-700 uppercase tracking-wider mb-1">GÜNLÜK ÜRETİM</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-zinc-900">50.000+ Adet</div>
-                        <div className="text-xs text-zinc-500 mt-1">Dosya Teli & Pres Kapasitesi</div>
+                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
+                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">GÜNLÜK ÜRETİM</div>
+                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">50.000+ Adet</div>
+                        <div className="text-xs text-atl-muted mt-1">Dosya Teli & Pres Kapasitesi</div>
                     </div>
-                    <div className="p-5 rounded-xl bg-white border border-zinc-200 shadow-sm">
-                        <div className="text-xs font-mono font-bold text-amber-700 uppercase tracking-wider mb-1">AVRUPA STANDARDI</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-zinc-900">DIN EN 10202</div>
-                        <div className="text-xs text-zinc-500 mt-1">Sertifikalı ETP Teneke Sac</div>
+                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
+                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">AVRUPA STANDARDI</div>
+                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">DIN EN 10202</div>
+                        <div className="text-xs text-atl-muted mt-1">Sertifikalı ETP Teneke Sac</div>
                     </div>
-                    <div className="p-5 rounded-xl bg-white border border-zinc-200 shadow-sm">
-                        <div className="text-xs font-mono font-bold text-amber-700 uppercase tracking-wider mb-1">MİKRON ARALIĞI</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-zinc-900">0.14 - 0.49 mm</div>
-                        <div className="text-xs text-zinc-500 mt-1">Hassas Sac Kalınlık Skalası</div>
+                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
+                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">MİKRON ARALIĞI</div>
+                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">0.14 - 0.49 mm</div>
+                        <div className="text-xs text-atl-muted mt-1">Hassas Sac Kalınlık Skalası</div>
                     </div>
-                    <div className="p-5 rounded-xl bg-white border border-zinc-200 shadow-sm">
-                        <div className="text-xs font-mono font-bold text-amber-700 uppercase tracking-wider mb-1">STRATEJİK MERKEZ</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-zinc-900">Alsancak / İzmir</div>
-                        <div className="text-xs text-zinc-500 mt-1">Tüm Türkiye&apos;ye Doğrudan Sevkiyat</div>
+                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
+                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">STRATEJİK MERKEZ</div>
+                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">Alsancak / İzmir</div>
+                        <div className="text-xs text-atl-muted mt-1">Tüm Türkiye&apos;ye Doğrudan Sevkiyat</div>
                     </div>
                 </div>
             </section>
 
             {/* 6 BENTO CARDS: REAL WORKSHOP PHOTOS */}
-            <section className="px-4 md:px-8 max-w-7xl mx-auto py-16 border-t border-zinc-200">
+            <section className="px-4 md:px-8 max-w-7xl mx-auto py-16 border-t border-atl-line">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                     <div>
-                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-amber-700 block mb-2">
+                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block mb-2">
                             ENDÜSTRİYEL İMALAT VE FASON KAPASİTE
                         </span>
-                        <h2 className="text-2xl sm:text-4xl font-black text-zinc-900 tracking-tight">
+                        <h2 className="text-2xl sm:text-4xl font-black text-atl-text tracking-tight">
                             Sektörel Standartlarda Metal Üretim Hatlarımız
                         </h2>
                     </div>
-                    <span className="text-xs font-mono px-3 py-1.5 bg-zinc-100 rounded-lg border border-zinc-300 text-zinc-700 font-semibold self-start md:self-auto">
+                    <span className="text-xs font-mono px-3 py-1.5 bg-atl-surface-2 rounded-lg border border-atl-line text-atl-muted font-semibold self-start md:self-auto">
                         STANDART: ETP / TFS / DKP SAC
                     </span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {serviceCards.map((service) => {
-                        const Icon = service.icon;
-                        return (
-                            <div
-                                key={service.id}
-                                className="group flex flex-col justify-between bg-white border border-zinc-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-amber-500 transition-all duration-300"
-                            >
-                                <div>
-                                    {/* Real Local Image */}
-                                    <div className="relative w-full aspect-[4/5] bg-zinc-100 overflow-hidden border-b border-zinc-200">
-                                        <Image
-                                            src={service.image}
-                                            alt={serviceImageAlt(service.image, service.title)}
-                                            fill
-                                            sizes="(min-width:1024px) 380px, 92vw"
-                                            className={`${serviceImageFit(service.image)} group-hover:scale-105 transition-transform duration-500`}
-                                        />
-                                        <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-mono font-bold text-zinc-900 border border-zinc-200 shadow-sm">
-                                            {service.badge}
-                                        </div>
-                                        <div className="absolute top-3 right-3 bg-amber-600 text-white px-2 py-1 rounded text-[10px] font-mono font-bold shadow-sm">
-                                            {service.capacity}
-                                        </div>
-                                    </div>
-
-                                    <div className="p-6">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <Icon className="w-5 h-5 text-amber-600 shrink-0" />
-                                            <h3 className="text-xl font-bold text-zinc-900 group-hover:text-amber-700 transition-colors">
-                                                {service.title}
-                                            </h3>
-                                        </div>
-                                        <p className="text-sm text-zinc-600 leading-relaxed mb-5">
-                                            {service.description}
-                                        </p>
-
-                                        {/* Specs Sub-list */}
-                                        <div className="space-y-2 py-3 border-t border-b border-zinc-100 text-xs font-mono">
-                                            {service.specs.map((spec, i) => (
-                                                <div key={i} className="flex justify-between items-center text-zinc-600">
-                                                    <span>{spec.label}:</span>
-                                                    <span className="font-semibold text-zinc-900">{spec.val}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="p-6 pt-0">
-                                    <Link
-                                        href={`/teklif-al?hizmet=${service.slug}`}
-                                        className="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-xl bg-zinc-50 group-hover:bg-amber-600 group-hover:text-white text-zinc-900 font-semibold text-xs transition-colors"
-                                    >
-                                        <span>Fiyat / Numune Teklifi İste</span>
-                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                                    </Link>
-                                </div>
-                            </div>
-                        );
-                    })}
+                    {serviceCards.map((service) => (
+                        <ServiceCard key={service.id} {...service} ctaLabel="Fiyat / Numune Teklifi İste" />
+                    ))}
                 </div>
             </section>
 
             {/* DIN EN 10202 METALLURGICAL SPECIFICATIONS TABLE */}
-            <section className="px-4 md:px-8 max-w-7xl mx-auto py-16 border-t border-zinc-200">
+            <section className="px-4 md:px-8 max-w-7xl mx-auto py-16 border-t border-atl-line">
                 <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
-                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-amber-700 block mb-2">
+                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block mb-2">
                             METALURJİK STANDARTLAR VE SERTİFİKALAR
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight">
+                        <h2 className="text-2xl sm:text-3xl font-black text-atl-text tracking-tight">
                             DIN EN 10202 Normları & Mekanik Değerler Tablosu
                         </h2>
-                        <p className="text-sm text-zinc-600 mt-1 max-w-2xl">
+                        <p className="text-sm text-atl-muted mt-1 max-w-2xl">
                             İzmir Alsancak atölyemizde işlenen elektrolitik teneke (ETP) ve TFS malzemelerin Rockwell HR30T sertlik ve kalay kaplama spekleri.
                         </p>
                     </div>
                 </div>
 
-                <div className="rounded-2xl border border-zinc-200 bg-white overflow-hidden shadow-sm">
+                <div className="rounded-2xl border border-atl-line bg-atl-surface overflow-hidden shadow-sm">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse text-xs font-mono">
                             <thead>
-                                <tr className="bg-zinc-100/80 border-b border-zinc-200 text-zinc-900 font-bold uppercase tracking-wider">
+                                <tr className="bg-atl-surface-2/80 border-b border-atl-line text-atl-text font-bold uppercase tracking-wider">
                                     <th className="p-4">TEMPER DERECESİ</th>
                                     <th className="p-4">SERTLİK (HR 30T)</th>
                                     <th className="p-4">AKMA DAYANIMI (MPa)</th>
@@ -398,20 +341,20 @@ export default function HizmetlerPage() {
                                     <th className="p-4 text-right">STOK DURUMU</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-zinc-200 text-zinc-700">
+                            <tbody className="divide-y divide-atl-line text-atl-muted">
                                 {dinSpecs.map((row, idx) => (
-                                    <tr key={idx} className="hover:bg-amber-50/40 transition-colors">
-                                        <td className="p-4 font-bold text-amber-800 flex items-center gap-2">
-                                            <span className="w-2 h-2 rounded-full bg-amber-600" />
+                                    <tr key={idx} className="hover:bg-atl-brass-tint/40 transition-colors">
+                                        <td className="p-4 font-bold text-atl-brass flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-atl-brass" />
                                             {row.temper}
                                         </td>
-                                        <td className="p-4 font-semibold text-zinc-900">{row.hardness}</td>
+                                        <td className="p-4 font-semibold text-atl-text">{row.hardness}</td>
                                         <td className="p-4">{row.yield}</td>
                                         <td className="p-4">{row.coating}</td>
                                         <td className="p-4">{row.tolerance}</td>
-                                        <td className="p-4 font-sans text-xs text-zinc-600">{row.usage}</td>
+                                        <td className="p-4 font-sans text-xs text-atl-muted">{row.usage}</td>
                                         <td className="p-4 text-right">
-                                            <span className="inline-block px-2.5 py-1 rounded bg-zinc-100 text-zinc-900 font-semibold text-[11px] border border-zinc-200">
+                                            <span className="inline-block px-2.5 py-1 rounded bg-atl-surface-2 text-atl-text font-semibold text-[11px] border border-atl-line">
                                                 {row.stock}
                                             </span>
                                         </td>
@@ -420,24 +363,24 @@ export default function HizmetlerPage() {
                             </tbody>
                         </table>
                     </div>
-                    <div className="p-4 bg-zinc-50 border-t border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-zinc-500">
+                    <div className="p-4 bg-atl-surface-2 border-t border-atl-line flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-atl-muted">
                         <span>* DIN EN 10202 standartlarına göre mikrometre ve Rockwell HR30T sertlik testleri uygulanır.</span>
-                        <span className="font-semibold text-zinc-800">Kalite Kontrol: Veral Alsancak Atölyesi</span>
+                        <span className="font-semibold text-atl-text">Kalite Kontrol: Veral Alsancak Atölyesi</span>
                     </div>
                 </div>
             </section>
 
             {/* CALL TO ACTION MODULE */}
             <section className="px-4 md:px-8 max-w-7xl mx-auto pb-24">
-                <div className="rounded-3xl border border-zinc-200 bg-white p-8 md:p-12 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div className="rounded-3xl border border-atl-line bg-atl-surface p-8 md:p-12 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
                     <div className="space-y-3 max-w-2xl text-center lg:text-left">
-                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-amber-700 block">
+                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block">
                             ÖZEL TEKNİK ŞARTNAME & FASON İMALAT
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-black text-zinc-900">
+                        <h2 className="text-2xl sm:text-3xl font-black text-atl-text">
                             Projeniz İçin Teknik Resim Gönderin, 24 Saatte Fiyatlandıralım
                         </h2>
-                        <p className="text-sm text-zinc-600 leading-relaxed font-normal">
+                        <p className="text-sm text-atl-muted leading-relaxed font-normal">
                             CAD, DXF veya PDF teknik çizimlerinizi doğrudan teklif formumuzdan iletin; imalat mühendisimiz ve atölye şefimiz Oğuzcan Veral aynı gün tolerans ve fiyat analizi çıkarsın.
                         </p>
                     </div>
@@ -445,16 +388,16 @@ export default function HizmetlerPage() {
                     <div className="flex flex-wrap items-center gap-4 shrink-0">
                         <Link
                             href="/teklif-al"
-                            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm tracking-wider uppercase shadow-md shadow-amber-600/20 transition-all hover:scale-105"
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-sm tracking-wider uppercase shadow-md shadow-black/20 transition-all hover:scale-105"
                         >
                             <span>Teklif Formunu Doldur</span>
                             <ArrowRight className="w-4 h-4" />
                         </Link>
                         <a
                             href="tel:+905323794003"
-                            className="inline-flex items-center gap-2 px-6 py-4 rounded-xl border border-zinc-300 hover:bg-zinc-50 text-zinc-900 font-semibold text-sm transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-4 rounded-xl border border-atl-line hover:bg-atl-surface-2 text-atl-text font-semibold text-sm transition-colors"
                         >
-                            <Phone className="w-4 h-4 text-amber-600" />
+                            <Phone className="w-4 h-4 text-atl-brass" />
                             <span>0532 379 40 03</span>
                         </a>
                     </div>
