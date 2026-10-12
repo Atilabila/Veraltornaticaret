@@ -9,7 +9,7 @@ export default function PrivacyPolicyPage() {
       </p>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-[#161616]">1. Veri sorumlusu</h2>
+        <h2 className="text-lg font-bold text-atl-text">1. Veri sorumlusu</h2>
         <p>
           Veri sorumlusu: <strong>[Şirket unvanı]</strong>
           <span className="block">Adres: [Şirket adresi]</span>
@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-[#161616]">2. İşlenen veriler</h2>
+        <h2 className="text-lg font-bold text-atl-text">2. İşlenen veriler</h2>
         <ul className="list-disc list-inside space-y-1">
           <li>Kimlik ve iletişim bilgileri</li>
           <li>Sipariş, sepet ve talep kayıtları</li>
@@ -28,7 +28,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-[#161616]">3. İşleme amaçları</h2>
+        <h2 className="text-lg font-bold text-atl-text">3. İşleme amaçları</h2>
         <ul className="list-disc list-inside space-y-1">
           <li>Sözleşme kurulması ve ifası</li>
           <li>Müşteri hizmetleri ve destek</li>
@@ -37,7 +37,7 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-[#161616]">4. Haklarınız</h2>
+        <h2 className="text-lg font-bold text-atl-text">4. Haklarınız</h2>
         <p>
           KVKK m.11 kapsamındaki haklarınızı kullanmak için{" "}
           <strong>[KVKK başvuru e-postası]</strong> adresine başvurabilirsiniz.
