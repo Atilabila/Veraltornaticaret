@@ -11,7 +11,7 @@ type PageShellProps = {
     variant?: "light" | "muted";
 };
 
-/** Unified public page chrome — light B2B manufacturing shell */
+/** Unified public page chrome - dark atelier shell */
 export function PageShell({
     children,
     className,
@@ -24,8 +24,8 @@ export function PageShell({
             <Navigation />
             <main
                 className={cn(
-                    "min-h-screen text-[#161616] selection:bg-[var(--color-brand-accent)] selection:text-white",
-                    variant === "light" ? "bg-white" : "bg-[#f4f4f4]",
+                    "min-h-screen text-atl-text selection:bg-atl-brass selection:text-atl-bg",
+                    variant === "light" ? "bg-atl-bg" : "atl-grain bg-atl-bg",
                     padded && "pt-28 lg:pt-32 pb-16 lg:pb-24",
                     className
                 )}

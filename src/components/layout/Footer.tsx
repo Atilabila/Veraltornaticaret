@@ -6,12 +6,27 @@ import Image from 'next/image';
 import { Instagram, Facebook, Twitter, ArrowUpRight } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
 import { DirectEdit } from "@/components/admin/DirectEdit";
-import { normalizeImagePath } from '@/lib/utils';
 import { PageContainer } from '@/components/layout/PageContainer';
+import { BrassRule } from '@/components/atolye/BrassRule';
+
+const NAV = [
+    { label: 'İmalat Hatlarımız', href: '/hizmetler' },
+    { label: 'Sıkça Sorulanlar (SSS)', href: '/sss' },
+    { label: 'Teknik Raporlar & Blog', href: '/blog' },
+    { label: 'Atölye ve Editör Biyografisi', href: '/yazar/oguzcan-veral' },
+    { label: 'Hakkımızda', href: '/hakkimizda' },
+    { label: 'Hızlı Teklif Al', href: '/teklif-al' },
+    { label: 'İletişim', href: '/iletisim' },
+];
+
+const LEGAL = [
+    { label: 'Mesafeli Satış', href: '/mesafeli-satis' },
+    { label: 'Gizlilik', href: '/gizlilik' },
+    { label: 'KVKK', href: '/kvkk' },
+];
 
 export const Footer = () => {
     const { content } = useContentStore();
-    const footerLogoSrc = "/veral-logo.png";
     const siteName = content.siteName || "VERAL";
     const instagramHandle = (content.footerInstagram || "").replace('@', '').trim();
     const socialLinks = [
@@ -22,78 +37,67 @@ export const Footer = () => {
 
     return (
         <DirectEdit tab="contact">
-            <footer className="bg-white pt-20 pb-10 border-t border-[#c6c6c6] text-[#161616]">
+            <footer className="atl-grain border-t border-atl-line bg-atl-bg pb-10 pt-20 text-atl-text">
                 <PageContainer>
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
-                        <div className="lg:col-span-12 xl:col-span-4 flex flex-col gap-6">
-                            <Link href="/" className="flex items-center gap-4 group">
-                                <div className="h-14 w-14 relative flex-shrink-0">
-                                    <Image src={footerLogoSrc} alt={siteName} fill sizes="56px" className="object-contain rounded-full shadow-sm" quality={95} />
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-lg font-bold tracking-wide uppercase">{siteName}</span>
-                                    <span className="text-[11px] font-medium text-[#525252] tracking-wider uppercase">Torna & Teneke Ticaret</span>
-                                </div>
+                    <div className="mb-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
+                        <div className="flex flex-col gap-6 lg:col-span-12 xl:col-span-4">
+                            <Link href="/" className="group flex items-center gap-4">
+                                <span className="relative h-14 w-14 flex-shrink-0">
+                                    <Image src="/veral-logo.png" alt={siteName} fill sizes="56px" className="rounded-full object-contain" quality={95} />
+                                </span>
+                                <span className="flex flex-col">
+                                    <span className="font-display text-2xl tracking-wide">{siteName}</span>
+                                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-muted">Torna & Teneke Ticaret</span>
+                                </span>
                             </Link>
-                            <p className="text-[#525252] text-base leading-relaxed max-w-sm">
+                            <p className="max-w-sm text-base leading-relaxed text-atl-muted">
                                 İzmir merkezli toptan dosya teli imalatı, takvim tenekesi seri üretimi ve özel metal imalat.
                             </p>
                             <div className="flex flex-col gap-1">
-                                <span className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider">Merkez & Atölye</span>
-                                <span className="text-sm text-[#161616] whitespace-pre-line">{content.footerAddress}</span>
+                                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Merkez & Atölye</span>
+                                <span className="whitespace-pre-line text-sm text-atl-text">{content.footerAddress}</span>
                             </div>
                             <div className="flex gap-3">
                                 {socialLinks.map((item, i) => (
                                     <Link key={i} href={item.href} target="_blank" aria-label={`${item.label} sayfamız`}
-                                        className="w-10 h-10 border border-[#c6c6c6] flex items-center justify-center text-[#525252] hover:bg-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] hover:text-white transition-colors">
+                                        className="flex h-10 w-10 items-center justify-center border border-atl-line text-atl-muted transition-colors hover:border-atl-brass hover:text-atl-brass-light">
                                         <item.icon size={18} />
                                     </Link>
                                 ))}
                             </div>
                         </div>
                         <div className="lg:col-span-6 xl:col-span-3">
-                            <h4 className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider mb-6">Navigasyon</h4>
+                            <h4 className="mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Navigasyon</h4>
                             <ul className="flex flex-col gap-3">
-                                {[
-                                    { label: 'İmalat Hatlarımız', href: '/hizmetler' },
-                                    { label: 'Sıkça Sorulanlar (SSS)', href: '/sss' },
-                                    { label: 'Teknik Raporlar & Blog', href: '/blog' },
-                                    { label: 'Atölye ve Editör Biyografisi', href: '/yazar/oguzcan-veral' },
-                                    { label: 'Hakkımızda', href: '/hakkimizda' },
-                                    { label: 'Hızlı Teklif Al', href: '/teklif-al' },
-                                    { label: 'İletişim', href: '/iletisim' }
-                                ].map((item) => (
+                                {NAV.map((item) => (
                                     <li key={item.label}>
-                                        <Link href={item.href} className="text-sm font-semibold text-[#161616] hover:text-[var(--color-brand-accent)] transition-colors inline-flex items-center gap-2 group">
+                                        <Link href={item.href} className="group inline-flex items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
                                             {item.label}
-                                            <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100" />
+                                            <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100" />
                                         </Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                        <div className="lg:col-span-6 xl:col-span-5 flex flex-col gap-6">
-                            <h4 className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider">İletişim</h4>
+                        <div className="flex flex-col gap-6 lg:col-span-6 xl:col-span-5">
+                            <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">İletişim</h4>
                             <div className="space-y-1">
-                                <div className="text-lg font-bold">{content.footerPhone}</div>
-                                <div className="text-sm text-[#525252]">{content.footerEmail}</div>
+                                <div className="font-display text-2xl">{content.footerPhone}</div>
+                                <div className="text-sm text-atl-muted">{content.footerEmail}</div>
                             </div>
                             <a href={content.footerMapLink || `https://www.google.com/maps/dir/?api=1&destination=${content.footerMapLat},${content.footerMapLng}`}
                                 target="_blank" rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 h-12 px-5 border border-[var(--color-brand-accent)] text-sm font-semibold text-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)] hover:text-white transition-colors w-fit">
-                                Yol Tarifi Al <ArrowUpRight className="w-4 h-4" />
+                                className="inline-flex h-12 w-fit items-center gap-2 border border-atl-brass px-5 text-sm font-semibold text-atl-brass-light transition-colors hover:bg-atl-brass hover:text-atl-bg">
+                                Yol Tarifi Al <ArrowUpRight className="h-4 w-4" />
                             </a>
                         </div>
                     </div>
-                    <div className="pt-8 border-t border-[#c6c6c6] flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-xs text-[#525252]">© 2024 {content.footerCompanyName} — Tüm hakları saklıdır.</p>
+                    <BrassRule className="mb-8" />
+                    <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+                        <p className="text-xs text-atl-muted">© 2024 {content.footerCompanyName} — Tüm hakları saklıdır.</p>
                         <div className="flex flex-wrap justify-center gap-4">
-                            {[
-                                { label: 'Mesafeli Satış', href: '/mesafeli-satis' },
-                                { label: 'Gizlilik', href: '/gizlilik' },
-                                { label: 'KVKK', href: '/kvkk' },
-                            ].map((item) => (
-                                <Link key={item.label} href={item.href} className="text-xs text-[#525252] hover:text-[var(--color-brand-accent)]">{item.label}</Link>
+                            {LEGAL.map((item) => (
+                                <Link key={item.label} href={item.href} className="text-xs text-atl-muted hover:text-atl-brass-light">{item.label}</Link>
                             ))}
                         </div>
                     </div>
