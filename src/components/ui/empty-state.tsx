@@ -18,22 +18,22 @@ export function EmptyState({
     icon,
 }: EmptyStateProps) {
     return (
-        <div className="flex flex-col items-center justify-center py-24 px-4 text-center border border-dashed border-zinc-300 dark:border-zinc-800 rounded-lg bg-zinc-50 dark:bg-zinc-900/50">
-            <div className="mb-6 p-4 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-500">
+        <div className="flex flex-col items-center justify-center py-24 px-4 text-center border border-dashed border-atl-line rounded-lg bg-atl-surface-2">
+            <div className="mb-6 p-4 rounded-full bg-atl-line text-atl-muted">
                 {icon || <AlertCircle className="w-8 h-8" />}
             </div>
-            <h3 className="text-xl font-bold tracking-tight uppercase mb-2 text-zinc-900 dark:text-zinc-100">
+            <h3 className="text-xl font-bold tracking-tight uppercase mb-2 text-atl-text">
                 {title}
             </h3>
             {description && (
-                <p className="text-zinc-500 mb-8 max-w-md mx-auto text-sm leading-relaxed">
+                <p className="text-atl-muted mb-8 max-w-md mx-auto text-sm leading-relaxed">
                     {description}
                 </p>
             )}
             {actionLabel && actionHref && (
                 <Link
                     href={actionHref}
-                    className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold text-white uppercase bg-zinc-900 dark:bg-[var(--color-brand-accent)] rounded hover:bg-zinc-800 dark:hover:bg-[#B5952F] transition-colors tracking-wider"
+                    className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold text-atl-bg uppercase bg-atl-brass rounded hover:bg-atl-brass-light transition-colors tracking-wider"
                 >
                     {actionLabel} <ArrowRight className="w-4 h-4" />
                 </Link>

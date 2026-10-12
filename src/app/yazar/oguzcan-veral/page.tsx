@@ -137,7 +137,7 @@ export default function OguzcanVeralProfilePage() {
                                 <span className="text-xs font-mono font-bold tracking-widest text-atl-brass uppercase block mb-1">
                                     VERAL TİCARET // TEKNİK EDİTÖR
                                 </span>
-                                <h1 className="text-3xl sm:text-5xl font-black text-atl-text tracking-tight">
+                                <h1 className="text-3xl sm:text-5xl font-display text-atl-text tracking-tight">
                                     Oğuzcan Veral
                                 </h1>
                                 <p className="text-sm sm:text-base text-atl-muted font-medium mt-1">
@@ -159,7 +159,7 @@ export default function OguzcanVeralProfilePage() {
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-atl-brass block mb-1">
                         TEKNİK ARŞİV
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-black text-atl-text">
+                    <h2 className="text-2xl sm:text-3xl font-display text-atl-text">
                         Oğuzcan Veral Tarafından Hazırlanan Teknik İncelemeler
                     </h2>
                 </div>

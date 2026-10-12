@@ -184,8 +184,8 @@ export default function AboutPage() {
                 </div>
 
                 {/* STATS STRIP */}
-                <div className="grid grid-cols-1 sm:grid-cols-1 gap-4 mt-12">
-                    <div className="p-6 rounded-xl bg-atl-surface border border-atl-line shadow-sm text-center">
+                <div className="grid grid-cols-1 gap-4 mt-12">
+                    <div className="max-w-xs p-6 rounded-xl bg-atl-surface border border-atl-line shadow-sm text-center">
                         <span className="block text-3xl md:text-4xl font-black text-atl-text font-mono mb-1">50.000</span>
                         <span className="text-xs font-mono uppercase tracking-wider text-atl-brass font-bold">Günlük Parça Kapasitesi</span>
                     </div>

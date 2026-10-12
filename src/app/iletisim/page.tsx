@@ -103,7 +103,7 @@ export default function IletisimPage() {
                                 <span>Çalışma Saatleri: Pazartesi - Cumartesi 08:30 - 18:30</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                                <ShieldCheck className="w-4 h-4 text-atl-brass" />
                                 <span>Numune İnceleme</span>
                             </div>
                         </div>
@@ -129,7 +129,7 @@ export default function IletisimPage() {
                         <div className="p-8 space-y-6">
                             <div>
                                 <span className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider block mb-1">
-                                    HIZLI TEKNİK YANIT
+                                    TEKNİK YANIT
                                 </span>
                                 <h3 className="text-2xl font-black text-atl-text mb-2">Acil Talepler İçin</h3>
                                 <p className="text-atl-muted text-sm leading-relaxed font-normal">

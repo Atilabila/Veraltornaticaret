@@ -182,7 +182,8 @@ html {
 
   /* Keyboard users: net focus */
   :focus-visible {
-    outline: none;
+    outline: 2px solid var(--color-atl-brass);
+    outline-offset: 2px;
   }
 
   .focus-ring {

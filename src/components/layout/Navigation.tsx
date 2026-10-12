@@ -106,9 +106,9 @@ export const Navigation = () => {
     }, [isAdmin, setAdmin]);
 
     useEffect(() => {
-        document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+        document.body.style.overflow = (isMobileMenuOpen || isSearchOpen) ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
-    }, [isMobileMenuOpen]);
+    }, [isMobileMenuOpen, isSearchOpen]);
 
     useEffect(() => {
         if (!isSearchOpen && !isMobileMenuOpen) return;

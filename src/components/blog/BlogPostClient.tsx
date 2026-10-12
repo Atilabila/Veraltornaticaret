@@ -129,7 +129,7 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
                         <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block mb-1">
                             ÖNERİLEN İNCELEMELER
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-black text-atl-text tracking-tight">
+                        <h2 className="text-2xl sm:text-3xl font-display text-atl-text tracking-tight">
                             İlgili Teknik Raporlar
                         </h2>
                     </div>
@@ -167,8 +167,8 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
 function formatMarkdown(content: string): string {
     let html = content
         .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold text-atl-text mt-10 mb-4 tracking-tight flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-atl-brass inline-block"></span>$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2 class="text-2xl sm:text-3xl font-black text-atl-text mt-12 mb-6 tracking-tight border-b border-atl-line pb-3">$1</h2>')
-        .replace(/^# (.*$)/gim, '<h2 class="text-2xl sm:text-3xl font-black text-atl-text mb-6 tracking-tight border-b border-atl-line pb-3">$1</h2>')
+        .replace(/^## (.*$)/gim, '<h2 class="text-2xl sm:text-3xl font-display text-atl-text mt-12 mb-6 tracking-tight border-b border-atl-line pb-3">$1</h2>')
+        .replace(/^# (.*$)/gim, '<h2 class="text-2xl sm:text-3xl font-display text-atl-text mb-6 tracking-tight border-b border-atl-line pb-3">$1</h2>')
         .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-atl-text">$1</strong>')
         .replace(/^- (.*$)/gim, '<li class="ml-6 list-none flex items-start gap-2.5 before:content-[\'•\'] before:text-atl-brass before:font-bold mb-2.5 text-atl-muted font-normal">$1</li>')
         .replace(/^\d+\. (.*$)/gim, '<li class="ml-6 list-decimal mb-2.5 text-atl-muted font-normal pl-1">$1</li>')

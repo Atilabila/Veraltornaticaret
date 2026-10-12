@@ -190,7 +190,7 @@ export default function HizmetlerPage() {
                             İzmir Alsancak Atölyesi
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-atl-text tracking-tight leading-[1.1]">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-atl-text tracking-tight leading-[1.1]">
                             Alsancak Atölyesinde Toptan Metal İmalatı
                         </h1>
 
@@ -249,8 +249,8 @@ export default function HizmetlerPage() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-300">
+                                        <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
+                                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-atl-brass">
                                             ALSANCAK ATÖLYESİ · AKTİF İMALAT
                                         </span>
                                     </div>
@@ -273,7 +273,7 @@ export default function HizmetlerPage() {
                     <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
                         <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">AVRUPA STANDARDI</div>
                         <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">DIN EN 10202</div>
-                        <div className="text-xs text-atl-muted mt-1">Sertifikalı ETP Teneke Sac</div>
+                        <div className="text-xs text-atl-muted mt-1">DIN EN 10202 Uyumlu ETP Teneke Sac</div>
                     </div>
                     <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
                         <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">MİKRON ARALIĞI</div>
@@ -295,7 +295,7 @@ export default function HizmetlerPage() {
                         <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block mb-2">
                             ENDÜSTRİYEL İMALAT VE FASON KAPASİTE
                         </span>
-                        <h2 className="text-2xl sm:text-4xl font-black text-atl-text tracking-tight">
+                        <h2 className="text-2xl sm:text-4xl font-display text-atl-text tracking-tight">
                             Sektörel Standartlarda Metal Üretim Hatlarımız
                         </h2>
                     </div>
@@ -316,9 +316,9 @@ export default function HizmetlerPage() {
                 <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
                         <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block mb-2">
-                            METALURJİK STANDARTLAR VE SERTİFİKALAR
+                            METALURJİK STANDARTLAR
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-black text-atl-text tracking-tight">
+                        <h2 className="text-2xl sm:text-3xl font-display text-atl-text tracking-tight">
                             DIN EN 10202 Normları & Mekanik Değerler Tablosu
                         </h2>
                         <p className="text-sm text-atl-muted mt-1 max-w-2xl">
@@ -377,7 +377,7 @@ export default function HizmetlerPage() {
                         <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block">
                             ÖZEL TEKNİK ŞARTNAME & FASON İMALAT
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-black text-atl-text">
+                        <h2 className="text-2xl sm:text-3xl font-display text-atl-text">
                             Projeniz İçin Teknik Resim Gönderin, Fiyatlandıralım
                         </h2>
                         <p className="text-sm text-atl-muted leading-relaxed font-normal">

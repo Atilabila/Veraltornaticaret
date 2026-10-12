@@ -58,8 +58,8 @@ export const Footer = () => {
                                 <span className="whitespace-pre-line text-sm text-atl-text">{content.footerAddress}</span>
                             </div>
                             <div className="flex gap-3">
-                                {socialLinks.map((item, i) => (
-                                    <Link key={i} href={item.href} target="_blank" aria-label={`${item.label} sayfamız`}
+                                {socialLinks.filter((item) => item.href.trim() !== "" && item.href.trim() !== "#").map((item, i) => (
+                                    <Link key={i} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={`${item.label} sayfamız`}
                                         className="flex h-10 w-10 items-center justify-center border border-atl-line text-atl-muted transition-colors hover:border-atl-brass hover:text-atl-brass-light">
                                         <item.icon size={18} />
                                     </Link>
