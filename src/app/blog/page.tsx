@@ -34,12 +34,12 @@ export default function BlogPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+        <main className="min-h-screen bg-atl-bg text-atl-text">
             <Navigation />
 
             {/* Breadcrumb Bar */}
             <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
-                <Breadcrumb items={breadcrumbs} className="text-zinc-600" />
+                <Breadcrumb items={breadcrumbs} className="text-atl-muted" />
             </div>
 
             {/* Blog List Client Container */}

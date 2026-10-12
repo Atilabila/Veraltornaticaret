@@ -246,7 +246,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     };
 
     return (
-        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+        <main className="min-h-screen bg-atl-bg text-atl-text">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
