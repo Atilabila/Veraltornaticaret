@@ -9,14 +9,21 @@ import { DirectEdit } from "@/components/admin/DirectEdit";
 import { PageContainer } from '@/components/layout/PageContainer';
 import { BrassRule } from '@/components/atolye/BrassRule';
 
-const NAV = [
-    { label: 'İmalat Hatlarımız', href: '/hizmetler' },
-    { label: 'Sıkça Sorulanlar (SSS)', href: '/sss' },
-    { label: 'Teknik Raporlar & Blog', href: '/blog' },
-    { label: 'Atölye ve Editör Biyografisi', href: '/yazar/oguzcan-veral' },
+const KURUMSAL = [
+    { label: 'Anasayfa', href: '/' },
     { label: 'Hakkımızda', href: '/hakkimizda' },
-    { label: 'Hızlı Teklif Al', href: '/teklif-al' },
     { label: 'İletişim', href: '/iletisim' },
+    { label: 'Teklif Al', href: '/teklif-al' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'KVKK', href: '/kvkk' },
+    { label: 'Çerez Politikası', href: '/cerez' },
+];
+
+const URUN_GRUPLARI = [
+    { label: 'Dosya Teli', href: '/hizmetler/dosya-teli' },
+    { label: 'Takvim Tenekesi', href: '/hizmetler/takvim-tenekesi' },
+    { label: 'Sac Kesim & Dilimleme', href: '/hizmetler' },
+    { label: 'Özel / UV Metal Baskı', href: '/hizmetler/miknatisli-magnet' },
 ];
 
 const LEGAL = [
@@ -39,8 +46,8 @@ export const Footer = () => {
         <DirectEdit tab="contact">
             <footer className="atl-grain border-t border-atl-line bg-atl-bg pb-10 pt-20 text-atl-text">
                 <PageContainer>
-                    <div className="mb-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
-                        <div className="flex flex-col gap-6 lg:col-span-12 xl:col-span-4">
+                    <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12">
+                        <div className="flex flex-col gap-6 lg:col-span-4">
                             <Link href="/" className="group flex items-center gap-4">
                                 <span className="relative h-14 w-14 flex-shrink-0">
                                     <Image src="/veral-logo.png" alt={siteName} fill sizes="56px" className="rounded-full object-contain" quality={95} />
@@ -53,10 +60,6 @@ export const Footer = () => {
                             <p className="max-w-sm text-base leading-relaxed text-atl-muted">
                                 İzmir merkezli toptan dosya teli imalatı, takvim tenekesi seri üretimi ve özel metal imalat.
                             </p>
-                            <div className="flex flex-col gap-1">
-                                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Merkez & Atölye</span>
-                                <span className="whitespace-pre-line text-sm text-atl-text">{content.footerAddress}</span>
-                            </div>
                             <div className="flex gap-3">
                                 {socialLinks.filter((item) => item.href.trim() !== "" && item.href.trim() !== "#").map((item, i) => (
                                     <Link key={i} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={`${item.label} sayfamız`}
@@ -66,10 +69,11 @@ export const Footer = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="lg:col-span-6 xl:col-span-3">
-                            <h4 className="mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Navigasyon</h4>
+
+                        <div className="lg:col-span-2">
+                            <h4 className="mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Kurumsal</h4>
                             <ul className="flex flex-col gap-3">
-                                {NAV.map((item) => (
+                                {KURUMSAL.map((item) => (
                                     <li key={item.label}>
                                         <Link href={item.href} className="group inline-flex items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
                                             {item.label}
@@ -79,11 +83,30 @@ export const Footer = () => {
                                 ))}
                             </ul>
                         </div>
-                        <div className="flex flex-col gap-6 lg:col-span-6 xl:col-span-5">
-                            <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">İletişim</h4>
+
+                        <div className="lg:col-span-3">
+                            <h4 className="mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Ürün Gruplarımız</h4>
+                            <ul className="flex flex-col gap-3">
+                                {URUN_GRUPLARI.map((item) => (
+                                    <li key={item.label}>
+                                        <Link href={item.href} className="group inline-flex items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
+                                            {item.label}
+                                            <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100" />
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="flex flex-col gap-6 lg:col-span-3">
+                            <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">İletişim Bilgilerimiz</h4>
                             <div className="space-y-1">
                                 <div className="font-display text-2xl">{content.footerPhone}</div>
                                 <div className="text-sm text-atl-muted">{content.footerEmail}</div>
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Merkez & Atölye</span>
+                                <span className="whitespace-pre-line text-sm text-atl-text">{content.footerAddress}</span>
                             </div>
                             <a href={content.footerMapLink || `https://www.google.com/maps/dir/?api=1&destination=${content.footerMapLat},${content.footerMapLng}`}
                                 target="_blank" rel="noopener noreferrer"

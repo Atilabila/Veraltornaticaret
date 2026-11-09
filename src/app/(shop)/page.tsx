@@ -5,11 +5,11 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { AtolyeHero } from "@/components/atolye/AtolyeHero";
+import { ProductGroupsSection } from "@/components/atolye/ProductGroupsSection";
+import { AboutTrustBand } from "@/components/atolye/AboutTrustBand";
 import { ProcessSteps } from "@/components/atolye/ProcessSteps";
-import { MetalBaskiBand } from "@/components/atolye/MetalBaskiBand";
-import { LatestPosts } from "@/components/atolye/LatestPosts";
+import { ProductionModelBand } from "@/components/atolye/ProductionModelBand";
 import { CtaBand } from "@/components/atolye/CtaBand";
-import { ServicesHomeSection } from "@/components/sections/ServicesHomeSection";
 
 export const metadata: Metadata = {
     title: "Veral Teneke & Metal Poster İmalatı | İzmir Alsancak Seri Üretim",
@@ -54,15 +54,18 @@ const homeFaqs = [
 
 export default function ShopHomePage() {
     return (
-        <main className="home-page min-h-screen bg-atl-bg pb-24 text-atl-text lg:pb-0">
+        <main className="home-page min-h-screen bg-atl-bg pb-24 text-atl-text lg:pb-0" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
             <FAQSchema items={homeFaqs} />
             <Navigation />
             <AtolyeHero />
-            <ServicesHomeSection />
+            <ProductGroupsSection />
+            <AboutTrustBand />
             <ProcessSteps />
-            <MetalBaskiBand />
-            <LatestPosts />
-            <CtaBand />
+            <ProductionModelBand />
+            <CtaBand
+                title="Metal parça üretimi için güvenilir bir çözüm ortağı mı arıyorsunuz?"
+                description="Dosya teli, takvim tenekesi, sac kesim veya UV metal baskı talepleriniz için bizimle iletişime geçin. Projenize uygun üretimi birlikte planlayalım."
+            />
             <Footer />
             <MobileStickyBar />
         </main>

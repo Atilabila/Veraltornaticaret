@@ -4,29 +4,29 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LayoutGrid, Menu, X } from 'lucide-react';
+import { ChevronDown, LayoutGrid, Menu, MessageCircle, X } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
 import { m, AnimatePresence } from 'framer-motion';
 import { useAdminStore } from '@/store/useAdminStore';
 import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 import { cn } from '@/lib/utils';
 
+const DOSYA_TELI_LINKS = [
+    { label: 'Toptan Dosya Teli', href: '/hizmetler/dosya-teli' },
+    { label: 'Takvim Tenekesi', href: '/hizmetler/takvim-tenekesi' },
+    { label: 'Tef Zili', href: '/hizmetler/tef-zili' },
+];
+
 const NAV_LINKS = [
     { label: 'Üretim Hatları', href: '/hizmetler' },
-    { label: 'Metal Baskı', href: '/hizmetler/miknatisli-magnet' },
-    { label: 'Blog', href: '/blog' },
     { label: 'Hakkımızda', href: '/hakkimizda' },
     { label: 'İletişim', href: '/iletisim' },
 ];
 
 const SEARCH_GROUPS = [
     {
-        title: 'Üretim hatları',
-        links: [
-            { label: 'Dosya Teli', href: '/hizmetler/dosya-teli' },
-            { label: 'Takvim Tenekesi', href: '/hizmetler/takvim-tenekesi' },
-            { label: 'Tef Zili', href: '/hizmetler/tef-zili' },
-        ],
+        title: 'Dosya teli ve teneke',
+        links: DOSYA_TELI_LINKS,
     },
     {
         title: 'Diğer hizmetler',
@@ -34,6 +34,7 @@ const SEARCH_GROUPS = [
             { label: 'Giyotin Kesim & Rulo Dilimleme', href: '/hizmetler' },
             { label: 'UV Baskılı Metal Levha', href: '/hizmetler/miknatisli-magnet' },
             { label: 'Teklif Al', href: '/teklif-al' },
+            { label: 'Blog', href: '/blog' },
         ],
     },
 ];
@@ -63,10 +64,13 @@ export const Navigation = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [isDosyaOpen, setIsDosyaOpen] = useState(false);
+    const [isMobileDosyaOpen, setIsMobileDosyaOpen] = useState(false);
     const searchButtonRef = useRef<HTMLButtonElement>(null);
     const menuButtonRef = useRef<HTMLButtonElement>(null);
     const searchDialogRef = useRef<HTMLDivElement>(null);
     const menuDialogRef = useRef<HTMLDivElement>(null);
+    const dosyaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const setAdmin = useAdminStore((state) => state.setAdmin);
     const isAdmin = useAdminStore((state) => state.isAdmin);
 
@@ -126,7 +130,18 @@ export const Navigation = () => {
 
     const ctaText = content.headerConfig?.ctaText || "TEKLİF AL";
     const ctaLink = content.headerConfig?.ctaLink || "/teklif-al";
+    const whatsappNumber = (content.whatsappNumber || "905323794003").replace(/[^0-9]/g, "");
+    const whatsappHref = `https://wa.me/${whatsappNumber}`;
     const isActive = (href: string) => pathname === href || (href !== '/hizmetler' && pathname?.startsWith(href));
+    const isDosyaActive = DOSYA_TELI_LINKS.some((item) => pathname?.startsWith(item.href));
+
+    const openDosya = () => {
+        if (dosyaCloseTimer.current) clearTimeout(dosyaCloseTimer.current);
+        setIsDosyaOpen(true);
+    };
+    const closeDosya = () => {
+        dosyaCloseTimer.current = setTimeout(() => setIsDosyaOpen(false), 120);
+    };
 
     return (
         <>
@@ -135,6 +150,7 @@ export const Navigation = () => {
                     "fixed top-0 z-[100] w-full border-b transition-colors duration-500",
                     isScrolled ? "border-atl-line bg-atl-bg/95 backdrop-blur" : "border-transparent bg-atl-bg/70 backdrop-blur-sm"
                 )}
+                style={{ backgroundColor: isScrolled ? "rgba(18,17,16,0.95)" : "rgba(18,17,16,0.7)", color: "#ece6da" }}
             >
                 <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-6 px-4 py-3 sm:px-6 lg:px-12">
                     <Link href="/" className="group flex min-w-0 items-center gap-3">
@@ -158,6 +174,52 @@ export const Navigation = () => {
                     </Link>
 
                     <nav aria-label="Ana menü" className="hidden items-center gap-8 lg:flex">
+                        <div
+                            className="relative"
+                            onMouseEnter={openDosya}
+                            onMouseLeave={closeDosya}
+                        >
+                            <button
+                                type="button"
+                                aria-expanded={isDosyaOpen}
+                                aria-haspopup="true"
+                                onClick={() => setIsDosyaOpen((open) => !open)}
+                                className={cn(
+                                    "inline-flex items-center gap-1 text-sm font-medium transition-colors",
+                                    isDosyaActive || isDosyaOpen ? "text-atl-brass-light" : "text-atl-muted hover:text-atl-text"
+                                )}
+                            >
+                                Dosya Teli
+                                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isDosyaOpen && "rotate-180")} />
+                            </button>
+                            <AnimatePresence>
+                                {isDosyaOpen && (
+                                    <m.div
+                                        initial={{ opacity: 0, y: 6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 6 }}
+                                        transition={{ duration: 0.15 }}
+                                        className="absolute left-0 top-full z-20 min-w-[240px] border border-atl-line bg-atl-surface py-2 shadow-lg"
+                                        onMouseEnter={openDosya}
+                                        onMouseLeave={closeDosya}
+                                    >
+                                        {DOSYA_TELI_LINKS.map((item) => (
+                                            <Link
+                                                key={item.href}
+                                                href={item.href}
+                                                onClick={() => setIsDosyaOpen(false)}
+                                                className={cn(
+                                                    "block px-4 py-2.5 text-sm transition-colors hover:bg-atl-surface-2 hover:text-atl-brass-light",
+                                                    isActive(item.href) ? "text-atl-brass-light" : "text-atl-text"
+                                                )}
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        ))}
+                                    </m.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
                         {NAV_LINKS.map((link) => (
                             <Link
                                 key={link.href}
@@ -172,7 +234,7 @@ export const Navigation = () => {
                         ))}
                     </nav>
 
-                    <div className="flex items-center gap-2 sm:gap-4">
+                    <div className="flex items-center gap-2 sm:gap-3">
                         <button
                             ref={searchButtonRef}
                             onClick={() => setIsSearchOpen(true)}
@@ -183,6 +245,15 @@ export const Navigation = () => {
                         >
                             <LayoutGrid className="h-5 w-5" />
                         </button>
+                        <a
+                            href={whatsappHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hidden h-10 items-center gap-2 border border-atl-line px-4 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-atl-text transition-colors hover:border-atl-brass hover:text-atl-brass-light md:inline-flex"
+                        >
+                            <MessageCircle className="h-3.5 w-3.5" />
+                            WhatsApp
+                        </a>
                         <Link
                             href={ctaLink}
                             className="hidden h-10 items-center bg-atl-brass px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-atl-bg transition-colors hover:bg-atl-brass-light sm:inline-flex"
@@ -274,7 +345,39 @@ export const Navigation = () => {
                             </button>
                         </div>
                         <nav className="flex flex-col gap-6 pb-24">
-                            {[{ label: 'Ana Sayfa', href: '/' }, ...NAV_LINKS].map((link) => (
+                            <Link
+                                href="/"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="font-display text-4xl text-atl-text transition-colors hover:text-atl-brass-light"
+                            >
+                                Ana Sayfa
+                            </Link>
+                            <div>
+                                <button
+                                    type="button"
+                                    aria-expanded={isMobileDosyaOpen}
+                                    onClick={() => setIsMobileDosyaOpen((open) => !open)}
+                                    className="flex w-full items-center justify-between font-display text-4xl text-atl-text transition-colors hover:text-atl-brass-light"
+                                >
+                                    Dosya Teli
+                                    <ChevronDown className={cn("h-7 w-7 text-atl-brass transition-transform", isMobileDosyaOpen && "rotate-180")} />
+                                </button>
+                                {isMobileDosyaOpen && (
+                                    <div className="mt-4 flex flex-col gap-3 border-l border-atl-line pl-5">
+                                        {DOSYA_TELI_LINKS.map((item) => (
+                                            <Link
+                                                key={item.href}
+                                                href={item.href}
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                                className="text-xl text-atl-muted transition-colors hover:text-atl-brass-light"
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            {NAV_LINKS.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
@@ -284,10 +387,20 @@ export const Navigation = () => {
                                     {link.label}
                                 </Link>
                             ))}
+                            <a
+                                href={whatsappHref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="mt-4 flex h-14 items-center justify-center gap-2 border border-atl-line font-mono text-sm font-semibold uppercase tracking-[0.25em] text-atl-text"
+                            >
+                                <MessageCircle className="h-4 w-4" />
+                                WhatsApp
+                            </a>
                             <Link
                                 href={ctaLink}
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="mt-8 flex h-14 items-center justify-center bg-atl-brass font-mono text-sm font-semibold uppercase tracking-[0.25em] text-atl-bg"
+                                className="flex h-14 items-center justify-center bg-atl-brass font-mono text-sm font-semibold uppercase tracking-[0.25em] text-atl-bg"
                             >
                                 {ctaText}
                             </Link>
