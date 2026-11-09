@@ -10,6 +10,7 @@ import { AboutTrustBand } from "@/components/atolye/AboutTrustBand";
 import { ProcessSteps } from "@/components/atolye/ProcessSteps";
 import { ProductionModelBand } from "@/components/atolye/ProductionModelBand";
 import { CtaBand } from "@/components/atolye/CtaBand";
+import { HomeFaqBand } from "@/components/atolye/HomeFaqBand";
 
 export const metadata: Metadata = {
     title: {
@@ -68,7 +69,7 @@ const homeFaqs = [
 
 export default function ShopHomePage() {
     return (
-        <main className="home-page min-h-screen bg-atl-bg pb-24 text-atl-text lg:pb-0" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
+        <main className="home-page min-h-screen bg-atl-bg pb-[calc(4.75rem+env(safe-area-inset-bottom))] text-atl-text lg:pb-0" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
             <FAQSchema items={homeFaqs} />
             <Navigation />
             <AtolyeHero />
@@ -76,6 +77,7 @@ export default function ShopHomePage() {
             <AboutTrustBand />
             <ProcessSteps />
             <ProductionModelBand />
+            <HomeFaqBand />
             <CtaBand
                 title="Metal parça üretimi için güvenilir bir çözüm ortağı mı arıyorsunuz?"
                 description="Dosya teli, takvim tenekesi, sac kesim veya UV metal baskı talepleriniz için bizimle iletişime geçin. Projenize uygun üretimi birlikte planlayalım."

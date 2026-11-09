@@ -28,15 +28,15 @@ export default function IletisimPage() {
         {
             icon: Mail,
             label: "Kurumsal E-posta",
-            value: content.footerEmail || "info@veralteneketicaret.com",
-            href: `mailto:${content.footerEmail || "info@veralteneketicaret.com"}`,
+            value: content.footerEmail || "veraltornatic@hotmail.com",
+            href: `mailto:${content.footerEmail || "veraltornatic@hotmail.com"}`,
             sub: "Teknik şartname ve CAD gönderimleri"
         },
         {
             icon: MapPin,
             label: "Alsancak İmalat Merkezi",
             value: content.footerAddress || "1471 Sokak No:12/A Alsancak, Konak, İzmir",
-            href: content.footerMapLink || "https://maps.google.com/?q=Alsancak+Konak+Izmir",
+            href: content.footerMapLink || "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
             sub: "Doğrudan atölye ziyareti ve numune teslim"
         },
     ];

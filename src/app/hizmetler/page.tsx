@@ -6,17 +6,7 @@ import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { ServiceCard } from "@/components/atolye/ServiceCard";
-import {
-    ArrowRight,
-    CheckCircle2,
-    Phone,
-    FileText,
-    Layers,
-    Scissors,
-    Disc,
-    Bell,
-    Sparkles,
-} from "lucide-react";
+import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
     title: {
@@ -60,7 +50,7 @@ const serviceCards = [
             { label: "Kullanım", val: "Dosya & arşiv" },
             { label: "Sipariş", val: "Toptan / seri" },
         ],
-        icon: FileText,
+        iconName: "file-text",
     },
     {
         id: "takvim-tenekesi",
@@ -75,7 +65,7 @@ const serviceCards = [
             { label: "Hedef", val: "Matbaa & yayınevi" },
             { label: "Tip", val: "Askılı / askısız" },
         ],
-        icon: Layers,
+        iconName: "layers",
     },
     {
         id: "giyotin-kesim",
@@ -90,7 +80,7 @@ const serviceCards = [
             { label: "Hizmet", val: "Fason ebatlama" },
             { label: "Lokasyon", val: "Alsancak / İzmir" },
         ],
-        icon: Scissors,
+        iconName: "scissors",
     },
     {
         id: "rulo-dilimleme",
@@ -105,7 +95,7 @@ const serviceCards = [
             { label: "Hizmet", val: "Dilme & sarım" },
             { label: "Sipariş", val: "Teklif usulü" },
         ],
-        icon: Disc,
+        iconName: "disc",
     },
     {
         id: "tef-zili",
@@ -120,7 +110,7 @@ const serviceCards = [
             { label: "Sektör", val: "Müzik aleti" },
             { label: "Üretim", val: "Seri pres" },
         ],
-        icon: Bell,
+        iconName: "bell",
     },
     {
         id: "miknatisli-magnet",
@@ -135,7 +125,7 @@ const serviceCards = [
             { label: "Ürün", val: "Metal poster" },
             { label: "Montaj", val: "Mıknatıslı" },
         ],
-        icon: Sparkles,
+        iconName: "sparkles",
     },
 ];
 
@@ -297,7 +287,7 @@ export default function HizmetlerPage() {
                     </div>
                 </div>
 
-                <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     {geoHighlights.map((item) => (
                         <div key={item.title} className="border border-atl-line bg-atl-surface p-5 shadow-sm">
                             <div className="mb-2 text-xs font-bold uppercase tracking-wider text-atl-brass">{item.title}</div>
@@ -328,11 +318,12 @@ export default function HizmetlerPage() {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                     {serviceCards.map((service, index) => (
                         <ServiceCard
                             key={service.id}
                             {...service}
+                            index={index}
                             priority={index < 3}
                             ctaLabel="Teklif iste"
                         />

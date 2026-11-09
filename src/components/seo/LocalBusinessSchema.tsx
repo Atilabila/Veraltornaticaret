@@ -13,7 +13,7 @@ export const LocalBusinessSchema = () => {
         "description": "İzmir Alsancak merkezli toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster imalatçısı.",
         "url": "https://veralteneketicaret.com",
         "telephone": "+905323794003",
-        "email": "info@veralteneketicaret.com",
+        "email": "veraltornatic@hotmail.com",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "1471 Sokak No:12/A",
@@ -48,7 +48,7 @@ export const LocalBusinessSchema = () => {
             { "@type": "AdministrativeArea", "name": "Ege Bölgesi" },
             { "@type": "Country", "name": "Türkiye" }
         ],
-        "hasMap": "https://maps.app.goo.gl/hfzcSVtSP91xS5P47",
+        "hasMap": "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
         "sameAs": [
             "https://www.instagram.com/veralticaret"
         ],

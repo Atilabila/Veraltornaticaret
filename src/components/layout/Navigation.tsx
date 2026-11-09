@@ -1,75 +1,36 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { ChevronDown, LayoutGrid, Menu, MessageCircle, X } from 'lucide-react';
-import { useContentStore } from '@/store/useContentStore';
-import { m, AnimatePresence } from 'framer-motion';
-import { useAdminStore } from '@/store/useAdminStore';
-import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
-import { cn } from '@/lib/utils';
+import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Menu, MessageCircle, X } from "lucide-react";
+import { useContentStore } from "@/store/useContentStore";
+import { m, AnimatePresence } from "framer-motion";
+import { useAdminStore } from "@/store/useAdminStore";
+import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
+import { cn } from "@/lib/utils";
+import { MobileNavSheet } from "@/components/layout/MobileNavSheet";
 
 const DOSYA_TELI_LINKS = [
-    { label: 'Toptan Dosya Teli', href: '/hizmetler/dosya-teli' },
-    { label: 'Takvim Tenekesi', href: '/hizmetler/takvim-tenekesi' },
-    { label: 'Tef Zili', href: '/hizmetler/tef-zili' },
+    { label: "Toptan Dosya Teli", href: "/hizmetler/dosya-teli" },
+    { label: "Takvim Tenekesi", href: "/hizmetler/takvim-tenekesi" },
+    { label: "Tef Zili", href: "/hizmetler/tef-zili" },
 ];
 
 const NAV_LINKS = [
-    { label: 'Üretim Hatları', href: '/hizmetler' },
-    { label: 'Hakkımızda', href: '/hakkimizda' },
-    { label: 'İletişim', href: '/iletisim' },
+    { label: "Üretim Hatları", href: "/hizmetler" },
+    { label: "Hakkımızda", href: "/hakkimizda" },
+    { label: "İletişim", href: "/iletisim" },
 ];
-
-const SEARCH_GROUPS = [
-    {
-        title: 'Dosya teli ve teneke',
-        links: DOSYA_TELI_LINKS,
-    },
-    {
-        title: 'Diğer hizmetler',
-        links: [
-            { label: 'Giyotin Kesim & Rulo Dilimleme', href: '/hizmetler' },
-            { label: 'UV Baskılı Metal Levha', href: '/hizmetler/miknatisli-magnet' },
-            { label: 'Teklif Al', href: '/teklif-al' },
-            { label: 'Blog', href: '/blog' },
-        ],
-    },
-];
-
-const SEARCH_DIALOG_ID = 'site-shortcuts-dialog';
-const MOBILE_MENU_ID = 'mobile-menu-dialog';
-
-function useOverlayFocus(
-    open: boolean,
-    dialogRef: React.RefObject<HTMLDivElement | null>,
-    triggerRef: React.RefObject<HTMLButtonElement | null>
-) {
-    const wasOpen = useRef(false);
-    useEffect(() => {
-        if (open) {
-            dialogRef.current?.querySelector<HTMLElement>('button, a[href]')?.focus();
-        } else if (wasOpen.current) {
-            triggerRef.current?.focus();
-        }
-        wasOpen.current = open;
-    }, [open, dialogRef, triggerRef]);
-}
 
 export const Navigation = () => {
     const { content } = useContentStore();
     const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isDosyaOpen, setIsDosyaOpen] = useState(false);
-    const [isMobileDosyaOpen, setIsMobileDosyaOpen] = useState(false);
-    const searchButtonRef = useRef<HTMLButtonElement>(null);
     const menuButtonRef = useRef<HTMLButtonElement>(null);
-    const searchDialogRef = useRef<HTMLDivElement>(null);
-    const menuDialogRef = useRef<HTMLDivElement>(null);
     const dosyaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const setAdmin = useAdminStore((state) => state.setAdmin);
     const isAdmin = useAdminStore((state) => state.isAdmin);
@@ -85,12 +46,14 @@ export const Navigation = () => {
                 ticking = true;
             }
         };
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener("scroll", handleScroll, { passive: true });
 
         const checkAuth = async () => {
             if (isAdmin) return;
             const supabase = createBrowserSupabaseClient();
-            const { data: { user } } = await supabase.auth.getUser();
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
             if (user) setAdmin(true);
         };
         checkAuth();
@@ -98,41 +61,22 @@ export const Navigation = () => {
         const initSync = async () => {
             try {
                 if (isAdmin) return;
-                const { startBackgroundSync } = await import('@/lib/sync/syncService');
+                const { startBackgroundSync } = await import("@/lib/sync/syncService");
                 startBackgroundSync();
             } catch (error) {
-                console.error('[SYNC] Failed to initialize sync service:', error);
+                console.error("[SYNC] Failed to initialize sync service:", error);
             }
         };
         initSync();
 
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, [isAdmin, setAdmin]);
-
-    useEffect(() => {
-        document.body.style.overflow = (isMobileMenuOpen || isSearchOpen) ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [isMobileMenuOpen, isSearchOpen]);
-
-    useEffect(() => {
-        if (!isSearchOpen && !isMobileMenuOpen) return;
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key !== 'Escape') return;
-            setIsSearchOpen(false);
-            setIsMobileMenuOpen(false);
-        };
-        document.addEventListener('keydown', handleKeyDown);
-        return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [isSearchOpen, isMobileMenuOpen]);
-
-    useOverlayFocus(isSearchOpen, searchDialogRef, searchButtonRef);
-    useOverlayFocus(isMobileMenuOpen, menuDialogRef, menuButtonRef);
 
     const ctaText = content.headerConfig?.ctaText || "TEKLİF AL";
     const ctaLink = content.headerConfig?.ctaLink || "/teklif-al";
     const whatsappNumber = (content.whatsappNumber || "905323794003").replace(/[^0-9]/g, "");
     const whatsappHref = `https://wa.me/${whatsappNumber}`;
-    const isActive = (href: string) => pathname === href || (href !== '/hizmetler' && pathname?.startsWith(href));
+    const isActive = (href: string) => pathname === href || (href !== "/hizmetler" && pathname?.startsWith(href));
     const isDosyaActive = DOSYA_TELI_LINKS.some((item) => pathname?.startsWith(item.href));
 
     const openDosya = () => {
@@ -152,33 +96,31 @@ export const Navigation = () => {
                 )}
                 style={{ backgroundColor: isScrolled ? "rgba(18,17,16,0.95)" : "rgba(18,17,16,0.7)", color: "#ece6da" }}
             >
-                <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-6 px-4 py-3 sm:px-6 lg:px-12">
-                    <Link href="/" className="group flex min-w-0 items-center gap-3">
-                        <span className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-atl-bg md:h-11 md:w-11">
+                <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:gap-6 sm:px-6 sm:py-3 lg:px-12">
+                    <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3">
+                        <span className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full sm:h-11 sm:w-11 md:h-12 md:w-12">
                             <Image
-                                src="/veral-logo-clear.png"
+                                src="/veral-logo-nav.png"
                                 alt={content.siteName || "VERAL"}
                                 fill
-                                sizes="44px"
+                                sizes="48px"
                                 className="object-cover"
                                 priority
-                                quality={95}
+                                unoptimized
                             />
                         </span>
-                        <div className="flex flex-col leading-none">
-                            <span className="font-display text-xl tracking-wide text-atl-text transition-colors group-hover:text-atl-brass-light md:text-2xl">
+                        <div className="flex min-w-0 flex-col leading-none">
+                            <span className="truncate font-display text-lg tracking-wide text-atl-text transition-colors group-hover:text-atl-brass-light sm:text-xl md:text-2xl">
                                 {content.siteName || "VERAL"}
                             </span>
-                            <span className="mt-1 font-mono text-[8px] uppercase tracking-[0.3em] text-atl-muted md:text-[9px]">Torna & Teneke Ti̇caret</span>
+                            <span className="mt-0.5 hidden font-mono text-[8px] uppercase tracking-[0.3em] text-atl-muted sm:mt-1 sm:block md:text-[9px]">
+                                Torna & Teneke Ti̇caret
+                            </span>
                         </div>
                     </Link>
 
                     <nav aria-label="Ana menü" className="hidden items-center gap-8 lg:flex">
-                        <div
-                            className="relative"
-                            onMouseEnter={openDosya}
-                            onMouseLeave={closeDosya}
-                        >
+                        <div className="relative" onMouseEnter={openDosya} onMouseLeave={closeDosya}>
                             <button
                                 type="button"
                                 aria-expanded={isDosyaOpen}
@@ -234,17 +176,7 @@ export const Navigation = () => {
                         ))}
                     </nav>
 
-                    <div className="flex items-center gap-2 sm:gap-3">
-                        <button
-                            ref={searchButtonRef}
-                            onClick={() => setIsSearchOpen(true)}
-                            aria-label="Hizmet ve sayfalarda gezin"
-                            aria-expanded={isSearchOpen}
-                            aria-controls={SEARCH_DIALOG_ID}
-                            className="p-2 text-atl-muted transition-colors hover:text-atl-text"
-                        >
-                            <LayoutGrid className="h-5 w-5" />
-                        </button>
+                    <div className="flex items-center gap-1.5 sm:gap-3">
                         <a
                             href={whatsappHref}
                             target="_blank"
@@ -256,16 +188,16 @@ export const Navigation = () => {
                         </a>
                         <Link
                             href={ctaLink}
-                            className="hidden h-10 items-center bg-atl-brass px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-atl-bg transition-colors hover:bg-atl-brass-light sm:inline-flex"
+                            className="hidden h-10 items-center bg-atl-brass px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-atl-bg transition-colors hover:bg-atl-brass-light lg:inline-flex"
                         >
                             {ctaText}
                         </Link>
                         <button
                             ref={menuButtonRef}
-                            className="p-2 text-atl-text lg:hidden"
+                            type="button"
+                            className="inline-flex h-11 w-11 items-center justify-center text-atl-text lg:hidden"
                             aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
                             aria-expanded={isMobileMenuOpen}
-                            aria-controls={MOBILE_MENU_ID}
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         >
                             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -274,140 +206,15 @@ export const Navigation = () => {
                 </div>
             </header>
 
-            <AnimatePresence>
-                {isSearchOpen && (
-                    <m.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100000] flex items-start justify-center px-6 pt-[10vh]"
-                    >
-                        <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={() => setIsSearchOpen(false)} />
-                        <m.div
-                            ref={searchDialogRef}
-                            id={SEARCH_DIALOG_ID}
-                            role="dialog"
-                            aria-modal="true"
-                            aria-label="Hizmet ve sayfa kısayolları"
-                            initial={{ y: -30, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: -30, opacity: 0 }}
-                            className="relative z-10 w-full max-w-2xl border border-atl-line bg-atl-surface p-8 md:p-12"
-                        >
-                            <div className="flex items-center justify-between">
-                                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-atl-brass">Hızlı erişim</span>
-                                <button onClick={() => setIsSearchOpen(false)} aria-label="Kısayolları kapat" className="text-atl-muted hover:text-atl-text">
-                                    <X className="h-6 w-6" />
-                                </button>
-                            </div>
-                            <div className="mt-8 grid grid-cols-1 gap-10 border-t border-atl-line pt-8 md:grid-cols-2">
-                                {SEARCH_GROUPS.map((group) => (
-                                    <div key={group.title}>
-                                        <h4 className="mb-5 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">{group.title}</h4>
-                                        <div className="flex flex-col gap-3">
-                                            {group.links.map((item) => (
-                                                <Link
-                                                    key={item.label}
-                                                    href={item.href}
-                                                    onClick={() => setIsSearchOpen(false)}
-                                                    className="text-lg text-atl-text transition-colors hover:text-atl-brass-light"
-                                                >
-                                                    {item.label}
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </m.div>
-                    </m.div>
-                )}
-            </AnimatePresence>
-
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <m.div
-                        ref={menuDialogRef}
-                        id={MOBILE_MENU_ID}
-                        role="dialog"
-                        aria-modal="true"
-                        aria-label="Mobil menü"
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                        className="atl-grain fixed inset-0 z-[100000] flex flex-col overflow-y-auto bg-atl-bg p-8 text-atl-text"
-                    >
-                        <div className="mb-14 flex items-center justify-between">
-                            <span className="font-mono text-xs uppercase tracking-[0.4em] text-atl-brass">Menü</span>
-                            <button onClick={() => setIsMobileMenuOpen(false)} className="text-atl-muted hover:text-atl-text" aria-label="Menüyü kapat">
-                                <X className="h-9 w-9" />
-                            </button>
-                        </div>
-                        <nav className="flex flex-col gap-6 pb-24">
-                            <Link
-                                href="/"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="font-display text-4xl text-atl-text transition-colors hover:text-atl-brass-light"
-                            >
-                                Ana Sayfa
-                            </Link>
-                            <div>
-                                <button
-                                    type="button"
-                                    aria-expanded={isMobileDosyaOpen}
-                                    onClick={() => setIsMobileDosyaOpen((open) => !open)}
-                                    className="flex w-full items-center justify-between font-display text-4xl text-atl-text transition-colors hover:text-atl-brass-light"
-                                >
-                                    Dosya Teli
-                                    <ChevronDown className={cn("h-7 w-7 text-atl-brass transition-transform", isMobileDosyaOpen && "rotate-180")} />
-                                </button>
-                                {isMobileDosyaOpen && (
-                                    <div className="mt-4 flex flex-col gap-3 border-l border-atl-line pl-5">
-                                        {DOSYA_TELI_LINKS.map((item) => (
-                                            <Link
-                                                key={item.href}
-                                                href={item.href}
-                                                onClick={() => setIsMobileMenuOpen(false)}
-                                                className="text-xl text-atl-muted transition-colors hover:text-atl-brass-light"
-                                            >
-                                                {item.label}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                            {NAV_LINKS.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="font-display text-4xl text-atl-text transition-colors hover:text-atl-brass-light"
-                                >
-                                    {link.label}
-                                </Link>
-                            ))}
-                            <a
-                                href={whatsappHref}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="mt-4 flex h-14 items-center justify-center gap-2 border border-atl-line font-mono text-sm font-semibold uppercase tracking-[0.25em] text-atl-text"
-                            >
-                                <MessageCircle className="h-4 w-4" />
-                                WhatsApp
-                            </a>
-                            <Link
-                                href={ctaLink}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="flex h-14 items-center justify-center bg-atl-brass font-mono text-sm font-semibold uppercase tracking-[0.25em] text-atl-bg"
-                            >
-                                {ctaText}
-                            </Link>
-                        </nav>
-                    </m.div>
-                )}
-            </AnimatePresence>
+            <MobileNavSheet
+                open={isMobileMenuOpen}
+                onOpenChange={setIsMobileMenuOpen}
+                dosyaLinks={DOSYA_TELI_LINKS}
+                navLinks={NAV_LINKS}
+                whatsappHref={whatsappHref}
+                ctaText={ctaText}
+                ctaLink={ctaLink}
+            />
         </>
     );
 };

@@ -44,38 +44,39 @@ export const Footer = () => {
 
     return (
         <DirectEdit tab="contact">
-            <footer className="atl-grain border-t border-atl-line bg-atl-bg pb-10 pt-20 text-atl-text">
+            <footer className="atl-grain border-t border-atl-line bg-atl-bg pb-[calc(5.5rem+env(safe-area-inset-bottom))] pt-10 text-atl-text sm:pt-16 lg:pb-10">
                 <PageContainer>
-                    <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12">
-                        <div className="flex flex-col gap-6 lg:col-span-4">
-                            <Link href="/" className="group flex items-center gap-4">
-                                <span className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-atl-bg">
-                                    <Image src="/veral-logo-clear.png" alt={siteName} fill sizes="56px" className="object-cover" quality={95} />
+                    <div className="mb-8 grid grid-cols-1 gap-8 sm:mb-12 sm:gap-10 md:grid-cols-2 lg:grid-cols-12">
+                        <div className="flex flex-col gap-5 sm:gap-6 lg:col-span-4">
+                            <Link href="/" className="group flex items-center gap-3 sm:gap-4">
+                                <span className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-full sm:h-14 sm:w-14">
+                                    <Image src="/veral-logo-nav.png" alt={siteName} fill sizes="56px" className="object-cover" unoptimized />
                                 </span>
                                 <span className="flex flex-col">
-                                    <span className="font-display text-2xl tracking-wide">{siteName}</span>
+                                    <span className="font-display text-xl tracking-wide sm:text-2xl">{siteName}</span>
                                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-muted">Torna & Teneke Ticaret</span>
                                 </span>
                             </Link>
-                            <p className="max-w-sm text-base leading-relaxed text-atl-muted">
+                            <p className="max-w-sm text-sm leading-relaxed text-atl-muted sm:text-base">
                                 İzmir merkezli toptan dosya teli imalatı, takvim tenekesi seri üretimi ve özel metal imalat.
                             </p>
                             <div className="flex gap-3">
                                 {socialLinks.filter((item) => item.href.trim() !== "" && item.href.trim() !== "#").map((item, i) => (
                                     <Link key={i} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={`${item.label} sayfamız`}
-                                        className="flex h-10 w-10 items-center justify-center border border-atl-line text-atl-muted transition-colors hover:border-atl-brass hover:text-atl-brass-light">
+                                        className="flex h-11 w-11 items-center justify-center border border-atl-line text-atl-muted transition-colors hover:border-atl-brass hover:text-atl-brass-light">
                                         <item.icon size={18} />
                                     </Link>
                                 ))}
                             </div>
                         </div>
 
+                        <div className="grid grid-cols-2 gap-8 sm:contents">
                         <div className="lg:col-span-2">
-                            <h4 className="mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Kurumsal</h4>
-                            <ul className="flex flex-col gap-3">
+                            <h4 className="mb-4 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass sm:mb-6">Kurumsal</h4>
+                            <ul className="flex flex-col gap-1 sm:gap-3">
                                 {KURUMSAL.map((item) => (
                                     <li key={item.label}>
-                                        <Link href={item.href} className="group inline-flex items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
+                                        <Link href={item.href} className="group inline-flex min-h-10 items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
                                             {item.label}
                                             <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100" />
                                         </Link>
@@ -85,11 +86,11 @@ export const Footer = () => {
                         </div>
 
                         <div className="lg:col-span-3">
-                            <h4 className="mb-6 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Ürün Gruplarımız</h4>
-                            <ul className="flex flex-col gap-3">
+                            <h4 className="mb-4 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass sm:mb-6">Ürün Gruplarımız</h4>
+                            <ul className="flex flex-col gap-1 sm:gap-3">
                                 {URUN_GRUPLARI.map((item) => (
                                     <li key={item.label}>
-                                        <Link href={item.href} className="group inline-flex items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
+                                        <Link href={item.href} className="group inline-flex min-h-10 items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
                                             {item.label}
                                             <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100" />
                                         </Link>
@@ -97,12 +98,18 @@ export const Footer = () => {
                                 ))}
                             </ul>
                         </div>
+                        </div>
 
                         <div className="flex flex-col gap-6 lg:col-span-3">
                             <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">İletişim Bilgilerimiz</h4>
                             <div className="space-y-1">
                                 <div className="font-display text-2xl">{content.footerPhone}</div>
-                                <div className="text-sm text-atl-muted">{content.footerEmail}</div>
+                                <a
+                                    href={`mailto:${content.footerEmail || "veraltornatic@hotmail.com"}`}
+                                    className="text-sm text-atl-muted transition-colors hover:text-atl-brass-light"
+                                >
+                                    {content.footerEmail || "veraltornatic@hotmail.com"}
+                                </a>
                             </div>
                             <div className="flex flex-col gap-1">
                                 <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Merkez & Atölye</span>

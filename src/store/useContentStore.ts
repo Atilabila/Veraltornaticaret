@@ -415,14 +415,14 @@ interface ContentStore {
 
 export const defaultContent: SiteContent = {
     // Branding
-    headerLogo: "/veral-logo-clear.png",
-    footerLogo: "/veral-logo-clear.png",
+    headerLogo: "/veral-logo-nav.png",
+    footerLogo: "/veral-logo-nav.png",
     siteName: "VERAL",
 
     // Header Defaults
     headerConfig: {
-        logoLight: "/veral-logo-clear.png",
-        logoDark: "/veral-logo-clear.png",
+        logoLight: "/veral-logo-nav.png",
+        logoDark: "/veral-logo-nav.png",
         mode: 'translucent',
         transparency: 90,
         blur: 12,
@@ -659,12 +659,12 @@ export const defaultContent: SiteContent = {
     footerCompanyName: "VERAL TORNA & TENEKE // TİCARET",
     footerAddress: "1512 Sk. No: 42/1\nAlsancak/İzmir\nTÜRKİYE BÖLGESİ",
     footerPhone: "+90 507 165 13 15",
-    footerEmail: "LOG@VERAL.COM",
+    footerEmail: "veraltornatic@hotmail.com",
     footerInstagram: "@VERALTICARET",
     footerMapLat: "38.4357",
     footerMapLng: "27.1495",
     footerMapZoom: 15,
-    footerMapLink: "https://maps.app.goo.gl/VERAL",
+    footerMapLink: "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
 
     // WhatsApp
     whatsappNumber: "905071651315",
@@ -1232,7 +1232,7 @@ export const useContentStore = create<ContentStore>()(
         }),
         {
             name: "site-content-storage",
-            version: 19,
+            version: 20,
             migrate: (persistedState: any, version: number) => {
                 const newState = { ...persistedState };
                 if (version < 11) {
@@ -1274,6 +1274,13 @@ export const useContentStore = create<ContentStore>()(
                     if (savedHeroImage) {
                         newState.content.heroImage = savedHeroImage;
                     }
+                }
+                if (version < 20) {
+                    newState.content = {
+                        ...newState.content,
+                        footerEmail: defaultContent.footerEmail,
+                        footerMapLink: defaultContent.footerMapLink,
+                    };
                 }
                 return newState;
             },

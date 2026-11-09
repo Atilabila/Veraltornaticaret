@@ -157,45 +157,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 </div>
                             )}
 
-                            {otherServices.length > 0 && (
-                                <div className="space-y-6 pt-10 border-t border-atl-line">
-                                    <div className="flex items-end justify-between gap-4">
-                                        <div>
-                                            <h2 className="text-2xl font-display text-atl-text mb-2">
-                                                {data?.serviceDetailFooterTitle || "Diğer hizmetler"}
-                                            </h2>
-                                            <p className="text-atl-muted">
-                                                {data?.serviceDetailFooterDesc || "İlginizi çekebilecek diğer endüstriyel çözümlerimiz."}
-                                            </p>
-                                        </div>
-                                        <Link href="/#hizmetler" className="text-xs font-semibold uppercase tracking-wider text-atl-muted hover:text-[var(--color-brand-accent)] whitespace-nowrap">
-                                            {data?.serviceDetailFooterLinkText || "Tümünü gör"}
-                                        </Link>
-                                    </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {otherServices.map((other: typeof service) => {
-                                            const otherSrc = normalizeImagePath(resolveServiceStockImage(other));
-                                            return (
-                                            <Link
-                                                key={other.id}
-                                                href={`/hizmetler/${other.slug}`}
-                                                className="group bg-atl-bg border border-atl-line overflow-hidden hover:border-[var(--color-brand-accent)] transition-colors flex flex-col"
-                                            >
-                                                <div className="relative aspect-[4/5] w-full overflow-hidden">
-                                                    <Image src={otherSrc} alt={serviceImageAlt(otherSrc, other.title)} fill sizes="(min-width: 768px) 360px, 92vw" className={`${serviceImageFit(otherSrc)} transition-transform duration-500 group-hover:scale-105`} />
-                                                </div>
-                                                <div className="p-5 flex-1 flex flex-col">
-                                                    <h3 className="text-lg font-bold text-atl-text mb-2 group-hover:text-[var(--color-brand-accent)] transition-colors">
-                                                        {other.title}
-                                                    </h3>
-                                                    <p className="text-sm text-atl-muted line-clamp-2">{other.shortDescription}</p>
-                                                </div>
-                                            </Link>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
                         </div>
 
                         <div className="lg:col-span-4 space-y-6">
@@ -232,6 +193,55 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                             </div>
                         </div>
                     </div>
+
+                    {otherServices.length > 0 && (
+                        <div className="mt-14 space-y-6 border-t border-atl-line pt-12 lg:mt-16">
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                                <div>
+                                    <h2 className="mb-2 font-display text-2xl text-atl-text">
+                                        {data?.serviceDetailFooterTitle || "Diğer hizmetler"}
+                                    </h2>
+                                    <p className="text-atl-muted">
+                                        {data?.serviceDetailFooterDesc || "İlginizi çekebilecek diğer endüstriyel çözümlerimiz."}
+                                    </p>
+                                </div>
+                                <Link
+                                    href="/hizmetler"
+                                    className="whitespace-nowrap text-xs font-semibold uppercase tracking-wider text-atl-muted hover:text-[var(--color-brand-accent)]"
+                                >
+                                    {data?.serviceDetailFooterLinkText || "Tümünü gör"}
+                                </Link>
+                            </div>
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                                {otherServices.map((other: typeof service) => {
+                                    const otherSrc = normalizeImagePath(resolveServiceStockImage(other));
+                                    return (
+                                        <Link
+                                            key={other.id}
+                                            href={`/hizmetler/${other.slug}`}
+                                            className="group flex flex-col overflow-hidden border border-atl-line bg-atl-bg transition-colors hover:border-[var(--color-brand-accent)]"
+                                        >
+                                            <div className="relative aspect-[4/3] w-full overflow-hidden">
+                                                <Image
+                                                    src={otherSrc}
+                                                    alt={serviceImageAlt(otherSrc, other.title)}
+                                                    fill
+                                                    sizes="(min-width: 768px) 33vw, (min-width: 640px) 45vw, 92vw"
+                                                    className={`${serviceImageFit(otherSrc)} transition-transform duration-500 group-hover:scale-105`}
+                                                />
+                                            </div>
+                                            <div className="flex flex-1 flex-col p-5">
+                                                <h3 className="mb-2 text-lg font-bold text-atl-text transition-colors group-hover:text-[var(--color-brand-accent)]">
+                                                    {other.title}
+                                                </h3>
+                                                <p className="line-clamp-2 text-sm text-atl-muted">{other.shortDescription}</p>
+                                            </div>
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
                 </PageContainer>
             </section>
         </PageShell>

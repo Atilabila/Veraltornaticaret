@@ -5,7 +5,8 @@ import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { FAQSchema } from "@/components/seo/FAQSchema";
-import { ArrowRight, HelpCircle, Phone, Sparkles, ShieldCheck, Factory, CheckCircle2 } from "lucide-react";
+import { ArrowRight, HelpCircle, Phone, Sparkles } from "lucide-react";
+import { SssAccordion } from "@/components/atolye/SssAccordion";
 
 export const metadata: Metadata = {
     title: "Sıkça Sorulan Sorular (SSS) | Metal İmalat & Toptan Dosya Teli | Veral Ticaret",
@@ -91,31 +92,8 @@ export default function SSSPage() {
                     </p>
                 </div>
 
-                {/* FAQ ACCORDION LIST */}
-                <div className="space-y-4 mb-16">
-                    {faqData.map((item, index) => (
-                        <details
-                            key={index}
-                            className="group border border-atl-line bg-atl-surface rounded-2xl shadow-sm overflow-hidden transition-all duration-200 hover:border-atl-brass hover:shadow-md"
-                        >
-                            <summary className="cursor-pointer p-6 font-bold text-atl-text list-none flex items-center justify-between gap-4 select-none">
-                                <div className="space-y-1">
-                                    <span className="text-[11px] font-mono font-bold text-atl-brass uppercase tracking-wider block">
-                                        {item.category}
-                                    </span>
-                                    <span className="text-base sm:text-lg leading-snug">
-                                        {item.question}
-                                    </span>
-                                </div>
-                                <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-atl-surface-2 flex items-center justify-center text-atl-brass font-mono text-lg group-open:rotate-45 transition-transform duration-200 shadow-xs">
-                                    +
-                                </span>
-                            </summary>
-                            <div className="px-6 pb-6 text-atl-muted text-sm sm:text-base leading-relaxed border-t border-atl-line pt-4 font-normal">
-                                {item.answer}
-                            </div>
-                        </details>
-                    ))}
+                <div className="mb-16">
+                    <SssAccordion items={faqData} />
                 </div>
 
                 {/* CALL TO ACTION BOX */}
