@@ -49,8 +49,8 @@ export const Footer = () => {
                     <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12">
                         <div className="flex flex-col gap-6 lg:col-span-4">
                             <Link href="/" className="group flex items-center gap-4">
-                                <span className="relative h-14 w-14 flex-shrink-0">
-                                    <Image src="/veral-logo.png" alt={siteName} fill sizes="56px" className="rounded-full object-contain" quality={95} />
+                                <span className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-atl-bg">
+                                    <Image src="/veral-logo-clear.png" alt={siteName} fill sizes="56px" className="object-cover" quality={95} />
                                 </span>
                                 <span className="flex flex-col">
                                     <span className="font-display text-2xl tracking-wide">{siteName}</span>

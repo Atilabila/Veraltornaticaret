@@ -415,14 +415,14 @@ interface ContentStore {
 
 export const defaultContent: SiteContent = {
     // Branding
-    headerLogo: "/veral-logo.png",
-    footerLogo: "/veral-logo.png",
+    headerLogo: "/veral-logo-clear.png",
+    footerLogo: "/veral-logo-clear.png",
     siteName: "VERAL",
 
     // Header Defaults
     headerConfig: {
-        logoLight: "/veral-logo.png",
-        logoDark: "/veral-logo.png",
+        logoLight: "/veral-logo-clear.png",
+        logoDark: "/veral-logo-clear.png",
         mode: 'translucent',
         transparency: 90,
         blur: 12,

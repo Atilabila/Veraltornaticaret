@@ -6,14 +6,17 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 
-const FACTS = ["ETP teneke · DIN EN 10202", "0.15 – 3.00 mm sac", "Toptan / seri üretim"];
-
-const ROTATOR = ["Dosya Teli", "Takvim Tenekesi", "Tef Zili", "UV Metal Baskı"];
+const ROTATOR = [
+    "İzmir dosya teli imalatı",
+    "Takvim tenekesi üretimi",
+    "Giyotin sac kesim",
+    "UV metal poster baskı",
+];
 
 const STATS = [
-    { label: "Üretim", value: "İzmir Alsancak" },
-    { label: "Model", value: "Toptan / seri" },
-    { label: "Süreç", value: "Teklif usulü" },
+    { label: "Lokasyon", value: "İzmir Alsancak" },
+    { label: "Hizmet", value: "Toptan imalat" },
+    { label: "Sipariş", value: "Teklif usulü" },
     { label: "Sevkiyat", value: "Türkiye geneli" },
 ];
 
@@ -40,29 +43,29 @@ export function AtolyeHero() {
                 <div className="lg:col-span-6">
                     <span className="atl-rise inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-atl-brass">
                         <span className="h-px w-8 bg-atl-brass" aria-hidden />
-                        İzmir · Alsancak atölyesi
+                        İzmir Alsancak metal imalat
                     </span>
                     <h1 className="atl-rise atl-rise-2 mt-6 font-display text-5xl leading-[0.98] text-atl-text sm:text-6xl xl:text-[4.75rem]">
-                        İzmir Alsancak&apos;ta{" "}
-                        <em className="not-italic text-atl-brass-light">teneke ve tel</em>{" "}
-                        imalatı
+                        İzmir&apos;de toptan{" "}
+                        <em className="not-italic text-atl-brass-light">dosya teli</em>{" "}
+                        ve teneke imalatı
                     </h1>
                     <p className="atl-rise atl-rise-3 mt-6 max-w-xl text-lg leading-relaxed text-atl-muted">
-                        Dosya teli, takvim tenekesi, tef zili, giyotin sac kesim ve rulo dilimleme. Toptan ve seri üretim; teknik çizim veya numuneyle teklif.
+                        Veral Torna & Teneke Ticaret; Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, giyotin kesim ve UV baskılı metal levha üretimi yapar. Türkiye geneline toptan sevkiyat; ölçü veya numuneyle teklif alın.
                     </p>
                     <div className="atl-rise atl-rise-3 mt-10 flex flex-col gap-4 sm:flex-row">
                         <Link href="/teklif-al" className="btn-brass">
-                            Teklif al <ArrowRight className="h-4 w-4" />
+                            İzmir imalat teklifi al <ArrowRight className="h-4 w-4" />
                         </Link>
                         <Link href="/hizmetler" className="btn-ghost-metal">
-                            Üretim hatları
+                            Üretim hatlarını gör
                         </Link>
                     </div>
                     <div className="atl-rise atl-rise-4 mt-10 flex min-h-[2.75rem] items-center gap-3 border-t border-atl-line pt-6">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-atl-muted">Üretim hattı</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-atl-muted">Aranan hizmet</span>
                         <span aria-hidden className="text-atl-line">|</span>
                         {reduceMotion ? (
-                            <span className="font-display text-2xl text-atl-brass-light">{ROTATOR.join(" · ")}</span>
+                            <span className="font-display text-2xl text-atl-brass-light">{ROTATOR[0]}</span>
                         ) : (
                             <AnimatePresence mode="wait">
                                 <m.span
@@ -78,16 +81,13 @@ export function AtolyeHero() {
                             </AnimatePresence>
                         )}
                     </div>
-                    <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3 font-mono text-[11px] uppercase tracking-[0.16em] text-atl-muted">
-                        {FACTS.map((fact) => <li key={fact}>{fact}</li>)}
-                    </ul>
                 </div>
 
                 <figure className="atl-rise atl-rise-2 relative lg:col-span-6">
                     <div className="atl-vignette relative aspect-[4/3] overflow-hidden border border-atl-line bg-atl-surface">
                         <Image
                             src="/images/services/giyotin-kesim.webp"
-                            alt="Giyotin sac kesim hattı"
+                            alt="İzmir Alsancak Veral atölyesinde giyotin sac kesim hattı"
                             fill
                             priority
                             sizes="(min-width: 1024px) 640px, 92vw"
@@ -98,7 +98,9 @@ export function AtolyeHero() {
                         <span aria-hidden className="absolute bottom-3 left-3 z-[2] h-5 w-5 border-b border-l border-atl-brass" />
                         <span aria-hidden className="absolute bottom-3 right-3 z-[2] h-5 w-5 border-b border-r border-atl-brass" />
                         <div className="absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-black/70 via-black/20 to-transparent p-5">
-                            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-atl-brass-light">Atölye · Giyotin sac kesim</p>
+                            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-atl-brass-light">
+                                İzmir Alsancak · Metal imalat atölyesi
+                            </p>
                         </div>
                     </div>
                 </figure>

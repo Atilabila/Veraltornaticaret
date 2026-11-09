@@ -29,16 +29,17 @@ export function ScrollToTop() {
 
     return (
         <div
-            className={`fixed bottom-[180px] md:bottom-12 right-6 z-[9999] transition-all duration-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
-                }`}
+            className={`fixed right-5 z-[55] transition-all duration-300 md:right-6 ${
+                isVisible ? "bottom-[9.75rem] opacity-100 translate-y-0 md:bottom-[5.25rem]" : "bottom-[9.75rem] pointer-events-none translate-y-3 opacity-0 md:bottom-[5.25rem]"
+            }`}
         >
             <button
                 type="button"
                 onClick={scrollToTop}
-                className="flex items-center justify-center w-12 h-12 bg-atl-surface border-2 border-atl-brass text-atl-text shadow-[4px_4px_0_0_#c9a35c] hover:shadow-[1px_1px_0_0_#c9a35c] hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+                className="flex h-12 w-12 items-center justify-center border border-atl-brass bg-atl-surface text-atl-text shadow-md transition-colors hover:bg-atl-brass hover:text-atl-bg"
                 aria-label="Yukarı Çık"
             >
-                <ArrowUp className="w-6 h-6" />
+                <ArrowUp className="h-5 w-5" />
             </button>
         </div>
     );

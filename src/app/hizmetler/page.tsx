@@ -9,28 +9,40 @@ import { ServiceCard } from "@/components/atolye/ServiceCard";
 import {
     ArrowRight,
     CheckCircle2,
-    ShieldCheck,
     Phone,
-    SlidersHorizontal,
     FileText,
     Layers,
     Scissors,
     Disc,
     Bell,
     Sparkles,
-    Download
 } from "lucide-react";
 
 export const metadata: Metadata = {
-    title: "Üretim Hatları ve Metal İşleme Hizmetlerimiz | Veral Teneke Ticaret İzmir",
-    description: "İzmir Alsancak tesislerimizde toptan dosya teli, takvim tenekesi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı mıknatıslı metal levha imalatı. DIN EN 10202 standartlarında seri üretim.",
+    title: {
+        absolute: "İzmir Dosya Teli, Takvim Tenekesi ve Metal İmalat Hizmetleri | Veral Alsancak",
+    },
+    description:
+        "İzmir Alsancak'ta toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster. Teklif ve numune için hemen iletişime geçin.",
+    keywords: [
+        "izmir dosya teli",
+        "toptan dosya teli imalatı",
+        "takvim tenekesi üreticisi izmir",
+        "alsancak metal imalat",
+        "giyotin sac kesim izmir",
+        "uv metal poster imalatı",
+        "tef zili üretimi",
+    ],
     alternates: {
         canonical: "https://veralteneketicaret.com/hizmetler",
     },
     openGraph: {
-        title: "Endüstriyel Üretim Hatlarımız | Veral Teneke Ticaret İzmir",
-        description: "İzmir Alsancak'ta metal presleme, giyotin kesim ve toptan tel imalatı.",
+        title: "İzmir Alsancak Metal Üretim Hatları | Veral Teneke Ticaret",
+        description:
+            "Dosya teli, takvim tenekesi, sac kesim ve UV metal baskı — İzmir Alsancak atölyesinden Türkiye geneline toptan imalat.",
         url: "https://veralteneketicaret.com/hizmetler",
+        locale: "tr_TR",
+        type: "website",
     },
 };
 
@@ -38,130 +50,111 @@ const serviceCards = [
     {
         id: "dosya-teli",
         slug: "dosya-teli",
-        title: "Toptan Dosya Teli İmalatı",
-        badge: "DIN EN 10202 • 0.20-0.35 mm",
-        capacity: "50.000 ADET / GÜN",
+        title: "Toptan Dosya Teli İmalatı İzmir",
+        badge: "İzmir Alsancak",
+        capacity: "Toptan sevkiyat",
         image: "/images/services/dosya-teli-plastik-takim.webp",
-        description: "Çift taraflı bükülebilir polimer kaplı veya nikelajlı yüksek elastikiyetli çelik tel. Büro kırtasiye ve arşiv standartlarına %100 uyumludur.",
+        description:
+            "Kırtasiye, arşiv ve dosya üreticileri için İzmir merkezli toptan dosya teli üretimi. Ölçü ve adede göre teklif hazırlanır.",
         specs: [
-            { label: "Yüzey Kaplama", val: "Polimer / Parlak Nikelaj" },
-            { label: "Ambalaj", val: "1.000'lik Koliler & Paletli Sevkiyat" },
+            { label: "Kullanım", val: "Dosya & arşiv" },
+            { label: "Sipariş", val: "Toptan / seri" },
         ],
         icon: FileText,
     },
     {
         id: "takvim-tenekesi",
         slug: "takvim-tenekesi",
-        title: "Takvim Tenekesi & Çıtası İmalatı",
-        badge: "TH-415 / TH-550 • ETP",
-        capacity: "ASKILI / ASKISIZ",
+        title: "Takvim Tenekesi Üretimi",
+        badge: "Matbaa tedariki",
+        capacity: "Askılı / askısız",
         image: "/images/services/takvim-tenekeleri-detay.webp",
-        description: "Duvar takvimlerinin (özellikle gemici ve yapraklı blok takvimlerin) karton veya sert zeminlerine, üst veya alt kısımlarına geçirilen, takvimin duvarda dik ve düzgün durmasını sağlayan, kenarlarını koruyan ve asma deliği barındıran metal çıta / profil parçasıdır. Toptan / seri üretim.",
+        description:
+            "Duvar ve gemici takvimleri için teneke çıta imalatı. Matbaa ve yayınevlerine İzmir’den seri üretim ve sevkiyat.",
         specs: [
-            { label: "Hammadde", val: "ETP Elektrolitik Teneke" },
-            { label: "Üretim", val: "Toptan / Seri Üretim" },
-            { label: "Standart Boylar", val: "20 cm - 100 cm Boy Kesim" },
+            { label: "Hedef", val: "Matbaa & yayınevi" },
+            { label: "Tip", val: "Askılı / askısız" },
         ],
         icon: Layers,
     },
     {
         id: "giyotin-kesim",
         slug: "giyotin-kesim",
-        title: "Giyotin Sac & Teneke Ebatlama",
-        badge: "0.15 - 3.00 mm Kalınlık",
-        capacity: "TOLERANS ±0.05 MM",
+        title: "Giyotin Sac Kesim İzmir",
+        badge: "Fason kesim",
+        capacity: "Ölçüye özel",
         image: "/images/services/giyotin-kesim.webp",
-        description: "CNC dijital arka dayamalı giyotin makas hatlarımız ile çapaksız, gönyesinde ve sacın düzlemsel geometrisini bozmadan hassas levha kesimi.",
+        description:
+            "Alsancak atölyesinde giyotin sac ve teneke ebatlama. Proje ölçülerinize göre fason kesim ve hızlı teslim.",
         specs: [
-            { label: "Maksimum Ebat", val: "3.000 mm Boy Kesim" },
-            { label: "Kenar Kalitesi", val: "Sıfır Çapak & Dik Gönye" },
-            { label: "Malzeme Türü", val: "Teneke, Galvaniz, Paslanmaz, DKP" },
+            { label: "Hizmet", val: "Fason ebatlama" },
+            { label: "Lokasyon", val: "Alsancak / İzmir" },
         ],
         icon: Scissors,
     },
     {
         id: "rulo-dilimleme",
         slug: "rulo-dilimleme",
-        title: "Rulo Sac Dilimleme & Şerit Açma",
-        badge: "Min. 8 mm Dilme Eni",
-        capacity: "RULO ŞERİT SAC",
+        title: "Rulo Sac Dilimleme",
+        badge: "Şerit üretim",
+        capacity: "Fason dilme",
         image: "/images/services/rulo-dilimleme.webp",
-        description: "Hassas dairesel çelik bıçaklı slitting hatlarında, müşteri teknik şartnamesine uygun mikron toleranslı şerit rulo açma, dilme ve sarım.",
+        description:
+            "Rulo sac dilimleme ve şerit açma hizmeti. Üretim hatlarınıza uygun en ve boy planlamasıyla teslim.",
         specs: [
-            { label: "Genişlik Hassasiyeti", val: "±0.08 mm Tolerans" },
-            { label: "İç Çap Seçenekleri", val: "Ø300 mm / Ø400 mm / Ø508 mm" },
-            { label: "Ambalaj Güvencesi", val: "Neme Dayanıklı Çemberli Palet" },
+            { label: "Hizmet", val: "Dilme & sarım" },
+            { label: "Sipariş", val: "Teklif usulü" },
         ],
         icon: Disc,
     },
     {
         id: "tef-zili",
         slug: "tef-zili",
-        title: "Tef Zili & Metal Pul Pres İmalatı",
-        badge: "Yüksek Hızlı Eksantrik",
-        capacity: "AKUSTİK PERFORMANS",
+        title: "Tef Zili İmalatı",
+        badge: "Enstrüman sektörü",
+        capacity: "Seri pres",
         image: "/images/services/tef-zili-38mm.webp",
-        description: "Müzik aleti üreticileri ve enstrüman atölyeleri için paslanmaz pirinç veya teneke alaşımlı, yüksek rezonans tınlamalı seri pres üretimi.",
+        description:
+            "Müzik aleti üreticileri için tef zili ve metal pul pres imalatı. İzmir’den toptan tedarik.",
         specs: [
-            { label: "Hammadde", val: "Pirinç (MS-63), Teneke, Çelik" },
-            { label: "Çap Ölçüsü", val: "Ø38 mm Çap" },
-            { label: "Yüzey Formu", val: "Polisajlı Parlak / Çapaksız Delik" },
+            { label: "Sektör", val: "Müzik aleti" },
+            { label: "Üretim", val: "Seri pres" },
         ],
         icon: Bell,
     },
     {
         id: "miknatisli-magnet",
         slug: "miknatisli-magnet",
-        title: "Mıknatıslı UV Baskılı Metal Levha & Poster",
-        badge: "1.5 mm Çelik Sac • 4K UV",
-        capacity: "SERİ & ÖZEL BASKI",
+        title: "UV Baskılı Metal Poster İzmir",
+        badge: "Tabela & dekor",
+        capacity: "Seri / özel",
         image: "/images/services/metal-tabelalar.webp",
-        description: "Endüstriyel 1200 DPI piezoelektrik UV baskı ve çizilmeye dayanıklı çift kat mat vernik kürleme. Duvarı delmeden tutan N35 neodimyum mıknatıs askı kiti.",
+        description:
+            "Mıknatıslı metal poster ve kurumsal tabela için UV baskılı metal levha. Kafe, ofis ve promosyon projelerine uygun.",
         specs: [
-            { label: "Baskı Teknolojisi", val: "4K Endüstriyel UV Kürleme" },
-            { label: "Askı Sistemi", val: "3M VHB Manyetik Neodimyum" },
-            { label: "Ömür Garantisi", val: "10 Yıl Güneş Işığında Solmama" },
+            { label: "Ürün", val: "Metal poster" },
+            { label: "Montaj", val: "Mıknatıslı" },
         ],
         icon: Sparkles,
     },
 ];
 
-const dinSpecs = [
+const geoHighlights = [
     {
-        temper: "TH-415 (T-52)",
-        hardness: "52 ± 4",
-        yield: "350 - 450",
-        coating: "1.1 / 1.1 - 2.8 / 2.8",
-        tolerance: "± 0.005 mm",
-        usage: "Dosya teli, derin çekme kapaklar, bükümlü sac klipsler",
-        stock: "Alsancak Hazır Stok",
+        title: "İzmir Alsancak üretim",
+        text: "Atölyemiz Alsancak’ta; yerinde numune, hızlı iletişim ve kısa sevkiyat mesafesi.",
     },
     {
-        temper: "TH-520 (T-61)",
-        hardness: "61 ± 4",
-        yield: "450 - 550",
-        coating: "2.8 / 2.8 - 5.6 / 5.6",
-        tolerance: "± 0.006 mm",
-        usage: "Takvim tenekesi, kıvırma profilleri, koruyucu gövdeler",
-        stock: "Alsancak Hazır Stok",
+        title: "Toptan imalat odaklı",
+        text: "Dosya teli ve takvim tenekesinde toptan sipariş; ölçü ve adede göre planlı üretim.",
     },
     {
-        temper: "TH-550 (T-65)",
-        hardness: "65 ± 4",
-        yield: "520 - 620",
-        coating: "5.6 / 5.6 - 11.2 / 11.2",
-        tolerance: "± 0.007 mm",
-        usage: "Tef zili, mukavim konserve gövdesi, yaylı parçalar",
-        stock: "Alsancak Hazır Stok",
+        title: "Türkiye geneli sevkiyat",
+        text: "İzmir’den matbaa, kırtasiye ve sanayi müşterilerine kargo veya ambar ile teslim.",
     },
     {
-        temper: "TFS / ECCS",
-        hardness: "57 - 65",
-        yield: "420 - 580",
-        coating: "Krom / Krom Oksit",
-        tolerance: "± 0.005 mm",
-        usage: "Endüstriyel kapaklar, laklı paneller, özel pres parçalar",
-        stock: "Sipariş Üzerine",
+        title: "Teklif + numune",
+        text: "Teknik çizim, ölçü veya numune ile fiyatlandırma; WhatsApp ve teklif formu üzerinden.",
     },
 ];
 
@@ -171,91 +164,132 @@ export default function HizmetlerPage() {
         { name: "Üretim Hatlarımız", url: "/hizmetler" },
     ];
 
+    const itemListSchema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Veral İzmir Metal Üretim Hizmetleri",
+        itemListElement: serviceCards.map((service, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: service.title,
+            url: `https://veralteneketicaret.com/hizmetler/${service.slug}`,
+            description: service.description,
+        })),
+    };
+
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "İzmir Alsancak Metal İmalat Hizmetleri",
+        provider: {
+            "@type": "LocalBusiness",
+            name: "Veral Torna & Teneke Ticaret",
+            address: {
+                "@type": "PostalAddress",
+                streetAddress: "1471 Sokak No:12/A",
+                addressLocality: "Alsancak / Konak",
+                addressRegion: "İzmir",
+                addressCountry: "TR",
+            },
+        },
+        areaServed: {
+            "@type": "Country",
+            name: "Türkiye",
+        },
+        serviceType: [
+            "Dosya teli imalatı",
+            "Takvim tenekesi üretimi",
+            "Giyotin sac kesim",
+            "UV metal poster baskı",
+        ],
+        url: "https://veralteneketicaret.com/hizmetler",
+    };
+
     return (
         <main className="min-h-screen bg-atl-bg text-atl-text">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
             <Navigation />
 
-            {/* Breadcrumb Bar */}
-            <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
+            <div className="mx-auto max-w-7xl px-4 pb-4 pt-28 md:px-8">
                 <Breadcrumb items={breadcrumbs} className="text-atl-muted" />
             </div>
 
-            {/* HERO SECTION WITH AUTHENTIC WORKSHOP ASSET */}
-            <section className="px-4 md:px-8 max-w-7xl mx-auto pb-16 pt-4">
-                <div className="grid lg:grid-cols-12 gap-10 items-center">
-                    <div className="lg:col-span-7 space-y-6">
-                        {/* Heritage Badge */}
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-atl-brass/30 bg-atl-brass-tint text-atl-brass text-xs font-mono font-semibold tracking-wider uppercase shadow-sm">
-                            <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
-                            İzmir Alsancak Atölyesi
+            <section className="mx-auto max-w-7xl px-4 pb-16 pt-4 md:px-8">
+                <div className="grid items-center gap-10 lg:grid-cols-12">
+                    <div className="space-y-6 lg:col-span-7">
+                        <div className="inline-flex items-center gap-2 border border-atl-brass/30 bg-atl-brass-tint px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-atl-brass">
+                            <span className="h-2 w-2 animate-pulse rounded-full bg-atl-brass" />
+                            İzmir Alsancak metal imalat
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-atl-text tracking-tight leading-[1.1]">
-                            Alsancak Atölyesinde Toptan Metal İmalatı
+                        <h1 className="font-display text-3xl leading-[1.1] tracking-tight text-atl-text sm:text-4xl md:text-5xl lg:text-6xl">
+                            İzmir&apos;de dosya teli, takvim tenekesi ve metal üretim hatları
                         </h1>
 
-                        <p className="text-base md:text-lg text-atl-muted font-normal leading-relaxed max-w-2xl">
-                            İzmir Alsancak 1471 Sokak&apos;taki torna ve pres atölyemizde; ETP Elektrolitik Teneke ve DKP sac hammaddelerinden toptan dosya teli, takvim tenekesi, giyotin sac kesim, rulo dilimleme ve 4K UV baskılı metal levhalar üretiyoruz.
+                        <p className="max-w-2xl text-base leading-relaxed text-atl-muted md:text-lg">
+                            Veral Torna & Teneke Ticaret; Alsancak atölyesinde toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster hizmeti sunar. Türkiye geneline sevkiyat yapılır.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4 pt-2">
                             <Link
                                 href="/teklif-al"
-                                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-sm tracking-wider uppercase shadow-md shadow-black/20 transition-all hover:scale-[1.02]"
+                                className="inline-flex items-center gap-2.5 bg-atl-brass px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-atl-bg transition-colors hover:bg-atl-brass-light"
                             >
-                                <span>Fiyat & Numune Teklifi Al</span>
-                                <ArrowRight className="w-4 h-4" />
+                                <span>İmalat teklifi al</span>
+                                <ArrowRight className="h-4 w-4" />
                             </Link>
 
                             <a
                                 href="https://wa.me/905323794003"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl border border-atl-line bg-atl-surface hover:bg-atl-surface-2 text-atl-text font-semibold text-sm transition-colors shadow-sm"
+                                className="inline-flex items-center gap-2.5 border border-atl-line bg-atl-surface px-5 py-3.5 text-sm font-semibold text-atl-text transition-colors hover:bg-atl-surface-2"
                             >
-                                <Phone className="w-4 h-4 text-emerald-600" />
-                                <span>WhatsApp Usta Hattı</span>
+                                <Phone className="h-4 w-4 text-emerald-600" />
+                                <span>WhatsApp ile sor</span>
                             </a>
                         </div>
 
-                        {/* Assurance Badges */}
-                        <div className="pt-4 flex flex-wrap items-center gap-6 border-t border-atl-line text-xs font-mono text-atl-muted">
+                        <div className="flex flex-wrap items-center gap-6 border-t border-atl-line pt-4 text-sm text-atl-muted">
                             <div className="flex items-center gap-1.5">
-                                <CheckCircle2 className="w-4 h-4 text-atl-brass" />
-                                <span>±0.005 mm Kalınlık Hassasiyeti</span>
+                                <CheckCircle2 className="h-4 w-4 text-atl-brass" />
+                                <span>İzmir Alsancak üretim</span>
                             </div>
                             <div className="flex items-center gap-1.5">
-                                <ShieldCheck className="w-4 h-4 text-atl-brass" />
-                                <span>DIN EN 10202 Uyumlu Hammadde</span>
+                                <CheckCircle2 className="h-4 w-4 text-atl-brass" />
+                                <span>Toptan / fason imalat</span>
                             </div>
                             <div className="flex items-center gap-1.5">
-                                <CheckCircle2 className="w-4 h-4 text-atl-brass" />
-                                <span>Numune Desteği</span>
+                                <CheckCircle2 className="h-4 w-4 text-atl-brass" />
+                                <span>Numune ve teklif desteği</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Authentic Workshop Photo (NO FAKE AI HANGAR) */}
-                    <div className="lg:col-span-5 relative">
-                        <div className="relative rounded-2xl overflow-hidden border border-atl-line bg-atl-surface shadow-xl p-2">
-                            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-atl-surface-2">
+                    <div className="relative lg:col-span-5">
+                        <div className="relative overflow-hidden border border-atl-line bg-atl-surface p-2 shadow-xl">
+                            <div className="relative aspect-[4/3] overflow-hidden bg-atl-surface-2">
                                 <Image
                                     src="/images/services/giyotin-kesim.webp"
-                                    alt="Veral Teneke Ticaret İzmir Alsancak Giyotin Kesim ve Pres Hatları"
+                                    alt="İzmir Alsancak Veral metal imalat atölyesi giyotin kesim hattı"
                                     fill
                                     priority
                                     sizes="(max-width: 1024px) 100vw, 500px"
                                     className="object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
-                                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-atl-brass">
-                                            ALSANCAK ATÖLYESİ · AKTİF İMALAT
-                                        </span>
-                                    </div>
-                                    <p className="text-white text-xs font-medium leading-relaxed">
-                                        1471 Sokak No:12/A Alsancak / İzmir · Mekanik torna ve CNC giyotin makas tezgahları
+                                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/20 to-transparent p-5">
+                                    <span className="mb-1 text-[11px] font-bold uppercase tracking-wider text-atl-brass">
+                                        Alsancak / İzmir · Aktif üretim
+                                    </span>
+                                    <p className="text-xs font-medium leading-relaxed text-white">
+                                        1471 Sokak No:12/A Alsancak — dosya teli ve teneke imalat atölyesi
                                     </p>
                                 </div>
                             </div>
@@ -263,141 +297,76 @@ export default function HizmetlerPage() {
                     </div>
                 </div>
 
-                {/* 4 Metric Cards */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
-                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
-                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">GÜNLÜK ÜRETİM</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">50.000+ Adet</div>
-                        <div className="text-xs text-atl-muted mt-1">Dosya Teli & Pres Kapasitesi</div>
-                    </div>
-                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
-                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">AVRUPA STANDARDI</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">DIN EN 10202</div>
-                        <div className="text-xs text-atl-muted mt-1">DIN EN 10202 Uyumlu ETP Teneke Sac</div>
-                    </div>
-                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
-                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">MİKRON ARALIĞI</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">0.14 - 0.49 mm</div>
-                        <div className="text-xs text-atl-muted mt-1">Hassas Sac Kalınlık Skalası</div>
-                    </div>
-                    <div className="p-5 rounded-xl bg-atl-surface border border-atl-line shadow-sm">
-                        <div className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider mb-1">STRATEJİK MERKEZ</div>
-                        <div className="text-2xl sm:text-3xl font-black font-mono text-atl-text">Alsancak / İzmir</div>
-                        <div className="text-xs text-atl-muted mt-1">Tüm Türkiye&apos;ye Doğrudan Sevkiyat</div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 6 BENTO CARDS: REAL WORKSHOP PHOTOS */}
-            <section className="px-4 md:px-8 max-w-7xl mx-auto py-16 border-t border-atl-line">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-                    <div>
-                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block mb-2">
-                            ENDÜSTRİYEL İMALAT VE FASON KAPASİTE
-                        </span>
-                        <h2 className="text-2xl sm:text-4xl font-display text-atl-text tracking-tight">
-                            Sektörel Standartlarda Metal Üretim Hatlarımız
-                        </h2>
-                    </div>
-                    <span className="text-xs font-mono px-3 py-1.5 bg-atl-surface-2 rounded-lg border border-atl-line text-atl-muted font-semibold self-start md:self-auto">
-                        STANDART: ETP / TFS / DKP SAC
-                    </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {serviceCards.map((service) => (
-                        <ServiceCard key={service.id} {...service} ctaLabel="Fiyat / Numune Teklifi İste" />
+                <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    {geoHighlights.map((item) => (
+                        <div key={item.title} className="border border-atl-line bg-atl-surface p-5 shadow-sm">
+                            <div className="mb-2 text-xs font-bold uppercase tracking-wider text-atl-brass">{item.title}</div>
+                            <p className="text-sm leading-relaxed text-atl-muted">{item.text}</p>
+                        </div>
                     ))}
                 </div>
             </section>
 
-            {/* DIN EN 10202 METALLURGICAL SPECIFICATIONS TABLE */}
-            <section className="px-4 md:px-8 max-w-7xl mx-auto py-16 border-t border-atl-line">
-                <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <section className="mx-auto max-w-7xl border-t border-atl-line px-4 py-16 md:px-8">
+                <div className="mb-10 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end">
                     <div>
-                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block mb-2">
-                            METALURJİK STANDARTLAR
+                        <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-atl-brass">
+                            Üretim hatlarımız
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-display text-atl-text tracking-tight">
-                            DIN EN 10202 Normları & Mekanik Değerler Tablosu
+                        <h2 className="font-display text-2xl tracking-tight text-atl-text sm:text-4xl">
+                            İzmir Alsancak metal imalat hizmetleri
                         </h2>
-                        <p className="text-sm text-atl-muted mt-1 max-w-2xl">
-                            İzmir Alsancak atölyemizde işlenen elektrolitik teneke (ETP) ve TFS malzemelerin Rockwell HR30T sertlik ve kalay kaplama spekleri.
+                        <p className="mt-3 max-w-2xl text-sm text-atl-muted md:text-base">
+                            Altı ana hat: dosya teli, takvim tenekesi, giyotin kesim, rulo dilimleme, tef zili ve UV metal baskı.
                         </p>
                     </div>
+                    <Link
+                        href="/teklif-al"
+                        className="inline-flex items-center gap-2 self-start text-xs font-semibold uppercase tracking-[0.16em] text-atl-brass-light hover:text-atl-text md:self-auto"
+                    >
+                        Teklif al <ArrowRight className="h-4 w-4" />
+                    </Link>
                 </div>
 
-                <div className="rounded-2xl border border-atl-line bg-atl-surface overflow-hidden shadow-sm">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse text-xs font-mono">
-                            <thead>
-                                <tr className="bg-atl-surface-2/80 border-b border-atl-line text-atl-text font-bold uppercase tracking-wider">
-                                    <th className="p-4">TEMPER DERECESİ</th>
-                                    <th className="p-4">SERTLİK (HR 30T)</th>
-                                    <th className="p-4">AKMA DAYANIMI (MPa)</th>
-                                    <th className="p-4">KAPLAMA AĞIRLIĞI (g/m²)</th>
-                                    <th className="p-4">KALINLIK TOLERANSI</th>
-                                    <th className="p-4">KULLANIM ALANI</th>
-                                    <th className="p-4 text-right">STOK DURUMU</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-atl-line text-atl-muted">
-                                {dinSpecs.map((row, idx) => (
-                                    <tr key={idx} className="hover:bg-atl-brass-tint/40 transition-colors">
-                                        <td className="p-4 font-bold text-atl-brass flex items-center gap-2">
-                                            <span className="w-2 h-2 rounded-full bg-atl-brass" />
-                                            {row.temper}
-                                        </td>
-                                        <td className="p-4 font-semibold text-atl-text">{row.hardness}</td>
-                                        <td className="p-4">{row.yield}</td>
-                                        <td className="p-4">{row.coating}</td>
-                                        <td className="p-4">{row.tolerance}</td>
-                                        <td className="p-4 font-sans text-xs text-atl-muted">{row.usage}</td>
-                                        <td className="p-4 text-right">
-                                            <span className="inline-block px-2.5 py-1 rounded bg-atl-surface-2 text-atl-text font-semibold text-[11px] border border-atl-line">
-                                                {row.stock}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="p-4 bg-atl-surface-2 border-t border-atl-line flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-atl-muted">
-                        <span>* DIN EN 10202 standartlarına göre mikrometre ve Rockwell HR30T sertlik testleri uygulanır.</span>
-                        <span className="font-semibold text-atl-text">Kalite Kontrol: Veral Alsancak Atölyesi</span>
-                    </div>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                    {serviceCards.map((service, index) => (
+                        <ServiceCard
+                            key={service.id}
+                            {...service}
+                            priority={index < 3}
+                            ctaLabel="Teklif iste"
+                        />
+                    ))}
                 </div>
             </section>
 
-            {/* CALL TO ACTION MODULE */}
-            <section className="px-4 md:px-8 max-w-7xl mx-auto pb-24">
-                <div className="rounded-3xl border border-atl-line bg-atl-surface p-8 md:p-12 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
-                    <div className="space-y-3 max-w-2xl text-center lg:text-left">
-                        <span className="text-xs font-mono font-bold uppercase tracking-widest text-atl-brass block">
-                            ÖZEL TEKNİK ŞARTNAME & FASON İMALAT
+            <section className="mx-auto max-w-7xl px-4 pb-24 md:px-8">
+                <div className="flex flex-col items-center justify-between gap-8 border border-atl-line bg-atl-surface p-8 shadow-sm md:p-12 lg:flex-row">
+                    <div className="max-w-2xl space-y-3 text-center lg:text-left">
+                        <span className="block text-xs font-bold uppercase tracking-widest text-atl-brass">
+                            İzmir metal imalat teklifi
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-display text-atl-text">
-                            Projeniz İçin Teknik Resim Gönderin, Fiyatlandıralım
+                        <h2 className="font-display text-2xl text-atl-text sm:text-3xl">
+                            Dosya teli veya takvim tenekesi siparişiniz için teklif alın
                         </h2>
-                        <p className="text-sm text-atl-muted leading-relaxed font-normal">
-                            CAD, DXF veya PDF teknik çizimlerinizi doğrudan teklif formumuzdan iletin; atölye şefimiz Oğuzcan Veral tolerans ve fiyat analizini çıkarsın.
+                        <p className="text-sm leading-relaxed text-atl-muted">
+                            Ölçü, adet veya numune bilgisini gönderin; Alsancak atölyemizden yazılı teklif ve termin dönüşü yapalım.
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-4 shrink-0">
+                    <div className="flex shrink-0 flex-wrap items-center gap-4">
                         <Link
                             href="/teklif-al"
-                            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-sm tracking-wider uppercase shadow-md shadow-black/20 transition-all hover:scale-105"
+                            className="inline-flex items-center gap-2 bg-atl-brass px-8 py-4 text-sm font-bold uppercase tracking-wider text-atl-bg transition-colors hover:bg-atl-brass-light"
                         >
-                            <span>Teklif Formunu Doldur</span>
-                            <ArrowRight className="w-4 h-4" />
+                            <span>Teklif formu</span>
+                            <ArrowRight className="h-4 w-4" />
                         </Link>
                         <a
                             href="tel:+905323794003"
-                            className="inline-flex items-center gap-2 px-6 py-4 rounded-xl border border-atl-line hover:bg-atl-surface-2 text-atl-text font-semibold text-sm transition-colors"
+                            className="inline-flex items-center gap-2 border border-atl-line px-6 py-4 text-sm font-semibold text-atl-text transition-colors hover:bg-atl-surface-2"
                         >
-                            <Phone className="w-4 h-4 text-atl-brass" />
+                            <Phone className="h-4 w-4 text-atl-brass" />
                             <span>0532 379 40 03</span>
                         </a>
                     </div>

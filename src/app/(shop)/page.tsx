@@ -12,22 +12,36 @@ import { ProductionModelBand } from "@/components/atolye/ProductionModelBand";
 import { CtaBand } from "@/components/atolye/CtaBand";
 
 export const metadata: Metadata = {
-    title: "Veral Teneke & Metal Poster İmalatı | İzmir Alsancak Seri Üretim",
-    description: "İzmir Alsancak'ta toptan dosya teli, takvim tenekesi, tef zili, giyotin sac kesim ve UV baskılı metal levha imalatı. Teknik çizim veya numuneyle teklif.",
+    title: {
+        absolute: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
+    },
+    description:
+        "İzmir Alsancak'ta toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim ve UV baskılı metal poster. Veral Torna & Teneke Ticaret — teklif ve numune için iletişime geçin.",
+    keywords: [
+        "izmir dosya teli",
+        "toptan dosya teli imalatı",
+        "takvim tenekesi üreticisi",
+        "alsancak metal imalat",
+        "veral teneke ticaret",
+        "uv metal poster izmir",
+    ],
     alternates: {
         canonical: "https://veralteneketicaret.com",
     },
     openGraph: {
-        title: "Veral Torna & Teneke Ticaret - Endüstriyel Metal İmalatı",
-        description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
+        title: "İzmir Alsancak Dosya Teli ve Teneke İmalatı | Veral",
+        description:
+            "Toptan dosya teli, takvim tenekesi ve metal imalat — İzmir Alsancak atölyesinden Türkiye geneline sevkiyat.",
         url: "https://veralteneketicaret.com",
         siteName: "Veral Torna & Teneke Ticaret",
+        locale: "tr_TR",
+        type: "website",
         images: [
             {
-                url: "/hero-izmir-metal-poster.jpg",
-                width: 880,
-                height: 734,
-                alt: "İzmir Saat Kulesi Mıknatıslı Metal Poster - Veral Teneke İmalatı",
+                url: "/images/services/giyotin-kesim.webp",
+                width: 1200,
+                height: 900,
+                alt: "İzmir Alsancak Veral metal imalat atölyesi",
             },
         ],
     },
@@ -35,20 +49,20 @@ export const metadata: Metadata = {
 
 const homeFaqs = [
     {
-        question: "Veral Teneke Ticaret nerede üretim yapmaktadır?",
-        answer: "Üretim tesisimiz İzmir Alsancak'tadır (1471 Sokak No:12/A).",
+        question: "İzmir'de toptan dosya teli imalatı nerede yapılır?",
+        answer: "Veral Torna & Teneke Ticaret, İzmir Alsancak 1471 Sokak No:12/A adresindeki atölyesinde toptan dosya teli imalatı yapar.",
     },
     {
-        question: "Toptan dosya teli ve takvim tenekesinde teslimat süreleri nedir?",
-        answer: "Teslimat süresi sipariş miktarına, ölçüye ve stok durumuna göre değişir; kesin termin teklifle birlikte yazılı olarak bildirilir.",
+        question: "Takvim tenekesi siparişi nasıl verilir?",
+        answer: "Ölçü, adet ve askılı/askısız tercihinizi teklif formundan veya WhatsApp üzerinden iletin; yazılı fiyat ve termin bildirilir.",
     },
     {
         question: "Mıknatıslı metal posterler nasıl monte edilir?",
-        answer: "Mıknatıslı metal posterler, duvara yapıştırılan manyetik tutucu ped sayesinde duvar delmeden ve çivi çakmadan asılır.",
+        answer: "Duvara yapıştırılan manyetik tutucu ped ile çivi çakmadan asılır; kafe, ofis ve dekorasyon projelerine uygundur.",
     },
     {
-        question: "Özel ölçü metal levha ve fason UV baskı siparişi verebilir miyim?",
-        answer: "Evet, mimari projeler, kafe-restoran tabelaları ve kurumsal promosyonlar için özel ölçü kesim, kenar büküm ve UV kürleme fason imalat hizmeti veriyoruz.",
+        question: "İzmir dışına sevkiyat yapıyor musunuz?",
+        answer: "Evet, Alsancak atölyesinden Türkiye geneline kargo veya ambar ile toptan sevkiyat yapılır.",
     },
 ];
 

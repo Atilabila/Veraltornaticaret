@@ -43,9 +43,21 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://veralteneketicaret.com"),
-  title: "VERAL - Dosya Teli, Takvim Tenekesi ve Metal Poster İmalatı",
-  description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
-  keywords: ["dosya teli", "toptan dosya teli", "dosya teli üretimi", "dosya teli imalatı", "takvim tenekesi", "metal poster", "mıknatıslı magnet", "tef zili izmir"],
+  title: {
+    default: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
+    template: "%s | Veral Teneke Ticaret İzmir",
+  },
+  description:
+    "İzmir Alsancak'ta toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim ve UV baskılı metal poster. Veral Torna & Teneke Ticaret.",
+  keywords: [
+    "izmir dosya teli",
+    "toptan dosya teli imalatı",
+    "takvim tenekesi üreticisi",
+    "dosya teli üreticisi izmir",
+    "alsancak metal imalat",
+    "uv metal poster izmir",
+    "tef zili imalatı",
+  ],
   robots: {
     index: true,
     follow: true,

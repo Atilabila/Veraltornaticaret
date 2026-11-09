@@ -154,13 +154,13 @@ export const Navigation = () => {
             >
                 <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-6 px-4 py-3 sm:px-6 lg:px-12">
                     <Link href="/" className="group flex min-w-0 items-center gap-3">
-                        <span className="relative h-10 w-10 flex-shrink-0 md:h-11 md:w-11">
+                        <span className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-atl-bg md:h-11 md:w-11">
                             <Image
-                                src="/veral-logo.png"
+                                src="/veral-logo-clear.png"
                                 alt={content.siteName || "VERAL"}
                                 fill
                                 sizes="44px"
-                                className="rounded-full object-contain"
+                                className="object-cover"
                                 priority
                                 quality={95}
                             />

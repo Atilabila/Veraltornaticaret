@@ -15,7 +15,7 @@ export const WhatsAppButton = () => {
     return (
         <button
             onClick={handleClick}
-            className="fixed bottom-[88px] md:bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-105 group whatsapp-button-perf"
+            className="fixed bottom-[5.5rem] right-5 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#20BA5A] md:bottom-6 md:right-6 whatsapp-button-perf group"
             aria-label="WhatsApp ile iletişime geç"
             style={{ transform: 'translateZ(0)' }}
         >

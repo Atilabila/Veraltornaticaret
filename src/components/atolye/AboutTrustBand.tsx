@@ -16,13 +16,13 @@ export function AboutTrustBand() {
             <div className="mx-auto grid max-w-[1400px] gap-12 px-6 lg:grid-cols-12 lg:items-start lg:gap-16 lg:px-12">
                 <div className="lg:col-span-6">
                     <SectionHeading
-                        eyebrow="Hakkımızda"
-                        title="Kalite odaklı üretim, güvenilir iş ortaklığı"
-                        description="Veral Torna & Teneke Ticaret; dosya teli, takvim tenekesi, sac şekillendirme ve UV metal baskıda İzmir merkezli toptan imalat çözümleri sunar."
+                        eyebrow="İzmir Alsancak atölyesi"
+                        title="Yerel üretim, Türkiye geneline toptan sevkiyat"
+                        description="Veral Torna & Teneke Ticaret; İzmir Alsancak’ta dosya teli, takvim tenekesi ve metal imalat yapan aile atölyesidir."
                     />
                     <BrassRule className="my-8 max-w-xs" />
                     <p className="max-w-xl text-base leading-relaxed text-atl-muted">
-                        Alsancak 1471 Sokak’taki atölyemizde talep analizi, numune onayı ve seri üretimi aynı çatı altında yönetiyoruz. Teknik çizim veya numune ile teklif alınır.
+                        1471 Sokak No:12/A adresindeki üretimimizde talep analizi, numune ve seri imalat aynı çatı altında yürür. Ölçü veya numuneyle teklif alın.
                     </p>
                     <Link
                         href="/hakkimizda"
