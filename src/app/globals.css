@@ -6,8 +6,6 @@
 
 /* =====================================================
    VERAL ATÖLYE — Industrial Brass / Dark Workshop
-   Tokens are defined TWICE: @theme (Tailwind utils) +
-   :root hex fallbacks (never blank / never light).
    ===================================================== */
 
 @theme {
@@ -70,7 +68,6 @@
     --font-ibm-plex-mono: "IBM Plex Mono";
     --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-    /* Hex fallbacks — survive if Tailwind theme merge fails */
     --atl-bg: #121110;
     --atl-surface: #1b1a18;
     --atl-surface-2: #23211e;
@@ -154,9 +151,6 @@
   }
 }
 
-/* =====================================================
-   HARD UTILITY FALLBACKS — work even if @theme drops
-   ===================================================== */
 @layer utilities {
   .bg-atl-bg { background-color: #121110 !important; }
   .bg-atl-surface { background-color: #1b1a18 !important; }
@@ -174,6 +168,7 @@
   .border-atl-line { border-color: #2e2b27 !important; }
   .border-atl-brass { border-color: #c9a35c !important; }
   .border-atl-brass\/40 { border-color: rgb(201 163 92 / 0.4) !important; }
+  .border-atl-brass\/50 { border-color: rgb(201 163 92 / 0.5) !important; }
   .border-atl-brass\/70 { border-color: rgb(201 163 92 / 0.7) !important; }
 
   .bg-atl-bg\/95 { background-color: rgb(18 17 16 / 0.95) !important; }
@@ -202,14 +197,6 @@
   .page-container {
     @apply mx-auto w-full max-w-[1400px] px-6 lg:px-12;
   }
-
-  .shadow-brutal {
-    box-shadow: 10px 10px 0 0 #121110;
-  }
-
-  .shadow-brutal-sm {
-    box-shadow: 5px 5px 0 0 #121110;
-  }
 }
 
 @layer components {
@@ -218,12 +205,6 @@
     border-color: rgb(255 255 255 / 0.1);
     background: rgb(255 255 255 / 0.05);
     color: rgb(255 255 255 / 0.5);
-  }
-
-  .system-label.active {
-    color: #c9a35c;
-    border-color: rgb(201 163 92 / 0.3);
-    background: rgb(201 163 92 / 0.1);
   }
 }
 
@@ -245,16 +226,6 @@
   border-color: #c9a35c;
 }
 
-html.force-desktop,
-html.force-desktop body {
-  min-width: 1440px;
-}
-
-html.force-desktop body {
-  overflow-x: auto;
-}
-
-/* ===== Workshop atmosphere ===== */
 .atl-grain {
   background-color: #121110;
   background-image:
@@ -280,11 +251,6 @@ html.force-desktop body {
 @keyframes atl-rise {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: none; }
-}
-
-@keyframes atl-sheen {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
 }
 
 .atl-rise { animation: atl-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
