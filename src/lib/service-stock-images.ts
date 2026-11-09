@@ -1,13 +1,40 @@
 /** Local stock images for service cards (name-matched). */
-const STOCK = {
+export const SERVICE_IMAGES = {
   giyotinCut: "/images/services/giyotin-kesim.webp",
   coilSlit: "/images/services/rulo-dilimleme.webp",
-  dosyaTeli: "/images/services/dosya-teli.jpg",
-  tefZili: "/images/services/tef-zili.jpg",
-  magnetPoster: "/images/services/magnet-poster.jpg",
-  takvimTeneke: "/images/services/takvim-teneke.jpg",
+  dosyaTeli: "/images/services/dosya-teli-plastik-takim.webp",
+  tefZili: "/images/services/tef-zili-38mm.webp",
+  magnetPoster: "/images/services/metal-tabelalar.webp",
+  takvimTeneke: "/images/services/takvim-tenekeleri-detay.webp",
+  takvimTenekeSade: "/images/services/takvim-tenekeleri.webp",
   factory: "/images/services/giyotin-kesim.webp",
 } as const;
+
+const STOCK = SERVICE_IMAGES;
+
+const IMAGE_ALT: Record<string, string> = {
+  [SERVICE_IMAGES.dosyaTeli]: "Veral dosya telleri – plastik takım 14, 15, 17, 21, 24 cm ve akrep tel",
+  [SERVICE_IMAGES.takvimTeneke]: "Veral takvim tenekeleri 31, 33 ve 48 cm – askı deliği detay görünümü",
+  [SERVICE_IMAGES.takvimTenekeSade]: "Veral takvim tenekeleri 31, 33 ve 48 cm",
+  [SERVICE_IMAGES.tefZili]: "Veral tef zili – 38 mm çap, toptan üretim",
+  [SERVICE_IMAGES.magnetPoster]: "Veral atölyesinde üretilmiş UV baskılı metal tabelalar",
+};
+
+/** Portrait product posters carry size labels (14 CM, 31 cm, 38 MM) that must not be cropped. */
+const POSTER_IMAGES = new Set<string>([
+  SERVICE_IMAGES.dosyaTeli,
+  SERVICE_IMAGES.takvimTeneke,
+  SERVICE_IMAGES.takvimTenekeSade,
+  SERVICE_IMAGES.tefZili,
+]);
+
+export function serviceImageAlt(src: string, fallback: string): string {
+  return IMAGE_ALT[src] ?? fallback;
+}
+
+export function serviceImageFit(src: string): string {
+  return POSTER_IMAGES.has(src) ? "object-contain bg-neutral-900" : "object-cover";
+}
 
 function isRemoteProductImage(image?: string | null): boolean {
   const value = (image || "").trim();

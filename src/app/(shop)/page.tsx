@@ -3,34 +3,46 @@ import type { Metadata } from "next";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
-import { StitchHero } from "@/components/sections/StitchHero";
-import { StitchAssurance } from "@/components/sections/StitchAssurance";
 import { FAQSchema } from "@/components/seo/FAQSchema";
-import dynamic from "next/dynamic";
-
-const ServicesHomeSection = dynamic(() =>
-    import("@/components/sections/ServicesHomeSection").then((mod) => mod.ServicesHomeSection)
-);
-const ProcessSection = dynamic(() => import("@/components/sections/ProcessSection").then(mod => mod.ProcessSection));
-const CustomerReviews = dynamic(() => import("@/components/sections/CustomerReviews").then(mod => mod.CustomerReviews));
+import { AtolyeHero } from "@/components/atolye/AtolyeHero";
+import { ProductGroupsSection } from "@/components/atolye/ProductGroupsSection";
+import { AboutTrustBand } from "@/components/atolye/AboutTrustBand";
+import { ProcessSteps } from "@/components/atolye/ProcessSteps";
+import { ProductionModelBand } from "@/components/atolye/ProductionModelBand";
+import { CtaBand } from "@/components/atolye/CtaBand";
+import { HomeFaqBand } from "@/components/atolye/HomeFaqBand";
 
 export const metadata: Metadata = {
-    title: "Veral Teneke & Metal Poster İmalatı | İzmir Alsancak Seri Üretim",
-    description: "40 yılı aşkın tecrübeyle toptan dosya teli, takvim tenekesi ve 4K UV baskılı mıknatıslı metal poster imalatı. İzmir'den 81 ile doğrudan üreticiden sevkiyat.",
+    title: {
+        absolute: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
+    },
+    description:
+        "İzmir Alsancak'ta toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim ve UV baskılı metal poster. Veral Torna & Teneke Ticaret — teklif ve numune için iletişime geçin.",
+    keywords: [
+        "izmir dosya teli",
+        "toptan dosya teli imalatı",
+        "takvim tenekesi üreticisi",
+        "alsancak metal imalat",
+        "veral teneke ticaret",
+        "uv metal poster izmir",
+    ],
     alternates: {
         canonical: "https://veralteneketicaret.com",
     },
     openGraph: {
-        title: "Veral Torna & Teneke Ticaret - Endüstriyel Metal İmalatı",
-        description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
+        title: "İzmir Alsancak Dosya Teli ve Teneke İmalatı | Veral",
+        description:
+            "Toptan dosya teli, takvim tenekesi ve metal imalat — İzmir Alsancak atölyesinden Türkiye geneline sevkiyat.",
         url: "https://veralteneketicaret.com",
         siteName: "Veral Torna & Teneke Ticaret",
+        locale: "tr_TR",
+        type: "website",
         images: [
             {
-                url: "/hero-izmir-metal-poster.jpg",
-                width: 880,
-                height: 734,
-                alt: "İzmir Saat Kulesi Mıknatıslı Metal Poster - Veral Teneke İmalatı",
+                url: "/images/services/giyotin-kesim.webp",
+                width: 1200,
+                height: 900,
+                alt: "İzmir Alsancak Veral metal imalat atölyesi",
             },
         ],
     },
@@ -38,56 +50,39 @@ export const metadata: Metadata = {
 
 const homeFaqs = [
     {
-        question: "Veral Teneke Ticaret nerede üretim yapmaktadır?",
-        answer: "Üretim tesisimiz 1980 yılından bu yana İzmir'in tarihi sanayi bölgesi Alsancak'ta (1471 Sokak No:12/A) aralıksız hizmet vermektedir.",
+        question: "İzmir'de toptan dosya teli imalatı nerede yapılır?",
+        answer: "Veral Torna & Teneke Ticaret, İzmir Alsancak 1471 Sokak No:12/A adresindeki atölyesinde toptan dosya teli imalatı yapar.",
     },
     {
-        question: "Toptan dosya teli ve takvim tenekesinde teslimat süreleri nedir?",
-        answer: "Standart siparişler aynı gün veya 24 saat içinde ambara teslim edilir. Özel boy kesim ve kurumsal fason talepler 2-4 iş günü içinde sevk edilir.",
+        question: "Takvim tenekesi siparişi nasıl verilir?",
+        answer: "Ölçü, adet ve askılı/askısız tercihinizi teklif formundan veya WhatsApp üzerinden iletin; yazılı fiyat ve termin bildirilir.",
     },
     {
         question: "Mıknatıslı metal posterler nasıl monte edilir?",
-        answer: "Özel 3M VHB yapışkanlı manyetik tutucu ped ve N35 neodimyum mıknatıs sistemi sayesinde duvar delmeden, çivi çakmadan 30 saniyede asılır.",
+        answer: "Duvara yapıştırılan manyetik tutucu ped ile çivi çakmadan asılır; kafe, ofis ve dekorasyon projelerine uygundur.",
     },
     {
-        question: "Özel ölçü metal levha ve fason UV baskı siparişi verebilir miyim?",
-        answer: "Evet, mimari projeler, kafe-restoran tabelaları ve kurumsal promosyonlar için özel ölçü kesim, kenar büküm ve UV kürleme fason imalat hizmeti veriyoruz.",
+        question: "İzmir dışına sevkiyat yapıyor musunuz?",
+        answer: "Evet, Alsancak atölyesinden Türkiye geneline kargo veya ambar ile toptan sevkiyat yapılır.",
     },
 ];
 
 export default function ShopHomePage() {
     return (
-        <main className="home-page min-h-screen bg-[#fafafa] text-[#161616] selection:bg-amber-600 selection:text-white pb-24 lg:pb-0 relative z-10">
+        <main className="home-page min-h-screen bg-atl-bg pb-[calc(4.75rem+env(safe-area-inset-bottom))] text-atl-text lg:pb-0" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
             <FAQSchema items={homeFaqs} />
-
-            {/* GLOBAL NAVIGATION */}
             <Navigation />
-
-            {/* 1. STITCH LUXURY INDUSTRIAL HERO (İzmir Metal Poster Art) */}
-            <StitchHero />
-
-            {/* 2. STITCH 4-COLUMN ASSURANCE PROTOCOL (NO JARGON) */}
-            <StitchAssurance />
-
-            {/* 5. HİZMETLER & İMALAT HATLARI */}
-            <section className="bg-[#f8f9fa] text-[#161616] relative z-10 border-b border-[#e5e7eb]">
-                <ServicesHomeSection />
-            </section>
-
-            {/* 6. SERİ İMALAT SÜRECİ */}
-            <section className="bg-white text-[#161616] relative z-0 border-b border-[#e5e7eb]">
-                <ProcessSection />
-            </section>
-
-            {/* 7. 35.000+ SİPARİŞ DENEYİMİ & YORUMLAR */}
-            <section className="bg-[#f8f9fa] text-[#161616] relative border-b border-[#e5e7eb]">
-                <CustomerReviews />
-            </section>
-
-            {/* GLOBAL FOOTER */}
+            <AtolyeHero />
+            <ProductGroupsSection />
+            <AboutTrustBand />
+            <ProcessSteps />
+            <ProductionModelBand />
+            <HomeFaqBand />
+            <CtaBand
+                title="Metal parça üretimi için güvenilir bir çözüm ortağı mı arıyorsunuz?"
+                description="Dosya teli, takvim tenekesi, sac kesim veya UV metal baskı talepleriniz için bizimle iletişime geçin. Projenize uygun üretimi birlikte planlayalım."
+            />
             <Footer />
-
-            {/* INTERACTION LAYER */}
             <MobileStickyBar />
         </main>
     );

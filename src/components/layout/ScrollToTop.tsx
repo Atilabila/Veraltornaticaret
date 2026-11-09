@@ -7,38 +7,26 @@ export function ScrollToTop() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const toggleVisibility = () => {
-            if (window.scrollY > 500) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
-        };
-
-        window.addEventListener("scroll", toggleVisibility);
-
+        const toggleVisibility = () => setIsVisible(window.scrollY > 500);
+        window.addEventListener("scroll", toggleVisibility, { passive: true });
         return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
-
     return (
         <div
-            className={`fixed bottom-[180px] md:bottom-12 right-6 z-[9999] transition-all duration-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
-                }`}
+            className={`fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] right-4 z-[55] transition-all duration-300 md:right-6 lg:bottom-[5.5rem] ${
+                isVisible
+                    ? "translate-y-0 opacity-100"
+                    : "pointer-events-none translate-y-3 opacity-0"
+            }`}
         >
             <button
                 type="button"
-                onClick={scrollToTop}
-                className="flex items-center justify-center w-12 h-12 bg-white border-2 border-zinc-900 text-zinc-900 shadow-[4px_4px_0_0_#18181b] hover:shadow-[1px_1px_0_0_#18181b] hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
-                aria-label="Yukarı Çık"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="flex h-11 w-11 items-center justify-center border border-atl-brass bg-atl-surface text-atl-text shadow-md transition-colors hover:bg-atl-brass hover:text-atl-bg md:h-12 md:w-12"
+                aria-label="Yukarı çık"
             >
-                <ArrowUp className="w-6 h-6" />
+                <ArrowUp className="h-5 w-5" />
             </button>
         </div>
     );

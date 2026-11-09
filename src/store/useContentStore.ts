@@ -415,14 +415,14 @@ interface ContentStore {
 
 export const defaultContent: SiteContent = {
     // Branding
-    headerLogo: "/veral-logo.png",
-    footerLogo: "/veral-logo.png",
+    headerLogo: "/veral-logo-nav.png",
+    footerLogo: "/veral-logo-nav.png",
     siteName: "VERAL",
 
     // Header Defaults
     headerConfig: {
-        logoLight: "/veral-logo.png",
-        logoDark: "/veral-logo.png",
+        logoLight: "/veral-logo-nav.png",
+        logoDark: "/veral-logo-nav.png",
         mode: 'translucent',
         transparency: 90,
         blur: 12,
@@ -449,13 +449,13 @@ export const defaultContent: SiteContent = {
             id: '1',
             slug: 'takvim-tenekesi',
             title: 'Takvim Tenekesi İmalatı',
-            shortDescription: 'İzmir merkezli seri takvim tenekesi üretimi. Özel ölçü ve yüksek kapasite.',
+            shortDescription: 'Duvar takvimlerinin (özellikle gemici ve yapraklı blok takvimlerin) karton veya sert zeminlerine, üst veya alt kısımlarına geçirilen, takvimin duvarda dik ve düzgün durmasını sağlayan, kenarlarını koruyan ve asma deliği barındıran metal çıta / profil parçasıdır. Toptan / seri üretim.',
             fullDescription: '40 yılı aşkın tecrübemizle, takvim yayıncıları ve matbaalar için yüksek kaliteli takvim tenekesi üretimi yapıyoruz. Farklı renk ve ölçü seçenekleriyle seri imalat kapasitemizle hizmetinizdeyiz.',
             icon: 'Calendar',
-            image: '/images/services/takvim-teneke.jpg',
-            images: [],
+            image: '/images/services/takvim-tenekeleri-detay.webp',
+            images: ['/images/services/takvim-tenekeleri.webp'],
             seoTitle: 'Takvim Tenekesi İmalatı İzmir | VERAL Teneke',
-            seoDescription: 'Toptan takvim tenekesi üretimi. İzmir Alsancak merkezli atölyemizde yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.',
+            seoDescription: 'Duvar takvimlerinin üst veya alt kısmına geçirilen, takvimi dik ve düzgün tutan, kenarlarını koruyan ve asma deliği barındıran metal çıta / profil parçası.',
             features: [
                 { key: 'Kapasite', value: 'Günlük 50.000+ Adet' },
                 { key: 'Malzeme', value: '0.22 - 0.30mm Teneke' }
@@ -474,7 +474,7 @@ export const defaultContent: SiteContent = {
             shortDescription: 'Endüstriyel sınıf dayanıklı dosya teli imalatı. Toptan ve perakende.',
             fullDescription: 'Arşivleme sistemleri ve dosya üreticileri için standart ve özel boylarda dosya teli üretimi yapıyoruz. Paslanmaz yapı ve yüksek esneklik dayanımı.',
             icon: 'FileText',
-            image: '/images/services/dosya-teli.jpg',
+            image: '/images/services/dosya-teli-plastik-takim.webp',
             images: [],
             seoTitle: 'Dosya Teli İmalatı ve Toptan Satış | VERAL',
             seoDescription: 'İzmir dosya teli üreticisi. Kırtasiye ve arşiv sistemleri için yüksek kaliteli, dayanıklı metal dosya telleri.',
@@ -496,7 +496,7 @@ export const defaultContent: SiteContent = {
             shortDescription: 'Profesyonel tef zili imalatı. Akustik kalibrasyon ve özel metal alaşım.',
             fullDescription: 'Müzik aleti üreticileri için yüksek akustik performanslı tef zili üretimi. Pirinç ve metal alaşım seçenekleriyle, altı köşe ve yuvarlak formlarda seri imalat.',
             icon: 'Music',
-            image: '/images/services/tef-zili.jpg',
+            image: '/images/services/tef-zili-38mm.webp',
             images: [],
             seoTitle: 'Tef Zili İmalatı İzmir | VERAL Metal',
             seoDescription: 'Müzik aletleri için profesyonel tef zili üretimi. Pirinç ve metal yüzey seçenekleriyle en iyi akustik performans.',
@@ -518,7 +518,7 @@ export const defaultContent: SiteContent = {
             shortDescription: 'UV baskılı dekoratif metal posterler ve güçlü mıknatıslı magnetler.',
             fullDescription: 'Kişiye özel veya seri üretim mıknatıslı magnetler. 4K UV baskı teknolojisi ile metal yüzeylere kalıcı, solmayan görseller aktarıyoruz. Hem dekoratif hem kurumsal çözümler.',
             icon: 'Zap',
-            image: '/images/services/magnet-poster.jpg',
+            image: '/images/services/metal-tabelalar.webp',
             images: [],
             seoTitle: 'Metal Poster & Magnet Üretimi İzmir | VERAL',
             seoDescription: 'Özel tasarım metal posterler ve mıknatıslı magnet imalatı. UV baskı kalitesiyle İzmir dekorasyon çözümleri.',
@@ -659,12 +659,12 @@ export const defaultContent: SiteContent = {
     footerCompanyName: "VERAL TORNA & TENEKE // TİCARET",
     footerAddress: "1512 Sk. No: 42/1\nAlsancak/İzmir\nTÜRKİYE BÖLGESİ",
     footerPhone: "+90 507 165 13 15",
-    footerEmail: "LOG@VERAL.COM",
+    footerEmail: "veraltornatic@hotmail.com",
     footerInstagram: "@VERALTICARET",
     footerMapLat: "38.4357",
     footerMapLng: "27.1495",
     footerMapZoom: 15,
-    footerMapLink: "https://maps.app.goo.gl/VERAL",
+    footerMapLink: "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
 
     // WhatsApp
     whatsappNumber: "905071651315",
@@ -1232,7 +1232,7 @@ export const useContentStore = create<ContentStore>()(
         }),
         {
             name: "site-content-storage",
-            version: 19,
+            version: 20,
             migrate: (persistedState: any, version: number) => {
                 const newState = { ...persistedState };
                 if (version < 11) {
@@ -1274,6 +1274,13 @@ export const useContentStore = create<ContentStore>()(
                     if (savedHeroImage) {
                         newState.content.heroImage = savedHeroImage;
                     }
+                }
+                if (version < 20) {
+                    newState.content = {
+                        ...newState.content,
+                        footerEmail: defaultContent.footerEmail,
+                        footerMapLink: defaultContent.footerMapLink,
+                    };
                 }
                 return newState;
             },

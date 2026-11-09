@@ -16,16 +16,17 @@ export default function Error({
     }, [error])
 
     return (
-        <div className="container mx-auto px-4 min-h-[60vh] flex items-center justify-center">
-            <div className="flex flex-col items-center w-full">
+        <div className="container mx-auto flex min-h-[40vh] items-center justify-center px-4 py-10 sm:min-h-[50vh] sm:py-14">
+            <div className="flex w-full max-w-md flex-col items-center gap-4">
                 <EmptyState
                     title="SİSTEM HATASI"
                     description="Beklenmedik bir protokol hatası oluştu. Teknik ekip bilgilendirildi."
-                    icon={<AlertTriangle className="w-10 h-10 text-red-500" />}
+                    icon={<AlertTriangle className="h-8 w-8 text-red-500" />}
                 />
                 <button
+                    type="button"
                     onClick={reset}
-                    className="mt-6 px-8 py-3 text-xs font-black border border-zinc-300 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors uppercase tracking-[0.2em]"
+                    className="min-h-11 px-6 text-xs font-black uppercase tracking-[0.2em] border border-atl-line transition-colors hover:bg-atl-surface-2"
                 >
                     TEKRAR DENE
                 </button>

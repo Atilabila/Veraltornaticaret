@@ -1,28 +1,33 @@
 ﻿"use client";
 
-import { MessageCircle } from 'lucide-react';
-import { useContentStore } from '@/store/useContentStore';
+import { MessageCircle } from "lucide-react";
+import { useContentStore } from "@/store/useContentStore";
 
+/** Masaüstünde floating; mobilde sticky bar’da WhatsApp var */
 export const WhatsAppButton = () => {
     const { content } = useContentStore();
 
     const handleClick = () => {
-        const phoneNumber = content.whatsappNumber || '905071651315';
-        const message = encodeURIComponent(content.whatsappMessage || 'Merhaba, hizmetleriniz hakkında detaylı bilgi almak istiyorum.');
-        window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        const phoneNumber = (content.whatsappNumber || "905323794003").replace(/[^0-9]/g, "");
+        const message = encodeURIComponent(
+            content.whatsappMessage || "Merhaba, hizmetleriniz hakkında detaylı bilgi almak istiyorum."
+        );
+        window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
     };
 
     return (
         <button
+            type="button"
             onClick={handleClick}
-            className="fixed bottom-[88px] md:bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-105 group whatsapp-button-perf"
+            className="whatsapp-button-perf group fixed bottom-6 right-6 z-[60] hidden h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#20BA5A] lg:flex"
             aria-label="WhatsApp ile iletişime geç"
-            style={{ transform: 'translateZ(0)' }}
+            style={{ transform: "translateZ(0)" }}
         >
-            <MessageCircle className="w-8 h-8 group-hover:scale-110 transition-transform" />
-
-            <style dangerouslySetInnerHTML={{
-                __html: `
+            <MessageCircle className="h-7 w-7 transition-transform group-hover:scale-110" />
+            <span className="whatsapp-pulse" aria-hidden />
+            <style
+                dangerouslySetInnerHTML={{
+                    __html: `
                 @keyframes soft-pulse {
                     0% { transform: scale(1); opacity: 0.2; }
                     50% { transform: scale(1.2); opacity: 0.1; }
@@ -36,9 +41,9 @@ export const WhatsAppButton = () => {
                     animation: soft-pulse 3s infinite;
                     pointer-events: none;
                 }
-            `}} />
-            <div className="whatsapp-pulse"></div>
+            `,
+                }}
+            />
         </button>
     );
 };
-

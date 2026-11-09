@@ -13,16 +13,12 @@ export function LegalPageLayout({ title, eyebrow = "Yasal metin", updatedAt, chi
     return (
         <PageShell variant="muted">
             <PageContainer className="max-w-3xl">
-                <header className="mb-10 space-y-3">
-                    <p className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--color-brand-accent)]">
-                        {eyebrow}
-                    </p>
-                    <h1 className="text-3xl md:text-4xl font-bold text-[#161616] leading-tight">{title}</h1>
-                    {updatedAt && (
-                        <p className="text-sm text-[#525252]">Son güncelleme: {updatedAt}</p>
-                    )}
+                <header className="mb-10 space-y-3 border-b border-atl-line pb-8">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-atl-brass">{eyebrow}</p>
+                    <h1 className="font-display text-4xl leading-tight text-atl-text md:text-5xl">{title}</h1>
+                    {updatedAt && <p className="text-sm text-atl-muted">Son güncelleme: {updatedAt}</p>}
                 </header>
-                <div className="space-y-8 text-[#525252] text-sm leading-relaxed">{children}</div>
+                <div className="atl-prose space-y-8 text-sm">{children}</div>
             </PageContainer>
         </PageShell>
     );

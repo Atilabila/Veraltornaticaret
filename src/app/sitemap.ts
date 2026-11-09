@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next'
-import { getProducts, getCategories } from '@/lib/actions/metal-products.actions'
 import { ContentService } from '@/lib/supabase/content.service'
-import { MOCK_PRODUCTS } from '@/lib/data/mock-products'
+import type { SiteContent } from '@/store/useContentStore'
 
 // Blog gönderileri
 const blogSlugs = [
@@ -15,35 +14,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://veralteneketicaret.com'
     const lastMod = new Date()
 
-    let products: any[] = []
-    let categories: any[] = []
-    let services: any[] = []
+    let services: SiteContent['services'] = []
 
     try {
-        const [productsRes, categoriesRes, siteContent] = await Promise.all([
-            getProducts().catch(() => ({ success: false, data: [] })),
-            getCategories().catch(() => ({ success: false, data: [] })),
-            ContentService.getContent().catch(() => null)
-        ])
-
-        if (productsRes.success && productsRes.data && productsRes.data.length > 0) {
-            products = productsRes.data
-        } else {
-            products = MOCK_PRODUCTS
-        }
-
-        if (categoriesRes.success && categoriesRes.data) {
-            categories = categoriesRes.data
-        }
+        const siteContent = await ContentService.getContent().catch(() => null)
 
         let servicesRaw = siteContent?.services || []
-        if (!servicesRaw.find((s: any) => s.slug === 'dosya-teli')) {
+        if (!servicesRaw.find((s) => s.slug === 'dosya-teli')) {
             const { defaultContent } = await import('@/store/useContentStore')
             servicesRaw = defaultContent.services || []
         }
         services = servicesRaw
     } catch {
-        products = MOCK_PRODUCTS
+        services = []
     }
 
     // 1. Ana Statik Sayfalar
@@ -53,12 +36,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: lastMod,
             changeFrequency: 'daily',
             priority: 1.0,
-        },
-        {
-            url: `${baseUrl}/urunler`,
-            lastModified: lastMod,
-            changeFrequency: 'daily',
-            priority: 0.9,
         },
         {
             url: `${baseUrl}/hizmetler`,
@@ -170,15 +147,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
     }))
 
-    // 4. Ürün Detay Sayfaları (Graceful Fallback destekli)
-    const productPages: MetadataRoute.Sitemap = products
-        .filter(p => p.is_active !== false)
-        .map(product => ({
-            url: `${baseUrl}/urunler/${product.slug}`,
-            lastModified: new Date(product.updated_at || product.created_at || lastMod),
-            changeFrequency: 'weekly' as const,
-            priority: 0.85,
-        }))
-
-    return [...staticPages, ...servicePages, ...blogPostPages, ...productPages]
+    return [...staticPages, ...servicePages, ...blogPostPages]
 }

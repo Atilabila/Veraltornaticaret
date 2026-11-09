@@ -18,7 +18,7 @@ export const KnowledgeBaseSchema = () => {
                 "name": "Takvim tenekesi imalatı boyutları ve üretim kapasiteniz nedir?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Takvim tenekesi imalatı alanında Türkiye'nin önde gelen üreticileriyiz. Standart duvar ve gemici takvimleri için istenilen her ölçü ve renkte takvim tenekesi üretiyoruz. Matbaalar ve ajanslar için günlük 50.000 adet kapasite ile toptan takvim tenekesi üretiyoruz."
+                    "text": "Standart duvar ve gemici takvimleri için istenilen her ölçü ve renkte takvim tenekesi üretiyoruz. Matbaalar ve ajanslar için günlük 50.000 adet kapasite ile toptan takvim tenekesi üretiyoruz."
                 }
             },
             {

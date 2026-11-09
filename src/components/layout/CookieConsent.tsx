@@ -48,19 +48,19 @@ export const CookieConsent = () => {
                             <div className="flex items-center gap-2 w-full md:w-auto flex-shrink-0">
                                 <button
                                     onClick={handleDecline}
-                                    className="flex-1 md:flex-none px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] font-black text-white/60 hover:text-white uppercase tracking-[0.2em] transition-colors border border-white/10 hover:bg-white/5"
+                                    className="flex-1 md:flex-none px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] font-black text-white/60 hover:text-white uppercase tracking-[0.2em] transition-colors border border-white/10 hover:bg-atl-surface-2"
                                 >
                                     REDDET
                                 </button>
                                 <button
                                     onClick={handleAccept}
-                                    className="flex-1 md:flex-none bg-[var(--color-brand-accent)] text-black font-black text-[10px] sm:text-[11px] uppercase tracking-[0.2em] py-2 sm:py-2.5 px-4 sm:px-6 hover:bg-white transition-all duration-300"
+                                    className="flex-1 md:flex-none bg-[var(--color-brand-accent)] text-atl-bg font-black text-[10px] sm:text-[11px] uppercase tracking-[0.2em] py-2 sm:py-2.5 px-4 sm:px-6 hover:bg-atl-brass-light transition-all duration-300"
                                 >
                                     KABUL ET
                                 </button>
                                 <button
                                     onClick={() => setIsVisible(false)}
-                                    className="p-2 text-white/40 hover:text-white transition-colors hidden md:block"
+                                    className="p-2 text-white/70 hover:text-white transition-colors hidden md:block"
                                     aria-label="Kapat"
                                 >
                                     <X size={16} />

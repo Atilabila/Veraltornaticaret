@@ -4,171 +4,152 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Base overflow guard for mobile fit */
-html {
-  max-width: 100%;
-  overflow-x: clip;
-}
+/* =====================================================
+   VERAL ATÖLYE — Industrial Brass / Dark Workshop
+   ===================================================== */
 
-/* PROTOKOL / ARŞİV ESTETİĞİ: yüksek kontrast, net sınırlar */
 @theme {
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
 
-  /* Industrial & Architectural palette tokens (Warm Amber / Bronze / Crisp Clean) */
   --color-paper-white: #fdfbf7;
-  --color-near-black: #161616;
-  --color-fog-gray: #f4f4f4;
-  --color-steel-gray: #525252;
-  --color-hazard-orange: #d97706;
-  --color-acid-green: #15803d;
-  /* Primary B2B & Luxury Metal accent — Warm Industrial Amber/Bronze (NO BLUE) */
-  --color-brand-accent: #d97706;
-  --color-brand-accent-muted: #b45309;
-  --color-brand-safety-orange: #d97706;
-  /* Deprecated aliases */
-  --color-industrial-gold: #d97706;
-  --color-industrial-gold-muted: #b45309;
+  --color-near-black: #121110;
+  --color-fog-gray: #2a2723;
+  --color-steel-gray: #a39b8c;
+  --color-hazard-orange: #c9a35c;
+  --color-acid-green: #6b8f71;
+  --color-brand-accent: #c9a35c;
+  --color-brand-accent-muted: #b8914a;
+  --color-brand-safety-orange: #c9a35c;
+  --color-industrial-gold: #c9a35c;
+  --color-industrial-gold-muted: #b8914a;
 
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
+  --color-border: #2e2b27;
+  --color-input: #2e2b27;
+  --color-ring: #c9a35c;
+  --color-background: #121110;
+  --color-foreground: #ece6da;
 
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary: #c9a35c;
+  --color-primary-foreground: #121110;
+  --color-secondary: #1b1a18;
+  --color-secondary-foreground: #ece6da;
+  --color-muted: #1b1a18;
+  --color-muted-foreground: #a39b8c;
+  --color-accent: #1b1a18;
+  --color-accent-foreground: #ece6da;
+  --color-destructive: #b91c1c;
+  --color-destructive-foreground: #fafafa;
+  --color-card: #1b1a18;
+  --color-card-foreground: #ece6da;
 
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-atl-bg: #121110;
+  --color-atl-surface: #1b1a18;
+  --color-atl-surface-2: #23211e;
+  --color-atl-lift: #1f1d1a;
+  --color-atl-lift-2: #26231f;
+  --color-atl-line: #2e2b27;
+  --color-atl-brass: #c9a35c;
+  --color-atl-brass-light: #e3c78a;
+  --color-atl-brass-tint: #2a2318;
+  --color-atl-text: #ece6da;
+  --color-atl-muted: #b7ae9f;
 
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
+  --font-display: "Instrument Serif", "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @layer base {
   :root {
-    /* Runtime-loaded fonts (Google Fonts link in layout head). */
-    --font-space-grotesk: "IBM Plex Sans";
-    --font-syne: "IBM Plex Sans";
+    color-scheme: dark;
+
+    --font-space-grotesk: "Archivo";
+    --font-syne: "Archivo";
     --font-ibm-plex-mono: "IBM Plex Mono";
+    --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-    --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-      "Courier New", monospace;
+    --atl-bg: #121110;
+    --atl-surface: #1b1a18;
+    --atl-surface-2: #23211e;
+    --atl-lift: #1f1d1a;
+    --atl-lift-2: #26231f;
+    --atl-line: #2e2b27;
+    --atl-brass: #c9a35c;
+    --atl-brass-light: #e3c78a;
+    --atl-brass-tint: #2a2318;
+    --atl-text: #ece6da;
+    --atl-muted: #b7ae9f;
 
-    --background: 0 0% 98%;
-    --foreground: 240 10% 3.9%;
+    --color-atl-bg: #121110;
+    --color-atl-surface: #1b1a18;
+    --color-atl-surface-2: #23211e;
+    --color-atl-lift: #1f1d1a;
+    --color-atl-lift-2: #26231f;
+    --color-atl-line: #2e2b27;
+    --color-atl-brass: #c9a35c;
+    --color-atl-brass-light: #e3c78a;
+    --color-atl-brass-tint: #2a2318;
+    --color-atl-text: #ece6da;
+    --color-atl-muted: #b7ae9f;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-
-    --primary: 240 10% 3.9%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 10% 3.9%;
-
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 10% 3.9%;
-
+    --background: 30 6% 7%;
+    --foreground: 40 30% 89%;
+    --card: 40 6% 10%;
+    --card-foreground: 40 30% 89%;
+    --muted: 36 6% 13%;
+    --muted-foreground: 39 9% 59%;
+    --primary: 39 50% 57%;
+    --primary-foreground: 30 6% 7%;
+    --secondary: 36 6% 13%;
+    --secondary-foreground: 40 30% 89%;
+    --accent: 36 6% 13%;
+    --accent-foreground: 40 30% 89%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --industrial-gold: 38 92% 50%;
-    /* #d97706 — Warm industrial amber */
-    --industrial-gold-muted: 38 92% 38%;
-    /* #b45309 */
-
+    --border: 35 6% 17%;
+    --input: 35 6% 17%;
+    --ring: 39 50% 57%;
+    --popover: 40 6% 10%;
+    --popover-foreground: 40 30% 89%;
+    --industrial-gold: 39 50% 57%;
+    --industrial-gold-muted: 39 45% 48%;
     --radius: 0;
   }
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 10% 3.9%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+  html {
+    max-width: 100%;
+    overflow-x: clip;
+    background-color: #121110;
+    color-scheme: dark;
   }
 
   * {
-    @apply border-border;
-  }
-
-  .dark * {
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .dark label,
-  .dark input,
-  .dark textarea,
-  .dark select,
-  .dark h1,
-  .dark h2,
-  .dark h3,
-  .dark h4,
-  .dark h5,
-  .dark h6,
-  .dark p,
-  .dark span:not(.system-label) {
-    color: hsl(var(--foreground));
+    border-color: #2e2b27;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
     max-width: 100%;
     overflow-x: clip;
+    background-color: #121110 !important;
+    color: #ece6da !important;
+    font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Force brand mono for "technical" UI bits */
   .font-mono {
     font-family: var(--font-mono);
   }
 
-  /* Keyboard users: net focus */
+  .font-display {
+    font-family: "Instrument Serif", "DM Serif Display", Georgia, serif;
+  }
+
   :focus-visible {
-    outline: none;
+    outline: 2px solid #c9a35c;
+    outline-offset: 2px;
   }
 
   .focus-ring {
@@ -176,199 +157,241 @@ html {
   }
 }
 
+@layer utilities {
+  .bg-atl-bg { background-color: #121110 !important; }
+  .bg-atl-surface { background-color: #1b1a18 !important; }
+  .bg-atl-surface-2 { background-color: #23211e !important; }
+  .bg-atl-lift { background-color: #1f1d1a !important; }
+  .bg-atl-lift-2 { background-color: #26231f !important; }
+  .bg-atl-brass { background-color: #c9a35c !important; }
+  .bg-atl-brass-light { background-color: #e3c78a !important; }
+  .bg-atl-brass-tint { background-color: #2a2318 !important; }
+
+  .text-atl-bg { color: #121110 !important; }
+  .text-atl-text { color: #ece6da !important; }
+  .text-atl-muted { color: #b7ae9f !important; }
+  .text-atl-brass { color: #c9a35c !important; }
+  .text-atl-brass-light { color: #e3c78a !important; }
+
+  /* Mid-tone breath */
+  .atl-band-lift {
+    background-color: #1f1d1a !important;
+  }
+
+  .atl-brass-wash {
+    background-image:
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(201, 163, 92, 0.11), transparent 55%),
+      linear-gradient(180deg, #26231f 0%, #1f1d1a 100%);
+    background-color: #1f1d1a;
+  }
+
+  .atl-brass-wash-soft {
+    background-image:
+      radial-gradient(ellipse 80% 55% at 80% 0%, rgba(201, 163, 92, 0.07), transparent 50%),
+      radial-gradient(ellipse 60% 40% at 10% 100%, rgba(201, 163, 92, 0.05), transparent 45%);
+    background-color: #1b1a18;
+  }
+
+  /*
+   * Workshop amber lamps — Hybrid C (art direction).
+   * Raise floor L* ~15–17 + one big "bench lamp" radial.
+   * No blur / blend-mode. Do NOT stack with .atl-grain (grain forces #121110 floor).
+   */
+  .atl-workshop-lit {
+    background-color: #2a2620 !important;
+    background-image:
+      radial-gradient(ellipse 110% 85% at 22% -18%, rgba(240, 180, 88, 0.28), transparent 52%),
+      radial-gradient(ellipse 70% 50% at 100% 110%, rgba(180, 120, 50, 0.14), transparent 48%),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 4px),
+      linear-gradient(180deg, #342e26 0%, #2a2620 48%, #221e19 100%) !important;
+  }
+
+  .atl-workshop-lit-warm {
+    background-color: #2e2820 !important;
+    background-image:
+      radial-gradient(ellipse 130% 95% at 48% -28%, rgba(255, 190, 95, 0.34), transparent 48%),
+      radial-gradient(ellipse 55% 42% at 0% 88%, rgba(201, 130, 55, 0.16), transparent 45%),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 4px),
+      linear-gradient(180deg, #3c342a 0%, #2e2820 52%, #241f19 100%) !important;
+  }
+
+  .atl-workshop-lit-subtle {
+    background-color: #221e19 !important;
+    background-image:
+      radial-gradient(ellipse 95% 75% at 78% -12%, rgba(220, 170, 90, 0.18), transparent 55%),
+      linear-gradient(180deg, #2c271f 0%, #221e19 100%) !important;
+  }
+
+  .border-atl-line { border-color: #2e2b27 !important; }
+  .border-atl-brass { border-color: #c9a35c !important; }
+  .border-atl-brass\/40 { border-color: rgb(201 163 92 / 0.4) !important; }
+  .border-atl-brass\/50 { border-color: rgb(201 163 92 / 0.5) !important; }
+  .border-atl-brass\/70 { border-color: rgb(201 163 92 / 0.7) !important; }
+
+  .bg-atl-bg\/95 { background-color: rgb(18 17 16 / 0.95) !important; }
+  .bg-atl-bg\/70 { background-color: rgb(18 17 16 / 0.7) !important; }
+  .bg-atl-surface\/60 { background-color: rgb(27 26 24 / 0.6) !important; }
+  .bg-atl-brass\/10 { background-color: rgb(201 163 92 / 0.1) !important; }
+  .bg-atl-brass\/5 { background-color: rgb(201 163 92 / 0.05) !important; }
+  .bg-atl-brass\/50 { background-color: rgb(201 163 92 / 0.5) !important; }
+
+  .hover\:bg-atl-brass:hover { background-color: #c9a35c !important; }
+  .hover\:bg-atl-brass-light:hover { background-color: #e3c78a !important; }
+  .hover\:text-atl-text:hover { color: #ece6da !important; }
+  .hover\:text-atl-brass-light:hover { color: #e3c78a !important; }
+  .hover\:border-atl-brass:hover { border-color: #c9a35c !important; }
+  .hover\:border-atl-brass\/50:hover { border-color: rgb(201 163 92 / 0.5) !important; }
+  .hover\:border-atl-brass\/70:hover { border-color: rgb(201 163 92 / 0.7) !important; }
+
+  .group:hover .group-hover\:border-atl-brass { border-color: #c9a35c !important; }
+  .group:hover .group-hover\:bg-atl-brass { background-color: #c9a35c !important; }
+  .group:hover .group-hover\:text-atl-bg { color: #121110 !important; }
+  .group:hover .group-hover\:border-atl-brass\/70 { border-color: rgb(201 163 92 / 0.7) !important; }
+
+  .selection\:bg-atl-brass::selection { background-color: #c9a35c; }
+  .selection\:text-atl-bg::selection { color: #121110; }
+
+  .page-container {
+    @apply mx-auto w-full max-w-[1400px] px-6 lg:px-12;
+  }
+}
+
 @layer components {
   .system-label {
-    @apply inline-flex items-center justify-center uppercase font-black tracking-widest text-[9px] px-2 py-1 border border-white/10 bg-white/5 text-white/50 rounded-none font-mono transition-colors duration-300;
-  }
-
-  .system-label.active {
-    @apply text-industrial-gold border-industrial-gold/30 bg-industrial-gold/10 shadow-[0_0_15px_-5px_var(--color-industrial-gold)];
-  }
-
-  .metallic-shiny {
-    background: linear-gradient(to bottom, #cfc09f 22%, #634f2c 24%, #cfc09f 26%, #634f2c 27%, #ffecb3 40%, #3a2c0f 78%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #fff;
-    position: relative;
-    display: inline-block;
+    @apply inline-flex items-center justify-center uppercase font-black tracking-widest text-[9px] px-2 py-1 border rounded-none font-mono transition-colors duration-300;
+    border-color: rgb(255 255 255 / 0.1);
+    background: rgb(255 255 255 / 0.05);
+    color: rgb(255 255 255 / 0.5);
   }
 }
 
-@layer utilities {
-  .shadow-brutal {
-    box-shadow: 10px 10px 0 0 var(--color-near-black);
-  }
-
-  .shadow-brutal-sm {
-    box-shadow: 5px 5px 0 0 var(--color-near-black);
-  }
-
-  .card-brutal {
-    border: 2px solid var(--color-near-black);
-    border-radius: 0;
-    background: var(--color-paper-white);
-  }
-
-  .btn-hazard {
-    border: 2px solid var(--color-near-black);
-    border-radius: 0;
-    background: var(--color-brand-accent);
-    color: #000;
-  }
-}
-
-/* Brand accent (was gold metallic) */
 .text-gold-metal,
 .text-brand-accent,
-.text-gold-gradient {
-  color: var(--color-brand-accent);
+.text-gold-gradient,
+.text-gold-industrial {
+  color: #c9a35c;
   background: none;
   -webkit-text-fill-color: unset;
   font-weight: 900;
 }
 
-html.force-desktop,
-html.force-desktop body {
-  min-width: 1440px;
-}
-
-html.force-desktop body {
-  overflow-x: auto;
-}
-
-.text-gold-industrial {
-  color: var(--color-brand-accent);
-}
-
 .bg-gold-industrial {
-  background-color: var(--color-brand-accent);
+  background-color: #c9a35c;
 }
 
 .border-gold-industrial {
-  border-color: var(--color-brand-accent);
+  border-color: #c9a35c;
 }
 
-@keyframes heroZoom {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(1.1);
-  }
+.atl-grain {
+  background-color: #121110;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(201, 163, 92, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201, 163, 92, 0.07), transparent 50%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #161412 0%, #121110 40%, #0e0d0c 100%);
 }
 
-.footer-readable-text {
-  font-size: 1.125rem;
-  /* 18px */
-  line-height: 1.75;
+.atl-vignette {
+  position: relative;
 }
 
-.footer-readable-link {
-  font-size: 1.05rem;
-  /* ~17px */
+.atl-vignette::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+  z-index: 1;
 }
 
-@layer utilities {
-  .page-container {
-    @apply mx-auto w-full max-w-[1400px] px-6 lg:px-12;
-  }
+@keyframes atl-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
 
-  /* =====================================================
-     GOOGLE STITCH LUXURY INDUSTRIAL DESIGN SYSTEM
-     Architectural Light Gallery + Metallic Shaders
-     ===================================================== */
+.atl-rise { animation: atl-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.atl-rise-2 { animation-delay: 0.12s; }
+.atl-rise-3 { animation-delay: 0.24s; }
+.atl-rise-4 { animation-delay: 0.36s; }
 
-  /* Brushed Metal Light Texture Simulation */
-  .bg-brushed-metal {
-    background-color: #f7f7f8;
-    background-image:
-      repeating-linear-gradient(90deg, transparent 0, transparent 2px, rgba(0, 0, 0, 0.02) 2px, rgba(0, 0, 0, 0.02) 4px),
-      radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.95) 0%, rgba(247, 247, 248, 0) 65%);
-    background-attachment: local;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .atl-rise { animation: none; }
+}
 
-  /* Architectural Blueprint Grid Pattern */
-  .blueprint-grid {
-    background-size: 24px 24px;
-    background-image:
-      linear-gradient(to right, rgba(217, 119, 6, 0.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(217, 119, 6, 0.07) 1px, transparent 1px);
-  }
+.atl-prose {
+  max-width: 68ch;
+  line-height: 1.7;
+  color: #a39b8c;
+}
 
-  .grid-lines-subtle {
-    background-size: 32px 32px;
-    background-image:
-      linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
-  }
+.atl-prose h2,
+.atl-prose h3 {
+  font-family: "Instrument Serif", "DM Serif Display", Georgia, serif;
+  color: #ece6da;
+  font-weight: 400;
+}
 
-  /* Anisotropic Brushed Lines */
-  .brushed-lines {
-    background-image: repeating-linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.02) 0px,
-      rgba(0, 0, 0, 0.02) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-  }
+.atl-prose strong { color: #ece6da; }
+.atl-prose a { color: #e3c78a; text-decoration: underline; text-underline-offset: 3px; }
 
-  /* Glassmorphism Frosted Metal Panel */
-  .glass-panel {
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-  }
+.btn-brass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 3.5rem;
+  padding-inline: 2rem;
+  background: linear-gradient(135deg, #e3c78a 0%, #c9a35c 45%, #a8843f 100%);
+  color: #121110;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
 
-  .glass-panel-elevated {
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 1px 3px 0 rgba(0, 0, 0, 0.04);
-  }
+.btn-brass:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
 
-  /* Precision Engineering Tags */
-  .technical-tag {
-    font-feature-settings: "tnum" 1, "zero" 1;
-    font-family: var(--font-mono, monospace);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
+.btn-ghost-metal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  padding-inline: 2rem;
+  border: 1px solid #2e2b27;
+  color: #ece6da;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
 
-  /* Metallic Finishes */
-  .finish-titanium {
-    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 45%, #f1f5f9 70%, #94a3b8 100%);
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.8), inset 0 0 2px rgba(0, 0, 0, 0.2);
-    color: #0f172a;
-  }
+.btn-ghost-metal:hover {
+  border-color: #c9a35c;
+  background: rgba(201, 163, 92, 0.06);
+}
 
-  .finish-brass {
-    background: linear-gradient(135deg, #f59e0b 0%, #b45309 45%, #fef3c7 75%, #78350f 100%);
-    box-shadow: inset 0 0 25px rgba(255, 245, 180, 0.5), inset 0 0 2px rgba(255, 245, 180, 0.8);
-    color: #1c1917;
-  }
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
 
-  .finish-platinum {
-    background: linear-gradient(130deg, #ffffff 0%, #e2e8f0 40%, #ffffff 70%, #cbd5e1 100%);
-    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.9), inset 0 0 1px rgba(0, 0, 0, 0.15);
-    color: #0f172a;
-  }
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
 
-  /* Metallic Sheen CTA Buttons */
-  .btn-metallic-champagne {
-    background: linear-gradient(135deg, #d97706 0%, #f59e0b 45%, #b45309 100%);
-    background-size: 200% 200%;
-    box-shadow: 0 4px 12px -2px rgba(217, 119, 6, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+.animate-accordion-down {
+  animation: accordion-down 0.22s ease-out;
+}
 
-  .btn-metallic-champagne:hover {
-    background-position: 100% 0;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -3px rgba(217, 119, 6, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  }
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
 }

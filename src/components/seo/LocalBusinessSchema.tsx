@@ -3,23 +3,23 @@
 export const LocalBusinessSchema = () => {
     const schema = {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "VERAL Torna & Teneke Ticaret - İzmir Dosya Teli, Takvim Tenekesi & Metal Poster İmalatı",
-        "alternateName": "Veral Teneke",
+        "@type": ["LocalBusiness", "Manufacturer"],
+        "name": "Veral Torna & Teneke Ticaret",
+        "alternateName": ["Veral Teneke", "Veral Alsancak"],
         "image": [
-            "https://veralteneketicaret.com/veral-logo.webp",
-            "https://veralteneketicaret.com/og-image.jpg"
+            "https://veralteneketicaret.com/veral-logo.png",
+            "https://veralteneketicaret.com/images/services/giyotin-kesim.webp"
         ],
-        "description": "VERAL Torna & Teneke Ticaret, Türkiye'nin lider toptan dosya teli üreticisi ve takvim tenekesi imalatçısıdır. İzmir Alsancak merkezli tesisimizde ayrıca UV baskılı teneke posterler, mıknatıslı magnet ve tef zili üretimi yapmaktayız. 40 yılı aşkın tecrübe ile en uygun fiyatlı toptan metal imalat çözümleri sunuyoruz.",
+        "description": "İzmir Alsancak merkezli toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster imalatçısı.",
         "url": "https://veralteneketicaret.com",
-        "telephone": "+905071651315",
-        "email": "info@veralteneketicaret.com",
+        "telephone": "+905323794003",
+        "email": "veraltornatic@hotmail.com",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "1512 Sk. No: 42/1 Alsancak Mahallesi",
-            "addressLocality": "Konak",
+            "streetAddress": "1471 Sokak No:12/A",
+            "addressLocality": "Alsancak / Konak",
             "addressRegion": "İzmir",
-            "postalCode": "35210",
+            "postalCode": "35220",
             "addressCountry": "TR"
         },
         "geo": {
@@ -42,17 +42,49 @@ export const LocalBusinessSchema = () => {
         },
         "priceRange": "₺₺",
         "currenciesAccepted": "TRY",
-        "paymentAccepted": "Teklif, WhatsApp, Bank Transfer, Cash",
-        "areaServed": {
-            "@type": "Country",
-            "name": "Türkiye"
-        },
-        "hasMap": "https://maps.app.goo.gl/hfzcSVtSP91xS5P47",
-        "sameAs": [
-            "https://www.instagram.com/veralticaret",
-            "https://www.facebook.com/veral"
+        "paymentAccepted": "Bank Transfer, Cash",
+        "areaServed": [
+            { "@type": "City", "name": "İzmir" },
+            { "@type": "AdministrativeArea", "name": "Ege Bölgesi" },
+            { "@type": "Country", "name": "Türkiye" }
         ],
-        "keywords": "toptan dosya teli, takvim tenekesi, dosya teli üreticisi, takvim tenekesi imalatı, uv baskılı teneke posterler, metal poster imalatı, tef zili izmir, mıknatıslı magnet toptan, izmir takvim tenekesi yapanlar, ucuz dosya teli fiyatları"
+        "hasMap": "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
+        "sameAs": [
+            "https://www.instagram.com/veralticaret"
+        ],
+        "knowsAbout": [
+            "dosya teli imalatı",
+            "takvim tenekesi üretimi",
+            "giyotin sac kesim",
+            "UV metal poster",
+            "İzmir Alsancak metal imalat"
+        ],
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Toptan dosya teli imalatı",
+                    "areaServed": "Türkiye"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Takvim tenekesi üretimi",
+                    "areaServed": "Türkiye"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "UV baskılı metal poster imalatı",
+                    "areaServed": "Türkiye"
+                }
+            }
+        ]
     };
 
     return (

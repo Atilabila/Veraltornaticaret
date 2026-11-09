@@ -99,7 +99,7 @@ export default function OguzcanVeralProfilePage() {
     ];
 
     return (
-        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+        <main className="min-h-screen bg-atl-bg text-atl-text">
             {/* Person Schema.org Structured Data */}
             <script
                 type="application/ld+json"
@@ -114,11 +114,11 @@ export default function OguzcanVeralProfilePage() {
 
             {/* Author Profile Header */}
             <section className="container mx-auto px-4 sm:px-6 lg:px-12 py-10">
-                <div className="rounded-3xl border border-zinc-200 bg-white p-8 md:p-14 shadow-lg relative overflow-hidden">
+                <div className="rounded-3xl border border-atl-line bg-atl-surface p-8 md:p-14 shadow-lg relative overflow-hidden">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                         {/* Avatar / Portrait */}
                         <div className="lg:col-span-4 flex flex-col items-center sm:items-start">
-                            <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-2xl overflow-hidden border-2 border-amber-600/30 bg-zinc-100 shadow-md">
+                            <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-2xl overflow-hidden border-2 border-atl-brass/30 bg-atl-surface-2 shadow-md">
                                 <Image
                                     src="/hero-izmir-metal-poster.jpg"
                                     alt="Oğuzcan Veral - İmalat Direktörü"
@@ -126,44 +126,28 @@ export default function OguzcanVeralProfilePage() {
                                     className="object-cover"
                                 />
                             </div>
-                            <div className="mt-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 text-amber-800 border border-amber-600/20 text-xs font-mono font-semibold">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-amber-700" /> Doğrulanmış İmalatçı & Editör
+                            <div className="mt-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-atl-brass-tint text-atl-brass border border-atl-brass/20 text-xs font-mono font-semibold">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-atl-brass" /> Doğrulanmış İmalatçı & Editör
                             </div>
                         </div>
 
                         {/* Bio Details */}
                         <div className="lg:col-span-8 space-y-5">
                             <div>
-                                <span className="text-xs font-mono font-bold tracking-widest text-amber-700 uppercase block mb-1">
+                                <span className="text-xs font-mono font-bold tracking-widest text-atl-brass uppercase block mb-1">
                                     VERAL TİCARET // TEKNİK EDİTÖR
                                 </span>
-                                <h1 className="text-3xl sm:text-5xl font-black text-zinc-900 tracking-tight">
+                                <h1 className="text-3xl sm:text-5xl font-display text-atl-text tracking-tight">
                                     Oğuzcan Veral
                                 </h1>
-                                <p className="text-sm sm:text-base text-zinc-600 font-medium mt-1">
+                                <p className="text-sm sm:text-base text-atl-muted font-medium mt-1">
                                     İmalat Direktörü • 2. Kuşak Metal Zanaatı & Seri Üretim Yönetimi
                                 </p>
                             </div>
 
-                            <p className="text-sm sm:text-base text-zinc-700 leading-relaxed">
-                                İzmir Alsancak Sanayi Sitesi'ndeki 1471 Sokak atölyemizde 1980 yılından bu yana süregelen torna, pres ve metal levha işleme kültürünü modern UV kürleme teknolojileriyle birleştiren Oğuzcan Veral; toptan dosya teli, takvim tenekesi ve mıknatıslı metal poster üretim hatlarının kalite kontrol ve teknik şartname süreçlerini yönetmektedir.
+                            <p className="text-sm sm:text-base text-atl-muted leading-relaxed">
+                                İzmir Alsancak Sanayi Sitesi'ndeki 1471 Sokak atölyemizde süregelen torna, pres ve metal levha işleme kültürünü modern UV kürleme teknolojileriyle birleştiren Oğuzcan Veral; toptan dosya teli, takvim tenekesi ve mıknatıslı metal poster üretim hatlarının kalite kontrol ve teknik şartname süreçlerini yönetmektedir.
                             </p>
-
-                            {/* Experience Metrics */}
-                            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-zinc-200">
-                                <div>
-                                    <span className="block text-2xl font-black font-mono text-zinc-900">1980</span>
-                                    <span className="text-xs text-zinc-500 font-medium">Aile İmalat Geleneği</span>
-                                </div>
-                                <div>
-                                    <span className="block text-2xl font-black font-mono text-zinc-900">35.000+</span>
-                                    <span className="text-xs text-zinc-500 font-medium">Tamamlanan Sevkiyat</span>
-                                </div>
-                                <div>
-                                    <span className="block text-2xl font-black font-mono text-zinc-900">%98.7</span>
-                                    <span className="text-xs text-zinc-500 font-medium">Tolerans Memnuniyeti</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -172,10 +156,10 @@ export default function OguzcanVeralProfilePage() {
             {/* Published Technical Articles */}
             <section className="container mx-auto px-4 sm:px-6 lg:px-12 py-12">
                 <div className="mb-8">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-700 block mb-1">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-atl-brass block mb-1">
                         TEKNİK ARŞİV
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-black text-zinc-900">
+                    <h2 className="text-2xl sm:text-3xl font-display text-atl-text">
                         Oğuzcan Veral Tarafından Hazırlanan Teknik İncelemeler
                     </h2>
                 </div>
@@ -185,22 +169,22 @@ export default function OguzcanVeralProfilePage() {
                         <Link
                             key={art.slug}
                             href={`/blog/${art.slug}`}
-                            className="p-6 rounded-2xl border border-zinc-200 bg-white hover:border-amber-600/60 hover:shadow-lg transition-all flex flex-col justify-between group"
+                            className="p-6 rounded-2xl border border-atl-line bg-atl-surface hover:border-atl-brass/60 hover:shadow-lg transition-all flex flex-col justify-between group"
                         >
                             <div>
-                                <div className="flex items-center gap-3 text-xs text-zinc-500 font-mono mb-3">
+                                <div className="flex items-center gap-3 text-xs text-atl-muted font-mono mb-3">
                                     <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> {art.date}</span>
                                     <span>•</span>
                                     <span>{art.readTime} okuma</span>
                                 </div>
-                                <h3 className="text-lg font-bold text-zinc-900 group-hover:text-amber-700 transition-colors leading-snug mb-2">
+                                <h3 className="text-lg font-bold text-atl-text group-hover:text-atl-brass transition-colors leading-snug mb-2">
                                     {art.title}
                                 </h3>
-                                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                                <p className="text-xs sm:text-sm text-atl-muted leading-relaxed">
                                     {art.desc}
                                 </p>
                             </div>
-                            <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-amber-700">
+                            <div className="mt-4 pt-4 border-t border-atl-line flex items-center justify-between text-xs font-bold text-atl-brass">
                                 <span>İncelemeyi Oku</span>
                                 <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                             </div>
