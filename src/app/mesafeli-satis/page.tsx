@@ -1,12 +1,18 @@
-﻿import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+import type { Metadata } from "next";
+import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Mesafeli Satış Sözleşmesi",
+  alternates: { canonical: "https://veralteneketicaret.com/mesafeli-satis" },
+};
 
 export default function MesafeliSatisPage() {
   return (
-    <LegalPageLayout title="Mesafeli Satış Sözleşmesi" eyebrow="Tüketici hakları" updatedAt="[GG.AA.YYYY]">
+    <LegalPageLayout title="Mesafeli Satış Sözleşmesi" eyebrow="Tüketici hakları" updatedAt="16.11.2026">
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-atl-text">1. Taraflar</h2>
         <p>
-          Satıcı: <strong>[Şirket unvanı]</strong> — MERSİS: [MERSİS no] — Adres: [Şirket adresi] — İletişim: [E-posta] / [Telefon]
+          Satıcı: <strong>Veral Torna &amp; Teneke Ticaret</strong> — Adres: 1471 Sokak No:12/A, Alsancak / İzmir — İletişim: veraltornatic@hotmail.com / 0507 165 13 15. Vergi kimliği fatura üzerinde yazılıdır.
         </p>
         <p>Alıcı: Site üzerinden alışveriş yapan gerçek veya tüzel kişi.</p>
       </section>
@@ -14,7 +20,7 @@ export default function MesafeliSatisPage() {
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-atl-text">2. Konu</h2>
         <p>
-          İşbu sözleşme, <strong>[Alan adı]</strong> üzerinden sunulan ürün ve hizmetlerin elektronik ortamda
+          İşbu sözleşme, <strong>veralteneketicaret.com</strong> üzerinden sunulan ürün ve hizmetlerin elektronik ortamda
           sipariş edilmesi ve teslimine ilişkin usul ve esasları düzenler.
         </p>
       </section>
@@ -29,7 +35,7 @@ export default function MesafeliSatisPage() {
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-atl-text">4. Uyuşmazlık</h2>
         <p>
-          Uyuşmazlıklarda <strong>[Şehir]</strong> Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir.
+          Uyuşmazlıklarda <strong>İzmir</strong> Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir.
         </p>
       </section>
     </LegalPageLayout>

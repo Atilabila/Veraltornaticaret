@@ -5,17 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
-import { SERVICE_IMAGES, serviceImageAlt } from "@/lib/service-stock-images";
-
-const ROTATOR = [
-    "İzmir dosya teli imalatı",
-    "Takvim tenekesi üretimi",
-    "Giyotin sac kesim",
-    "UV metal poster baskı",
-];
+import { SERVICE_IMAGES, serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
+import { SEARCHED_SERVICES } from "@/lib/production-lines";
+import { ImageLightbox } from "@/components/media/ImageLightbox";
 
 const HERO_SLIDES = [
-    { src: SERVICE_IMAGES.giyotinCut, caption: "Giyotin sac kesim" },
     { src: SERVICE_IMAGES.dosyaTeli, caption: "Dosya teli imalatı" },
     { src: SERVICE_IMAGES.takvimTeneke, caption: "Takvim tenekesi" },
     { src: SERVICE_IMAGES.takvimTenekeSade, caption: "Takvim tenekesi seri" },
@@ -39,7 +33,7 @@ export function AtolyeHero() {
     useEffect(() => {
         if (reduceMotion) return;
         const textId = window.setInterval(() => {
-            setTextIndex((current) => (current + 1) % ROTATOR.length);
+            setTextIndex((current) => (current + 1) % SEARCHED_SERVICES.length);
         }, 2800);
         const slideId = window.setInterval(() => {
             setSlideIndex((current) => (current + 1) % HERO_SLIDES.length);
@@ -51,6 +45,7 @@ export function AtolyeHero() {
     }, [reduceMotion]);
 
     const activeSlide = HERO_SLIDES[slideIndex];
+    const marqueeItems = [...SEARCHED_SERVICES, ...SEARCHED_SERVICES];
 
     return (
         <section className="atl-grain relative overflow-hidden border-b border-atl-line">
@@ -61,16 +56,16 @@ export function AtolyeHero() {
 
             <div className="relative mx-auto grid max-w-[1400px] gap-5 px-4 pb-6 pt-20 sm:gap-8 sm:px-6 sm:pb-8 sm:pt-28 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-12 lg:pb-14 lg:pt-40">
                 <div className="order-2 lg:order-1 lg:col-span-6">
-                    <span className="atl-rise inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-atl-brass sm:text-[11px] sm:tracking-[0.32em]">
+                    <span className="atl-rise inline-flex items-center gap-3 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
                         <span className="h-px w-6 bg-atl-brass sm:w-8" aria-hidden />
                         İzmir Alsancak metal imalat
                     </span>
-                    <h1 className="atl-rise atl-rise-2 mt-3 font-display text-[2.15rem] leading-[1.05] text-atl-text sm:mt-5 sm:text-5xl xl:text-[4.75rem] xl:leading-[0.98]">
+                    <h1 className="atl-rise atl-rise-2 mt-3 font-display text-4xl text-atl-text sm:mt-5 sm:text-5xl xl:text-6xl">
                         İzmir&apos;de toptan{" "}
                         <em className="not-italic text-atl-brass-light">dosya teli</em>{" "}
                         ve teneke imalatı
                     </h1>
-                    <p className="atl-rise atl-rise-3 mt-3 max-w-xl text-[0.95rem] leading-relaxed text-atl-muted sm:mt-5 sm:text-lg">
+                    <p className="atl-rise atl-rise-3 mt-4 max-w-xl text-base leading-relaxed text-atl-muted sm:mt-5 sm:text-lg">
                         Veral Torna & Teneke Ticaret; Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, giyotin kesim ve UV baskılı metal levha üretimi yapar. Türkiye geneline toptan sevkiyat; ölçü veya numuneyle teklif alın.
                     </p>
                     <div className="atl-rise atl-rise-3 mt-5 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:gap-4">
@@ -81,58 +76,111 @@ export function AtolyeHero() {
                             Üretim hatlarını gör
                         </Link>
                     </div>
-                    <div className="atl-rise atl-rise-4 mt-5 flex min-h-[2.25rem] flex-wrap items-center gap-x-3 gap-y-1 border-t border-atl-line pt-4 sm:mt-8 sm:pt-5">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-atl-muted">Aranan hizmet</span>
-                        <span aria-hidden className="hidden text-atl-line sm:inline">|</span>
-                        {reduceMotion ? (
-                            <span className="font-display text-xl text-atl-brass-light sm:text-2xl">{ROTATOR[0]}</span>
-                        ) : (
-                            <AnimatePresence mode="wait">
-                                <m.span
-                                    key={ROTATOR[textIndex]}
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -8 }}
-                                    transition={{ duration: 0.28 }}
-                                    className="font-display text-xl text-atl-brass-light sm:text-2xl"
+
+                    {/* Mobile: fade rotator · Desktop: horizontal marquee */}
+                    <div className="atl-rise atl-rise-4 mt-5 border-t border-atl-line pt-4 sm:mt-8 sm:pt-5">
+                        <div className="flex min-h-[2.25rem] flex-wrap items-center gap-x-3 gap-y-1 lg:hidden">
+                            <span className="font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-muted">Aranan hizmet</span>
+                            <span aria-hidden className="hidden text-atl-line sm:inline">|</span>
+                            {reduceMotion ? (
+                                <Link
+                                    href={SEARCHED_SERVICES[0].href}
+                                    className="font-display text-xl text-atl-brass-light hover:text-atl-text sm:text-2xl"
                                 >
-                                    {ROTATOR[textIndex]}
-                                </m.span>
-                            </AnimatePresence>
-                        )}
+                                    {SEARCHED_SERVICES[0].label}
+                                </Link>
+                            ) : (
+                                <AnimatePresence mode="wait">
+                                    <m.span
+                                        key={SEARCHED_SERVICES[textIndex].label}
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -8 }}
+                                        transition={{ duration: 0.28 }}
+                                        className="font-display text-xl text-atl-brass-light sm:text-2xl"
+                                    >
+                                        <Link href={SEARCHED_SERVICES[textIndex].href} className="hover:text-atl-text">
+                                            {SEARCHED_SERVICES[textIndex].label}
+                                        </Link>
+                                    </m.span>
+                                </AnimatePresence>
+                            )}
+                        </div>
+
+                        <div className="hidden lg:block">
+                            <div className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-muted">
+                                Aranan hizmet
+                            </div>
+                            {reduceMotion ? (
+                                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                                    {SEARCHED_SERVICES.map((item) => (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className="font-display text-xl text-atl-brass-light transition-colors hover:text-atl-text"
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="atl-marquee overflow-hidden">
+                                    <div className="atl-marquee-track flex w-max items-center gap-10">
+                                        {marqueeItems.map((item, i) => (
+                                            <Link
+                                                key={`${item.href}-${i}`}
+                                                href={item.href}
+                                                className="shrink-0 font-display text-2xl text-atl-brass-light transition-colors hover:text-atl-text"
+                                            >
+                                                {item.label}
+                                                <span aria-hidden className="ml-10 text-atl-line">
+                                                    ·
+                                                </span>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 
                 <figure className="atl-rise atl-rise-2 relative order-1 lg:order-2 lg:col-span-6">
                     <div className="atl-vignette relative aspect-[16/10] overflow-hidden border border-atl-line bg-atl-surface sm:aspect-[4/3]">
-                        <AnimatePresence mode="wait">
-                            <m.div
-                                key={activeSlide.src}
-                                initial={reduceMotion ? false : { opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={reduceMotion ? undefined : { opacity: 0 }}
-                                transition={{ duration: 0.55 }}
-                                className="absolute inset-0"
-                            >
-                                <Image
-                                    src={activeSlide.src}
-                                    alt={serviceImageAlt(activeSlide.src, activeSlide.caption)}
-                                    fill
-                                    priority={slideIndex === 0}
-                                    sizes="(min-width: 1024px) 640px, 92vw"
-                                    className="object-cover"
-                                />
-                            </m.div>
-                        </AnimatePresence>
-                        <span aria-hidden className="absolute left-3 top-3 z-[2] h-5 w-5 border-l border-t border-atl-brass" />
-                        <span aria-hidden className="absolute right-3 top-3 z-[2] h-5 w-5 border-r border-t border-atl-brass" />
-                        <span aria-hidden className="absolute bottom-3 left-3 z-[2] h-5 w-5 border-b border-l border-atl-brass" />
-                        <span aria-hidden className="absolute bottom-3 right-3 z-[2] h-5 w-5 border-b border-r border-atl-brass" />
-                        <div className="absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-black/75 via-black/25 to-transparent p-3.5 sm:p-5">
-                            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-atl-brass-light">
+                        <ImageLightbox
+                            src={activeSlide.src}
+                            alt={serviceImageAlt(activeSlide.src, activeSlide.caption)}
+                            className="absolute inset-0 z-0 h-full"
+                        >
+                            <AnimatePresence mode="wait">
+                                <m.div
+                                    key={activeSlide.src}
+                                    initial={reduceMotion ? false : { opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={reduceMotion ? undefined : { opacity: 0 }}
+                                    transition={{ duration: 0.55 }}
+                                    className="absolute inset-0"
+                                >
+                                    <Image
+                                        src={activeSlide.src}
+                                        alt={serviceImageAlt(activeSlide.src, activeSlide.caption)}
+                                        fill
+                                        priority={slideIndex === 0}
+                                        sizes="(min-width: 1024px) 640px, 92vw"
+                                        className={serviceImageFit(activeSlide.src)}
+                                    />
+                                </m.div>
+                            </AnimatePresence>
+                        </ImageLightbox>
+                        <span aria-hidden className="pointer-events-none absolute left-3 top-3 z-[2] h-5 w-5 border-l border-t border-atl-brass" />
+                        <span aria-hidden className="pointer-events-none absolute right-3 top-3 z-[2] h-5 w-5 border-r border-t border-atl-brass" />
+                        <span aria-hidden className="pointer-events-none absolute bottom-3 left-3 z-[2] h-5 w-5 border-b border-l border-atl-brass" />
+                        <span aria-hidden className="pointer-events-none absolute bottom-3 right-3 z-[2] h-5 w-5 border-b border-r border-atl-brass" />
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-black/75 via-black/25 to-transparent p-3.5 sm:p-5">
+                            <p className="font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass-light">
                                 {activeSlide.caption}
                             </p>
-                            <div className="mt-2.5 flex gap-1.5" role="tablist" aria-label="Atölye görselleri">
+                            <div className="pointer-events-auto mt-2.5 flex gap-1.5" role="tablist" aria-label="Atölye görselleri">
                                 {HERO_SLIDES.map((slide, i) => (
                                     <button
                                         key={slide.src}
@@ -154,7 +202,7 @@ export function AtolyeHero() {
                 <dl className="mx-auto grid max-w-[1400px] grid-cols-2 divide-x divide-y divide-atl-line sm:grid-cols-4 sm:divide-y-0">
                     {STATS.map((stat) => (
                         <div key={stat.label} className="px-3.5 py-4 sm:px-6 sm:py-6 lg:px-12">
-                            <dt className="font-mono text-[9px] uppercase tracking-[0.18em] text-atl-muted sm:text-[10px]">{stat.label}</dt>
+                            <dt className="font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-muted">{stat.label}</dt>
                             <dd className="mt-1 font-display text-lg text-atl-text sm:mt-1.5 sm:text-xl md:text-2xl">{stat.value}</dd>
                         </div>
                     ))}

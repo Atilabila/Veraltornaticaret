@@ -4,34 +4,27 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, MessageCircle, X } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
-import { m, AnimatePresence } from "framer-motion";
 import { useAdminStore } from "@/store/useAdminStore";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
 import { cn } from "@/lib/utils";
 import { MobileNavSheet } from "@/components/layout/MobileNavSheet";
-
-const DOSYA_TELI_LINKS = [
-    { label: "Toptan Dosya Teli", href: "/hizmetler/dosya-teli" },
-    { label: "Takvim Tenekesi", href: "/hizmetler/takvim-tenekesi" },
-    { label: "Tef Zili", href: "/hizmetler/tef-zili" },
-];
-
-const NAV_LINKS = [
-    { label: "Üretim Hatları", href: "/hizmetler" },
-    { label: "Hakkımızda", href: "/hakkimizda" },
-    { label: "İletişim", href: "/iletisim" },
-];
+import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
+import {
+    COMPANY_LINKS,
+    headerCtaLabel,
+    PRODUCTION_LINES,
+    isNavHrefActive,
+} from "@/lib/production-lines";
+import { publicWhatsappNumber } from "@/lib/contact";
 
 export const Navigation = () => {
     const { content } = useContentStore();
     const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isDosyaOpen, setIsDosyaOpen] = useState(false);
     const menuButtonRef = useRef<HTMLButtonElement>(null);
-    const dosyaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const setAdmin = useAdminStore((state) => state.setAdmin);
     const isAdmin = useAdminStore((state) => state.isAdmin);
 
@@ -72,23 +65,19 @@ export const Navigation = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [isAdmin, setAdmin]);
 
-    const ctaText = content.headerConfig?.ctaText || "TEKLİF AL";
+    const ctaText = headerCtaLabel(content.headerConfig?.ctaText);
     const ctaLink = content.headerConfig?.ctaLink || "/teklif-al";
-    const whatsappNumber = (content.whatsappNumber || "905323794003").replace(/[^0-9]/g, "");
+    const whatsappNumber = publicWhatsappNumber(content.whatsappNumber);
     const whatsappHref = `https://wa.me/${whatsappNumber}`;
-    const isActive = (href: string) => pathname === href || (href !== "/hizmetler" && pathname?.startsWith(href));
-    const isDosyaActive = DOSYA_TELI_LINKS.some((item) => pathname?.startsWith(item.href));
-
-    const openDosya = () => {
-        if (dosyaCloseTimer.current) clearTimeout(dosyaCloseTimer.current);
-        setIsDosyaOpen(true);
-    };
-    const closeDosya = () => {
-        dosyaCloseTimer.current = setTimeout(() => setIsDosyaOpen(false), 120);
-    };
 
     return (
         <>
+            <a
+                href="#icerik"
+                className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:bg-atl-brass focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-atl-bg"
+            >
+                İçeriğe geç
+            </a>
             <header
                 className={cn(
                     "fixed top-0 z-[100] w-full border-b transition-colors duration-500",
@@ -97,83 +86,74 @@ export const Navigation = () => {
                 style={{ backgroundColor: isScrolled ? "rgba(18,17,16,0.95)" : "rgba(18,17,16,0.7)", color: "#ece6da" }}
             >
                 <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:gap-6 sm:px-6 sm:py-3 lg:px-12">
-                    <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3">
-                        <span className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full sm:h-11 sm:w-11 md:h-12 md:w-12">
+                    <Link href="/" className="group flex shrink-0 items-center gap-2.5 sm:gap-3">
+                        <span className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-full sm:h-14 sm:w-14">
                             <Image
                                 src="/veral-logo-nav.png"
                                 alt={content.siteName || "VERAL"}
                                 fill
-                                sizes="48px"
+                                sizes="56px"
                                 className="object-cover"
                                 priority
                                 unoptimized
                             />
                         </span>
-                        <div className="flex min-w-0 flex-col leading-none">
-                            <span className="truncate font-display text-lg tracking-wide text-atl-text transition-colors group-hover:text-atl-brass-light sm:text-xl md:text-2xl">
+                        <div className="flex flex-col leading-tight">
+                            <span className="font-display text-xl text-atl-text transition-colors group-hover:text-atl-brass-light sm:text-2xl">
                                 {content.siteName || "VERAL"}
                             </span>
-                            <span className="mt-0.5 hidden font-mono text-[8px] uppercase tracking-[0.3em] text-atl-muted sm:mt-1 sm:block md:text-[9px]">
-                                Torna & Teneke Ti̇caret
+                            <span className="mt-1 block whitespace-nowrap font-sans text-xs font-semibold tracking-normal text-[#ddd6c8]">
+                                Torna & Teneke Ticaret
                             </span>
                         </div>
                     </Link>
 
-                    <nav aria-label="Ana menü" className="hidden items-center gap-8 lg:flex">
-                        <div className="relative" onMouseEnter={openDosya} onMouseLeave={closeDosya}>
-                            <button
-                                type="button"
-                                aria-expanded={isDosyaOpen}
-                                aria-haspopup="true"
-                                onClick={() => setIsDosyaOpen((open) => !open)}
-                                className={cn(
-                                    "inline-flex items-center gap-1 text-sm font-medium transition-colors",
-                                    isDosyaActive || isDosyaOpen ? "text-atl-brass-light" : "text-atl-muted hover:text-atl-text"
-                                )}
-                            >
-                                Dosya Teli
-                                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isDosyaOpen && "rotate-180")} />
-                            </button>
-                            <AnimatePresence>
-                                {isDosyaOpen && (
-                                    <m.div
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: 6 }}
-                                        transition={{ duration: 0.15 }}
-                                        className="absolute left-0 top-full z-20 min-w-[240px] border border-atl-line bg-atl-surface py-2 shadow-lg"
-                                        onMouseEnter={openDosya}
-                                        onMouseLeave={closeDosya}
-                                    >
-                                        {DOSYA_TELI_LINKS.map((item) => (
-                                            <Link
-                                                key={item.href}
-                                                href={item.href}
-                                                onClick={() => setIsDosyaOpen(false)}
-                                                className={cn(
-                                                    "block px-4 py-2.5 text-sm transition-colors hover:bg-atl-surface-2 hover:text-atl-brass-light",
-                                                    isActive(item.href) ? "text-atl-brass-light" : "text-atl-text"
-                                                )}
-                                            >
-                                                {item.label}
-                                            </Link>
-                                        ))}
-                                    </m.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                        {NAV_LINKS.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                className={cn(
-                                    "text-sm font-medium transition-colors",
-                                    isActive(link.href) ? "text-atl-brass-light" : "text-atl-muted hover:text-atl-text"
-                                )}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
+                    <nav aria-label="Ana menü" className="hidden items-center gap-1 xl:gap-2 2xl:gap-3 lg:flex">
+                        {PRODUCTION_LINES.map((link) => {
+                            const active = isNavHrefActive(pathname, link.href);
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className={cn(
+                                        "relative inline-flex min-h-11 items-center px-1.5 font-sans text-sm font-semibold tracking-tight transition-colors xl:px-2",
+                                        active ? "text-atl-brass-light" : "text-atl-muted hover:text-atl-text"
+                                    )}
+                                >
+                                    {link.label}
+                                    <span
+                                        aria-hidden
+                                        className={cn(
+                                            "absolute inset-x-1.5 -bottom-0.5 h-px bg-atl-brass transition-opacity",
+                                            active ? "opacity-100" : "opacity-0"
+                                        )}
+                                    />
+                                </Link>
+                            );
+                        })}
+                        <span aria-hidden className="mx-1 h-4 w-px bg-atl-line" />
+                        {COMPANY_LINKS.map((link) => {
+                            const active = isNavHrefActive(pathname, link.href);
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className={cn(
+                                        "relative inline-flex min-h-11 items-center px-1.5 font-sans text-sm font-semibold tracking-tight transition-colors xl:px-2",
+                                        active ? "text-atl-brass-light" : "text-atl-muted hover:text-atl-text"
+                                    )}
+                                >
+                                    {link.label}
+                                    <span
+                                        aria-hidden
+                                        className={cn(
+                                            "absolute inset-x-1.5 -bottom-0.5 h-px bg-atl-brass transition-opacity",
+                                            active ? "opacity-100" : "opacity-0"
+                                        )}
+                                    />
+                                </Link>
+                            );
+                        })}
                     </nav>
 
                     <div className="flex items-center gap-1.5 sm:gap-3">
@@ -181,14 +161,14 @@ export const Navigation = () => {
                             href={whatsappHref}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hidden h-10 items-center gap-2 border border-atl-line px-4 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-atl-text transition-colors hover:border-atl-brass hover:text-atl-brass-light md:inline-flex"
+                            className="hidden h-11 items-center gap-2 border border-atl-line px-4 font-sans text-sm font-semibold tracking-normal text-atl-text transition-colors hover:border-atl-brass hover:text-atl-brass-light md:inline-flex"
                         >
                             <MessageCircle className="h-3.5 w-3.5" />
                             WhatsApp
                         </a>
                         <Link
                             href={ctaLink}
-                            className="hidden h-10 items-center bg-atl-brass px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-atl-bg transition-colors hover:bg-atl-brass-light lg:inline-flex"
+                            className="hidden h-11 items-center bg-atl-brass px-5 font-sans text-sm font-semibold tracking-normal text-atl-bg transition-colors hover:bg-atl-brass-light lg:inline-flex"
                         >
                             {ctaText}
                         </Link>
@@ -209,12 +189,13 @@ export const Navigation = () => {
             <MobileNavSheet
                 open={isMobileMenuOpen}
                 onOpenChange={setIsMobileMenuOpen}
-                dosyaLinks={DOSYA_TELI_LINKS}
-                navLinks={NAV_LINKS}
+                productionLinks={PRODUCTION_LINES}
+                companyLinks={COMPANY_LINKS}
                 whatsappHref={whatsappHref}
                 ctaText={ctaText}
                 ctaLink={ctaLink}
             />
+            {!isMobileMenuOpen && <MobileStickyBar />}
         </>
     );
 };

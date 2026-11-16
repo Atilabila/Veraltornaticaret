@@ -23,6 +23,7 @@ export function PageShell({
         <>
             <Navigation />
             <main
+                id="icerik"
                 className={cn(
                     "min-h-screen text-atl-text selection:bg-atl-brass selection:text-atl-bg",
                     variant === "light" ? "bg-atl-bg" : "atl-grain bg-atl-bg",

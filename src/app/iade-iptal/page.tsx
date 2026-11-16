@@ -1,8 +1,14 @@
-﻿import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+﻿import type { Metadata } from "next";
+import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "İptal ve İade Koşulları",
+  alternates: { canonical: "https://veralteneketicaret.com/iade-iptal" },
+};
 
 export default function IadeIptalPage() {
   return (
-    <LegalPageLayout title="İptal ve İade Koşulları" eyebrow="Tüketici hakları" updatedAt="[GG.AA.YYYY]">
+    <LegalPageLayout title="İptal ve İade Koşulları" eyebrow="Tüketici hakları" updatedAt="16.11.2026">
       <section className="space-y-2">
         <h2 className="text-lg font-bold text-atl-text">1. Cayma hakkı</h2>
         <p>Teslimden itibaren 14 gün içinde cayma hakkı kullanılabilir. Ürün kullanılmamış ve yeniden satılabilir olmalıdır.</p>
@@ -16,7 +22,7 @@ export default function IadeIptalPage() {
       </section>
       <section className="space-y-2">
         <h2 className="text-lg font-bold text-atl-text">3. İade süreci</h2>
-        <p>İade talebi: [Destek e-posta]. Onay sonrası ürün kontrol edilir; uygunsa en geç 14 gün içinde iade yapılır.</p>
+        <p>İade talebi: veraltornatic@hotmail.com. Onay sonrası ürün kontrol edilir; uygunsa en geç 14 gün içinde iade yapılır.</p>
       </section>
     </LegalPageLayout>
   );

@@ -12,20 +12,11 @@ export const DynamicMetadata = () => {
     useEffect(() => {
         if (!content) return;
 
-        // Find page settings for current path
-        const pageConfig = content.pageSettings?.find(p => p.path === pathname) ||
-            content.pageSettings?.find(p => p.path !== '/' && pathname?.startsWith(p.path));
+        const pageConfig = content.pageSettings?.find(p => p.path === pathname);
 
-        // Default Title / Description
-        const defaultTitle = `${content.siteName || 'VERAL'} | Toptan Dosya Teli İmalatı, Takvim Tenekesi ve Metal Poster`;
-        const defaultDesc = `VERAL — İmalatçıdan halka. Toptan dosya teli üretimi, takvim tenekesi imalatı; metal poster üçüncü hat. İzmir merkezli endüstriyel metal çözümler.`;
-
-        // Effective Title / Description
-        const title = pageConfig?.seoTitle || defaultTitle;
-        const description = pageConfig?.seoDescription || defaultDesc;
-
-        // Update Document Title
-        document.title = title;
+        if (pageConfig?.seoTitle) {
+            document.title = pageConfig.seoTitle;
+        }
 
         // Update Canonical
         let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -50,23 +41,25 @@ export const DynamicMetadata = () => {
 
         canonicalLink.setAttribute('href', finalUrl);
 
-        // Update Meta Meta Description
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (!metaDesc) {
-            metaDesc = document.createElement('meta');
-            metaDesc.setAttribute('name', 'description');
-            document.head.appendChild(metaDesc);
+        if (pageConfig?.seoDescription) {
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (!metaDesc) {
+                metaDesc = document.createElement('meta');
+                metaDesc.setAttribute('name', 'description');
+                document.head.appendChild(metaDesc);
+            }
+            metaDesc.setAttribute('content', pageConfig.seoDescription);
         }
-        metaDesc.setAttribute('content', description);
 
-        // Update OpenGraph Title
-        let ogTitle = document.querySelector('meta[property="og:title"]');
-        if (!ogTitle) {
-            ogTitle = document.createElement('meta');
-            ogTitle.setAttribute('property', 'og:title');
-            document.head.appendChild(ogTitle);
+        if (pageConfig?.seoTitle) {
+            let ogTitle = document.querySelector('meta[property="og:title"]');
+            if (!ogTitle) {
+                ogTitle = document.createElement('meta');
+                ogTitle.setAttribute('property', 'og:title');
+                document.head.appendChild(ogTitle);
+            }
+            ogTitle.setAttribute('content', pageConfig.seoTitle);
         }
-        ogTitle.setAttribute('content', title);
 
         // Ensure GEO Meta tags are present (GEO focus: İzmir / Alsancak)
         const geoTags = [
@@ -86,7 +79,7 @@ export const DynamicMetadata = () => {
             meta.setAttribute('content', tag.content);
         });
 
-    }, [pathname, content])
+    }, [pathname, searchParams, content])
 
     return null; // This component doesn't render anything
 }

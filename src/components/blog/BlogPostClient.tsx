@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft, Calendar, Clock, Tag, Share2, ChevronRight, ArrowRight, ShieldCheck, Phone } from "lucide-react";
+import { Calendar, Clock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import Link from "next/link";
 import Image from "next/image";
 import { AuthorCard } from "./AuthorCard";
@@ -21,14 +22,14 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
     return (
         <article className="bg-atl-bg text-atl-text">
             <div className="pt-28 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
-            {/* BREADCRUMB */}
-            <nav className="flex items-center gap-2 text-xs font-mono text-atl-muted mb-8 uppercase flex-wrap">
-                <Link href="/" className="hover:text-atl-brass transition-colors">Ana Sayfa</Link>
-                <ChevronRight className="w-3.5 h-3.5 text-atl-muted" />
-                <Link href="/blog" className="hover:text-atl-brass transition-colors">Teknik Raporlar & Blog</Link>
-                <ChevronRight className="w-3.5 h-3.5 text-atl-muted" />
-                <span className="text-atl-brass font-bold">{post.category}</span>
-            </nav>
+            <Breadcrumb
+                className="mb-8 mt-0"
+                items={[
+                    { name: "Ana Sayfa", url: "/" },
+                    { name: "Blog", url: "/blog" },
+                    { name: post.title, url: `/blog/${slug}` },
+                ]}
+            />
 
             <div className="grid lg:grid-cols-12 gap-10 items-start">
                 {/* SIDEBAR METADATA */}
@@ -78,7 +79,7 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
 
                         {/* WORKSHOP RFQ CALLOUT */}
                         <div className="p-5 rounded-2xl bg-atl-brass-tint/60 border border-atl-brass/20 space-y-3">
-                            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-atl-brass flex items-center gap-1.5">
+                            <span className="flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
                                 <ShieldCheck className="w-4 h-4 text-atl-brass" /> DOĞRUDAN İMALAT DESTEĞİ
                             </span>
                             <p className="text-xs text-atl-muted leading-relaxed font-normal">
@@ -86,7 +87,7 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
                             </p>
                             <Link
                                 href="/teklif-al"
-                                className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-xs uppercase tracking-wider transition-colors shadow-sm"
+                                className="inline-flex h-12 items-center justify-center gap-2 w-full rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-sm transition-colors shadow-sm"
                             >
                                 <span>Hızlı Teklif Al</span>
                                 <ArrowRight className="w-3.5 h-3.5" />

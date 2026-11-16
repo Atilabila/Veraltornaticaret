@@ -9,7 +9,7 @@ import { ArrowRight, HelpCircle, Phone, Sparkles } from "lucide-react";
 import { SssAccordion } from "@/components/atolye/SssAccordion";
 
 export const metadata: Metadata = {
-    title: "Sıkça Sorulan Sorular (SSS) | Metal İmalat & Toptan Dosya Teli | Veral Ticaret",
+    title: "Sıkça Sorulan Sorular",
     description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve 4K UV mıknatıslı metal poster imalatı hakkında merak edilen tüm teknik ve ticari sorular: MOQ, termin süreleri, DIN EN 10202 hammadde normları.",
     alternates: {
         canonical: "https://veralteneketicaret.com/sss",
@@ -71,7 +71,7 @@ export default function SSSPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-atl-bg text-atl-text">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             <FAQSchema items={faqData} />
             <Navigation />
 
@@ -99,8 +99,8 @@ export default function SSSPage() {
                 {/* CALL TO ACTION BOX */}
                 <div className="rounded-3xl border border-atl-line bg-atl-surface p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
                     <div className="space-y-2 text-center md:text-left">
-                        <span className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider block">
-                            DOĞRUDAN USTA DESTEĞİ
+                        <span className="block font-sans text-xs font-semibold tracking-normal text-atl-brass">
+                            Doğrudan usta desteği
                         </span>
                         <h2 className="text-xl md:text-2xl font-display text-atl-text flex items-center gap-2 justify-center md:justify-start">
                             <Sparkles className="w-5 h-5 text-atl-brass" /> Başka bir sorunuz veya özel şartnameniz mi var?
@@ -112,16 +112,16 @@ export default function SSSPage() {
                     <div className="flex flex-wrap items-center gap-3">
                         <Link
                             href="/teklif-al"
-                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-xs uppercase tracking-wider shadow-sm transition-all hover:scale-105"
+                            className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-atl-brass px-6 font-sans text-sm font-semibold tracking-normal text-atl-bg shadow-sm transition-colors hover:bg-atl-brass-light"
                         >
                             <span>Hızlı Teklif Al</span>
                             <ArrowRight className="w-4 h-4" />
                         </Link>
                         <a
-                            href="https://wa.me/905323794003"
+                            href="https://wa.me/905071651315"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-atl-line hover:bg-atl-surface-2 text-atl-text font-semibold text-xs transition-colors"
+                            className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-atl-line px-5 font-sans text-sm font-semibold tracking-normal text-atl-text transition-colors hover:bg-atl-surface-2"
                         >
                             <Phone className="w-4 h-4 text-emerald-600" />
                             <span>WhatsApp Usta Hattı</span>

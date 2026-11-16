@@ -8,7 +8,7 @@ import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { Award, Hammer, ShieldCheck, Mail, Phone, Calendar, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-    title: "Oğuzcan Veral | Metal Zanaatı ve Endüstriyel İmalat Direktörü | Veral Ticaret",
+    title: "Oğuzcan Veral",
     description: "Veral Ticaret İmalat Direktörü ve Teknik Editörü Oğuzcan Veral'ın biyografisi, endüstriyel metal işleme deneyimi, kalite standartları ve İzmir Alsancak atölye birikimi.",
     alternates: {
         canonical: "https://veralteneketicaret.com/yazar/oguzcan-veral",
@@ -99,7 +99,7 @@ export default function OguzcanVeralProfilePage() {
     ];
 
     return (
-        <main className="min-h-screen bg-atl-bg text-atl-text">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             {/* Person Schema.org Structured Data */}
             <script
                 type="application/ld+json"

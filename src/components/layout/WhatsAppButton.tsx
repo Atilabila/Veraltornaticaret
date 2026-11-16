@@ -2,13 +2,14 @@
 
 import { MessageCircle } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
+import { publicWhatsappNumber } from "@/lib/contact";
 
 /** Masaüstünde floating; mobilde sticky bar’da WhatsApp var */
 export const WhatsAppButton = () => {
     const { content } = useContentStore();
 
     const handleClick = () => {
-        const phoneNumber = (content.whatsappNumber || "905323794003").replace(/[^0-9]/g, "");
+        const phoneNumber = publicWhatsappNumber(content.whatsappNumber);
         const message = encodeURIComponent(
             content.whatsappMessage || "Merhaba, hizmetleriniz hakkında detaylı bilgi almak istiyorum."
         );
@@ -40,6 +41,9 @@ export const WhatsAppButton = () => {
                     background-color: #25D366;
                     animation: soft-pulse 3s infinite;
                     pointer-events: none;
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .whatsapp-pulse { animation: none; }
                 }
             `,
                 }}

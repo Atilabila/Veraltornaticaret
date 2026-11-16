@@ -7,6 +7,7 @@ import { CheckCircle, MessageSquare, Phone, ArrowRight } from 'lucide-react';
 import { PageShell } from '@/components/layout/PageShell';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { useContentStore } from '@/store/useContentStore';
+import { publicPhone, publicWhatsappNumber, toTelHref } from '@/lib/contact';
 
 function TeklifBasariliContent() {
     const searchParams = useSearchParams();
@@ -22,8 +23,8 @@ function TeklifBasariliContent() {
         else if (upload === 'fail') setUploadStatus('fail');
     }, [searchParams]);
 
-    const phone = (content.footerPhone || '+905071651315').replace(/\s/g, '');
-    const whatsapp = content.whatsappNumber || '905071651315';
+    const phone = toTelHref(publicPhone(content.footerPhone));
+    const whatsapp = publicWhatsappNumber(content.whatsappNumber);
 
     return (
         <PageContainer className="max-w-2xl">
@@ -72,7 +73,7 @@ function TeklifBasariliContent() {
                     <MessageSquare className="w-4 h-4" /> WhatsApp
                 </a>
                 <a
-                    href={`tel:${phone}`}
+                    href={phone}
                     className="flex items-center justify-center gap-2 h-12 border border-atl-line bg-atl-surface hover:border-[var(--color-brand-accent)] text-sm font-semibold transition-colors"
                 >
                     <Phone className="w-4 h-4" /> Telefon
@@ -80,7 +81,7 @@ function TeklifBasariliContent() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/#hizmetler" className="flex-1 text-center h-12 flex items-center justify-center border border-atl-line text-sm font-semibold hover:border-[var(--color-brand-accent)] transition-colors">
+                <Link href="/hizmetler" className="flex-1 text-center h-12 flex items-center justify-center border border-atl-line text-sm font-semibold hover:border-[var(--color-brand-accent)] transition-colors">
                     Hizmetler
                 </Link>
                 <Link href="/" className="flex-1 text-center h-12 flex items-center justify-center gap-2 bg-[var(--color-brand-accent)] text-atl-bg text-sm font-semibold hover:bg-atl-brass-light transition-colors">

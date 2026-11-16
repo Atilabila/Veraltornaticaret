@@ -21,7 +21,7 @@ export function EmptyState({
             <div className="mb-4 rounded-full bg-atl-line p-3 text-atl-muted">
                 {icon || <AlertCircle className="h-7 w-7" />}
             </div>
-            <h3 className="mb-1.5 text-lg font-bold uppercase tracking-tight text-atl-text sm:text-xl">
+            <h3 className="mb-1.5 font-display text-xl text-atl-text sm:text-2xl">
                 {title}
             </h3>
             {description && (
@@ -32,7 +32,7 @@ export function EmptyState({
             {actionLabel && actionHref && (
                 <Link
                     href={actionHref}
-                    className="inline-flex min-h-11 items-center gap-2 bg-atl-brass px-6 text-xs font-bold uppercase tracking-wider text-atl-bg transition-colors hover:bg-atl-brass-light"
+                    className="inline-flex min-h-12 items-center gap-2 bg-atl-brass px-6 font-sans text-sm font-semibold tracking-normal text-atl-bg transition-colors hover:bg-atl-brass-light"
                 >
                     {actionLabel} <ArrowRight className="h-4 w-4" />
                 </Link>

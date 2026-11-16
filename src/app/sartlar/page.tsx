@@ -1,4 +1,10 @@
-﻿import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+﻿import type { Metadata } from "next";
+import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+
+export const metadata: Metadata = {
+    title: "Kullanım Şartları",
+    alternates: { canonical: "https://veralteneketicaret.com/sartlar" },
+};
 
 export default function SartlarPage() {
     return (
@@ -6,7 +12,7 @@ export default function SartlarPage() {
             <section className="space-y-3">
                 <h2 className="text-lg font-bold text-atl-text">1. Taraflar ve kabul</h2>
                 <p>
-                    İşbu Kullanım Şartları, <strong>[Şirket unvanı]</strong> tarafından işletilen web sitesi ve e-ticaret
+                    İşbu Kullanım Şartları, <strong>Veral Torna &amp; Teneke Ticaret</strong> tarafından işletilen web sitesi ve e-ticaret
                     platformunun kullanımına ilişkin kuralları belirler. Siteyi kullanan herkes bu şartları kabul etmiş sayılır.
                 </p>
             </section>
@@ -43,7 +49,7 @@ export default function SartlarPage() {
             <section className="space-y-3">
                 <h2 className="text-lg font-bold text-atl-text">6. Uyuşmazlık</h2>
                 <p>
-                    İhtilaflarda <strong>[Şehir]</strong> mahkemeleri yetkilidir. Destek: <strong>[Destek e-posta]</strong>
+                    İhtilaflarda <strong>İzmir</strong> mahkemeleri yetkilidir. Destek: <strong>veraltornatic@hotmail.com</strong>
                 </p>
             </section>
 

@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
-import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { AtolyeHero } from "@/components/atolye/AtolyeHero";
 import { ProductGroupsSection } from "@/components/atolye/ProductGroupsSection";
@@ -69,7 +68,7 @@ const homeFaqs = [
 
 export default function ShopHomePage() {
     return (
-        <main className="home-page min-h-screen bg-atl-bg pb-[calc(4.75rem+env(safe-area-inset-bottom))] text-atl-text lg:pb-0" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
+        <main id="icerik" className="home-page min-h-screen bg-atl-bg pb-[calc(4.75rem+env(safe-area-inset-bottom))] text-atl-text lg:pb-0" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
             <FAQSchema items={homeFaqs} />
             <Navigation />
             <AtolyeHero />
@@ -83,7 +82,6 @@ export default function ShopHomePage() {
                 description="Dosya teli, takvim tenekesi, sac kesim veya UV metal baskı talepleriniz için bizimle iletişime geçin. Projenize uygun üretimi birlikte planlayalım."
             />
             <Footer />
-            <MobileStickyBar />
         </main>
     );
 }

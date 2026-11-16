@@ -8,6 +8,8 @@ import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumb } from '@/components/seo/Breadcrumb';
 import { useContentStore } from '@/store/useContentStore';
+import { PUBLIC_ALWAYS_ON, PUBLIC_HOURS, PUBLIC_HOURS_LABEL, publicAddress } from '@/lib/public-facts';
+import { publicPhone, publicWhatsappNumber, toTelHref } from '@/lib/contact';
 
 export default function IletisimPage() {
     const { content } = useContentStore();
@@ -20,10 +22,10 @@ export default function IletisimPage() {
     const contactItems = [
         {
             icon: Phone,
-            label: "Doğrudan Atölye Hattı",
-            value: content.footerPhone || "+90 532 379 40 03",
-            href: `tel:${(content.footerPhone || "+905323794003").replace(/\s/g, "")}`,
-            sub: "Hafta içi 08:30 - 18:30"
+            label: "Oğuzcan Veral",
+            value: publicPhone(content.footerPhone),
+            href: toTelHref(publicPhone(content.footerPhone)),
+            sub: PUBLIC_HOURS
         },
         {
             icon: Mail,
@@ -35,14 +37,14 @@ export default function IletisimPage() {
         {
             icon: MapPin,
             label: "Alsancak İmalat Merkezi",
-            value: content.footerAddress || "1471 Sokak No:12/A Alsancak, Konak, İzmir",
+            value: publicAddress(content.footerAddress),
             href: content.footerMapLink || "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
             sub: "Doğrudan atölye ziyareti ve numune teslim"
         },
     ];
 
     return (
-        <main className="min-h-screen bg-atl-bg text-atl-text">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             <Navigation />
 
             <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
@@ -57,9 +59,9 @@ export default function IletisimPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
                         >
-                            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-atl-brass-tint text-atl-brass border border-atl-brass/20 shadow-sm mb-4">
-                                <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
-                                İLETİŞİM & ATÖLYE ULAŞIM
+                            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-atl-brass/20 bg-atl-brass-tint px-3.5 py-1.5 font-sans text-xs font-semibold tracking-normal text-atl-brass shadow-sm">
+                                <span className="h-2 w-2 rounded-full bg-atl-brass" />
+                                İletişim ve atölye
                             </span>
                             <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight leading-tight mb-4">
                                 Üretim Ekibimizle Doğrudan İletişime Geçin
@@ -85,9 +87,9 @@ export default function IletisimPage() {
                                         <item.icon size={22} />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs font-mono font-bold uppercase tracking-wider text-atl-brass block mb-1">{item.label}</span>
-                                            <span className="text-[11px] font-mono text-atl-muted">{item.sub}</span>
+                                        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                                            <span className="text-xs font-mono font-bold uppercase tracking-wider text-atl-brass">{item.label}</span>
+                                            <span className="text-xs font-mono text-atl-muted">{item.sub}</span>
                                         </div>
                                         <span className="text-base sm:text-lg font-bold text-atl-text whitespace-pre-line">{item.value}</span>
                                     </div>
@@ -97,14 +99,14 @@ export default function IletisimPage() {
                         </div>
 
                         {/* Working Hours & Guarantee Strip */}
-                        <div className="p-6 rounded-2xl bg-atl-surface border border-atl-line shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-atl-muted">
+                        <div className="flex flex-col gap-3 rounded-2xl border border-atl-line bg-atl-surface p-6 text-sm text-atl-text shadow-sm sm:flex-row sm:items-center sm:justify-between">
                             <div className="flex items-center gap-2">
-                                <Clock className="w-4 h-4 text-atl-brass" />
-                                <span>Çalışma Saatleri: Pazartesi - Cumartesi 08:30 - 18:30</span>
+                                <Clock className="h-4 w-4 shrink-0 text-atl-brass" />
+                                <span>{PUBLIC_HOURS_LABEL}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <ShieldCheck className="w-4 h-4 text-atl-brass" />
-                                <span>Numune İnceleme</span>
+                                <ShieldCheck className="h-4 w-4 shrink-0 text-atl-brass" />
+                                <span>{PUBLIC_ALWAYS_ON}</span>
                             </div>
                         </div>
                     </div>
@@ -128,8 +130,8 @@ export default function IletisimPage() {
 
                         <div className="p-8 space-y-6">
                             <div>
-                                <span className="text-xs font-mono font-bold text-atl-brass uppercase tracking-wider block mb-1">
-                                    TEKNİK YANIT
+                                <span className="mb-1 block font-sans text-xs font-semibold tracking-normal text-atl-brass">
+                                    Teknik yanıt
                                 </span>
                                 <h3 className="text-2xl font-black text-atl-text mb-2">Acil Talepler İçin</h3>
                                 <p className="text-atl-muted text-sm leading-relaxed font-normal">
@@ -139,19 +141,19 @@ export default function IletisimPage() {
 
                             <div className="space-y-3">
                                 <a
-                                    href={`https://wa.me/${(content.whatsappNumber || "905323794003").replace(/[^0-9]/g, "")}`}
+                                    href={`https://wa.me/${publicWhatsappNumber(content.whatsappNumber)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="h-14 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-emerald-600/20 flex items-center justify-center gap-3"
+                                    className="flex h-14 w-full items-center justify-center gap-3 rounded-xl bg-emerald-600 font-sans text-sm font-semibold tracking-normal text-white shadow-md shadow-emerald-600/20 transition-colors hover:bg-emerald-700"
                                 >
                                     <span>WhatsApp Usta Hattı</span>
                                     <MessageSquare size={18} />
                                 </a>
                                 <Link
                                     href="/teklif-al"
-                                    className="h-14 w-full border border-atl-brass/30 bg-atl-brass-tint hover:border-atl-brass text-atl-brass font-bold text-xs uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-2"
+                                    className="flex h-14 w-full items-center justify-center gap-2 rounded-xl border border-atl-brass/30 bg-atl-brass-tint font-sans text-sm font-semibold tracking-normal text-atl-brass transition-colors hover:border-atl-brass"
                                 >
-                                    <span>B2B Hızlı Teklif Formu</span>
+                                    <span>Teklif formu</span>
                                     <ArrowRight size={16} />
                                 </Link>
                             </div>

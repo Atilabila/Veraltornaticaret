@@ -1,4 +1,10 @@
-﻿import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+import type { Metadata } from "next";
+import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+
+export const metadata: Metadata = {
+    title: "KVKK Aydınlatma Metni",
+    alternates: { canonical: "https://veralteneketicaret.com/kvkk" },
+};
 
 export default function KvkkPage() {
     return (
@@ -7,12 +13,12 @@ export default function KvkkPage() {
                 <h2 className="text-lg font-bold text-atl-text">1. Veri sorumlusu</h2>
                 <p>
                     6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca kişisel verileriniz; veri sorumlusu olarak
-                    <strong> [Şirket unvanı]</strong> tarafından aşağıda açıklanan kapsamda işlenebilir.
+                    <strong> Veral Torna &amp; Teneke Ticaret</strong> tarafından aşağıda açıklanan kapsamda işlenebilir.
                 </p>
-                <div className="text-sm space-y-1">
-                    <p>Adres: [Şirket adresi]</p>
-                    <p>MERSİS / Vergi No: [MERSİS no]</p>
-                    <p>İletişim: [E-posta] / [Telefon]</p>
+                <div className="space-y-1">
+                    <p>Adres: 1471 Sokak No:12/A, Alsancak / İzmir</p>
+                    <p>İletişim: veraltornatic@hotmail.com / 0507 165 13 15</p>
+                    <p>Vergi kimliği fatura üzerinde yazılıdır.</p>
                 </div>
             </section>
 

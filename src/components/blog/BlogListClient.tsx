@@ -104,7 +104,11 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                 <section className="px-4 md:px-8 max-w-7xl mx-auto mb-16">
                     <div className="group rounded-3xl bg-atl-surface border border-atl-line overflow-hidden shadow-sm hover:shadow-xl hover:border-atl-brass transition-all duration-300">
                         <div className="grid lg:grid-cols-12 gap-0">
-                            <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto bg-atl-surface-2 overflow-hidden">
+                            <Link
+                                href={`/blog/${featuredPost.id}`}
+                                className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto bg-atl-surface-2 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-atl-brass focus-visible:ring-inset"
+                                aria-label={`${featuredPost.title} yazısını aç`}
+                            >
                                 <Image
                                     src={featuredPost.image}
                                     alt={serviceImageAlt(featuredPost.image, featuredPost.title)}
@@ -117,7 +121,7 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                                     <Sparkles className="w-3.5 h-3.5 text-atl-brass" />
                                     ÖNE ÇIKAN TEKNİK RAPOR
                                 </div>
-                            </div>
+                            </Link>
 
                             <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between">
                                 <div className="space-y-4">
@@ -158,7 +162,7 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                                 <div className="pt-8">
                                     <Link
                                         href={`/blog/${featuredPost.id}`}
-                                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-black/20 group-hover:scale-105"
+                                        className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-atl-brass px-6 font-sans text-sm font-semibold tracking-normal text-atl-bg shadow-md shadow-black/20 transition-colors hover:bg-atl-brass-light"
                                     >
                                         <span>Raporu İncele</span>
                                         <ArrowRight className="w-4 h-4" />
@@ -186,7 +190,11 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                                 className="group flex flex-col justify-between bg-atl-surface border border-atl-line rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-atl-brass transition-all duration-300"
                             >
                                 <div>
-                                    <div className="relative w-full aspect-[4/5] bg-atl-surface-2 overflow-hidden border-b border-atl-line">
+                                    <Link
+                                        href={`/blog/${post.id}`}
+                                        className="relative block w-full aspect-[4/5] bg-atl-surface-2 overflow-hidden border-b border-atl-line focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-atl-brass focus-visible:ring-inset"
+                                        aria-label={`${post.title} yazısını aç`}
+                                    >
                                         <Image
                                             src={post.image}
                                             alt={serviceImageAlt(post.image, post.title)}
@@ -194,14 +202,14 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                                             sizes="(min-width: 1024px) 380px, 92vw"
                                             className={`${serviceImageFit(post.image)} group-hover:scale-105 transition-transform duration-500`}
                                         />
-                                        <div className="absolute top-3 left-3 bg-atl-surface/95 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-mono font-bold text-atl-brass border border-atl-brass/20 shadow-sm">
+                                        <div className="absolute top-3 left-3 rounded-md border border-atl-brass/20 bg-atl-surface/95 px-2.5 py-1 font-sans text-xs font-semibold text-atl-brass shadow-sm backdrop-blur-md">
                                             {post.category}
                                         </div>
-                                        <div className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md text-white px-2 py-0.5 rounded text-[10px] font-mono font-semibold flex items-center gap-1">
+                                        <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded bg-black/75 px-2 py-0.5 font-sans text-xs font-semibold text-white backdrop-blur-md">
                                             <Clock className="w-3 h-3 text-atl-brass-light" />
                                             {post.readTime}
                                         </div>
-                                    </div>
+                                    </Link>
 
                                     <div className="p-6">
                                         <div className="flex items-center gap-2 text-xs font-mono text-atl-muted mb-3">
@@ -223,7 +231,7 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                                             {post.tags.slice(0, 3).map((tag) => (
                                                 <span
                                                     key={tag}
-                                                    className="px-2 py-0.5 rounded bg-atl-surface-2 text-atl-muted text-[11px] font-mono"
+                                                    className="rounded bg-atl-surface-2 px-2 py-0.5 font-sans text-xs text-atl-muted"
                                                 >
                                                     #{tag}
                                                 </span>

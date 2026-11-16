@@ -56,19 +56,19 @@
   --color-atl-text: #ece6da;
   --color-atl-muted: #b7ae9f;
 
-  --font-display: "Instrument Serif", "DM Serif Display", Georgia, "Times New Roman", serif;
-  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: "Poppins", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @layer base {
   :root {
     color-scheme: dark;
 
-    --font-space-grotesk: "Archivo";
-    --font-syne: "Archivo";
-    --font-ibm-plex-mono: "IBM Plex Mono";
-    --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-space-grotesk: "Poppins";
+    --font-syne: "Poppins";
+    --font-ibm-plex-mono: "Geist Mono";
+    --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
     --atl-bg: #121110;
     --atl-surface: #1b1a18;
@@ -134,17 +134,22 @@
     overflow-x: clip;
     background-color: #121110 !important;
     color: #ece6da !important;
-    font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    font-family: "Geist", "Poppins", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   .font-mono {
-    font-family: var(--font-mono);
+    font-family: "Geist Mono", ui-monospace, monospace;
   }
 
   .font-display {
-    font-family: "Instrument Serif", "DM Serif Display", Georgia, serif;
+    font-family: "Poppins", "Geist", sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.04em;
   }
 
   :focus-visible {
@@ -258,7 +263,7 @@
 
 @layer components {
   .system-label {
-    @apply inline-flex items-center justify-center uppercase font-black tracking-widest text-[9px] px-2 py-1 border rounded-none font-mono transition-colors duration-300;
+    @apply inline-flex items-center justify-center uppercase font-semibold tracking-[0.05em] text-xs px-2 py-1 border rounded-none font-sans transition-colors duration-300;
     border-color: rgb(255 255 255 / 0.1);
     background: rgb(255 255 255 / 0.05);
     color: rgb(255 255 255 / 0.5);
@@ -327,9 +332,11 @@
 
 .atl-prose h2,
 .atl-prose h3 {
-  font-family: "Instrument Serif", "DM Serif Display", Georgia, serif;
+  font-family: "Poppins", "Geist", sans-serif;
   color: #ece6da;
-  font-weight: 400;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
 }
 
 .atl-prose strong { color: #ece6da; }
@@ -344,11 +351,11 @@
   padding-inline: 2rem;
   background: linear-gradient(135deg, #e3c78a 0%, #c9a35c 45%, #a8843f 100%);
   color: #121110;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.75rem;
+  font-family: "Geist", "Poppins", sans-serif;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   transition: filter 0.2s ease, transform 0.2s ease;
 }
 
@@ -365,11 +372,11 @@
   padding-inline: 2rem;
   border: 1px solid #2e2b27;
   color: #ece6da;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.75rem;
+  font-family: "Geist", "Poppins", sans-serif;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -394,4 +401,75 @@
 
 .animate-accordion-up {
   animation: accordion-up 0.2s ease-out;
+}
+
+@keyframes atl-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.atl-marquee {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.atl-marquee-track {
+  animation: atl-marquee 32s linear infinite;
+}
+
+.atl-marquee:hover .atl-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atl-marquee-track { animation: none; }
+}
+
+/* Katmansız: Easy UI Poppins başlık, shadcn Geist gövde.
+   Utility katmanının üstüne yazar. */
+body {
+  font-family: "Geist", "Poppins", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: "Poppins", "Geist", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.font-display {
+  line-height: 1.08;
+}
+
+h4.font-mono,
+.font-mono.uppercase,
+.uppercase.font-mono {
+  font-family: "Geist", "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  letter-spacing: 0.05em;
+}
+
+a.font-mono.uppercase,
+button.font-mono.uppercase,
+a.uppercase:not([class*="text-lg"]):not([class*="text-xl"]):not([class*="text-2xl"]):not([class*="text-3xl"]):not([class*="text-4xl"]),
+button.uppercase:not([class*="text-lg"]):not([class*="text-xl"]):not([class*="text-2xl"]):not([class*="text-3xl"]):not([class*="text-4xl"]) {
+  font-family: "Geist", "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+[class*="Archivo"] {
+  font-family: "Poppins", "Geist", sans-serif;
+  font-weight: 800;
 }

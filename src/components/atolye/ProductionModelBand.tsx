@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
 import { serviceImageAlt } from "@/lib/service-stock-images";
+import { ImageLightbox } from "@/components/media/ImageLightbox";
 
 const POINTS = [
     "Özel ölçü ve forma uygun üretim",
@@ -20,13 +21,19 @@ export function ProductionModelBand() {
         <section className="border-b border-atl-line bg-atl-bg">
             <div className="mx-auto grid max-w-[1400px] lg:grid-cols-2">
                 <Reveal className="relative aspect-[16/10] sm:aspect-[4/3] lg:aspect-auto lg:min-h-[520px]" y={0}>
-                    <Image
+                    <ImageLightbox
                         src={IMAGE}
                         alt={serviceImageAlt(IMAGE, "UV baskılı metal tabelalar")}
-                        fill
-                        sizes="(min-width: 1024px) 50vw, 100vw"
-                        className="object-cover"
-                    />
+                        className="absolute inset-0 h-full"
+                    >
+                        <Image
+                            src={IMAGE}
+                            alt={serviceImageAlt(IMAGE, "UV baskılı metal tabelalar")}
+                            fill
+                            sizes="(min-width: 1024px) 50vw, 100vw"
+                            className="object-cover"
+                        />
+                    </ImageLightbox>
                 </Reveal>
                 <Reveal delay={0.1} className="atl-workshop-lit-subtle flex flex-col justify-center px-4 py-8 sm:px-6 sm:py-12 lg:px-16 lg:py-16">
                     <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-atl-brass sm:text-[11px] sm:tracking-[0.28em]">Üretim modeli</span>

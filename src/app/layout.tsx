@@ -85,7 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Serif+Display&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap"
         />
 
         <LocalBusinessSchema />
@@ -102,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <GlobalGrid />
                 {children}
                 {CART_ENABLED ? <CartDrawer /> : null}
+                <CookieConsent />
               </AuthProvider>
             </ContentSyncProvider>
           </AdminProvider>
@@ -109,7 +110,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WhatsAppButton />
         <ScrollToTop />
         <AnalyticsProvider><span /></AnalyticsProvider>
-        <CookieConsent />
         <Toaster />
       </body>
     </html>

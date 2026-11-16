@@ -58,7 +58,11 @@ export function ProductGroupsSection() {
                     {GROUPS.map((group, i) => (
                         <Reveal key={group.href + group.title} as="article" delay={0.07 * i} className="h-full">
                             <div className="group flex h-full min-w-0 flex-col border border-atl-line bg-[#1a1815]/90 transition-colors duration-300 hover:border-atl-brass/70">
-                                <div className="relative aspect-[4/3] overflow-hidden bg-neutral-900">
+                                <Link
+                                    href={group.href}
+                                    className="relative aspect-[4/3] overflow-hidden bg-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-atl-brass focus-visible:ring-inset"
+                                    aria-label={`${group.title} hizmet sayfası`}
+                                >
                                     <Image
                                         src={group.image}
                                         alt={serviceImageAlt(group.image, group.title)}
@@ -68,17 +72,21 @@ export function ProductGroupsSection() {
                                         priority={i < 2}
                                     />
                                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
-                                    <span className="absolute left-4 top-4 border border-atl-brass/50 bg-atl-bg/70 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-atl-brass-light backdrop-blur-sm">
+                                    <span className="absolute left-4 top-4 border border-atl-brass/50 bg-atl-bg/70 px-2.5 py-1 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass-light backdrop-blur-sm">
                                         {group.badge}
                                     </span>
-                                </div>
+                                </Link>
                                 <div className="flex flex-1 flex-col p-5 sm:p-6">
-                                    <h3 className="font-display text-xl leading-tight text-atl-text sm:text-2xl">{group.title}</h3>
+                                    <h3 className="font-display text-xl leading-tight text-atl-text sm:text-2xl">
+                                        <Link href={group.href} className="hover:text-atl-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-atl-brass">
+                                            {group.title}
+                                        </Link>
+                                    </h3>
                                     <p className="mt-3 text-sm leading-relaxed text-atl-muted">{group.description}</p>
                                     <div className="mt-auto pt-6">
                                         <Link
                                             href={group.href}
-                                            className="flex h-11 w-full items-center justify-between border border-atl-line px-4 text-xs font-semibold uppercase tracking-[0.12em] text-atl-text transition-colors group-hover:border-atl-brass group-hover:bg-atl-brass group-hover:text-atl-bg"
+                                            className="flex min-h-12 w-full items-center justify-between border border-atl-line px-4 font-sans text-sm font-semibold tracking-normal text-atl-text transition-colors group-hover:border-atl-brass group-hover:bg-atl-brass group-hover:text-atl-bg"
                                         >
                                             <span>Hizmeti incele</span>
                                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

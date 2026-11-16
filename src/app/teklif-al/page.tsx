@@ -9,13 +9,13 @@ import { ContentService } from '@/lib/supabase/content.service';
 import { ShieldCheck, Clock, FileText, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: "B2B Hızlı Fiyat Teklifi (RFQ) | Toptan Dosya Teli & Teneke İmalatı | Veral Ticaret",
+    title: "Teklif Al",
     description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve UV metal poster siparişleriniz için teknik fiyatlandırma ve numune desteği. İzmir Alsancak doğrudan imalatçı fiyatı.",
     alternates: {
         canonical: "https://veralteneketicaret.com/teklif-al",
     },
     openGraph: {
-        title: "B2B Hızlı Fiyat Teklifi | Veral Teneke Ticaret İzmir",
+        title: "Teklif Al | Veral Teneke Ticaret İzmir",
         description: "Özel metal üretim, toptan tel ve teneke projeleriniz için doğrudan atölyeden fiyat teklifi alın.",
         url: "https://veralteneketicaret.com/teklif-al",
     },
@@ -26,12 +26,12 @@ export default async function QuotePage() {
 
     const breadcrumbs = [
         { name: "Ana Sayfa", url: "/" },
-        { name: "Fiyat Teklifi Al (RFQ)", url: "/teklif-al" },
+        { name: "Teklif al", url: "/teklif-al" },
     ];
 
     return (
         <ContentProvider initialContent={dbContent || undefined}>
-            <main className="min-h-screen bg-atl-bg text-atl-text">
+            <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
                 <Navigation />
 
                 <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
@@ -40,12 +40,12 @@ export default async function QuotePage() {
 
                 <section className="px-4 md:px-8 max-w-7xl mx-auto pb-20 pt-4">
                     <div className="max-w-3xl mb-12 space-y-4">
-                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-atl-brass-tint text-atl-brass border border-atl-brass/20 shadow-sm">
-                            <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
-                            İMALATÇIDAN DOĞRUDAN TEKLİF · İZMİR ALSANCAK
+                        <span className="inline-flex items-center gap-2 rounded-full border border-atl-brass/20 bg-atl-brass-tint px-3.5 py-1.5 font-sans text-xs font-semibold tracking-normal text-atl-brass shadow-sm">
+                            <span className="h-2 w-2 rounded-full bg-atl-brass" />
+                            İmalatçıdan doğrudan teklif
                         </span>
                         <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight leading-tight">
-                            B2B Hızlı Fiyat & Numune Teklifi (RFQ)
+                            Fiyat ve numune teklifi
                         </h1>
                         <p className="text-base md:text-lg text-atl-muted leading-relaxed font-normal">
                             Toptan dosya teli, takvim tenekesi, fason giyotin kesim ve mıknatıslı UV metal poster projeleriniz için teknik resminizi yükleyin veya ölçülerinizi belirtin. İmalat ekibimiz detaylı teklif föyünüzü hazırlasın.

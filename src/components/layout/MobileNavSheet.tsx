@@ -12,21 +12,14 @@ import {
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-
-type NavLink = { label: string; href: string };
+import { isNavHrefActive, type ProductionLine } from "@/lib/production-lines";
 
 type MobileNavSheetProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    dosyaLinks: NavLink[];
-    navLinks: NavLink[];
+    productionLinks: ProductionLine[];
+    companyLinks: ProductionLine[];
     whatsappHref: string;
     ctaText: string;
     ctaLink: string;
@@ -35,16 +28,13 @@ type MobileNavSheetProps = {
 export function MobileNavSheet({
     open,
     onOpenChange,
-    dosyaLinks,
-    navLinks,
+    productionLinks,
+    companyLinks,
     whatsappHref,
     ctaText,
     ctaLink,
 }: MobileNavSheetProps) {
     const pathname = usePathname();
-    const isActive = (href: string) =>
-        pathname === href || (href !== "/hizmetler" && pathname?.startsWith(href));
-
     const close = () => onOpenChange(false);
 
     return (
@@ -54,7 +44,7 @@ export function MobileNavSheet({
                 className="z-[100001] flex w-full flex-col border-atl-line bg-atl-bg p-0 text-atl-text sm:max-w-md [&>button]:hidden"
             >
                 <SheetHeader className="space-y-1 border-b border-atl-line px-5 py-4 text-left">
-                    <SheetTitle className="font-mono text-[11px] uppercase tracking-[0.28em] text-atl-brass">
+                    <SheetTitle className="font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
                         Menü
                     </SheetTitle>
                     <SheetDescription className="text-sm text-atl-muted">
@@ -75,41 +65,35 @@ export function MobileNavSheet({
                             Ana Sayfa
                         </Link>
 
-                        <Accordion type="single" collapsible className="w-full">
-                            <AccordionItem value="dosya" className="border-none">
-                                <AccordionTrigger className="min-h-12 px-3 py-3 font-display text-2xl text-atl-text hover:no-underline data-[state=open]:text-atl-brass-light [&[data-state=open]>svg]:text-atl-brass">
-                                    Dosya Teli
-                                </AccordionTrigger>
-                                <AccordionContent className="pb-2 pt-0">
-                                    <div className="ml-3 flex flex-col border-l border-atl-line pl-3">
-                                        {dosyaLinks.map((item) => (
-                                            <Link
-                                                key={item.href}
-                                                href={item.href}
-                                                onClick={close}
-                                                className={cn(
-                                                    "flex min-h-11 items-center text-base transition-colors",
-                                                    isActive(item.href)
-                                                        ? "text-atl-brass-light"
-                                                        : "text-atl-muted active:text-atl-brass-light"
-                                                )}
-                                            >
-                                                {item.label}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
+                        <p className="mt-3 px-3 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
+                            Üretim
+                        </p>
+                        {productionLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={close}
+                                className={cn(
+                                    "flex min-h-12 items-center px-3 font-display text-xl transition-colors",
+                                    isNavHrefActive(pathname, link.href)
+                                        ? "text-atl-brass-light"
+                                        : "text-atl-text active:text-atl-brass-light"
+                                )}
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
 
-                        {navLinks.map((link) => (
+                        <Separator className="my-3 bg-atl-line" />
+
+                        {companyLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
                                 onClick={close}
                                 className={cn(
                                     "flex min-h-12 items-center px-3 font-display text-2xl transition-colors",
-                                    isActive(link.href)
+                                    isNavHrefActive(pathname, link.href)
                                         ? "text-atl-brass-light"
                                         : "text-atl-text active:text-atl-brass-light"
                                 )}
@@ -145,7 +129,7 @@ export function MobileNavSheet({
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={close}
-                        className="flex min-h-12 items-center justify-center gap-2 border border-atl-line font-mono text-xs font-semibold uppercase tracking-[0.18em] text-atl-text"
+                        className="flex min-h-12 items-center justify-center gap-2 border border-atl-line font-sans text-sm font-semibold tracking-normal text-atl-text"
                     >
                         <MessageCircle className="h-4 w-4" />
                         WhatsApp
@@ -153,7 +137,7 @@ export function MobileNavSheet({
                     <Link
                         href={ctaLink}
                         onClick={close}
-                        className="flex min-h-12 items-center justify-center bg-atl-brass font-mono text-xs font-semibold uppercase tracking-[0.18em] text-atl-bg"
+                        className="flex min-h-12 items-center justify-center bg-atl-brass font-sans text-sm font-semibold tracking-normal text-atl-bg"
                     >
                         {ctaText}
                     </Link>
@@ -161,4 +145,4 @@ export function MobileNavSheet({
             </SheetContent>
         </Sheet>
     );
-}
+};

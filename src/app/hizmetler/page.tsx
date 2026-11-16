@@ -1,11 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { ServiceCard } from "@/components/atolye/ServiceCard";
+import { WorkshopZoomFrame } from "@/components/media/WorkshopZoomFrame";
 import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -40,7 +40,7 @@ const serviceCards = [
     {
         id: "dosya-teli",
         slug: "dosya-teli",
-        title: "Toptan Dosya Teli İmalatı İzmir",
+        title: "Toptan Dosya Teli İmalatı",
         badge: "İzmir Alsancak",
         capacity: "Toptan sevkiyat",
         image: "/images/services/dosya-teli-plastik-takim.webp",
@@ -70,7 +70,7 @@ const serviceCards = [
     {
         id: "giyotin-kesim",
         slug: "giyotin-kesim",
-        title: "Giyotin Sac Kesim İzmir",
+        title: "Giyotin Sac Kesim",
         badge: "Fason kesim",
         capacity: "Ölçüye özel",
         image: "/images/services/giyotin-kesim.webp",
@@ -115,7 +115,7 @@ const serviceCards = [
     {
         id: "miknatisli-magnet",
         slug: "miknatisli-magnet",
-        title: "UV Baskılı Metal Poster İzmir",
+        title: "UV Baskılı Metal Poster",
         badge: "Tabela & dekor",
         capacity: "Seri / özel",
         image: "/images/services/metal-tabelalar.webp",
@@ -196,7 +196,7 @@ export default function HizmetlerPage() {
     };
 
     return (
-        <main className="min-h-screen bg-atl-bg text-atl-text">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
@@ -230,14 +230,14 @@ export default function HizmetlerPage() {
                         <div className="flex flex-wrap items-center gap-4 pt-2">
                             <Link
                                 href="/teklif-al"
-                                className="inline-flex items-center gap-2.5 bg-atl-brass px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-atl-bg transition-colors hover:bg-atl-brass-light"
+                                className="inline-flex min-h-12 items-center gap-2.5 bg-atl-brass px-6 font-sans text-sm font-semibold tracking-normal text-atl-bg transition-colors hover:bg-atl-brass-light"
                             >
                                 <span>İmalat teklifi al</span>
                                 <ArrowRight className="h-4 w-4" />
                             </Link>
 
                             <a
-                                href="https://wa.me/905323794003"
+                                href="https://wa.me/905071651315"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2.5 border border-atl-line bg-atl-surface px-5 py-3.5 text-sm font-semibold text-atl-text transition-colors hover:bg-atl-surface-2"
@@ -265,24 +265,22 @@ export default function HizmetlerPage() {
 
                     <div className="relative lg:col-span-5">
                         <div className="relative overflow-hidden border border-atl-line bg-atl-surface p-2 shadow-xl">
-                            <div className="relative aspect-[4/3] overflow-hidden bg-atl-surface-2">
-                                <Image
-                                    src="/images/services/giyotin-kesim.webp"
-                                    alt="İzmir Alsancak Veral metal imalat atölyesi giyotin kesim hattı"
-                                    fill
-                                    priority
-                                    sizes="(max-width: 1024px) 100vw, 500px"
-                                    className="object-cover"
-                                />
-                                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/20 to-transparent p-5">
-                                    <span className="mb-1 text-[11px] font-bold uppercase tracking-wider text-atl-brass">
-                                        Alsancak / İzmir · Aktif üretim
-                                    </span>
-                                    <p className="text-xs font-medium leading-relaxed text-white">
-                                        1471 Sokak No:12/A Alsancak — dosya teli ve teneke imalat atölyesi
-                                    </p>
-                                </div>
-                            </div>
+                            <WorkshopZoomFrame
+                                src="/images/services/dosya-teli-plastik-takim.webp"
+                                alt="Veral dosya telleri – plastik takım 14, 15, 17, 21, 24 cm ve akrep tel"
+                                priority
+                                fitClassName="object-contain bg-neutral-950"
+                                overlay={
+                                    <div className="flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/20 to-transparent p-5">
+                                        <span className="mb-1 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
+                                            Alsancak / İzmir · Aktif üretim
+                                        </span>
+                                        <p className="text-xs font-medium leading-relaxed text-white">
+                                            1471 Sokak No:12/A, Alsancak / İzmir — dosya teli ve teneke imalat atölyesi
+                                        </p>
+                                    </div>
+                                }
+                            />
                         </div>
                     </div>
                 </div>
@@ -312,7 +310,7 @@ export default function HizmetlerPage() {
                     </div>
                     <Link
                         href="/teklif-al"
-                        className="inline-flex items-center gap-2 self-start text-xs font-semibold uppercase tracking-[0.16em] text-atl-brass-light hover:text-atl-text md:self-auto"
+                        className="inline-flex min-h-11 items-center gap-2 self-start font-sans text-sm font-semibold tracking-normal text-atl-brass-light hover:text-atl-text md:self-auto"
                     >
                         Teklif al <ArrowRight className="h-4 w-4" />
                     </Link>
@@ -348,17 +346,17 @@ export default function HizmetlerPage() {
                     <div className="flex shrink-0 flex-wrap items-center gap-4">
                         <Link
                             href="/teklif-al"
-                            className="inline-flex items-center gap-2 bg-atl-brass px-8 py-4 text-sm font-bold uppercase tracking-wider text-atl-bg transition-colors hover:bg-atl-brass-light"
+                            className="inline-flex min-h-12 items-center gap-2 bg-atl-brass px-8 font-sans text-sm font-semibold tracking-normal text-atl-bg transition-colors hover:bg-atl-brass-light"
                         >
                             <span>Teklif formu</span>
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                         <a
-                            href="tel:+905323794003"
+                            href="tel:+905071651315"
                             className="inline-flex items-center gap-2 border border-atl-line px-6 py-4 text-sm font-semibold text-atl-text transition-colors hover:bg-atl-surface-2"
                         >
                             <Phone className="h-4 w-4 text-atl-brass" />
-                            <span>0532 379 40 03</span>
+                            <span>0507 165 13 15</span>
                         </a>
                     </div>
                 </div>

@@ -5,10 +5,12 @@ import { notFound } from 'next/navigation';
 import { ContentService } from '@/lib/supabase/content.service';
 import { normalizeImagePath } from '@/lib/utils';
 import { resolveServiceStockImage, serviceImageAlt, serviceImageFit } from '@/lib/service-stock-images';
-import { ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { PageShell } from '@/components/layout/PageShell';
+import { Breadcrumb } from '@/components/seo/Breadcrumb';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
+import { WorkshopZoomFrame } from '@/components/media/WorkshopZoomFrame';
 import { defaultContent } from '@/store/useContentStore';
 
 interface PageProps {
@@ -29,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     return {
-        title: service.seoTitle || `${service.title} | VERAL`,
+        title: (service.seoTitle || service.title).replace(/\s*\|\s*VERAL\b.*$/i, "").trim() || service.title,
         description: service.seoDescription || service.shortDescription,
     };
 }
@@ -72,12 +74,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                     />
                 </div>
                 <PageContainer className="relative z-10">
-                    <Link
-                        href="/#hizmetler"
-                        className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-atl-muted hover:text-[var(--color-brand-accent)] transition-colors mb-8 group"
-                    >
-                        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Tüm hizmetler
-                    </Link>
+                    <Breadcrumb
+                        className="mb-6 mt-0"
+                        items={[
+                            { name: "Ana Sayfa", url: "/" },
+                            { name: "Üretim", url: "/hizmetler" },
+                            { name: service.title, url: `/hizmetler/${service.slug}` },
+                        ]}
+                    />
 
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
                         <div className="max-w-3xl">
@@ -135,9 +139,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                             Hemen teklif al <ArrowRight className="w-4 h-4" />
                                         </Link>
                                     </div>
-                                    <div className="relative aspect-[4/5] w-full overflow-hidden border border-atl-line">
-                                        <Image src={imageSrc} alt={imageAlt} fill sizes="(min-width: 768px) 400px, 92vw" className={serviceImageFit(imageSrc)} />
-                                    </div>
+                                    <WorkshopZoomFrame
+                                        src={imageSrc}
+                                        alt={imageAlt}
+                                        sizes="(min-width: 768px) 400px, 92vw"
+                                        className="relative aspect-[4/5] w-full overflow-hidden border border-atl-line"
+                                    />
                                 </div>
                             </div>
 
@@ -148,9 +155,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         {service.images.map((img: string, idx: number) => {
                                             const src = normalizeImagePath(img);
                                             return (
-                                                <div key={idx} className="relative aspect-[4/5] w-full overflow-hidden border border-atl-line bg-atl-bg">
-                                                    <Image src={src} alt={serviceImageAlt(src, `${service.title} görsel ${idx + 1}`)} fill sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 92vw" className={serviceImageFit(src)} />
-                                                </div>
+                                                <WorkshopZoomFrame
+                                                    key={idx}
+                                                    src={src}
+                                                    alt={serviceImageAlt(src, `${service.title} görsel ${idx + 1}`)}
+                                                    sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 92vw"
+                                                    className="relative aspect-[4/5] w-full overflow-hidden border border-atl-line bg-atl-bg"
+                                                />
                                             );
                                         })}
                                     </div>
@@ -207,7 +218,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 </div>
                                 <Link
                                     href="/hizmetler"
-                                    className="whitespace-nowrap text-xs font-semibold uppercase tracking-wider text-atl-muted hover:text-[var(--color-brand-accent)]"
+                                    className="inline-flex min-h-11 items-center whitespace-nowrap font-sans text-sm font-semibold tracking-normal text-atl-muted hover:text-atl-brass-light"
                                 >
                                     {data?.serviceDetailFooterLinkText || "Tümünü gör"}
                                 </Link>

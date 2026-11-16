@@ -162,10 +162,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const { slug } = await params;
     const post = blogPosts[slug];
 
-    if (!post) return { title: "Rapor Bulunamadı | Veral Teneke Ticaret" };
+    if (!post) return { title: "Rapor bulunamadı" };
 
     return {
-        title: `${post.title} | Veral Teneke Ticaret İzmir`,
+        title: post.title,
         description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
         alternates: {
             canonical: `https://veralteneketicaret.com/blog/${slug}`,
@@ -220,42 +220,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         }
     };
 
-    const breadcrumbJsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Ana Sayfa",
-                "item": "https://veralteneketicaret.com"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Teknik Raporlar & Blog",
-                "item": "https://veralteneketicaret.com/blog"
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "name": post.title,
-                "item": `https://veralteneketicaret.com/blog/${slug}`
-            }
-        ]
-    };
-
     return (
-        <main className="min-h-screen bg-atl-bg text-atl-text">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
             />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
-
             <Navigation />
 
             <BlogPostClient post={post} slug={slug} otherPosts={otherPosts} />

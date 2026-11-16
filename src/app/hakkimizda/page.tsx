@@ -6,6 +6,7 @@ import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { AuthorCard } from "@/components/blog/AuthorCard";
+import { WorkshopZoomFrame } from "@/components/media/WorkshopZoomFrame";
 import {
     MapPin,
     Hammer,
@@ -22,13 +23,13 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-    title: "Hakkımızda | Veral Teneke Ticaret | İzmir Alsancak",
+    title: "Hakkımızda",
     description: "İzmir Alsancak 1471 Sokak'ta toptan dosya teli, takvim tenekesi, giyotin sac kesim ve 4K UV mıknatıslı metal poster imalatı.",
     alternates: {
         canonical: "https://veralteneketicaret.com/hakkimizda",
     },
     openGraph: {
-        title: "Hakkımızda | Veral Torna & Teneke Ticaret İzmir",
+        title: "Hakkımızda | Veral Teneke Ticaret İzmir",
         description: "İzmir Alsancak'ta toptan dosya teli, takvim tenekesi ve mikron toleranslı metal imalatı.",
         url: "https://veralteneketicaret.com/hakkimizda",
     },
@@ -107,7 +108,8 @@ export default function AboutPage() {
         },
         "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+90-532-379-4003",
+            "name": "Oğuzcan Veral",
+            "telephone": "+905071651315",
             "contactType": "customer service",
             "areaServed": "TR",
             "availableLanguage": "Turkish"
@@ -115,7 +117,7 @@ export default function AboutPage() {
     };
 
     return (
-        <main className="min-h-screen bg-atl-bg text-atl-text">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -162,23 +164,22 @@ export default function AboutPage() {
 
                     {/* Authentic Workshop Photo */}
                     <div className="lg:col-span-5">
-                        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-atl-line bg-atl-surface shadow-xl p-2">
-                            <div className="relative w-full h-full rounded-xl overflow-hidden bg-atl-surface-2">
-                                <Image
-                                    src="/hero-izmir-metal-poster.jpg"
-                                    alt="İzmir Alsancak Veral Atölyesi ve Metal Sanatı"
-                                    fill
-                                    priority
-                                    sizes="(max-width: 1024px) 100vw, 500px"
-                                    className="object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-5">
-                                    <div className="text-xs font-mono text-white">
-                                        <span className="text-atl-brass-light font-bold block mb-1">ALSANCAK İMALAT MERKEZİ</span>
-                                        1471 Sokak No:12/A Konak / İzmir
+                        <div className="overflow-hidden rounded-2xl border border-atl-line bg-atl-surface p-2 shadow-xl">
+                            <WorkshopZoomFrame
+                                src="/hero-izmir-metal-poster.jpg"
+                                alt="İzmir Alsancak Veral Atölyesi ve Metal Sanatı"
+                                priority
+                                fitClassName="object-cover"
+                                className="relative aspect-[4/3] overflow-hidden rounded-xl bg-atl-surface-2"
+                                overlay={
+                                    <div className="flex items-end bg-gradient-to-t from-black/85 via-black/20 to-transparent p-5">
+                                        <div className="text-xs font-mono text-white">
+                                            <span className="mb-1 block font-bold text-atl-brass-light">ALSANCAK İMALAT MERKEZİ</span>
+                                            1471 Sokak No:12/A, Alsancak / İzmir
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                }
+                            />
                         </div>
                     </div>
                 </div>
@@ -239,7 +240,23 @@ export default function AboutPage() {
                     </h2>
                 </div>
 
-                <AuthorCard />
+                <div className="grid items-start gap-6 lg:grid-cols-[minmax(220px,340px)_1fr]">
+                    <figure className="overflow-hidden rounded-2xl border border-atl-line bg-atl-surface">
+                        <div className="relative aspect-[2/3]">
+                            <Image
+                                src="/images/veral-atolye-kepenk.webp"
+                                alt="Veral Torna ve Teneke atölyesinin sarı kapısı ile kepenk tabelası, Alsancak"
+                                fill
+                                sizes="(min-width: 1024px) 340px, 100vw"
+                                className="object-cover"
+                            />
+                        </div>
+                        <figcaption className="px-4 py-3 font-sans text-sm text-atl-muted">
+                            Alsancak atölyesi, 1471 Sokak No:12/A
+                        </figcaption>
+                    </figure>
+                    <AuthorCard className="my-0" hideAvatar />
+                </div>
             </section>
 
             {/* WORKSHOP MACHINERY SPECIFICATIONS */}
@@ -319,17 +336,17 @@ export default function AboutPage() {
                     <div className="flex flex-wrap items-center gap-3">
                         <Link
                             href="/teklif-al"
-                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold text-xs uppercase tracking-wider shadow-sm transition-all"
+                            className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-atl-brass px-6 font-sans text-sm font-semibold tracking-normal text-atl-bg shadow-sm transition-colors hover:bg-atl-brass-light"
                         >
                             <span>Teklif Formu</span>
                             <ArrowRight className="w-4 h-4" />
                         </Link>
                         <a
-                            href="tel:+905323794003"
-                            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-atl-line hover:bg-atl-surface-2 text-atl-text font-semibold text-xs transition-colors"
+                            href="tel:+905071651315"
+                            className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-atl-line px-5 font-sans text-sm font-semibold tracking-normal text-atl-text transition-colors hover:bg-atl-surface-2"
                         >
                             <Phone className="w-4 h-4 text-atl-brass" />
-                            <span>0532 379 40 03</span>
+                            <span>0507 165 13 15</span>
                         </a>
                     </div>
                 </div>

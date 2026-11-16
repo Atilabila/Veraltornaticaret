@@ -1,21 +1,25 @@
-"use client";
-
-import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Search, FileText, HelpCircle, Phone } from "lucide-react";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageContainer } from "@/components/layout/PageContainer";
+
+export const metadata: Metadata = {
+    title: "Sayfa bulunamadı",
+    description: "Bu adres yayında değil. Üretim hatları, teknik yazılar veya teklif formuna dönebilirsiniz.",
+    robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
     return (
         <PageShell variant="muted" padded={false}>
             <PageContainer className="min-h-[75vh] flex flex-col items-center justify-center text-center py-20 px-4">
                 <div className="space-y-6 max-w-xl">
-                    <span className="inline-block px-3 py-1 rounded font-mono text-xs font-bold uppercase tracking-widest bg-atl-brass-tint text-atl-brass border border-atl-brass/40">
+                    <span className="inline-block rounded border border-atl-brass/40 bg-atl-brass-tint px-3 py-1 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
                         [ HATA KODU: 404 // SAYFA MEVCUT DEĞİL ]
                     </span>
 
-                    <h1 className="text-3xl md:text-5xl font-display text-white tracking-tight">
+                    <h1 className="font-display text-3xl text-atl-text md:text-5xl">
                         Aradığınız Sayfa Bulunamadı
                     </h1>
 
@@ -29,7 +33,7 @@ export default function NotFound() {
                             className="p-4 rounded-xl border border-atl-line bg-atl-surface hover:border-atl-brass/50 hover:bg-atl-surface-2 transition-all group"
                         >
                             <Search className="w-5 h-5 text-atl-brass-light mb-2 group-hover:scale-110 transition-transform" />
-                            <span className="block text-sm font-bold text-white">Üretim Hatları</span>
+                            <span className="block text-sm font-semibold text-atl-text">Üretim Hatları</span>
                             <span className="text-xs text-atl-muted">Dosya teli, takvim tenekesi, tef zili ve sac kesim hizmetleri</span>
                         </Link>
 
@@ -38,7 +42,7 @@ export default function NotFound() {
                             className="p-4 rounded-xl border border-atl-line bg-atl-surface hover:border-atl-brass/50 hover:bg-atl-surface-2 transition-all group"
                         >
                             <FileText className="w-5 h-5 text-atl-brass-light mb-2 group-hover:scale-110 transition-transform" />
-                            <span className="block text-sm font-bold text-white">Teknik Yazılar</span>
+                            <span className="block text-sm font-semibold text-atl-text">Teknik Yazılar</span>
                             <span className="text-xs text-atl-muted">Atölyeden raporlar</span>
                         </Link>
 
@@ -47,7 +51,7 @@ export default function NotFound() {
                             className="p-4 rounded-xl border border-atl-line bg-atl-surface hover:border-atl-brass/50 hover:bg-atl-surface-2 transition-all group"
                         >
                             <HelpCircle className="w-5 h-5 text-atl-brass-light mb-2 group-hover:scale-110 transition-transform" />
-                            <span className="block text-sm font-bold text-white">Sıkça Sorulanlar</span>
+                            <span className="block text-sm font-semibold text-atl-text">Sıkça Sorulanlar</span>
                             <span className="text-xs text-atl-muted">Mıknatıs & kargo</span>
                         </Link>
 
@@ -56,7 +60,7 @@ export default function NotFound() {
                             className="p-4 rounded-xl border border-atl-line bg-atl-surface hover:border-atl-brass/50 hover:bg-atl-surface-2 transition-all group"
                         >
                             <Phone className="w-5 h-5 text-atl-brass-light mb-2 group-hover:scale-110 transition-transform" />
-                            <span className="block text-sm font-bold text-white">Hızlı Teklif</span>
+                            <span className="block text-sm font-semibold text-atl-text">Hızlı Teklif</span>
                             <span className="text-xs text-atl-muted">Toptan fiyat al</span>
                         </Link>
                     </div>

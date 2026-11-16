@@ -1,11 +1,17 @@
-﻿import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+import type { Metadata } from "next";
+import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+
+export const metadata: Metadata = {
+  title: "Ön Bilgilendirme Formu",
+  alternates: { canonical: "https://veralteneketicaret.com/on-bilgilendirme" },
+};
 
 export default function OnBilgilendirmePage() {
   return (
-    <LegalPageLayout title="Ön Bilgilendirme Formu" eyebrow="Sipariş öncesi bilgilendirme" updatedAt="[GG.AA.YYYY]">
+    <LegalPageLayout title="Ön Bilgilendirme Formu" eyebrow="Sipariş öncesi bilgilendirme" updatedAt="16.11.2026">
       <section className="space-y-2">
         <h2 className="text-lg font-bold text-atl-text">1. Satıcı bilgileri</h2>
-        <p>[Şirket unvanı] — MERSİS: [MERSİS no] — Adres: [Şirket adresi] — [Telefon] / [E-posta]</p>
+        <p>Veral Torna &amp; Teneke Ticaret — 1471 Sokak No:12/A, Alsancak / İzmir — 0507 165 13 15 / veraltornatic@hotmail.com</p>
       </section>
       <section className="space-y-2">
         <h2 className="text-lg font-bold text-atl-text">2. Ürün / hizmet</h2>

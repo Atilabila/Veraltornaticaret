@@ -45,7 +45,11 @@ export function ServiceCard({
     return (
         <Reveal as="article" delay={0.05 * (index % 6)} className="h-full">
             <div className="group flex h-full min-w-0 flex-col border border-atl-line bg-atl-surface transition-colors duration-300 hover:border-atl-brass/70">
-                <div className="relative aspect-[4/3] overflow-hidden bg-neutral-900">
+                <Link
+                    href={detailHref}
+                    className="relative aspect-[4/3] overflow-hidden bg-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-atl-brass focus-visible:ring-inset"
+                    aria-label={`${title} hizmet sayfası`}
+                >
                     <Image
                         src={image}
                         alt={serviceImageAlt(image, title)}
@@ -54,9 +58,9 @@ export function ServiceCard({
                         sizes="(min-width: 1280px) 360px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 92vw"
                         className={`${serviceImageFit(image)} transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
                     />
-                </div>
+                </Link>
                 {showMeta && (
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-atl-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.08em]">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-atl-line px-5 py-3 font-sans text-xs font-semibold uppercase tracking-[0.05em]">
                         {badge && <span className="text-atl-brass">{badge}</span>}
                         {badge && capacity && <span aria-hidden className="text-atl-line">·</span>}
                         {capacity && <span className="text-atl-muted">{capacity}</span>}
@@ -70,7 +74,7 @@ export function ServiceCard({
                                 className="mt-1 h-5 w-5 shrink-0 text-atl-brass"
                             />
                         )}
-                        <Link href={detailHref} className="hover:text-atl-brass-light">
+                        <Link href={detailHref} className="hover:text-atl-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-atl-brass">
                             {title}
                         </Link>
                     </h3>
@@ -88,7 +92,7 @@ export function ServiceCard({
                     <div className="mt-auto pt-6">
                         <Link
                             href={ctaHref}
-                            className="flex h-11 w-full items-center justify-between border border-atl-line px-4 text-xs font-semibold uppercase tracking-[0.12em] text-atl-text transition-colors group-hover:border-atl-brass group-hover:bg-atl-brass group-hover:text-atl-bg"
+                            className="flex min-h-12 w-full items-center justify-between border border-atl-line px-4 font-sans text-sm font-semibold tracking-normal text-atl-text transition-colors group-hover:border-atl-brass group-hover:bg-atl-brass group-hover:text-atl-bg"
                         >
                             <span>{ctaLabel}</span>
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

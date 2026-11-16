@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export const LocalBusinessSchema = () => {
     const schema = {
@@ -12,8 +12,16 @@ export const LocalBusinessSchema = () => {
         ],
         "description": "İzmir Alsancak merkezli toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster imalatçısı.",
         "url": "https://veralteneketicaret.com",
-        "telephone": "+905323794003",
+        "telephone": "+905071651315",
         "email": "veraltornatic@hotmail.com",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "name": "Oğuzcan Veral",
+            "telephone": "+905071651315",
+            "contactType": "customer service",
+            "areaServed": "TR",
+            "availableLanguage": "Turkish"
+        },
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "1471 Sokak No:12/A",
@@ -37,8 +45,8 @@ export const LocalBusinessSchema = () => {
                 "Friday",
                 "Saturday"
             ],
-            "opens": "09:00",
-            "closes": "18:00"
+            "opens": "08:30",
+            "closes": "18:30"
         },
         "priceRange": "₺₺",
         "currenciesAccepted": "TRY",

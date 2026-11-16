@@ -7,13 +7,13 @@ import { BlogListClient } from "@/components/blog/BlogListClient";
 import { blogPosts } from "@/lib/blog-posts";
 
 export const metadata: Metadata = {
-    title: "Teknik Raporlar & Blog | Metalurji, Tolerans ve Zanaat | Veral Ticaret",
+    title: "Teknik Raporlar",
     description: "Toptan dosya teli, takvim tenekesi, DIN EN 10202 normları, mikron toleranslı giyotin kesim ve 4K UV metal baskı üzerine teknik incelemeler ve Alsancak atölye raporları.",
     alternates: {
         canonical: "https://veralteneketicaret.com/blog",
     },
     openGraph: {
-        title: "Teknik Raporlar & Blog | Veral Teneke Ticaret İzmir",
+        title: "Teknik Raporlar | Veral Teneke Ticaret İzmir",
         description: "Metal imalatı, 1200 DPI UV baskı, takvim çıtası ve dosya teli üretim standartları teknik veri tabanı.",
         url: "https://veralteneketicaret.com/blog",
     },
@@ -34,7 +34,7 @@ export default function BlogPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-atl-bg text-atl-text">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             <Navigation />
 
             {/* Breadcrumb Bar */}
