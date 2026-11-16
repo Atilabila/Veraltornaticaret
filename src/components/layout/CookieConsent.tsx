@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, X, ChevronRight } from 'lucide-react';
+import { ShieldCheck, X } from 'lucide-react';
 
 export const CookieConsent = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -40,27 +40,28 @@ export const CookieConsent = () => {
 
                             <div className="flex items-center gap-3 text-center md:text-left flex-1">
                                 <ShieldCheck className="w-5 h-5 text-[var(--color-brand-accent)] flex-shrink-0 hidden md:block" />
-                                <p className="text-[11px] sm:text-xs text-white/80 leading-snug">
-                                    Size daha iyi bir deneyim sunabilmek için çerezleri kullanıyoruz. Sitemizi kullanmaya devam ederek çerez kullanımını kabul etmiş olursunuz.
+                                <p className="text-sm text-white/80 leading-snug">
+                                    Çerezler siteyi çalıştırmak ve ziyareti hatırlamak için kullanılır.{" "}
+                                    <a href="/cerez" className="underline underline-offset-2 hover:text-white">Çerez politikası</a>
                                 </p>
                             </div>
 
                             <div className="flex items-center gap-2 w-full md:w-auto flex-shrink-0">
                                 <button
                                     onClick={handleDecline}
-                                    className="flex-1 md:flex-none px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] font-black text-white/60 hover:text-white uppercase tracking-[0.2em] transition-colors border border-white/10 hover:bg-white/5"
+                                    className="inline-flex min-h-11 flex-1 items-center justify-center px-4 text-xs font-semibold text-white/80 hover:text-white transition-colors border border-white/20 hover:bg-atl-surface-2 md:flex-none"
                                 >
                                     REDDET
                                 </button>
                                 <button
                                     onClick={handleAccept}
-                                    className="flex-1 md:flex-none bg-[var(--color-brand-accent)] text-black font-black text-[10px] sm:text-[11px] uppercase tracking-[0.2em] py-2 sm:py-2.5 px-4 sm:px-6 hover:bg-white transition-all duration-300"
+                                    className="inline-flex min-h-11 flex-1 items-center justify-center bg-[var(--color-brand-accent)] px-6 text-sm font-semibold text-atl-bg hover:bg-atl-brass-light transition-colors md:flex-none"
                                 >
                                     KABUL ET
                                 </button>
                                 <button
                                     onClick={() => setIsVisible(false)}
-                                    className="p-2 text-white/40 hover:text-white transition-colors hidden md:block"
+                                    className="hidden h-11 w-11 items-center justify-center text-white/70 hover:text-white transition-colors md:inline-flex"
                                     aria-label="Kapat"
                                 >
                                     <X size={16} />

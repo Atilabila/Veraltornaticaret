@@ -10,6 +10,7 @@ import { useContentStore } from "@/store/useContentStore";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import { buildWhatsAppOrderMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
+import { publicWhatsappNumber } from "@/lib/contact";
 import { CART_ENABLED } from "@/lib/commerce";
 import { m } from 'framer-motion';
 
@@ -111,7 +112,7 @@ export default function OrderConfirmationPage() {
     const isError = order.status === 'failed' || order.status === 'cancelled';
     const isEarly = order.status === 'created' || order.status === 'payment_pending';
 
-    const whatsappNumber = content.whatsappNumber;
+    const whatsappNumber = publicWhatsappNumber(content.whatsappNumber);
     const whatsappUrl = String(whatsappNumber || '').trim()
         ? buildWhatsAppUrl({
             phoneNumber: whatsappNumber,

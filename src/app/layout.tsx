@@ -43,9 +43,21 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://veralteneketicaret.com"),
-  title: "VERAL - Dosya Teli, Takvim Tenekesi ve Metal Poster İmalatı",
-  description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
-  keywords: ["dosya teli", "toptan dosya teli", "dosya teli üretimi", "dosya teli imalatı", "takvim tenekesi", "metal poster", "mıknatıslı magnet", "tef zili izmir"],
+  title: {
+    default: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
+    template: "%s | Veral Teneke Ticaret İzmir",
+  },
+  description:
+    "İzmir Alsancak'ta toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim ve UV baskılı metal poster. Veral Torna & Teneke Ticaret.",
+  keywords: [
+    "izmir dosya teli",
+    "toptan dosya teli imalatı",
+    "takvim tenekesi üreticisi",
+    "dosya teli üreticisi izmir",
+    "alsancak metal imalat",
+    "uv metal poster izmir",
+    "tef zili imalatı",
+  ],
   robots: {
     index: true,
     follow: true,
@@ -73,16 +85,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
-          media="print"
-          // @ts-ignore
-          onLoad="this.media='all'"
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap"
         />
 
         <LocalBusinessSchema />
         <KnowledgeBaseSchema />
       </head>
-      <body className="antialiased bg-[#fafafa] text-[#161616] selection:bg-[#d97706] selection:text-white">
+      <body className="antialiased bg-atl-bg text-atl-text font-sans selection:bg-atl-brass selection:text-atl-bg" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
         <MotionProvider>
           <AdminProvider>
             <ContentSyncProvider>
@@ -93,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <GlobalGrid />
                 {children}
                 {CART_ENABLED ? <CartDrawer /> : null}
+                <CookieConsent />
               </AuthProvider>
             </ContentSyncProvider>
           </AdminProvider>
@@ -100,7 +110,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WhatsAppButton />
         <ScrollToTop />
         <AnalyticsProvider><span /></AnalyticsProvider>
-        <CookieConsent />
         <Toaster />
       </body>
     </html>

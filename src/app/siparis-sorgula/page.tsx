@@ -8,8 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
-
 export default function SiparisSorgulaPage() {
     const [email, setEmail] = React.useState("");
     const [orderNumber, setOrderNumber] = React.useState("");
@@ -133,7 +131,6 @@ export default function SiparisSorgulaPage() {
                     </div>
                 </div>
             </PageContainer>
-            <MobileStickyBar />
         </PageShell>
     );
 }

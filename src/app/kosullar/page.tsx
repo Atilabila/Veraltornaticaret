@@ -1,1 +1,5 @@
-﻿export { default } from "../sartlar/page";
+﻿import { permanentRedirect } from "next/navigation";
+
+export default function KosullarPage() {
+    permanentRedirect("/sartlar");
+}
