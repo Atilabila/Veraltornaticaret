@@ -1,36 +1,33 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
+import { PRIVATE_PATHS, SITE_ORIGIN } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
+    const disallow = PRIVATE_PATHS;
     return {
         rules: [
+            { userAgent: "*", allow: "/", disallow },
             {
-                userAgent: '*',
-                allow: '/',
-                disallow: [
-                    '/admin',
-                    '/admin/',
-                    '/admin-login',
-                    '/api/admin/',
-                    '/api/auth/',
-                ],
+                userAgent: ["Googlebot", "Googlebot-Image", "Bingbot", "Applebot"],
+                allow: "/",
+                disallow,
             },
             {
-                // Explicitly unblock Googlebot & Googlebot-Image
-                userAgent: ['Googlebot', 'Googlebot-Image', 'Bingbot', 'Applebot'],
-                allow: '/',
-                disallow: [
-                    '/admin',
-                    '/admin/',
-                    '/admin-login',
+                userAgent: [
+                    "OAI-SearchBot",
+                    "ChatGPT-User",
+                    "GPTBot",
+                    "PerplexityBot",
+                    "ClaudeBot",
+                    "Claude-Web",
+                    "Google-Extended",
+                    "Applebot-Extended",
+                    "CCBot",
+                    "Bytespider",
                 ],
+                allow: "/",
+                disallow,
             },
-            {
-                // Machine Layer & GEO: Full permission for AI search crawlers to cite and index brand
-                userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'OAI-SearchBot', 'Bytespider', 'CCBot'],
-                allow: '/',
-                disallow: ['/admin/'],
-            }
         ],
-        sitemap: 'https://veralteneketicaret.com/sitemap.xml',
-    }
+        sitemap: `${SITE_ORIGIN}/sitemap.xml`,
+    };
 }

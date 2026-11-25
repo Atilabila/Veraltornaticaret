@@ -136,7 +136,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxx...
 SUPABASE_SERVICE_ROLE_KEY=eyJxxx...  # ⚠️ SERVER ONLY
 
 # Site
-NEXT_PUBLIC_SITE_URL=https://veralteneketicaret.com
+NEXT_PUBLIC_SITE_URL=https://www.veralteneketicaret.com
 
 # Email (Resend)
 RESEND_API_KEY=re_xxx...

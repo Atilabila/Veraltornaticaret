@@ -4,9 +4,8 @@ import "./globals.css";
 import { AdminProvider } from "@/components/providers/AdminProvider";
 import { ContentSyncProvider } from "@/components/providers/ContentSyncProvider";
 import { AuthProvider } from "@/components/auth/AuthProvider";
-import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
-import { KnowledgeBaseSchema } from "@/components/seo/KnowledgeBaseSchema";
 import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
+import { SITE_ORIGIN } from "@/lib/site";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
@@ -42,13 +41,35 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://veralteneketicaret.com"),
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
     default: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
     template: "%s | Veral Teneke Ticaret İzmir",
   },
   description:
-    "İzmir Alsancak'ta toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim ve UV baskılı metal poster. Veral Torna & Teneke Ticaret.",
+    "İzmir Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, sac kesim ve UV metal levha. Teklif için yazın.",
+  authors: [
+    {
+      name: "Oğuzcan Veral",
+      url: `${SITE_ORIGIN}/yazar/oguzcan-veral`,
+    },
+  ],
+  creator: "Veral Torna & Teneke Ticaret",
+  publisher: "Veral Torna & Teneke Ticaret",
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Veral Teneke Ticaret",
+    url: SITE_ORIGIN,
+    images: [
+      {
+        url: "/images/services/giyotin-kesim.webp",
+        width: 1200,
+        height: 900,
+        alt: "İzmir Alsancak Veral atölyesi",
+      },
+    ],
+  },
   keywords: [
     "izmir dosya teli",
     "toptan dosya teli imalatı",
@@ -58,17 +79,6 @@ export const metadata: Metadata = {
     "uv metal poster izmir",
     "tef zili imalatı",
   ],
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
   verification: {
     google: "mA7ESmS5CcTCWG7a5octdFFwX1_nZcURfbMvIn9inxc",
   },
@@ -88,8 +98,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap"
         />
 
-        <LocalBusinessSchema />
-        <KnowledgeBaseSchema />
       </head>
       <body className="antialiased bg-atl-bg text-atl-text font-sans selection:bg-atl-brass selection:text-atl-bg" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
         <MotionProvider>
