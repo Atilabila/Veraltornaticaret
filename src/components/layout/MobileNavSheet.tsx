@@ -103,18 +103,32 @@ export function MobileNavSheet({
                         ))}
 
                         <Link
-                            href="/blog"
-                            onClick={close}
-                            className="flex min-h-12 items-center px-3 text-base text-atl-muted active:text-atl-brass-light"
-                        >
-                            Blog
-                        </Link>
-                        <Link
                             href="/sss"
                             onClick={close}
                             className="flex min-h-12 items-center px-3 text-base text-atl-muted active:text-atl-brass-light"
                         >
                             SSS
+                        </Link>
+                        <Link
+                            href="/kvkk"
+                            onClick={close}
+                            className="flex min-h-12 items-center px-3 text-base text-atl-muted active:text-atl-brass-light"
+                        >
+                            KVKK
+                        </Link>
+                        <Link
+                            href="/on-bilgilendirme"
+                            onClick={close}
+                            className="flex min-h-12 items-center px-3 text-base text-atl-muted active:text-atl-brass-light"
+                        >
+                            Ön Bilgilendirme
+                        </Link>
+                        <Link
+                            href="/cerez"
+                            onClick={close}
+                            className="flex min-h-12 items-center px-3 text-base text-atl-muted active:text-atl-brass-light"
+                        >
+                            Çerez
                         </Link>
                     </nav>
                 </ScrollArea>

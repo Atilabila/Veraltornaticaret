@@ -79,6 +79,10 @@ export const metadata: Metadata = {
     "uv metal poster izmir",
     "tef zili imalatı",
   ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   verification: {
     google: "mA7ESmS5CcTCWG7a5octdFFwX1_nZcURfbMvIn9inxc",
   },
