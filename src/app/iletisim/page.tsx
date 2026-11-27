@@ -59,10 +59,10 @@ export default function IletisimPage() {
                                 İletişim ve atölye
                             </span>
                             <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight leading-tight mb-4">
-                                Atölyeye yazın
+                                İletişim
                             </h1>
                             <p className="text-base md:text-lg text-atl-muted leading-relaxed max-w-xl font-normal">
-                                Dosya teli, takvim tenekesi, sac kesim veya metal baskı için arayın ya da yazın.
+                                Dosya teli, takvim tenekesi, sac kesim veya metal poster için arama veya yazışma.
                             </p>
                         </div>
 
@@ -117,7 +117,7 @@ export default function IletisimPage() {
                             <div>
                                 <h2 className="text-2xl font-black text-atl-text mb-2">WhatsApp</h2>
                                 <p className="text-atl-muted text-sm leading-relaxed font-normal">
-                                    Ürünü ve adedi yazın. Fiyatı buradan sorun.
+                                    Ürün ve adet. Fiyat için yazışma.
                                 </p>
                             </div>
 

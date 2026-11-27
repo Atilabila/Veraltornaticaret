@@ -7,13 +7,13 @@ export async function POST(req: Request) {
 
         const apiKey = process.env.GEMINI_API_KEY || process.env.STITCH_API_KEY;
 
-        const systemPrompt = `Sen Veral Torna & Teneke Ticaret'in atölye notusun. 1986'dan beri İzmir Alsancak'ta çalışan bir aile atölyesisin. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı yaparsın. Yeni sayı, ölçü, kapasite veya süre uydurma. Bilmediğin şeyi "fiyat için yazın" diye kısalt. Kısa Türkçe yaz.
+        const systemPrompt = `Veral Torna ve Teneke Ticaret, 1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı. Metin isim ve mastar biçiminde yazılır. 'yapıyoruz', 'ediyoruz', 'çalışır' kullanılmaz. Yeni sayı, ölçü, kapasite veya süre uydurulmaz. Kısa Türkçe.
 
 Kullanıcı notu: ${specialRequest || "Yok"}. Alan: ${roomType || "belirtilmedi"}. Stil: ${stylePreference || "yazılmadı"}. Ölçü: ${dimensions || "yazılmadı"}.`;
 
         if (!apiKey) {
             return NextResponse.json({
-                recommendation: "Metal baskı için ölçüyü ve adedi yazın. Fiyatı söyleyelim. Atölye: 1471 Sokak No:12/A, Alsancak.",
+                recommendation: "Metal poster imalatı. Fiyat için yazışma. Adres: 1471 Sokak No:12/A, Alsancak.",
             });
         }
 
@@ -40,13 +40,13 @@ Kullanıcı notu: ${specialRequest || "Yok"}. Alan: ${roomType || "belirtilmedi"
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
         return NextResponse.json({
-            recommendation: text || "Tasarım küratörümüz şu anda atölyede üretimde. Lütfen doğrudan WhatsApp usta hattımızdan bilgi alınız.",
+            recommendation: text || "Yanıt yok. WhatsApp ile ürün ve adet yazışması.",
         });
     } catch (err: unknown) {
         console.error("AI Curator error:", err);
         return NextResponse.json(
             {
-                recommendation: "Şu an yanıt yazılamadı. WhatsApp'tan ürün ve adedi yazın.",
+                recommendation: "Yanıt yazılamadı. WhatsApp ile ürün ve adet.",
             },
             { status: 200 }
         );

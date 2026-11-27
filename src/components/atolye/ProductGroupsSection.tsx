@@ -35,7 +35,7 @@ const GROUPS = [
         href: "/hizmetler/miknatisli-magnet",
         image: "",
         badge: "Poster",
-        description: "Metal poster yapıyoruz.",
+        description: "Metal poster imalatı.",
     },
 ];
 
@@ -47,8 +47,8 @@ export function ProductGroupsSection() {
                     <div className="mb-6 flex flex-col justify-between gap-3 sm:mb-10 sm:gap-5 md:flex-row md:items-end">
                         <SectionHeading
                             eyebrow="İzmir metal üretim hatları"
-                            title="Yaptığımız işler"
-                            description="Torna, yedek parça ve teneke ürünleri yapıyoruz."
+                            title="Yapılan işler"
+                            description="Torna, yedek parça ve teneke ürünleri imalatı."
                         />
                         <Link href="/hizmetler" className="inline-flex items-center gap-2 self-start font-mono text-xs uppercase tracking-[0.2em] text-atl-brass-light transition-colors hover:text-atl-text md:self-auto">
                             Tüm üretim hatları <ArrowRight className="h-4 w-4" />

@@ -11,13 +11,13 @@ import { ArrowRight, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Hakkımızda",
-    description: `Veral Torna ve Teneke Ticaret, ${FOUNDING_YEAR}'dan beri Alsancak'ta çalışır. Torna, yedek parça ve teneke ürünleri yapıyoruz.`,
+    description: `Veral Torna ve Teneke Ticaret, ${FOUNDING_YEAR}'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.`,
     alternates: {
         canonical: absUrl("/hakkimizda"),
     },
     openGraph: {
         title: "Hakkımızda | Veral Teneke Ticaret",
-        description: `${FOUNDING_YEAR}'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.`,
+        description: `${FOUNDING_YEAR}'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.`,
         url: absUrl("/hakkimizda"),
     },
 };

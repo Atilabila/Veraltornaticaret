@@ -5,14 +5,14 @@ import { SITE_WHATSAPP } from "@/lib/site";
 export const FOUNDING_YEAR = "1986";
 
 export const ABOUT_PARAGRAPHS = [
-    "Veral Torna ve Teneke Ticaret, 1986'dan beri İzmir Alsancak'ta çalışır.",
-    "Torna, yedek parça ve teneke ürünleri yapıyoruz.",
-    "Dosya teli, takvim tenekesi, tef zili, sac kesim, rulo dilme ve metal poster de yapıyoruz.",
-    "Adresimiz 1471 Sokak No:12/A, Alsancak / İzmir. Telefonumuz 0507 165 13 15.",
+    "Veral Torna ve Teneke Ticaret, 1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir.",
+    "Torna, yedek parça ve teneke ürünleri imalatı.",
+    "Dosya teli, takvim tenekesi, tef zili, sac kesim, rulo dilme ve metal poster imalatı.",
+    "Adres: 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.",
 ];
 
 export const WORKSHOP_BLURB =
-    "Veral Torna ve Teneke Ticaret, 1986'dan beri Alsancak'ta çalışır. Torna, yedek parça ve teneke ürünleri yapıyoruz.";
+    "Veral Torna ve Teneke Ticaret, 1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.";
 
 export type PublicFeature = { key: string; value: string };
 
@@ -29,58 +29,58 @@ export type PublicServiceCopy = {
 /** Ölçüler yalnızca sitede zaten görünen boylardır. Yeni sayı yok. */
 export const PUBLIC_SERVICE_COPY: Record<string, PublicServiceCopy> = {
     "dosya-teli": {
-        shortDescription: "Dosya teli yapıyoruz. Boylar 14, 15, 17, 21 ve 24 cm. Akrep tel de var.",
+        shortDescription: "Dosya teli imalatı. Boylar: 14, 15, 17, 21 ve 24 cm. Akrep tel.",
         fullDescription:
-            "Kırtasiye ve dosya işi için tel yapıyoruz. Boylar 14, 15, 17, 21 ve 24 cm. Akrep tel de var. Fiyat için bize yazabilirsiniz.",
-        seoDescription: "Alsancak'ta dosya teli. Boylar: 14, 15, 17, 21, 24 cm ve akrep tel.",
+            "Dosya teli imalatı. Boylar: 14, 15, 17, 21 ve 24 cm. Akrep tel. Fiyat için yazışma.",
+        seoDescription: "Alsancak'ta dosya teli imalatı. Boylar: 14, 15, 17, 21, 24 cm ve akrep tel.",
         features: [{ key: "Boylar", value: "14, 15, 17, 21, 24 cm ve akrep tel" }],
-        slaText: "Fiyat için yazabilirsiniz",
+        slaText: "Fiyat için yazışma",
         ctaTitle: "Bu tel için fiyat",
         ctaLabel: "Fiyat isteği",
     },
     "takvim-tenekesi": {
-        shortDescription: "Takvim tenekesi yapıyoruz. Boylar 31, 33 ve 48 cm.",
+        shortDescription: "Takvim tenekesi imalatı. Boylar: 31, 33 ve 48 cm.",
         fullDescription:
-            "Takvim tenekesi, duvar takviminin kenarına geçen metal parçadır. Boylar 31, 33 ve 48 cm. Askılı ya da askısız olabilir.",
-        seoDescription: "Takvim tenekesi. Boylar: 31, 33 ve 48 cm. Alsancak.",
+            "Takvim tenekesi imalatı. Duvar takviminin kenarına geçen metal parça. Boylar: 31, 33 ve 48 cm. Askılı veya askısız.",
+        seoDescription: "Takvim tenekesi imalatı. Boylar: 31, 33 ve 48 cm. Alsancak.",
         features: [{ key: "Boylar", value: "31, 33 ve 48 cm" }],
-        slaText: "Fiyat için yazabilirsiniz",
+        slaText: "Fiyat için yazışma",
         ctaTitle: "Bu teneke için fiyat",
         ctaLabel: "Fiyat isteği",
     },
     "tef-zili": {
-        shortDescription: "Tef zili yapıyoruz. Görünen çap 38 mm.",
-        fullDescription: "Müzik aleti işi için tef zili yapıyoruz. Görünen çap 38 mm. Fiyat için bize yazabilirsiniz.",
-        seoDescription: "Tef zili. Görünen çap 38 mm. Alsancak.",
+        shortDescription: "Tef zili imalatı. Görünen çap 38 mm.",
+        fullDescription: "Tef zili imalatı. Görünen çap 38 mm. Fiyat için yazışma.",
+        seoDescription: "Tef zili imalatı. Görünen çap 38 mm. Alsancak.",
         features: [{ key: "Çap", value: "38 mm" }],
-        slaText: "Fiyat için yazabilirsiniz",
+        slaText: "Fiyat için yazışma",
         ctaTitle: "Bu zil için fiyat",
         ctaLabel: "Fiyat isteği",
     },
     "giyotin-kesim": {
-        shortDescription: "Sac ve tenekeyi ölçüde kesiyoruz.",
-        fullDescription: "Sac ve tenekeyi istediğiniz ölçüde kesiyoruz. Ölçüyü paylaşırsanız fiyatı birlikte bakarız.",
-        seoDescription: "Alsancak'ta giyotin sac kesim. Ölçüyü paylaşırsanız fiyatı söyleyebiliriz.",
+        shortDescription: "Sac ve teneke kesimi.",
+        fullDescription: "Ölçüye göre sac ve teneke kesimi. Fiyat için yazışma.",
+        seoDescription: "Alsancak'ta giyotin sac kesim.",
         features: [{ key: "İş", value: "Ölçüye göre kesim" }],
-        slaText: "Fiyat için yazabilirsiniz",
+        slaText: "Fiyat için yazışma",
         ctaTitle: "Kesim için fiyat",
         ctaLabel: "Fiyat isteği",
     },
     "rulo-dilimleme": {
-        shortDescription: "Rulo sacı şerit olarak dilimliyoruz.",
-        fullDescription: "Rulo sacı şerit olarak dilimleyebiliriz. Eni söylerseniz fiyatı birlikte bakarız.",
+        shortDescription: "Rulo sac dilimleme.",
+        fullDescription: "Rulo sacın şerit olarak dilimlenmesi. Fiyat için yazışma.",
         seoDescription: "Rulo sac dilimleme. Alsancak.",
         features: [{ key: "İş", value: "Şerit dilimleme" }],
-        slaText: "Fiyat için yazabilirsiniz",
+        slaText: "Fiyat için yazışma",
         ctaTitle: "Dilim için fiyat",
         ctaLabel: "Fiyat isteği",
     },
     "miknatisli-magnet": {
-        shortDescription: "Metal poster yapıyoruz. Mıknatıslı olanı da var.",
-        fullDescription: "Metal poster yapıyoruz. Mıknatıslı olanı da var. Ölçüyü paylaşırsanız fiyatı söyleyebiliriz.",
-        seoDescription: "Metal poster. Alsancak. Fiyat için yazabilirsiniz.",
+        shortDescription: "Metal poster imalatı. Mıknatıslı poster.",
+        fullDescription: "Metal poster imalatı. Mıknatıslı poster de yapılır. Fiyat için yazışma.",
+        seoDescription: "Metal poster imalatı. Alsancak.",
         features: [{ key: "İş", value: "Metal poster" }],
-        slaText: "Fiyat için yazabilirsiniz",
+        slaText: "Fiyat için yazışma",
         ctaTitle: "Poster için fiyat",
         ctaLabel: "Fiyat isteği",
     },
@@ -96,43 +96,43 @@ export type TornaService = {
 export const TORNA_SERVICES: TornaService[] = [
     {
         slug: "yedek-parca",
-        title: "Yedek parça",
-        text: "Alsancak atölyesinde torna ve makine için yedek parça yapıyoruz.",
+        title: "Yedek parça imalatı",
+        text: "Alsancak atölyesinde torna ve makine yedek parçası imalatı.",
     },
     {
         slug: "tamir",
         title: "Tamir",
-        text: "Alsancak atölyesinde bozulan parçayı tamir ediyoruz.",
+        text: "Alsancak atölyesinde parça tamiri.",
     },
     {
         slug: "imalat",
         title: "İmalat",
-        text: "Alsancak atölyesinde istediğiniz parçayı tornada yapıyoruz.",
+        text: "Alsancak atölyesinde tornada parça imalatı.",
     },
     {
         slug: "kalip-imalati",
         title: "Kalıp imalatı",
-        text: "Alsancak atölyesinde kalıp yapıyoruz.",
+        text: "Alsancak atölyesinde kalıp imalatı.",
     },
     {
         slug: "makine-bakim-ve-onarimi",
-        title: "Makine bakım ve onarımı",
-        text: "Alsancak atölyesinde makine bakımı ve onarımı yapıyoruz.",
+        title: "Makine bakım ve onarımı yapmak",
+        text: "Alsancak atölyesinde makine bakım ve onarımı yapmak.",
     },
     {
         slug: "heli-coil-ve-baga",
         title: "Heli-Coil ve baga uygulamaları",
-        text: "Alsancak atölyesinde Heli-Coil ve baga uygulamaları yapıyoruz. Heli-Coil, vida dişine takılan bir tel burçtur.",
+        text: "Alsancak atölyesinde Heli-Coil ve baga uygulamaları. Heli-Coil, vida dişine takılan bir tel burçtur.",
     },
     {
         slug: "motosiklet-jant-tamiri",
         title: "Motosiklet jant tamiri",
-        text: "Alsancak atölyesinde motosiklet jant tamiri yapıyoruz.",
+        text: "Alsancak atölyesinde motosiklet jant tamiri.",
     },
     {
         slug: "rulman-ve-burc-cakma",
         title: "Hidrolik pres ile rulman ve burç çakma",
-        text: "Alsancak atölyesinde hidrolik pres ile rulman ve burç çakıyoruz.",
+        text: "Alsancak atölyesinde hidrolik pres ile rulman ve burç çakma.",
     },
 ];
 
@@ -154,7 +154,7 @@ export const PUBLIC_FAQS = [
     {
         category: "Sipariş",
         question: "Sipariş nasıl olur?",
-        answer: "Ürünü, ölçüyü ve adedi paylaşırsanız size fiyatı yazarız. Adınız ve telefonunuz yeter. E-posta zorunlu değil.",
+        answer: "Ürün, ölçü ve adet bilgisi. Ardından ad ve telefon. E-posta zorunlu değil. Fiyatın yazılması.",
     },
     {
         category: "Dosya teli",
@@ -168,13 +168,13 @@ export const PUBLIC_FAQS = [
     },
     {
         category: "Tef zili",
-        question: "Tef zili yapıyor musunuz?",
-        answer: "Evet. Görünen çap 38 mm.",
+        question: "Tef zili imalatı var mı?",
+        answer: "Evet. Tef zili imalatı. Görünen çap 38 mm.",
     },
     {
         category: "Sac",
         question: "Sac kesimi ve rulo dilme var mı?",
-        answer: "Evet. Giyotin kesim ve rulo dilme yapıyoruz. Ölçüyü paylaşırsanız fiyatı birlikte bakarız.",
+        answer: "Evet. Giyotin kesim ve rulo dilme. Ölçü yazılır, fiyat bildirilir.",
     },
     {
         category: "Adres",
@@ -186,7 +186,7 @@ export const PUBLIC_FAQS = [
 export function priceAskUrl(productName: string): string {
     return buildWhatsAppUrl({
         phoneNumber: SITE_WHATSAPP,
-        message: `Merhaba, ${productName} için fiyat öğrenmek istiyorum.`,
+        message: `Merhaba, ${productName} için fiyat talebi.`,
     });
 }
 

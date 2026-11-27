@@ -23,9 +23,9 @@ export const blogPosts: BlogPostSummary[] = [
         featured: true,
         tags: ["Takvim tenekesi", "Alsancak"],
         content: `
-Takvim tenekesi, duvar takviminin kenarına geçen metal çıtadır.
+Takvim tenekesi imalatı. Duvar takviminin kenarına geçen metal parça.
 
-Atölyede görünen boylar 31, 33 ve 48 cm'dir. Askılı ya da askısız olduğunu ve adedi yazın. Fiyatı söyleyelim.
+Boylar: 31, 33 ve 48 cm. Askılı veya askısız. Fiyat için yazışma.
         `.trim(),
     },
     {
@@ -41,13 +41,13 @@ Atölyede görünen boylar 31, 33 ve 48 cm'dir. Askılı ya da askısız olduğu
         content: `
 Dosya teli, dosya ve arşiv işi için üretilir.
 
-Sitede görünen boylar 14, 15, 17, 21 ve 24 cm ile akrep teldir. Boyu ve adedi yazın.
+Boylar: 14, 15, 17, 21 ve 24 cm. Akrep tel. Fiyat için yazışma.
         `.trim(),
     },
     {
         id: "giyotin-sac-kesim-ve-tolerans-standartlari",
         title: "Giyotin sac kesim",
-        excerpt: "Sac ve tenekeyi ölçüye göre keseriz. Ölçüyü yazın.",
+        excerpt: "Ölçüye göre sac ve teneke kesimi.",
         category: "Atölye",
         date: "18.01.2026",
         readTime: "1 dakika",
@@ -55,9 +55,9 @@ Sitede görünen boylar 14, 15, 17, 21 ve 24 cm ile akrep teldir. Boyu ve adedi 
         featured: false,
         tags: ["Giyotin", "Sac kesim"],
         content: `
-Giyotin ile sac ve teneke keseriz.
+Giyotin ile sac ve teneke kesimi.
 
-Eni, boyu ve adedi yazın. Fiyatı teklifte söyleriz.
+Ölçü yazılır. Fiyat teklifte bildirilir.
         `.trim(),
     },
     {
@@ -73,7 +73,7 @@ Eni, boyu ve adedi yazın. Fiyatı teklifte söyleriz.
         content: `
 Metal levhaya baskı yaparız. Mıknatıslı asılan poster de vardır.
 
-Ölçüyü ve adedi yazın. Fiyatı söyleyelim.
+Ölçü ve adet. Fiyat için yazışma.
         `.trim(),
     },
     {
@@ -89,13 +89,13 @@ Metal levhaya baskı yaparız. Mıknatıslı asılan poster de vardır.
         content: `
 Tabela ve poster için metal levhaya baskı yaparız.
 
-Ne basılacağını ve ölçüyü yazın. Fiyatı söyleyelim.
+Basılacak görsel ve ölçü. Fiyat için yazışma.
         `.trim(),
     },
     {
         id: "rulo-sac-dilme-slitting-hatlari",
         title: "Rulo sac dilimleme",
-        excerpt: "Rulo sacı şerit halinde dilimleriz. Eni siz yazın.",
+        excerpt: "Rulo sacın şerit olarak dilimlenmesi.",
         category: "Atölye",
         date: "28.12.2025",
         readTime: "1 dakika",
@@ -103,9 +103,9 @@ Ne basılacağını ve ölçüyü yazın. Fiyatı söyleyelim.
         featured: false,
         tags: ["Rulo dilimleme", "Sac"],
         content: `
-Rulo sacı şerit halinde dilimleriz.
+Rulo sacın şerit olarak dilimlenmesi.
 
-Eni ve miktarı yazın. Fiyatı teklifte söyleriz.
+En ve miktar yazılır. Fiyat teklifte bildirilir.
         `.trim(),
     },
 ];

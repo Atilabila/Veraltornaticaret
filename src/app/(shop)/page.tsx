@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         absolute: "Veral Torna ve Teneke | Alsancak",
     },
     description:
-        "1986'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
+        "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
     keywords: [
         "izmir dosya teli",
         "toptan dosya teli imalatı",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Veral Torna ve Teneke | Alsancak",
         description:
-            "1986'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
+            "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
         url: absUrl("/"),
         siteName: "Veral Torna & Teneke Ticaret",
         locale: "tr_TR",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 const homeFaqs = [
     {
         question: "Atölye ne iş yapar?",
-        answer: "1986'dan beri Alsancak'ta çalışırız. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
+        answer: "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
     },
     {
         question: "Takvim tenekesi siparişi nasıl verilir?",
@@ -68,7 +68,7 @@ const homeFaqs = [
     },
     {
         question: "Atölye nerede?",
-        answer: "Adresimiz 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.",
+        answer: "Adres: 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.",
     },
 ];
 
@@ -106,7 +106,7 @@ const homeProductionRows = [
     {
         area: "Metal poster",
         href: "/hizmetler/miknatisli-magnet",
-        scope: "Metal poster yapıyoruz.",
+        scope: "Metal poster imalatı.",
         orderModel: "Teklif usulü",
     },
 ];
@@ -208,7 +208,7 @@ export default function ShopHomePage() {
                         <SectionHeading
                             eyebrow="Üretim özeti"
                             title="İzmir Alsancak atölye üretim alanları"
-                            description="Mevcut hatlarımızda yürütülen toptan, seri ve fason metal işleme alanları."
+                            description="Seri üretim. Torna, yedek parça ve teneke ürünleri imalatı."
                         />
                         <p className="font-mono text-xs text-atl-muted">
                             Güncelleme:{" "}
@@ -261,8 +261,8 @@ export default function ShopHomePage() {
             </section>
             <HomeFaqBand />
             <CtaBand
-                title="Fiyat için yazabilirsiniz"
-                description="Dosya teli, takvim tenekesi, sac kesim veya metal poster. Ölçüyü paylaşırsanız fiyatı birlikte bakarız."
+                title="Fiyat için yazışma"
+                description="Dosya teli, takvim tenekesi, sac kesim veya metal poster. Ölçü yazılır, fiyat bildirilir."
             />
             <Footer />
         </main>

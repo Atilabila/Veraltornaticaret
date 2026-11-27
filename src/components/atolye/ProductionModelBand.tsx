@@ -6,7 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Wordmark } from "@/components/brand/Wordmark";
 
 const POINTS = [
-    "Ölçüyü paylaşırsanız fiyatı birlikte bakarız",
+    "Ölçü yazılır, fiyat bildirilir",
     "Atölye Alsancak'ta",
     "Telefon: 0507 165 13 15",
 ];
@@ -21,10 +21,10 @@ export function ProductionModelBand() {
                 <Reveal delay={0.1} className="atl-workshop-lit-subtle flex flex-col justify-center px-4 py-8 sm:px-6 sm:py-12 lg:px-16 lg:py-16">
                     <span className="text-xs font-semibold uppercase tracking-normal text-atl-brass">Atölye</span>
                     <h2 className="mt-2 font-display text-[1.85rem] leading-tight text-atl-text sm:mt-3 sm:text-4xl md:text-5xl">
-                        Fiyat için yazabilirsiniz
+                        Fiyat için yazışma
                     </h2>
                     <p className="mt-3 max-w-lg text-sm leading-relaxed text-atl-muted sm:mt-5 sm:text-base">
-                        Torna, yedek parça ve teneke ürünleri yapıyoruz.
+                        Seri üretim yapan bir atölye. Torna, yedek parça ve teneke ürünleri imalatı.
                     </p>
                     <ul className="mt-5 space-y-2.5 sm:mt-8 sm:space-y-3">
                         {POINTS.map((point) => (

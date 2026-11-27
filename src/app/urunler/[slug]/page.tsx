@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         }
     }
 
-    const description = product.description || `${product.name}. Alsancak atölyesinde yapılır. Fiyat için yazın.`
+    const description = product.description || `${product.name}. Alsancak atölyesinde imalat. Fiyat için yazışma.`
 
     return {
         title: `${product.name} | Veral Ticaret`,
@@ -126,12 +126,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
             answer: "Ürünümüzle birlikte gönderilen 3M VHB manyetik tutucu tabaka duvara yapıştırılır. N35 neodimyum mıknatıs sistemi sayesinde duvarı delmeden, çivi kullanmadan 30 saniyede monte edilir."
         },
         {
-            question: "Metal baskı yapıyor musunuz?",
-            answer: "Metal levhaya baskı yapılır. Ölçüyü yazın, fiyatı söyleyelim."
+            question: "Metal poster imalatı var mı?",
+            answer: "Metal poster imalatı. Fiyat için yazışma."
         },
         {
             question: "Kargo süreci ve hasar koruması nasıl sağlanır?",
-            answer: "Gönderilir. Süre teklifte yazılır. Kargoda bozulursa bize yazın."
+            answer: "Gönderim yapılır. Süre teklifte yazılır. Kargo hasarında yazışma."
         }
     ]
 

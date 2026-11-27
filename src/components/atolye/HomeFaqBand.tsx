@@ -15,7 +15,7 @@ import { Reveal } from "@/components/motion/Reveal";
 const FAQS = [
     {
         q: "Atölye ne iş yapar?",
-        a: "1986'dan beri Alsancak'ta çalışırız. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
+        a: "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
     },
     {
         q: "Takvim tenekesi siparişi nasıl verilir?",
@@ -23,7 +23,7 @@ const FAQS = [
     },
     {
         q: "Atölye nerede?",
-        a: "Adresimiz 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.",
+        a: "Adres: 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.",
     },
     {
         q: "Mıknatıslı metal posterler nasıl monte edilir?",

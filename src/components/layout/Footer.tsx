@@ -54,11 +54,11 @@ export const Footer = () => {
                                 <Wordmark className="h-12 w-auto" />
                             </Link>
                             <p className="max-w-sm text-sm leading-relaxed text-atl-muted">
-                                1986&apos;dan beri Alsancak&apos;ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.
+                                1986&apos;dan beri İzmir Alsancak&apos;ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.
                             </p>
                             <div className="flex gap-2">
                                 {socialLinks.filter((item) => item.href.trim() !== "" && item.href.trim() !== "#").map((item, i) => (
-                                    <Link key={i} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={`${item.label} sayfamız`}
+                                    <Link key={i} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={`${item.label} sayfası`}
                                         className="flex h-11 w-11 items-center justify-center border border-atl-line text-atl-muted transition-colors hover:border-atl-brass hover:text-atl-brass-light">
                                         <item.icon size={18} />
                                     </Link>

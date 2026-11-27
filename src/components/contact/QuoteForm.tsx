@@ -125,11 +125,11 @@ export const QuoteForm = () => {
         const next: Record<string, string> = {};
         if (current === 1) {
             if (!formData.serviceType) next.serviceType = "Ürün seçin.";
-            if (!formData.quantity.trim()) next.quantity = "Adet yazın.";
+            if (!formData.quantity.trim()) next.quantity = "Adet gerekli.";
         }
         if (current === 2) {
-            if (!formData.fullName.trim()) next.fullName = "Ad soyad yazın.";
-            if (!formData.phone.trim()) next.phone = "Telefon yazın.";
+            if (!formData.fullName.trim()) next.fullName = "Ad soyad gerekli.";
+            if (!formData.phone.trim()) next.phone = "Telefon gerekli.";
             if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
                 next.email = "E-posta hatalı.";
             }
@@ -242,7 +242,7 @@ export const QuoteForm = () => {
                                     <h2 className="text-2xl font-black text-atl-text flex items-center gap-3">
                                         <Settings className="text-atl-brass w-6 h-6" /> Ürün ve adet
                                     </h2>
-                                    <p className="text-atl-muted text-sm">Önce ne istediğinizi yazın.</p>
+                                    <p className="text-atl-muted text-sm">Önce ürün ve adet.</p>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
@@ -306,7 +306,7 @@ export const QuoteForm = () => {
                                     <h2 className="text-2xl font-black text-atl-text flex items-center gap-3">
                                         <User className="text-atl-brass w-6 h-6" /> Ad ve telefon
                                     </h2>
-                                    <p className="text-atl-muted text-sm">Sizi buradan ararız. E-posta şart değil.</p>
+                                    <p className="text-atl-muted text-sm">Arama bu numaradan yapılır. E-posta zorunlu değil.</p>
                                 </div>
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div className="space-y-2">

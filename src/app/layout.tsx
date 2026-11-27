@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     template: "%s | Veral Teneke Ticaret İzmir",
   },
   description:
-    "1986'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
+    "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
   authors: [
     {
       name: "Oğuzcan Veral",

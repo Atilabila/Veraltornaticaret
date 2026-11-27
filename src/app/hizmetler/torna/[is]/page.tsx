@@ -75,7 +75,7 @@ export default async function TornaServicePage({ params }: PageProps) {
                 <h1 className="mt-2 font-display text-3xl text-atl-text sm:text-4xl">{service.title}</h1>
                 <p className="mt-4 text-base leading-relaxed text-atl-muted">{service.text}</p>
                 <p className="mt-4 text-base leading-relaxed text-atl-muted">
-                    Adresimiz 1471 Sokak No:12/A, Alsancak / İzmir. Telefonumuz 0507 165 13 15.
+                    Adres: 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <Link href="/teklif-al?hizmet=torna" className="inline-flex min-h-12 items-center justify-center bg-atl-brass px-6 text-sm font-semibold text-atl-bg">

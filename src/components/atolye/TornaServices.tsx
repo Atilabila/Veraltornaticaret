@@ -7,9 +7,9 @@ export function TornaServices({ linked = false, intro = true }: { linked?: boole
             <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
                 {intro ? (
                     <>
-                        <h2 className="font-display text-3xl text-atl-text sm:text-4xl">Torna</h2>
+                        <h2 className="font-display text-3xl text-atl-text sm:text-4xl">Torna ve yedek parça imalatı</h2>
                         <p className="mt-3 max-w-2xl text-base leading-relaxed text-atl-muted">
-                            Torna, yedek parça ve teneke ürünleri yapıyoruz.
+                            Seri üretim yapan bir atölye. Torna, yedek parça ve teneke ürünleri imalatı.
                         </p>
                     </>
                 ) : null}

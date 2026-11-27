@@ -11,7 +11,7 @@ import { Clock } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: "Teklif Al",
-    description: "Ürün ve adet yazın. Adınızı ve telefonunuzu bırakın. Fiyatı bildiririz.",
+    description: "Önce ürün ve adet. Sonra ad ve telefon. E-posta zorunlu değil.",
     alternates: {
         canonical: absUrl("/teklif-al"),
     },
@@ -46,10 +46,10 @@ export default async function QuotePage() {
                             İmalatçıdan doğrudan teklif
                         </span>
                         <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight leading-tight">
-                            Fiyat sorun
+                            Fiyat talebi
                         </h1>
                         <p className="text-base md:text-lg text-atl-muted leading-relaxed font-normal">
-                            Önce ürün ve adet. Sonra adınız ve telefonunuz.
+                            Önce ürün ve adet. Sonra ad ve telefon.
                         </p>
                         <div className="pt-2 flex items-center gap-2 text-sm text-atl-muted">
                             <Clock className="w-4 h-4 text-atl-brass" />

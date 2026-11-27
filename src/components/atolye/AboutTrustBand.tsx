@@ -9,7 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 const BULLETS = [
     "Torna, yedek parça ve teneke",
     "1471 Sokak No:12/A, Alsancak",
-    "Fiyat için yazabilirsiniz",
+    "Fiyat için yazışma",
     "0507 165 13 15",
 ];
 
@@ -21,11 +21,11 @@ export function AboutTrustBand() {
                     <SectionHeading
                         eyebrow="İzmir Alsancak atölyesi"
                         title="Alsancak, 1986"
-                        description="Torna, yedek parça ve teneke ürünleri yapıyoruz."
+                        description="Torna, yedek parça ve teneke ürünleri imalatı."
                     />
                     <BrassRule className="my-8 max-w-xs" />
                     <p className="max-w-xl text-base leading-relaxed text-atl-muted">
-                        Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster de yapıyoruz.
+                        Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster imalatı.
                     </p>
                     <Link
                         href="/hakkimizda"

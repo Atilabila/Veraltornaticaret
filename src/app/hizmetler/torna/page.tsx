@@ -10,11 +10,11 @@ import { Phone } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Torna",
-    description: "Torna, yedek parça ve teneke ürünleri yapıyoruz. Alsancak, 1471 Sokak No:12/A.",
+    description: "Torna ve yedek parça imalatı. 1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir.",
     alternates: { canonical: absUrl("/hizmetler/torna") },
     openGraph: {
         title: "Torna | Veral Torna ve Teneke",
-        description: "Torna, yedek parça ve teneke ürünleri yapıyoruz.",
+        description: "Torna ve yedek parça imalatı. Alsancak'ta seri üretim.",
         url: absUrl("/hizmetler/torna"),
     },
 };
@@ -57,9 +57,9 @@ export default function TornaPage() {
                         { name: "Torna", url: "/hizmetler/torna" },
                     ]}
                 />
-                <h1 className="mt-2 font-display text-3xl text-atl-text sm:text-4xl">Torna</h1>
+                <h1 className="mt-2 font-display text-3xl text-atl-text sm:text-4xl">Torna ve yedek parça imalatı</h1>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-atl-muted">
-                    Torna, yedek parça ve teneke ürünleri yapıyoruz.
+                    1986&apos;dan beri İzmir Alsancak&apos;ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.
                 </p>
             </div>
             <TornaServices intro={false} />

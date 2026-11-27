@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         absolute: "İzmir Dosya Teli, Takvim Tenekesi ve Metal İmalat Hizmetleri | Veral Alsancak",
     },
     description:
-        "Alsancak'ta torna, yedek parça ve teneke ürünleri yapıyoruz. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster de var.",
+        "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
     keywords: [
         "izmir dosya teli",
         "toptan dosya teli imalatı",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "İzmir Alsancak Metal Üretim Hatları | Veral Teneke Ticaret",
         description:
-            "Torna, yedek parça ve teneke ürünleri yapıyoruz. Alsancak.",
+            "Torna, yedek parça ve teneke ürünleri imalatı. Alsancak.",
         url: absUrl("/hizmetler"),
         locale: "tr_TR",
         type: "website",
@@ -121,7 +121,7 @@ const serviceCards = [
         capacity: "Seri / özel",
         image: "/images/services/metal-tabelalar.webp",
         description:
-            "Metal poster yapıyoruz.",
+            "Metal poster imalatı.",
         specs: [
             { label: "Ürün", val: "Metal poster" },
             { label: "Montaj", val: "Mıknatıslı" },
@@ -133,7 +133,7 @@ const serviceCards = [
 const geoHighlights = [
     {
         title: "İzmir Alsancak üretim",
-        text: "Atölyemiz Alsancak’ta; yerinde numune, hızlı iletişim ve kısa sevkiyat mesafesi.",
+        text: "Atölye Alsancak'ta, 1471 Sokak No:12/A.",
     },
     {
         title: "Toptan imalat odaklı",
@@ -152,7 +152,7 @@ const geoHighlights = [
 export default function HizmetlerPage() {
     const breadcrumbs = [
         { name: "Ana Sayfa", url: "/" },
-        { name: "Üretim Hatlarımız", url: "/hizmetler" },
+        { name: "İmalat", url: "/hizmetler" },
     ];
 
     const itemListSchema = {
@@ -225,7 +225,7 @@ export default function HizmetlerPage() {
                         </h1>
 
                         <p className="max-w-2xl text-base leading-relaxed text-atl-muted md:text-lg">
-                            Torna, yedek parça ve teneke ürünleri yapıyoruz. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster de yapıyoruz.
+                            1986&apos;dan beri İzmir Alsancak&apos;ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -300,7 +300,7 @@ export default function HizmetlerPage() {
                 <div className="mb-10 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end">
                     <div>
                         <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-atl-brass">
-                            Üretim hatlarımız
+                            İmalat
                         </span>
                         <h2 className="font-display text-2xl tracking-tight text-atl-text sm:text-4xl">
                             İzmir Alsancak metal imalat hizmetleri

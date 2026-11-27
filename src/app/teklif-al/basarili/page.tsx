@@ -38,7 +38,7 @@ function TeklifBasariliContent() {
                 <p className="text-lg text-atl-muted">
                     {uploadStatus === 'fail'
                         ? 'Teklif talebiniz kaydedildi ancak dosya yüklenirken bir hata oluştu.'
-                        : 'Teklif talebiniz başarıyla kaydedildi. Ekibimiz talebinizi inceleyip size dönüş yapacaktır.'}
+                        : 'Teklif talebi kaydedildi. İnceleme sonrası dönüş yapılır.'}
                 </p>
             </div>
 
@@ -59,7 +59,7 @@ function TeklifBasariliContent() {
             <div className="bg-atl-surface border border-atl-line p-6 mb-6">
                 <h2 className="text-lg font-display text-atl-text mb-2">Sonraki adımlar</h2>
                 <p className="text-atl-muted text-sm leading-relaxed">
-                    Teknik ekibimiz talebinizi inceleyecek; ölçü, miktar ve teslimat bilgilerinize göre toptan fiyatlandırma paylaşacaktır.
+                    Talep incelenir. Ölçü ve adede göre fiyat yazılır.
                 </p>
             </div>
 
