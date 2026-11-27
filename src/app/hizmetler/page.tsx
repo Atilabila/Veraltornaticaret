@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         absolute: "İzmir Dosya Teli, Takvim Tenekesi ve Metal İmalat Hizmetleri | Veral Alsancak",
     },
     description:
-        "İzmir Alsancak'ta toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster. Teklif ve numune için hemen iletişime geçin.",
+        "Alsancak'ta torna, yedek parça ve teneke ürünleri yapıyoruz. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster de var.",
     keywords: [
         "izmir dosya teli",
         "toptan dosya teli imalatı",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "İzmir Alsancak Metal Üretim Hatları | Veral Teneke Ticaret",
         description:
-            "Dosya teli, takvim tenekesi, sac kesim ve UV metal baskı — İzmir Alsancak atölyesinden Türkiye geneline toptan imalat.",
+            "Torna, yedek parça ve teneke ürünleri yapıyoruz. Alsancak.",
         url: absUrl("/hizmetler"),
         locale: "tr_TR",
         type: "website",
@@ -116,12 +116,12 @@ const serviceCards = [
     {
         id: "miknatisli-magnet",
         slug: "miknatisli-magnet",
-        title: "UV Baskılı Metal Poster",
+        title: "Metal poster",
         badge: "Tabela & dekor",
         capacity: "Seri / özel",
         image: "/images/services/metal-tabelalar.webp",
         description:
-            "Mıknatıslı metal poster ve kurumsal tabela için UV baskılı metal levha. Kafe, ofis ve promosyon projelerine uygun.",
+            "Metal poster yapıyoruz.",
         specs: [
             { label: "Ürün", val: "Metal poster" },
             { label: "Montaj", val: "Mıknatıslı" },
@@ -140,8 +140,8 @@ const geoHighlights = [
         text: "Dosya teli ve takvim tenekesinde toptan sipariş; ölçü ve adede göre planlı üretim.",
     },
     {
-        title: "Türkiye geneli sevkiyat",
-        text: "İzmir’den matbaa, kırtasiye ve sanayi müşterilerine kargo veya ambar ile teslim.",
+        title: "Alsancak",
+        text: "Atölye 1471 Sokak No:12/A, Alsancak / İzmir adresindedir.",
     },
     {
         title: "Teklif + numune",
@@ -191,7 +191,7 @@ export default function HizmetlerPage() {
             "Dosya teli imalatı",
             "Takvim tenekesi üretimi",
             "Giyotin sac kesim",
-            "UV metal poster baskı",
+            "Metal poster",
         ],
         url: absUrl("/hizmetler"),
     };
@@ -225,7 +225,7 @@ export default function HizmetlerPage() {
                         </h1>
 
                         <p className="max-w-2xl text-base leading-relaxed text-atl-muted md:text-lg">
-                            Veral Torna & Teneke Ticaret; Alsancak atölyesinde toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster hizmeti sunar. Türkiye geneline sevkiyat yapılır.
+                            Torna, yedek parça ve teneke ürünleri yapıyoruz. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster de yapıyoruz.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -306,7 +306,7 @@ export default function HizmetlerPage() {
                             İzmir Alsancak metal imalat hizmetleri
                         </h2>
                         <p className="mt-3 max-w-2xl text-sm text-atl-muted md:text-base">
-                            Altı ana hat: dosya teli, takvim tenekesi, giyotin kesim, rulo dilimleme, tef zili ve UV metal baskı.
+                            Dosya teli, takvim tenekesi, giyotin kesim, rulo dilme, tef zili ve metal poster.
                         </p>
                     </div>
                     <Link

@@ -3,6 +3,7 @@ import { MetadataRoute } from 'next'
 import { ContentService } from '@/lib/supabase/content.service'
 import type { SiteContent } from '@/store/useContentStore'
 import { blogPosts } from '@/lib/blog-posts'
+import { TORNA_SERVICES, tornaHref } from '@/lib/public-copy'
 
 const CONTENT_UPDATED = new Date('2026-11-27T00:00:00.000Z')
 
@@ -32,6 +33,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: lastMod,
             changeFrequency: 'daily',
             priority: 1.0,
+        },
+        {
+            url: `${baseUrl}/hizmetler/torna`,
+            lastModified: lastMod,
+            changeFrequency: 'monthly',
+            priority: 0.8,
         },
         {
             url: `${baseUrl}/hizmetler`,
@@ -119,5 +126,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
     }))
 
-    return [...staticPages, ...servicePages, ...blogPostPages]
+    const tornaPages: MetadataRoute.Sitemap = TORNA_SERVICES.map((item) => ({
+        url: `${baseUrl}${tornaHref(item.slug)}`,
+        lastModified: CONTENT_UPDATED,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }))
+
+    return [...staticPages, ...servicePages, ...blogPostPages, ...tornaPages]
 }

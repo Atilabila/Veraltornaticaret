@@ -6,19 +6,19 @@ import { Reveal } from "@/components/motion/Reveal";
 const STEPS = [
     {
         title: "Ürün",
-        text: "Ne istediğinizi yazın.",
+        text: "Ne lazım olduğunu söylersiniz.",
     },
     {
         title: "Adet",
-        text: "Kaç tane olduğunu yazın.",
+        text: "Kaç adet olduğunu söylersiniz.",
     },
     {
         title: "Telefon",
-        text: "Adınızı ve telefonunuzu bırakın.",
+        text: "Adınızı ve telefonunuzu bırakırsınız.",
     },
     {
         title: "Fiyat",
-        text: "Fiyatı size bildiririz.",
+        text: "Fiyatı size yazarız.",
     },
 ];
 

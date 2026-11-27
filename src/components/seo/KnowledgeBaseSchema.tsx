@@ -31,10 +31,10 @@ export const KnowledgeBaseSchema = () => {
             },
             {
                 "@type": "Question",
-                "name": "UV baskılı teneke posterler nasıl üretilir ve solma yapar mı?",
+                "name": "Metal poster yapıyor musunuz?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "UV baskılı teneke posterler üçüncü üretim hattımızdır. Endüstriyel UV baskı ile metal yüzeylere kalıcı görsel aktarımı yapılır; ana odak noktamız dosya teli ve takvim tenekesi toptan imalatıdır."
+                    "text": "Evet. Alsancak atölyesinde metal poster yapıyoruz."
                 }
             }
         ]
@@ -66,7 +66,7 @@ export const KnowledgeBaseSchema = () => {
             {
                 "@type": "ListItem",
                 "position": 4,
-                "name": "UV Baskılı Metal Poster",
+                "name": "Metal poster",
                 "description": "Dekoratif metal poster ve magnet — ikincil perakende hat."
             }
         ]

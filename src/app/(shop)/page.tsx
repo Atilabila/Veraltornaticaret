@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { absUrl, SITE_HOURS_LABEL, SITE_NAME, SITE_ORIGIN } from "@/lib/site";
+import { WORKSHOP_BLURB } from "@/lib/public-copy";
 import { AtolyeHero } from "@/components/atolye/AtolyeHero";
 import { ProductGroupsSection } from "@/components/atolye/ProductGroupsSection";
 import { AboutTrustBand } from "@/components/atolye/AboutTrustBand";
@@ -14,28 +15,29 @@ import { ProductionModelBand } from "@/components/atolye/ProductionModelBand";
 import { SectionHeading } from "@/components/atolye/SectionHeading";
 import { CtaBand } from "@/components/atolye/CtaBand";
 import { HomeFaqBand } from "@/components/atolye/HomeFaqBand";
+import { TornaServices } from "@/components/atolye/TornaServices";
 
 export const metadata: Metadata = {
     title: {
-        absolute: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
+        absolute: "Veral Torna ve Teneke | Alsancak",
     },
     description:
-        "İzmir Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, sac kesim ve UV metal levha. Teklif için yazın.",
+        "1986'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
     keywords: [
         "izmir dosya teli",
         "toptan dosya teli imalatı",
         "takvim tenekesi üreticisi",
         "alsancak metal imalat",
         "veral teneke ticaret",
-        "uv metal poster izmir",
+        "metal poster izmir",
     ],
     alternates: {
         canonical: absUrl("/"),
     },
     openGraph: {
-        title: "İzmir Alsancak Dosya Teli ve Teneke İmalatı | Veral",
+        title: "Veral Torna ve Teneke | Alsancak",
         description:
-            "Toptan dosya teli, takvim tenekesi ve metal imalat — İzmir Alsancak atölyesinden Türkiye geneline sevkiyat.",
+            "1986'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
         url: absUrl("/"),
         siteName: "Veral Torna & Teneke Ticaret",
         locale: "tr_TR",
@@ -53,8 +55,8 @@ export const metadata: Metadata = {
 
 const homeFaqs = [
     {
-        question: "İzmir'de toptan dosya teli imalatı nerede yapılır?",
-        answer: "Veral Torna & Teneke Ticaret, İzmir Alsancak 1471 Sokak No:12/A adresindeki atölyesinde toptan dosya teli imalatı yapar.",
+        question: "Atölye ne iş yapar?",
+        answer: "1986'dan beri Alsancak'ta çalışırız. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
     },
     {
         question: "Takvim tenekesi siparişi nasıl verilir?",
@@ -65,8 +67,8 @@ const homeFaqs = [
         answer: "Duvara yapıştırılan manyetik tutucu ped ile çivi çakmadan asılır; kafe, ofis ve dekorasyon projelerine uygundur.",
     },
     {
-        question: "İzmir dışına sevkiyat yapıyor musunuz?",
-        answer: "Evet, Alsancak atölyesinden Türkiye geneline kargo veya ambar ile toptan sevkiyat yapılır.",
+        question: "Atölye nerede?",
+        answer: "Adresimiz 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.",
     },
 ];
 
@@ -102,9 +104,9 @@ const homeProductionRows = [
         orderModel: "Teklif usulü",
     },
     {
-        area: "UV Baskılı Metal Levha",
+        area: "Metal poster",
         href: "/hizmetler/miknatisli-magnet",
-        scope: "Mıknatıslı metal poster ve kurumsal tabela üretimi",
+        scope: "Metal poster yapıyoruz.",
         orderModel: "Teklif usulü",
     },
 ];
@@ -141,9 +143,8 @@ const webPageSchema = {
     "@type": "WebPage",
     "@id": `${SITE_ORIGIN}/#webpage`,
     url: SITE_ORIGIN,
-    name: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
-    description:
-        "İzmir Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, sac kesim ve UV metal levha. Teklif için yazın.",
+    name: "Veral Torna ve Teneke | Alsancak",
+    description: WORKSHOP_BLURB,
     inLanguage: "tr-TR",
     dateModified: "2026-11-25",
     isPartOf: {
@@ -193,6 +194,7 @@ export default function ShopHomePage() {
             />
             <Navigation />
             <AtolyeHero />
+            <TornaServices linked />
             <ProductGroupsSection />
             <AboutTrustBand />
             <ProcessSteps />
@@ -259,8 +261,8 @@ export default function ShopHomePage() {
             </section>
             <HomeFaqBand />
             <CtaBand
-                title="Ölçü veya numune gönderin"
-                description="Dosya teli, takvim tenekesi, sac kesim veya UV baskı için fiyat teklifte yazılır."
+                title="Fiyat için yazabilirsiniz"
+                description="Dosya teli, takvim tenekesi, sac kesim veya metal poster. Ölçüyü paylaşırsanız fiyatı birlikte bakarız."
             />
             <Footer />
         </main>

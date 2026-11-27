@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { Wordmark } from "@/components/brand/Wordmark";
 import { usePathname } from "next/navigation";
 import { Menu, MessageCircle, X } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
@@ -86,26 +86,8 @@ export const Navigation = () => {
                 style={{ backgroundColor: isScrolled ? "rgba(18,17,16,0.95)" : "rgba(18,17,16,0.7)", color: "#ece6da" }}
             >
                 <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:gap-6 sm:px-6 sm:py-3 lg:px-12">
-                    <Link href="/" className="group flex shrink-0 items-center gap-2.5 sm:gap-3">
-                        <span className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-full sm:h-14 sm:w-14">
-                            <Image
-                                src="/veral-logo-nav.png"
-                                alt={content.siteName || "VERAL"}
-                                fill
-                                sizes="56px"
-                                className="object-cover"
-                                priority
-                                unoptimized
-                            />
-                        </span>
-                        <div className="flex flex-col leading-tight">
-                            <span className="font-display text-xl text-atl-text transition-colors group-hover:text-atl-brass-light sm:text-2xl">
-                                {content.siteName || "VERAL"}
-                            </span>
-                            <span className="mt-1 block whitespace-nowrap font-sans text-xs font-semibold tracking-normal text-[#ddd6c8]">
-                                Torna & Teneke Ticaret
-                            </span>
-                        </div>
+                    <Link href="/" className="group flex shrink-0 items-center text-atl-text">
+                        <Wordmark className="h-11 w-auto sm:h-12" />
                     </Link>
 
                     <nav aria-label="Ana menü" className="hidden items-center gap-1 xl:gap-2 2xl:gap-3 lg:flex">

@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/atolye/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
+import { Wordmark } from "@/components/brand/Wordmark";
 
 const GROUPS = [
     {
@@ -30,11 +31,11 @@ const GROUPS = [
         description: "Giyotin sac kesim ve rulo dilimleme ile ölçüye özel levha ve şerit üretimi.",
     },
     {
-        title: "UV Metal Baskı",
+        title: "Metal poster",
         href: "/hizmetler/miknatisli-magnet",
-        image: "/images/services/metal-tabelalar.webp",
-        badge: "Tabela & poster",
-        description: "Mıknatıslı metal poster ve kurumsal tabela için UV baskılı metal levha imalatı.",
+        image: "",
+        badge: "Poster",
+        description: "Metal poster yapıyoruz.",
     },
 ];
 
@@ -46,8 +47,8 @@ export function ProductGroupsSection() {
                     <div className="mb-6 flex flex-col justify-between gap-3 sm:mb-10 sm:gap-5 md:flex-row md:items-end">
                         <SectionHeading
                             eyebrow="İzmir metal üretim hatları"
-                            title="Dosya teli, takvim tenekesi ve metal imalat çözümleri"
-                            description="Alsancak atölyemizde toptan dosya teli imalatından UV metal baskıya kadar İzmir merkezli üretim hizmetleri."
+                            title="Yaptığımız işler"
+                            description="Torna, yedek parça ve teneke ürünleri yapıyoruz."
                         />
                         <Link href="/hizmetler" className="inline-flex items-center gap-2 self-start font-mono text-xs uppercase tracking-[0.2em] text-atl-brass-light transition-colors hover:text-atl-text md:self-auto">
                             Tüm üretim hatları <ArrowRight className="h-4 w-4" />
@@ -63,14 +64,20 @@ export function ProductGroupsSection() {
                                     className="relative aspect-[4/3] overflow-hidden bg-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-atl-brass focus-visible:ring-inset"
                                     aria-label={`${group.title} hizmet sayfası`}
                                 >
-                                    <Image
-                                        src={group.image}
-                                        alt={serviceImageAlt(group.image, group.title)}
-                                        fill
-                                        sizes="(min-width: 1280px) 300px, (min-width: 640px) 45vw, 92vw"
-                                        className={`${serviceImageFit(group.image)} transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
-                                        priority={i < 2}
-                                    />
+                                    {group.image ? (
+                                        <Image
+                                            src={group.image}
+                                            alt={serviceImageAlt(group.image, group.title)}
+                                            fill
+                                            sizes="(min-width: 1280px) 300px, (min-width: 640px) 45vw, 92vw"
+                                            className={`${serviceImageFit(group.image)} transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
+                                            priority={i < 2}
+                                        />
+                                    ) : (
+                                        <span className="flex h-full items-center px-6 text-atl-text">
+                                            <Wordmark className="h-16 w-auto" />
+                                        </span>
+                                    )}
                                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
                                     <span className="absolute left-4 top-4 border border-atl-brass/50 bg-atl-bg/70 px-2.5 py-1 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass-light backdrop-blur-sm">
                                         {group.badge}

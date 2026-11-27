@@ -7,9 +7,9 @@ import { BrassRule } from "@/components/atolye/BrassRule";
 import { Reveal } from "@/components/motion/Reveal";
 
 const BULLETS = [
-    "Aile atölyesi, 1986",
+    "Torna, yedek parça ve teneke",
     "1471 Sokak No:12/A, Alsancak",
-    "Teklif usulü",
+    "Fiyat için yazabilirsiniz",
     "0507 165 13 15",
 ];
 
@@ -20,12 +20,12 @@ export function AboutTrustBand() {
                 <Reveal className="lg:col-span-6">
                     <SectionHeading
                         eyebrow="İzmir Alsancak atölyesi"
-                        title="Alsancak'ta aile atölyesi"
-                        description="Veral Torna & Teneke Ticaret, 1986'dan beri İzmir Alsancak'ta çalışan bir aile atölyesidir."
+                        title="Alsancak, 1986"
+                        description="Torna, yedek parça ve teneke ürünleri yapıyoruz."
                     />
                     <BrassRule className="my-8 max-w-xs" />
                     <p className="max-w-xl text-base leading-relaxed text-atl-muted">
-                        Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı. Ürünü ve adedi yazın.
+                        Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster de yapıyoruz.
                     </p>
                     <Link
                         href="/hakkimizda"

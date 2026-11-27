@@ -2,8 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { absUrl, SITE_ORIGIN, SITE_PHONE_E164, SITE_PHONE_DISPLAY } from "@/lib/site";
 import Link from "next/link";
-import Image from "next/image";
 import { Navigation } from "@/components/layout/Navigation";
+import { Wordmark } from "@/components/brand/Wordmark";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { ABOUT_PARAGRAPHS, FOUNDING_YEAR } from "@/lib/public-copy";
@@ -11,13 +11,13 @@ import { ArrowRight, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Hakkımızda",
-    description: `Veral Torna & Teneke Ticaret, ${FOUNDING_YEAR}'dan beri İzmir Alsancak'ta çalışan bir aile atölyesidir. Adres: 1471 Sokak No:12/A.`,
+    description: `Veral Torna ve Teneke Ticaret, ${FOUNDING_YEAR}'dan beri Alsancak'ta çalışır. Torna, yedek parça ve teneke ürünleri yapıyoruz.`,
     alternates: {
         canonical: absUrl("/hakkimizda"),
     },
     openGraph: {
         title: "Hakkımızda | Veral Teneke Ticaret",
-        description: `Aile atölyesi. ${FOUNDING_YEAR}'dan beri Alsancak, 1471 Sokak No:12/A.`,
+        description: `${FOUNDING_YEAR}'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.`,
         url: absUrl("/hakkimizda"),
     },
 };
@@ -76,28 +76,16 @@ export default function AboutPage() {
                     ))}
                 </div>
 
-                <figure className="mt-8 overflow-hidden rounded-2xl border border-atl-line bg-atl-surface">
-                    <div className="relative aspect-[4/3]">
-                        <Image
-                            src="/images/veral-atolye-kepenk.webp"
-                            alt="Veral atölyesinin kepengi, 1471 Sokak, Alsancak"
-                            fill
-                            priority
-                            sizes="(min-width: 768px) 720px, 100vw"
-                            className="object-cover"
-                        />
-                    </div>
-                    <figcaption className="px-4 py-3 text-sm text-atl-muted">
-                        Alsancak atölyesi, 1471 Sokak No:12/A
-                    </figcaption>
-                </figure>
+                <div className="mt-8 flex min-h-48 items-center rounded-2xl border border-atl-line bg-atl-surface px-8 py-10">
+                    <Wordmark className="h-20 w-auto text-atl-text" />
+                </div>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <Link
                         href="/teklif-al"
                         className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-atl-brass px-6 text-sm font-semibold text-atl-bg hover:bg-atl-brass-light"
                     >
-                        Teklif al
+                        Fiyat isteği
                         <ArrowRight className="h-4 w-4" />
                     </Link>
                     <a

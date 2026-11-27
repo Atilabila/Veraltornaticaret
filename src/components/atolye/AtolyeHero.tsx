@@ -9,19 +9,17 @@ import { SERVICE_IMAGES, serviceImageAlt, serviceImageFit } from "@/lib/service-
 import { ImageLightbox } from "@/components/media/ImageLightbox";
 
 const HERO_SLIDES = [
-    { src: SERVICE_IMAGES.dosyaTeli, caption: "Dosya teli imalatı" },
+    { src: SERVICE_IMAGES.dosyaTeli, caption: "Dosya teli" },
     { src: SERVICE_IMAGES.takvimTeneke, caption: "Takvim tenekesi" },
-    { src: SERVICE_IMAGES.takvimTenekeSade, caption: "Takvim tenekesi seri" },
-    { src: SERVICE_IMAGES.coilSlit, caption: "Rulo dilimleme" },
-    { src: SERVICE_IMAGES.tefZili, caption: "Tef zili üretimi" },
-    { src: SERVICE_IMAGES.magnetPoster, caption: "UV metal tabela" },
+    { src: SERVICE_IMAGES.coilSlit, caption: "Rulo dilme" },
+    { src: SERVICE_IMAGES.tefZili, caption: "Tef zili" },
 ] as const;
 
 const STATS = [
-    { label: "Lokasyon", value: "İzmir Alsancak" },
-    { label: "Hizmet", value: "Toptan imalat" },
-    { label: "Sipariş", value: "Teklif usulü" },
-    { label: "Sevkiyat", value: "Türkiye geneli" },
+    { label: "Yer", value: "İzmir Alsancak" },
+    { label: "Kuruluş", value: "1986" },
+    { label: "İş", value: "Torna ve teneke" },
+    { label: "Telefon", value: "0507 165 13 15" },
 ];
 
 export function AtolyeHero() {
@@ -51,22 +49,20 @@ export function AtolyeHero() {
                 <div className="order-2 lg:order-1 lg:col-span-6">
                     <span className="atl-rise inline-flex items-center gap-3 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
                         <span className="h-px w-6 bg-atl-brass sm:w-8" aria-hidden />
-                        İzmir Alsancak metal imalat
+                        Alsancak, 1986
                     </span>
                     <h1 className="atl-rise atl-rise-2 mt-3 font-display text-4xl text-atl-text sm:mt-5 sm:text-5xl xl:text-6xl">
-                        İzmir&apos;de toptan{" "}
-                        <em className="not-italic text-atl-brass-light">dosya teli</em>{" "}
-                        ve teneke imalatı
+                        Torna, yedek parça ve teneke
                     </h1>
                     <p className="atl-rise atl-rise-3 mt-4 max-w-xl text-base leading-relaxed text-atl-muted sm:mt-5 sm:text-lg">
-                        Veral Torna & Teneke Ticaret; Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, giyotin kesim ve UV baskılı metal levha üretimi yapar. Türkiye geneline toptan sevkiyat; ölçü veya numuneyle teklif alın.
+                        Veral Torna ve Teneke Ticaret, 1986&apos;dan beri Alsancak&apos;ta çalışır. Torna, yedek parça ve teneke ürünleri yapıyoruz. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal poster de yapıyoruz.
                     </p>
                     <div className="atl-rise atl-rise-3 mt-5 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:gap-4">
                         <Link href="/teklif-al" className="btn-brass w-full min-h-12 sm:w-auto">
-                            İzmir imalat teklifi al <ArrowRight className="h-4 w-4" />
+                            Fiyat isteği <ArrowRight className="h-4 w-4" />
                         </Link>
                         <Link href="/hizmetler" className="btn-ghost-metal w-full min-h-12 sm:w-auto">
-                            Üretim hatlarını gör
+                            Ne yapıyoruz
                         </Link>
                     </div>
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { Wordmark } from "@/components/brand/Wordmark";
 import { Instagram, Facebook, Twitter, ArrowUpRight } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
 import { publicAddress } from '@/lib/public-facts';
@@ -22,10 +22,11 @@ const KURUMSAL = [
 ];
 
 const URUN_GRUPLARI = [
+    { label: 'Torna', href: '/hizmetler/torna' },
     { label: 'Dosya Teli', href: '/hizmetler/dosya-teli' },
     { label: 'Takvim Tenekesi', href: '/hizmetler/takvim-tenekesi' },
     { label: 'Sac Kesim & Dilimleme', href: '/hizmetler' },
-    { label: 'Özel / UV Metal Baskı', href: '/hizmetler/miknatisli-magnet' },
+    { label: 'Metal poster', href: '/hizmetler/miknatisli-magnet' },
 ];
 
 const LEGAL = [
@@ -36,7 +37,6 @@ const LEGAL = [
 
 export const Footer = () => {
     const { content } = useContentStore();
-    const siteName = content.siteName || "VERAL";
     const instagramHandle = (content.footerInstagram || "").replace('@', '').trim();
     const socialLinks = [
         instagramHandle ? { icon: Instagram, href: `https://instagram.com/${instagramHandle}`, label: "Instagram" } : null,
@@ -50,17 +50,11 @@ export const Footer = () => {
                 <PageContainer>
                     <div className="mb-8 grid grid-cols-1 gap-6 sm:mb-10 sm:gap-8 md:grid-cols-2 lg:grid-cols-12">
                         <div className="flex flex-col gap-3 self-start lg:col-span-4">
-                            <Link href="/" className="group flex items-center gap-3">
-                                <span className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-full sm:h-14 sm:w-14">
-                                    <Image src="/veral-logo-nav.png" alt={siteName} fill sizes="56px" className="object-cover" unoptimized />
-                                </span>
-                                <span className="flex flex-col">
-                                    <span className="font-display text-xl tracking-wide sm:text-2xl">{siteName}</span>
-                                    <span className="whitespace-nowrap font-sans text-xs font-semibold tracking-normal text-atl-muted">Torna & Teneke Ticaret</span>
-                                </span>
+                            <Link href="/" className="text-atl-text">
+                                <Wordmark className="h-12 w-auto" />
                             </Link>
                             <p className="max-w-sm text-sm leading-relaxed text-atl-muted">
-                                1986'dan beri Alsancak'ta aile atölyesi. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı.
+                                1986&apos;dan beri Alsancak&apos;ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.
                             </p>
                             <div className="flex gap-2">
                                 {socialLinks.filter((item) => item.href.trim() !== "" && item.href.trim() !== "#").map((item, i) => (

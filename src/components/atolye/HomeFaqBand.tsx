@@ -14,16 +14,16 @@ import { Reveal } from "@/components/motion/Reveal";
 
 const FAQS = [
     {
-        q: "İzmir'de toptan dosya teli imalatı nerede yapılır?",
-        a: "Veral Torna & Teneke Ticaret, İzmir Alsancak 1471 Sokak No:12/A adresindeki atölyesinde toptan dosya teli imalatı yapar.",
+        q: "Atölye ne iş yapar?",
+        a: "1986'dan beri Alsancak'ta çalışırız. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
     },
     {
         q: "Takvim tenekesi siparişi nasıl verilir?",
         a: "Ölçü, adet ve askılı/askısız tercihinizi teklif formundan veya WhatsApp üzerinden iletin; yazılı fiyat ve termin bildirilir.",
     },
     {
-        q: "İzmir dışına sevkiyat yapıyor musunuz?",
-        a: "Evet, Alsancak atölyesinden Türkiye geneline kargo veya ambar ile toptan sevkiyat yapılır.",
+        q: "Atölye nerede?",
+        a: "Adresimiz 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.",
     },
     {
         q: "Mıknatıslı metal posterler nasıl monte edilir?",

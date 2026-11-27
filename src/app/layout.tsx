@@ -50,11 +50,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
+    default: "Veral Torna ve Teneke | Alsancak",
     template: "%s | Veral Teneke Ticaret İzmir",
   },
   description:
-    "İzmir Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, sac kesim ve UV metal levha. Teklif için yazın.",
+    "1986'dan beri Alsancak'ta. Torna, yedek parça ve teneke ürünleri yapıyoruz.",
   authors: [
     {
       name: "Oğuzcan Veral",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
         url: "/images/services/giyotin-kesim.webp",
         width: 1200,
         height: 900,
-        alt: "İzmir Alsancak Veral atölyesi",
+        alt: "Veral Torna ve Teneke",
       },
     ],
   },
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     "takvim tenekesi üreticisi",
     "dosya teli üreticisi izmir",
     "alsancak metal imalat",
-    "uv metal poster izmir",
+    "metal poster izmir",
     "tef zili imalatı",
   ],
   verification: {

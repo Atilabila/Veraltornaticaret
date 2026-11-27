@@ -1,46 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
-import { serviceImageAlt } from "@/lib/service-stock-images";
-import { ImageLightbox } from "@/components/media/ImageLightbox";
+import { Wordmark } from "@/components/brand/Wordmark";
 
 const POINTS = [
-    "Ölçüyü siz yazın",
-    "Fiyat teklifte",
+    "Ölçüyü paylaşırsanız fiyatı birlikte bakarız",
     "Atölye Alsancak'ta",
+    "Telefon: 0507 165 13 15",
 ];
-
-const IMAGE = "/images/services/metal-tabelalar.webp";
 
 export function ProductionModelBand() {
     return (
         <section className="border-b border-atl-line bg-atl-bg">
             <div className="mx-auto grid max-w-[1400px] lg:grid-cols-2">
-                <Reveal className="relative aspect-[16/10] sm:aspect-[4/3] lg:aspect-auto lg:min-h-[520px]" y={0}>
-                    <ImageLightbox
-                        src={IMAGE}
-                        alt={serviceImageAlt(IMAGE, "UV baskılı metal tabelalar")}
-                        className="absolute inset-0 h-full"
-                    >
-                        <Image
-                            src={IMAGE}
-                            alt={serviceImageAlt(IMAGE, "UV baskılı metal tabelalar")}
-                            fill
-                            sizes="(min-width: 1024px) 50vw, 100vw"
-                            className="object-cover"
-                        />
-                    </ImageLightbox>
+                <Reveal className="flex items-center bg-atl-surface px-8 py-16" y={0}>
+                    <Wordmark className="h-24 w-auto text-atl-text" />
                 </Reveal>
                 <Reveal delay={0.1} className="atl-workshop-lit-subtle flex flex-col justify-center px-4 py-8 sm:px-6 sm:py-12 lg:px-16 lg:py-16">
                     <span className="text-xs font-semibold uppercase tracking-normal text-atl-brass">Atölye</span>
                     <h2 className="mt-2 font-display text-[1.85rem] leading-tight text-atl-text sm:mt-3 sm:text-4xl md:text-5xl">
-                        Ölçüyü yazın, fiyatı söyleyelim
+                        Fiyat için yazabilirsiniz
                     </h2>
                     <p className="mt-3 max-w-lg text-sm leading-relaxed text-atl-muted sm:mt-5 sm:text-base">
-                        Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı aynı yerden sorulur.
+                        Torna, yedek parça ve teneke ürünleri yapıyoruz.
                     </p>
                     <ul className="mt-5 space-y-2.5 sm:mt-8 sm:space-y-3">
                         {POINTS.map((point) => (
@@ -61,7 +45,7 @@ export function ProductionModelBand() {
                             href="/hizmetler/miknatisli-magnet"
                             className="inline-flex min-h-12 items-center justify-center border border-atl-line px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-atl-text transition-colors hover:border-atl-brass"
                         >
-                            UV metal baskı
+                            Metal poster
                         </Link>
                     </div>
                 </Reveal>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { absUrl, SITE_ORIGIN } from '@/lib/site';
-import { FOUNDING_YEAR, WORKSHOP_BLURB } from '@/lib/public-copy';
+import { FOUNDING_YEAR, TORNA_SERVICES, WORKSHOP_BLURB, tornaHref } from '@/lib/public-copy';
 
 export const LocalBusinessSchema = () => {
     const schema = {
@@ -64,38 +64,42 @@ export const LocalBusinessSchema = () => {
             "https://www.instagram.com/veralticaret"
         ],
         "knowsAbout": [
-            "dosya teli imalatı",
-            "takvim tenekesi üretimi",
-            "giyotin sac kesim",
-            "UV metal poster",
-            "İzmir Alsancak metal imalat"
+            "torna",
+            "yedek parça",
+            "tamir",
+            "kalıp",
+            "makine bakım",
+            "Heli-Coil ve baga uygulamaları",
+            "motosiklet jant tamiri",
+            "hidrolik pres ile rulman ve burç çakma",
+            "dosya teli",
+            "takvim tenekesi",
+            "metal poster"
         ],
-        "makesOffer": [
-            {
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Torna işleri",
+            "itemListElement": TORNA_SERVICES.map((item) => ({
                 "@type": "Offer",
                 "itemOffered": {
                     "@type": "Service",
-                    "name": "Toptan dosya teli imalatı",
-                    "areaServed": "Türkiye"
+                    "name": item.title,
+                    "description": item.text,
+                    "url": absUrl(tornaHref(item.slug)),
+                    "areaServed": "Alsancak, İzmir"
                 }
-            },
-            {
-                "@type": "Offer",
-                "itemOffered": {
-                    "@type": "Service",
-                    "name": "Takvim tenekesi üretimi",
-                    "areaServed": "Türkiye"
-                }
-            },
-            {
-                "@type": "Offer",
-                "itemOffered": {
-                    "@type": "Service",
-                    "name": "UV baskılı metal poster imalatı",
-                    "areaServed": "Türkiye"
-                }
+            }))
+        },
+        "makesOffer": TORNA_SERVICES.map((item) => ({
+            "@type": "Offer",
+            "itemOffered": {
+                "@type": "Service",
+                "name": item.title,
+                "description": item.text,
+                "url": absUrl(tornaHref(item.slug)),
+                "areaServed": "Alsancak, İzmir"
             }
-        ]
+        }))
     };
 
     return (
