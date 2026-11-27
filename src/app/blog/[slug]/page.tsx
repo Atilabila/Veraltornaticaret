@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import BlogPostClient from "@/components/blog/BlogPostClient";
+import { SITE_ORIGIN } from "@/lib/site";
 
 // Blog yazıları veritabanı (Server Side)
 const blogPosts: Record<string, {
@@ -19,7 +20,7 @@ const blogPosts: Record<string, {
         category: "ENDÜSTRİYEL İMALAT",
         date: "03.02.2026",
         readTime: "6 Dakika",
-        image: "/images/services/takvim-teneke.jpg",
+        image: "/images/services/takvim-tenekeleri-detay.webp",
         tags: ["Takvim Tenekesi", "Seri İmalat", "Alsancak", "DIN EN 10202"],
         content: `
 ## Giriş: Takvim Yayıncılığının Omurgası
@@ -48,7 +49,7 @@ Doğru takvim tenekesi seçimi, nihai ürünün profesyonel görünümünü ve r
         category: "KIRTASİYE EKİPMANLARI",
         date: "03.02.2026",
         readTime: "5 Dakika",
-        image: "/images/services/dosya-teli.jpg",
+        image: "/images/services/dosya-teli-plastik-takim.webp",
         tags: ["Dosya Teli", "Arşiv", "Polimer Kaplama", "Mekanik Direnç"],
         content: `
 ## Arşivlerin Gizli Kahramanı: Endüstriyel Dosya Teli
@@ -59,7 +60,6 @@ Milyonlarca belgenin düzenlendiği devlet arşiv merkezlerinden, adliye arşivl
 
 Veral bünyesinde üretilen dosya telleri, belirli mekanik ve metalurjik testlerden geçerek son kullanıcıya ulaşır:
 
-- **5.000+ Büküm Direnci**: Sürekli açılıp kapanmaya karşı metal yorgunluğunu engelleyen özel tavlanmış çelik yapı.
 - **Korozyon Direnci**: Arşivlerde on yıllarca sürecek saklama koşullarına uygun polimer kaplama veya parlak nikelaj tabakası.
 - **Çapaksız Kenarlar**: Belgelere ve kullanıcı ellerine zarar vermeyen hassas giyotin kesim teknolojisi.
 
@@ -96,7 +96,7 @@ Müşteri teknik resmine göre DKP, galvaniz, paslanmaz ve teneke sac kesimlerin
         category: "DEKORASYON & SANAT",
         date: "10.01.2026",
         readTime: "8 Dakika",
-        image: "/images/services/magnet-poster.jpg",
+        image: "/images/services/metal-tabelalar.webp",
         tags: ["Metal Poster", "Neodimyum", "Manyetik Montaj", "UV Kürleme"],
         content: `
 ## Dijital Sanatın Metal Hali
@@ -163,19 +163,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const { slug } = await params;
     const post = blogPosts[slug];
 
-    if (!post) return { title: "Rapor Bulunamadı | Veral Teneke Ticaret" };
+    if (!post) return { title: "Rapor bulunamadı" };
 
+    const url = `${SITE_ORIGIN}/blog/${slug}`;
     return {
-        title: `${post.title} | Veral Teneke Ticaret İzmir`,
+        title: post.title,
         description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
+        robots: { index: true, follow: true },
         alternates: {
-            canonical: `https://veralteneketicaret.com/blog/${slug}`,
+            canonical: url,
         },
         openGraph: {
             title: post.title,
             description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
             images: [post.image],
-            url: `https://veralteneketicaret.com/blog/${slug}`,
+            url,
             type: "article",
         },
     };
@@ -198,65 +200,35 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": post.title,
-        "image": [post.image.startsWith("http") ? post.image : `https://veralteneketicaret.com${post.image}`],
+        "image": [post.image.startsWith("http") ? post.image : `${SITE_ORIGIN}${post.image}`],
         "datePublished": "2026-02-03T09:00:00+03:00",
         "dateModified": "2026-02-03T09:00:00+03:00",
         "author": {
             "@type": "Person",
             "name": "Oğuzcan Veral",
             "jobTitle": "İmalat Direktörü ve Teknik Editör",
-            "url": "https://veralteneketicaret.com/yazar/oguzcan-veral"
+            "url": `${SITE_ORIGIN}/yazar/oguzcan-veral`
         },
         "publisher": {
             "@type": "Organization",
             "name": "Veral Teneke Ticaret",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://veralteneketicaret.com/veral-logo.png"
+                "url": `${SITE_ORIGIN}/veral-logo.png`
             }
         },
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://veralteneketicaret.com/blog/${slug}`
+            "@id": `${SITE_ORIGIN}/blog/${slug}`
         }
     };
 
-    const breadcrumbJsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Ana Sayfa",
-                "item": "https://veralteneketicaret.com"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Teknik Raporlar & Blog",
-                "item": "https://veralteneketicaret.com/blog"
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "name": post.title,
-                "item": `https://veralteneketicaret.com/blog/${slug}`
-            }
-        ]
-    };
-
     return (
-        <main className="min-h-screen bg-[#fafafa] text-[#161616]">
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
             />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
-
             <Navigation />
 
             <BlogPostClient post={post} slug={slug} otherPosts={otherPosts} />

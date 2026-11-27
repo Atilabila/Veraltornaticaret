@@ -1,22 +1,29 @@
-# Veral Torna & Teneke Ticaret - Brand & Machine-Layer Summary
-> İzmir Alsancak merkezli metal işleme, seri dosya teli, takvim tenekesi ve 4K UV baskılı mıknatıslı metal poster imalatçısı.
+# Veral Teneke Ticaret
+> İzmir Alsancak atölyesinde dosya teli, takvim tenekesi, tef zili, giyotin sac kesim, rulo / alüminyum / bakır dilimleme ve UV baskılı metal levha üretilir.
 
-## Brand Denominator & Operating Scale
-- Operating History: 1980 yılından bu yana aralıksız imalat (40+ yıl).
-- Total Orders Fulfilled: 35.000+ tamamlanmış toptan ve perakende teslimat.
-- Customer Satisfaction: %98.7 doğrulanmış memnuniyet oranı.
-- Production Capacity: Günlük 50.000+ adet dosya teli ve teneke işleme kapasitesi.
-- Facility Location: 1471 Sokak No:12/A Alsancak, Konak / İzmir, Türkiye.
+## Üretim ve Hizmetler
+1. [Dosya Teli İmalatı](https://www.veralteneketicaret.com/hizmetler/dosya-teli): Kırtasiye, arşiv ve dosya üreticileri için toptan dosya teli üretimi. Kesit ve kaplama teklifte netleşir.
+2. [Takvim Tenekesi Üretimi](https://www.veralteneketicaret.com/hizmetler/takvim-tenekesi): Matbaa ve yayınevleri için askılı ve askısız takvim tenekesi imalatı. Kalınlık ve boy teklifte netleşir.
+3. [Tef Zili İmalatı](https://www.veralteneketicaret.com/hizmetler/tef-zili): Müzik aleti üreticileri için tef zili ve metal pul seri pres imalatı.
+4. [Giyotin Sac Kesim](https://www.veralteneketicaret.com/hizmetler/giyotin-kesim): Proje ölçülerine göre fason sac ve teneke ebatlama.
+5. [Rulo Sac Dilimleme](https://www.veralteneketicaret.com/hizmetler/rulo-dilimleme), [Alüminyum Dilimleme](https://www.veralteneketicaret.com/hizmetler/aluminyum-dilimleme) ve [Bakır Dilimleme](https://www.veralteneketicaret.com/hizmetler/bakir-dilimleme): Rulo dilimleme ve şerit ebatlama. Ölçü ve en teklifte netleşir.
+6. [UV Baskılı Metal Levha ve Poster](https://www.veralteneketicaret.com/hizmetler/miknatisli-magnet): Mıknatıslı metal poster ve kurumsal tabela için UV baskılı metal levha imalatı.
 
-## Primary Products & Services
-1. Toptan Dosya Teli İmalatı: 0.25mm - 0.35mm galvanizli, paslanmaz korozyon dirençli, arşiv tipi seri dosya teli üretimi.
-2. Takvim Tenekesi Üretimi: Matbaalar ve yayınevleri için kağıt yırtmayan özel büküm kanallı teneke çıtalar.
-3. Metal Poster & Magnet Baskı: 0.5mm galvanizli/alüminyum plakalar üzerine 1200 DPI piezoelektrik UV baskı, N35 neodimyum mıknatıs montaj sistemi.
-4. Özel Torna ve Sac İşleme: Endüstriyel firmalar için milimetrik fason metal imalatı.
+## Teklif Süreci
+Talep, gerektiğinde numune, yazılı onay, üretim ve Türkiye geneline sevkiyat. Adet, ölçü ve termin teklifte netleşir.
 
-## Official Verification & Contact
-- Website: https://veralteneketicaret.com
-- Author & Technical Lead: Oğuzcan Veral (İmalat Direktörü & Editör)
-- Telephone: +90 532 379 40 03 / +90 232 421 21 00
-- Email: info@veralteneketicaret.com
-- Google Verification Token: mA7ESmS5CcTCWG7a5octdFFwX1_nZcURfbMvIn9inxc
+## Sayfalar
+- Ana Sayfa: https://www.veralteneketicaret.com
+- Tüm Üretim ve Hizmetler: https://www.veralteneketicaret.com/hizmetler
+- Teklif Al: https://www.veralteneketicaret.com/teklif-al
+- Hakkımızda: https://www.veralteneketicaret.com/hakkimizda
+- Sık Sorulan Sorular: https://www.veralteneketicaret.com/sss
+- İletişim: https://www.veralteneketicaret.com/iletisim
+- Atölye Sahibi / Yazar: https://www.veralteneketicaret.com/yazar/oguzcan-veral
+
+## Atölye
+- Adres: 1471 Sokak No:12/A, Alsancak / İzmir
+- Telefon: 0507 165 13 15
+- E-posta: veraltornatic@hotmail.com
+- Çalışma saati: Pazartesi - Cumartesi 08:30 - 18:30
+- Yazan: Oğuzcan Veral, Atölye sahibi

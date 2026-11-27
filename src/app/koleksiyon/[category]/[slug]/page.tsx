@@ -3,21 +3,28 @@ import { ProductService } from "@/lib/supabase/products.service";
 import ProductDetailClient from "@/components/product/ProductDetailClient";
 import { Product } from "@/lib/products";
 import { PageShell } from "@/components/layout/PageShell";
+import { absUrl } from "@/lib/site";
 
 // SEO için dinamik Metadata üretimi (Server Side)
 export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }) {
-    const { slug } = await params;
+    const { category, slug } = await params;
     const dbProduct = await ProductService.getProductBySlug(slug);
 
     if (!dbProduct) return { title: "Ürün Bulunamadı | Veral Torna & Teneke" };
+
+    const canonicalUrl = absUrl(`/koleksiyon/${category}/${slug}`);
 
     return {
         title: `${dbProduct.seo_title} | Veral Torna & Teneke`,
         description: dbProduct.seo_description,
         keywords: dbProduct.seo_keywords?.join(", ") || "",
+        alternates: {
+            canonical: canonicalUrl,
+        },
         openGraph: {
             title: dbProduct.seo_title,
             description: dbProduct.seo_description,
+            url: canonicalUrl,
             images: [dbProduct.image],
         },
     };
@@ -61,7 +68,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": product.seo?.title || product.name,
-        "image": `https://veral.com${product.image}`,
+        "image": absUrl(product.image),
         "description": product.seo?.description || product.description,
         "brand": {
             "@type": "Brand",
@@ -70,7 +77,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         "sku": product.id,
         "offers": {
             "@type": "Offer",
-            "url": `https://veral.com/koleksiyon/${product.category}/${product.slug}`,
+            "url": absUrl(`/koleksiyon/${product.category}/${product.slug}`),
             "priceCurrency": "TRY",
             "price": product.price,
             "availability": "https://schema.org/InStock",

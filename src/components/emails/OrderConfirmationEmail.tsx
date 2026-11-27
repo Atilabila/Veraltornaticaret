@@ -1,3 +1,4 @@
+import { absUrl, SITE_ORIGIN } from "@/lib/site";
 
 export interface EmailTemplateProps {
     orderNumber: string;
@@ -126,7 +127,7 @@ export const OrderConfirmationEmail: React.FC<Readonly<EmailTemplateProps>> = ({
         <div style={styles.container}>
             {/* Header */}
             <div style={styles.header}>
-                <a href="https://your-domain.com" style={styles.logo}>
+                <a href={SITE_ORIGIN} style={styles.logo}>
                     VERAL
                 </a>
             </div>
@@ -169,7 +170,7 @@ export const OrderConfirmationEmail: React.FC<Readonly<EmailTemplateProps>> = ({
                 </div>
 
                 <div style={{ textAlign: "center" }}>
-                    <a href={`https://veralteneketicaret.com/siparis-sorgula`} style={styles.button}>
+                    <a href={absUrl("/siparis-sorgula")} style={styles.button}>
                         Siparişimi Takip Et
                     </a>
                 </div>

@@ -1,91 +1,31 @@
 /* =====================================================
-   METAL ART ATELIER - DESIGN SYSTEM
-   Premium Industrial Aesthetic
+   METAL ART ATELIER — scoped utilities only
+   DO NOT @import tailwindcss here (breaks global theme).
    ===================================================== */
 
-/* Typography: Space Grotesk - Architectural & Industrial */
-@import "tailwindcss";
-
-/* =====================================================
-   THEME TOKENS
-   ===================================================== */
-@theme {
-    /* Typography */
-    --font-sans: var(--font-space-grotesk), "IBM Plex Sans", system-ui, sans-serif;
-    --font-display: var(--font-space-grotesk), "IBM Plex Sans", system-ui, sans-serif;
-
-    /* Core Palette - Dark Industrial */
-    --color-metal-950: #0a0a0b;
-    --color-metal-900: #121214;
-    --color-metal-800: #1a1a1e;
-    --color-metal-700: #27272c;
-    --color-metal-600: #3f3f46;
-    --color-metal-500: #52525b;
-    --color-metal-400: #71717a;
-    --color-metal-300: #a1a1aa;
-    --color-metal-200: #d4d4d8;
-    --color-metal-100: #f4f4f5;
-
-    /* Metallic Accents */
-    --color-steel: #b8c4ce;
-    --color-silver: #c0c0c0;
-    --color-platinum: #e5e4e2;
-    --color-copper: #b87333;
-    --color-bronze: #cd7f32;
-    --color-gold: #d4af37;
-
-    /* Functional Colors */
-    --color-accent: #c0c0c0;
-    --color-accent-warm: #d97706;
-    --color-success: #22c55e;
-    --color-warning: #f59e0b;
-    --color-error: #ef4444;
-
-    /* Sharp Edges - Industrial */
-    --radius-none: 0;
-    --radius-sm: 2px;
-    --radius-md: 4px;
-    --radius-lg: 6px;
-}
-
-/* =====================================================
-   ROOT VARIABLES
-   ===================================================== */
-:root {
-    /* Light B2B manufacturing — not dark poster gallery */
-    --background: #f4f4f4;
-    --foreground: #161616;
-    --muted: #e8e8e8;
-    --muted-foreground: #525252;
-    --border: #c6c6c6;
-    --accent: #d97706;
-
-    /* Metallic Shimmer Gradient */
+.metal-art-scope {
+    --metal-950: #0a0a0b;
+    --metal-900: #121214;
+    --metal-800: #1a1a1e;
+    --metal-700: #27272c;
     --gradient-metal: linear-gradient(135deg, #1a1a1e 0%, #27272c 50%, #1a1a1e 100%);
     --gradient-steel: linear-gradient(135deg, #71717a 0%, #d4d4d8 50%, #71717a 100%);
     --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f5e08e 50%, #d4af37 100%);
 }
 
 /* =====================================================
-   BASE STYLES
+   BASE STYLES (scoped — never override global body)
    ===================================================== */
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans, 'Space Grotesk', system-ui, sans-serif);
+.metal-art-scope {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
 }
 
-/* Selection */
-::selection {
-    background: var(--color-gold);
-    color: var(--color-metal-950);
+/* Selection — only inside metal-art pages */
+.metal-art-scope ::selection {
+    background: #c9a35c;
+    color: #121110;
 }
 
 /* =====================================================

@@ -21,8 +21,8 @@ import { useSearchParams } from 'next/navigation';
 import { getServiceBySlug } from '@/lib/b2b/services';
 
 const inputClass =
-    "bg-zinc-50 border-zinc-200 pl-12 h-14 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 transition-all rounded-xl text-zinc-900";
-const labelClass = "text-xs font-mono font-semibold uppercase tracking-wider text-zinc-700";
+    "bg-atl-bg border-atl-line pl-12 h-14 text-atl-text placeholder:text-atl-muted/60 focus:border-atl-brass focus:outline-none focus:ring-1 focus:ring-atl-brass aria-invalid:border-red-400 aria-invalid:ring-red-400 transition-all rounded-xl";
+const labelClass = "text-xs font-mono font-semibold uppercase tracking-wider text-atl-muted";
 
 export const QuoteForm = () => {
     const { content } = useContentStore();
@@ -45,6 +45,7 @@ export const QuoteForm = () => {
         materialType: "",
     });
 
+    const [errors, setErrors] = useState<Record<string, string>>({});
     const [files, setFiles] = useState<{
         file: File;
         preview: string;
@@ -77,6 +78,12 @@ export const QuoteForm = () => {
 
     const updateField = (field: string, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
+        setErrors(prev => {
+            if (!prev[field]) return prev;
+            const next = { ...prev };
+            delete next[field];
+            return next;
+        });
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,18 +128,18 @@ export const QuoteForm = () => {
     };
 
     const nextStep = () => {
+        const next: Record<string, string> = {};
         if (step === 1) {
-            if (!formData.fullName || !formData.email || !formData.phone) {
-                toast({ title: "Uyarı", description: "Lütfen zorunlu alanları doldurunuz." });
-                return;
-            }
+            if (!formData.fullName.trim()) next.fullName = "Ad soyad yazın.";
+            if (!formData.email.trim()) next.email = "E-posta yazın.";
+            if (!formData.phone.trim()) next.phone = "Telefon yazın.";
         }
         if (step === 2) {
-            if (!formData.serviceType || !formData.description) {
-                toast({ title: "Uyarı", description: "Lütfen zorunlu proje detaylarını giriniz." });
-                return;
-            }
+            if (!formData.serviceType) next.serviceType = "Hizmet seçin.";
+            if (!formData.description.trim()) next.description = "Proje notunu yazın.";
         }
+        setErrors(next);
+        if (Object.keys(next).length > 0) return;
         setStep(prev => prev + 1);
     };
 
@@ -188,20 +195,20 @@ export const QuoteForm = () => {
             <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white border border-zinc-200 rounded-3xl p-10 md:p-14 text-center space-y-8 max-w-2xl mx-auto shadow-xl"
+                className="bg-atl-surface border border-atl-line rounded-3xl p-10 md:p-14 text-center space-y-8 max-w-2xl mx-auto shadow-xl"
             >
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto border border-emerald-200 shadow-sm">
+                <div className="w-16 h-16 bg-emerald-950/40 text-emerald-300 rounded-2xl flex items-center justify-center mx-auto border border-emerald-500/30 shadow-sm">
                     <CheckCircle className="w-8 h-8" />
                 </div>
-                <h2 className="text-3xl font-black text-zinc-900 tracking-tight">{config.successTitle}</h2>
-                <p className="text-zinc-600 text-base md:text-lg max-w-lg mx-auto leading-relaxed">{config.successMessage}</p>
-                <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-6 max-w-xs mx-auto">
-                    <span className="block text-xs text-zinc-500 font-mono font-semibold uppercase tracking-wider mb-1">Teklif Takip Numarası</span>
-                    <span className="text-2xl font-mono text-amber-700 font-black">{quoteNumber}</span>
+                <h2 className="text-3xl font-display text-atl-text tracking-tight">{config.successTitle}</h2>
+                <p className="text-atl-muted text-base md:text-lg max-w-lg mx-auto leading-relaxed">{config.successMessage}</p>
+                <div className="bg-atl-surface-2 border border-atl-line rounded-2xl p-6 max-w-xs mx-auto">
+                    <span className="block text-xs text-atl-muted font-mono font-semibold uppercase tracking-wider mb-1">Teklif Takip Numarası</span>
+                    <span className="text-2xl font-mono text-atl-brass font-black">{quoteNumber}</span>
                 </div>
                 <Button
                     onClick={() => window.location.href = "/"}
-                    className="bg-amber-600 hover:bg-amber-700 text-white font-bold h-12 px-10 rounded-xl transition-all shadow-md shadow-amber-600/20"
+                    className="bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold h-12 px-10 rounded-xl transition-all shadow-md shadow-black/20"
                 >
                     Ana Sayfaya Dön
                 </Button>
@@ -211,14 +218,14 @@ export const QuoteForm = () => {
 
     return (
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-            <div className="lg:col-span-8 bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-sm">
-                <div className="h-1.5 w-full bg-zinc-100 flex">
+            <div className="lg:col-span-8 bg-atl-surface border border-atl-line rounded-3xl overflow-hidden shadow-sm">
+                <div className="h-1.5 w-full bg-atl-surface-2 flex">
                     {[1, 2, 3].map(i => (
                         <div
                             key={i}
                             className={cn(
                                 "flex-1 transition-all duration-500",
-                                step >= i ? "bg-amber-600" : "bg-transparent"
+                                step >= i ? "bg-atl-brass" : "bg-transparent"
                             )}
                         />
                     ))}
@@ -229,39 +236,42 @@ export const QuoteForm = () => {
                         {step === 1 && (
                             <m.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-zinc-900 flex items-center gap-3">
-                                        <User className="text-amber-600 w-6 h-6" /> {config.contactSectionTitle}
+                                    <h3 className="text-2xl font-black text-atl-text flex items-center gap-3">
+                                        <User className="text-atl-brass w-6 h-6" /> {config.contactSectionTitle}
                                     </h3>
-                                    <p className="text-zinc-600 text-sm">İletişim ve kurumsal firma bilgilerinizi belirtin.</p>
+                                    <p className="text-atl-muted text-sm">İletişim ve kurumsal firma bilgilerinizi belirtin.</p>
                                 </div>
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label className={labelClass}>{config.nameLabel} *</Label>
+                                        <Label htmlFor="quote-name" className={labelClass}>{config.nameLabel} *</Label>
                                         <div className="relative">
-                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
-                                            <Input value={formData.fullName} onChange={(e) => updateField('fullName', e.target.value)} placeholder={config.namePlaceholder} className={inputClass} />
+                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-name" name="name" autoComplete="name" aria-invalid={Boolean(errors.fullName)} value={formData.fullName} onChange={(e) => updateField('fullName', e.target.value)} placeholder={config.namePlaceholder} className={inputClass} />
+                                        </div>
+                                        {errors.fullName ? <p role="alert" className="text-sm text-red-300">{errors.fullName}</p> : null}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="quote-company" className={labelClass}>{config.companyLabel}</Label>
+                                        <div className="relative">
+                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-company" name="organization" autoComplete="organization" value={formData.company} onChange={(e) => updateField('company', e.target.value)} placeholder={config.companyPlaceholder} className={inputClass} />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className={labelClass}>{config.companyLabel}</Label>
+                                        <Label htmlFor="quote-email" className={labelClass}>{config.emailLabel} *</Label>
                                         <div className="relative">
-                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
-                                            <Input value={formData.company} onChange={(e) => updateField('company', e.target.value)} placeholder={config.companyPlaceholder} className={inputClass} />
+                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-email" name="email" type="email" autoComplete="email" aria-invalid={Boolean(errors.email)} value={formData.email} onChange={(e) => updateField('email', e.target.value)} placeholder={config.emailPlaceholder} className={inputClass} />
                                         </div>
+                                        {errors.email ? <p role="alert" className="text-sm text-red-300">{errors.email}</p> : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className={labelClass}>{config.emailLabel} *</Label>
+                                        <Label htmlFor="quote-phone" className={labelClass}>{config.phoneLabel} *</Label>
                                         <div className="relative">
-                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
-                                            <Input type="email" value={formData.email} onChange={(e) => updateField('email', e.target.value)} placeholder={config.emailPlaceholder} className={inputClass} />
+                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-phone" name="tel" type="tel" autoComplete="tel" inputMode="tel" aria-invalid={Boolean(errors.phone)} value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} placeholder={config.phonePlaceholder} className={inputClass} />
                                         </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className={labelClass}>{config.phoneLabel} *</Label>
-                                        <div className="relative">
-                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8d8d8d]" />
-                                            <Input value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} placeholder={config.phonePlaceholder} className={inputClass} />
-                                        </div>
+                                        {errors.phone ? <p role="alert" className="text-sm text-red-300">{errors.phone}</p> : null}
                                     </div>
                                 </div>
                             </m.div>
@@ -270,45 +280,47 @@ export const QuoteForm = () => {
                         {step === 2 && (
                             <m.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-zinc-900 flex items-center gap-3">
-                                        <Settings className="text-amber-600 w-6 h-6" /> {config.projectSectionTitle}
+                                    <h3 className="text-2xl font-black text-atl-text flex items-center gap-3">
+                                        <Settings className="text-atl-brass w-6 h-6" /> {config.projectSectionTitle}
                                     </h3>
-                                    <p className="text-zinc-600 text-sm">Projenizin teknik ayrıntılarını ve ölçü gereksinimlerini belirtin.</p>
+                                    <p className="text-atl-muted text-sm">Projenizin teknik ayrıntılarını ve ölçü gereksinimlerini belirtin.</p>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
-                                        <Label className={labelClass}>{config.serviceLabel} *</Label>
+                                        <Label id="quote-service-label" className={labelClass}>{config.serviceLabel} *</Label>
                                         <Select onValueChange={(val) => updateField('serviceType', val)} value={formData.serviceType}>
-                                            <SelectTrigger className={`${inputClass} pl-4`}>
+                                            <SelectTrigger aria-labelledby="quote-service-label" aria-invalid={Boolean(errors.serviceType)} className={`${inputClass} pl-4 data-[placeholder]:text-atl-muted/60`}>
                                                 <SelectValue placeholder="Bir hizmet seçiniz" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-white border-zinc-200 text-zinc-900 rounded-xl shadow-lg">
+                                            <SelectContent className="bg-atl-surface border-atl-line text-atl-text rounded-xl shadow-lg">
                                                 {config.serviceOptions.map(opt => (
-                                                    <SelectItem key={opt} value={opt} className="focus:bg-amber-600 focus:text-white rounded-lg">{opt}</SelectItem>
+                                                    <SelectItem key={opt} value={opt} className="focus:bg-atl-brass focus:text-atl-bg rounded-lg">{opt}</SelectItem>
                                                 ))}
                                             </SelectContent>
-                                        </Select>
+                                            </Select>
+                                        {errors.serviceType ? <p role="alert" className="text-sm text-red-300">{errors.serviceType}</p> : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className={labelClass}>{config.descriptionLabel} *</Label>
+                                        <Label htmlFor="quote-description" className={labelClass}>{config.descriptionLabel} *</Label>
                                         <div className="relative">
-                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-zinc-400" />
-                                            <Textarea value={formData.description} onChange={(e) => updateField('description', e.target.value)} placeholder={config.descriptionPlaceholder} className={`${inputClass} pl-12 min-h-[140px] resize-none pt-4`} />
+                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-atl-muted" />
+                                            <Textarea id="quote-description" aria-invalid={Boolean(errors.description)} value={formData.description} onChange={(e) => updateField('description', e.target.value)} placeholder={config.descriptionPlaceholder} className={`${inputClass} pl-12 min-h-[140px] resize-none pt-4`} />
                                         </div>
+                                        {errors.description ? <p role="alert" className="text-sm text-red-300">{errors.description}</p> : null}
                                     </div>
                                     <div className="grid sm:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <Label className={labelClass}>{config.quantityLabel}</Label>
+                                            <Label htmlFor="quote-quantity" className={labelClass}>{config.quantityLabel}</Label>
                                             <div className="relative">
-                                                <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-                                                <Input value={formData.quantity} onChange={(e) => updateField('quantity', e.target.value)} placeholder={config.quantityPlaceholder} className={inputClass} />
+                                                <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                                <Input id="quote-quantity" inputMode="numeric" value={formData.quantity} onChange={(e) => updateField('quantity', e.target.value)} placeholder={config.quantityPlaceholder} className={inputClass} />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
-                                            <Label className={labelClass}>{config.materialLabel}</Label>
+                                            <Label htmlFor="quote-material" className={labelClass}>{config.materialLabel}</Label>
                                             <div className="relative">
-                                                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-                                                <Input value={formData.materialType} onChange={(e) => updateField('materialType', e.target.value)} placeholder={config.materialPlaceholder} className={inputClass} />
+                                                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                                <Input id="quote-material" value={formData.materialType} onChange={(e) => updateField('materialType', e.target.value)} placeholder={config.materialPlaceholder} className={inputClass} />
                                             </div>
                                         </div>
                                     </div>
@@ -319,38 +331,39 @@ export const QuoteForm = () => {
                         {step === 3 && (
                             <m.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-zinc-900 flex items-center gap-3">
-                                        <Upload className="text-amber-600 w-6 h-6" /> {config.uploadSectionTitle}
+                                    <h3 className="text-2xl font-black text-atl-text flex items-center gap-3">
+                                        <Upload className="text-atl-brass w-6 h-6" /> {config.uploadSectionTitle}
                                     </h3>
-                                    <p className="text-zinc-600 text-sm">{config.fileDescription || "CAD, DXF, DWG, PDF veya yüksek çözünürlüklü teknik çizim yükleyebilirsiniz."}</p>
+                                    <p className="text-atl-muted text-sm">{config.fileDescription || "CAD, DXF, DWG, PDF veya yüksek çözünürlüklü teknik çizim yükleyebilirsiniz."}</p>
                                 </div>
-                                <div
+                                <button
+                                    type="button"
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="border-2 border-dashed border-zinc-300 bg-zinc-50 rounded-2xl p-10 text-center hover:border-amber-600 hover:bg-amber-50/20 transition-all cursor-pointer group"
+                                    className="w-full border-2 border-dashed border-atl-line bg-atl-surface-2 rounded-2xl p-10 text-center hover:border-atl-brass hover:bg-atl-brass-tint/20 transition-all cursor-pointer group"
                                 >
                                     <input type="file" ref={fileInputRef} onChange={handleFileChange} multiple className="hidden" />
-                                    <Upload className="w-10 h-10 text-zinc-400 group-hover:text-amber-600 mx-auto mb-3 transition-colors" />
-                                    <p className="text-zinc-900 font-bold mb-1">{config.fileLabel}</p>
-                                    <p className="text-xs text-zinc-500 font-mono">Sürükle bırak veya tıkla (Maks. {config.maxFiles} dosya, her biri {config.maxSizeMB}MB)</p>
-                                </div>
+                                    <Upload className="w-10 h-10 text-atl-muted group-hover:text-atl-brass mx-auto mb-3 transition-colors" />
+                                    <p className="text-atl-text font-bold mb-1">{config.fileLabel}</p>
+                                    <p className="text-xs text-atl-muted font-mono">Dosya seç (en fazla {config.maxFiles} dosya, her biri {config.maxSizeMB} MB)</p>
+                                </button>
                                 {files.length > 0 && (
                                     <div className="grid gap-3">
                                         {files.map((f, i) => (
-                                            <div key={i} className="flex items-center justify-between bg-zinc-50 p-4 border border-zinc-200 rounded-xl">
+                                            <div key={i} className="flex items-center justify-between bg-atl-surface-2 p-4 border border-atl-line rounded-xl">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-white border border-zinc-200 rounded-lg overflow-hidden flex items-center justify-center shadow-xs">
+                                                    <div className="w-12 h-12 bg-atl-surface border border-atl-line rounded-lg overflow-hidden flex items-center justify-center shadow-xs">
                                                         {f.file.type.startsWith('image/') ? (
                                                             <img src={f.preview} alt="" className="w-full h-full object-cover" />
                                                         ) : (
-                                                            <Layers className="w-5 h-5 text-amber-600" />
+                                                            <Layers className="w-5 h-5 text-atl-brass" />
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm font-semibold text-zinc-900 truncate max-w-[200px]">{f.file.name}</p>
-                                                        <p className="text-xs font-mono text-zinc-500">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                                                        <p className="text-sm font-semibold text-atl-text truncate max-w-[200px]">{f.file.name}</p>
+                                                        <p className="text-xs font-mono text-atl-muted">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
                                                     </div>
                                                 </div>
-                                                <button onClick={() => removeFile(i)} className="text-zinc-400 hover:text-red-600 transition-colors p-2">
+                                                <button type="button" onClick={() => removeFile(i)} aria-label={`${f.file.name} dosyasını kaldır`} className="inline-flex h-11 w-11 items-center justify-center text-atl-muted hover:text-red-400 transition-colors">
                                                     <Trash2 className="w-5 h-5" />
                                                 </button>
                                             </div>
@@ -361,19 +374,19 @@ export const QuoteForm = () => {
                         )}
                     </AnimatePresence>
 
-                    <div className="flex items-center justify-between pt-8 mt-8 border-t border-zinc-200">
+                    <div className="flex items-center justify-between pt-8 mt-8 border-t border-atl-line">
                         {step > 1 ? (
-                            <Button variant="ghost" onClick={prevStep} className="text-zinc-600 hover:text-zinc-900 flex items-center gap-2 group rounded-xl">
+                            <Button variant="ghost" onClick={prevStep} className="text-atl-muted hover:text-atl-text flex items-center gap-2 group rounded-xl">
                                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Geri
                             </Button>
                         ) : <div />}
 
                         {step < 3 ? (
-                            <Button onClick={nextStep} className="bg-amber-600 hover:bg-amber-700 text-white font-bold h-12 px-8 rounded-xl flex items-center gap-2 group transition-all shadow-md shadow-amber-600/20">
+                            <Button onClick={nextStep} className="bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold h-12 px-8 rounded-xl flex items-center gap-2 group transition-all shadow-md shadow-black/20">
                                 Sonraki Adım <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         ) : (
-                            <Button disabled={isSubmitting} onClick={handleSubmit} className="bg-amber-600 hover:bg-amber-700 text-white font-bold h-12 px-8 rounded-xl flex items-center gap-2 transition-all shadow-md shadow-amber-600/20">
+                            <Button disabled={isSubmitting} onClick={handleSubmit} className="bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold h-12 px-8 rounded-xl flex items-center gap-2 transition-all shadow-md shadow-black/20">
                                 {isSubmitting ? (
                                     <>Lütfen bekleyin <Loader2 className="w-4 h-4 animate-spin" /></>
                                 ) : (
@@ -398,32 +411,32 @@ export const QuoteForm = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: i * 0.1 }}
                                 key={i}
-                                className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm hover:border-amber-500 transition-colors group"
+                                className="bg-atl-surface border border-atl-line rounded-2xl p-6 shadow-sm hover:border-atl-brass transition-colors group"
                             >
-                                <div className="w-10 h-10 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center mb-3 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                                <div className="w-10 h-10 bg-atl-brass-tint text-atl-brass rounded-xl flex items-center justify-center mb-3 group-hover:bg-atl-brass group-hover:text-atl-bg transition-colors">
                                     <Icon className="w-5 h-5" />
                                 </div>
-                                <h4 className="text-base font-bold text-zinc-900 mb-1">{block.title}</h4>
-                                <p className="text-zinc-600 text-sm leading-relaxed">{block.description}</p>
+                                <h4 className="text-base font-bold text-atl-text mb-1">{block.title}</h4>
+                                <p className="text-atl-muted text-sm leading-relaxed">{block.description}</p>
                             </m.div>
                         );
                     })}
                 </div>
 
-                <div className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm space-y-4">
-                    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-emerald-50 text-emerald-800 text-xs font-mono font-bold border border-emerald-200">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        HIZLI İLETİŞİM
+                <div className="bg-atl-surface border border-atl-line rounded-2xl p-6 shadow-sm space-y-4">
+                    <div className="inline-flex items-center gap-2 rounded border border-emerald-500/40 bg-emerald-950/40 px-2.5 py-1 font-sans text-xs font-semibold tracking-normal text-emerald-300">
+                        <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                        Hızlı iletişim
                     </div>
-                    <h4 className="text-lg font-bold text-zinc-900">Acil bir talebiniz mi var?</h4>
-                    <p className="text-zinc-600 text-sm leading-relaxed">
+                    <h4 className="text-lg font-bold text-atl-text">Acil bir talebiniz mi var?</h4>
+                    <p className="text-atl-muted text-sm leading-relaxed">
                         Alsancak atölyemizdeki imalat şefimizle WhatsApp üzerinden teknik detayları doğrudan görüşebilirsiniz.
                     </p>
                     <a
-                        href="https://wa.me/905323794003"
+                        href="https://wa.me/905071651315"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-sm"
+                        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 font-sans text-sm font-semibold tracking-normal text-white shadow-sm transition-colors hover:bg-emerald-700"
                     >
                         <span>WhatsApp Usta Hattı</span>
                         <ArrowRight className="w-4 h-4" />

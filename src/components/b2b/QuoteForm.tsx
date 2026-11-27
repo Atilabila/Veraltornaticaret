@@ -223,7 +223,7 @@ export default function QuoteForm() {
                     onChange={handleChange}
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-900 ${errors.phone ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                    placeholder="0532 123 45 67"
+                    placeholder="05xx xxx xx xx"
                 />
                 {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
             </div>
