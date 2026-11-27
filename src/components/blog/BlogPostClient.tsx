@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { AuthorCard } from "./AuthorCard";
 import { serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
+import { relatedServicesForBlog } from "@/lib/service-blog-links";
 
 interface BlogPost {
     title: string;
@@ -19,6 +20,7 @@ interface BlogPost {
 }
 
 export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogPost, slug: string, otherPosts: any[] }) {
+    const relatedServices = relatedServicesForBlog(slug);
     return (
         <article className="bg-atl-bg text-atl-text">
             <div className="pt-28 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
@@ -115,6 +117,25 @@ export default function BlogPostClient({ post, slug, otherPosts }: { post: BlogP
                         className="atl-prose text-base md:text-lg space-y-6"
                         dangerouslySetInnerHTML={{ __html: formatMarkdown(post.content) }}
                     />
+
+                    {relatedServices.length > 0 && (
+                        <div className="mt-10 pt-8 border-t border-atl-line space-y-3">
+                            <h2 className="text-lg font-bold text-atl-text">İlgili üretim</h2>
+                            <ul className="flex flex-col gap-2">
+                                {relatedServices.map((svc) => (
+                                    <li key={svc.slug}>
+                                        <Link
+                                            href={`/hizmetler/${svc.slug}`}
+                                            className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-atl-brass hover:underline"
+                                        >
+                                            {svc.label}
+                                            <ArrowRight className="h-3.5 w-3.5" />
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                     {/* AUTHOR CARD */}
                     <div className="mt-14 pt-8 border-t border-atl-line">

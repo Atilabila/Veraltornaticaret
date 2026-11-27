@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import BlogPostClient from "@/components/blog/BlogPostClient";
+import { SITE_ORIGIN } from "@/lib/site";
 
 // Blog yazıları veritabanı (Server Side)
 const blogPosts: Record<string, {
@@ -164,17 +165,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if (!post) return { title: "Rapor bulunamadı" };
 
+    const url = `${SITE_ORIGIN}/blog/${slug}`;
     return {
         title: post.title,
         description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
+        robots: { index: true, follow: true },
         alternates: {
-            canonical: `https://veralteneketicaret.com/blog/${slug}`,
+            canonical: url,
         },
         openGraph: {
             title: post.title,
             description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
             images: [post.image],
-            url: `https://veralteneketicaret.com/blog/${slug}`,
+            url,
             type: "article",
         },
     };
@@ -197,26 +200,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": post.title,
-        "image": [post.image.startsWith("http") ? post.image : `https://veralteneketicaret.com${post.image}`],
+        "image": [post.image.startsWith("http") ? post.image : `${SITE_ORIGIN}${post.image}`],
         "datePublished": "2026-02-03T09:00:00+03:00",
         "dateModified": "2026-02-03T09:00:00+03:00",
         "author": {
             "@type": "Person",
             "name": "Oğuzcan Veral",
             "jobTitle": "İmalat Direktörü ve Teknik Editör",
-            "url": "https://veralteneketicaret.com/yazar/oguzcan-veral"
+            "url": `${SITE_ORIGIN}/yazar/oguzcan-veral`
         },
         "publisher": {
             "@type": "Organization",
             "name": "Veral Teneke Ticaret",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://veralteneketicaret.com/veral-logo.png"
+                "url": `${SITE_ORIGIN}/veral-logo.png`
             }
         },
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://veralteneketicaret.com/blog/${slug}`
+            "@id": `${SITE_ORIGIN}/blog/${slug}`
         }
     };
 

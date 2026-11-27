@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import { ContentService } from '@/lib/supabase/content.service';
 import { normalizeImagePath } from '@/lib/utils';
 import { resolveServiceStockImage, serviceImageAlt, serviceImageFit } from '@/lib/service-stock-images';
+import { relatedBlogsForService } from '@/lib/service-blog-links';
+import { SITE_ORIGIN } from '@/lib/site';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { PageShell } from '@/components/layout/PageShell';
 import { Breadcrumb } from '@/components/seo/Breadcrumb';
@@ -27,12 +29,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     if (!service) {
-        return { title: 'Hizmet Bulunamadı' };
+        return { title: 'Hizmet Bulunamadı', robots: { index: false, follow: true } };
     }
 
+    const path = `/hizmetler/${slug}`;
     return {
         title: (service.seoTitle || service.title).replace(/\s*\|\s*VERAL\b.*$/i, "").trim() || service.title,
         description: service.seoDescription || service.shortDescription,
+        // K5: canlıda noindex yoktu; açık index/follow + self-canonical
+        robots: { index: true, follow: true },
+        alternates: { canonical: `${SITE_ORIGIN}${path}` },
     };
 }
 
@@ -58,6 +64,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
     const imageSrc = normalizeImagePath(resolveServiceStockImage(service));
     const imageAlt = serviceImageAlt(imageSrc, service.title);
+    const relatedBlogs = relatedBlogsForService(slug);
 
     return (
         <PageShell variant="light" padded={false}>
@@ -204,6 +211,34 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                             </div>
                         </div>
                     </div>
+
+                    {relatedBlogs.length > 0 && (
+                        <div className="mt-14 space-y-4 border-t border-atl-line pt-12 lg:mt-16">
+                            <div>
+                                <h2 className="mb-2 font-display text-2xl text-atl-text">İlgili yazılar</h2>
+                                <p className="text-atl-muted">Bu üretim hattıyla bağlantılı blog notları.</p>
+                            </div>
+                            <ul className="flex flex-col gap-2">
+                                {relatedBlogs.map((post) => (
+                                    <li key={post.id}>
+                                        <Link
+                                            href={`/blog/${post.id}`}
+                                            className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-atl-text transition-colors hover:text-atl-brass-light"
+                                        >
+                                            {post.title}
+                                            <ArrowRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                            <Link
+                                href="/blog"
+                                className="inline-flex min-h-11 items-center font-sans text-sm font-semibold text-atl-muted hover:text-atl-brass-light"
+                            >
+                                Tüm blog
+                            </Link>
+                        </div>
+                    )}
 
                     {otherServices.length > 0 && (
                         <div className="mt-14 space-y-6 border-t border-atl-line pt-12 lg:mt-16">
