@@ -25,7 +25,7 @@ export const DynamicMetadata = () => {
             canonicalLink.setAttribute('rel', 'canonical');
             document.head.appendChild(canonicalLink);
         }
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.veralteneketicaret.com';
         
         // Normalize path: if /product/... translate to /urunler/...
         let normalizedPath = pathname || '/';

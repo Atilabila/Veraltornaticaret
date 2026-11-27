@@ -15,6 +15,7 @@ export const PRODUCTION_LINES: ProductionLine[] = [
 export const COMPANY_LINKS: ProductionLine[] = [
     { label: "Hakkımızda", href: "/hakkimizda" },
     { label: "İletişim", href: "/iletisim" },
+    { label: "Blog", href: "/blog" },
 ];
 
 /** Hero marquee labels (service lines only, linked). */

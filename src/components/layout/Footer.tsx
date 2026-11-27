@@ -18,20 +18,27 @@ const KURUMSAL = [
     { label: 'Teklif Al', href: '/teklif-al' },
     { label: 'Blog', href: '/blog' },
     { label: 'KVKK', href: '/kvkk' },
+    { label: 'Ön Bilgilendirme', href: '/on-bilgilendirme' },
     { label: 'Çerez Politikası', href: '/cerez' },
 ];
 
 const URUN_GRUPLARI = [
     { label: 'Dosya Teli', href: '/hizmetler/dosya-teli' },
     { label: 'Takvim Tenekesi', href: '/hizmetler/takvim-tenekesi' },
-    { label: 'Sac Kesim & Dilimleme', href: '/hizmetler' },
-    { label: 'Özel / UV Metal Baskı', href: '/hizmetler/miknatisli-magnet' },
+    { label: 'Tef Zili', href: '/hizmetler/tef-zili' },
+    { label: 'Mıknatıs / Poster', href: '/hizmetler/miknatisli-magnet' },
+    { label: 'Giyotin', href: '/hizmetler/giyotin-kesim' },
+    { label: 'Rulo dilimleme', href: '/hizmetler/rulo-dilimleme' },
+    { label: 'Alüminyum dilimleme', href: '/hizmetler/aluminyum-dilimleme' },
+    { label: 'Bakır dilimleme', href: '/hizmetler/bakir-dilimleme' },
 ];
 
 const LEGAL = [
     { label: 'Mesafeli Satış', href: '/mesafeli-satis' },
     { label: 'Gizlilik', href: '/gizlilik' },
     { label: 'KVKK', href: '/kvkk' },
+    { label: 'Ön Bilgilendirme', href: '/on-bilgilendirme' },
+    { label: 'Çerez', href: '/cerez' },
 ];
 
 export const Footer = () => {
