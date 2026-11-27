@@ -12,6 +12,7 @@ import { MotionProvider } from "@/components/motion/MotionProvider";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 import dynamic from "next/dynamic";
 import { CART_ENABLED } from "@/lib/commerce";
+import { SITE_ORIGIN } from "@/lib/site";
 
 const WhatsAppButton = dynamic(() =>
   import("@/components/layout/WhatsAppButton").then((mod) => mod.WhatsAppButton)
@@ -42,7 +43,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://veralteneketicaret.com"),
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
     default: "İzmir Dosya Teli ve Takvim Tenekesi İmalatı | Veral Alsancak",
     template: "%s | Veral Teneke Ticaret İzmir",
