@@ -86,59 +86,8 @@ export const PUBLIC_SERVICE_COPY: Record<string, PublicServiceCopy> = {
     },
 };
 
-export type TornaService = {
-    slug: string;
-    title: string;
-    text: string;
-};
-
-/** Heli-Coil, Böllhoff’un vida dişine takılan tel burcudur. Baga adı sahibin istediği gibi durur. */
-export const TORNA_SERVICES: TornaService[] = [
-    {
-        slug: "yedek-parca",
-        title: "Yedek parça imalatı",
-        text: "Alsancak atölyesinde torna ve makine yedek parçası imalatı.",
-    },
-    {
-        slug: "tamir",
-        title: "Tamir",
-        text: "Alsancak atölyesinde parça tamiri.",
-    },
-    {
-        slug: "imalat",
-        title: "İmalat",
-        text: "Alsancak atölyesinde tornada parça imalatı.",
-    },
-    {
-        slug: "kalip-imalati",
-        title: "Kalıp imalatı",
-        text: "Alsancak atölyesinde kalıp imalatı.",
-    },
-    {
-        slug: "makine-bakim-ve-onarimi",
-        title: "Makine bakım ve onarımı yapmak",
-        text: "Alsancak atölyesinde makine bakım ve onarımı yapmak.",
-    },
-    {
-        slug: "heli-coil-ve-baga",
-        title: "Heli-Coil ve baga uygulamaları",
-        text: "Alsancak atölyesinde Heli-Coil ve baga uygulamaları. Heli-Coil, vida dişine takılan bir tel burçtur.",
-    },
-    {
-        slug: "motosiklet-jant-tamiri",
-        title: "Motosiklet jant tamiri",
-        text: "Alsancak atölyesinde motosiklet jant tamiri.",
-    },
-    {
-        slug: "rulman-ve-burc-cakma",
-        title: "Hidrolik pres ile rulman ve burç çakma",
-        text: "Alsancak atölyesinde hidrolik pres ile rulman ve burç çakma.",
-    },
-];
-
-export function tornaHref(slug: string): string {
-    return `/hizmetler/torna/${slug}`;
-}
+export type { TornaService } from "@/lib/torna-services";
+export { TORNA_SERVICES, tornaHref, findTornaService } from "@/lib/torna-services";
 
 export const QUOTE_SERVICES = [
     { slug: "torna", label: "Torna" },
