@@ -75,13 +75,13 @@ const homeProductionRows = [
         area: "Dosya Teli İmalatı",
         href: "/hizmetler/dosya-teli",
         scope: "Kırtasiye, arşiv ve dosya üreticileri için toptan dosya teli üretimi",
-        orderModel: "Toptan / seri — Türkiye geneline sevkiyat",
+        orderModel: "Teklif usulü",
     },
     {
         area: "Takvim Tenekesi",
         href: "/hizmetler/takvim-tenekesi",
         scope: "Duvar ve gemici takvimleri için askılı ve askısız teneke çıta imalatı",
-        orderModel: "Matbaa ve yayınevlerine teklif usulü seri üretim",
+        orderModel: "Teklif usulü",
     },
     {
         area: "Giyotin Sac Kesim",
@@ -99,13 +99,13 @@ const homeProductionRows = [
         area: "Tef Zili İmalatı",
         href: "/hizmetler/tef-zili",
         scope: "Müzik aleti üreticileri için tef zili ve metal pul seri pres imalatı",
-        orderModel: "Toptan tedarik — teklif usulü",
+        orderModel: "Teklif usulü",
     },
     {
         area: "UV Baskılı Metal Levha",
         href: "/hizmetler/miknatisli-magnet",
         scope: "Mıknatıslı metal poster ve kurumsal tabela üretimi",
-        orderModel: "Seri veya özel proje — teklif usulü",
+        orderModel: "Teklif usulü",
     },
 ];
 
@@ -253,7 +253,7 @@ export default function ShopHomePage() {
                     </div>
                     <p className="mt-4 flex flex-wrap items-center justify-between gap-2 font-mono text-xs text-atl-muted">
                         <span>Atölye: 1471 Sokak No:12/A, Alsancak / İzmir · {SITE_HOURS_LABEL}</span>
-                        <span>Ölçü, adet ve termin yazılı teklifte netleşir.</span>
+                        <span>Ölçü ve adet teklifte yazılır.</span>
                     </p>
                 </div>
             </section>

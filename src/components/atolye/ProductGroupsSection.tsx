@@ -13,14 +13,14 @@ const GROUPS = [
         href: "/hizmetler/dosya-teli",
         image: "/images/services/dosya-teli-plastik-takim.webp",
         badge: "İzmir Alsancak",
-        description: "Toptan dosya teli üretimi; kırtasiye, arşiv ve dosya üreticilerine İzmir merkezli sevkiyat.",
+        description: "Dosya teli. Boylar: 14, 15, 17, 21, 24 cm ve akrep tel.",
     },
     {
         title: "Takvim Tenekesi",
         href: "/hizmetler/takvim-tenekesi",
         image: "/images/services/takvim-tenekeleri-detay.webp",
         badge: "Matbaa & yayınevi",
-        description: "Askılı ve askısız takvim tenekesi imalatı; matbaa ve takvim üreticileri için seri üretim.",
+        description: "Takvim tenekesi. Boylar: 31, 33 ve 48 cm.",
     },
     {
         title: "Sac Kesim & Dilimleme",

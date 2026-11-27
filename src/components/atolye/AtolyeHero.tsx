@@ -6,7 +6,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { SERVICE_IMAGES, serviceImageAlt, serviceImageFit } from "@/lib/service-stock-images";
-import { SEARCHED_SERVICES } from "@/lib/production-lines";
 import { ImageLightbox } from "@/components/media/ImageLightbox";
 
 const HERO_SLIDES = [
@@ -27,25 +26,19 @@ const STATS = [
 
 export function AtolyeHero() {
     const reduceMotion = useReducedMotion();
-    const [textIndex, setTextIndex] = useState(0);
     const [slideIndex, setSlideIndex] = useState(0);
 
     useEffect(() => {
         if (reduceMotion) return;
-        const textId = window.setInterval(() => {
-            setTextIndex((current) => (current + 1) % SEARCHED_SERVICES.length);
-        }, 2800);
         const slideId = window.setInterval(() => {
             setSlideIndex((current) => (current + 1) % HERO_SLIDES.length);
         }, 4200);
         return () => {
-            window.clearInterval(textId);
             window.clearInterval(slideId);
         };
     }, [reduceMotion]);
 
     const activeSlide = HERO_SLIDES[slideIndex];
-    const marqueeItems = [...SEARCHED_SERVICES, ...SEARCHED_SERVICES];
 
     return (
         <section className="atl-grain relative overflow-hidden border-b border-atl-line">
@@ -77,72 +70,6 @@ export function AtolyeHero() {
                         </Link>
                     </div>
 
-                    {/* Mobile: fade rotator · Desktop: horizontal marquee */}
-                    <div className="atl-rise atl-rise-4 mt-5 border-t border-atl-line pt-4 sm:mt-8 sm:pt-5">
-                        <div className="flex min-h-[2.25rem] flex-wrap items-center gap-x-3 gap-y-1 lg:hidden">
-                            <span className="font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-muted">Aranan hizmet</span>
-                            <span aria-hidden className="hidden text-atl-line sm:inline">|</span>
-                            {reduceMotion ? (
-                                <Link
-                                    href={SEARCHED_SERVICES[0].href}
-                                    className="font-display text-xl text-atl-brass-light hover:text-atl-text sm:text-2xl"
-                                >
-                                    {SEARCHED_SERVICES[0].label}
-                                </Link>
-                            ) : (
-                                <AnimatePresence mode="wait">
-                                    <m.span
-                                        key={SEARCHED_SERVICES[textIndex].label}
-                                        initial={{ opacity: 0, y: 8 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -8 }}
-                                        transition={{ duration: 0.28 }}
-                                        className="font-display text-xl text-atl-brass-light sm:text-2xl"
-                                    >
-                                        <Link href={SEARCHED_SERVICES[textIndex].href} className="hover:text-atl-text">
-                                            {SEARCHED_SERVICES[textIndex].label}
-                                        </Link>
-                                    </m.span>
-                                </AnimatePresence>
-                            )}
-                        </div>
-
-                        <div className="hidden lg:block">
-                            <div className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-muted">
-                                Aranan hizmet
-                            </div>
-                            {reduceMotion ? (
-                                <div className="flex flex-wrap gap-x-6 gap-y-2">
-                                    {SEARCHED_SERVICES.map((item) => (
-                                        <Link
-                                            key={item.href}
-                                            href={item.href}
-                                            className="font-display text-xl text-atl-brass-light transition-colors hover:text-atl-text"
-                                        >
-                                            {item.label}
-                                        </Link>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="atl-marquee overflow-hidden">
-                                    <div className="atl-marquee-track flex w-max items-center gap-10">
-                                        {marqueeItems.map((item, i) => (
-                                            <Link
-                                                key={`${item.href}-${i}`}
-                                                href={item.href}
-                                                className="shrink-0 font-display text-2xl text-atl-brass-light transition-colors hover:text-atl-text"
-                                            >
-                                                {item.label}
-                                                <span aria-hidden className="ml-10 text-atl-line">
-                                                    ·
-                                                </span>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
                 </div>
 
                 <figure className="atl-rise atl-rise-2 relative order-1 lg:order-2 lg:col-span-6">
@@ -180,7 +107,7 @@ export function AtolyeHero() {
                             <p className="font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass-light">
                                 {activeSlide.caption}
                             </p>
-                            <div className="pointer-events-auto mt-2.5 flex gap-1.5" role="tablist" aria-label="Atölye görselleri">
+                            <div className="pointer-events-auto mt-1 flex gap-1" role="tablist" aria-label="Atölye görselleri">
                                 {HERO_SLIDES.map((slide, i) => (
                                     <button
                                         key={slide.src}
@@ -188,9 +115,11 @@ export function AtolyeHero() {
                                         role="tab"
                                         aria-selected={i === slideIndex}
                                         onClick={() => setSlideIndex(i)}
-                                        className={`h-1.5 flex-1 transition-colors ${i === slideIndex ? "bg-atl-brass" : "bg-white/25"}`}
+                                        className="flex min-h-11 min-w-11 flex-1 items-center"
                                         aria-label={slide.caption}
-                                    />
+                                    >
+                                        <span className={`block h-1.5 w-full ${i === slideIndex ? "bg-atl-brass" : "bg-white/25"}`} />
+                                    </button>
                                 ))}
                             </div>
                         </div>

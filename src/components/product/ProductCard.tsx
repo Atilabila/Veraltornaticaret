@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
         </span>
       </div>
       <div className="text-[10px] font-mono font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-none border border-amber-200/60">
-        DIN EN 10202
+        Atölye
       </div>
     </div>
   );
@@ -103,7 +103,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variant = "default" 
               VERAL İMALAT
             </span>
           )}
-          <span className="text-[9px] font-mono text-zinc-400">1200 DPI UV</span>
+          <span className="text-[9px] font-mono text-zinc-400">Baskı</span>
         </div>
 
         <h3

@@ -5,20 +5,20 @@ import { Reveal } from "@/components/motion/Reveal";
 
 const STEPS = [
     {
-        title: "Talep analizi",
-        text: "Ürün ölçüleri, kullanım alanı, üretim adedi, malzeme ve teknik beklentiler birlikte netleştirilir.",
+        title: "Ürün",
+        text: "Ne istediğinizi yazın.",
     },
     {
-        title: "Teknik planlama",
-        text: "Kesim, büküm, pres veya UV baskı süreci ürün yapısına uygun yöntemle planlanır.",
+        title: "Adet",
+        text: "Kaç tane olduğunu yazın.",
     },
     {
-        title: "Numune ve onay",
-        text: "Gerekli durumlarda numune üretilir; ölçü, form ve kalite kontrolünden sonra üretim onayı alınır.",
+        title: "Telefon",
+        text: "Adınızı ve telefonunuzu bırakın.",
     },
     {
-        title: "Seri üretim",
-        text: "Onaylanan ürüne göre seri üretime geçilir; paketleme ve Türkiye geneline sevkiyat planlanır.",
+        title: "Fiyat",
+        text: "Fiyatı size bildiririz.",
     },
 ];
 
@@ -29,8 +29,8 @@ export function ProcessSteps() {
                 <Reveal>
                     <SectionHeading
                         eyebrow="Nasıl çalışıyoruz"
-                        title="Üretim sürecinizi baştan sona yönetiyoruz"
-                        description="Talep analizinden numune onayına ve seri üretime kadar kaliteyi merkeze alan kontrollü bir iş akışı."
+                        title="Nasıl sorarsınız"
+                        description="Ürün, adet, ad ve telefon."
                     />
                 </Reveal>
                 <ol className="mt-6 grid grid-cols-1 border-l border-t border-atl-line sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { absUrl, SITE_ORIGIN } from '@/lib/site';
+import { FOUNDING_YEAR, WORKSHOP_BLURB } from '@/lib/public-copy';
 
 export const LocalBusinessSchema = () => {
     const schema = {
@@ -11,7 +12,8 @@ export const LocalBusinessSchema = () => {
             absUrl("/veral-logo.png"),
             absUrl("/images/services/giyotin-kesim.webp")
         ],
-        "description": "İzmir Alsancak merkezli toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster imalatçısı.",
+        "description": WORKSHOP_BLURB,
+        "foundingDate": FOUNDING_YEAR,
         "url": SITE_ORIGIN,
         "telephone": "+905071651315",
         "email": "veraltornatic@hotmail.com",

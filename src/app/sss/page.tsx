@@ -8,62 +8,22 @@ import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { ArrowRight, HelpCircle, Phone, Sparkles } from "lucide-react";
 import { SssAccordion } from "@/components/atolye/SssAccordion";
+import { PUBLIC_FAQS } from "@/lib/public-copy";
 
 export const metadata: Metadata = {
     title: "Sıkça Sorulan Sorular",
-    description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve 4K UV mıknatıslı metal poster imalatı hakkında merak edilen tüm teknik ve ticari sorular: MOQ, termin süreleri, DIN EN 10202 hammadde normları.",
+    description: "Dosya teli, takvim tenekesi, tef zili ve sac işi için kısa yanıtlar. Atölye: 1471 Sokak No:12/A, Alsancak.",
     alternates: {
         canonical: absUrl("/sss"),
     },
     openGraph: {
         title: "Sıkça Sorulan Sorular | Veral Teneke Ticaret İzmir",
-        description: "Metal imalat, toptan üretim ve teknik toleranslar hakkında merak edilen tüm soruların yanıtları.",
+        description: "Sipariş, boylar ve atölye adresi.",
         url: absUrl("/sss"),
     },
 };
 
-const faqData = [
-    {
-        category: "Toptan İmalat & Sipariş",
-        question: "Toptan dosya teli siparişlerinde minimum sipariş miktarı (MOQ) nedir?",
-        answer: "Standart üretim arşiv tipi dosya tellerinde koli bazlı toptan teslimat yapmaktayız (genellikle 1.000 adetlik paketler ve katları). Özel ebat veya özel nikelaj/polimer kaplama taleplerinde ise makine kalıp ayarları gereği minimum üretim partimiz 10.000 adettir.",
-    },
-    {
-        category: "Toptan İmalat & Sipariş",
-        question: "Takvim tenekesi imalatında hangi hammadde ve ebatlar kullanılmaktadır?",
-        answer: "0.22 mm ile 0.30 mm arasında değişen yüksek korozyon direncine sahip birinci kalite elektrolitik teneke (ETP) plakalar kullanıyoruz. Özel çift kanallı büküm kalıplarımız sayesinde kağıt veya kuşe takvim kenarlarını kesinlikle yırtmaz veya kesmez. 20 cm'den 100 cm'ye kadar matbaalar için standart askılı/askısız boy kesim yapıyoruz.",
-    },
-    {
-        category: "Teknik Normlar & Malzeme",
-        question: "Üretimleriniz hangi metalurji standartlarına (DIN/ISO) uygundur?",
-        answer: "Tesislerimizde işlenen tüm elektrolitik teneke (ETP) ve TFS saclar, DIN EN 10202 normlarına tam uyumludur. Rockwell HR 30T sertlik skalasında TH-415 (T-52), TH-520 (T-61) ve TH-550 (T-65) temper derecelerinde hammadde işliyoruz. Her sevkiyat partisi için spektrometrik ve mikrometre ölçüm raporu sunulabilmektedir.",
-    },
-    {
-        category: "Teknik Normlar & Malzeme",
-        question: "Fason giyotin kesim ve rulo dilimlemede tolerans aralığınız nedir?",
-        answer: "CNC dijital arka dayamalı giyotin makas hatlarımızda 3.000 mm boya ve 0.15 - 3.00 mm kalınlığa kadar ±0.05 mm hassasiyetle çapaksız dik gönyede kesim yapıyoruz. Dairesel bıçaklı rulo sac dilme (slitting) hattımızda ise minimum 8 mm şerit genişliğinde ±0.08 mm toleransla çalışılmaktadır.",
-    },
-    {
-        category: "UV Metal Poster & Baskı",
-        question: "Mıknatıslı metal posterler duvara nasıl asılır? Duvarı delmek gerekir mi?",
-        answer: "Kesinlikle matkap, vida veya çivi gerektirmez. Posterlerimizle birlikte gönderilen özel 3M VHB yapışkanlı manyetik koruyucu pedi duvara yapıştırmanız yeterlidir. Yüksek çekim gücüne sahip N35 sınıfı Neodimyum mıknatıs sistemi, 1.5 mm kalınlığındaki metal posterinizi sarsıntısız ve milimetrik olarak tutar. İstediğiniz zaman farklı bir metal posterle saniyeler içinde değiştirebilirsiniz.",
-    },
-    {
-        category: "UV Metal Poster & Baskı",
-        question: "Metal posterlerde UV baskı kalitesi nasıldır? Renkler solar mı veya çizilir mi?",
-        answer: "Üretim hattımızda 1200x1200 DPI çözünürlüğünde endüstriyel piezoelektrik UV baskı teknolojisi kullanılmaktadır. Baskı anında ultraviyole ışıkla kürlenen özel pigment mürekkepler ve ardından uygulanan koruyucu mat vernik tabakası sayesinde tablolarımız güneş ışığına, neme ve çizilmelere karşı dayanıklıdır.",
-    },
-    {
-        category: "Lojistik & Teslimat",
-        question: "Kargo ve teslimat süreci nasıl işlemektedir?",
-        answer: "İzmir Alsancak 1471 Sokak'taki üretim merkezimizden çıkan ürünler, Türkiye'nin 81 iline anlaşmalı kargo firmaları veya toptan siparişler için ambar lojistiği ile gönderilir. Sevk tarihi sipariş miktarına ve üretim planına göre teklifle birlikte bildirilir.",
-    },
-    {
-        category: "Lojistik & Teslimat",
-        question: "Hasarlı teslimatta ne yapmalıyım?",
-        answer: "Tüm kargolarımız özel sertleştirilmiş kraft ambalaj, çemberli palet ve köşe koruyucularla sevk edilir. Kargo kaynaklı hasar durumunda bizimle iletişime geçmeniz yeterlidir; değişim koşulları sipariş sözleşmesine göre birlikte değerlendirilir.",
-    },
-];
+const faqData = PUBLIC_FAQS;
 
 export default function SSSPage() {
     const breadcrumbs = [
@@ -83,13 +43,13 @@ export default function SSSPage() {
             <section className="px-4 md:px-8 max-w-5xl mx-auto pb-20 pt-4">
                 <div className="mb-12 text-center sm:text-left">
                     <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-atl-brass-tint text-atl-brass border border-atl-brass/20 shadow-sm mb-4">
-                        <HelpCircle className="w-3.5 h-3.5 text-atl-brass" /> DESTEK & TEKNİK BİLGİ MERKEZİ
+                        <HelpCircle className="w-3.5 h-3.5 text-atl-brass" /> Kısa yanıtlar
                     </span>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight mb-4">
                         Sıkça Sorulan Sorular
                     </h1>
                     <p className="text-base md:text-lg text-atl-muted max-w-2xl font-normal leading-relaxed">
-                        Toptan dosya teli, takvim tenekesi, giyotin sac kesim, rulo dilimleme ve mıknatıslı UV metal poster imalat süreçlerimizle ilgili en çok merak edilen teknik ve ticari konular.
+                        Ürün, boy ve atölye.
                     </p>
                 </div>
 
@@ -107,7 +67,7 @@ export default function SSSPage() {
                             <Sparkles className="w-5 h-5 text-atl-brass" /> Başka bir sorunuz veya özel şartnameniz mi var?
                         </h2>
                         <p className="text-sm text-atl-muted max-w-md">
-                            İzmir Alsancak atölyemizdeki imalat uzmanlarımızla doğrudan görüşebilir veya hızlı teklif formumuzu doldurabilirsiniz.
+                            Arayın ya da formu doldurun.
                         </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-3">
@@ -125,7 +85,7 @@ export default function SSSPage() {
                             className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-atl-line px-5 font-sans text-sm font-semibold tracking-normal text-atl-text transition-colors hover:bg-atl-surface-2"
                         >
                             <Phone className="w-4 h-4 text-emerald-600" />
-                            <span>WhatsApp Usta Hattı</span>
+                            <span>WhatsApp&apos;tan fiyat sor</span>
                         </a>
                     </div>
                 </div>

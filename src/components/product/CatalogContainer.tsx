@@ -351,7 +351,7 @@ export const CatalogContainer: React.FC<CatalogContainerProps> = ({
                     <ShieldCheck className="w-3.5 h-3.5 text-amber-600" /> Üretici Fiyatı
                   </div>
                   <div className="flex items-center gap-1.5 col-span-2">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-600" /> DIN EN 10202 Sac Kalitesi
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-600" /> Alsancak atölyesi
                   </div>
                 </div>
               </div>

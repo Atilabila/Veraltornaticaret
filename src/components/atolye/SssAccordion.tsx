@@ -28,7 +28,7 @@ export function SssAccordion({ items }: { items: SssItem[] }) {
                     >
                         <AccordionTrigger className="gap-4 py-5 text-left hover:no-underline [&[data-state=open]]:text-atl-brass-light">
                             <span className="space-y-1.5 pr-2">
-                                <span className="block font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-atl-brass">
+                                <span className="block text-xs font-semibold uppercase tracking-normal text-atl-brass">
                                     {item.category}
                                 </span>
                                 <span className="block font-display text-lg leading-snug text-atl-text sm:text-xl">

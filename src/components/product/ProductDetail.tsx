@@ -104,7 +104,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
 
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-block text-[11px] font-mono text-amber-800 bg-amber-50 px-2.5 py-1 border border-amber-200">
-              SPEC: DIN EN 10202
+              Atölye işi
             </span>
             <button
               onClick={handleShare}
@@ -172,7 +172,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
             <div className="grid grid-cols-3 gap-3 text-center">
               <div className="p-3 bg-white/80 backdrop-blur-sm border border-zinc-200">
                 <span className="block text-[11px] font-mono font-bold text-zinc-900 uppercase">
-                  1200 DPI UV
+                  Metal baskı
                 </span>
                 <span className="text-[10px] text-zinc-500 font-mono">Mikronize Piezo</span>
               </div>
@@ -180,7 +180,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
                 <span className="block text-[11px] font-mono font-bold text-zinc-900 uppercase">
                   0.50 MM ÇELİK
                 </span>
-                <span className="text-[10px] text-zinc-500 font-mono">DIN EN 10202 Sac</span>
+                <span className="text-[10px] text-zinc-500 font-mono">Teneke</span>
               </div>
               <div className="p-3 bg-white/80 backdrop-blur-sm border border-zinc-200">
                 <span className="block text-[11px] font-mono font-bold text-zinc-900 uppercase">
@@ -347,7 +347,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
                 <Award className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-bold text-zinc-900">Alsancak Zanaati</h4>
-                  <p className="text-[10px] text-zinc-500">1980&apos;den beri kesintisiz üretim</p>
+                  <p className="text-[10px] text-zinc-500">1986&apos;dan beri Alsancak</p>
                 </div>
               </div>
             </div>
@@ -381,12 +381,12 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
                     <div className="flex justify-between border-b border-zinc-100 pb-2">
                       <span className="text-zinc-500">Hammadde Standardı:</span>
                       <span className="font-bold text-zinc-900">
-                        {product.material || "0.50mm DIN EN 10202 Teneke Levha"}
+                        {product.material || "Teneke levha"}
                       </span>
                     </div>
                     <div className="flex justify-between border-b border-zinc-100 pb-2">
                       <span className="text-zinc-500">Baskı Çözünürlüğü:</span>
-                      <span className="font-bold text-zinc-900">1200 x 1200 DPI Piezo UV</span>
+                      <span className="font-bold text-zinc-900">Baskı</span>
                     </div>
                     <div className="flex justify-between border-b border-zinc-100 pb-2">
                       <span className="text-zinc-500">Yüzey Koruması:</span>
@@ -410,7 +410,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
                 <TabsContent value="shipping" className="mt-4">
                   <div className="p-4 bg-white border border-zinc-200 space-y-2 text-xs text-zinc-600 leading-relaxed font-sans">
                     <p>
-                      <strong>Standart Teslimat:</strong> Siparişiniz onaylandıktan sonra 24-48 saat içerisinde özenle paketlenerek anlaşmalı kargoya verilir.
+                      <strong>Teslimat:</strong> Süre teklifte yazılır.
                     </p>
                     <p>
                       <strong>Toptan ve Ambar Sevkiyatı:</strong> İzmir Gıda Çarşısı ve ambarlar üzerinden tüm Türkiye&apos;ye doğrudan paletli sevkiyat sağlanmaktadır.
@@ -424,7 +424,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
                       <strong>10 Yıl Renk Solmazlık Güvencesi:</strong> UV kürlemeli endüstriyel pigmentlerimiz iç mekanda güneş ışığına maruz kalsa dahi solmama ve paslanmama garantisine sahiptir.
                     </p>
                     <p>
-                      <strong>Hasarsız Teslimat Sözü:</strong> Kargo kaynaklı deformasyonlarda 48 saat içinde bedelsiz yeni ürün imal edilip adresinize gönderilir.
+                      <strong>Hasar:</strong> Kargoda bozulursa bize yazın.
                     </p>
                   </div>
                 </TabsContent>

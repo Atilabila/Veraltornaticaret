@@ -4,6 +4,7 @@ import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "Mesafeli Satış Sözleşmesi",
+  robots: { index: false, follow: false },
   alternates: { canonical: absUrl("/mesafeli-satis") },
 };
 

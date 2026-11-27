@@ -2,18 +2,13 @@ import { SITE_ORIGIN } from '@/lib/site'
 import { MetadataRoute } from 'next'
 import { ContentService } from '@/lib/supabase/content.service'
 import type { SiteContent } from '@/store/useContentStore'
+import { blogPosts } from '@/lib/blog-posts'
 
-// Blog gönderileri
-const blogSlugs = [
-    'takvim-tenekesi-imalati-izmir',
-    'dosya-teli-ve-arsiv-sistemleri',
-    'miknatisli-magnet-ve-metal-poster-estetigi',
-    'endustriyel-metal-baski-rehberi',
-]
+const CONTENT_UPDATED = new Date('2026-11-27T00:00:00.000Z')
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = SITE_ORIGIN
-    const lastMod = new Date()
+    const lastMod = CONTENT_UPDATED
 
     let services: SiteContent['services'] = []
 
@@ -99,24 +94,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.4,
         },
         {
-            url: `${baseUrl}/mesafeli-satis`,
-            lastModified: lastMod,
-            changeFrequency: 'yearly',
-            priority: 0.4,
-        },
-        {
-            url: `${baseUrl}/on-bilgilendirme`,
-            lastModified: lastMod,
-            changeFrequency: 'yearly',
-            priority: 0.4,
-        },
-        {
-            url: `${baseUrl}/iade-iptal`,
-            lastModified: lastMod,
-            changeFrequency: 'yearly',
-            priority: 0.4,
-        },
-        {
             url: `${baseUrl}/cerez`,
             lastModified: lastMod,
             changeFrequency: 'yearly',
@@ -135,11 +112,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }))
 
     // 3. Blog Yazıları (E-E-A-T içerikleri)
-    const blogPostPages: MetadataRoute.Sitemap = blogSlugs.map(slug => ({
-        url: `${baseUrl}/blog/${slug}`,
-        lastModified: lastMod,
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
+    const blogPostPages: MetadataRoute.Sitemap = blogPosts.map(post => ({
+        url: `${baseUrl}/blog/${post.id}`,
+        lastModified: CONTENT_UPDATED,
+        changeFrequency: 'yearly' as const,
+        priority: 0.6,
     }))
 
     return [...staticPages, ...servicePages, ...blogPostPages]

@@ -12,41 +12,41 @@ const serviceCards = [
         id: "dosya-teli",
         slug: "dosya-teli",
         title: "Toptan Dosya Teli İmalatı",
-        badge: "DIN EN 10202 • 0.20-0.35 mm",
-        capacity: "50.000 ADET / GÜN",
+        badge: "14–24 cm ve akrep tel",
+        capacity: "Teklif usulü",
         image: "/images/services/dosya-teli-plastik-takim.webp",
-        description: "Çift taraflı bükülebilir polimer kaplı veya parlak nikelajlı çelik tel. Büro kırtasiye ve resmi arşiv mukavemet standartlarına %100 uyumludur.",
+        description: "Dosya teli. Boylar: 14, 15, 17, 21, 24 cm ve akrep tel.",
         metric: null,
     },
     {
         id: "takvim-tenekesi",
         slug: "takvim-tenekesi",
         title: "Takvim Tenekesi & Çıtası İmalatı",
-        badge: "TH-415 / TH-550 • ETP",
+        badge: "31, 33 ve 48 cm",
         capacity: "ASKILI / ASKISIZ",
         image: "/images/services/takvim-tenekeleri-detay.webp",
-        description: "Duvar takvimlerinin (özellikle gemici ve yapraklı blok takvimlerin) karton veya sert zeminlerine, üst veya alt kısımlarına geçirilen, takvimin duvarda dik ve düzgün durmasını sağlayan, kenarlarını koruyan ve asma deliği barındıran metal çıta / profil parçasıdır. Toptan / seri üretim.",
+        description: "Takvim tenekesi. Boylar: 31, 33 ve 48 cm.",
         metric: "Toptan / Seri Üretim",
     },
     {
         id: "giyotin-kesim",
         slug: "giyotin-kesim",
         title: "Giyotin Sac & Teneke Kesim",
-        badge: "0.15 - 3.00 mm Kalınlık",
-        capacity: "TOLERANS ±0.05 MM",
+        badge: "Ölçüye göre",
+        capacity: "Teklif usulü",
         image: "/images/services/giyotin-kesim.webp",
-        description: "CNC dijital arka dayamalı giyotin makas hatlarımız ile çapaksız, gönyesinde ve sacın düzlemsel geometrisini bozmadan hassas levha kesimi.",
+        description: "Sac ve tenekeyi ölçüye göre keseriz.",
         metric: "Sıfır Çapak & Dik Gönye",
     },
     {
         id: "rulo-dilimleme",
         slug: "rulo-dilimleme",
         title: "Rulo Sac Dilimleme & Şerit Açma",
-        badge: "Min. 8 mm Dilme Eni",
+        badge: "Eni siz yazın",
         capacity: "RULO ŞERİT SAC",
         image: "/images/services/rulo-dilimleme.webp",
-        description: "Hassas dairesel çelik bıçaklı slitting hatlarında, müşteri teknik şartnamesine uygun mikron toleranslı şerit rulo açma, dilme ve sarım.",
-        metric: "±0.08 mm Genişlik Toleransı",
+        description: "Rulo sacı şerit halinde dilimleriz.",
+        metric: "Teklif usulü",
     },
     {
         id: "tef-zili",
@@ -55,7 +55,7 @@ const serviceCards = [
         badge: "Yüksek Hızlı Eksantrik",
         capacity: "AKUSTİK PERFORMANS",
         image: "/images/services/tef-zili-38mm.webp",
-        description: "Enstrüman üreticileri için paslanmaz pirinç veya teneke alaşımlı, yüksek rezonans tınlamalı seri formlanmış pres üretimi.",
+        description: "Tef zili. Sitedeki ölçüde çap 38 mm.",
         metric: "Ø38 mm Çap",
     },
     {
@@ -65,8 +65,8 @@ const serviceCards = [
         badge: "1.5 mm Sac • 4K UV",
         capacity: "SERİ & ÖZEL BASKI",
         image: "/images/services/metal-tabelalar.webp",
-        description: "Endüstriyel 1200 DPI piezoelektrik UV baskı ve çizilmeye dayanıklı çift kat mat vernik. Mıknatıslı montaj sistemi ile seri kurumsal üretim.",
-        metric: "10 Yıl Renk Canlılığı",
+        description: "Metal levhaya baskı. Mıknatıslı poster de vardır.",
+        metric: "Teklif usulü",
     },
 ];
 
@@ -91,7 +91,7 @@ export const ServicesHomeSection = () => {
                         ))}
                     </div>
                     <p className="mt-10 border-t border-atl-line pt-6 font-mono text-xs text-atl-muted">
-                        Hammadde: DIN EN 10202 normlu elektrolitik teneke (ETP). Ölçü ve kalınlık, numune üzerinden birlikte doğrulanır.
+                        Ölçüyü ve adedi yazın. Fiyatı söyleyelim.
                     </p>
                 </div>
             </section>

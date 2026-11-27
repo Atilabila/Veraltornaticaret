@@ -1,6 +1,13 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
+import { Geist } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-geist",
+});
 import { AdminProvider } from "@/components/providers/AdminProvider";
 import { ContentSyncProvider } from "@/components/providers/ContentSyncProvider";
 import { AuthProvider } from "@/components/auth/AuthProvider";
@@ -88,18 +95,8 @@ export const revalidate = 10;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr">
-      <head>
-        {/* Runtime Google Fonts (avoids build-time fetch in restricted networks). */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap"
-        />
-
-      </head>
-      <body className="antialiased bg-atl-bg text-atl-text font-sans selection:bg-atl-brass selection:text-atl-bg" style={{ backgroundColor: "#121110", color: "#ece6da" }}>
+    <html lang="tr" className={geist.variable}>
+      <body className={`${geist.className} antialiased bg-atl-bg text-atl-text font-sans selection:bg-atl-brass selection:text-atl-bg`} style={{ backgroundColor: "#121110", color: "#ece6da" }}>
         <MotionProvider>
           <AdminProvider>
             <ContentSyncProvider>

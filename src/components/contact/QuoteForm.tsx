@@ -6,7 +6,7 @@ import {
     User, Building2, Mail, Phone,
     Settings, MessageSquare, Layers,
     Upload, Trash2, CheckCircle, ArrowRight, ArrowLeft,
-    Clock, Search, ShieldCheck, Loader2
+    Loader2
 } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
 import { Input } from '@/components/ui/input';
@@ -18,7 +18,9 @@ import { toast } from '@/components/ui/use-toast';
 import { submitQuote, uploadQuoteAttachment } from '@/lib/actions/quotes.actions';
 import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
-import { getServiceBySlug } from '@/lib/b2b/services';
+import { QUOTE_SERVICES, priceAskUrl } from '@/lib/public-copy';
+import { PUBLIC_ADDRESS, PUBLIC_HOURS } from '@/lib/public-facts';
+import { PUBLIC_PHONE_DISPLAY, toTelHref } from '@/lib/contact';
 
 const inputClass =
     "bg-atl-bg border-atl-line pl-12 h-14 text-atl-text placeholder:text-atl-muted/60 focus:border-atl-brass focus:outline-none focus:ring-1 focus:ring-atl-brass aria-invalid:border-red-400 aria-invalid:ring-red-400 transition-all rounded-xl";
@@ -57,24 +59,16 @@ export const QuoteForm = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        if (!config) return;
-
         const slug = searchParams.get('hizmet');
         if (!slug) return;
-
-        const service = getServiceBySlug(slug);
-        if (!service) return;
-
-        const match = config.serviceOptions.find(
-            (opt) => opt === service.title || opt.toLowerCase().includes(service.title.split(' ')[0].toLowerCase())
-        );
-
-        if (match) {
-            setFormData((prev) => (prev.serviceType ? prev : { ...prev, serviceType: match }));
-        }
-    }, [searchParams, config]);
+        const match = QUOTE_SERVICES.find((item) => item.slug === slug);
+        if (!match) return;
+        setFormData((prev) => (prev.serviceType ? prev : { ...prev, serviceType: match.label }));
+    }, [searchParams]);
 
     if (!config) return null;
+
+    const priceAskHref = priceAskUrl(formData.serviceType || "imalat");
 
     const updateField = (field: string, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -127,25 +121,32 @@ export const QuoteForm = () => {
         });
     };
 
-    const nextStep = () => {
+    const validateStep = (current: number) => {
         const next: Record<string, string> = {};
-        if (step === 1) {
-            if (!formData.fullName.trim()) next.fullName = "Ad soyad yazın.";
-            if (!formData.email.trim()) next.email = "E-posta yazın.";
-            if (!formData.phone.trim()) next.phone = "Telefon yazın.";
+        if (current === 1) {
+            if (!formData.serviceType) next.serviceType = "Ürün seçin.";
+            if (!formData.quantity.trim()) next.quantity = "Adet yazın.";
         }
-        if (step === 2) {
-            if (!formData.serviceType) next.serviceType = "Hizmet seçin.";
-            if (!formData.description.trim()) next.description = "Proje notunu yazın.";
+        if (current === 2) {
+            if (!formData.fullName.trim()) next.fullName = "Ad soyad yazın.";
+            if (!formData.phone.trim()) next.phone = "Telefon yazın.";
+            if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+                next.email = "E-posta hatalı.";
+            }
         }
         setErrors(next);
-        if (Object.keys(next).length > 0) return;
+        return Object.keys(next).length === 0;
+    };
+
+    const nextStep = () => {
+        if (!validateStep(step)) return;
         setStep(prev => prev + 1);
     };
 
     const prevStep = () => setStep(prev => prev - 1);
 
     const handleSubmit = async () => {
+        if (!validateStep(2)) return;
         setIsSubmitting(true);
         try {
             const uploadedFiles = [];
@@ -174,6 +175,8 @@ export const QuoteForm = () => {
 
             const result = await submitQuote({
                 ...formData,
+                email: formData.email.trim(),
+                description: formData.description.trim() || `Adet: ${formData.quantity.trim()}`,
                 files: uploadedFiles as any
             });
 
@@ -201,7 +204,7 @@ export const QuoteForm = () => {
                     <CheckCircle className="w-8 h-8" />
                 </div>
                 <h2 className="text-3xl font-display text-atl-text tracking-tight">{config.successTitle}</h2>
-                <p className="text-atl-muted text-base md:text-lg max-w-lg mx-auto leading-relaxed">{config.successMessage}</p>
+                <p className="text-atl-muted text-base md:text-lg max-w-lg mx-auto leading-relaxed">Talebiniz alındı. Sizi ararız.</p>
                 <div className="bg-atl-surface-2 border border-atl-line rounded-2xl p-6 max-w-xs mx-auto">
                     <span className="block text-xs text-atl-muted font-mono font-semibold uppercase tracking-wider mb-1">Teklif Takip Numarası</span>
                     <span className="text-2xl font-mono text-atl-brass font-black">{quoteNumber}</span>
@@ -220,7 +223,7 @@ export const QuoteForm = () => {
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             <div className="lg:col-span-8 bg-atl-surface border border-atl-line rounded-3xl overflow-hidden shadow-sm">
                 <div className="h-1.5 w-full bg-atl-surface-2 flex">
-                    {[1, 2, 3].map(i => (
+                    {[1, 2].map(i => (
                         <div
                             key={i}
                             className={cn(
@@ -234,142 +237,110 @@ export const QuoteForm = () => {
                 <div className="p-8 lg:p-12">
                     <AnimatePresence mode="wait">
                         {step === 1 && (
-                            <m.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
+                            <m.div key="step1" initial={false} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-atl-text flex items-center gap-3">
-                                        <User className="text-atl-brass w-6 h-6" /> {config.contactSectionTitle}
-                                    </h3>
-                                    <p className="text-atl-muted text-sm">İletişim ve kurumsal firma bilgilerinizi belirtin.</p>
+                                    <h2 className="text-2xl font-black text-atl-text flex items-center gap-3">
+                                        <Settings className="text-atl-brass w-6 h-6" /> Ürün ve adet
+                                    </h2>
+                                    <p className="text-atl-muted text-sm">Önce ne istediğinizi yazın.</p>
                                 </div>
-                                <div className="grid sm:grid-cols-2 gap-6">
+                                <div className="space-y-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="quote-name" className={labelClass}>{config.nameLabel} *</Label>
-                                        <div className="relative">
-                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
-                                            <Input id="quote-name" name="name" autoComplete="name" aria-invalid={Boolean(errors.fullName)} value={formData.fullName} onChange={(e) => updateField('fullName', e.target.value)} placeholder={config.namePlaceholder} className={inputClass} />
-                                        </div>
-                                        {errors.fullName ? <p role="alert" className="text-sm text-red-300">{errors.fullName}</p> : null}
+                                        <Label id="quote-service-label" className={labelClass}>Ürün *</Label>
+                                        <Select onValueChange={(val) => updateField('serviceType', val)} value={formData.serviceType}>
+                                            <SelectTrigger aria-labelledby="quote-service-label" aria-invalid={Boolean(errors.serviceType)} className={`${inputClass} pl-4 min-h-14 data-[placeholder]:text-atl-muted/60`}>
+                                                <SelectValue placeholder="Ürün seçin" />
+                                            </SelectTrigger>
+                                            <SelectContent className="bg-atl-surface border-atl-line text-atl-text rounded-xl shadow-lg">
+                                                {QUOTE_SERVICES.map(opt => (
+                                                    <SelectItem key={opt.slug} value={opt.label} className="min-h-11 focus:bg-atl-brass focus:text-atl-bg rounded-lg">{opt.label}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.serviceType ? <p role="alert" className="text-sm text-red-300">{errors.serviceType}</p> : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="quote-company" className={labelClass}>{config.companyLabel}</Label>
+                                        <Label htmlFor="quote-quantity" className={labelClass}>Adet *</Label>
                                         <div className="relative">
-                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
-                                            <Input id="quote-company" name="organization" autoComplete="organization" value={formData.company} onChange={(e) => updateField('company', e.target.value)} placeholder={config.companyPlaceholder} className={inputClass} />
+                                            <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-quantity" inputMode="numeric" aria-invalid={Boolean(errors.quantity)} value={formData.quantity} onChange={(e) => updateField('quantity', e.target.value)} placeholder="Adet" className={inputClass} />
                                         </div>
+                                        {errors.quantity ? <p role="alert" className="text-sm text-red-300">{errors.quantity}</p> : null}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="quote-email" className={labelClass}>{config.emailLabel} *</Label>
+                                        <Label htmlFor="quote-description" className={labelClass}>Ölçü notu</Label>
                                         <div className="relative">
-                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
-                                            <Input id="quote-email" name="email" type="email" autoComplete="email" aria-invalid={Boolean(errors.email)} value={formData.email} onChange={(e) => updateField('email', e.target.value)} placeholder={config.emailPlaceholder} className={inputClass} />
+                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-atl-muted" />
+                                            <Textarea id="quote-description" value={formData.description} onChange={(e) => updateField('description', e.target.value)} placeholder="Ölçü veya kısa not" className={`${inputClass} pl-12 min-h-[120px] resize-none pt-4`} />
                                         </div>
-                                        {errors.email ? <p role="alert" className="text-sm text-red-300">{errors.email}</p> : null}
                                     </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="quote-phone" className={labelClass}>{config.phoneLabel} *</Label>
-                                        <div className="relative">
-                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
-                                            <Input id="quote-phone" name="tel" type="tel" autoComplete="tel" inputMode="tel" aria-invalid={Boolean(errors.phone)} value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} placeholder={config.phonePlaceholder} className={inputClass} />
-                                        </div>
-                                        {errors.phone ? <p role="alert" className="text-sm text-red-300">{errors.phone}</p> : null}
+                                    <div className="space-y-3">
+                                        <button
+                                            type="button"
+                                            onClick={() => fileInputRef.current?.click()}
+                                            className="inline-flex min-h-12 w-full items-center justify-center gap-2 border border-dashed border-atl-line px-4 text-sm font-semibold text-atl-text hover:border-atl-brass"
+                                        >
+                                            <Upload className="h-4 w-4" /> Fotoğraf ekle
+                                        </button>
+                                        <input type="file" ref={fileInputRef} onChange={handleFileChange} multiple className="hidden" />
+                                        {files.length > 0 && (
+                                            <ul className="grid gap-2">
+                                                {files.map((f, i) => (
+                                                    <li key={i} className="flex items-center justify-between gap-3 border border-atl-line px-3 py-2">
+                                                        <span className="truncate text-sm">{f.file.name}</span>
+                                                        <button type="button" onClick={() => removeFile(i)} aria-label={`${f.file.name} dosyasını kaldır`} className="inline-flex h-11 w-11 items-center justify-center">
+                                                            <Trash2 className="h-4 w-4" />
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
                                     </div>
                                 </div>
                             </m.div>
                         )}
 
                         {step === 2 && (
-                            <m.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
+                            <m.div key="step2" initial={false} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-atl-text flex items-center gap-3">
-                                        <Settings className="text-atl-brass w-6 h-6" /> {config.projectSectionTitle}
-                                    </h3>
-                                    <p className="text-atl-muted text-sm">Projenizin teknik ayrıntılarını ve ölçü gereksinimlerini belirtin.</p>
+                                    <h2 className="text-2xl font-black text-atl-text flex items-center gap-3">
+                                        <User className="text-atl-brass w-6 h-6" /> Ad ve telefon
+                                    </h2>
+                                    <p className="text-atl-muted text-sm">Sizi buradan ararız. E-posta şart değil.</p>
                                 </div>
-                                <div className="space-y-6">
+                                <div className="grid sm:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label id="quote-service-label" className={labelClass}>{config.serviceLabel} *</Label>
-                                        <Select onValueChange={(val) => updateField('serviceType', val)} value={formData.serviceType}>
-                                            <SelectTrigger aria-labelledby="quote-service-label" aria-invalid={Boolean(errors.serviceType)} className={`${inputClass} pl-4 data-[placeholder]:text-atl-muted/60`}>
-                                                <SelectValue placeholder="Bir hizmet seçiniz" />
-                                            </SelectTrigger>
-                                            <SelectContent className="bg-atl-surface border-atl-line text-atl-text rounded-xl shadow-lg">
-                                                {config.serviceOptions.map(opt => (
-                                                    <SelectItem key={opt} value={opt} className="focus:bg-atl-brass focus:text-atl-bg rounded-lg">{opt}</SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                            </Select>
-                                        {errors.serviceType ? <p role="alert" className="text-sm text-red-300">{errors.serviceType}</p> : null}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="quote-description" className={labelClass}>{config.descriptionLabel} *</Label>
+                                        <Label htmlFor="quote-name" className={labelClass}>Ad soyad *</Label>
                                         <div className="relative">
-                                            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-atl-muted" />
-                                            <Textarea id="quote-description" aria-invalid={Boolean(errors.description)} value={formData.description} onChange={(e) => updateField('description', e.target.value)} placeholder={config.descriptionPlaceholder} className={`${inputClass} pl-12 min-h-[140px] resize-none pt-4`} />
+                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-name" name="name" autoComplete="name" aria-invalid={Boolean(errors.fullName)} value={formData.fullName} onChange={(e) => updateField('fullName', e.target.value)} placeholder="Ad soyad" className={inputClass} />
                                         </div>
-                                        {errors.description ? <p role="alert" className="text-sm text-red-300">{errors.description}</p> : null}
+                                        {errors.fullName ? <p role="alert" className="text-sm text-red-300">{errors.fullName}</p> : null}
                                     </div>
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="quote-quantity" className={labelClass}>{config.quantityLabel}</Label>
-                                            <div className="relative">
-                                                <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
-                                                <Input id="quote-quantity" inputMode="numeric" value={formData.quantity} onChange={(e) => updateField('quantity', e.target.value)} placeholder={config.quantityPlaceholder} className={inputClass} />
-                                            </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="quote-phone" className={labelClass}>Telefon *</Label>
+                                        <div className="relative">
+                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-phone" name="tel" type="tel" autoComplete="tel" inputMode="tel" aria-invalid={Boolean(errors.phone)} value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} placeholder="05xx xxx xx xx" className={inputClass} />
                                         </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="quote-material" className={labelClass}>{config.materialLabel}</Label>
-                                            <div className="relative">
-                                                <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
-                                                <Input id="quote-material" value={formData.materialType} onChange={(e) => updateField('materialType', e.target.value)} placeholder={config.materialPlaceholder} className={inputClass} />
-                                            </div>
+                                        {errors.phone ? <p role="alert" className="text-sm text-red-300">{errors.phone}</p> : null}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="quote-email" className={labelClass}>E-posta</Label>
+                                        <div className="relative">
+                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-email" name="email" type="email" autoComplete="email" aria-invalid={Boolean(errors.email)} value={formData.email} onChange={(e) => updateField('email', e.target.value)} placeholder="İsteğe bağlı" className={inputClass} />
+                                        </div>
+                                        {errors.email ? <p role="alert" className="text-sm text-red-300">{errors.email}</p> : null}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="quote-company" className={labelClass}>Firma</Label>
+                                        <div className="relative">
+                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-atl-muted" />
+                                            <Input id="quote-company" name="organization" autoComplete="organization" value={formData.company} onChange={(e) => updateField('company', e.target.value)} placeholder="İsteğe bağlı" className={inputClass} />
                                         </div>
                                     </div>
                                 </div>
-                            </m.div>
-                        )}
-
-                        {step === 3 && (
-                            <m.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
-                                <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-atl-text flex items-center gap-3">
-                                        <Upload className="text-atl-brass w-6 h-6" /> {config.uploadSectionTitle}
-                                    </h3>
-                                    <p className="text-atl-muted text-sm">{config.fileDescription || "CAD, DXF, DWG, PDF veya yüksek çözünürlüklü teknik çizim yükleyebilirsiniz."}</p>
-                                </div>
-                                <button
-                                    type="button"
-                                    onClick={() => fileInputRef.current?.click()}
-                                    className="w-full border-2 border-dashed border-atl-line bg-atl-surface-2 rounded-2xl p-10 text-center hover:border-atl-brass hover:bg-atl-brass-tint/20 transition-all cursor-pointer group"
-                                >
-                                    <input type="file" ref={fileInputRef} onChange={handleFileChange} multiple className="hidden" />
-                                    <Upload className="w-10 h-10 text-atl-muted group-hover:text-atl-brass mx-auto mb-3 transition-colors" />
-                                    <p className="text-atl-text font-bold mb-1">{config.fileLabel}</p>
-                                    <p className="text-xs text-atl-muted font-mono">Dosya seç (en fazla {config.maxFiles} dosya, her biri {config.maxSizeMB} MB)</p>
-                                </button>
-                                {files.length > 0 && (
-                                    <div className="grid gap-3">
-                                        {files.map((f, i) => (
-                                            <div key={i} className="flex items-center justify-between bg-atl-surface-2 p-4 border border-atl-line rounded-xl">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-atl-surface border border-atl-line rounded-lg overflow-hidden flex items-center justify-center shadow-xs">
-                                                        {f.file.type.startsWith('image/') ? (
-                                                            <img src={f.preview} alt="" className="w-full h-full object-cover" />
-                                                        ) : (
-                                                            <Layers className="w-5 h-5 text-atl-brass" />
-                                                        )}
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-sm font-semibold text-atl-text truncate max-w-[200px]">{f.file.name}</p>
-                                                        <p className="text-xs font-mono text-atl-muted">{(f.file.size / (1024 * 1024)).toFixed(2)} MB</p>
-                                                    </div>
-                                                </div>
-                                                <button type="button" onClick={() => removeFile(i)} aria-label={`${f.file.name} dosyasını kaldır`} className="inline-flex h-11 w-11 items-center justify-center text-atl-muted hover:text-red-400 transition-colors">
-                                                    <Trash2 className="w-5 h-5" />
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
                             </m.div>
                         )}
                     </AnimatePresence>
@@ -381,7 +352,7 @@ export const QuoteForm = () => {
                             </Button>
                         ) : <div />}
 
-                        {step < 3 ? (
+                        {step < 2 ? (
                             <Button onClick={nextStep} className="bg-atl-brass hover:bg-atl-brass-light text-atl-bg font-bold h-12 px-8 rounded-xl flex items-center gap-2 group transition-all shadow-md shadow-black/20">
                                 Sonraki Adım <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Button>
@@ -398,51 +369,22 @@ export const QuoteForm = () => {
                 </div>
             </div>
 
-            <div className="lg:col-span-4 space-y-6">
-                <div className="grid gap-4">
-                    {config.trustBlocks.map((block, i) => {
-                        const Icon = block.icon === 'Clock' ? Clock :
-                            block.icon === 'Search' ? Search :
-                                block.icon === 'CheckCircle' ? CheckCircle : ShieldCheck;
-
-                        return (
-                            <m.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                key={i}
-                                className="bg-atl-surface border border-atl-line rounded-2xl p-6 shadow-sm hover:border-atl-brass transition-colors group"
-                            >
-                                <div className="w-10 h-10 bg-atl-brass-tint text-atl-brass rounded-xl flex items-center justify-center mb-3 group-hover:bg-atl-brass group-hover:text-atl-bg transition-colors">
-                                    <Icon className="w-5 h-5" />
-                                </div>
-                                <h4 className="text-base font-bold text-atl-text mb-1">{block.title}</h4>
-                                <p className="text-atl-muted text-sm leading-relaxed">{block.description}</p>
-                            </m.div>
-                        );
-                    })}
+            <aside className="lg:col-span-4 space-y-4">
+                <div className="border border-atl-line bg-atl-surface p-6 space-y-2 text-sm">
+                    <h2 className="text-lg font-bold text-atl-text">Atölye</h2>
+                    <p className="whitespace-pre-line text-atl-muted">{PUBLIC_ADDRESS}</p>
+                    <p className="text-atl-muted">{PUBLIC_HOURS}</p>
+                    <a href={toTelHref(PUBLIC_PHONE_DISPLAY)} className="inline-flex min-h-11 items-center font-semibold text-atl-text">{PUBLIC_PHONE_DISPLAY}</a>
                 </div>
-
-                <div className="bg-atl-surface border border-atl-line rounded-2xl p-6 shadow-sm space-y-4">
-                    <div className="inline-flex items-center gap-2 rounded border border-emerald-500/40 bg-emerald-950/40 px-2.5 py-1 font-sans text-xs font-semibold tracking-normal text-emerald-300">
-                        <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                        Hızlı iletişim
-                    </div>
-                    <h4 className="text-lg font-bold text-atl-text">Acil bir talebiniz mi var?</h4>
-                    <p className="text-atl-muted text-sm leading-relaxed">
-                        Alsancak atölyemizdeki imalat şefimizle WhatsApp üzerinden teknik detayları doğrudan görüşebilirsiniz.
-                    </p>
-                    <a
-                        href="https://wa.me/905071651315"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 font-sans text-sm font-semibold tracking-normal text-white shadow-sm transition-colors hover:bg-emerald-700"
-                    >
-                        <span>WhatsApp Usta Hattı</span>
-                        <ArrowRight className="w-4 h-4" />
-                    </a>
-                </div>
-            </div>
+                <a
+                    href={priceAskHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 text-sm font-semibold text-white hover:bg-emerald-700"
+                >
+                    WhatsApp&apos;tan fiyat sor
+                </a>
+            </aside>
         </div>
     );
 };

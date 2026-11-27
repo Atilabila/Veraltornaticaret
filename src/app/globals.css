@@ -56,19 +56,19 @@
   --color-atl-text: #ece6da;
   --color-atl-muted: #b7ae9f;
 
-  --font-display: "Poppins", "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Geist", "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
   :root {
     color-scheme: dark;
 
-    --font-space-grotesk: "Poppins";
-    --font-syne: "Poppins";
-    --font-ibm-plex-mono: "Geist Mono";
-    --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-space-grotesk: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+    --font-syne: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+    --font-ibm-plex-mono: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
 
     --atl-bg: #121110;
     --atl-surface: #1b1a18;
@@ -134,7 +134,8 @@
     overflow-x: clip;
     background-color: #121110 !important;
     color: #ece6da !important;
-    font-family: "Geist", "Poppins", ui-sans-serif, system-ui, sans-serif;
+    padding-bottom: var(--cookie-offset, 0px);
+    font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.6;
     font-weight: 400;
@@ -143,11 +144,18 @@
   }
 
   .font-mono {
-    font-family: "Geist Mono", ui-monospace, monospace;
+    font-family: var(--font-sans);
+  }
+
+  @media (max-width: 1023px) {
+    body {
+      padding-top: var(--cookie-offset, 0px);
+      padding-bottom: 0;
+    }
   }
 
   .font-display {
-    font-family: "Poppins", "Geist", sans-serif;
+    font-family: var(--font-sans);
     font-weight: 800;
     letter-spacing: -0.04em;
   }
@@ -310,18 +318,13 @@
   z-index: 1;
 }
 
-@keyframes atl-rise {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: none; }
-}
-
-.atl-rise { animation: atl-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.atl-rise-2 { animation-delay: 0.12s; }
-.atl-rise-3 { animation-delay: 0.24s; }
-.atl-rise-4 { animation-delay: 0.36s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .atl-rise { animation: none; }
+.atl-rise,
+.atl-rise-2,
+.atl-rise-3,
+.atl-rise-4 {
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 
 .atl-prose {
@@ -332,7 +335,7 @@
 
 .atl-prose h2,
 .atl-prose h3 {
-  font-family: "Poppins", "Geist", sans-serif;
+  font-family: var(--font-sans);
   color: #ece6da;
   font-weight: 800;
   letter-spacing: -0.035em;
@@ -351,7 +354,7 @@
   padding-inline: 2rem;
   background: linear-gradient(135deg, #e3c78a 0%, #c9a35c 45%, #a8843f 100%);
   color: #121110;
-  font-family: "Geist", "Poppins", sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -372,7 +375,7 @@
   padding-inline: 2rem;
   border: 1px solid #2e2b27;
   color: #ece6da;
-  font-family: "Geist", "Poppins", sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -427,7 +430,7 @@
 /* Katmansız: Easy UI Poppins başlık, shadcn Geist gövde.
    Utility katmanının üstüne yazar. */
 body {
-  font-family: "Geist", "Poppins", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
   font-weight: 400;
@@ -438,7 +441,7 @@ h2,
 h3,
 h4,
 .font-display {
-  font-family: "Poppins", "Geist", sans-serif;
+  font-family: var(--font-sans);
   font-weight: 800;
   letter-spacing: -0.04em;
 }
@@ -450,7 +453,7 @@ h4,
 h4.font-mono,
 .font-mono.uppercase,
 .uppercase.font-mono {
-  font-family: "Geist", "Poppins", sans-serif;
+  font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.75rem;
   line-height: 1.35;
@@ -461,7 +464,7 @@ a.font-mono.uppercase,
 button.font-mono.uppercase,
 a.uppercase:not([class*="text-lg"]):not([class*="text-xl"]):not([class*="text-2xl"]):not([class*="text-3xl"]):not([class*="text-4xl"]),
 button.uppercase:not([class*="text-lg"]):not([class*="text-xl"]):not([class*="text-2xl"]):not([class*="text-3xl"]):not([class*="text-4xl"]) {
-  font-family: "Geist", "Poppins", sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -470,6 +473,6 @@ button.uppercase:not([class*="text-lg"]):not([class*="text-xl"]):not([class*="te
 }
 
 [class*="Archivo"] {
-  font-family: "Poppins", "Geist", sans-serif;
+  font-family: var(--font-sans);
   font-weight: 800;
 }

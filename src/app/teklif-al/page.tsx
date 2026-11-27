@@ -7,17 +7,17 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumb } from '@/components/seo/Breadcrumb';
 import { ContentProvider } from '@/components/layout/ContentProvider';
 import { ContentService } from '@/lib/supabase/content.service';
-import { ShieldCheck, Clock, FileText, CheckCircle2 } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: "Teklif Al",
-    description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve UV metal poster siparişleriniz için teknik fiyatlandırma ve numune desteği. İzmir Alsancak doğrudan imalatçı fiyatı.",
+    description: "Ürün ve adet yazın. Adınızı ve telefonunuzu bırakın. Fiyatı bildiririz.",
     alternates: {
         canonical: absUrl("/teklif-al"),
     },
     openGraph: {
         title: "Teklif Al | Veral Teneke Ticaret İzmir",
-        description: "Özel metal üretim, toptan tel ve teneke projeleriniz için doğrudan atölyeden fiyat teklifi alın.",
+        description: "Ürün, adet, ad ve telefon. E-posta isteğe bağlı.",
         url: absUrl("/teklif-al"),
     },
 };
@@ -46,25 +46,14 @@ export default async function QuotePage() {
                             İmalatçıdan doğrudan teklif
                         </span>
                         <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight leading-tight">
-                            Fiyat ve numune teklifi
+                            Fiyat sorun
                         </h1>
                         <p className="text-base md:text-lg text-atl-muted leading-relaxed font-normal">
-                            Toptan dosya teli, takvim tenekesi, fason giyotin kesim ve mıknatıslı UV metal poster projeleriniz için teknik resminizi yükleyin veya ölçülerinizi belirtin. İmalat ekibimiz detaylı teklif föyünüzü hazırlasın.
+                            Önce ürün ve adet. Sonra adınız ve telefonunuz.
                         </p>
-
-                        <div className="pt-2 flex flex-wrap items-center gap-6 text-xs font-mono text-atl-muted">
-                            <div className="flex items-center gap-1.5">
-                                <Clock className="w-4 h-4 text-atl-brass" />
-                                <span>Yazılı Teklif</span>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                                <FileText className="w-4 h-4 text-atl-brass" />
-                                <span>CAD / DXF / PDF Desteği</span>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                                <ShieldCheck className="w-4 h-4 text-atl-brass" />
-                                <span>Doğrudan Fabrika Fiyatı</span>
-                            </div>
+                        <div className="pt-2 flex items-center gap-2 text-sm text-atl-muted">
+                            <Clock className="w-4 h-4 text-atl-brass" />
+                            <span>Pazartesi–Cumartesi 08:30–18:30</span>
                         </div>
                     </div>
 

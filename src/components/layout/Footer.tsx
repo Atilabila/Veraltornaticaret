@@ -60,7 +60,7 @@ export const Footer = () => {
                                 </span>
                             </Link>
                             <p className="max-w-sm text-sm leading-relaxed text-atl-muted">
-                                İzmir merkezli toptan dosya teli imalatı, takvim tenekesi seri üretimi ve özel metal imalat.
+                                1986'dan beri Alsancak'ta aile atölyesi. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı.
                             </p>
                             <div className="flex gap-2">
                                 {socialLinks.filter((item) => item.href.trim() !== "" && item.href.trim() !== "#").map((item, i) => (
@@ -74,7 +74,7 @@ export const Footer = () => {
 
                         <div className="grid grid-cols-2 gap-6 sm:contents">
                         <div className="lg:col-span-2">
-                            <h4 className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Kurumsal</h4>
+                            <h2 className="mb-3 text-xs font-semibold text-atl-brass">Kurumsal</h2>
                             <ul className="flex flex-col gap-0.5 sm:gap-1">
                                 {KURUMSAL.map((item) => (
                                     <li key={item.label}>
@@ -88,7 +88,7 @@ export const Footer = () => {
                         </div>
 
                         <div className="lg:col-span-3">
-                            <h4 className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Ürün Gruplarımız</h4>
+                            <h2 className="mb-3 text-xs font-semibold text-atl-brass">Ürünler</h2>
                             <ul className="flex flex-col gap-0.5 sm:gap-1">
                                 {URUN_GRUPLARI.map((item) => (
                                     <li key={item.label}>
@@ -103,7 +103,7 @@ export const Footer = () => {
                         </div>
 
                         <div className="flex flex-col gap-3 lg:col-span-3">
-                            <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">İletişim Bilgilerimiz</h4>
+                            <h2 className="text-xs font-semibold text-atl-brass">İletişim</h2>
                             <div className="space-y-1">
                                 <p className="font-sans text-sm font-semibold text-atl-text">Oğuzcan Veral</p>
                                 <a href={toTelHref(publicPhone(content.footerPhone))} className="font-display text-2xl text-atl-text">
@@ -117,7 +117,7 @@ export const Footer = () => {
                                 </a>
                             </div>
                             <div className="flex flex-col gap-1">
-                                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-atl-brass">Merkez & Atölye</span>
+                                <span className="text-xs font-semibold text-atl-brass">Atölye</span>
                                 <span className="whitespace-pre-line text-sm text-atl-text">{publicAddress(content.footerAddress)}</span>
                             </div>
                             <a href={content.footerMapLink || `https://www.google.com/maps/dir/?api=1&destination=${content.footerMapLat},${content.footerMapLng}`}

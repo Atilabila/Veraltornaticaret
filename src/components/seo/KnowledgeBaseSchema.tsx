@@ -18,7 +18,7 @@ export const KnowledgeBaseSchema = () => {
                 "name": "Takvim tenekesi imalatı boyutları ve üretim kapasiteniz nedir?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Standart duvar ve gemici takvimleri için istenilen her ölçü ve renkte takvim tenekesi üretiyoruz. Matbaalar ve ajanslar için günlük 50.000 adet kapasite ile toptan takvim tenekesi üretiyoruz."
+                    "text": "Takvim tenekesi yaparız. Sitede görünen boylar 31, 33 ve 48 cm'dir. Adedi yazın, fiyatı söyleyelim."
                 }
             },
             {

@@ -8,10 +8,9 @@ import { serviceImageAlt } from "@/lib/service-stock-images";
 import { ImageLightbox } from "@/components/media/ImageLightbox";
 
 const POINTS = [
-    "Özel ölçü ve forma uygun üretim",
-    "Seri üretime uygun pres ve giyotin altyapısı",
-    "Kalite kontrol odaklı süreç yönetimi",
-    "Hızlı geri dönüş ve teklif usulü planlama",
+    "Ölçüyü siz yazın",
+    "Fiyat teklifte",
+    "Atölye Alsancak'ta",
 ];
 
 const IMAGE = "/images/services/metal-tabelalar.webp";
@@ -36,12 +35,12 @@ export function ProductionModelBand() {
                     </ImageLightbox>
                 </Reveal>
                 <Reveal delay={0.1} className="atl-workshop-lit-subtle flex flex-col justify-center px-4 py-8 sm:px-6 sm:py-12 lg:px-16 lg:py-16">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-atl-brass sm:text-[11px] sm:tracking-[0.28em]">Üretim modeli</span>
+                    <span className="text-xs font-semibold uppercase tracking-normal text-atl-brass">Atölye</span>
                     <h2 className="mt-2 font-display text-[1.85rem] leading-tight text-atl-text sm:mt-3 sm:text-4xl md:text-5xl">
-                        Projenize uygun üretim modeli oluşturuyoruz
+                        Ölçüyü yazın, fiyatı söyleyelim
                     </h2>
                     <p className="mt-3 max-w-lg text-sm leading-relaxed text-atl-muted sm:mt-5 sm:text-base">
-                        Butik numuneden yüksek adetli seri üretime kadar ihtiyaca göre planlıyoruz. UV metal baskı ve mıknatıslı poster işleri de aynı teklif sürecine dahil.
+                        Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı aynı yerden sorulur.
                     </p>
                     <ul className="mt-5 space-y-2.5 sm:mt-8 sm:space-y-3">
                         {POINTS.map((point) => (

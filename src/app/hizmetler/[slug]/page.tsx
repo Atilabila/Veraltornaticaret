@@ -5,14 +5,15 @@ import { notFound } from 'next/navigation';
 import { ContentService } from '@/lib/supabase/content.service';
 import { normalizeImagePath } from '@/lib/utils';
 import { resolveServiceStockImage, serviceImageAlt, serviceImageFit } from '@/lib/service-stock-images';
-import { ArrowRight, ShieldCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { PageShell } from '@/components/layout/PageShell';
 import { Breadcrumb } from '@/components/seo/Breadcrumb';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
 import { WorkshopZoomFrame } from '@/components/media/WorkshopZoomFrame';
 import { defaultContent } from '@/store/useContentStore';
-import { absUrl } from '@/lib/site';
+import { absUrl, SITE_ORIGIN } from '@/lib/site';
+import { applyPublicServiceCopy, priceAskUrl } from '@/lib/public-copy';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -31,12 +32,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         return { title: 'Hizmet Bulunamadı' };
     }
 
+    const copy = applyPublicServiceCopy(service);
+    const image = normalizeImagePath(resolveServiceStockImage(copy));
+
     return {
-        title: (service.seoTitle || service.title).replace(/\s*\|\s*VERAL\b.*$/i, "").trim() || service.title,
-        description: service.seoDescription || service.shortDescription,
-        alternates: { canonical: absUrl(`/hizmetler/${service.slug}`) },
+        title: (copy.seoTitle || copy.title).replace(/\s*\|\s*VERAL\b.*$/i, "").trim() || copy.title,
+        description: copy.seoDescription || copy.shortDescription,
+        alternates: { canonical: absUrl(`/hizmetler/${copy.slug}`) },
         openGraph: {
-            url: absUrl(`/hizmetler/${service.slug}`),
+            title: copy.title,
+            description: copy.seoDescription || copy.shortDescription,
+            url: absUrl(`/hizmetler/${copy.slug}`),
+            images: [{ url: image, alt: serviceImageAlt(image, copy.title) }],
         },
     };
 }
@@ -50,11 +57,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     const defaultsNotInDb = defaultContent.services.filter(s => !dbSlugs.has(s.slug));
     const allServices = [...dbServices, ...defaultsNotInDb];
 
-    const service = allServices.find((s: { slug: string }) => s.slug === slug);
+    const found = allServices.find((s: { slug: string }) => s.slug === slug);
 
-    if (!service || service.isActive === false) {
+    if (!found || found.isActive === false) {
         notFound();
     }
+
+    const service = applyPublicServiceCopy(found);
 
     const otherServices = allServices
         .filter((s: { slug: string; isActive?: boolean }) => s.slug !== slug && s.isActive !== false)
@@ -64,8 +73,27 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     const imageSrc = normalizeImagePath(resolveServiceStockImage(service));
     const imageAlt = serviceImageAlt(imageSrc, service.title);
 
+    const serviceJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: service.title,
+        description: service.shortDescription,
+        url: absUrl(`/hizmetler/${service.slug}`),
+        image: absUrl(imageSrc),
+        areaServed: "TR",
+        provider: {
+            "@type": "LocalBusiness",
+            name: "Veral Torna & Teneke Ticaret",
+            url: SITE_ORIGIN,
+        },
+    };
+
     return (
         <PageShell variant="light" padded={false}>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+            />
             {/* Hero */}
             <section className="relative bg-atl-bg border-b border-atl-line pt-28 lg:pt-32 pb-12 lg:pb-16 overflow-hidden">
                 <div className="absolute inset-0 z-0">
@@ -98,8 +126,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         className="w-6 h-6 text-[var(--color-brand-accent)]"
                                     />
                                 </div>
-                                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--color-brand-accent)]">
-                                    Endüstriyel hizmet
+                                <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-brand-accent)]">
+                                    Atölye
                                 </span>
                             </div>
                             <h1 className="font-display text-4xl md:text-5xl text-atl-text leading-tight mb-4">
@@ -109,12 +137,22 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 {service.shortDescription}
                             </p>
                         </div>
-                        <Link
-                            href={`/teklif-al?hizmet=${service.slug}`}
-                            className="inline-flex items-center gap-2 h-12 px-6 bg-[var(--color-brand-accent)] text-atl-bg text-sm font-semibold hover:bg-atl-brass-light transition-colors shrink-0"
-                        >
-                            Teklif al <ArrowRight className="w-4 h-4" />
-                        </Link>
+                        <div className="flex flex-col gap-2 sm:flex-row">
+                            <a
+                                href={priceAskUrl(service.title)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex min-h-12 items-center justify-center gap-2 bg-emerald-600 px-6 text-sm font-semibold text-white hover:bg-emerald-700"
+                            >
+                                WhatsApp&apos;tan fiyat sor
+                            </a>
+                            <Link
+                                href={`/teklif-al?hizmet=${service.slug}`}
+                                className="inline-flex min-h-12 items-center justify-center gap-2 bg-[var(--color-brand-accent)] px-6 text-sm font-semibold text-atl-bg hover:bg-atl-brass-light"
+                            >
+                                Teklif al <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </div>
                     </div>
                 </PageContainer>
             </section>
@@ -128,30 +166,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 {service.fullDescription}
                             </p>
 
-                            <div className="bg-atl-bg border border-atl-line p-8 md:p-10">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                                    <div className="space-y-4">
-                                        <h3 className="text-2xl font-display text-atl-text">
-                                            {service.title} ile seri üretim
-                                        </h3>
-                                        <p className="text-atl-muted leading-relaxed">
-                                            Endüstriyel standartlarda üretim kapasitemiz ve uzman ekibimizle projenizi hayata geçirelim.
-                                        </p>
-                                        <Link
-                                            href={`/teklif-al?hizmet=${service.slug}`}
-                                            className="inline-flex items-center gap-2 h-11 px-5 border border-[var(--color-brand-accent)] text-[var(--color-brand-accent)] text-sm font-semibold hover:bg-[var(--color-brand-accent)] hover:text-atl-bg transition-colors"
-                                        >
-                                            Hemen teklif al <ArrowRight className="w-4 h-4" />
-                                        </Link>
-                                    </div>
-                                    <WorkshopZoomFrame
-                                        src={imageSrc}
-                                        alt={imageAlt}
-                                        sizes="(min-width: 768px) 400px, 92vw"
-                                        className="relative aspect-[4/5] w-full overflow-hidden border border-atl-line"
-                                    />
-                                </div>
-                            </div>
+                            <WorkshopZoomFrame
+                                src={imageSrc}
+                                alt={imageAlt}
+                                sizes="(min-width: 768px) 640px, 92vw"
+                                className="relative aspect-[4/5] w-full max-w-md overflow-hidden border border-atl-line"
+                            />
 
                             {service.images && service.images.length > 0 && (
                                 <div className="space-y-4">
@@ -177,9 +197,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
                         <div className="lg:col-span-4 space-y-6">
                             <div className="bg-atl-surface border border-atl-line border-l-4 border-l-[var(--color-brand-accent)] p-8">
-                                <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-atl-muted mb-6 flex items-center gap-2">
-                                    <DynamicLucideIcon name="cpu" className="w-4 h-4" /> Teknik parametreler
-                                </h3>
+                                <h2 className="mb-6 text-sm font-semibold text-atl-muted">
+                                    Kısa bilgi
+                                </h2>
                                 <div className="space-y-4">
                                     {service.features?.map((feat: { key: string; value: string }, i: number) => (
                                         <div key={i} className="border-b border-atl-line pb-3 last:border-0">
@@ -187,14 +207,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                             <div className="text-base font-semibold text-atl-text">{feat.value}</div>
                                         </div>
                                     ))}
-                                </div>
-                            </div>
-
-                            <div className="bg-atl-bg border border-atl-line p-8 flex flex-col items-center text-center">
-                                <ShieldCheck className="w-10 h-10 text-[var(--color-brand-accent)] mb-3" />
-                                <div className="text-xl font-bold text-atl-text mb-1">{service.slaText}</div>
-                                <div className="text-xs font-mono font-semibold text-atl-muted uppercase tracking-wider">
-                                    Kurumsal seri üretim
                                 </div>
                             </div>
 
@@ -218,7 +230,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                         {data?.serviceDetailFooterTitle || "Diğer hizmetler"}
                                     </h2>
                                     <p className="text-atl-muted">
-                                        {data?.serviceDetailFooterDesc || "İlginizi çekebilecek diğer endüstriyel çözümlerimiz."}
+                                        Diğer işler.
                                     </p>
                                 </div>
                                 <Link
@@ -229,7 +241,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                 </Link>
                             </div>
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                                {otherServices.map((other: typeof service) => {
+                                {otherServices.map((raw: typeof service) => {
+                                    const other = applyPublicServiceCopy(raw);
                                     const otherSrc = normalizeImagePath(resolveServiceStockImage(other));
                                     return (
                                         <Link

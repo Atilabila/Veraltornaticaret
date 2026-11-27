@@ -23,7 +23,7 @@ export function StitchHero() {
             {/* Heritage Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-600/30 bg-amber-50 text-amber-900 text-xs font-mono font-semibold tracking-wider uppercase shadow-sm">
               <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
-              1980'den Beri İzmir Alsancak Üretimi • 35.000+ Sevkiyat
+              1986'dan beri İzmir Alsancak
             </div>
 
             {/* Single H1 for the page - SEO & GEO Gold Standard */}

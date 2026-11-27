@@ -8,73 +8,104 @@ export type BlogPostSummary = {
     image: string;
     featured: boolean;
     tags: string[];
+    content: string;
 };
 
 export const blogPosts: BlogPostSummary[] = [
     {
         id: "takvim-tenekesi-imalati-izmir",
-        title: "Takvim Tenekesi İmalatı: İzmir'de Seri Üretim ve DIN Kalite Standartları",
-        excerpt: "Takvim yayıncılığı ve matbaalar için kritik parametreler: teneke kalınlığı, çift kanal koruyucu büküm radüsü ve korozyon direnci analizleri.",
-        category: "ENDÜSTRİYEL İMALAT",
+        title: "Takvim tenekesi",
+        excerpt: "Duvar takviminin kenarına geçen metal çıta. Boylar: 31, 33 ve 48 cm.",
+        category: "Atölye",
         date: "03.02.2026",
-        readTime: "6 Dakika",
+        readTime: "1 dakika",
         image: "/images/services/takvim-tenekeleri-detay.webp",
         featured: true,
-        tags: ["Takvim Tenekesi", "Seri İmalat", "Alsancak", "DIN EN 10202"],
+        tags: ["Takvim tenekesi", "Alsancak"],
+        content: `
+Takvim tenekesi, duvar takviminin kenarına geçen metal çıtadır.
+
+Atölyede görünen boylar 31, 33 ve 48 cm'dir. Askılı ya da askısız olduğunu ve adedi yazın. Fiyatı söyleyelim.
+        `.trim(),
     },
     {
         id: "dosya-teli-ve-arsiv-sistemleri",
-        title: "Dosya Teli Üretiminde Malzeme Bilimi: Paslanmaz ve Yüksek Elastikiyet",
-        excerpt: "Devlet arşivleri ve kurumsal ofisler için polimer kaplı çelik dosya teli incelemesi: polimer kaplama ve 96 saatlik tuz sisi korozyon testleri.",
-        category: "KIRTASİYE EKİPMANLARI",
+        title: "Dosya teli",
+        excerpt: "Dosya ve arşiv işi için tel. Boylar: 14, 15, 17, 21, 24 cm ve akrep tel.",
+        category: "Atölye",
         date: "03.02.2026",
-        readTime: "5 Dakika",
+        readTime: "1 dakika",
         image: "/images/services/dosya-teli-plastik-takim.webp",
         featured: false,
-        tags: ["Dosya Teli", "Arşiv", "Polimer Kaplama", "Mekanik Direnç"],
+        tags: ["Dosya teli", "Alsancak"],
+        content: `
+Dosya teli, dosya ve arşiv işi için üretilir.
+
+Sitede görünen boylar 14, 15, 17, 21 ve 24 cm ile akrep teldir. Boyu ve adedi yazın.
+        `.trim(),
     },
     {
         id: "giyotin-sac-kesim-ve-tolerans-standartlari",
-        title: "CNC Giyotin Sac Kesiminde Tolerans ve Çapaksız Gönye Kriterleri",
-        excerpt: "0.15 mm - 3.00 mm sac kalınlıklarında lif düzlemini bozmadan yapılan ±0.05 mm hassasiyetindeki endüstriyel makas ebatlama yöntemleri.",
-        category: "ENDÜSTRİYEL İMALAT",
+        title: "Giyotin sac kesim",
+        excerpt: "Sac ve tenekeyi ölçüye göre keseriz. Ölçüyü yazın.",
+        category: "Atölye",
         date: "18.01.2026",
-        readTime: "7 Dakika",
+        readTime: "1 dakika",
         image: "/images/services/giyotin-kesim.webp",
-        featured: true,
-        tags: ["Giyotin Kesim", "CNC Makas", "Tolerans", "DKP Sac"],
+        featured: false,
+        tags: ["Giyotin", "Sac kesim"],
+        content: `
+Giyotin ile sac ve teneke keseriz.
+
+Eni, boyu ve adedi yazın. Fiyatı teklifte söyleriz.
+        `.trim(),
     },
     {
         id: "miknatisli-magnet-ve-metal-poster-estetigi",
-        title: "Mıknatıslı Metal Posterler: N35 Neodimyum Askı Sistemi ile Duvarı Delmeden Montaj",
-        excerpt: "Duvar delme, çivi ve matkap gerektirmeyen 3M VHB manyetik tutucu teknolojisi ve 1.5 mm çelik plaka üzerinde 4K UV kürlemeli mikronize baskı.",
-        category: "DEKORASYON & SANAT",
+        title: "Mıknatıslı metal poster",
+        excerpt: "Metal levhaya baskı. Mıknatıslı asılan poster de yapılır.",
+        category: "Atölye",
         date: "10.01.2026",
-        readTime: "8 Dakika",
+        readTime: "1 dakika",
         image: "/images/services/metal-tabelalar.webp",
         featured: false,
-        tags: ["Metal Poster", "Neodimyum", "Manyetik Montaj", "UV Kürleme"],
+        tags: ["Metal poster", "Baskı"],
+        content: `
+Metal levhaya baskı yaparız. Mıknatıslı asılan poster de vardır.
+
+Ölçüyü ve adedi yazın. Fiyatı söyleyelim.
+        `.trim(),
     },
     {
         id: "endustriyel-metal-baski-rehberi",
-        title: "Endüstriyel 4K UV Metal Baskı: Fırın Kürleme ve Güneş Solmazlığı Analizi",
-        excerpt: "Metal levhalarda 1200 DPI piezoelektrik baskı ve çift kat vernik kürleme. Dış mekan, nem ve UV ışınlarına karşı 10 yıllık dayanım karşılaştırması.",
-        category: "ENDÜSTRİYEL BASKI",
+        title: "Metal baskı",
+        excerpt: "Tabela ve poster için metal levhaya baskı yapılır.",
+        category: "Atölye",
         date: "05.01.2026",
-        readTime: "8 Dakika",
+        readTime: "1 dakika",
         image: "/hero-izmir-metal-poster.jpg",
         featured: false,
-        tags: ["4K UV Baskı", "Vernik Kürleme", "Solmazlık", "Alsancak Zanaat"],
+        tags: ["Metal baskı", "Alsancak"],
+        content: `
+Tabela ve poster için metal levhaya baskı yaparız.
+
+Ne basılacağını ve ölçüyü yazın. Fiyatı söyleyelim.
+        `.trim(),
     },
     {
         id: "rulo-sac-dilme-slitting-hatlari",
-        title: "Rulo Teneke Sac Dilimleme (Slitting) ve Dar Şerit Sarım Mühendisliği",
-        excerpt: "Dairesel çelik disk bıçaklarla minimum 8 mm genişliğe kadar mikron toleranslı rulo dilme ve neme dayanıklı ambalajlama operasyonları.",
-        category: "ENDÜSTRİYEL İMALAT",
+        title: "Rulo sac dilimleme",
+        excerpt: "Rulo sacı şerit halinde dilimleriz. Eni siz yazın.",
+        category: "Atölye",
         date: "28.12.2025",
-        readTime: "6 Dakika",
+        readTime: "1 dakika",
         image: "/images/services/rulo-dilimleme.webp",
         featured: false,
-        tags: ["Rulo Dilme", "Slitting", "Şerit Sac", "Alsancak Hat"],
+        tags: ["Rulo dilimleme", "Sac"],
+        content: `
+Rulo sacı şerit halinde dilimleriz.
+
+Eni ve miktarı yazın. Fiyatı teklifte söyleriz.
+        `.trim(),
     },
 ];

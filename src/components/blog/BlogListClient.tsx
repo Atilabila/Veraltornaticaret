@@ -50,13 +50,13 @@ export function BlogListClient({ posts, categories }: BlogListClientProps) {
                     <div className="max-w-3xl space-y-4">
                         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-atl-brass-tint text-atl-brass border border-atl-brass/20 shadow-sm">
                             <span className="w-2 h-2 rounded-full bg-atl-brass animate-pulse" />
-                            TEKNİK MAKALE VE SAHA RAPORLARI
+                            Atölye notları
                         </span>
                         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-atl-text tracking-tight leading-[1.1]">
-                            Metalurji, Tolerans ve Zanaat Hafızası
+                            Atölyeden kısa notlar
                         </h1>
                         <p className="text-base md:text-lg text-atl-muted leading-relaxed font-normal">
-                            İzmir Alsancak torna ve pres atölyemizden toptan dosya teli, takvim tenekesi, DIN EN 10202 normları ve 4K UV metal baskı teknolojisi üzerine teknik incelemeler.
+                            Dosya teli, takvim tenekesi, sac kesim ve metal baskı.
                         </p>
                     </div>
 

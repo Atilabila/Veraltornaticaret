@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function AuthorCard({
     className = "",
@@ -17,7 +17,7 @@ export function AuthorCard({
                     <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border-2 border-atl-brass/30 bg-atl-surface-2 shadow-sm sm:h-24 sm:w-24">
                         <Image
                             src="/hero-izmir-metal-poster.jpg"
-                            alt="Oğuzcan Veral - İmalat Direktörü ve Teknik Editör"
+                            alt="Oğuzcan Veral"
                             fill
                             sizes="96px"
                             className="object-cover"
@@ -32,15 +32,12 @@ export function AuthorCard({
                         >
                             Oğuzcan Veral
                         </Link>
-                        <span className="inline-flex items-center gap-1 rounded border border-atl-brass/20 bg-atl-brass-tint px-2 py-0.5 font-sans text-xs font-semibold text-atl-brass">
-                            <CheckCircle2 className="w-3 h-3 text-atl-brass" /> Doğrulanmış İmalatçı & Editör
-                        </span>
                     </div>
-                    <p className="text-xs font-mono text-atl-muted mb-2">
-                        İmalat Direktörü & Editör · Veral Torna & Teneke Ticaret (İzmir Alsancak)
+                    <p className="text-sm text-atl-muted mb-2">
+                        Atölye sahibi · Veral Torna & Teneke Ticaret, Alsancak
                     </p>
                     <p className="text-sm text-atl-muted leading-relaxed mb-3">
-                        İzmir Alsancak atölyemizde torna tezgahlarından 4K endüstriyel UV baskı hatlarına kadar siparişlerin üretim kalitesini, tolerans standartlarını ve teknik içeriklerini yönetmektedir.
+                        1986'dan beri Alsancak'taki aile atölyesini yürütür.
                     </p>
                     <Link
                         href="/yazar/oguzcan-veral"

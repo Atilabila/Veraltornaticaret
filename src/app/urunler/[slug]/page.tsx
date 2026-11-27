@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         }
     }
 
-    const description = product.description || `${product.name} - İzmir Alsancak atölyemizde 1200 DPI UV baskı veya torna kalıp standardında üretilmiştir.`
+    const description = product.description || `${product.name}. Alsancak atölyesinde yapılır. Fiyat için yazın.`
 
     return {
         title: `${product.name} | Veral Ticaret`,
@@ -126,12 +126,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
             answer: "Ürünümüzle birlikte gönderilen 3M VHB manyetik tutucu tabaka duvara yapıştırılır. N35 neodimyum mıknatıs sistemi sayesinde duvarı delmeden, çivi kullanmadan 30 saniyede monte edilir."
         },
         {
-            question: "Baskı kalitesi ve solmama garantisi var mıdır?",
-            answer: "1200 DPI endüstriyel UV baskı ve çizilmez mat vernik katmanı uygulanmaktadır. Doğrudan güneş ışığı ve neme karşı 10 yıl renk solmama garantisi altındadır."
+            question: "Metal baskı yapıyor musunuz?",
+            answer: "Metal levhaya baskı yapılır. Ölçüyü yazın, fiyatı söyleyelim."
         },
         {
             question: "Kargo süreci ve hasar koruması nasıl sağlanır?",
-            answer: "Özel sertleştirilmiş ambalaj ve köşe tamponları ile Türkiye'nin her yerine sigortalı gönderilir. Olası kargo hasarlarında 48 saat içinde yenisi ücretsiz sevk edilir."
+            answer: "Gönderilir. Süre teklifte yazılır. Kargoda bozulursa bize yazın."
         }
     ]
 

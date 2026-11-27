@@ -1,11 +1,12 @@
 ﻿"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, X } from 'lucide-react';
 
 export const CookieConsent = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const bannerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const consent = localStorage.getItem('veral_cookie_consent') || localStorage.getItem('cookie-consent');
@@ -14,6 +15,25 @@ export const CookieConsent = () => {
             return () => clearTimeout(timer);
         }
     }, []);
+
+    useEffect(() => {
+        const root = document.documentElement;
+        if (!isVisible) {
+            root.style.setProperty("--cookie-offset", "0px");
+            return;
+        }
+        const el = bannerRef.current;
+        const apply = () => {
+            root.style.setProperty("--cookie-offset", `${el?.offsetHeight ?? 0}px`);
+        };
+        apply();
+        const observer = new ResizeObserver(apply);
+        if (el) observer.observe(el);
+        return () => {
+            observer.disconnect();
+            root.style.setProperty("--cookie-offset", "0px");
+        };
+    }, [isVisible]);
 
     const handleAccept = () => {
         localStorage.setItem('veral_cookie_consent', 'accepted');
@@ -29,11 +49,12 @@ export const CookieConsent = () => {
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    initial={{ y: "100%" }}
+                    ref={bannerRef}
+                    initial={false}
                     animate={{ y: 0 }}
                     exit={{ y: "100%" }}
                     transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                    className="fixed bottom-0 left-0 right-0 z-[1000] pb-[env(safe-area-inset-bottom)]"
+                    className="fixed inset-x-0 top-0 z-[1100] lg:top-auto lg:bottom-0"
                 >
                     <div className="bg-black/90 backdrop-blur-md border-t border-[var(--color-brand-accent)]/20 py-3 px-4 lg:px-8 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
                         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">

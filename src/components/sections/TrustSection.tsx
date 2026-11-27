@@ -7,7 +7,7 @@ import { m } from 'framer-motion';
 export const TrustSection = () => {
     const safetySignals = [
         { icon: ShieldCheck, title: "G�VENL� �DEME", desc: "256-BIT SSL KORUMASI" },
-        { icon: Clock, title: "HIZLI TESL�MAT", desc: "24-48 SAATTE KARGO" },
+        { icon: Clock, title: "TESLİMAT", desc: "SÜRE TEKLİFTE YAZILIR" },
         { icon: Layers, title: "METAL KAL�TES�", desc: "1.5MM PREMIUM �EL�K" },
         { icon: RotateCcw, title: "KOLAY �ADE", desc: "14 G�N DE����M HAKKI" },
         { icon: Truck, title: "�CRETS�Z KARGO", desc: "750 TL �ZER� S�PAR��" }

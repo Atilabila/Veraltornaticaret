@@ -8,30 +8,24 @@ import { BlogListClient } from "@/components/blog/BlogListClient";
 import { blogPosts } from "@/lib/blog-posts";
 
 export const metadata: Metadata = {
-    title: "Teknik Raporlar",
-    description: "Toptan dosya teli, takvim tenekesi, DIN EN 10202 normları, mikron toleranslı giyotin kesim ve 4K UV metal baskı üzerine teknik incelemeler ve Alsancak atölye raporları.",
+    title: "Atölye notları",
+    description: "Dosya teli, takvim tenekesi, sac kesim ve metal baskı hakkında kısa notlar.",
     alternates: {
         canonical: absUrl("/blog"),
     },
     openGraph: {
-        title: "Teknik Raporlar | Veral Teneke Ticaret İzmir",
-        description: "Metal imalatı, 1200 DPI UV baskı, takvim çıtası ve dosya teli üretim standartları teknik veri tabanı.",
+        title: "Atölye notları | Veral Teneke Ticaret",
+        description: "Dosya teli, takvim tenekesi, sac kesim ve metal baskı.",
         url: absUrl("/blog"),
     },
 };
 
-const categories = [
-    "TÜM KAYITLAR",
-    "ENDÜSTRİYEL İMALAT",
-    "KIRTASİYE EKİPMANLARI",
-    "DEKORASYON & SANAT",
-    "ENDÜSTRİYEL BASKI"
-];
+const categories = ["TÜM KAYITLAR", "Atölye"];
 
 export default function BlogPage() {
     const breadcrumbs = [
         { name: "Ana Sayfa", url: "/" },
-        { name: "Teknik Raporlar & Blog", url: "/blog" },
+        { name: "Atölye notları", url: "/blog" },
     ];
 
     return (

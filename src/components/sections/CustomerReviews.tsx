@@ -22,7 +22,7 @@ export const CustomerReviews = () => {
                     <div className="flex flex-col gap-4 mb-16 text-center items-center">
                         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wider uppercase bg-amber-50 text-amber-900 border border-amber-600/20 shadow-sm">
                             <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
-                            35.000+ Doğrulanmış Sipariş
+                            Alsancak atölyesi
                         </span>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-zinc-900 tracking-tight">
                             Toptan İmalat Referanslarımız

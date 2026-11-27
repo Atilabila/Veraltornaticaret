@@ -6,17 +6,18 @@ import Image from "next/image";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
-import { Award, Hammer, ShieldCheck, Mail, Phone, Calendar, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
+import { blogPosts } from "@/lib/blog-posts";
 
 export const metadata: Metadata = {
     title: "Oğuzcan Veral",
-    description: "Veral Ticaret İmalat Direktörü ve Teknik Editörü Oğuzcan Veral'ın biyografisi, endüstriyel metal işleme deneyimi, kalite standartları ve İzmir Alsancak atölye birikimi.",
+    description: "Oğuzcan Veral, Veral Torna & Teneke Ticaret'in atölye sahibidir. Alsancak, 1471 Sokak No:12/A.",
     alternates: {
         canonical: absUrl("/yazar/oguzcan-veral"),
     },
     openGraph: {
-        title: "Oğuzcan Veral - Metal Zanaatı ve Endüstriyel İmalat Direktörü",
-        description: "Veral Ticaret İmalat Direktörü Oğuzcan Veral: Metal poster, toptan dosya teli ve takvim tenekesi üretiminde saha ve mühendislik tecrübesi.",
+        title: "Oğuzcan Veral",
+        description: "Atölye sahibi. Alsancak, 1471 Sokak No:12/A.",
         url: absUrl("/yazar/oguzcan-veral"),
         type: "profile",
         images: [
@@ -30,43 +31,20 @@ export const metadata: Metadata = {
     },
 };
 
-const authorArticles = [
-    {
-        slug: "endustriyel-metal-baski-rehberi",
-        title: "ENDÜSTRİYEL METAL BASKI PROTOKOLÜ: DİJİTAL DÖNÜŞÜM ANALİZİ",
-        desc: "Metal yüzeylerde UV kürleme ve serigrafi baskı tekniklerinin dayanıklılık ve renk kalibrasyonu açısından laboratuvar karşılaştırması.",
-        date: "12 Ocak 2026",
-        readTime: "8 dk",
-    },
-    {
-        slug: "takvim-tenekesi-imalati-izmir",
-        title: "TAKVİM TENEKESİ İMALATI: İZMİR'DE SERİ ÜRETİM VE KALİTE STANDARTLARI",
-        desc: "0.22mm - 0.30mm elektrolitik teneke plakaların kağıt yırtmayan çift kanal büküm teknolojisi ve matbaa tedarik süreçleri.",
-        date: "3 Şubat 2026",
-        readTime: "6 dk",
-    },
-    {
-        slug: "dosya-teli-ve-arsiv-sistemleri",
-        title: "DOSYA TELİ ÜRETİMİNDE MALZEME BİLİMİ: PASLANMAZ DİRENÇLİ ÇÖZÜMLER",
-        desc: "DIN normlarına uygun esneklik ve 96 saatlik tuz sisi korozyon testlerinden geçen arşiv tipi dosya tellerinin üretim aşamaları.",
-        date: "3 Şubat 2026",
-        readTime: "5 dk",
-    },
-    {
-        slug: "miknatisli-magnet-ve-metal-poster-estetigi",
-        title: "MIKNATISLI MAGNET VE METAL POSTER: MODERN DEKORASYONDA YENİ NESİL DOKUNUŞ",
-        desc: "N35 Neodimyum mıknatıs pedleri ile duvara hasar vermeden saniyeler içinde monte edilen 1200 DPI UV baskılı metal sanat tabloları.",
-        date: "3 Şubat 2026",
-        readTime: "9 dk",
-    },
-];
+const authorArticles = blogPosts.map((post) => ({
+    slug: post.id,
+    title: post.title,
+    desc: post.excerpt,
+    date: post.date,
+    readTime: post.readTime,
+}));
 
 export default function OguzcanVeralProfilePage() {
     const personSchema = {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Oğuzcan Veral",
-        "jobTitle": "İmalat Direktörü ve Teknik Editör",
+        "jobTitle": "Atölye sahibi",
         "worksFor": {
             "@type": "Organization",
             "name": "Veral Torna & Teneke Ticaret",
@@ -84,13 +62,13 @@ export default function OguzcanVeralProfilePage() {
             absUrl("/hakkimizda"),
         ],
         "knowsAbout": [
-            "Metal Poster İmalatı",
-            "UV Dijital Kürleme",
-            "Toptan Dosya Teli İmalatı",
-            "Takvim Tenekesi Büküm Kalıpları",
-            "Neodimyum Manyetik Montaj Sistemleri",
+            "Dosya teli",
+            "Takvim tenekesi",
+            "Tef zili",
+            "Sac kesim",
+            "Metal baskı",
         ],
-        "description": "İzmir Alsancak atölyesinde endüstriyel metal işleme, torna kalıp ve UV metal baskı teknolojilerine liderlik eden imalat direktörü ve teknik editör.",
+        "description": "Veral Torna & Teneke Ticaret'in atölye sahibi. Alsancak, 1471 Sokak No:12/A.",
     };
 
     const breadcrumbs = [
@@ -127,27 +105,21 @@ export default function OguzcanVeralProfilePage() {
                                     className="object-cover"
                                 />
                             </div>
-                            <div className="mt-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-atl-brass-tint text-atl-brass border border-atl-brass/20 text-xs font-mono font-semibold">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-atl-brass" /> Doğrulanmış İmalatçı & Editör
-                            </div>
                         </div>
 
                         {/* Bio Details */}
                         <div className="lg:col-span-8 space-y-5">
                             <div>
-                                <span className="text-xs font-mono font-bold tracking-widest text-atl-brass uppercase block mb-1">
-                                    VERAL TİCARET // TEKNİK EDİTÖR
-                                </span>
                                 <h1 className="text-3xl sm:text-5xl font-display text-atl-text tracking-tight">
                                     Oğuzcan Veral
                                 </h1>
                                 <p className="text-sm sm:text-base text-atl-muted font-medium mt-1">
-                                    İmalat Direktörü • 2. Kuşak Metal Zanaatı & Seri Üretim Yönetimi
+                                    Atölye sahibi
                                 </p>
                             </div>
 
                             <p className="text-sm sm:text-base text-atl-muted leading-relaxed">
-                                İzmir Alsancak Sanayi Sitesi'ndeki 1471 Sokak atölyemizde süregelen torna, pres ve metal levha işleme kültürünü modern UV kürleme teknolojileriyle birleştiren Oğuzcan Veral; toptan dosya teli, takvim tenekesi ve mıknatıslı metal poster üretim hatlarının kalite kontrol ve teknik şartname süreçlerini yönetmektedir.
+                                Veral Torna & Teneke Ticaret&apos;in atölyesini yürütür. Adres: 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: 0507 165 13 15.
                             </p>
                         </div>
                     </div>
@@ -161,7 +133,7 @@ export default function OguzcanVeralProfilePage() {
                         TEKNİK ARŞİV
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-display text-atl-text">
-                        Oğuzcan Veral Tarafından Hazırlanan Teknik İncelemeler
+                        Kısa notlar
                     </h2>
                 </div>
 

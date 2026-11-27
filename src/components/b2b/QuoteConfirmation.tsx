@@ -64,7 +64,7 @@ export default function QuoteConfirmation({ quote }: QuoteConfirmationProps) {
                     Sonraki Adımlar
                 </h2>
                 <p className="text-neutral-700 leading-relaxed">
-                    Talebiniz alındı. Teknik ekibimiz en geç 24 saat içinde sizinle iletişime geçecektir.
+                    Talebiniz alındı. Sizi ararız.
                 </p>
             </div>
 

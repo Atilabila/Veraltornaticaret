@@ -4,6 +4,7 @@ import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "İptal ve İade Koşulları",
+  robots: { index: false, follow: false },
   alternates: { canonical: absUrl("/iade-iptal") },
 };
 

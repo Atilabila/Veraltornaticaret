@@ -7,10 +7,10 @@ import { BrassRule } from "@/components/atolye/BrassRule";
 import { Reveal } from "@/components/motion/Reveal";
 
 const BULLETS = [
-    "İzmir Alsancak üretim atölyesi",
-    "Eksantrik pres ve giyotin hatları",
-    "Butik numune ve yüksek adetli seri üretim",
-    "Türkiye geneline sevkiyat",
+    "Aile atölyesi, 1986",
+    "1471 Sokak No:12/A, Alsancak",
+    "Teklif usulü",
+    "0507 165 13 15",
 ];
 
 export function AboutTrustBand() {
@@ -20,16 +20,16 @@ export function AboutTrustBand() {
                 <Reveal className="lg:col-span-6">
                     <SectionHeading
                         eyebrow="İzmir Alsancak atölyesi"
-                        title="Yerel üretim, Türkiye geneline toptan sevkiyat"
-                        description="Veral Torna & Teneke Ticaret; İzmir Alsancak’ta dosya teli, takvim tenekesi ve metal imalat yapan aile atölyesidir."
+                        title="Alsancak'ta aile atölyesi"
+                        description="Veral Torna & Teneke Ticaret, 1986'dan beri İzmir Alsancak'ta çalışan bir aile atölyesidir."
                     />
                     <BrassRule className="my-8 max-w-xs" />
                     <p className="max-w-xl text-base leading-relaxed text-atl-muted">
-                        1471 Sokak No:12/A, Alsancak / İzmir adresindeki üretimimizde talep analizi, numune ve seri imalat aynı çatı altında yürür. Ölçü veya numuneyle teklif alın.
+                        Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı. Ürünü ve adedi yazın.
                     </p>
                     <Link
                         href="/hakkimizda"
-                        className="mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-atl-brass-light transition-colors hover:text-atl-text"
+                        className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-atl-brass-light transition-colors hover:text-atl-text"
                     >
                         Devamı <ArrowRight className="h-4 w-4" />
                     </Link>

@@ -4,6 +4,7 @@ import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "Ön Bilgilendirme Formu",
+  robots: { index: false, follow: false },
   alternates: { canonical: absUrl("/on-bilgilendirme") },
 };
 
