@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useContentStore } from '@/store/useContentStore'
+import { absUrl } from '@/lib/site'
 
 export const DynamicMetadata = () => {
     const pathname = usePathname()
@@ -25,8 +26,6 @@ export const DynamicMetadata = () => {
             canonicalLink.setAttribute('rel', 'canonical');
             document.head.appendChild(canonicalLink);
         }
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
-        
         // Normalize path: if /product/... translate to /urunler/...
         let normalizedPath = pathname || '/';
         if (normalizedPath.startsWith('/product/')) {
@@ -35,9 +34,9 @@ export const DynamicMetadata = () => {
 
         // Include search params only for valid category filters (as seen in sitemap)
         const categoryId = searchParams.get('cat') || searchParams.get('category');
-        const finalUrl = categoryId 
-            ? `${baseUrl}${normalizedPath}?cat=${categoryId}`
-            : `${baseUrl}${normalizedPath}`;
+        const finalUrl = categoryId
+            ? `${absUrl(normalizedPath)}?cat=${categoryId}`
+            : absUrl(normalizedPath);
 
         canonicalLink.setAttribute('href', finalUrl);
 

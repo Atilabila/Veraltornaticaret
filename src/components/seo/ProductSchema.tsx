@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { absUrl, SITE_ORIGIN } from '@/lib/site';
 
 interface ProductSchemaProps {
     product: {
@@ -18,13 +19,11 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({ product }) => {
     // Ensure we have an absolute URL for the image
     const getAbsoluteUrl = (path: string) => {
         if (!path) return '';
-        if (path.startsWith('http')) return path;
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
-        return `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+        return absUrl(path);
     };
 
     const absoluteImageUrl = getAbsoluteUrl(product.image);
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://veralteneketicaret.com';
+    const baseUrl = SITE_ORIGIN;
     let currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
     if (currentPath.startsWith('/product/')) {
         currentPath = currentPath.replace('/product/', '/urunler/');

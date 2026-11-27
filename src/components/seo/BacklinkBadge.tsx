@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import { Copy, Check, ShieldCheck } from "lucide-react";
+import { absUrl, SITE_ORIGIN } from "@/lib/site";
 
 export function BacklinkBadge() {
     const [copied, setCopied] = useState(false);
 
-    const embedCode = `<a href="https://veralteneketicaret.com" target="_blank" rel="noopener" title="Veral Teneke - Endüstriyel Metal Poster ve Dosya Teli İmalatı"><img src="https://veralteneketicaret.com/veral-logo.webp" alt="Veral Teneke Onaylı İmalatçı Rozeti" width="140" height="40" style="border:0;" /></a>`;
+    const embedCode = `<a href="${SITE_ORIGIN}" target="_blank" rel="noopener" title="Veral Teneke - Endüstriyel Metal Poster ve Dosya Teli İmalatı"><img src="${absUrl("/veral-logo.webp")}" alt="Veral Teneke Onaylı İmalatçı Rozeti" width="140" height="40" style="border:0;" /></a>`;
 
     const handleCopy = () => {
         navigator.clipboard.writeText(embedCode);

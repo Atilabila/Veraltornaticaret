@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "Gizlilik Politikası",
-  alternates: { canonical: "https://veralteneketicaret.com/gizlilik" },
+  alternates: { canonical: absUrl("/gizlilik") },
 };
 
 export default function PrivacyPolicyPage() {

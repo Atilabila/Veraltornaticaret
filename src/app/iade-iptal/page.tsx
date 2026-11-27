@@ -1,9 +1,10 @@
 ﻿import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "İptal ve İade Koşulları",
-  alternates: { canonical: "https://veralteneketicaret.com/iade-iptal" },
+  alternates: { canonical: absUrl("/iade-iptal") },
 };
 
 export default function IadeIptalPage() {

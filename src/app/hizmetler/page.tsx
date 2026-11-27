@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import Link from "next/link";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
@@ -24,13 +25,13 @@ export const metadata: Metadata = {
         "tef zili üretimi",
     ],
     alternates: {
-        canonical: "https://veralteneketicaret.com/hizmetler",
+        canonical: absUrl("/hizmetler"),
     },
     openGraph: {
         title: "İzmir Alsancak Metal Üretim Hatları | Veral Teneke Ticaret",
         description:
             "Dosya teli, takvim tenekesi, sac kesim ve UV metal baskı — İzmir Alsancak atölyesinden Türkiye geneline toptan imalat.",
-        url: "https://veralteneketicaret.com/hizmetler",
+        url: absUrl("/hizmetler"),
         locale: "tr_TR",
         type: "website",
     },
@@ -162,7 +163,7 @@ export default function HizmetlerPage() {
             "@type": "ListItem",
             position: index + 1,
             name: service.title,
-            url: `https://veralteneketicaret.com/hizmetler/${service.slug}`,
+            url: absUrl(`/hizmetler/${service.slug}`),
             description: service.description,
         })),
     };
@@ -192,7 +193,7 @@ export default function HizmetlerPage() {
             "Giyotin sac kesim",
             "UV metal poster baskı",
         ],
-        url: "https://veralteneketicaret.com/hizmetler",
+        url: absUrl("/hizmetler"),
     };
 
     return (

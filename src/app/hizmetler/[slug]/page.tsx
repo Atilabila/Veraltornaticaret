@@ -12,6 +12,7 @@ import { PageContainer } from '@/components/layout/PageContainer';
 import { DynamicLucideIcon } from '@/components/ui/DynamicLucideIcon';
 import { WorkshopZoomFrame } from '@/components/media/WorkshopZoomFrame';
 import { defaultContent } from '@/store/useContentStore';
+import { absUrl } from '@/lib/site';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -33,6 +34,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
         title: (service.seoTitle || service.title).replace(/\s*\|\s*VERAL\b.*$/i, "").trim() || service.title,
         description: service.seoDescription || service.shortDescription,
+        alternates: { canonical: absUrl(`/hizmetler/${service.slug}`) },
+        openGraph: {
+            url: absUrl(`/hizmetler/${service.slug}`),
+        },
     };
 }
 

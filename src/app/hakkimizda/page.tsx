@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { absUrl, SITE_ORIGIN } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import { Navigation } from "@/components/layout/Navigation";
@@ -26,12 +27,12 @@ export const metadata: Metadata = {
     title: "Hakkımızda",
     description: "İzmir Alsancak 1471 Sokak'ta toptan dosya teli, takvim tenekesi, giyotin sac kesim ve 4K UV mıknatıslı metal poster imalatı.",
     alternates: {
-        canonical: "https://veralteneketicaret.com/hakkimizda",
+        canonical: absUrl("/hakkimizda"),
     },
     openGraph: {
         title: "Hakkımızda | Veral Teneke Ticaret İzmir",
         description: "İzmir Alsancak'ta toptan dosya teli, takvim tenekesi ve mikron toleranslı metal imalatı.",
-        url: "https://veralteneketicaret.com/hakkimizda",
+        url: absUrl("/hakkimizda"),
     },
 };
 
@@ -94,10 +95,10 @@ export default function AboutPage() {
         "director": {
             "@type": "Person",
             "name": "Oğuzcan Veral",
-            "url": "https://veralteneketicaret.com/yazar/oguzcan-veral"
+            "url": absUrl("/yazar/oguzcan-veral")
         },
-        "url": "https://veralteneketicaret.com",
-        "logo": "https://veralteneketicaret.com/veral-logo.png",
+        "url": SITE_ORIGIN,
+        "logo": absUrl("/veral-logo.png"),
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "1471 Sokak No:12/A Alsancak",

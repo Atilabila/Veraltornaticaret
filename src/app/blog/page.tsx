@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
@@ -10,12 +11,12 @@ export const metadata: Metadata = {
     title: "Teknik Raporlar",
     description: "Toptan dosya teli, takvim tenekesi, DIN EN 10202 normları, mikron toleranslı giyotin kesim ve 4K UV metal baskı üzerine teknik incelemeler ve Alsancak atölye raporları.",
     alternates: {
-        canonical: "https://veralteneketicaret.com/blog",
+        canonical: absUrl("/blog"),
     },
     openGraph: {
         title: "Teknik Raporlar | Veral Teneke Ticaret İzmir",
         description: "Metal imalatı, 1200 DPI UV baskı, takvim çıtası ve dosya teli üretim standartları teknik veri tabanı.",
-        url: "https://veralteneketicaret.com/blog",
+        url: absUrl("/blog"),
     },
 };
 

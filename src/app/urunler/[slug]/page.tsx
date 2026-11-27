@@ -1,5 +1,6 @@
 import "@/app/metal-art.css"
 import { Metadata } from "next"
+import { absUrl, SITE_ORIGIN } from "@/lib/site"
 import { notFound } from "next/navigation"
 import { getProductBySlug, getProducts, getRelatedProducts } from "@/lib/actions/metal-products.actions"
 import { ProductDetail } from "@/components/product/ProductDetail"
@@ -61,14 +62,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: `${product.name} | Veral Ticaret`,
         description: description.substring(0, 155),
         alternates: {
-            canonical: `https://veralteneketicaret.com/urunler/${product.slug}`,
+            canonical: absUrl(`/urunler/${product.slug}`),
         },
         openGraph: {
             title: `${product.name} | Veral Ticaret`,
             description: description.substring(0, 155),
             images: product.image_url ? [product.image_url] : undefined,
             type: "website",
-            url: `https://veralteneketicaret.com/urunler/${product.slug}`,
+            url: absUrl(`/urunler/${product.slug}`),
         },
         other: {
             "product:price:amount": product.price.toString(),
@@ -117,7 +118,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         relatedProducts = MOCK_PRODUCTS.filter(p => p.id !== product.id).slice(0, 4)
     }
 
-    const absoluteProductUrl = `https://veralteneketicaret.com/urunler/${product.slug}`;
+    const absoluteProductUrl = absUrl(`/urunler/${product.slug}`);
 
     const productFaqs = [
         {

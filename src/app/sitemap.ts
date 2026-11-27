@@ -1,3 +1,4 @@
+import { SITE_ORIGIN } from '@/lib/site'
 import { MetadataRoute } from 'next'
 import { ContentService } from '@/lib/supabase/content.service'
 import type { SiteContent } from '@/store/useContentStore'
@@ -11,7 +12,7 @@ const blogSlugs = [
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://veralteneketicaret.com'
+    const baseUrl = SITE_ORIGIN
     const lastMod = new Date()
 
     let services: SiteContent['services'] = []

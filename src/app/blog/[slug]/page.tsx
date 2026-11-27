@@ -1,4 +1,5 @@
-import { Metadata } from "next";
+import { Metadata } from "next"
+import { absUrl } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
@@ -168,13 +169,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: post.title,
         description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
         alternates: {
-            canonical: `https://veralteneketicaret.com/blog/${slug}`,
+            canonical: absUrl(`/blog/${slug}`),
         },
         openGraph: {
             title: post.title,
             description: post.content.substring(0, 155).replace(/[#*]/g, '').trim(),
             images: [post.image],
-            url: `https://veralteneketicaret.com/blog/${slug}`,
+            url: absUrl(`/blog/${slug}`),
             type: "article",
         },
     };
@@ -197,26 +198,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": post.title,
-        "image": [post.image.startsWith("http") ? post.image : `https://veralteneketicaret.com${post.image}`],
+        "image": [post.image.startsWith("http") ? post.image : absUrl(post.image)],
         "datePublished": "2026-02-03T09:00:00+03:00",
         "dateModified": "2026-02-03T09:00:00+03:00",
         "author": {
             "@type": "Person",
             "name": "Oğuzcan Veral",
             "jobTitle": "İmalat Direktörü ve Teknik Editör",
-            "url": "https://veralteneketicaret.com/yazar/oguzcan-veral"
+            "url": absUrl("/yazar/oguzcan-veral")
         },
         "publisher": {
             "@type": "Organization",
             "name": "Veral Teneke Ticaret",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://veralteneketicaret.com/veral-logo.png"
+                "url": absUrl("/veral-logo.png")
             }
         },
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://veralteneketicaret.com/blog/${slug}`
+            "@id": absUrl(`/blog/${slug}`)
         }
     };
 

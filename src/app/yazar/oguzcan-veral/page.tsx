@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { absUrl, SITE_ORIGIN } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import { Navigation } from "@/components/layout/Navigation";
@@ -11,12 +12,12 @@ export const metadata: Metadata = {
     title: "Oğuzcan Veral",
     description: "Veral Ticaret İmalat Direktörü ve Teknik Editörü Oğuzcan Veral'ın biyografisi, endüstriyel metal işleme deneyimi, kalite standartları ve İzmir Alsancak atölye birikimi.",
     alternates: {
-        canonical: "https://veralteneketicaret.com/yazar/oguzcan-veral",
+        canonical: absUrl("/yazar/oguzcan-veral"),
     },
     openGraph: {
         title: "Oğuzcan Veral - Metal Zanaatı ve Endüstriyel İmalat Direktörü",
         description: "Veral Ticaret İmalat Direktörü Oğuzcan Veral: Metal poster, toptan dosya teli ve takvim tenekesi üretiminde saha ve mühendislik tecrübesi.",
-        url: "https://veralteneketicaret.com/yazar/oguzcan-veral",
+        url: absUrl("/yazar/oguzcan-veral"),
         type: "profile",
         images: [
             {
@@ -69,7 +70,7 @@ export default function OguzcanVeralProfilePage() {
         "worksFor": {
             "@type": "Organization",
             "name": "Veral Torna & Teneke Ticaret",
-            "url": "https://veralteneketicaret.com",
+            "url": SITE_ORIGIN,
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "1471 Sokak No:12/A Alsancak",
@@ -78,9 +79,9 @@ export default function OguzcanVeralProfilePage() {
                 "addressCountry": "TR",
             },
         },
-        "url": "https://veralteneketicaret.com/yazar/oguzcan-veral",
+        "url": absUrl("/yazar/oguzcan-veral"),
         "sameAs": [
-            "https://veralteneketicaret.com/hakkimizda",
+            absUrl("/hakkimizda"),
         ],
         "knowsAbout": [
             "Metal Poster İmalatı",

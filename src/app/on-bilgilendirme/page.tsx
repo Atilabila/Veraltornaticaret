@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "Ön Bilgilendirme Formu",
-  alternates: { canonical: "https://veralteneketicaret.com/on-bilgilendirme" },
+  alternates: { canonical: absUrl("/on-bilgilendirme") },
 };
 
 export default function OnBilgilendirmePage() {

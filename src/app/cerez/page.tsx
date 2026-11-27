@@ -1,9 +1,10 @@
 ﻿import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "Çerez Politikası",
-  alternates: { canonical: "https://veralteneketicaret.com/cerez" },
+  alternates: { canonical: absUrl("/cerez") },
 };
 
 export default function CerezPolitikasiPage() {

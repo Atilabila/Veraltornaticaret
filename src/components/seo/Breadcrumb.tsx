@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { absUrl } from "@/lib/site";
 
 export interface BreadcrumbItem {
     name: string;
@@ -20,7 +21,7 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
             "@type": "ListItem",
             "position": index + 1,
             "name": item.name,
-            "item": item.url.startsWith("http") ? item.url : `https://veralteneketicaret.com${item.url}`,
+            "item": absUrl(item.url),
         })),
     };
 

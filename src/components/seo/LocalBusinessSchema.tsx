@@ -1,4 +1,5 @@
 import React from 'react';
+import { absUrl, SITE_ORIGIN } from '@/lib/site';
 
 export const LocalBusinessSchema = () => {
     const schema = {
@@ -7,11 +8,11 @@ export const LocalBusinessSchema = () => {
         "name": "Veral Torna & Teneke Ticaret",
         "alternateName": ["Veral Teneke", "Veral Alsancak"],
         "image": [
-            "https://veralteneketicaret.com/veral-logo.png",
-            "https://veralteneketicaret.com/images/services/giyotin-kesim.webp"
+            absUrl("/veral-logo.png"),
+            absUrl("/images/services/giyotin-kesim.webp")
         ],
         "description": "İzmir Alsancak merkezli toptan dosya teli imalatı, takvim tenekesi üretimi, giyotin sac kesim, rulo dilimleme, tef zili ve UV baskılı metal poster imalatçısı.",
-        "url": "https://veralteneketicaret.com",
+        "url": SITE_ORIGIN,
         "telephone": "+905071651315",
         "email": "veraltornatic@hotmail.com",
         "contactPoint": {

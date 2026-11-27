@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { absUrl } from '@/lib/site';
 import { QuoteForm } from '@/components/contact/QuoteForm';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
@@ -12,12 +13,12 @@ export const metadata: Metadata = {
     title: "Teklif Al",
     description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve UV metal poster siparişleriniz için teknik fiyatlandırma ve numune desteği. İzmir Alsancak doğrudan imalatçı fiyatı.",
     alternates: {
-        canonical: "https://veralteneketicaret.com/teklif-al",
+        canonical: absUrl("/teklif-al"),
     },
     openGraph: {
         title: "Teklif Al | Veral Teneke Ticaret İzmir",
         description: "Özel metal üretim, toptan tel ve teneke projeleriniz için doğrudan atölyeden fiyat teklifi alın.",
-        url: "https://veralteneketicaret.com/teklif-al",
+        url: absUrl("/teklif-al"),
     },
 };
 

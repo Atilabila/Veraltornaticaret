@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "Mesafeli Satış Sözleşmesi",
-  alternates: { canonical: "https://veralteneketicaret.com/mesafeli-satis" },
+  alternates: { canonical: absUrl("/mesafeli-satis") },
 };
 
 export default function MesafeliSatisPage() {

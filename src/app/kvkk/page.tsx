@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
     title: "KVKK Aydınlatma Metni",
-    alternates: { canonical: "https://veralteneketicaret.com/kvkk" },
+    alternates: { canonical: absUrl("/kvkk") },
 };
 
 export default function KvkkPage() {

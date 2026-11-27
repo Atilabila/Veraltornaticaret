@@ -1,9 +1,10 @@
 ﻿import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
 
 export const metadata: Metadata = {
     title: "Kullanım Şartları",
-    alternates: { canonical: "https://veralteneketicaret.com/sartlar" },
+    alternates: { canonical: absUrl("/sartlar") },
 };
 
 export default function SartlarPage() {

@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
 import Link from "next/link";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
@@ -12,12 +13,12 @@ export const metadata: Metadata = {
     title: "Sıkça Sorulan Sorular",
     description: "Toptan dosya teli, takvim tenekesi, giyotin sac kesim ve 4K UV mıknatıslı metal poster imalatı hakkında merak edilen tüm teknik ve ticari sorular: MOQ, termin süreleri, DIN EN 10202 hammadde normları.",
     alternates: {
-        canonical: "https://veralteneketicaret.com/sss",
+        canonical: absUrl("/sss"),
     },
     openGraph: {
         title: "Sıkça Sorulan Sorular | Veral Teneke Ticaret İzmir",
         description: "Metal imalat, toptan üretim ve teknik toleranslar hakkında merak edilen tüm soruların yanıtları.",
-        url: "https://veralteneketicaret.com/sss",
+        url: absUrl("/sss"),
     },
 };
 
