@@ -84,7 +84,7 @@ export default async function TornaServicePage({ params }: PageProps) {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <Navigation />
-            <article className="mx-auto max-w-3xl px-4 pb-16 pt-28 sm:px-6">
+            <article className="mx-auto max-w-[1400px] px-4 pb-16 pt-28 sm:px-6 lg:px-12">
                 <Breadcrumb
                     items={[
                         { name: "Ana Sayfa", url: "/" },
@@ -93,79 +93,96 @@ export default async function TornaServicePage({ params }: PageProps) {
                     ]}
                 />
                 <h1 className="mt-2 font-display text-3xl text-atl-text sm:text-4xl">{service.title}</h1>
-                <p className="mt-4 text-base leading-relaxed text-atl-muted">{service.intro}</p>
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-atl-muted">{service.intro}</p>
 
-                <h2 className="mt-10 text-xl font-semibold">Hangi işler için</h2>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-base leading-relaxed text-atl-muted">
-                    {service.uses.map((item) => (
-                        <li key={item}>{item}</li>
-                    ))}
-                </ul>
-
-                <h2 className="mt-10 text-xl font-semibold">Nasıl çalışılır</h2>
-                <ol className="mt-3 list-decimal space-y-2 pl-5 text-base leading-relaxed text-atl-muted">
-                    {service.steps.map((item) => (
-                        <li key={item}>{item}</li>
-                    ))}
-                </ol>
+                <div className="mt-8 grid gap-4 lg:grid-cols-2">
+                    <section className="border border-atl-line bg-atl-surface p-5 sm:p-6">
+                        <h2 className="text-xl font-semibold">Hangi işler için</h2>
+                        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                            {service.uses.map((item) => (
+                                <li key={item} className="border border-atl-line bg-atl-bg px-4 py-3 text-base leading-relaxed text-atl-muted">
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                    <section className="border border-atl-line bg-atl-surface p-5 sm:p-6">
+                        <h2 className="text-xl font-semibold">Nasıl çalışılır</h2>
+                        <ol className="mt-4 grid gap-2">
+                            {service.steps.map((item, index) => (
+                                <li key={item} className="flex gap-3 border border-atl-line bg-atl-bg px-4 py-3 text-base leading-relaxed text-atl-muted">
+                                    <span className="font-semibold text-atl-brass-light">{index + 1}</span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ol>
+                    </section>
+                </div>
 
                 <h2 className="mt-10 text-xl font-semibold">Kısa sorular</h2>
-                <dl className="mt-3 space-y-4">
+                <dl className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                     {service.faqs.map((item) => (
-                        <div key={item.question}>
+                        <div key={item.question} className="border border-atl-line bg-atl-surface p-5">
                             <dt className="font-semibold text-atl-text">{item.question}</dt>
-                            <dd className="mt-1 text-base leading-relaxed text-atl-muted">{item.answer}</dd>
+                            <dd className="mt-2 text-base leading-relaxed text-atl-muted">{item.answer}</dd>
                         </div>
                     ))}
                 </dl>
 
-                <p className="mt-10 text-base leading-relaxed text-atl-muted">
-                    Adres: 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: {SITE_PHONE_DISPLAY}.
-                </p>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center bg-emerald-600 px-6 text-sm font-semibold text-white">
-                        WhatsApp ile yazışma
-                    </a>
-                    <a href={`tel:${SITE_PHONE_E164}`} className="inline-flex min-h-12 items-center justify-center gap-2 border border-atl-line px-5 text-sm font-semibold">
-                        <Phone className="h-4 w-4" />
-                        {SITE_PHONE_DISPLAY}
-                    </a>
-                    <Link href="/teklif-al?hizmet=torna" className="inline-flex min-h-12 items-center justify-center bg-atl-brass px-6 text-sm font-semibold text-atl-bg">
-                        Fiyat isteği
-                    </Link>
+                <div className="mt-10 flex flex-col gap-4 border border-atl-line bg-atl-surface p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
+                    <p className="max-w-xl text-base leading-relaxed text-atl-muted">
+                        Adres: 1471 Sokak No:12/A, Alsancak / İzmir. Telefon: {SITE_PHONE_DISPLAY}.
+                    </p>
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center bg-emerald-600 px-6 text-sm font-semibold text-white">
+                            WhatsApp ile yazışma
+                        </a>
+                        <a href={`tel:${SITE_PHONE_E164}`} className="inline-flex min-h-12 items-center justify-center gap-2 border border-atl-line px-5 text-sm font-semibold">
+                            <Phone className="h-4 w-4" />
+                            {SITE_PHONE_DISPLAY}
+                        </a>
+                        <Link href="/teklif-al?hizmet=torna" className="inline-flex min-h-12 items-center justify-center bg-atl-brass px-6 text-sm font-semibold text-atl-bg">
+                            Fiyat isteği
+                        </Link>
+                    </div>
                 </div>
 
-                <h2 className="mt-12 text-xl font-semibold">İlgili işler</h2>
-                <ul className="mt-3 space-y-1">
-                    {related.map((item) => (
-                        <li key={item.slug}>
-                            <Link href={tornaHref(item.slug)} className="inline-flex min-h-11 items-center text-atl-brass-light">
-                                {item.title}
-                            </Link>
-                        </li>
-                    ))}
-                    <li>
-                        <Link href="/hizmetler/torna" className="inline-flex min-h-11 items-center text-atl-brass-light">
-                            Torna ve yedek parça imalatı
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/" className="inline-flex min-h-11 items-center text-atl-brass-light">
-                            Ana sayfa
-                        </Link>
-                    </li>
-                </ul>
-
-                <h2 className="mt-8 text-xl font-semibold">Diğer torna işleri</h2>
-                <ul className="mt-3 space-y-1">
-                    {others.map((item) => (
-                        <li key={item.slug}>
-                            <Link href={tornaHref(item.slug)} className="inline-flex min-h-11 items-center text-atl-brass-light">
-                                {item.title}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <div className="mt-12 grid gap-8 lg:grid-cols-2">
+                    <section>
+                        <h2 className="text-xl font-semibold">İlgili işler</h2>
+                        <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                            {related.map((item) => (
+                                <li key={item.slug}>
+                                    <Link href={tornaHref(item.slug)} className="flex min-h-12 items-center border border-atl-line bg-atl-surface px-4 text-atl-brass-light">
+                                        {item.title}
+                                    </Link>
+                                </li>
+                            ))}
+                            <li>
+                                <Link href="/hizmetler/torna" className="flex min-h-12 items-center border border-atl-line bg-atl-surface px-4 text-atl-brass-light">
+                                    Torna ve yedek parça imalatı
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/" className="flex min-h-12 items-center border border-atl-line bg-atl-surface px-4 text-atl-brass-light">
+                                    Ana sayfa
+                                </Link>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2 className="text-xl font-semibold">Diğer torna işleri</h2>
+                        <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                            {others.map((item) => (
+                                <li key={item.slug}>
+                                    <Link href={tornaHref(item.slug)} className="flex min-h-12 items-center border border-atl-line bg-atl-surface px-4 text-atl-brass-light">
+                                        {item.title}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                </div>
             </article>
             <Footer />
         </main>
