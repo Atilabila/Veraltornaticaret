@@ -1,6 +1,8 @@
-import { buildWhatsAppUrl, normalizeWhatsappNumber } from "@/lib/whatsapp";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-export const DEFAULT_FOOTER_PHONE = "+90 507 165 13 15";
+/** Tek hat: Oğuzcan Veral, 0507 165 13 15. */
+export const PUBLIC_PHONE_DISPLAY = "0507 165 13 15";
+export const DEFAULT_FOOTER_PHONE = PUBLIC_PHONE_DISPLAY;
 export const DEFAULT_WHATSAPP_NUMBER = "905071651315";
 export const DEFAULT_WHATSAPP_MESSAGE =
   "Merhaba, toptan dosya teli / imalat teklifi almak istiyorum.";
@@ -26,15 +28,24 @@ export function buildProductWhatsAppUrl(opts: {
     ? `${base}\nÜrün: ${opts.productName}`
     : base;
   return buildWhatsAppUrl({
-    phoneNumber: opts.whatsappNumber || DEFAULT_WHATSAPP_NUMBER,
+    phoneNumber: publicWhatsappNumber(opts.whatsappNumber),
     message,
   });
 }
 
+/** Kayıtlı CMS numarası yok sayılır. Sitede tek hat vardır. */
+export function publicPhone(_stored?: string | null): string {
+  return PUBLIC_PHONE_DISPLAY;
+}
+
 export function resolveFooterPhone(footerPhone?: string | null): string {
-  return footerPhone?.trim() || DEFAULT_FOOTER_PHONE;
+  return publicPhone(footerPhone);
+}
+
+export function publicWhatsappNumber(_stored?: string | null): string {
+  return DEFAULT_WHATSAPP_NUMBER;
 }
 
 export function resolveWhatsappNumber(whatsappNumber?: string | null): string {
-  return normalizeWhatsappNumber(whatsappNumber || DEFAULT_WHATSAPP_NUMBER) || DEFAULT_WHATSAPP_NUMBER;
+  return publicWhatsappNumber(whatsappNumber);
 }

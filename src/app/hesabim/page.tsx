@@ -104,7 +104,7 @@ export default function HesabimPage() {
                                             <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass} placeholder="••••••••" />
                                         </div>
                                     </div>
-                                    <Button type="submit" disabled={authLoading} className="w-full h-12 bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white font-semibold rounded-none">
+                                    <Button type="submit" disabled={authLoading} className="w-full h-12 bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white font-semibold rounded-none">
                                         {authLoading ? "..." : authMode === 'login' ? 'Oturum aç' : 'Hesap oluştur'}
                                     </Button>
                                 </form>
@@ -171,7 +171,7 @@ export default function HesabimPage() {
                                         <h3 className="font-bold text-[#161616] mb-2">Henüz siparişiniz yok</h3>
                                         <p className="text-[#525252] text-sm mb-6">Katalogdan ürün seçebilir veya toptan teklif alabilirsiniz.</p>
                                         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                                            <Button asChild className="bg-[var(--color-brand-accent)] hover:bg-[#0043ce] text-white rounded-none">
+                                            <Button asChild className="bg-[var(--color-brand-accent)] hover:bg-[#b45309] text-white rounded-none">
                                                 <Link href="/urunler">Kataloğu gör</Link>
                                             </Button>
                                             <Button asChild variant="outline" className="border-[#c6c6c6] rounded-none">

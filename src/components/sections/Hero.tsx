@@ -82,7 +82,7 @@ export const Hero = () => {
                                     </Link>
                                 </Button>
                                 <Link
-                                    href="/#hizmetler"
+                                    href="/hizmetler"
                                     className="text-sm font-semibold text-[#525252] hover:text-[var(--color-brand-accent)] transition-colors underline-offset-4 hover:underline"
                                 >
                                     Üretim hatlarını incele

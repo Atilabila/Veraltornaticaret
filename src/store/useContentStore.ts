@@ -1,4 +1,4 @@
-﻿import { create } from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ContentService } from "@/lib/supabase/content.service";
 import { upsertAdminContent } from "@/actions/admin";
@@ -415,20 +415,20 @@ interface ContentStore {
 
 export const defaultContent: SiteContent = {
     // Branding
-    headerLogo: "/logo.svg",
-    footerLogo: "/logo-white.svg",
+    headerLogo: "/veral-logo-nav.png",
+    footerLogo: "/veral-logo-nav.png",
     siteName: "VERAL",
 
     // Header Defaults
     headerConfig: {
-        logoLight: "/logo-white.svg",
-        logoDark: "/logo.svg",
+        logoLight: "/veral-logo-nav.png",
+        logoDark: "/veral-logo-nav.png",
         mode: 'translucent',
         transparency: 90,
         blur: 12,
         showBorder: true,
         shadow: 'none',
-        ctaText: "TEKLİF AL",
+        ctaText: "Teklif al",
         ctaLink: "/teklif-al",
         announcementText: "YENİ SEZON KOLEKSİYONU YAYINDA",
         announcementLink: "/urunler",
@@ -449,16 +449,15 @@ export const defaultContent: SiteContent = {
             id: '1',
             slug: 'takvim-tenekesi',
             title: 'Takvim Tenekesi İmalatı',
-            shortDescription: 'İzmir merkezli seri takvim tenekesi üretimi. Özel ölçü ve yüksek kapasite.',
-            fullDescription: '40 yılı aşkın tecrübemizle, takvim yayıncıları ve matbaalar için yüksek kaliteli takvim tenekesi üretimi yapıyoruz. Farklı renk ve ölçü seçenekleriyle seri imalat kapasitemizle hizmetinizdeyiz.',
+            shortDescription: 'Takvim tenekesi. Boylar: 31, 33 ve 48 cm.',
+            fullDescription: 'Duvar takviminin kenarına geçen metal çıtadır. Sitede görünen boylar 31, 33 ve 48 cm’dir.',
             icon: 'Calendar',
-            image: '/images/services/takvim-teneke.jpg',
-            images: [],
-            seoTitle: 'Takvim Tenekesi İmalatı İzmir | VERAL Teneke',
-            seoDescription: 'Toptan takvim tenekesi üretimi. İzmir Alsancak merkezli atölyemizde yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.',
+            image: '/images/services/takvim-tenekeleri-detay.webp',
+            images: ['/images/services/takvim-tenekeleri.webp'],
+            seoTitle: 'Takvim Tenekesi İmalatı | VERAL Teneke',
+            seoDescription: 'Duvar takvimlerinin üst veya alt kısmına geçirilen, takvimi dik ve düzgün tutan, kenarlarını koruyan ve asma deliği barındıran metal çıta / profil parçası.',
             features: [
-                { key: 'Kapasite', value: 'Günlük 50.000+ Adet' },
-                { key: 'Malzeme', value: '0.22 - 0.30mm Teneke' }
+                { key: 'Boylar', value: '31, 33 ve 48 cm' },
             ],
             applicationAreas: ['Matbaalar', 'Ajanslar', 'Yayınevleri'],
             slaText: 'Hızlı Termin Süresi',
@@ -471,10 +470,10 @@ export const defaultContent: SiteContent = {
             id: '2',
             slug: 'dosya-teli',
             title: 'Dosya Teli Üretimi',
-            shortDescription: 'Endüstriyel sınıf dayanıklı dosya teli imalatı. Toptan ve perakende.',
-            fullDescription: 'Arşivleme sistemleri ve dosya üreticileri için standart ve özel boylarda dosya teli üretimi yapıyoruz. Paslanmaz yapı ve yüksek esneklik dayanımı.',
+            shortDescription: 'Dosya teli. Boylar: 14, 15, 17, 21 ve 24 cm, bir de akrep tel.',
+            fullDescription: 'Kırtasiye ve dosya işi için tel. Sitede görünen boylar 14, 15, 17, 21 ve 24 cm ile akrep teldir.',
             icon: 'FileText',
-            image: '/images/services/dosya-teli.jpg',
+            image: '/images/services/dosya-teli-plastik-takim.webp',
             images: [],
             seoTitle: 'Dosya Teli İmalatı ve Toptan Satış | VERAL',
             seoDescription: 'İzmir dosya teli üreticisi. Kırtasiye ve arşiv sistemleri için yüksek kaliteli, dayanıklı metal dosya telleri.',
@@ -483,7 +482,7 @@ export const defaultContent: SiteContent = {
                 { key: 'Ölçü', value: 'Standart ve Özel Boy' }
             ],
             applicationAreas: ['Kırtasiye Sektörü', 'Arşiv Merkezleri', 'Dosya İmalatçıları'],
-            slaText: 'Stoktan Teslimat',
+            slaText: 'Teklif usulü',
             ctaTitle: 'Toplu Alım İçin Bize Ulaşın',
             ctaLabel: 'İletişime Geç',
             order: 2,
@@ -493,20 +492,20 @@ export const defaultContent: SiteContent = {
             id: '3',
             slug: 'tef-zili',
             title: 'Tef Zili Üretimi',
-            shortDescription: 'Profesyonel tef zili imalatı. Akustik kalibrasyon ve özel metal alaşım.',
-            fullDescription: 'Müzik aleti üreticileri için yüksek akustik performanslı tef zili üretimi. Pirinç ve metal alaşım seçenekleriyle, altı köşe ve yuvarlak formlarda seri imalat.',
+            shortDescription: 'Tef zili. Sitedeki ölçüde çap 38 mm.',
+            fullDescription: 'Müzik aleti yapanlar için tef zili. Sitedeki ölçüde çap 38 mm olarak görünür.',
             icon: 'Music',
-            image: '/images/services/tef-zili.jpg',
+            image: '/images/services/tef-zili-38mm.webp',
             images: [],
-            seoTitle: 'Tef Zili İmalatı İzmir | VERAL Metal',
+            seoTitle: 'Tef Zili İmalatı | VERAL Metal',
             seoDescription: 'Müzik aletleri için profesyonel tef zili üretimi. Pirinç ve metal yüzey seçenekleriyle en iyi akustik performans.',
             features: [
                 { key: 'Malzeme', value: 'Pirinç / Paslanmaz Metal' },
                 { key: 'Akustik', value: 'Kalibre Edilmiş Ses' }
             ],
             applicationAreas: ['Enstrüman Üreticileri', 'Darbuka Atölyeleri', 'Müzik Marketler'],
-            slaText: 'Yüksek Parlaklık Garantisi',
-            ctaTitle: 'Özel Öretim Talebi Oluşturun',
+            slaText: 'Teklif usulü',
+            ctaTitle: 'Özel Üretim Talebi Oluşturun',
             ctaLabel: 'Detay Al',
             order: 3,
             isActive: true
@@ -515,22 +514,65 @@ export const defaultContent: SiteContent = {
             id: '4',
             slug: 'miknatisli-magnet',
             title: 'Mıknatıslı Magnet & Metal Poster',
-            shortDescription: 'UV baskılı dekoratif metal posterler ve güçlü mıknatıslı magnetler.',
-            fullDescription: 'Kişiye özel veya seri üretim mıknatıslı magnetler. 4K UV baskı teknolojisi ile metal yüzeylere kalıcı, solmayan görseller aktarıyoruz. Hem dekoratif hem kurumsal çözümler.',
+            shortDescription: 'Metal levhaya baskı. Mıknatıslı poster de vardır.',
+            fullDescription: 'Metal levhaya baskı yaparız. Mıknatıslı asılan poster de yapılır. Ölçüyü ve adedi yazın.',
             icon: 'Zap',
-            image: '/images/services/magnet-poster.jpg',
+            image: '/images/services/metal-tabelalar.webp',
             images: [],
-            seoTitle: 'Metal Poster & Magnet Üretimi İzmir | VERAL',
+            seoTitle: 'Metal Poster & Magnet Üretimi | VERAL',
             seoDescription: 'Özel tasarım metal posterler ve mıknatıslı magnet imalatı. UV baskı kalitesiyle İzmir dekorasyon çözümleri.',
             features: [
-                { key: 'Baskı', value: '4K UV Digital' },
-                { key: 'Sistem', value: 'Kolay Manyetik Montaj' }
+                { key: 'İş', value: 'Metal baskı' },
             ],
             applicationAreas: ['Ev Dekorasyonu', 'Promosyon', 'Hediyelik Eşya'],
-            slaText: 'Ömür Boyu Renk Garantisi',
+            slaText: 'Teklif usulü',
             ctaTitle: 'Kendi Tasarımını Bastır',
             ctaLabel: 'Şimdi Oluştur',
             order: 4,
+            isActive: true
+        },
+        {
+            id: '5',
+            slug: 'giyotin-kesim',
+            title: 'Giyotin Sac Kesim',
+            shortDescription: 'Alsancak atölyesinde giyotin sac ve teneke ebatlama. Proje ölçüsüne göre fason kesim.',
+            fullDescription: 'Alsancak atölyesinde giyotin sac ve teneke ebatlama yapılır. Proje ölçülerinize göre fason kesim planlanır ve teslim süresi teklifle birlikte yazılır.',
+            icon: 'Scissors',
+            image: '/images/services/giyotin-kesim.webp',
+            images: [],
+            seoTitle: 'Giyotin Sac Kesim',
+            seoDescription: 'Giyotin sac ve teneke ebatlama. Ölçüye göre fason kesim ve teklif.',
+            features: [
+                { key: 'Hizmet', value: 'Fason ebatlama' },
+                { key: 'Teslim', value: 'Ölçüye göre termin' }
+            ],
+            applicationAreas: ['Sac işleme', 'Teneke ebatlama', 'Fason kesim'],
+            slaText: 'Ölçüye göre teklif',
+            ctaTitle: 'Kesim ölçüsü için teklif alın',
+            ctaLabel: 'Teklif Al',
+            order: 5,
+            isActive: true
+        },
+        {
+            id: '6',
+            slug: 'rulo-dilimleme',
+            title: 'Rulo Sac Dilimleme',
+            shortDescription: 'Rulo sac dilimleme ve şerit açma. Üretim hattına uygun en ve boy.',
+            fullDescription: 'Rulo sac dilimleme ve şerit açma hizmeti. Üretim hatlarınıza uygun en ve boy planlamasıyla teslim edilir.',
+            icon: 'Disc',
+            image: '/images/services/rulo-dilimleme.webp',
+            images: [],
+            seoTitle: 'Rulo Sac Dilimleme',
+            seoDescription: 'Rulo sac dilimleme ve şerit açma. En ve boy teklifle netleşir.',
+            features: [
+                { key: 'Hizmet', value: 'Dilme ve sarım' },
+                { key: 'Sipariş', value: 'Teklif usulü' }
+            ],
+            applicationAreas: ['Şerit sac', 'Rulo dilme', 'Fason üretim'],
+            slaText: 'Teklif usulü termin',
+            ctaTitle: 'Dilim ölçüsü için teklif alın',
+            ctaLabel: 'Teklif Al',
+            order: 6,
             isActive: true
         }
     ],
@@ -541,7 +583,7 @@ export const defaultContent: SiteContent = {
         badge: 'Üretim hizmetleri',
         intro: 'Seri imalat hatlarımızda ölçü ve miktar netleşir, termin konuşulur.',
         ctaTitle: 'Toptan sipariş için teklif alın',
-        ctaDescription: 'Ölçü ve miktar bilgileriniz incelenir; 24 saat içinde fiyatlandırma iletilir.',
+        ctaDescription: 'Ürün ve adedi yazın. Fiyatı bildiririz.',
         ctaButtonText: 'TEKLİF İSTE',
         ctaButtonLink: '/teklif-al',
     },
@@ -577,9 +619,9 @@ export const defaultContent: SiteContent = {
     heroButton2Url: "/urunler",
     heroProductLine: "Ölçü netleşir, termin konuşulur, sevkiyat planlanır.",
     heroStats: [
-        { value: "24-48s", label: "TESLİMAT" },
-        { value: "1.5mm", label: "METAL" },
-        { value: "4K UV", label: "BASKI" }
+        { value: "1986", label: "KURULUŞ" },
+        { value: "Alsancak", label: "ATÖLYE" },
+        { value: "Teklif", label: "FİYAT" }
     ],
 
     // Features
@@ -657,23 +699,23 @@ export const defaultContent: SiteContent = {
 
     // Footer
     footerCompanyName: "VERAL TORNA & TENEKE // TİCARET",
-    footerAddress: "1512 Sk. No: 42/1\nAlsancak/İzmir\nTÜRKİYE BÖLGESİ",
-    footerPhone: "+90 507 165 13 15",
-    footerEmail: "LOG@VERAL.COM",
+    footerAddress: "1471 Sokak No:12/A\nAlsancak / İzmir\nTÜRKİYE",
+    footerPhone: "0507 165 13 15",
+    footerEmail: "veraltornatic@hotmail.com",
     footerInstagram: "@VERALTICARET",
     footerMapLat: "38.4357",
     footerMapLng: "27.1495",
     footerMapZoom: 15,
-    footerMapLink: "https://maps.app.goo.gl/VERAL",
+    footerMapLink: "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
 
     // WhatsApp
     whatsappNumber: "905071651315",
     whatsappMessage: "Merhaba, ürünleriniz hakkında bilgi almak istiyorum.",
 
     // About Page
-    aboutTitle: "1983'ten Beri Darağaç'tayız",
-    aboutSubtitle: "Baba Yadigârı Atölyemizde, Esnaf Kültürüyle Üretiyoruz.",
-    aboutContent: "Hikâyemiz 1983 yılında, İzmir Alsancak’ın o meşhur Darağaç sokaklarında başladı. Aile büyüklerimizden devraldığımız atölyemizde, o günkü esnaf kültürü ve dürüstlük neyse bugün de aynı heyecanla çalışmaya devam ediyoruz.\n\nGeçen 40 yılda çok şey değişti ama bizim işimize olan bakışımız hiç değişmedi. Eskinin o titiz el işçiliğini, bugünün modern imkanlarıyla birleştirerek metal ve teneke üzerine çözümler üretiyoruz. Bizim için asıl mesele, söz verdiğimiz kaliteyi bozmamak ve kapımızdan çıkan her işin arkasında durabilmektir.\n\nİster özel bir tasarım olsun, ister kurumsal bir üretim; atölyemize giren her talebi kendi işimiz gibi görüyor, Alsancak’ın o köklü dükkan ruhunu yaşatıyoruz.",
+    aboutTitle: "1986'dan beri Alsancak'ta",
+    aboutSubtitle: "Aile atölyesi.",
+    aboutContent: "Veral Torna & Teneke Ticaret, 1986'dan beri İzmir Alsancak'ta çalışan bir aile atölyesidir. Dosya teli, takvim tenekesi, tef zili, sac kesim ve metal baskı işlerini burada yaparız. Siparişi ürün, ölçü ve adetle alırız. Atölye adresi 1471 Sokak No:12/A, Alsancak / İzmir'dir.",
     aboutImage: "/about-image.png",
     aboutStats: [
         { label: "Yıllık Deneyim", value: "5+" },
@@ -684,9 +726,9 @@ export const defaultContent: SiteContent = {
     aboutExploreUrl: "/hakkimizda",
     milestones: [
         {
-            year: "1980",
-            title: "Temeller",
-            desc: "İzmir Alsancak’ta torna ve metal işleme atölyesinin kuruluşu.",
+            year: "1986",
+            title: "Kuruluş",
+            desc: "Aile atölyesi Alsancak'ta çalışmaya başladı.",
             icon: "Factory"
         },
         {
@@ -817,7 +859,7 @@ export const defaultContent: SiteContent = {
         { stepNumber: "ETAP/02", title: "DİJİTAL HAZIRLIK", desc: "4K UV BASKI İÇİN PİKSEL KONTROLÜ VE RENK AYARI." },
         { stepNumber: "ETAP/03", title: "METALE AKTARIM", desc: "1.5MM SAC ÜZERİNE YÜKSEK ÇÖZÜNÜRLÜKLÜ BASKI." },
         { stepNumber: "ETAP/04", title: "KORUYUCU AMBALAJ", desc: "MANYETİK APARAT VE DARBE EMİCİ ÖZEL KUTULAMA." },
-        { stepNumber: "ETAP/05", title: "LOJİSTİK ÇIKIŞ", desc: "MAKSİMUM 48 SAAT İÇİNDE KARGOYA TESLİM." }
+        { stepNumber: "ETAP/05", title: "GÖNDERİM", desc: "SÜRE TEKLİFTE YAZILIR." }
     ],
 
     contactTitle: "BİZE",
@@ -825,7 +867,7 @@ export const defaultContent: SiteContent = {
     contactDescription: "TEKNİK DESTEK VE ÖZEL PROJELER İÇİN OPERASYON MERKEZİ.",
     contactItems: [
         { icon: "PackageCheck", title: "İADE", desc: "14 GÜN KOŞULSUZ İADE POLİTİKASI" },
-        { icon: "Phone", title: "TELEFON", desc: "+90 507 165 13 15" },
+        { icon: "Phone", title: "TELEFON", desc: "0507 165 13 15" },
         { icon: "Mail", title: "E-POSTA", desc: "support@metalposter.co" },
         { icon: "MessageCircle", title: "WHATSAPP", desc: "ANLIK OPERASYON HATTI", color: "text-[#D4AF37]" }
     ],
@@ -833,9 +875,9 @@ export const defaultContent: SiteContent = {
     inquiryDescription: "Mevcut siparişlerinizle ilgili durum takibi yapabilir veya kurumsal projeleriniz için özel teklif isteyebilirsiniz.",
 
     serviceStats: [
-        { value: "±0.01mm", label: "Hassasiyet Toleransı" },
-        { value: "24 Saat", label: "Teklif Dönüş Süresi" },
-        { value: "15+ Yıl", label: "Sektör Deneyimi" }
+        { value: "1986", label: "Kuruluş" },
+        { value: "Alsancak", label: "Atölye" },
+        { value: "Teklif", label: "Fiyat" }
     ],
 
     // Legal
@@ -890,7 +932,7 @@ export const defaultContent: SiteContent = {
             description: "Matbaalar ve ajanslar için seri üretim, özel ölçü ve renklerde takvim tenekeleri.",
             coverImage: "/images/showcase/takvim-tenekesi.webp",
             icon: "Calendar",
-            seoTitle: "Takvim Tenekesi İmalatı İzmir | VERAL",
+            seoTitle: "Takvim Tenekesi İmalatı | VERAL",
             seoDescription: "Toptan takvim tenekesi üretimi. Yüksek kapasiteli seri imalat ve Türkiye geneli sevkiyat.",
             ctaLabel: "Detayları Gör",
             ctaLink: "/hizmetler/takvim-tenekesi",
@@ -931,7 +973,7 @@ export const defaultContent: SiteContent = {
     quotePage: {
         title: "Teklif Formu",
         subtitle: "Projeniz İçin Teknik Analiz ve Fiyatlandırma",
-        description: "İzmir merkezli atölyemizde endüstriyel metal tasarımı, CNC kesim ve özel üretim projeleriniz için 24 saat içinde teknik değerlendirme ve teklif sunuyoruz.",
+        description: "Ürün ve adedi yazın. Adınızı ve telefonunuzu bırakın.",
         headerMode: "dark",
         seoTitle: "Teklif Al | Özel Metal Üretim ve Tasarım - VERAL Metal Works",
         seoDescription: "Endüstriyel metal projeleriniz, CNC kesim ve özel tasarım talepleriniz için hemen teklif alın. İzmir'in öncü metal atölyesi.",
@@ -964,12 +1006,12 @@ export const defaultContent: SiteContent = {
 
         submitButtonText: "Teklif Talebini Gönder",
         successTitle: "Talebiniz Alındı",
-        successMessage: "Teklif talebiniz başarıyla tarafımıza ulaştı. Mühendislerimiz projenizi inceleyip 24 saat içinde size geri dönüş yapacaktır.",
+        successMessage: "Talebiniz alındı. Sizi ararız.",
 
         trustBlocks: [
-            { title: "24 Saat İçinde Geri Dönüş", description: "Talepleriniz iş günlerinde 24 saat içinde yanıtlanır.", icon: "Clock" },
-            { title: "Teknik İnceleme", description: "Mühendislerimiz çizimlerinizi teknik açıdan analiz eder.", icon: "Search" },
-            { title: "Ücretsiz Ön Değerlendirme", description: "Projeniz için fizibilite çalışması ücretsiz yapılır.", icon: "CheckCircle" }
+            { title: "Atölye", description: "1471 Sokak No:12/A, Alsancak / İzmir.", icon: "Clock" },
+            { title: "Telefon", description: "0507 165 13 15", icon: "Search" },
+            { title: "Saat", description: "Pazartesi–Cumartesi 08:30–18:30", icon: "CheckCircle" }
         ],
 
         serviceOptions: [
@@ -1232,7 +1274,7 @@ export const useContentStore = create<ContentStore>()(
         }),
         {
             name: "site-content-storage",
-            version: 19,
+            version: 20,
             migrate: (persistedState: any, version: number) => {
                 const newState = { ...persistedState };
                 if (version < 11) {
@@ -1274,6 +1316,13 @@ export const useContentStore = create<ContentStore>()(
                     if (savedHeroImage) {
                         newState.content.heroImage = savedHeroImage;
                     }
+                }
+                if (version < 20) {
+                    newState.content = {
+                        ...newState.content,
+                        footerEmail: defaultContent.footerEmail,
+                        footerMapLink: defaultContent.footerMapLink,
+                    };
                 }
                 return newState;
             },

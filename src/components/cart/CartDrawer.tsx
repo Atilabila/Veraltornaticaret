@@ -6,6 +6,7 @@ import { X, ShoppingBag, Trash2, Plus, Minus, ArrowRight, Truck } from "lucide-r
 import { useCartStore } from "@/store/useCartStore";
 import { useContentStore } from "@/store/useContentStore";
 import { formatPrice, cn } from "@/lib/utils";
+import { publicWhatsappNumber } from "@/lib/contact";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -58,7 +59,7 @@ export const CartDrawer = () => {
         message += `*Genel toplam: ${formatPrice(total)}*\n\n`;
         message += "Sipariş işlemleri için yardımcı olabilir misiniz?";
 
-        window.open(`https://wa.me/${content.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        window.open(`https://wa.me/${publicWhatsappNumber(content.whatsappNumber)}?text=${encodeURIComponent(message)}`, '_blank');
     };
 
     if (!isHydrated) return null;
@@ -172,7 +173,7 @@ export const CartDrawer = () => {
                                 <Link
                                     href="/odeme"
                                     onClick={() => setCartOpen(false)}
-                                    className="w-full h-12 bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#0043ce] transition-colors flex items-center justify-center gap-2"
+                                    className="w-full h-12 bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#b45309] transition-colors flex items-center justify-center gap-2"
                                 >
                                     Ödemeye geç <ArrowRight className="w-4 h-4" />
                                 </Link>

@@ -5,6 +5,7 @@
 import Link from 'next/link';
 import { QuoteRequest } from '@/lib/b2b/types';
 import { useContentStore } from '@/store/useContentStore';
+import { publicWhatsappNumber } from '@/lib/contact';
 
 interface QuoteConfirmationProps {
     quote: QuoteRequest;
@@ -14,7 +15,7 @@ export default function QuoteConfirmation({ quote }: QuoteConfirmationProps) {
     const { content } = useContentStore();
 
     // WhatsApp link with pre-filled message
-    const whatsappNumber = content.whatsappNumber;
+    const whatsappNumber = publicWhatsappNumber(content.whatsappNumber);
     const whatsappMessage = `Merhaba, ${quote.id} numaralı teklifim hakkında bilgi almak istiyorum.`;
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -63,7 +64,7 @@ export default function QuoteConfirmation({ quote }: QuoteConfirmationProps) {
                     Sonraki Adımlar
                 </h2>
                 <p className="text-neutral-700 leading-relaxed">
-                    Talebiniz alındı. Teknik ekibimiz en geç 24 saat içinde sizinle iletişime geçecektir.
+                    Talebiniz alındı. Sizi ararız.
                 </p>
             </div>
 

@@ -10,7 +10,7 @@ export const KnowledgeBaseSchema = () => {
                 "name": "Toptan dosya teli nerede üretilir ve fiyatları nasıldır?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "VERAL Torna olarak İzmir Alsancak tesisimizde toptan dosya teli üretimi yapmaktayız. Arşiv ve kırtasiye sektörü için paslanmaz, yüksek esneklikte dosya telleri imal ediyoruz. Direkt üreticiden en uygun dosya teli fiyatları için WhatsApp üzerinden teklif alabilirsiniz."
+                    "text": "Alsancak'ta dosya teli imalatı. Boylar: 14, 15, 17, 21, 24 cm ve akrep tel."
                 }
             },
             {
@@ -18,23 +18,23 @@ export const KnowledgeBaseSchema = () => {
                 "name": "Takvim tenekesi imalatı boyutları ve üretim kapasiteniz nedir?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Takvim tenekesi imalatı alanında Türkiye'nin önde gelen üreticileriyiz. Standart duvar ve gemici takvimleri için istenilen her ölçü ve renkte takvim tenekesi üretiyoruz. Matbaalar ve ajanslar için günlük 50.000 adet kapasite ile toptan takvim tenekesi üretiyoruz."
+                    "text": "Takvim tenekesi imalatı. Boylar: 31, 33 ve 48 cm."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Tef zili ve metal aksesuar imalatı yapıyor musunuz?",
+                "name": "Tef zili imalatı var mı?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Evet. Tef zili üretimi ve metal aksesuar hatlarımızda seri imalat yapıyoruz. Müzik endüstrisi ve özel proje talepleri için teklif formu veya WhatsApp üzerinden ulaşabilirsiniz."
+                    "text": "Evet. Tef zili imalatı. Görünen çap 38 mm."
                 }
             },
             {
                 "@type": "Question",
-                "name": "UV baskılı teneke posterler nasıl üretilir ve solma yapar mı?",
+                "name": "Metal poster imalatı var mı?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "UV baskılı teneke posterler üçüncü üretim hattımızdır. Endüstriyel UV baskı ile metal yüzeylere kalıcı görsel aktarımı yapılır; ana odak noktamız dosya teli ve takvim tenekesi toptan imalatıdır."
+                    "text": "Evet. Alsancak atölyesinde metal poster imalatı."
                 }
             }
         ]
@@ -66,7 +66,7 @@ export const KnowledgeBaseSchema = () => {
             {
                 "@type": "ListItem",
                 "position": 4,
-                "name": "UV Baskılı Metal Poster",
+                "name": "Metal poster",
                 "description": "Dekoratif metal poster ve magnet — ikincil perakende hat."
             }
         ]

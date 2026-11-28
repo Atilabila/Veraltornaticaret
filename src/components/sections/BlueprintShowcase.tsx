@@ -66,7 +66,7 @@ export const BlueprintShowcase = () => {
                 <div className="relative">
                     <div className="pointer-events-none absolute -inset-6 opacity-[0.14] [background-image:linear-gradient(to_right,rgba(0,0,0,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
 
-                    <div className="relative grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3">
                         {displayProducts.map((product, idx) => {
                             const rawImage = product.image || "";
                             const hasImage = Boolean(rawImage && rawImage !== "null");

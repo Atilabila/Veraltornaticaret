@@ -1,12 +1,18 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
+import { Geist } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-geist",
+});
 import { AdminProvider } from "@/components/providers/AdminProvider";
 import { ContentSyncProvider } from "@/components/providers/ContentSyncProvider";
 import { AuthProvider } from "@/components/auth/AuthProvider";
-import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
-import { KnowledgeBaseSchema } from "@/components/seo/KnowledgeBaseSchema";
 import { DynamicMetadata } from "@/components/seo/DynamicMetadata";
+import { SITE_ORIGIN } from "@/lib/site";
 import { GlobalGrid } from "@/components/layout/GlobalGrid";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
@@ -42,11 +48,44 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://veralteneketicaret.com"),
-  title: "VERAL - Dosya Teli, Takvim Tenekesi ve Metal Poster İmalatı",
-  description: "İzmir merkezli toptan dosya teli üretimi, takvim tenekesi ve yüksek çözünürlüklü UV baskılı metal poster imalatı.",
-  keywords: ["dosya teli", "toptan dosya teli", "dosya teli üretimi", "dosya teli imalatı", "takvim tenekesi", "metal poster", "mıknatıslı magnet", "tef zili izmir"],
-  robots: "index, follow",
+  metadataBase: new URL(SITE_ORIGIN),
+  title: {
+    default: "Veral Torna ve Teneke | Alsancak",
+    template: "%s | Veral Teneke Ticaret İzmir",
+  },
+  description:
+    "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
+  authors: [
+    {
+      name: "Oğuzcan Veral",
+      url: `${SITE_ORIGIN}/yazar/oguzcan-veral`,
+    },
+  ],
+  creator: "Veral Torna & Teneke Ticaret",
+  publisher: "Veral Torna & Teneke Ticaret",
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Veral Teneke Ticaret",
+    url: SITE_ORIGIN,
+    images: [
+      {
+        url: "/images/services/giyotin-kesim.webp",
+        width: 1200,
+        height: 900,
+        alt: "Veral Torna ve Teneke",
+      },
+    ],
+  },
+  keywords: [
+    "izmir dosya teli",
+    "toptan dosya teli imalatı",
+    "takvim tenekesi üreticisi",
+    "dosya teli üreticisi izmir",
+    "alsancak metal imalat",
+    "metal poster izmir",
+    "tef zili imalatı",
+  ],
   verification: {
     google: "mA7ESmS5CcTCWG7a5octdFFwX1_nZcURfbMvIn9inxc",
   },
@@ -56,26 +95,8 @@ export const revalidate = 10;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr">
-      <head>
-        <link rel="preconnect" href="https://wswlhtglwpyragymrdhl.supabase.co" />
-        <link rel="dns-prefetch" href="https://wswlhtglwpyragymrdhl.supabase.co" />
-
-        {/* Runtime Google Fonts (avoids build-time fetch in restricted networks). */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
-          media="print"
-          // @ts-ignore
-          onLoad="this.media='all'"
-        />
-
-        <LocalBusinessSchema />
-        <KnowledgeBaseSchema />
-      </head>
-      <body className="antialiased bg-zinc-950 text-zinc-300">
+    <html lang="tr" className={geist.variable}>
+      <body className={`${geist.className} antialiased bg-atl-bg text-atl-text font-sans selection:bg-atl-brass selection:text-atl-bg`} style={{ backgroundColor: "#121110", color: "#ece6da" }}>
         <MotionProvider>
           <AdminProvider>
             <ContentSyncProvider>
@@ -86,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <GlobalGrid />
                 {children}
                 {CART_ENABLED ? <CartDrawer /> : null}
+                <CookieConsent />
               </AuthProvider>
             </ContentSyncProvider>
           </AdminProvider>
@@ -93,7 +115,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WhatsAppButton />
         <ScrollToTop />
         <AnalyticsProvider><span /></AnalyticsProvider>
-        <CookieConsent />
         <Toaster />
       </body>
     </html>

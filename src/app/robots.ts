@@ -1,25 +1,33 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
+import { PRIVATE_PATHS, SITE_ORIGIN } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
+    const disallow = PRIVATE_PATHS;
     return {
         rules: [
+            { userAgent: "*", allow: "/", disallow },
             {
-                userAgent: '*',
-                allow: '/',
-                disallow: [
-                    '/admin/',
-                    '/api/',
-                    '/_next/',
-                    '/static/',
-                    '/*.json$',
-                ],
+                userAgent: ["Googlebot", "Googlebot-Image", "Bingbot", "Applebot"],
+                allow: "/",
+                disallow,
             },
             {
-                // GEO Focus: Allow AI crawlers to index content for AI Search recommendations
-                userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'OAI-SearchBot'],
-                allow: '/',
-            }
+                userAgent: [
+                    "OAI-SearchBot",
+                    "ChatGPT-User",
+                    "GPTBot",
+                    "PerplexityBot",
+                    "ClaudeBot",
+                    "Claude-Web",
+                    "Google-Extended",
+                    "Applebot-Extended",
+                    "CCBot",
+                    "Bytespider",
+                ],
+                allow: "/",
+                disallow,
+            },
         ],
-        sitemap: 'https://veralteneketicaret.com/sitemap.xml',
-    }
+        sitemap: `${SITE_ORIGIN}/sitemap.xml`,
+    };
 }

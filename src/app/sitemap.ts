@@ -1,63 +1,83 @@
-﻿import { MetadataRoute } from 'next'
-import { getProducts, getCategories } from '@/lib/actions/metal-products.actions'
+import { SITE_ORIGIN } from '@/lib/site'
+import { MetadataRoute } from 'next'
 import { ContentService } from '@/lib/supabase/content.service'
+import type { SiteContent } from '@/store/useContentStore'
+import { blogPosts } from '@/lib/blog-posts'
+import { TORNA_SERVICES, tornaHref } from '@/lib/public-copy'
+
+const CONTENT_UPDATED = new Date('2026-11-27T00:00:00.000Z')
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://veralteneketicaret.com'
-    const lastMod = new Date()
+    const baseUrl = SITE_ORIGIN
+    const lastMod = CONTENT_UPDATED
 
-    // Fetch dynamic data
-    const [productsRes, categoriesRes, siteContent] = await Promise.all([
-        getProducts(), // Fetches active products by default
-        getCategories(),
-        ContentService.getContent()
-    ])
+    let services: SiteContent['services'] = []
 
-    const products = productsRes.success && productsRes.data ? productsRes.data : []
-    const categories = categoriesRes.success && categoriesRes.data ? categoriesRes.data : []
-    let servicesRaw = siteContent?.services || []
+    try {
+        const siteContent = await ContentService.getContent().catch(() => null)
 
-    if (!servicesRaw.find((s: any) => s.slug === 'dosya-teli')) {
-        const { defaultContent } = await import('@/store/useContentStore')
-        servicesRaw = defaultContent.services;
+        let servicesRaw = siteContent?.services || []
+        if (!servicesRaw.find((s) => s.slug === 'dosya-teli')) {
+            const { defaultContent } = await import('@/store/useContentStore')
+            servicesRaw = defaultContent.services || []
+        }
+        services = servicesRaw
+    } catch {
+        services = []
     }
 
-    const services = servicesRaw;
-
-    // Static pages
+    // 1. Ana Statik Sayfalar
     const staticPages: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
             lastModified: lastMod,
             changeFrequency: 'daily',
-            priority: 1,
+            priority: 1.0,
         },
         {
-            url: `${baseUrl}/urunler`,
+            url: `${baseUrl}/hizmetler/torna`,
             lastModified: lastMod,
-            changeFrequency: 'daily',
-            priority: 0.9,
+            changeFrequency: 'monthly',
+            priority: 0.8,
         },
         {
             url: `${baseUrl}/hizmetler`,
             lastModified: lastMod,
             changeFrequency: 'weekly',
+            priority: 0.85,
+        },
+        {
+            url: `${baseUrl}/blog`,
+            lastModified: lastMod,
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        },
+        {
+            url: `${baseUrl}/sss`,
+            lastModified: lastMod,
+            changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
             url: `${baseUrl}/teklif-al`,
             lastModified: lastMod,
             changeFrequency: 'monthly',
-            priority: 0.9,
+            priority: 0.85,
         },
         {
             url: `${baseUrl}/hakkimizda`,
             lastModified: lastMod,
             changeFrequency: 'monthly',
-            priority: 0.7,
+            priority: 0.75,
         },
         {
             url: `${baseUrl}/iletisim`,
+            lastModified: lastMod,
+            changeFrequency: 'monthly',
+            priority: 0.75,
+        },
+        {
+            url: `${baseUrl}/yazar/oguzcan-veral`,
             lastModified: lastMod,
             changeFrequency: 'monthly',
             priority: 0.7,
@@ -66,81 +86,52 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: `${baseUrl}/sartlar`,
             lastModified: lastMod,
             changeFrequency: 'yearly',
-            priority: 0.5,
-        },
-        {
-            url: `${baseUrl}/kosullar`,
-            lastModified: lastMod,
-            changeFrequency: 'yearly',
-            priority: 0.5,
+            priority: 0.4,
         },
         {
             url: `${baseUrl}/gizlilik`,
             lastModified: lastMod,
             changeFrequency: 'yearly',
-            priority: 0.5,
+            priority: 0.4,
         },
         {
             url: `${baseUrl}/kvkk`,
             lastModified: lastMod,
             changeFrequency: 'yearly',
-            priority: 0.5,
-        },
-        {
-            url: `${baseUrl}/mesafeli-satis`,
-            lastModified: lastMod,
-            changeFrequency: 'yearly',
-            priority: 0.5,
-        },
-        {
-            url: `${baseUrl}/on-bilgilendirme`,
-            lastModified: lastMod,
-            changeFrequency: 'yearly',
-            priority: 0.5,
-        },
-        {
-            url: `${baseUrl}/iade-iptal`,
-            lastModified: lastMod,
-            changeFrequency: 'yearly',
-            priority: 0.5,
+            priority: 0.4,
         },
         {
             url: `${baseUrl}/cerez`,
             lastModified: lastMod,
             changeFrequency: 'yearly',
-            priority: 0.5,
+            priority: 0.4,
         }
     ]
 
-    // Service pages
+    // 2. Hizmet Sayfaları
     const servicePages: MetadataRoute.Sitemap = services
-        .filter(s => s.isActive)
+        .filter(s => s.isActive !== false)
         .map(service => ({
             url: `${baseUrl}/hizmetler/${service.slug}`,
             lastModified: lastMod,
-            changeFrequency: 'weekly',
+            changeFrequency: 'weekly' as const,
             priority: 0.8,
         }))
 
-    // Category pages (Katalog filters)
-    const categoryPages: MetadataRoute.Sitemap = categories
-        .filter(c => c.is_active)
-        .map(cat => ({
-            url: `${baseUrl}/urunler?cat=${cat.slug}`,
-            lastModified: new Date(cat.updated_at || cat.created_at),
-            changeFrequency: 'weekly',
-            priority: 0.8,
-        }))
+    // 3. Blog Yazıları (E-E-A-T içerikleri)
+    const blogPostPages: MetadataRoute.Sitemap = blogPosts.map(post => ({
+        url: `${baseUrl}/blog/${post.id}`,
+        lastModified: CONTENT_UPDATED,
+        changeFrequency: 'yearly' as const,
+        priority: 0.6,
+    }))
 
-    // Product detail pages
-    const productPages: MetadataRoute.Sitemap = products
-        .filter(p => p.is_active)
-        .map(product => ({
-            url: `${baseUrl}/urunler/${product.slug}`,
-            lastModified: new Date(product.updated_at || product.created_at),
-            changeFrequency: 'weekly',
-            priority: 0.8,
-        }))
+    const tornaPages: MetadataRoute.Sitemap = TORNA_SERVICES.map((item) => ({
+        url: `${baseUrl}${tornaHref(item.slug)}`,
+        lastModified: CONTENT_UPDATED,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }))
 
-    return [...staticPages, ...servicePages, ...categoryPages, ...productPages]
+    return [...staticPages, ...servicePages, ...blogPostPages, ...tornaPages]
 }

@@ -1,44 +1,6 @@
-import { Suspense } from "react"
-import { Metadata } from "next"
-import { getProducts, getCategories } from "@/lib/actions/metal-products.actions"
-import { Navigation } from "@/components/layout/Navigation"
-import { Footer } from "@/components/layout/Footer"
-import { CatalogContainer } from "@/components/product/CatalogContainer"
+import { permanentRedirect } from "next/navigation";
 
-export const metadata: Metadata = {
-    title: "Katalog | VERAL Metal Works",
-    description: "Endüstriyel metal tablo ve dekorasyon koleksiyonu.",
-    alternates: {
-        canonical: "/urunler",
-    },
-};
-
-export const revalidate = 0; // Disable cache for debugging or set to 60
-
-export default async function ProductsPage() {
-    const [
-        { data: products },
-        { data: categories },
-        { data: showcase }
-    ] = await Promise.all([
-        getProducts(false),
-        getCategories(),
-        getProducts(true)
-    ])
-
-    return (
-        <main className="min-h-screen bg-white">
-            <Navigation />
-
-            <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-black">Yükleniyor...</div>}>
-                <CatalogContainer
-                    products={products || []}
-                    showcaseProducts={showcase || []}
-                    categories={categories || []}
-                />
-            </Suspense>
-
-            <Footer />
-        </main>
-    )
+export default function ProductsPage() {
+    permanentRedirect("/hizmetler");
 }
+

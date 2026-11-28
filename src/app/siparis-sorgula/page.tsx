@@ -8,8 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
-
 export default function SiparisSorgulaPage() {
     const [email, setEmail] = React.useState("");
     const [orderNumber, setOrderNumber] = React.useState("");
@@ -99,7 +97,7 @@ export default function SiparisSorgulaPage() {
 
                         <button
                             type="submit"
-                            className="w-full h-14 bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#0043ce] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full h-14 bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#b45309] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                             disabled={loading}
                         >
                             {loading ? "Sorgulanıyor..." : "Siparişi bul"}
@@ -133,7 +131,6 @@ export default function SiparisSorgulaPage() {
                     </div>
                 </div>
             </PageContainer>
-            <MobileStickyBar />
         </PageShell>
     );
 }

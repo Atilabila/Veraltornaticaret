@@ -1,25 +1,36 @@
-﻿import React from 'react';
+import React from 'react';
+import { absUrl, SITE_ORIGIN } from '@/lib/site';
+import { FOUNDING_YEAR, TORNA_SERVICES, WORKSHOP_BLURB, tornaHref } from '@/lib/public-copy';
 
 export const LocalBusinessSchema = () => {
     const schema = {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "VERAL Torna & Teneke Ticaret - İzmir Dosya Teli, Takvim Tenekesi & Metal Poster İmalatı",
-        "alternateName": "Veral Teneke",
+        "@type": ["LocalBusiness", "Manufacturer"],
+        "name": "Veral Torna & Teneke Ticaret",
+        "alternateName": ["Veral Teneke", "Veral Alsancak"],
         "image": [
-            "https://veralteneketicaret.com/veral-logo.webp",
-            "https://veralteneketicaret.com/og-image.jpg"
+            absUrl("/veral-logo.png"),
+            absUrl("/images/services/giyotin-kesim.webp")
         ],
-        "description": "VERAL Torna & Teneke Ticaret, Türkiye'nin lider toptan dosya teli üreticisi ve takvim tenekesi imalatçısıdır. İzmir Alsancak merkezli tesisimizde ayrıca UV baskılı teneke posterler, mıknatıslı magnet ve tef zili üretimi yapmaktayız. 40 yılı aşkın tecrübe ile en uygun fiyatlı toptan metal imalat çözümleri sunuyoruz.",
-        "url": "https://veralteneketicaret.com",
+        "description": WORKSHOP_BLURB,
+        "foundingDate": FOUNDING_YEAR,
+        "url": SITE_ORIGIN,
         "telephone": "+905071651315",
-        "email": "info@veralteneketicaret.com",
+        "email": "veraltornatic@hotmail.com",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "name": "Oğuzcan Veral",
+            "telephone": "+905071651315",
+            "contactType": "customer service",
+            "areaServed": "TR",
+            "availableLanguage": "Turkish"
+        },
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "1512 Sk. No: 42/1 Alsancak Mahallesi",
-            "addressLocality": "Konak",
+            "streetAddress": "1471 Sokak No:12/A",
+            "addressLocality": "Alsancak / Konak",
             "addressRegion": "İzmir",
-            "postalCode": "35210",
+            "postalCode": "35220",
             "addressCountry": "TR"
         },
         "geo": {
@@ -37,22 +48,58 @@ export const LocalBusinessSchema = () => {
                 "Friday",
                 "Saturday"
             ],
-            "opens": "09:00",
-            "closes": "18:00"
+            "opens": "08:30",
+            "closes": "18:30"
         },
         "priceRange": "₺₺",
         "currenciesAccepted": "TRY",
-        "paymentAccepted": "Teklif, WhatsApp, Bank Transfer, Cash",
-        "areaServed": {
-            "@type": "Country",
-            "name": "Türkiye"
-        },
-        "hasMap": "https://maps.app.goo.gl/hfzcSVtSP91xS5P47",
-        "sameAs": [
-            "https://www.instagram.com/veralticaret",
-            "https://www.facebook.com/veral"
+        "paymentAccepted": "Bank Transfer, Cash",
+        "areaServed": [
+            { "@type": "City", "name": "İzmir" },
+            { "@type": "AdministrativeArea", "name": "Ege Bölgesi" },
+            { "@type": "Country", "name": "Türkiye" }
         ],
-        "keywords": "toptan dosya teli, takvim tenekesi, dosya teli üreticisi, takvim tenekesi imalatı, uv baskılı teneke posterler, metal poster imalatı, tef zili izmir, mıknatıslı magnet toptan, izmir takvim tenekesi yapanlar, ucuz dosya teli fiyatları"
+        "hasMap": "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
+        "sameAs": [
+            "https://www.instagram.com/veralticaret"
+        ],
+        "knowsAbout": [
+            "torna",
+            "yedek parça",
+            "tamir",
+            "kalıp",
+            "makine bakım",
+            "Heli-Coil ve baga uygulamaları",
+            "motosiklet jant tamiri",
+            "hidrolik pres ile rulman ve burç çakma",
+            "dosya teli",
+            "takvim tenekesi",
+            "metal poster"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Torna işleri",
+            "itemListElement": TORNA_SERVICES.map((item) => ({
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": item.title,
+                    "description": item.text,
+                    "url": absUrl(tornaHref(item.slug)),
+                    "areaServed": "Alsancak, İzmir"
+                }
+            }))
+        },
+        "makesOffer": TORNA_SERVICES.map((item) => ({
+            "@type": "Offer",
+            "itemOffered": {
+                "@type": "Service",
+                "name": item.title,
+                "description": item.text,
+                "url": absUrl(tornaHref(item.slug)),
+                "areaServed": "Alsancak, İzmir"
+            }
+        }))
     };
 
     return (

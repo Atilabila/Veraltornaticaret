@@ -1,18 +1,42 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { Wordmark } from "@/components/brand/Wordmark";
 import { Instagram, Facebook, Twitter, ArrowUpRight } from 'lucide-react';
 import { useContentStore } from '@/store/useContentStore';
+import { publicAddress } from '@/lib/public-facts';
+import { publicPhone, toTelHref } from '@/lib/contact';
 import { DirectEdit } from "@/components/admin/DirectEdit";
-import { normalizeImagePath } from '@/lib/utils';
 import { PageContainer } from '@/components/layout/PageContainer';
+import { BrassRule } from '@/components/atolye/BrassRule';
+
+const KURUMSAL = [
+    { label: 'Anasayfa', href: '/' },
+    { label: 'Hakkımızda', href: '/hakkimizda' },
+    { label: 'İletişim', href: '/iletisim' },
+    { label: 'Teklif Al', href: '/teklif-al' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'KVKK', href: '/kvkk' },
+    { label: 'Çerez Politikası', href: '/cerez' },
+];
+
+const URUN_GRUPLARI = [
+    { label: 'Torna', href: '/hizmetler/torna' },
+    { label: 'Dosya Teli', href: '/hizmetler/dosya-teli' },
+    { label: 'Takvim Tenekesi', href: '/hizmetler/takvim-tenekesi' },
+    { label: 'Sac Kesim & Dilimleme', href: '/hizmetler' },
+    { label: 'Metal poster', href: '/hizmetler/miknatisli-magnet' },
+];
+
+const LEGAL = [
+    { label: 'Mesafeli Satış', href: '/mesafeli-satis' },
+    { label: 'Gizlilik', href: '/gizlilik' },
+    { label: 'KVKK', href: '/kvkk' },
+];
 
 export const Footer = () => {
     const { content } = useContentStore();
-    const footerLogoSrc = normalizeImagePath((content.footerLogo && content.footerLogo.length > 0) ? content.footerLogo : "/logo.svg");
-    const siteName = content.siteName || "VERAL";
     const instagramHandle = (content.footerInstagram || "").replace('@', '').trim();
     const socialLinks = [
         instagramHandle ? { icon: Instagram, href: `https://instagram.com/${instagramHandle}`, label: "Instagram" } : null,
@@ -22,76 +46,87 @@ export const Footer = () => {
 
     return (
         <DirectEdit tab="contact">
-            <footer className="bg-white pt-20 pb-10 border-t border-[#c6c6c6] text-[#161616]">
+            <footer className="atl-grain border-t border-atl-line bg-atl-bg pb-[calc(5.5rem+env(safe-area-inset-bottom))] pt-10 text-atl-text lg:pb-10">
                 <PageContainer>
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
-                        <div className="lg:col-span-12 xl:col-span-4 flex flex-col gap-6">
-                            <Link href="/" className="flex items-center gap-4 group">
-                                <div className="h-12 w-12 relative flex-shrink-0">
-                                    <Image src={footerLogoSrc} alt={siteName} fill sizes="48px" className="object-contain" quality={70} />
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-lg font-bold tracking-wide uppercase">{siteName}</span>
-                                    <span className="text-[11px] font-medium text-[#525252] tracking-wider uppercase">Torna & Teneke Ticaret</span>
-                                </div>
+                    <div className="mb-8 grid grid-cols-1 gap-6 sm:mb-10 sm:gap-8 md:grid-cols-2 lg:grid-cols-12">
+                        <div className="flex flex-col gap-3 self-start lg:col-span-4">
+                            <Link href="/" className="text-atl-text">
+                                <Wordmark className="h-12 w-auto" />
                             </Link>
-                            <p className="text-[#525252] text-base leading-relaxed max-w-sm">
-                                İzmir merkezli toptan dosya teli imalatı, takvim tenekesi seri üretimi ve özel metal imalat.
+                            <p className="max-w-sm text-sm leading-relaxed text-atl-muted">
+                                1986&apos;dan beri İzmir Alsancak&apos;ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.
                             </p>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider">Merkez & Atölye</span>
-                                <span className="text-sm text-[#161616] whitespace-pre-line">{content.footerAddress}</span>
-                            </div>
-                            <div className="flex gap-3">
-                                {socialLinks.map((item, i) => (
-                                    <Link key={i} href={item.href} target="_blank" aria-label={`${item.label} sayfamız`}
-                                        className="w-10 h-10 border border-[#c6c6c6] flex items-center justify-center text-[#525252] hover:bg-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] hover:text-white transition-colors">
+                            <div className="flex gap-2">
+                                {socialLinks.filter((item) => item.href.trim() !== "" && item.href.trim() !== "#").map((item, i) => (
+                                    <Link key={i} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={`${item.label} sayfası`}
+                                        className="flex h-11 w-11 items-center justify-center border border-atl-line text-atl-muted transition-colors hover:border-atl-brass hover:text-atl-brass-light">
                                         <item.icon size={18} />
                                     </Link>
                                 ))}
                             </div>
                         </div>
-                        <div className="lg:col-span-6 xl:col-span-3">
-                            <h4 className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider mb-6">Navigasyon</h4>
-                            <ul className="flex flex-col gap-3">
-                                {[
-                                    { label: 'Hizmetler', href: '/#hizmetler' },
-                                    { label: 'Teklif Al', href: '/teklif-al' },
-                                    { label: 'Katalog', href: '/urunler' },
-                                    { label: 'Hakkımızda', href: '/hakkimizda' },
-                                    { label: 'İletişim', href: '/iletisim' }
-                                ].map((item) => (
+
+                        <div className="grid grid-cols-2 gap-6 sm:contents">
+                        <div className="lg:col-span-2">
+                            <h2 className="mb-3 text-xs font-semibold text-atl-brass">Kurumsal</h2>
+                            <ul className="flex flex-col gap-0.5 sm:gap-1">
+                                {KURUMSAL.map((item) => (
                                     <li key={item.label}>
-                                        <Link href={item.href} className="text-sm font-semibold text-[#161616] hover:text-[var(--color-brand-accent)] transition-colors inline-flex items-center gap-2 group">
+                                        <Link href={item.href} className="group inline-flex min-h-11 items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
                                             {item.label}
-                                            <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100" />
+                                            <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100" />
                                         </Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                        <div className="lg:col-span-6 xl:col-span-5 flex flex-col gap-6">
-                            <h4 className="text-xs font-mono font-semibold text-[var(--color-brand-accent)] uppercase tracking-wider">İletişim</h4>
+
+                        <div className="lg:col-span-3">
+                            <h2 className="mb-3 text-xs font-semibold text-atl-brass">Ürünler</h2>
+                            <ul className="flex flex-col gap-0.5 sm:gap-1">
+                                {URUN_GRUPLARI.map((item) => (
+                                    <li key={item.label}>
+                                        <Link href={item.href} className="group inline-flex min-h-11 items-center gap-2 text-sm text-atl-text transition-colors hover:text-atl-brass-light">
+                                            {item.label}
+                                            <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100" />
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        </div>
+
+                        <div className="flex flex-col gap-3 lg:col-span-3">
+                            <h2 className="text-xs font-semibold text-atl-brass">İletişim</h2>
                             <div className="space-y-1">
-                                <div className="text-lg font-bold">{content.footerPhone}</div>
-                                <div className="text-sm text-[#525252]">{content.footerEmail}</div>
+                                <p className="font-sans text-sm font-semibold text-atl-text">Oğuzcan Veral</p>
+                                <a href={toTelHref(publicPhone(content.footerPhone))} className="font-display text-2xl text-atl-text">
+                                    {publicPhone(content.footerPhone)}
+                                </a>
+                                <a
+                                    href={`mailto:${content.footerEmail || "veraltornatic@hotmail.com"}`}
+                                    className="text-sm text-atl-muted transition-colors hover:text-atl-brass-light"
+                                >
+                                    {content.footerEmail || "veraltornatic@hotmail.com"}
+                                </a>
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <span className="text-xs font-semibold text-atl-brass">Atölye</span>
+                                <span className="whitespace-pre-line text-sm text-atl-text">{publicAddress(content.footerAddress)}</span>
                             </div>
                             <a href={content.footerMapLink || `https://www.google.com/maps/dir/?api=1&destination=${content.footerMapLat},${content.footerMapLng}`}
                                 target="_blank" rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 h-12 px-5 border border-[var(--color-brand-accent)] text-sm font-semibold text-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)] hover:text-white transition-colors w-fit">
-                                Yol Tarifi Al <ArrowUpRight className="w-4 h-4" />
+                                className="inline-flex h-12 w-fit items-center gap-2 border border-atl-brass px-5 text-sm font-semibold text-atl-brass-light transition-colors hover:bg-atl-brass hover:text-atl-bg">
+                                Yol Tarifi Al <ArrowUpRight className="h-4 w-4" />
                             </a>
                         </div>
                     </div>
-                    <div className="pt-8 border-t border-[#c6c6c6] flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-xs text-[#525252]">© 2024 {content.footerCompanyName} — Tüm hakları saklıdır.</p>
+                    <BrassRule className="mb-8" />
+                    <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+                        <p className="text-xs text-atl-muted">© {new Date().getFullYear()} {content.footerCompanyName} — Tüm hakları saklıdır.</p>
                         <div className="flex flex-wrap justify-center gap-4">
-                            {[
-                                { label: 'Mesafeli Satış', href: '/mesafeli-satis' },
-                                { label: 'Gizlilik', href: '/gizlilik' },
-                                { label: 'KVKK', href: '/kvkk' },
-                            ].map((item) => (
-                                <Link key={item.label} href={item.href} className="text-xs text-[#525252] hover:text-[var(--color-brand-accent)]">{item.label}</Link>
+                            {LEGAL.map((item) => (
+                                <Link key={item.label} href={item.href} className="inline-flex min-h-11 items-center px-1 text-xs text-atl-muted hover:text-atl-brass-light">{item.label}</Link>
                             ))}
                         </div>
                     </div>

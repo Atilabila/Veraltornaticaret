@@ -1,144 +1,150 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Instagram, MessageSquare, ArrowUpRight, ArrowRight } from 'lucide-react';
-import { m } from 'framer-motion';
-import { PageShell } from '@/components/layout/PageShell';
-import { PageContainer } from '@/components/layout/PageContainer';
-import { MobileStickyBar } from '@/components/layout/MobileStickyBar';
+import { Mail, Phone, MapPin, MessageSquare, ArrowUpRight, ArrowRight, Clock } from 'lucide-react';
+import { Navigation } from '@/components/layout/Navigation';
+import { Footer } from '@/components/layout/Footer';
+import { Breadcrumb } from '@/components/seo/Breadcrumb';
 import { useContentStore } from '@/store/useContentStore';
+import { PUBLIC_HOURS, PUBLIC_HOURS_LABEL, publicAddress } from '@/lib/public-facts';
+import { publicPhone, publicWhatsappNumber, toTelHref } from '@/lib/contact';
 
 export default function IletisimPage() {
     const { content } = useContentStore();
 
+    const breadcrumbs = [
+        { name: "Ana Sayfa", url: "/" },
+        { name: "İletişim", url: "/iletisim" },
+    ];
+
     const contactItems = [
         {
             icon: Phone,
-            label: "Telefon",
-            value: content.footerPhone || "+90 507 165 13 15",
-            href: `tel:${(content.footerPhone || "+905071651315").replace(/\s/g, "")}`,
+            label: "Oğuzcan Veral",
+            value: publicPhone(content.footerPhone),
+            href: toTelHref(publicPhone(content.footerPhone)),
+            sub: PUBLIC_HOURS
         },
         {
             icon: Mail,
             label: "E-posta",
-            value: content.footerEmail || "info@veralteneketicaret.com",
-            href: `mailto:${content.footerEmail || "info@veralteneketicaret.com"}`,
+            value: content.footerEmail || "veraltornatic@hotmail.com",
+            href: `mailto:${content.footerEmail || "veraltornatic@hotmail.com"}`,
+            sub: "Yazılı yazışma"
         },
         {
             icon: MapPin,
-            label: "Adres",
-            value: content.footerAddress || "Alsancak, Konak, İzmir",
-            href: content.footerMapLink || "https://maps.google.com",
+            label: "Atölye",
+            value: publicAddress(content.footerAddress),
+            href: content.footerMapLink || "https://maps.app.goo.gl/QqWJ6pVDPwgcFDDb9",
+            sub: "Doğrudan atölye ziyareti ve numune teslim"
         },
     ];
 
     return (
-        <PageShell variant="muted">
-            <PageContainer>
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-                    <div className="flex flex-col gap-8">
-                        <m.div
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <p className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--color-brand-accent)] mb-4">
-                                İletişim
-                            </p>
-                            <h1 className="text-4xl md:text-5xl font-bold text-[#161616] leading-tight mb-4">
-                                Bizimle iletişime geçin
-                            </h1>
-                            <p className="text-lg text-[#525252] leading-relaxed max-w-lg">
-                                Toptan dosya teli, takvim tenekesi ve özel metal imalat talepleriniz için üretim ekibimize ulaşın.
-                            </p>
-                        </m.div>
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
+            <Navigation />
 
-                        <div className="grid gap-3">
+            <div className="pt-28 pb-4 px-4 md:px-8 max-w-7xl mx-auto">
+                <Breadcrumb items={breadcrumbs} className="text-atl-muted" />
+            </div>
+
+            <section className="px-4 md:px-8 max-w-7xl mx-auto pb-20 pt-4">
+                <div className="grid lg:grid-cols-12 gap-10 items-start">
+                    <div className="lg:col-span-7 flex flex-col gap-8">
+                        <div>
+                            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-atl-brass/20 bg-atl-brass-tint px-3.5 py-1.5 font-sans text-xs font-semibold tracking-normal text-atl-brass shadow-sm">
+                                <span className="h-2 w-2 rounded-full bg-atl-brass" />
+                                İletişim ve atölye
+                            </span>
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-atl-text tracking-tight leading-tight mb-4">
+                                İletişim
+                            </h1>
+                            <p className="text-base md:text-lg text-atl-muted leading-relaxed max-w-xl font-normal">
+                                Dosya teli, takvim tenekesi, sac kesim veya metal poster için arama veya yazışma.
+                            </p>
+                        </div>
+
+                        <div className="grid gap-4">
                             {contactItems.map((item, idx) => (
-                                <m.a
+                                <a
                                     key={idx}
                                     href={item.href}
                                     target={item.icon === MapPin ? "_blank" : undefined}
                                     rel={item.icon === MapPin ? "noopener noreferrer" : undefined}
-                                    initial={{ opacity: 0, y: 12 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.1 + idx * 0.08 }}
-                                    className="flex items-center gap-5 p-6 bg-white border border-[#c6c6c6] hover:border-[var(--color-brand-accent)] transition-colors group"
+                                    className="flex min-h-11 items-center gap-5 p-6 bg-atl-surface border border-atl-line rounded-2xl shadow-sm hover:border-atl-brass hover:shadow-md transition-all group"
                                 >
-                                    <div className="w-12 h-12 border border-[#c6c6c6] flex items-center justify-center text-[var(--color-brand-accent)] group-hover:bg-[var(--color-brand-accent)] group-hover:text-white group-hover:border-[var(--color-brand-accent)] transition-colors shrink-0">
-                                        <item.icon size={20} />
+                                    <div className="w-12 h-12 rounded-xl bg-atl-brass-tint border border-atl-brass/20 flex items-center justify-center text-atl-brass group-hover:bg-atl-brass group-hover:text-atl-bg transition-colors shrink-0">
+                                        <item.icon size={22} />
                                     </div>
-                                    <div className="min-w-0">
-                                        <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#525252] block mb-1">{item.label}</span>
-                                        <span className="text-base font-semibold text-[#161616] whitespace-pre-line">{item.value}</span>
+                                    <div className="min-w-0 flex-1">
+                                        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                                            <span className="text-xs font-mono font-bold uppercase tracking-wider text-atl-brass">{item.label}</span>
+                                            <span className="text-xs font-mono text-atl-muted">{item.sub}</span>
+                                        </div>
+                                        <span className="text-base sm:text-lg font-bold text-atl-text whitespace-pre-line">{item.value}</span>
                                     </div>
-                                    <ArrowUpRight className="ml-auto w-5 h-5 text-[#8d8d8d] group-hover:text-[var(--color-brand-accent)] shrink-0" />
-                                </m.a>
+                                    <ArrowUpRight className="w-5 h-5 text-atl-muted group-hover:text-atl-brass group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                                </a>
                             ))}
                         </div>
 
-                        <div className="flex gap-3">
-                            <a
-                                href={`https://instagram.com/${(content.footerInstagram || "").replace("@", "")}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 flex items-center justify-center border border-[#c6c6c6] text-[#525252] hover:border-[var(--color-brand-accent)] hover:text-[var(--color-brand-accent)] transition-colors"
-                                aria-label="Instagram"
-                            >
-                                <Instagram size={18} />
-                            </a>
+                        {/* Working Hours & Guarantee Strip */}
+                        <div className="flex flex-col gap-3 rounded-2xl border border-atl-line bg-atl-surface p-6 text-sm text-atl-text shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex items-center gap-2">
+                                <Clock className="h-4 w-4 shrink-0 text-atl-brass" />
+                                <span>{PUBLIC_HOURS_LABEL}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <m.div
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.15 }}
-                        className="bg-white border border-[#c6c6c6] overflow-hidden flex flex-col"
+                    {/* Right Column: Map & Quick Contact */}
+                    <div
+                        className="lg:col-span-5 bg-atl-surface border border-atl-line rounded-3xl overflow-hidden shadow-sm flex flex-col"
                     >
-                        <div className="h-56 w-full bg-[#f4f4f4] relative border-b border-[#c6c6c6]">
+                        <div className="h-64 w-full bg-atl-surface-2 relative border-b border-atl-line">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.8647043812893!2d27.14371587635641!3d38.43232077306283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbd91684c37577%3A0x60032e353591475c!2sAlsancak%2C%20Konak%2FIzmı̇r!5e0!3m2!1sen!2str!4v1710000000000!5m2!1sen!2str"
-                                className="w-full h-full grayscale"
+                                className="w-full h-full"
                                 style={{ border: 0 }}
                                 loading="lazy"
-                                title="Veral konum haritası"
+                                title="Veral Teneke Ticaret Konum Haritası"
                             />
                         </div>
 
-                        <div className="p-8 lg:p-10 space-y-6">
+                        <div className="p-8 space-y-6">
                             <div>
-                                <h3 className="text-xl font-bold text-[#161616] mb-2">Hızlı mesaj</h3>
-                                <p className="text-[#525252] text-sm leading-relaxed">
-                                    WhatsApp üzerinden teknik ekibimize doğrudan ulaşabilir veya toplu teklif formunu kullanabilirsiniz.
+                                <h2 className="text-2xl font-black text-atl-text mb-2">WhatsApp</h2>
+                                <p className="text-atl-muted text-sm leading-relaxed font-normal">
+                                    Ürün ve adet. Fiyat için yazışma.
                                 </p>
                             </div>
 
                             <div className="space-y-3">
                                 <a
-                                    href={`https://wa.me/${content.whatsappNumber || "905071651315"}`}
+                                    href={`https://wa.me/${publicWhatsappNumber(content.whatsappNumber)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="h-14 w-full bg-[var(--color-brand-accent)] text-white font-semibold text-sm hover:bg-[#0043ce] transition-colors flex items-center justify-center gap-3"
+                                    className="flex h-14 w-full items-center justify-center gap-3 rounded-xl bg-emerald-600 font-sans text-sm font-semibold tracking-normal text-white shadow-md shadow-emerald-600/20 transition-colors hover:bg-emerald-700"
                                 >
-                                    WhatsApp destek hattı <MessageSquare size={18} />
+                                    <span>WhatsApp'tan fiyat sor</span>
+                                    <MessageSquare size={18} />
                                 </a>
                                 <Link
                                     href="/teklif-al"
-                                    className="h-14 w-full border border-[var(--color-brand-accent)] text-[var(--color-brand-accent)] font-semibold text-sm hover:bg-[var(--color-brand-accent)] hover:text-white transition-colors flex items-center justify-center gap-2"
+                                    className="flex h-14 w-full items-center justify-center gap-2 rounded-xl border border-atl-brass/30 bg-atl-brass-tint font-sans text-sm font-semibold tracking-normal text-atl-brass transition-colors hover:border-atl-brass"
                                 >
-                                    Teklif formu <ArrowRight size={16} />
+                                    <span>Teklif formu</span>
+                                    <ArrowRight size={16} />
                                 </Link>
-                                <p className="text-xs text-[#525252] text-center">
-                                    Talepler 09:00 – 19:00 arası işlenir.
-                                </p>
                             </div>
                         </div>
-                    </m.div>
+                    </div>
                 </div>
-            </PageContainer>
-            <MobileStickyBar />
-        </PageShell>
+            </section>
+
+            <Footer />
+        </main>
     );
 }

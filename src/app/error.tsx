@@ -1,7 +1,7 @@
 ﻿'use client'
 
 import { useEffect } from 'react'
-import { EmptyState } from '@/components/ui/empty-state'
+import Link from 'next/link'
 import { AlertTriangle } from 'lucide-react'
 
 export default function Error({
@@ -16,19 +16,26 @@ export default function Error({
     }, [error])
 
     return (
-        <div className="container mx-auto px-4 min-h-[60vh] flex items-center justify-center">
-            <div className="flex flex-col items-center w-full">
-                <EmptyState
-                    title="SİSTEM HATASI"
-                    description="Beklenmedik bir protokol hatası oluştu. Teknik ekip bilgilendirildi."
-                    icon={<AlertTriangle className="w-10 h-10 text-red-500" />}
-                />
+        <div className="mx-auto flex min-h-[70vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16 text-center">
+            <AlertTriangle className="mb-4 h-8 w-8 text-atl-brass" aria-hidden />
+            <h1 className="font-display text-3xl text-atl-text sm:text-4xl">Sayfa açılamadı</h1>
+            <p className="mt-3 text-base leading-relaxed text-atl-muted">
+                Bu ekran yüklenemedi. Tekrar deneyin ya da ana sayfaya dönün.
+            </p>
+            <div className="mt-6 flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
                 <button
+                    type="button"
                     onClick={reset}
-                    className="mt-6 px-8 py-3 text-xs font-black border border-zinc-300 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors uppercase tracking-[0.2em]"
+                    className="inline-flex min-h-12 items-center justify-center bg-atl-brass px-6 font-sans text-sm font-semibold tracking-normal text-atl-bg transition-colors hover:bg-atl-brass-light"
                 >
-                    TEKRAR DENE
+                    Tekrar dene
                 </button>
+                <Link
+                    href="/"
+                    className="inline-flex min-h-12 items-center justify-center border border-atl-line px-6 font-sans text-sm font-semibold tracking-normal text-atl-text transition-colors hover:border-atl-brass"
+                >
+                    Ana sayfa
+                </Link>
             </div>
         </div>
     )

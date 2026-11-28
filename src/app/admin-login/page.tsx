@@ -86,7 +86,7 @@ export default function AdminLoginPage() {
                         <button
                             onClick={handleLogin}
                             disabled={status === "loading" || !username || !password}
-                            className="w-full bg-[var(--color-brand-accent)] text-white py-3.5 px-6 font-semibold hover:bg-[#0043ce] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            className="w-full bg-[var(--color-brand-accent)] text-white py-3.5 px-6 font-semibold hover:bg-[#b45309] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {status === "loading" ? "Giriş yapılıyor..." : <>Giriş yap <ArrowRight className="w-4 h-4" /></>}
                         </button>

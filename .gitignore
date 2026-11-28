@@ -49,5 +49,11 @@ public/ozibugfix.txt
 *.tsbuildinfo
 next-env.d.ts
 
+.stitch_designs
+
 .vercel
 .env*.local
+
+.stitch_reference_designs
+
+scripts/fetch_stitch_references.js

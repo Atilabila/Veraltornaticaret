@@ -1,30 +1,369 @@
-﻿import { Navigation } from '@/components/layout/Navigation';
-import { Footer } from '@/components/layout/Footer';
-import { ContentProvider } from '@/components/layout/ContentProvider';
-import { ContentService } from '@/lib/supabase/content.service';
-import { ServicesHomeSection } from '@/components/sections/ServicesHomeSection';
-import Link from 'next/link';
+import React from "react";
+import type { Metadata } from "next";
+import { absUrl } from "@/lib/site";
+import Link from "next/link";
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { Breadcrumb } from "@/components/seo/Breadcrumb";
+import { ServiceCard } from "@/components/atolye/ServiceCard";
+import { WorkshopZoomFrame } from "@/components/media/WorkshopZoomFrame";
+import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 
-export default async function HizmetlerPage() {
-    const dbContent = await ContentService.getContent();
+export const metadata: Metadata = {
+    title: {
+        absolute: "İzmir Dosya Teli, Takvim Tenekesi ve Metal İmalat Hizmetleri | Veral Alsancak",
+    },
+    description:
+        "1986'dan beri İzmir Alsancak'ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.",
+    keywords: [
+        "izmir dosya teli",
+        "toptan dosya teli imalatı",
+        "takvim tenekesi üreticisi izmir",
+        "alsancak metal imalat",
+        "giyotin sac kesim izmir",
+        "uv metal poster imalatı",
+        "tef zili üretimi",
+    ],
+    alternates: {
+        canonical: absUrl("/hizmetler"),
+    },
+    openGraph: {
+        title: "İzmir Alsancak Metal Üretim Hatları | Veral Teneke Ticaret",
+        description:
+            "Torna, yedek parça ve teneke ürünleri imalatı. Alsancak.",
+        url: absUrl("/hizmetler"),
+        locale: "tr_TR",
+        type: "website",
+    },
+};
+
+const serviceCards = [
+    {
+        id: "dosya-teli",
+        slug: "dosya-teli",
+        title: "Toptan Dosya Teli İmalatı",
+        badge: "İzmir Alsancak",
+        capacity: "Toptan sevkiyat",
+        image: "/images/services/dosya-teli-plastik-takim.webp",
+        description:
+            "Kırtasiye, arşiv ve dosya üreticileri için İzmir merkezli toptan dosya teli üretimi. Ölçü ve adede göre teklif hazırlanır.",
+        specs: [
+            { label: "Kullanım", val: "Dosya & arşiv" },
+            { label: "Sipariş", val: "Toptan / seri" },
+        ],
+        iconName: "file-text",
+    },
+    {
+        id: "takvim-tenekesi",
+        slug: "takvim-tenekesi",
+        title: "Takvim Tenekesi Üretimi",
+        badge: "Matbaa tedariki",
+        capacity: "Askılı / askısız",
+        image: "/images/services/takvim-tenekeleri-detay.webp",
+        description:
+            "Duvar ve gemici takvimleri için teneke çıta imalatı. Matbaa ve yayınevlerine İzmir’den seri üretim ve sevkiyat.",
+        specs: [
+            { label: "Hedef", val: "Matbaa & yayınevi" },
+            { label: "Tip", val: "Askılı / askısız" },
+        ],
+        iconName: "layers",
+    },
+    {
+        id: "giyotin-kesim",
+        slug: "giyotin-kesim",
+        title: "Giyotin Sac Kesim",
+        badge: "Fason kesim",
+        capacity: "Ölçüye özel",
+        image: "/images/services/giyotin-kesim.webp",
+        description:
+            "Alsancak atölyesinde giyotin sac ve teneke ebatlama. Proje ölçülerinize göre fason kesim ve hızlı teslim.",
+        specs: [
+            { label: "Hizmet", val: "Fason ebatlama" },
+            { label: "Lokasyon", val: "Alsancak / İzmir" },
+        ],
+        iconName: "scissors",
+    },
+    {
+        id: "rulo-dilimleme",
+        slug: "rulo-dilimleme",
+        title: "Rulo Sac Dilimleme",
+        badge: "Şerit üretim",
+        capacity: "Fason dilme",
+        image: "/images/services/rulo-dilimleme.webp",
+        description:
+            "Rulo sac dilimleme ve şerit açma hizmeti. Üretim hatlarınıza uygun en ve boy planlamasıyla teslim.",
+        specs: [
+            { label: "Hizmet", val: "Dilme & sarım" },
+            { label: "Sipariş", val: "Teklif usulü" },
+        ],
+        iconName: "disc",
+    },
+    {
+        id: "tef-zili",
+        slug: "tef-zili",
+        title: "Tef Zili İmalatı",
+        badge: "Enstrüman sektörü",
+        capacity: "Seri pres",
+        image: "/images/services/tef-zili-38mm.webp",
+        description:
+            "Müzik aleti üreticileri için tef zili ve metal pul pres imalatı. İzmir’den toptan tedarik.",
+        specs: [
+            { label: "Sektör", val: "Müzik aleti" },
+            { label: "Üretim", val: "Seri pres" },
+        ],
+        iconName: "bell",
+    },
+    {
+        id: "miknatisli-magnet",
+        slug: "miknatisli-magnet",
+        title: "Metal poster",
+        badge: "Tabela & dekor",
+        capacity: "Seri / özel",
+        image: "/images/services/metal-tabelalar.webp",
+        description:
+            "Metal poster imalatı.",
+        specs: [
+            { label: "Ürün", val: "Metal poster" },
+            { label: "Montaj", val: "Mıknatıslı" },
+        ],
+        iconName: "sparkles",
+    },
+];
+
+const geoHighlights = [
+    {
+        title: "İzmir Alsancak üretim",
+        text: "Atölye Alsancak'ta, 1471 Sokak No:12/A.",
+    },
+    {
+        title: "Toptan imalat odaklı",
+        text: "Dosya teli ve takvim tenekesinde toptan sipariş; ölçü ve adede göre planlı üretim.",
+    },
+    {
+        title: "Alsancak",
+        text: "Atölye 1471 Sokak No:12/A, Alsancak / İzmir adresindedir.",
+    },
+    {
+        title: "Teklif + numune",
+        text: "Teknik çizim, ölçü veya numune ile fiyatlandırma; WhatsApp ve teklif formu üzerinden.",
+    },
+];
+
+export default function HizmetlerPage() {
+    const breadcrumbs = [
+        { name: "Ana Sayfa", url: "/" },
+        { name: "İmalat", url: "/hizmetler" },
+    ];
+
+    const itemListSchema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Veral İzmir Metal Üretim Hizmetleri",
+        itemListElement: serviceCards.map((service, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: service.title,
+            url: absUrl(`/hizmetler/${service.slug}`),
+            description: service.description,
+        })),
+    };
+
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "İzmir Alsancak Metal İmalat Hizmetleri",
+        provider: {
+            "@type": "LocalBusiness",
+            name: "Veral Torna & Teneke Ticaret",
+            address: {
+                "@type": "PostalAddress",
+                streetAddress: "1471 Sokak No:12/A",
+                addressLocality: "Alsancak / Konak",
+                addressRegion: "İzmir",
+                addressCountry: "TR",
+            },
+        },
+        areaServed: {
+            "@type": "Country",
+            name: "Türkiye",
+        },
+        serviceType: [
+            "Dosya teli imalatı",
+            "Takvim tenekesi üretimi",
+            "Giyotin sac kesim",
+            "Metal poster",
+        ],
+        url: absUrl("/hizmetler"),
+    };
 
     return (
-        <ContentProvider initialContent={dbContent || undefined}>
-            <main className="min-h-screen bg-[#f4f4f4] text-[#161616]">
-                <Navigation />
+        <main id="icerik" className="min-h-screen bg-atl-bg text-atl-text">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
+            <Navigation />
 
-                <section className="pt-32 pb-8 px-6 bg-white border-b border-[#c6c6c6]">
-                    <div className="container mx-auto max-w-[1200px]">
-                        <Link href="/" className="text-sm text-[#525252] hover:text-[var(--color-brand-accent)] mb-6 inline-block">
-                            ← Ana sayfa
-                        </Link>
+            <div className="mx-auto max-w-7xl px-4 pb-4 pt-28 md:px-8">
+                <Breadcrumb items={breadcrumbs} className="text-atl-muted" />
+            </div>
+
+            <section className="mx-auto max-w-7xl px-4 pb-16 pt-4 md:px-8">
+                <div className="grid items-center gap-10 lg:grid-cols-12">
+                    <div className="space-y-6 lg:col-span-7">
+                        <div className="inline-flex items-center gap-2 border border-atl-brass/30 bg-atl-brass-tint px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-atl-brass">
+                            <span className="h-2 w-2 animate-pulse rounded-full bg-atl-brass" />
+                            İzmir Alsancak metal imalat
+                        </div>
+
+                        <h1 className="font-display text-3xl leading-[1.1] tracking-tight text-atl-text sm:text-4xl md:text-5xl lg:text-6xl">
+                            İzmir&apos;de dosya teli, takvim tenekesi ve metal üretim hatları
+                        </h1>
+
+                        <p className="max-w-2xl text-base leading-relaxed text-atl-muted md:text-lg">
+                            1986&apos;dan beri İzmir Alsancak&apos;ta seri üretim yapan bir atölyedir. Torna, yedek parça ve teneke ürünleri imalatı.
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-4 pt-2">
+                            <Link
+                                href="/teklif-al"
+                                className="inline-flex min-h-12 items-center gap-2.5 bg-atl-brass px-6 font-sans text-sm font-semibold tracking-normal text-atl-bg transition-colors hover:bg-atl-brass-light"
+                            >
+                                <span>İmalat teklifi al</span>
+                                <ArrowRight className="h-4 w-4" />
+                            </Link>
+
+                            <a
+                                href="https://wa.me/905071651315"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2.5 border border-atl-line bg-atl-surface px-5 py-3.5 text-sm font-semibold text-atl-text transition-colors hover:bg-atl-surface-2"
+                            >
+                                <Phone className="h-4 w-4 text-emerald-600" />
+                                <span>WhatsApp ile sor</span>
+                            </a>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-6 border-t border-atl-line pt-4 text-sm text-atl-muted">
+                            <div className="flex items-center gap-1.5">
+                                <CheckCircle2 className="h-4 w-4 text-atl-brass" />
+                                <span>İzmir Alsancak üretim</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <CheckCircle2 className="h-4 w-4 text-atl-brass" />
+                                <span>Toptan / fason imalat</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <CheckCircle2 className="h-4 w-4 text-atl-brass" />
+                                <span>Numune ve teklif desteği</span>
+                            </div>
+                        </div>
                     </div>
-                </section>
 
-                <ServicesHomeSection />
+                    <div className="relative lg:col-span-5">
+                        <div className="relative overflow-hidden border border-atl-line bg-atl-surface p-2 shadow-xl">
+                            <WorkshopZoomFrame
+                                src="/images/services/dosya-teli-plastik-takim.webp"
+                                alt="Veral dosya telleri – plastik takım 14, 15, 17, 21, 24 cm ve akrep tel"
+                                priority
+                                fitClassName="object-contain bg-neutral-950"
+                                overlay={
+                                    <div className="flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/20 to-transparent p-5">
+                                        <span className="mb-1 font-sans text-xs font-semibold uppercase tracking-[0.05em] text-atl-brass">
+                                            Alsancak / İzmir · Aktif üretim
+                                        </span>
+                                        <p className="text-xs font-medium leading-relaxed text-white">
+                                            1471 Sokak No:12/A, Alsancak / İzmir — dosya teli ve teneke imalat atölyesi
+                                        </p>
+                                    </div>
+                                }
+                            />
+                        </div>
+                    </div>
+                </div>
 
-                <Footer />
-            </main>
-        </ContentProvider>
+                <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {geoHighlights.map((item) => (
+                        <div key={item.title} className="border border-atl-line bg-atl-surface p-5 shadow-sm">
+                            <div className="mb-2 text-xs font-bold uppercase tracking-wider text-atl-brass">{item.title}</div>
+                            <p className="text-sm leading-relaxed text-atl-muted">{item.text}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="mx-auto max-w-7xl border-t border-atl-line px-4 py-16 md:px-8">
+                <div className="mb-10 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end">
+                    <div>
+                        <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-atl-brass">
+                            İmalat
+                        </span>
+                        <h2 className="font-display text-2xl tracking-tight text-atl-text sm:text-4xl">
+                            İzmir Alsancak metal imalat hizmetleri
+                        </h2>
+                        <p className="mt-3 max-w-2xl text-sm text-atl-muted md:text-base">
+                            Dosya teli, takvim tenekesi, giyotin kesim, rulo dilme, tef zili ve metal poster.
+                        </p>
+                    </div>
+                    <Link
+                        href="/teklif-al"
+                        className="inline-flex min-h-11 items-center gap-2 self-start font-sans text-sm font-semibold tracking-normal text-atl-brass-light hover:text-atl-text md:self-auto"
+                    >
+                        Teklif al <ArrowRight className="h-4 w-4" />
+                    </Link>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                    {serviceCards.map((service, index) => (
+                        <ServiceCard
+                            key={service.id}
+                            {...service}
+                            index={index}
+                            priority={index < 3}
+                            ctaLabel="Teklif iste"
+                        />
+                    ))}
+                </div>
+            </section>
+
+            <section className="mx-auto max-w-7xl px-4 pb-24 md:px-8">
+                <div className="flex flex-col items-center justify-between gap-8 border border-atl-line bg-atl-surface p-8 shadow-sm md:p-12 lg:flex-row">
+                    <div className="max-w-2xl space-y-3 text-center lg:text-left">
+                        <span className="block text-xs font-bold uppercase tracking-widest text-atl-brass">
+                            İzmir metal imalat teklifi
+                        </span>
+                        <h2 className="font-display text-2xl text-atl-text sm:text-3xl">
+                            Dosya teli veya takvim tenekesi siparişiniz için teklif alın
+                        </h2>
+                        <p className="text-sm leading-relaxed text-atl-muted">
+                            Ölçü, adet veya numune bilgisini gönderin; Alsancak atölyemizden yazılı teklif ve termin dönüşü yapalım.
+                        </p>
+                    </div>
+
+                    <div className="flex shrink-0 flex-wrap items-center gap-4">
+                        <Link
+                            href="/teklif-al"
+                            className="inline-flex min-h-12 items-center gap-2 bg-atl-brass px-8 font-sans text-sm font-semibold tracking-normal text-atl-bg transition-colors hover:bg-atl-brass-light"
+                        >
+                            <span>Teklif formu</span>
+                            <ArrowRight className="h-4 w-4" />
+                        </Link>
+                        <a
+                            href="tel:+905071651315"
+                            className="inline-flex items-center gap-2 border border-atl-line px-6 py-4 text-sm font-semibold text-atl-text transition-colors hover:bg-atl-surface-2"
+                        >
+                            <Phone className="h-4 w-4 text-atl-brass" />
+                            <span>0507 165 13 15</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
+        </main>
     );
 }

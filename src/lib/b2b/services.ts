@@ -17,7 +17,7 @@ export const SERVICES: Service[] = [
         ],
         technicalNotes: {
             materials: 'Paslanmaz kaplama, standart ve özel boy',
-            quantities: 'MOQ — stoktan veya terminli'
+            quantities: 'Adedi yazın'
         },
         icon: '📎'
     },
@@ -26,7 +26,7 @@ export const SERVICES: Service[] = [
         slug: 'takvim-tenekesi',
         title: 'Takvim Tenekesi İmalatı',
         shortDescription: 'İzmir merkezli seri takvim tenekesi üretimi. Özel ölçü ve yüksek kapasite.',
-        technicalDescription: '40 yılı aşkın tecrübemizle, takvim yayıncıları ve matbaalar için yüksek kaliteli takvim tenekesi üretimi yapıyoruz.',
+        technicalDescription: 'Takvim tenekesi. Boylar: 31, 33 ve 48 cm.',
         useCases: [
             'Matbaa seri sipariş',
             'Ajans / yayınevi',
@@ -35,7 +35,7 @@ export const SERVICES: Service[] = [
         ],
         technicalNotes: {
             materials: '0.22 - 0.30mm teneke',
-            quantities: 'Günlük 50.000+ adet kapasite'
+            quantities: 'Adedi yazın'
         },
         icon: '📅'
     },

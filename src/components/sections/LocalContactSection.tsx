@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { useContentStore } from "@/store/useContentStore";
+import { publicWhatsappNumber } from "@/lib/contact";
 import { DirectEdit } from "@/components/admin/DirectEdit";
 import { DynamicLucideIcon } from "@/components/ui/DynamicLucideIcon";
 
@@ -76,7 +77,7 @@ export const LocalContactSection = () => {
                                 <Link href="/siparis-sorgula" className="h-16 px-12 bg-[var(--color-brand-accent)] text-black font-black text-xs tracking-[0.3em] uppercase hover:bg-[#cc3d00] transition-all flex items-center justify-center gap-3 shadow-[4px_4px_0px_0px_rgba(15, 98, 254,0.45)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
                                     S�PAR�� TAK�B� <ArrowUpRight size={16} />
                                 </Link>
-                                <a href={`https://wa.me/${content.whatsappNumber}`} className="h-16 px-12 border border-zinc-700 text-white font-black text-xs tracking-[0.3em] uppercase hover:bg-[var(--color-brand-accent)] hover:text-black hover:border-[var(--color-brand-accent)] transition-all flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
+                                <a href={`https://wa.me/${publicWhatsappNumber(content.whatsappNumber)}`} className="h-16 px-12 border border-zinc-700 text-white font-black text-xs tracking-[0.3em] uppercase hover:bg-[var(--color-brand-accent)] hover:text-black hover:border-[var(--color-brand-accent)] transition-all flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1">
                                     WHATSAPP
                                 </a>
                             </div>

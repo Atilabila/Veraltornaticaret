@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { Wrench, Tag, Music } from "lucide-react";
 import { useContentStore } from "@/store/useContentStore";
 import { normalizeImagePath } from "@/lib/utils";
+import { resolveServiceStockImage } from "@/lib/service-stock-images";
 import { DirectEdit } from "@/components/admin/DirectEdit";
 
 const icons = [
@@ -43,7 +44,7 @@ export const OtherServices = () => {
                             >
                                 <div className="relative aspect-[4/3] overflow-hidden border-b border-[#c6c6c6] bg-[#f4f4f4]">
                                     <Image
-                                        src={normalizeImagePath(service.image)}
+                                        src={normalizeImagePath(resolveServiceStockImage(service))}
                                         alt={service.title}
                                         fill
                                         quality={55}
